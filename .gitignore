@@ -9,5 +9,6 @@ __pycache__/
 /output/handmade/
 /website/
 
+/config.json
 /parsedCards.json
 /newChangelogEntry.txt
