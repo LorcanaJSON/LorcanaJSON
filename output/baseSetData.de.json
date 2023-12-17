@@ -1,0 +1,16 @@
+{
+  "1": {
+    "code": "TFC",
+    "name": "Das erste Kapitel",
+    "prereleaseDate": "2023-08-18",
+    "releaseDate": "2023-09-01",
+    "hasAllCards": true
+  },
+  "2": {
+    "code": "TSC",
+    "name": "Aufstieg der Flutgestalten",
+    "prereleaseDate": "2023-11-17",
+    "releaseDate": "2023-12-01",
+    "hasAllCards": false
+  }
+}

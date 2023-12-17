@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Output Data Verification Viewer</title>
+</head>
+
+<body>
+<div id="dropLocation" style="background-color: lightgreen; width: 100%; height: 100px;"><b style="text-align: center;">Drag JSON here</b></div>
+<form id="languageCodeForm" name="languageCodeForm">
+	<input id="languageCode" type="text" placeholder="en" style="max-width: 5em;" />
+</form>
+<a href="#" onclick="changeDisplayedIndex(-1); return false;">Previous</a>
+<form id="indexForm" name="indexForm">
+	<span>Index: </span>
+	<input id="currentIndex" type="text" placeholder="0" style="max-width: 5em;" />
+</form>
+<form id="cardIdForm" name="cardIdForm">
+	<span>ID: </span>
+	<input id="cardId" type="text" placeholder="1" style="max-width: 5em;" />
+</form>
+<div>
+	<span>Max index: </span>
+	<span id="maxIndex">0</span>
+	<span>Max ID: </span>
+	<span id="maxId">0</span>
+</div>
+<a href="#" onclick="changeDisplayedIndex(1); return false;">Next</a>
+<hr>
+<div id="name"></div>
+<hr>
+<img id="img" src="" style="max-height: 900px" />
+<hr>
+<pre id="text"></pre>
+<hr>
+<pre id="flavorText"></pre>
+<hr>
+<pre id="cardJson"></pre>
+<script type="module">
+let cardsJson = {"cards": []};
+
+let languageCode = "en";
+let currentIndex = 0;
+let maxIndex = 0;
+
+function changeDisplayedIndex(indexChange) {
+	setDisplayedIndex(currentIndex + indexChange);
+}
+function setDisplayedIndex(newIndex) {
+	if (newIndex < 0 || newIndex > maxIndex) {
+		console.log("Index should be between 0 and %d", maxIndex);
+		return;
+	}
+	currentIndex = newIndex;
+	let currentCardData = cardsJson["cards"][currentIndex];
+	document.getElementById("name").textContent = currentCardData["fullName"];
+	document.getElementById("img").src = "../downloads/images/" + languageCode + "/" + currentCardData["id"] + ".jpg";
+	document.getElementById("text").textContent = currentCardData["fullText"];
+	document.getElementById("flavorText").textContent = currentCardData["flavorText"];
+	document.getElementById("cardJson").textContent = JSON.stringify(currentCardData, null, "\t");
+	document.getElementById("currentIndex").value = currentIndex;
+	document.getElementById("cardId").value = currentCardData["id"];
+}
+function handleKeyPress(e) {
+	if (!e.repeat) {
+		if (e.key === "ArrowLeft") {
+			changeDisplayedIndex(-1);
+		} else if (e.key === "ArrowRight") {
+			changeDisplayedIndex(1);
+		}
+	}
+}
+
+document.addEventListener("keydown", handleKeyPress);
+document.getElementById("text").addEventListener("keydown", handleKeyPress);
+
+document.getElementById("indexForm").addEventListener("submit", (event) => {
+	event.preventDefault();
+	setDisplayedIndex(parseInt(document.getElementById("currentIndex").value, 10));
+	return false;
+});
+document.getElementById("cardIdForm").addEventListener("submit", (event) => {
+	event.preventDefault();
+	let targetId = parseInt(document.getElementById("cardId").value, 10);
+	// Try to find the specified index in the card list
+	let targetIndex = -1;
+	for (let cardIndex = maxIndex; cardIndex--; cardIndex >= 0) {
+		if (cardsJson["cards"][cardIndex]["id"] === targetId) {
+			targetIndex = cardIndex;
+			break;
+		}
+	}
+	if (targetIndex === -1) {
+		alert("ID not found");
+	} else {
+		setDisplayedIndex(targetIndex);
+	}
+	return false;
+});
+document.getElementById("languageCodeForm").addEventListener("submit", (event) => {
+	event.preventDefault();
+	languageCode = document.getElementById("languageCode").value;
+	setDisplayedIndex(currentIndex);
+	return false;
+});
+
+// Handle dropping of cards.json
+document.getElementById("dropLocation").addEventListener("dragover", (event) => {
+	event.preventDefault();
+});
+document.getElementById("dropLocation").addEventListener("drop", (event) => {
+	event.preventDefault();
+	const file = event.dataTransfer.items[0].getAsFile();
+	file.text().then((fileText) => {
+		cardsJson = JSON.parse(fileText);
+		maxIndex = cardsJson["cards"].length - 1;
+		setDisplayedIndex(0);
+		document.getElementById("maxIndex").textContent = maxIndex;
+		document.getElementById("maxId").textContent = cardsJson["cards"][maxIndex]["id"];
+	}).catch((error) => console.log("An error occurred: %o", error));
+});
+</script>
+</body>
+</html>

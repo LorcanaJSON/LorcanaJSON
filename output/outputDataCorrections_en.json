@@ -1,0 +1,572 @@
+{
+  "1": {
+    "flavorText": [
+      ".+",
+      "\u201c...\u201d"
+    ]
+  },
+  "4": {
+    "flavorText": [
+      " \\)",
+      ""
+    ]
+  },
+  "5": {
+    "effects": [
+      "\\+1 .",
+      "+1 \u25ca"
+    ],
+    "flavorText": [
+      "\nM",
+      ""
+    ]
+  },
+  "8": {
+    "flavorText": [
+      "quy",
+      "guy"
+    ]
+  },
+  "13": {
+    "flavorText": [
+      "well they",
+      "well, they"
+    ]
+  },
+  "29": {
+    "flavorText": [
+      "-",
+      "\u2014"
+    ]
+  },
+  "35": {
+    "flavorText": [
+      "Iwo",
+      "Two"
+    ]
+  },
+  "40": {
+    "artist": [
+      "^Au",
+      "Duyen Nguyen / Au"
+    ]
+  },
+  "47": {
+    "artist": [
+      "au$",
+      "au / Giulia Riva"
+    ]
+  },
+  "56": {
+    "flavorText": [
+      "ls",
+      "Is"
+    ]
+  },
+  "59": {
+    "flavorText": [
+      "you ve",
+      "you've"
+    ]
+  },
+  "61": {
+    "abilities": [
+      "\\+4 \\)",
+      "+4 \u00a4.)"
+    ]
+  },
+  "63": {
+    "flavorText": [
+      "chill$",
+      "chill."
+    ]
+  },
+  "69": {
+    "abilities": [
+      "Upponents",
+      "Opponents"
+    ]
+  },
+  "76": {
+    "effects": [
+      "guests",
+      "quests"
+    ]
+  },
+  "78": {
+    "flavorText": [
+      "way\\.$",
+      "way.\u201d"
+    ]
+  },
+  "82": {
+    "artist": [
+      "^Jared",
+      "Duyen Nguyen / Jared"
+    ]
+  },
+  "90": {
+    "flavorText": [
+      "quy",
+      "guy"
+    ]
+  },
+  "94": {
+    "flavorText": [
+      "^\\.",
+      "\u201c."
+    ]
+  },
+  "98": {
+    "flavorText": [
+      "Vil Cruella",
+      "Vil, Cruella"
+    ]
+  },
+  "101": {
+    "flavorText": [
+      "Iake(.+)Ur\\.",
+      "Take\\1Dr."
+    ]
+  },
+  "102": {
+    "flavorText": [
+      "you ve",
+      "you've"
+    ]
+  },
+  "109": {
+    "artist": [
+      "/W",
+      "/ W"
+    ]
+  },
+  "114": {
+    "flavorText": [
+      "'\u201d$",
+      "\u2019\u201d"
+    ]
+  },
+  "117": {
+    "effects": [
+      "Te Ka",
+      "Te K\u0101"
+    ]
+  },
+  "118": {
+    "effects": [
+      "get \\+1 \u00a4",
+      "get +1 \u25ca"
+    ]
+  },
+  "131": {
+    "abilities": [
+      "\u00a4 this turn.\\)",
+      "of this turn."
+    ]
+  },
+  "133": {
+    "flavorText": [
+      "choice,\n",
+      "choice, I\n"
+    ]
+  },
+  "134": {
+    "effects": [
+      "1 ,",
+      "1 \u2b21,"
+    ]
+  },
+  "135": {
+    "flavorText": [
+      "Iruth",
+      "Truth"
+    ]
+  },
+  "136": {
+    "effects": [
+      "FINALENCHANTMENT",
+      "FINAL ENCHANTMENT"
+    ]
+  },
+  "141": {
+    "artist": [
+      "ro$",
+      "ro / Pix Smith"
+    ]
+  },
+  "142": {
+    "effects": [
+      "\\+4 \u00a4\\.",
+      "+4 \u25ca."
+    ],
+    "flavorText": [
+      "disquise",
+      "disguise"
+    ]
+  },
+  "146": {
+    "flavorText": [
+      "Iala",
+      "Tala"
+    ]
+  },
+  "148": {
+    "flavorText": [
+      "Iry",
+      "Try"
+    ]
+  },
+  "159": {
+    "effects": [
+      "\\+1 \u00a4",
+      "+1 \u25ca"
+    ]
+  },
+  "163": {
+    "flavorText": [
+      "\nlo",
+      "\nto"
+    ]
+  },
+  "164": {
+    "flavorText": [
+      "eat-\nlell",
+      "eat\u2014\nTell"
+    ]
+  },
+  "165": {
+    "flavorText": [
+      "Ihis",
+      "This"
+    ]
+  },
+  "167": {
+    "effects": [
+      "\\+1 \u00a4",
+      "+1 \u25ca"
+    ]
+  },
+  "180": {
+    "flavorText": [
+      "lired",
+      "Tired"
+    ]
+  },
+  "184": {
+    "flavorText": [
+      "Ihat",
+      "That"
+    ]
+  },
+  "186": {
+    "effects": [
+      "\u00a4$",
+      "\u00a4."
+    ]
+  },
+  "189": {
+    "abilities": [
+      "\\+4 \\)",
+      "+4 \u00a4.)"
+    ]
+  },
+  "191": {
+    "effects": [
+      "\\+1 \u00a4",
+      "+1 \u25ca"
+    ],
+    "flavorText": [
+      "Smart\\.\u201d",
+      "Smart\u201d"
+    ]
+  },
+  "195": {
+    "abilities": [
+      "draws / cards",
+      "draws 7 cards"
+    ]
+  },
+  "200": {
+    "flavorText": [
+      "\u2018\n\u2018Go a\nway",
+      "\u201cGo away"
+    ]
+  },
+  "205": {
+    "effects": [
+      "gets \\+1 \u00a4",
+      "gets +1 \u25ca"
+    ]
+  },
+  "211": {
+    "effects": [
+      "^\\. ",
+      ""
+    ]
+  },
+  "212": {
+    "inkwell": [
+      false,
+      true
+    ]
+  },
+  "214": {
+    "effects": [
+      "gets \\+4 \u00a4",
+      "gets +4 \u25ca"
+    ],
+    "inkwell": [
+      false,
+      true
+    ]
+  },
+  "215": {
+    "abilities": [
+      "\\+4 \\)",
+      "+4 \u00a4.)"
+    ]
+  },
+  "228": {
+    "flavorText": [
+      "it ",
+      "it, "
+    ]
+  },
+  "248": {
+    "abilities": [
+      "amount of O less",
+      "amount of \u2b21 less"
+    ]
+  },
+  "252": {
+    "flavorText": [
+      "\u201clo ",
+      "\u201cTo "
+    ]
+  },
+  "262": {
+    "effects": [
+      "your hand\\..+$",
+      "your hand."
+    ],
+    "abilities": [
+      "",
+      [
+        "Rush (This character can challenge the turn\nthey're played.)"
+      ]
+    ],
+    "keywordAbilities": [
+      "",
+      [
+        "Rush"
+      ]
+    ],
+    "fullText": [
+      "(^.+\\.\\))\n(CHASING.+$)",
+      "\\2\n\\1"
+    ]
+  },
+  "269": {
+    "effects": [
+      "\\+1 this",
+      "+1 \u25ca this"
+    ]
+  },
+  "275": {
+    "flavorText": [
+      "Ihey",
+      "They"
+    ]
+  },
+  "277": {
+    "flavorText": [
+      "\u201cllamas",
+      "\u201cLlamas"
+    ]
+  },
+  "280": {
+    "abilities": [
+      "\\+3 while",
+      "+3 \u00a4 while"
+    ]
+  },
+  "282": {
+    "effects": [
+      "theyre",
+      "they're"
+    ]
+  },
+  "287": {
+    "effects": [
+      "\\+2 \u00a4",
+      "+2 \u25ca"
+    ]
+  },
+  "298": {
+    "effects": [
+      "-1 \u00a4",
+      "-1 \u25ca"
+    ]
+  },
+  "302": {
+    "effects": [
+      "\\+2 \u00a4",
+      "+2 \u25ca"
+    ]
+  },
+  "304": {
+    "effects": [
+      "\\+2 \u00a4\\.",
+      "+2 \u25ca."
+    ]
+  },
+  "305": {
+    "flavorText": [
+      "laxes",
+      "Taxes"
+    ]
+  },
+  "309": {
+    "effects": [
+      " \u00a4\\.$",
+      " \u25ca."
+    ]
+  },
+  "313": {
+    "flavorText": [
+      "ligger",
+      "Tigger"
+    ]
+  },
+  "322": {
+    "effects": [
+      "\\+1 \u00a4",
+      "+1 \u25ca"
+    ]
+  },
+  "326": {
+    "abilities": [
+      "Iremaine",
+      "Tremaine"
+    ]
+  },
+  "330": {
+    "effects": [
+      "\\+2 \u00a4 this",
+      "+2 \u25ca this"
+    ]
+  },
+  "337": {
+    "flavorText": [
+      "\u201cIhis ",
+      "\u201cThis "
+    ]
+  },
+  "338": {
+    "flavorText": [
+      "^Iwo ",
+      "Two "
+    ]
+  },
+  "340": {
+    "flavorText": [
+      "\u201cWy",
+      "\u201cMy"
+    ]
+  },
+  "344": {
+    "flavorText": [
+      "roll$",
+      "roll."
+    ]
+  },
+  "346": {
+    "flavorText": [
+      "lo ",
+      "To "
+    ]
+  },
+  "347": {
+    "flavorText": [
+      "Iricky",
+      "Tricky"
+    ]
+  },
+  "353": {
+    "effects": [
+      "\\+4 \u00a4",
+      "+4 \u25ca"
+    ]
+  },
+  "361": {
+    "flavorText": [
+      "^\u201cIf's ",
+      "\u201cIt's "
+    ]
+  },
+  "374": {
+    "flavorText": [
+      "\u2018Nobody\\.\u201d",
+      "\u2018Nobody.\u2019\u201d"
+    ]
+  },
+  "386": {
+    "flavorText": [
+      "3/59",
+      "3759"
+    ]
+  },
+  "395": {
+    "flavorText": [
+      "y all",
+      "y'all"
+    ]
+  },
+  "401": {
+    "abilities": [
+      " I\\.\\)",
+      " 1.)"
+    ]
+  },
+  "405": {
+    "fullText": [
+      "exerted. An",
+      "exerted.\nAn"
+    ]
+  },
+  "411": {
+    "abilities": [
+      "reduced by I\\.",
+      "reduced by 1."
+    ]
+  },
+  "417": {
+    "flavorText": [
+      "Iranquil",
+      "Tranquil"
+    ]
+  },
+  "425": {
+    "abilities": [
+      "can t",
+      "can't"
+    ],
+    "effects": [
+      "\\+2 \u00a4\\.",
+      "+2 \u25ca."
+    ]
+  },
+  "429": {
+    "effects": [
+      "\\+4 \u00a4\\.",
+      "+4 \u25ca."
+    ]
+  },
+  "432": {
+    "abilities": [
+      "Bodyqguard",
+      "Bodyguard"
+    ]
+  }
+}

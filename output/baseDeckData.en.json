@@ -1,0 +1,38 @@
+{
+	"colors": [
+		"Sapphire",
+		"Steel"
+	],
+	"releaseDate": "2023-09-01",
+	"cards": {
+		"Aurora - Briar Rose": 3,
+		"Aurora - Dreaming Guardian": 1,
+		"Aurora - Regal Princess": 3,
+		"Flounder - Voice of Reason": 2,
+		"Gramma Tala - Storyteller": 2,
+		"Jasmine - Disguised": 2,
+		"Maleficent - Sinister Visitor": 3,
+		"Maleficent - Uninvited": 1,
+		"Mickey Mouse - Detective": 3,
+		"Mufasa - King of the Pride Lands": 2,
+		"Scar - Mastermind": 1,
+		"Develop Your Brain": 3,
+		"One Jump Ahead": 2,
+		"Coconut Basket": 3,
+		"Magic Golden Flower": 2,
+		"Beast - Hardheaded": 2,
+		"Captain Hook - Forceful Duelist": 3,
+		"Goons - Maleficent's Underlings": 2,
+		"Hercules - True Hero": 2,
+		"Kristoff - Official Ice Master": 2,
+		"Maui - Demigod": 1,
+		"Prince Eric - Dashing and Brave": 2,
+		"Simba - Returned King": 1,
+		"Simba - Rightful Heir": 2,
+		"Fire The Cannons!": 3,
+		"Grab Your Sword": 1,
+		"Ransack": 2,
+		"Smash": 2,
+		"Frying Pan": 2
+	}
+}
