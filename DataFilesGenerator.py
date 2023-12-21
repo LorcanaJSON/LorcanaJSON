@@ -348,7 +348,7 @@ def createOutputFiles(language: Language.Language, onlyParseIds: Union[None, Lis
 							if outputCard[fieldName] == correction[1]:
 								_logger.warning(f"Corrected value for boolean field '{fieldName}' is the same as the existing value '{outputCard[fieldName]}' for card {_createCardIdentifier(outputCard)}")
 							else:
-								_logger.info(f"Corrected boolean field '{fieldName}' in card {_createCardIdentifier(outputCard)} from {card[fieldName]} to {correction}")
+								_logger.info(f"Corrected boolean field '{fieldName}' in card {_createCardIdentifier(outputCard)} from {outputCard[fieldName]} to {correction}")
 								outputCard[fieldName] = correction
 						else:
 							correctCardField(outputCard, fieldName, correction[0], correction[1])
