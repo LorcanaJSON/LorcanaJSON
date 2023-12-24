@@ -82,7 +82,15 @@ if __name__ == '__main__':
 	if parsedArguments.action == "check":
 		addedCards, cardChanges = UpdateHandler.checkForNewCardData(language, fieldsToIgnore=parsedArguments.ignoreFields)
 		print(f"{len(addedCards):,} added cards: {addedCards}")
-		print(f"{len(cardChanges):,} changes:")
+		# Count which fields changed
+		fieldsChanged = {}
+		for cardChange in cardChanges:
+			fieldChanged = cardChange[2]
+			if fieldChanged not in fieldsChanged:
+				fieldsChanged[fieldChanged] = 1
+			else:
+				fieldsChanged[fieldChanged] += 1
+		print(f"{len(cardChanges):,} changes {fieldsChanged}:")
 		for cardChange in cardChanges:
 			print(cardChange)
 	elif parsedArguments.action == "update":
