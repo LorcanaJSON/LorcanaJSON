@@ -231,164 +231,7 @@ def createOutputFiles(language: Language.Language, onlyParseIds: Union[None, Lis
 				_logger.error(f"Card ID {cardId} is not in the ID parse list, but it's also not in the previous dataset. Skipping parsing for now, but this results in incomplete datafiles, so it's strongly recommended to rerun with this card ID included")
 				continue
 			try:
-				outputCard: Dict[str, Union[str, int, List, Dict]] = {
-					"artist": correctText(inputCard["author"].strip()),
-					"baseName": inputCard["name"].strip().replace("’", "'").replace(" it's", " It's"),
-					"color": inputCard["magic_ink_color"].title(),
-					"cost": inputCard["ink_cost"],
-					"id": inputCard["culture_invariant_id"],
-					"inkwell": inputCard["ink_convertible"],
-					"number": int(re.search(r"(\d+)/\d+", inputCard["card_identifier"]).group(1), 10),
-					"rarity": inputCard["rarity"].title(),
-					"setNumber": inputCard["expansion_number"],
-					"type": cardTypeText,
-				}
-				# Set 'fullName' separately so it uses the corrected baseName
-				outputCard["fullName"] = outputCard["baseName"]
-				outputCard["simpleName"] = outputCard["fullName"]
-				if "subtitle" in inputCard:
-					outputCard["subtitle"] = inputCard["subtitle"].strip().replace("’", "'")
-					outputCard["fullName"] += " - " + outputCard["subtitle"]
-					outputCard["simpleName"] += " " + outputCard["subtitle"]
-				# simpleName is the full name with special characters and the base-subtitle dash removed, for easier lookup. So remove the special characters
-				outputCard["simpleName"] = re.sub(r"[!.?]", "", outputCard["simpleName"].lower()).replace("ā", "a")
-				_logger.debug(f"Current card name is '{outputCard['fullName']}, ID {outputCard['id']}")
-				if "quest_value" in inputCard:
-					outputCard["lore"] = inputCard["quest_value"]
-				if "strength" in inputCard:
-					outputCard["strength"] = inputCard["strength"]
-				if "willpower" in inputCard:
-					outputCard["willpower"] = inputCard["willpower"]
-				# Image URLs end with a checksum parameter, we don't need that
-				outputCard["images"] = {
-					"full": _cleanUrl(inputCard["image_urls"][0]["url"]),
-					"thumbnail": _cleanUrl(inputCard["image_urls"][1]["url"]),
-					"foilMask": _cleanUrl(inputCard["foil_mask_url"])
-				}
-				# If the card is Enchanted or has an Enchanted equivalent, store that
-				if outputCard["id"] in enchantedNonEnchantedIds:
-					outputCard["nonEnchantedId" if outputCard["rarity"] == "Enchanted" else "enchantedId"] = enchantedNonEnchantedIds[outputCard["id"]]
-				# Store the different parts of the card text, correcting some values if needed
-				parsedImageAndTextData = ImageParser.getImageAndTextDataFromImage(os.path.join(imageFolder, f"{outputCard['id']}.jpg"),
-																				  hasCardText=inputCard["rules_text"] != "",
-																				  hasFlavorText=inputCard["flavor_text"] != "",
-																				  isEnchanted=outputCard["rarity"] == "Enchanted",
-																				  showImage=shouldShowImages)
-				if parsedImageAndTextData["flavorText"] is not None:
-					flavorText = correctText(parsedImageAndTextData["flavorText"].text)
-					if flavorText.count(".") > 2:
-						_logger.info(f"Correcting weird ellipsis in flavor text of '{outputCard['fullName']}'")
-						# Flavor text with ellipses gets parsed weird, with spaces between periods where they don't belong. Fix that
-						flavorText = re.sub(r" ?\. ?\. ?\. ?", "...", flavorText)
-					outputCard["flavorText"] = flavorText
-				if parsedImageAndTextData["remainingText"] is not None:
-					abilityText = correctText(parsedImageAndTextData["remainingText"].text)
-					# TODO FIXME Song reminder text is at the top of a Song card, should probably not be listed in the 'abilities' list
-					outputCard["abilities"]: List[str] = re.sub(r"(\.\)?\n)", r"\1\n", abilityText).split("\n\n")
-					# Sometimes reminder text gets split while it shouldn't, so count the opening and closing brackets to fix this
-					for abilityLineIndex in range(len(outputCard["abilities"]) - 1, 0, -1):
-						abilityLine = outputCard["abilities"][abilityLineIndex]
-						_logger.debug(f"{abilityLineIndex=} {abilityLine=}")
-						if abilityLine.count(")") > abilityLine.count("("):
-							# Closing bracket got moved a line down, merge it with the previous line
-							_logger.info(f"Merging accidentally-split ability line '{abilityLine}' with previous line '{outputCard['abilities'][abilityLineIndex-1]}'")
-							outputCard["abilities"][abilityLineIndex - 1] += " " + outputCard["abilities"].pop(abilityLineIndex)
-				if parsedImageAndTextData["effectLabels"]:
-					outputCard["effects"]: List[Dict[str, str]] = []
-					for effectIndex in range(len(parsedImageAndTextData["effectLabels"])):
-						effectLabel = parsedImageAndTextData["effectLabels"][effectIndex].text
-						effectText = parsedImageAndTextData["effectTexts"][effectIndex].text
-						outputCard["effects"].append({
-							"name": effectLabel.replace("’", "'"),
-							"text": correctText(effectText)
-						})
-				# Some cards have errata or clarifications, both in the 'additional_info' fields. Split those up
-				if inputCard.get("additional_info", None):
-					errata = []
-					clarifications = []
-					for infoEntry in inputCard["additional_info"]:
-						# The text has \r\n as newlines, reduce that to just \n
-						infoText: str = infoEntry["body"].replace("\r", "")
-						# The text uses {I} for ink and {S} for strength, replace those with our symbols
-						infoText = infoText.format(I=ImageParser.INK_UNICODE, S=ImageParser.STRENGTH_UNICODE, L=ImageParser.LORE_UNICODE)
-						if infoEntry["title"].startswith("Errata"):
-							if " - " in infoEntry["title"]:
-								# There's a suffix explaining what field the errata is about, prepend it to the text
-								infoText = infoEntry["title"].split(" - ")[1] + "\n" + infoText
-							errata.append(infoText)
-						elif infoEntry["title"].startswith("FAQ") or infoEntry["title"].startswith("Keyword"):
-							clarifications.append(infoText)
-						else:
-							_logger.error(f"Unknown 'additional_info' type '{infoEntry['title']}' in card {_createCardIdentifier(outputCard)}")
-					if errata:
-						outputCard["errata"] = errata
-					if clarifications:
-						outputCard["clarifications"] = clarifications
-				# Determine subtypes and their order. Items and Actions have an empty subtypes list, ignore those
-				if inputCard.get("subtypes", None) and parsedImageAndTextData["subtypesText"]:
-					_logger.debug(f"({_createCardIdentifier(outputCard)}) {inputCard['subtypes']=}, {parsedImageAndTextData['subtypesText'].text=}")
-					subtypesText = parsedImageAndTextData["subtypesText"].text
-					subtypeNameToIndex = {}
-					for subtype in inputCard["subtypes"]:
-						matchIndex = subtypesText.find(subtype)
-						if matchIndex == -1:
-							_logger.warning(f"Couldn't find subtype '{subtype}' in parsed subtype string '{subtypesText}'")
-						else:
-							subtypeNameToIndex[subtype] = matchIndex
-					outputCard["subtypes"]: List[str] = inputCard["subtypes"]
-					outputCard["subtypes"].sort(key=lambda subtypeKey: subtypeNameToIndex[subtypeKey])
-				# Card-specific corrections
-				#  Since the fullText gets created as the last step, if there is a correction for it, save it for later
-				fullTextCorrection = None
-				if outputCard["id"] in cardDataCorrections:
-					for fieldName, correction in cardDataCorrections[outputCard["id"]].items():
-						if fieldName == "fullText":
-							fullTextCorrection = correction
-						elif isinstance(correction[0], bool):
-							if outputCard[fieldName] == correction[1]:
-								_logger.warning(f"Corrected value for boolean field '{fieldName}' is the same as the existing value '{outputCard[fieldName]}' for card {_createCardIdentifier(outputCard)}")
-							else:
-								_logger.info(f"Corrected boolean field '{fieldName}' in card {_createCardIdentifier(outputCard)} from {outputCard[fieldName]} to {correction}")
-								outputCard[fieldName] = correction
-						else:
-							correctCardField(outputCard, fieldName, correction[0], correction[1])
-					# Remove the correction, so we can check at the end if we used all the corrections
-					del cardDataCorrections[outputCard["id"]]
-				# Store keyword abilities. Some abilities have a number after them (Like Shift 5), store those too
-				# For now assume that only Characters can have abilities, since they started adding f.i.
-				#  the 'Support' ability to actions that temporarily grant Support to another character,
-				#  which breaks the regex, and doesn't make too much sense, since the action itself doesn't have Support
-				if outputCard["type"] == "Character" and inputCard.get("abilities", None) and "abilities" in outputCard:
-					outputCard["keywordAbilities"] = []
-					_logger.debug(f"{inputCard['abilities']=}, {outputCard['abilities']=}")
-					for ability in inputCard["abilities"]:
-						# Find the ability name at the start of a sentence, optionally followed by a number, and then followed by the opening bracket of the reminder text
-						for abilityLine in outputCard["abilities"]:
-							abilityMatch = re.search(fr"(^|\n){ability}( \+?\d)?(?= \()", abilityLine)
-							if abilityMatch:
-								break
-						else:
-							abilityText = "\n".join(outputCard["abilities"])
-							raise ValueError(f"Unable to match ability '{ability}' in ability text {abilityText!r} for card {_createCardIdentifier(outputCard)}")
-						outputCard["keywordAbilities"].append(abilityMatch.group(0).lstrip())
-					# Sort the abilities by card order
-					outputCard["keywordAbilities"].sort(key=lambda ability: inputCard["rules_text"].index(ability))
-				# Reconstruct the full card text. Do that after storing the parts, so any corrections will be taken into account
-				# Remove the newlines in the fields we use while we're at it, because we only needed those to reconstruct the fullText
-				# TODO Some cards (Madam Mim - Fox, ID 262) have the abilities after the effect, think of a more elegant solution than the current regex hack in the corrections file
-				fullTextSections = []
-				if "abilities" in outputCard:
-					fullTextSections.append("\n".join(outputCard["abilities"]))
-					for abilityIndex in range(len(outputCard["abilities"])):
-						outputCard["abilities"][abilityIndex] = outputCard["abilities"][abilityIndex].replace("\n", " ")
-				if "effects" in outputCard:
-					for effect in outputCard["effects"]:
-						fullTextSections.append(f"{effect['name']} {effect['text']}")
-						effect["text"] = effect["text"].replace("\n", " ")
-				outputCard["fullText"] = "\n".join(fullTextSections)
-				if fullTextCorrection:
-					correctCardField(outputCard, "fullText", fullTextCorrection[0], fullTextCorrection[1])
-				# Done! Store the card in the list
+				outputCard = _parseSingleCard(inputCard, cardTypeText, imageFolder, enchantedNonEnchantedIds, cardDataCorrections, shouldShowImage=shouldShowImages)
 				fullCardList.append(outputCard)
 			except Exception as e:
 				_logger.error(f"Exception {type(e)} occured while parsing card ID {inputCard['culture_invariant_id']}")
@@ -445,6 +288,166 @@ def createOutputFiles(language: Language.Language, onlyParseIds: Union[None, Lis
 	_createMd5ForFile(setsZipfilePath)
 
 	_logger.info(f"Creating the output files took {time.perf_counter() - startTime:.4f} seconds")
+
+def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchantedNonEnchantedIds: Dict, cardDataCorrections: Dict, shouldShowImage: bool = False) -> Dict:
+	outputCard: Dict[str, Union[str, int, List, Dict]] = {
+		"artist": correctText(inputCard["author"].strip()),
+		"baseName": inputCard["name"].strip().replace("’", "'").replace(" it's", " It's"),
+		"color": inputCard["magic_ink_color"].title(),
+		"cost": inputCard["ink_cost"],
+		"id": inputCard["culture_invariant_id"],
+		"inkwell": inputCard["ink_convertible"],
+		"number": int(re.search(r"(\d+)/\d+", inputCard["card_identifier"]).group(1), 10),
+		"rarity": inputCard["rarity"].title(),
+		"setNumber": inputCard["expansion_number"],
+		"type": cardType,
+	}
+	# Set 'fullName' separately so it uses the corrected baseName
+	outputCard["fullName"] = outputCard["baseName"]
+	outputCard["simpleName"] = outputCard["fullName"]
+	if "subtitle" in inputCard:
+		outputCard["subtitle"] = inputCard["subtitle"].strip().replace("’", "'")
+		outputCard["fullName"] += " - " + outputCard["subtitle"]
+		outputCard["simpleName"] += " " + outputCard["subtitle"]
+	# simpleName is the full name with special characters and the base-subtitle dash removed, for easier lookup. So remove the special characters
+	outputCard["simpleName"] = re.sub(r"[!.?]", "", outputCard["simpleName"].lower()).replace("ā", "a")
+	_logger.debug(f"Current card name is '{outputCard['fullName']}, ID {outputCard['id']}")
+	if "quest_value" in inputCard:
+		outputCard["lore"] = inputCard["quest_value"]
+	if "strength" in inputCard:
+		outputCard["strength"] = inputCard["strength"]
+	if "willpower" in inputCard:
+		outputCard["willpower"] = inputCard["willpower"]
+	# Image URLs end with a checksum parameter, we don't need that
+	outputCard["images"] = {
+		"full": _cleanUrl(inputCard["image_urls"][0]["url"]),
+		"thumbnail": _cleanUrl(inputCard["image_urls"][1]["url"]),
+		"foilMask": _cleanUrl(inputCard["foil_mask_url"])
+	}
+	# If the card is Enchanted or has an Enchanted equivalent, store that
+	if outputCard["id"] in enchantedNonEnchantedIds:
+		outputCard["nonEnchantedId" if outputCard["rarity"] == "Enchanted" else "enchantedId"] = enchantedNonEnchantedIds[outputCard["id"]]
+	# Store the different parts of the card text, correcting some values if needed
+	parsedImageAndTextData = ImageParser.getImageAndTextDataFromImage(os.path.join(imageFolder, f"{outputCard['id']}.jpg"),
+																	  hasCardText=inputCard["rules_text"] != "",
+																	  hasFlavorText=inputCard["flavor_text"] != "",
+																	  isEnchanted=outputCard["rarity"] == "Enchanted",
+																	  showImage=shouldShowImage)
+	if parsedImageAndTextData["flavorText"] is not None:
+		flavorText = correctText(parsedImageAndTextData["flavorText"].text)
+		if flavorText.count(".") > 2:
+			_logger.info(f"Correcting weird ellipsis in flavor text of '{outputCard['fullName']}'")
+			# Flavor text with ellipses gets parsed weird, with spaces between periods where they don't belong. Fix that
+			flavorText = re.sub(r" ?\. ?\. ?\. ?", "...", flavorText)
+		outputCard["flavorText"] = flavorText
+	if parsedImageAndTextData["remainingText"] is not None:
+		abilityText = correctText(parsedImageAndTextData["remainingText"].text)
+		# TODO FIXME Song reminder text is at the top of a Song card, should probably not be listed in the 'abilities' list
+		outputCard["abilities"]: List[str] = re.sub(r"(\.\)?\n)", r"\1\n", abilityText).split("\n\n")
+		# Sometimes reminder text gets split while it shouldn't, so count the opening and closing brackets to fix this
+		for abilityLineIndex in range(len(outputCard["abilities"]) - 1, 0, -1):
+			abilityLine = outputCard["abilities"][abilityLineIndex]
+			_logger.debug(f"{abilityLineIndex=} {abilityLine=}")
+			if abilityLine.count(")") > abilityLine.count("("):
+				# Closing bracket got moved a line down, merge it with the previous line
+				_logger.info(f"Merging accidentally-split ability line '{abilityLine}' with previous line '{outputCard['abilities'][abilityLineIndex - 1]}'")
+				outputCard["abilities"][abilityLineIndex - 1] += " " + outputCard["abilities"].pop(abilityLineIndex)
+	if parsedImageAndTextData["effectLabels"]:
+		outputCard["effects"]: List[Dict[str, str]] = []
+		for effectIndex in range(len(parsedImageAndTextData["effectLabels"])):
+			effectLabel = parsedImageAndTextData["effectLabels"][effectIndex].text
+			effectText = parsedImageAndTextData["effectTexts"][effectIndex].text
+			outputCard["effects"].append({
+				"name": effectLabel.replace("’", "'"),
+				"text": correctText(effectText)
+			})
+	# Some cards have errata or clarifications, both in the 'additional_info' fields. Split those up
+	if inputCard.get("additional_info", None):
+		errata = []
+		clarifications = []
+		for infoEntry in inputCard["additional_info"]:
+			# The text has \r\n as newlines, reduce that to just \n
+			infoText: str = infoEntry["body"].replace("\r", "")
+			# The text uses {I} for ink and {S} for strength, replace those with our symbols
+			infoText = infoText.format(I=ImageParser.INK_UNICODE, S=ImageParser.STRENGTH_UNICODE, L=ImageParser.LORE_UNICODE)
+			if infoEntry["title"].startswith("Errata"):
+				if " - " in infoEntry["title"]:
+					# There's a suffix explaining what field the errata is about, prepend it to the text
+					infoText = infoEntry["title"].split(" - ")[1] + "\n" + infoText
+				errata.append(infoText)
+			elif infoEntry["title"].startswith("FAQ") or infoEntry["title"].startswith("Keyword"):
+				clarifications.append(infoText)
+			else:
+				_logger.error(f"Unknown 'additional_info' type '{infoEntry['title']}' in card {_createCardIdentifier(outputCard)}")
+		if errata:
+			outputCard["errata"] = errata
+		if clarifications:
+			outputCard["clarifications"] = clarifications
+	# Determine subtypes and their order. Items and Actions have an empty subtypes list, ignore those
+	if inputCard.get("subtypes", None) and parsedImageAndTextData["subtypesText"]:
+		_logger.debug(f"({_createCardIdentifier(outputCard)}) {inputCard['subtypes']=}, {parsedImageAndTextData['subtypesText'].text=}")
+		subtypesText = parsedImageAndTextData["subtypesText"].text
+		subtypeNameToIndex = {}
+		for subtype in inputCard["subtypes"]:
+			matchIndex = subtypesText.find(subtype)
+			if matchIndex == -1:
+				_logger.warning(f"Couldn't find subtype '{subtype}' in parsed subtype string '{subtypesText}'")
+			else:
+				subtypeNameToIndex[subtype] = matchIndex
+		outputCard["subtypes"]: List[str] = inputCard["subtypes"]
+		outputCard["subtypes"].sort(key=lambda subtypeKey: subtypeNameToIndex[subtypeKey])
+	# Card-specific corrections
+	#  Since the fullText gets created as the last step, if there is a correction for it, save it for later
+	fullTextCorrection = None
+	if outputCard["id"] in cardDataCorrections:
+		for fieldName, correction in cardDataCorrections[outputCard["id"]].items():
+			if fieldName == "fullText":
+				fullTextCorrection = correction
+			elif isinstance(correction[0], bool):
+				if outputCard[fieldName] == correction[1]:
+					_logger.warning(f"Corrected value for boolean field '{fieldName}' is the same as the existing value '{outputCard[fieldName]}' for card {_createCardIdentifier(outputCard)}")
+				else:
+					_logger.info(f"Corrected boolean field '{fieldName}' in card {_createCardIdentifier(outputCard)} from {outputCard[fieldName]} to {correction}")
+					outputCard[fieldName] = correction
+			else:
+				correctCardField(outputCard, fieldName, correction[0], correction[1])
+		# Remove the correction, so we can check at the end if we used all the corrections
+		del cardDataCorrections[outputCard["id"]]
+	# Store keyword abilities. Some abilities have a number after them (Like Shift 5), store those too
+	# For now assume that only Characters can have abilities, since they started adding f.i.
+	#  the 'Support' ability to actions that temporarily grant Support to another character,
+	#  which breaks the regex, and doesn't make too much sense, since the action itself doesn't have Support
+	if outputCard["type"] == "Character" and inputCard.get("abilities", None) and "abilities" in outputCard:
+		outputCard["keywordAbilities"] = []
+		_logger.debug(f"{inputCard['abilities']=}, {outputCard['abilities']=}")
+		for ability in inputCard["abilities"]:
+			# Find the ability name at the start of a sentence, optionally followed by a number, and then followed by the opening bracket of the reminder text
+			for abilityLine in outputCard["abilities"]:
+				abilityMatch = re.search(fr"(^|\n){ability}( \+?\d)?(?= \()", abilityLine)
+				if abilityMatch:
+					break
+			else:
+				abilityText = "\n".join(outputCard["abilities"])
+				raise ValueError(f"Unable to match ability '{ability}' in ability text {abilityText!r} for card {_createCardIdentifier(outputCard)}")
+			outputCard["keywordAbilities"].append(abilityMatch.group(0).lstrip())
+		# Sort the abilities by card order
+		outputCard["keywordAbilities"].sort(key=lambda ability: inputCard["rules_text"].index(ability))
+	# Reconstruct the full card text. Do that after storing the parts, so any corrections will be taken into account
+	# Remove the newlines in the fields we use while we're at it, because we only needed those to reconstruct the fullText
+	# TODO Some cards (Madam Mim - Fox, ID 262) have the abilities after the effect, think of a more elegant solution than the current regex hack in the corrections file
+	fullTextSections = []
+	if "abilities" in outputCard:
+		fullTextSections.append("\n".join(outputCard["abilities"]))
+		for abilityIndex in range(len(outputCard["abilities"])):
+			outputCard["abilities"][abilityIndex] = outputCard["abilities"][abilityIndex].replace("\n", " ")
+	if "effects" in outputCard:
+		for effect in outputCard["effects"]:
+			fullTextSections.append(f"{effect['name']} {effect['text']}")
+			effect["text"] = effect["text"].replace("\n", " ")
+	outputCard["fullText"] = "\n".join(fullTextSections)
+	if fullTextCorrection:
+		correctCardField(outputCard, "fullText", fullTextCorrection[0], fullTextCorrection[1])
+	return outputCard
 
 def _saveFile(outputFilePath: str, dictToSave: Dict, createZip: bool = True):
 	with open(outputFilePath, "w", encoding="utf-8") as outputFile:
