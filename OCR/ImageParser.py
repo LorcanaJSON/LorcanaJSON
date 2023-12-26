@@ -236,11 +236,6 @@ def getImageAndTextDataFromImage(pathToImage: str, hasCardText: bool = None, has
 	# Done!
 	return result
 
-def getCharacterBoxData(greyscaleImage, isWhiteTextOnDarkBackground: bool = False) -> str:
-	textColour = ImageArea.TEXT_COLOUR_WHITE if isWhiteTextOnDarkBackground else ImageArea.TEXT_COLOUR_BLACK
-	threshold, thresholdImage = cv2.threshold(greyscaleImage, textColour.thresholdValue, 255, textColour.thresholdType)
-	return pytesseract.image_to_boxes(thresholdImage, lang=_currentModel, config=__buildConfigString(False))
-
 def _getSubImage(image, imageArea: ImageArea.ImageArea):
 	return image[imageArea.coords.top:imageArea.coords.bottom, imageArea.coords.left:imageArea.coords.right]
 
