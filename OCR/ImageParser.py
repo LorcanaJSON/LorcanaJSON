@@ -19,17 +19,21 @@ _currentModel = "Lorcana_" + Language.ENGLISH.code
 
 _logger = logging.getLogger("LorcanaJSON")
 
-def setModel(language: Language.Language, useLorcanaModel: bool):
+
+def initialize(language: Language.Language, useLorcanaModel: bool = True, tesseractPath: str = None):
 	"""
-	Set which language model Tesseract will use
+	Set which language model and path Tesseract will use
 	:param language: The Language instance to use
-	:param useLorcanaModel: If True, a Lorcana-specific model will be used. If False, the generic model for the language will be used
+	:param useLorcanaModel: If True, a Lorcana-specific model will be used. If False, the generic model for the language will be used. Defaults to True
+	:param tesseractPath: The optional path where Tesseract is installed, needed when Tesseract can't be found by default
 	"""
 	global _currentModel
 	if useLorcanaModel:
 		_currentModel = f"Lorcana_{language.code}"
 	else:
 		_currentModel = language.threeLetterCode
+	if tesseractPath:
+		pytesseract.pytesseract.tesseract_cmd = tesseractPath
 
 def getImageAndTextDataFromImage(pathToImage: str, hasCardText: bool = None, hasFlavorText: bool = None, isEnchanted: bool = None, showImage: bool = False) -> Dict[str, Union[None, ImageAndText, List[ImageAndText]]]:
 	startTime = time.perf_counter()

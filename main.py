@@ -65,11 +65,11 @@ if __name__ == '__main__':
 	loggingStreamHandler.setFormatter(loggingFormatter)
 	logger.addHandler(loggingStreamHandler)
 
-	# Make sure PyTesseract can find the Tesseract executable, if it isn't in the Path
+	tesseractPath = None
 	if parsedArguments.tesseractPath:
-		pytesseract.pytesseract.tesseract_cmd = parsedArguments.tesseractPath
+		tesseractPath = parsedArguments.tesseractPath
 	elif config.get("tesseractPath", None):
-		pytesseract.pytesseract.tesseract_cmd = config["tesseractPath"]
+		tesseractPath = config["tesseractPath"]
 
 	for language in Language.ALL:
 		if parsedArguments.language == language.code:
@@ -77,7 +77,8 @@ if __name__ == '__main__':
 	else:
 		print(f"Invalid language code '{parsedArguments.language}'")
 		sys.exit(-2)
-	ImageParser.setModel(language, True)
+
+	ImageParser.initialize(language, True, tesseractPath)
 
 	if parsedArguments.action == "check":
 		addedCards, cardChanges = UpdateHandler.checkForNewCardData(language, fieldsToIgnore=parsedArguments.ignoreFields)
