@@ -35,6 +35,7 @@ These commandline options are also described when you run the program without an
 * **show**: Shows the sub-images used during the parsing of a card. Use the '--cardIds' argument followed by a space-separated list of card IDs to limit which cards are shown. Press any key when the images are shown to close all image windows
 ### Commandline arguments
 These arguments work with most or all of the actions described above. All of them are optional
+* **--tesseractPath**: Specify where Tesseract is installed. Needed when Tesseract-OCR isn't added to the OS's path (usually on Windows). Can also be specified in the config file.  
 * **--loglevel**: Specify which loglevel to use. Has to be one of 'debug', 'info', 'warning', or 'error'. Specifying this commandline argument overrides the value specified in the config file (described above). If omitted, and no configfile value is set, this defaults to 'warning'
 * **--show**: Adding this argument displays all the sub-images used during image parsing. This does nothing with the 'check' action. This slows down parsing a lot, because the program freezes when the sub-images are shown, until they are closed with a keypress, but it can be useful during debugging
 * **--language**: Specify which language to check or parse. Has to be one of 'en' (English), 'fr' (French), or 'de' (German). Only English is currently fully supported and verified, so 'en' is the default value when this argument is omitted
