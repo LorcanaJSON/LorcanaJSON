@@ -31,9 +31,6 @@ def setModel(language: Language.Language, useLorcanaModel: bool):
 	else:
 		_currentModel = language.threeLetterCode
 
-def getModelName():
-	return _currentModel
-
 def getImageAndTextDataFromImage(pathToImage: str, hasCardText: bool = None, hasFlavorText: bool = None, isEnchanted: bool = None, showImage: bool = False) -> Dict[str, Union[None, ImageAndText, List[ImageAndText]]]:
 	startTime = time.perf_counter()
 	result = {
