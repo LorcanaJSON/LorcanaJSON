@@ -2,7 +2,8 @@ import logging, math, os, time
 from collections import namedtuple
 from typing import Dict, List, Union
 
-import cv2, pytesseract
+import cv2, tesserocr
+from PIL import Image
 
 import Language
 from OCR import ImageArea
@@ -15,10 +16,8 @@ STRENGTH_UNICODE = "¤"  # Unicode \u00A4  HTML entities &#164;  &#xA4;  &curren
 
 ImageAndText = namedtuple("ImageAndText", ("image", "text"))
 
-_currentModel = "Lorcana_" + Language.ENGLISH.code
-
 _logger = logging.getLogger("LorcanaJSON")
-
+_tesseractApi: tesserocr.PyTessBaseAPI = None
 
 def initialize(language: Language.Language, useLorcanaModel: bool = True, tesseractPath: str = None):
 	"""
@@ -27,13 +26,12 @@ def initialize(language: Language.Language, useLorcanaModel: bool = True, tesser
 	:param useLorcanaModel: If True, a Lorcana-specific model will be used. If False, the generic model for the language will be used. Defaults to True
 	:param tesseractPath: The optional path where Tesseract is installed, needed when Tesseract can't be found by default
 	"""
-	global _currentModel
 	if useLorcanaModel:
-		_currentModel = f"Lorcana_{language.code}"
+		modelName = f"Lorcana_{language.code}"
 	else:
-		_currentModel = language.threeLetterCode
-	if tesseractPath:
-		pytesseract.pytesseract.tesseract_cmd = tesseractPath
+		modelName = language.threeLetterCode
+	global _tesseractApi
+	_tesseractApi = tesserocr.PyTessBaseAPI(lang=modelName, path=tesseractPath, psm=tesserocr.PSM.SINGLE_BLOCK)
 
 def getImageAndTextDataFromImage(pathToImage: str, hasCardText: bool = None, hasFlavorText: bool = None, isEnchanted: bool = None, showImage: bool = False) -> Dict[str, Union[None, ImageAndText, List[ImageAndText]]]:
 	startTime = time.perf_counter()
@@ -243,14 +241,11 @@ def _convertToThresholdImage(greyscaleImage, textColour: ImageArea.TextColour):
 	threshold, thresholdImage = cv2.threshold(greyscaleImage, textColour.thresholdValue, 255, textColour.thresholdType)
 	return thresholdImage
 
-def __buildConfigString(isNumeric: bool) -> str:
-	configString = "--psm 6"  # --oem 0"  # oem 0 uses the legacy OCR module, which is less accurate but can be retrained to add special characters, like the Exhaust, Ink, Strength, and Willpower symbols
-	if isNumeric:
-		configString += " -c tessedit_char_whitelist=0123456789|"  # Include pipe since that's easy to correct later and prevents weird mistakes
-	return configString
-
-def _imageToString(image, isNumeric: bool = False) -> str:
-	imageString: str = pytesseract.image_to_string(image, lang=_currentModel, config=__buildConfigString(isNumeric)).rstrip('\n')
+def _imageToString(image: cv2.Mat, isNumeric: bool = False) -> str:
+	# TesserOCR uses Pillow-format images, so convert our CV2-format image
+	pillowImage = Image.fromarray(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
+	_tesseractApi.SetImage(pillowImage)
+	imageString = _tesseractApi.GetUTF8Text().rstrip("\n")
 	# The '1' in the font used for numbers gets interpreted as a '|' (pipe character), fix that
 	if "|" in imageString:
 		imageString = imageString.replace("|", "1" if isNumeric else "I")
