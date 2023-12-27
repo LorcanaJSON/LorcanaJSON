@@ -287,7 +287,7 @@ def createOutputFiles(language: Language.Language, onlyParseIds: Union[None, Lis
 def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchantedNonEnchantedIds: Dict, cardDataCorrections: Dict, shouldShowImage: bool = False) -> Dict:
 	outputCard: Dict[str, Union[str, int, List, Dict]] = {
 		"artist": inputCard["author"].strip(),
-		"baseName": inputCard["name"].strip().replace("’", "'").replace(" it's", " It's"),
+		"baseName": inputCard["name"].strip().replace("’", "'"),
 		"color": inputCard["magic_ink_color"].title(),
 		"cost": inputCard["ink_cost"],
 		"id": inputCard["culture_invariant_id"],
