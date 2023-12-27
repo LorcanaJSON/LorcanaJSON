@@ -76,6 +76,7 @@ def correctText(cardText: str) -> str:
 			_logger.info("Correcting second line of Support reminder text")
 			cardLine = f"{ImageParser.STRENGTH_UNICODE} this turn.)"
 		elif cardLine.startswith("Ward (Upponents "):
+			_logger.info("Correcting 'Upponents' to 'Opponents'")
 			cardLine = cardLine.replace("(Upponents", "(Opponents")
 		if cardLine:
 			correctedCardLines.append(cardLine)
