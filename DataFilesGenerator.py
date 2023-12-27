@@ -20,18 +20,12 @@ def correctText(cardText: str) -> str:
 		if re.match("[‘`']Shift ", cardLine):
 			_logger.info("Removing erroneous character at the start of " + cardLine)
 			cardLine = cardLine[1:]
-		if " @ " in cardLine:
-			cardLine = cardLine.replace(" @ ", " a ")
-		if "[" in cardLine:
-			cardLine = cardLine.replace("[", "I")
 		if "’" in cardLine:
 			cardLine = re.sub(r"(?<=\w)’(?=\w)", "'", cardLine)
 		if "1lore" in cardLine:
 			cardLine = cardLine.replace("1lore", "1 lore")
 		if " 1O " in cardLine:
 			cardLine = cardLine.replace(" 1O ", f" 1 {ImageParser.INK_UNICODE} ")
-		if "~" in cardLine:
-			cardLine = cardLine.replace("~", "—")
 		if "€" in cardLine:
 			# For some reason it keeps reading the Strenght symbol as the Euro symbol
 			cardLine = re.sub(r"€[^ ]?", ImageParser.STRENGTH_UNICODE, cardLine)
@@ -291,7 +285,7 @@ def createOutputFiles(language: Language.Language, onlyParseIds: Union[None, Lis
 
 def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchantedNonEnchantedIds: Dict, cardDataCorrections: Dict, shouldShowImage: bool = False) -> Dict:
 	outputCard: Dict[str, Union[str, int, List, Dict]] = {
-		"artist": correctText(inputCard["author"].strip()),
+		"artist": inputCard["author"].strip(),
 		"baseName": inputCard["name"].strip().replace("’", "'").replace(" it's", " It's"),
 		"color": inputCard["magic_ink_color"].title(),
 		"cost": inputCard["ink_cost"],

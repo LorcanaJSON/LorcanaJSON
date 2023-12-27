@@ -245,8 +245,4 @@ def _imageToString(image: cv2.Mat, isNumeric: bool = False) -> str:
 	# TesserOCR uses Pillow-format images, so convert our CV2-format image
 	pillowImage = Image.fromarray(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
 	_tesseractApi.SetImage(pillowImage)
-	imageString = _tesseractApi.GetUTF8Text().rstrip("\n")
-	# The '1' in the font used for numbers gets interpreted as a '|' (pipe character), fix that
-	if "|" in imageString:
-		imageString = imageString.replace("|", "1" if isNumeric else "I")
-	return imageString
+	return _tesseractApi.GetUTF8Text().rstrip("\n")
