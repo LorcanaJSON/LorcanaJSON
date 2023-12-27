@@ -45,32 +45,39 @@ def correctText(cardText: str) -> str:
 		# Correct common phrases with symbols
 		if re.search(rf"pay \d ?[^{ImageParser.INK_UNICODE}]{{1,2}} less", cardLine):
 			# Lore payment discounts
-			cardLine = re.sub(rf"pay (\d) ?[^{ImageParser.INK_UNICODE}]{{1,2}} ?less", f"pay \\1 {ImageParser.INK_UNICODE} less", cardLine)
+			cardLine, changeCount = re.subn(rf"pay (\d) ?[^{ImageParser.INK_UNICODE}]{{1,2}} ?less", f"pay \\1 {ImageParser.INK_UNICODE} less", cardLine)
+			if changeCount > 0:
+				_logger.info("Correcting lore payment discount text")
 		# Fields with Errata corrections have 'ERRATA' in the text, possibly with a colon. Remove that
 		if "ERRATA" in cardLine:
 			cardLine = re.sub(" ?ERRATA:? ?", "", cardLine)
 		# Correct reminder text
 		if cardLine.startswith("Shift "):
 			# Shift
-			_logger.info("Correcting Shift reminder text")
-			cardLine = re.sub(f" [^{ImageParser.INK_UNICODE}]{{1,2}} to play this on top", f" {ImageParser.INK_UNICODE} to play this on top", cardLine)
+			cardLine, changeCount = re.subn(f" [^{ImageParser.INK_UNICODE}]{{1,2}} to play this on top", f" {ImageParser.INK_UNICODE} to play this on top", cardLine)
+			if changeCount > 0:
+				_logger.info("Correcting Shift reminder text")
 		elif re.match(r"^gets \+\d .{1,2}?\.?\)?$", cardLine):
 			# Challenger, second line
-			_logger.info("Correcting second line of Challenger reminder text")
-			cardLine = re.sub(rf"gets \+(\d) [^{ImageParser.STRENGTH_UNICODE}]{{1,2}}?\.?\)", fr"gets +\1 {ImageParser.STRENGTH_UNICODE}.)", cardLine)
+			cardLine, changeCount = re.subn(rf"gets \+(\d) [^{ImageParser.STRENGTH_UNICODE}]{{1,2}}?\.?\)", fr"gets +\1 {ImageParser.STRENGTH_UNICODE}.)", cardLine)
+			if changeCount > 0:
+				_logger.info("Correcting second line of Challenger reminder text")
 		elif re.match(r"\(A character with cost \d or more can .{1,2} to sing this( song for free)?", cardLine):
 			# Song
-			_logger.info("Correcting Song reminder text")
-			cardLine = re.sub(f"can [^{ImageParser.EXERT_UNICODE}]{{1,2}} to sing this", f"can {ImageParser.EXERT_UNICODE} to sing this", cardLine)
+			cardLine, changeCount = re.subn(f"can [^{ImageParser.EXERT_UNICODE}]{{1,2}} to sing this", f"can {ImageParser.EXERT_UNICODE} to sing this", cardLine)
+			if changeCount > 0:
+				_logger.info("Correcting Song reminder text")
 		elif re.match("add their .{1,2} to another chosen character['’]s .{1,2} this", cardLine):
 			# Support, full line (not sure why it sometimes doesn't get cut into two lines
-			_logger.info("Correcting Support reminder text (both symobls on one line)")
-			cardLine = re.sub(f"their [^{ImageParser.STRENGTH_UNICODE}]{{1,2}} to", f"their {ImageParser.STRENGTH_UNICODE} to", cardLine)
-			cardLine = re.sub(f"character's [^{ImageParser.STRENGTH_UNICODE}]{{1,2}} this", f"character's {ImageParser.STRENGTH_UNICODE} this", cardLine)
+			cardLine, changeCount = re.subn(f"their [^{ImageParser.STRENGTH_UNICODE}]{{1,2}} to", f"their {ImageParser.STRENGTH_UNICODE} to", cardLine)
+			cardLine, changeCount2 = re.subn(f"character's [^{ImageParser.STRENGTH_UNICODE}]{{1,2}} this", f"character's {ImageParser.STRENGTH_UNICODE} this", cardLine)
+			if changeCount > 0 or changeCount2 > 0:
+				_logger.info("Correcting Support reminder text (both symobls on one line)")
 		elif re.match("may add their .{1,2} to another chosen character[’']s", cardLine):
 			# Support, first line if split
-			_logger.info("Correcting first line of Support reminder text")
-			cardLine = re.sub(f"their {ImageParser.STRENGTH_UNICODE}{{1,2}} to", f"their {ImageParser.STRENGTH_UNICODE} to", cardLine)
+			cardLine, changeCount = re.subn(f"their {ImageParser.STRENGTH_UNICODE}{{1,2}} to", f"their {ImageParser.STRENGTH_UNICODE} to", cardLine)
+			if changeCount > 0:
+				_logger.info("Correcting first line of Support reminder text")
 		elif re.match(rf"[^{ImageParser.STRENGTH_UNICODE}]{{1,2}} this turn\.?\)?", cardLine):
 			# Support, second line if split
 			_logger.info("Correcting second line of Support reminder text")
