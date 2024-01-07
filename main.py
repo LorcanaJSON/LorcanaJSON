@@ -69,13 +69,7 @@ if __name__ == '__main__':
 	elif config.get("tesseractPath", None):
 		tesseractPath = config["tesseractPath"]
 
-	for language in Language.ALL:
-		if parsedArguments.language == language.code:
-			break
-	else:
-		print(f"Invalid language code '{parsedArguments.language}'")
-		sys.exit(-2)
-
+	language = Language.getLanguageByCode(parsedArguments.language)
 	ImageParser.initialize(language, True, tesseractPath)
 
 	if parsedArguments.action == "check":
