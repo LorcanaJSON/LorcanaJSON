@@ -80,6 +80,7 @@ def createOutputIfNeeded(language: Language, onlyCreateOnNewCards: bool, cardFie
 	if not addedCards and (onlyCreateOnNewCards or not cardChanges):
 		_logger.info("No catalog updates, not running output generator")
 		return
+	_logger.info(f"Found {len(addedCards):,} new cards and {len(cardChanges):,} changed cards")
 	idsToParse = [entry[0] for entry in addedCards]
 	idsToParse.extend([entry[0] for entry in cardChanges])
 	RavensburgerApiHandler.saveCardCatalog(language, cardCatalog)
