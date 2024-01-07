@@ -33,7 +33,9 @@ def checkForNewCardData(language: Language, newCardCatalog: Dict = None, fieldsT
 	for cardType, cardList in newCardCatalog["cards"].items():
 		for card in cardList:
 			cardId = card["culture_invariant_id"]
-			cardDescriptor = f"{card['name']} - {card.get('subtitle', None)}"
+			cardDescriptor = card["name"]
+			if "subtitle" in card:
+				cardDescriptor += " - " + card["subtitle"]
 			if cardId not in oldCards:
 				addedCards.append((cardId, cardDescriptor))
 			elif includeCardChanges:
@@ -102,10 +104,7 @@ def createChangelog(language: Language, addedCards: List[Tuple[int, str]], cardC
 			newChangelogEntryFile.write(f"{indent}<li>Added {len(addedCards):,} cards:\n")
 			newChangelogEntryFile.write(f"{doubleIndent}<ul>\n")
 			for addedCard in addedCards:
-				addedCardName = addedCard[1]
-				if addedCardName.endswith(" - None"):
-					addedCardName = addedCardName.rsplit(" ", 2)[0]
-				newChangelogEntryFile.write(f"{tripleIndent}<li>{addedCardName} (ID {addedCard[0]})</li>\n")
+				newChangelogEntryFile.write(f"{tripleIndent}<li>{addedCard[1]} (ID {addedCard[0]})</li>\n")
 			newChangelogEntryFile.write(f"{doubleIndent}</ul>\n")
 			newChangelogEntryFile.write(f"{indent}</li>\n")
 		if cardChanges:
