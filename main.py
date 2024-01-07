@@ -1,7 +1,5 @@
 import argparse, json, logging, logging.handlers, os, sys
 
-import pytesseract
-
 import DataFilesGenerator, Language, UpdateHandler
 from APIScraping import RavensburgerApiHandler
 from OCR import ImageParser
