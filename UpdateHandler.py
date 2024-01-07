@@ -112,16 +112,21 @@ def createChangelog(language: Language, addedCards: List[Tuple[int, str]], cardC
 			newChangelogEntryFile.write(f"{indent}</li>\n")
 		if cardChanges:
 			# Aggregate field changes
-			fieldNameToCardNames = {}
+			fieldNameToCardDescriptors = {}
 			for cardChange in cardChanges:
 				fieldName = cardChange[2]
-				if fieldName not in fieldNameToCardNames:
-					fieldNameToCardNames[fieldName] = [createCardDescriptor(cardChange)]
+				if fieldName not in fieldNameToCardDescriptors:
+					fieldNameToCardDescriptors[fieldName] = [createCardDescriptor(cardChange)]
 				else:
-					fieldNameToCardNames[fieldName].append(createCardDescriptor(cardChange))
+					fieldNameToCardDescriptors[fieldName].append(createCardDescriptor(cardChange))
 			# Add a list to the changelog for each updated field
-			for fieldName, cardNames in fieldNameToCardNames.items():
-				newChangelogEntryFile.write(f"{indent}<li>Updated '{fieldName}' in {len(cardNames):,} cards: {'; '.join(cardNames)}</li>\n")
+			for fieldName, cardDescriptors in fieldNameToCardDescriptors.items():
+				newChangelogEntryFile.write(f"{indent}<li>Updated '{fieldName}' in {len(cardDescriptors):,} cards:\n")
+				newChangelogEntryFile.write(f"{doubleIndent}<ul>\n")
+				for cardDescriptor in cardDescriptors:
+					newChangelogEntryFile.write(f"{tripleIndent}<li>{cardDescriptor}</li>\n")
+				newChangelogEntryFile.write(f"{doubleIndent}</ul>\n")
+				newChangelogEntryFile.write(f"{indent}</li>\n")
 		newChangelogEntryFile.write(f"</ul>\n")
 		filePrefix = f"files/{changelogEntryDescriptor}/{language.code}/"
 		newChangelogEntryFile.write(f"Permanent links: <a href=\"{filePrefix}allCards.json.zip\">allCards.json.zip</a> (<a href=\"{filePrefix}allCards.json.zip.md5\">md5</a>), "
