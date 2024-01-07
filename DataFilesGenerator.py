@@ -378,7 +378,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 					# There's a suffix explaining what field the errata is about, prepend it to the text
 					infoText = infoEntry["title"].split(" - ")[1] + "\n" + infoText
 				errata.append(infoText)
-			elif infoEntry["title"].startswith("FAQ") or infoEntry["title"].startswith("Keyword"):
+			elif infoEntry["title"].startswith("FAQ") or infoEntry["title"].startswith("Keyword") or infoEntry["title"] == "Good to know":
 				clarifications.append(infoText)
 			else:
 				_logger.error(f"Unknown 'additional_info' type '{infoEntry['title']}' in card {_createCardIdentifier(outputCard)}")
