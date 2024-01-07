@@ -108,13 +108,13 @@ def createChangelog(language: Language, addedCards: List[Tuple[int, str]], cardC
 				newChangelogEntryFile.write(f"{tripleIndent}<li>{addedCardName} (ID {addedCard[0]})</li>\n")
 			newChangelogEntryFile.write(f"{doubleIndent}</ul>\n")
 			newChangelogEntryFile.write(f"{indent}</li>\n")
-			if cardChanges:
-				newChangelogEntryFile.write(f"{indent}<li>Updated {len(cardChanges):,} cards:\n")
-				newChangelogEntryFile.write(f"{doubleIndent}<ul>\n")
-				for cardChange in cardChanges:
-					newChangelogEntryFile.write(f"{tripleIndent}<li>Updated field '{cardChange[2]}' of card '{cardChange[1]}' (ID {cardChange[0]}) from '{cardChange[3]}' to '{cardChange[4]}'</li>\n")
-				newChangelogEntryFile.write(f"{doubleIndent}</ul>\n")
-				newChangelogEntryFile.write(f"{indent}</li>\n")
+		if cardChanges:
+			newChangelogEntryFile.write(f"{indent}<li>Updated {len(cardChanges):,} cards:\n")
+			newChangelogEntryFile.write(f"{doubleIndent}<ul>\n")
+			for cardChange in cardChanges:
+				newChangelogEntryFile.write(f"{tripleIndent}<li>Updated field '{cardChange[2]}' of card '{cardChange[1]}' (ID {cardChange[0]}) from '{cardChange[3]}' to '{cardChange[4]}'</li>\n")
+			newChangelogEntryFile.write(f"{doubleIndent}</ul>\n")
+			newChangelogEntryFile.write(f"{indent}</li>\n")
 		newChangelogEntryFile.write(f"</ul>\n")
 		filePrefix = f"files/{changelogEntryDescriptor}/{language.code}/"
 		newChangelogEntryFile.write(f"Permanent links: <a href=\"{filePrefix}allCards.json.zip\">allCards.json.zip</a> (<a href=\"{filePrefix}allCards.json.zip.md5\">md5</a>), "
