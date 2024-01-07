@@ -90,6 +90,10 @@ def createOutputIfNeeded(language: Language, onlyCreateOnNewCards: bool, cardFie
 def createChangelog(language: Language, addedCards: List[Tuple[int, str]], cardChanges, subVersion: str = "1"):
 	if not addedCards and not cardChanges:
 		return
+
+	def createCardDescriptor(addedOrChangedCard) -> str:
+		return f"{addedOrChangedCard[1]} (ID {addedOrChangedCard[0]})"
+
 	currentDateString = datetime.datetime.now().strftime("%Y-%m-%d")
 	indent = " " * 4
 	doubleIndent = indent * 2
@@ -103,16 +107,21 @@ def createChangelog(language: Language, addedCards: List[Tuple[int, str]], cardC
 			newChangelogEntryFile.write(f"{indent}<li>Added {len(addedCards):,} cards:\n")
 			newChangelogEntryFile.write(f"{doubleIndent}<ul>\n")
 			for addedCard in addedCards:
-				newChangelogEntryFile.write(f"{tripleIndent}<li>{addedCard[1]} (ID {addedCard[0]})</li>\n")
+				newChangelogEntryFile.write(f"{tripleIndent}<li>{createCardDescriptor(addedCard)}</li>\n")
 			newChangelogEntryFile.write(f"{doubleIndent}</ul>\n")
 			newChangelogEntryFile.write(f"{indent}</li>\n")
 		if cardChanges:
-			newChangelogEntryFile.write(f"{indent}<li>Updated {len(cardChanges):,} cards:\n")
-			newChangelogEntryFile.write(f"{doubleIndent}<ul>\n")
+			# Aggregate field changes
+			fieldNameToCardNames = {}
 			for cardChange in cardChanges:
-				newChangelogEntryFile.write(f"{tripleIndent}<li>Updated field '{cardChange[2]}' of card '{cardChange[1]}' (ID {cardChange[0]}) from '{cardChange[3]}' to '{cardChange[4]}'</li>\n")
-			newChangelogEntryFile.write(f"{doubleIndent}</ul>\n")
-			newChangelogEntryFile.write(f"{indent}</li>\n")
+				fieldName = cardChange[2]
+				if fieldName not in fieldNameToCardNames:
+					fieldNameToCardNames[fieldName] = [createCardDescriptor(cardChange)]
+				else:
+					fieldNameToCardNames[fieldName].append(createCardDescriptor(cardChange))
+			# Add a list to the changelog for each updated field
+			for fieldName, cardNames in fieldNameToCardNames.items():
+				newChangelogEntryFile.write(f"{indent}<li>Updated '{fieldName}' in {len(cardNames):,} cards: {'; '.join(cardNames)}</li>\n")
 		newChangelogEntryFile.write(f"</ul>\n")
 		filePrefix = f"files/{changelogEntryDescriptor}/{language.code}/"
 		newChangelogEntryFile.write(f"Permanent links: <a href=\"{filePrefix}allCards.json.zip\">allCards.json.zip</a> (<a href=\"{filePrefix}allCards.json.zip.md5\">md5</a>), "
