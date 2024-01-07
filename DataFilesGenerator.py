@@ -411,7 +411,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 					_logger.warning(f"Corrected value for boolean field '{fieldName}' is the same as the existing value '{outputCard[fieldName]}' for card {_createCardIdentifier(outputCard)}")
 				else:
 					_logger.info(f"Corrected boolean field '{fieldName}' in card {_createCardIdentifier(outputCard)} from {outputCard[fieldName]} to {correction}")
-					outputCard[fieldName] = correction
+					outputCard[fieldName] = correction[1]
 			else:
 				correctCardField(outputCard, fieldName, correction[0], correction[1])
 		# Remove the correction, so we can check at the end if we used all the corrections
