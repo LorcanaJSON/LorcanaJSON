@@ -369,8 +369,12 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 		errata = []
 		clarifications = []
 		for infoEntry in inputCard["additional_info"]:
-			# The text has \r\n as newlines, reduce that to just \n
-			infoText: str = infoEntry["body"].replace("\r", "")
+			# The text has multiple \r\n's as newlines, reduce that to just a single \n
+			infoText: str = infoEntry["body"].rstrip().replace("\r", "").replace("\n\n", "\n")
+			# The text uses unicode characters in some places, replace those with their simple equivalents
+			infoText = infoText.replace("\u2019", "'").replace("\u2013", "-").replace("\u201c", "\"").replace("\u201d", "\"")
+			# Sometimes they write cardnames as "basename- subtitle", add the space before the dash back in
+			infoText = re.sub(r"(\w)- ", r"\1 - ", infoText)
 			# The text uses {I} for ink and {S} for strength, replace those with our symbols
 			infoText = infoText.format(I=ImageParser.INK_UNICODE, S=ImageParser.STRENGTH_UNICODE, L=ImageParser.LORE_UNICODE)
 			if infoEntry["title"].startswith("Errata"):
