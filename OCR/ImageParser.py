@@ -241,8 +241,10 @@ def _convertToThresholdImage(greyscaleImage, textColour: ImageArea.TextColour):
 	threshold, thresholdImage = cv2.threshold(greyscaleImage, textColour.thresholdValue, 255, textColour.thresholdType)
 	return thresholdImage
 
+def _cv2ImageToPillowImage(cv2Image) -> Image.Image:
+	return Image.fromarray(cv2.cvtColor(cv2Image, cv2.COLOR_BGR2RGB))
+
 def _imageToString(image: cv2.Mat) -> str:
 	# TesserOCR uses Pillow-format images, so convert our CV2-format image
-	pillowImage = Image.fromarray(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
-	_tesseractApi.SetImage(pillowImage)
+	_tesseractApi.SetImage(_cv2ImageToPillowImage(image))
 	return _tesseractApi.GetUTF8Text().rstrip("\n")
