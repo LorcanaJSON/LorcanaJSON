@@ -81,8 +81,7 @@ def createOutputIfNeeded(language: Language, onlyCreateOnNewCards: bool, cardFie
 		_logger.info("No catalog updates, not running output generator")
 		return
 	idsToParse = [entry[0] for entry in addedCards]
-	if onlyCreateOnNewCards:
-		idsToParse.extend([entry[0] for entry in cardChanges])
+	idsToParse.extend([entry[0] for entry in cardChanges])
 	RavensburgerApiHandler.saveCardCatalog(language, cardCatalog)
 	RavensburgerApiHandler.downloadImages(language)
 	DataFilesGenerator.createOutputFiles(language, idsToParse, shouldShowImages=shouldShowImages)
