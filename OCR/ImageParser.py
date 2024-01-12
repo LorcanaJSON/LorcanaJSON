@@ -172,6 +172,7 @@ def getImageAndTextDataFromImage(pathToImage: str, hasCardText: bool = None, has
 
 	#Find the card text, one block at the time, separated by the effect label
 	# We have to go from bottom to top, because non-labelled text is above labelled text
+	effectLabelImage = None
 	effectTextImage = None
 	remainingTextImage = None
 	if hasCardText is not False:
@@ -180,9 +181,9 @@ def getImageAndTextDataFromImage(pathToImage: str, hasCardText: bool = None, has
 		labelNumber = len(labelCoords)
 		for labelCoord in labelCoords:
 			# First get the label text itself. It's white on dark, so handle it the opposite way from the actual effect text
-			labelImage = _convertToThresholdImage(greyscaleImage[labelCoord[0]:labelCoord[1], 0:labelCoord[2]], ImageArea.TEXT_COLOUR_WHITE)
-			labelText = _imageToString(labelImage)
-			result["effectLabels"].append(ImageAndText(labelImage, labelText))
+			effectLabelImage = _convertToThresholdImage(greyscaleImage[labelCoord[0]:labelCoord[1], 0:labelCoord[2]], ImageArea.TEXT_COLOUR_WHITE)
+			effectLabelText = _imageToString(effectLabelImage)
+			result["effectLabels"].append(ImageAndText(effectLabelImage, effectLabelText))
 			# Then get the effect text
 			# Put a white rectangle over where the label was, because the thresholding sometimes leaves behind some pixels, which confuses Tesseract, leading to phantom letters
 			effectTextImage = greyscaleImage.copy()
@@ -190,7 +191,7 @@ def getImageAndTextDataFromImage(pathToImage: str, hasCardText: bool = None, has
 			effectTextImage = _convertToThresholdImage(effectTextImage[labelCoord[0]:previousBlockTopY, 0:imageWidth], ImageArea.TEXT_COLOUR_BLACK)
 			effectText = _imageToString(effectTextImage)
 			result["effectTexts"].append(ImageAndText(effectTextImage, effectText))
-			_logger.debug(f"{labelText=} ({labelCoord[1] - labelCoord[0]} px high), {effectText=}")
+			_logger.debug(f"{effectLabelText=} ({labelCoord[1] - labelCoord[0]} px high), {effectText=}")
 			previousBlockTopY = labelCoord[0]
 			labelNumber -= 1
 		_logger.debug(f"{len(labelCoords)} {labelCoords=}")
@@ -225,6 +226,8 @@ def getImageAndTextDataFromImage(pathToImage: str, hasCardText: bool = None, has
 			cv2.imshow("Flavor Text Cropped Image From Effect Labels", flavorTextLineDetectionCroppedImage)
 		if flavorTextImage is not None:
 			cv2.imshow("Flavor Text Image", flavorTextImage)
+		if effectLabelImage is not None:
+			cv2.imshow("Effect label image", effectLabelImage)
 		if effectTextImage is not None:
 			cv2.imshow("Effect text image", effectTextImage)
 		if remainingTextImage is not None:
