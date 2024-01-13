@@ -18,6 +18,7 @@ ImageAndText = namedtuple("ImageAndText", ("image", "text"))
 
 _logger = logging.getLogger("LorcanaJSON")
 _tesseractApi: tesserocr.PyTessBaseAPI = None
+_EFFECT_LABEL_MARGIN: int = 10
 
 def initialize(language: Language.Language, useLorcanaModel: bool = True, tesseractPath: str = None):
 	"""
@@ -119,7 +120,7 @@ def getImageAndTextDataFromImage(pathToImage: str, hasCardText: bool = None, has
 							currentCoords[1] = 0
 							isCurrentlyInLabel = False
 						else:
-							currentCoords[2] = x
+							currentCoords[2] = x - _EFFECT_LABEL_MARGIN
 						break
 				else:
 					raise ValueError(f"Unable to find right side of label at {y=} in the cropped image")
@@ -188,7 +189,7 @@ def getImageAndTextDataFromImage(pathToImage: str, hasCardText: bool = None, has
 			# Then get the effect text
 			# Put a white rectangle over where the label was, because the thresholding sometimes leaves behind some pixels, which confuses Tesseract, leading to phantom letters
 			effectTextImage = greyscaleImage.copy()
-			cv2.rectangle(effectTextImage, (0, 0), (labelCoord[2], labelCoord[1]), (255, 255, 255), thickness=-1)  # -1 thickness fills the rectangle
+			cv2.rectangle(effectTextImage, (0, 0), (labelCoord[2] + _EFFECT_LABEL_MARGIN, labelCoord[1]), (255, 255, 255), thickness=-1)  # -1 thickness fills the rectangle
 			effectTextImage = _convertToThresholdImage(effectTextImage[labelCoord[0]:previousBlockTopY, 0:imageWidth], ImageArea.TEXT_COLOUR_BLACK)
 			effectText = _imageToString(effectTextImage)
 			result["effectTexts"].append(ImageAndText(effectTextImage, effectText))
