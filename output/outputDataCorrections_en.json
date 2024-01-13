@@ -63,6 +63,12 @@
       "Is"
     ]
   },
+  "58": {
+    "effects": [
+      "LAND",
+      "L AND"
+    ]
+  },
   "59": {
     "flavorText": [
       "you ve",
@@ -163,12 +169,6 @@
     "flavorText": [
       "choice,\n",
       "choice, I\n"
-    ]
-  },
-  "134": {
-    "effects": [
-      "1 ,",
-      "1 \u2b21,"
     ]
   },
   "135": {
@@ -301,12 +301,6 @@
     "effects": [
       "gets \\+1 \u00a4",
       "gets +1 \u25ca"
-    ]
-  },
-  "211": {
-    "effects": [
-      "^\\. ",
-      ""
     ]
   },
   "212": {
