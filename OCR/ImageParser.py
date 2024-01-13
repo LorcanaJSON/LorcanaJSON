@@ -97,7 +97,7 @@ def getImageAndTextDataFromImage(pathToImage: str, hasCardText: bool = None, has
 	if hasCardText is not False:
 		isCurrentlyInLabel: bool = False
 		currentCoords = [0, 0, 0]
-		for y in range(imageHeight):
+		for y in range(5, imageHeight):
 			pixelValue = greyscaleImage[y, 0]
 			if isCurrentlyInLabel:
 				# Check if the pixel got lighter, indicating we left the label block
