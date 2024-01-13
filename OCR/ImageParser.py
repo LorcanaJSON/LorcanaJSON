@@ -112,7 +112,7 @@ def getImageAndTextDataFromImage(pathToImage: str, hasCardText: bool = None, has
 				yToCheck = y + 2  # Check a few lines down to prevent weirdness with the edge of the label box
 				# Find the width of the label
 				for x in range(imageWidth):
-					if greyscaleImage[y, x] > 100:
+					if greyscaleImage[yToCheck, x] > 125:
 						if x < 100:
 							_logger.debug(f"Skipping label at {currentCoords=} and {x=}, not wide enough to be a label")
 							currentCoords[0] = 0
