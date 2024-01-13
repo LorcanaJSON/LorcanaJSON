@@ -109,6 +109,7 @@ def getImageAndTextDataFromImage(pathToImage: str, hasCardText: bool = None, has
 			elif pixelValue < 100:
 				isCurrentlyInLabel = True
 				currentCoords[0] = y
+				yToCheck = y + 2  # Check a few lines down to prevent weirdness with the edge of the label box
 				# Find the width of the label
 				for x in range(imageWidth):
 					if greyscaleImage[y, x] > 100:
