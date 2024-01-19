@@ -12,3 +12,4 @@ __pycache__/
 /config.json
 /parsedCards.json
 /newChangelogEntry.txt
+/*.traineddata
