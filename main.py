@@ -72,6 +72,35 @@ if __name__ == '__main__':
 	language = Language.getLanguageByCode(parsedArguments.language)
 	ImageParser.initialize(language, True, tesseractPath)
 
+	cardIds = None
+	if parsedArguments.cardIds:
+		cardIds = []
+		for inputCardId in parsedArguments.cardIds:
+			if "-" in inputCardId:
+				# This is either a negative number or a range
+				if inputCardId.startswith("-"):
+					# Negative number, remove the ID from the to-parse list, if it's there
+					cardIdToRemove = int(inputCardId, 10) * -1
+					if cardIdToRemove in cardIds:
+						cardIds.remove(cardIdToRemove)
+					else:
+						logger.warning(f"Asked to remove card ID {cardIdToRemove} from parsing, but it already wasn't in the parse list. Verify the '--cardIds' parameter list")
+				else:
+					# Range, add all the IDs in the range
+					cardIdRangeMatch = re.match(r"(\d+)-(\d+)", inputCardId)
+					if cardIdRangeMatch:
+						lowerBound = int(cardIdRangeMatch.group(1), 10)
+						upperBound = int(cardIdRangeMatch.group(2), 10)
+						cardIds.extend(list(range(lowerBound, upperBound + 1)))
+					else:
+						logger.warning(f"Invalid value '{inputCardId}' in the '--cardIds' list, ignoring it")
+			else:
+				# Normal number, add it to the to-parse list
+				try:
+					cardIds.append(int(inputCardId, 10))
+				except ValueError:
+					logger.warning(f"Invalid value '{inputCardId}' in the '--cardIds' list, should be numeric, ignoring this value")
+
 	if parsedArguments.action == "check":
 		addedCards, cardChanges = UpdateHandler.checkForNewCardData(language, fieldsToIgnore=parsedArguments.ignoreFields)
 		print(f"{len(addedCards):,} added cards: {addedCards}")
@@ -91,16 +120,13 @@ if __name__ == '__main__':
 	elif parsedArguments.action == "download":
 		RavensburgerApiHandler.downloadImages(language)
 	elif parsedArguments.action == "parse":
-		idsToParse = None
-		if parsedArguments.cardIds:
-			idsToParse = [int(v) for v in parsedArguments.cardIds]
-		DataFilesGenerator.createOutputFiles(language, idsToParse, shouldShowImages=parsedArguments.shouldShowSubimages)
+		DataFilesGenerator.createOutputFiles(language, cardIds, shouldShowImages=parsedArguments.shouldShowSubimages)
 	elif parsedArguments.action == "show":
-		if not parsedArguments.cardIds:
+		if not cardIds:
 			print("ERROR: Please provide one or more card IDs to show with the '--cardIds' argument")
 			sys.exit(-3)
 		baseImagePath = os.path.join("downloads", "images", language.code)
-		for cardId in parsedArguments.cardIds:
+		for cardId in cardIds:
 			cardPath = os.path.join(baseImagePath, f"{cardId}.jpg")
 			if not os.path.isfile(cardPath):
 				print(f"ERROR: Unable to find local image for card ID {cardId}. Please run the 'download' command first, and make sure you didn't make a typo in the ID")
