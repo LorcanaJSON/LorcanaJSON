@@ -63,7 +63,7 @@ if __name__ == '__main__':
 	loggingStreamHandler.setFormatter(loggingFormatter)
 	logger.addHandler(loggingStreamHandler)
 
-	tesseractPath = None
+	tesseractPath = os.path.dirname(__file__)
 	if parsedArguments.tesseractPath:
 		tesseractPath = parsedArguments.tesseractPath
 	elif config.get("tesseractPath", None):

@@ -19,7 +19,7 @@ tesserocr doesn't properly install out of the box on Windows. Use one of the lis
 ### Configfile
 The configfile allows you to set some standard values, so they don't need to always be provided through commandline arguments (though those arguments can still override config values).  
 Copy the file 'config.json.example', and rename it to 'config.json'.  
-Open 'config.json' in a text editor, and set the value for 'tesseractPath' to where you placed the *Lorcana* Tesseract model downloaded in a previous Setup step.    
+Open 'config.json' in a text editor, and set the value for 'tesseractPath' to where you placed the *Lorcana* Tesseract model downloaded in a previous Setup step. If neither this field nor the commandline argument (see further down) isn't set, it defaults to the folder where this program is.  
 You can also change the value for 'loglevel' to one of 'debug', 'info', 'warning', or 'error' to set a default log level.  
 
 ## Running the program
@@ -37,7 +37,7 @@ These arguments work with most or all of the actions described above. All of the
 * **--language**: Specify which language to check or parse. Has to be one of 'en' (English), 'fr' (French), or 'de' (German). Only English is currently fully supported and verified, so 'en' is the default value when this argument is omitted
 * **--loglevel**: Specify which loglevel to use. Has to be one of 'debug', 'info', 'warning', or 'error'. Specifying this commandline argument overrides the value specified in the config file (described above). If omitted, and no configfile value is set, this defaults to 'warning'
 * **--show**: Adding this argument displays all the sub-images used during image parsing. This does nothing with the 'check' action. This slows down parsing a lot, because the program freezes when the sub-images are shown, until they are closed with a keypress, but it can be useful during debugging
-* **--tesseractPath**: Specify where the *Lorcana* Tesseract model file is. Can also be specified in the config file, but specifying a path commandline argument overrides the config file value  
+* **--tesseractPath**: Specify where the *Lorcana* Tesseract model file is. Can also be specified in the config file, but specifying a path commandline argument overrides the config file value. If neither this argument nor the config file field isn't set, it defaults to the folder where this program is
 
 ## Verifying the result
 Because OCR isn't perfect, a manual check of the resulting datafiles is still necessary.  
