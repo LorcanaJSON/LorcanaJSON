@@ -1,4 +1,4 @@
-import argparse, json, logging, logging.handlers, os, sys
+import argparse, json, logging, logging.handlers, os, re, sys
 
 import DataFilesGenerator, Language, UpdateHandler
 from APIScraping import RavensburgerApiHandler
