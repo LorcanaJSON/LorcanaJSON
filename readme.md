@@ -4,7 +4,7 @@ LorcanaJSON is a project to collect card data for the *Disney Lorcana Trading Ca
 This repository only contains the code to generate the datafiles. For the datafiles themselves and how to use them, please visit [https://lorcanajson.org](https://lorcanajson.org) 
 ## Initial setup
 ### Python
-The code in this repository is written in Python 3. Supported Python versions are 3.8 to 3.11.  
+The code in this repository is written in Python 3. Supported Python versions are 3.8 and up.  
 Make sure you have Python 3 installed, either from the [official website](https://www.python.org) or from your OS's package manager.  
 Verify that Python works by running the command 'python --version' on the commandline.  
 If you get an error that the command can't be found, try 'python3 --version' instead, and replace instances of the 'python' command in subsequent examples with 'python3'.   
