@@ -43,9 +43,9 @@ def correctText(cardText: str) -> str:
 		if "Ihe" in cardLine:
 			cardLine = re.sub(r"\bIhe\b", "The", cardLine)
 		# Correct common phrases with symbols
-		if re.search(rf"pay \d ?[^{ImageParser.INK_UNICODE}]{{1,2}} less", cardLine):
+		if re.search(rf"pay \d ?[^{ImageParser.INK_UNICODE}]{{1,2}} ", cardLine):
 			# Lore payment discounts
-			cardLine, changeCount = re.subn(rf"pay (\d) ?[^{ImageParser.INK_UNICODE}]{{1,2}} ?less", f"pay \\1 {ImageParser.INK_UNICODE} less", cardLine)
+			cardLine, changeCount = re.subn(rf"pay (\d) ?[^{ImageParser.INK_UNICODE}]{{1,2}} ", f"pay \\1 {ImageParser.INK_UNICODE} ", cardLine)
 			if changeCount > 0:
 				_logger.info("Correcting lore payment discount text")
 		# Fields with Errata corrections have 'ERRATA' in the text, possibly with a colon. Remove that
