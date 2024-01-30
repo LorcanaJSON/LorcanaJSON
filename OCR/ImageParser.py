@@ -18,7 +18,7 @@ ImageAndText = namedtuple("ImageAndText", ("image", "text"))
 
 _logger = logging.getLogger("LorcanaJSON")
 _tesseractApi: tesserocr.PyTessBaseAPI = None
-_EFFECT_LABEL_MARGIN: int = 10
+_EFFECT_LABEL_MARGIN: int = 12
 
 def initialize(language: Language.Language, useLorcanaModel: bool = True, tesseractPath: str = None):
 	"""
