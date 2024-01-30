@@ -21,7 +21,7 @@ class ImageArea:
 
 
 # Coordinates are left, top, right, bottom. Based on image size of 1468 x 2048
-TYPE = ImageArea("type", "Card Type", _Coords(168, 1300, 1298, 1360), TEXT_COLOUR_MIDDLE)
+TYPE = ImageArea("type", "Card Type", _Coords(168, 1300, 1298, 1360), TEXT_COLOUR_WHITE)
 INK_COST = ImageArea("inkCost", "Ink Cost", _Coords(101, 116, 191, 197), TEXT_COLOUR_WHITE, True)
 CHARACTER_NAME = ImageArea("characterName", "Character Name", _Coords(69, 1111, 1026, 1213), TEXT_COLOUR_WHITE)
 # CARD_NAME = ImageArea("cardName", "Card Name", _Coords(0,0, 0,0), TEXT_COLOUR_WHITE)  # TODO FIXME Determine actual coordinates
