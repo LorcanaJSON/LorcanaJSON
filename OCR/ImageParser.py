@@ -1,4 +1,5 @@
 import logging, math, os, time
+import re
 from collections import namedtuple
 from typing import Dict, List, Union
 
@@ -13,6 +14,7 @@ EXERT_UNICODE = "⟳"  # Unicode \u27F3   HTML entities &#10227;  &#x27F3;
 INK_UNICODE = "⬡"  # Unicode \u2B21  HTML entities &#11041;  &#x2B21;
 LORE_UNICODE = "◊"  # Unicode \u25CA  HTML entities &#9674;  &#x25CA;  &loz;
 STRENGTH_UNICODE = "¤"  # Unicode \u00A4  HTML entities &#164;  &#xA4;  &curren;
+TYPE_SEPARATOR_UNICODE = "•"  # Unicode \u2022 HTML entities &#8226; &bull;
 
 ImageAndText = namedtuple("ImageAndText", ("image", "text"))
 
@@ -56,6 +58,9 @@ def getImageAndTextDataFromImage(pathToImage: str, hasCardText: bool = None, has
 	typesImageText = _imageToString(typesImage)
 	_logger.debug(f"Parsing types image finished at {time.perf_counter() - startTime} seconds in")
 	if typesImageText != "Action" and typesImageText != "Item":
+		# The type separator character is always the same, but often gets interpreted wrong; fix that
+		if " " in typesImageText:
+			typesImageText = re.sub(r" \S ", f" {TYPE_SEPARATOR_UNICODE} ", typesImageText)
 		result["subtypesText"] = ImageAndText(typesImage, typesImageText)
 		_logger.debug(f"{typesImageText=}")
 	else:
