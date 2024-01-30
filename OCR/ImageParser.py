@@ -51,7 +51,7 @@ def getImageAndTextDataFromImage(pathToImage: str, hasCardText: bool = None, has
 		raise ValueError(f"Card image '{pathToImage}' could not be loaded, possibly because it doesn't exist")
 
 	# First determine the card (sub)type
-	typesImage = cv2.cvtColor(_getSubImage(cardImage, ImageArea.TYPE), cv2.COLOR_BGR2RGB)
+	typesImage = cv2.cvtColor(_getSubImage(cardImage, ImageArea.TYPE), cv2.COLOR_BGR2GRAY)
 	typesImage = _convertToThresholdImage(typesImage, ImageArea.TYPE.textColour)
 	typesImageText = _imageToString(typesImage)
 	_logger.debug(f"Parsing types image finished at {time.perf_counter() - startTime} seconds in")
