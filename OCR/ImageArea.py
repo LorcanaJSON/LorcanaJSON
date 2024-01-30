@@ -4,7 +4,7 @@ import cv2
 
 
 TextColour = namedtuple("TextColour", ("name", "thresholdValue", "thresholdType"))
-TEXT_COLOUR_WHITE = TextColour("white", 200, cv2.THRESH_BINARY_INV)
+TEXT_COLOUR_WHITE = TextColour("white", 150, cv2.THRESH_BINARY_INV)
 TEXT_COLOUR_BLACK = TextColour("black", 50, cv2.THRESH_BINARY)
 TEXT_COLOUR_MIDDLE = TextColour("middle", 127, cv2.THRESH_BINARY)
 
