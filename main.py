@@ -1,4 +1,4 @@
-import argparse, json, logging, logging.handlers, os, re, sys
+import argparse, datetime, json, logging, logging.handlers, os, re, sys, time
 
 import DataFilesGenerator, Language, UpdateHandler
 from APIScraping import RavensburgerApiHandler
@@ -101,6 +101,7 @@ if __name__ == '__main__':
 				except ValueError:
 					logger.warning(f"Invalid value '{inputCardId}' in the '--cardIds' list, should be numeric, ignoring this value")
 
+	startTime = time.perf_counter()
 	if parsedArguments.action == "check":
 		addedCards, cardChanges = UpdateHandler.checkForNewCardData(language, fieldsToIgnore=parsedArguments.ignoreFields)
 		print(f"{len(addedCards):,} added cards: {addedCards}")
@@ -137,3 +138,5 @@ if __name__ == '__main__':
 	else:
 		print(f"Unknown action '{parsedArguments.action}', please (re)read the help")
 		sys.exit(-10)
+
+	print(f"Action '{parsedArguments.action}' finished after {time.perf_counter() - startTime:.2f} seconds at {datetime.datetime.utcnow()} UTC")
