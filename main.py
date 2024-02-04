@@ -139,4 +139,4 @@ if __name__ == '__main__':
 		print(f"Unknown action '{parsedArguments.action}', please (re)read the help")
 		sys.exit(-10)
 
-	print(f"Action '{parsedArguments.action}' finished after {time.perf_counter() - startTime:.2f} seconds at {datetime.datetime.utcnow()} UTC")
+	print(f"Action '{parsedArguments.action}' finished after {time.perf_counter() - startTime:.2f} seconds at {datetime.datetime.now()}")
