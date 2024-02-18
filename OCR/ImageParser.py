@@ -87,10 +87,9 @@ def getImageAndTextDataFromImage(pathToImage: str, hasCardText: bool = None, has
 		textBoxImageArea = ImageArea.CHARACTER_TEXT_BOX
 
 	# Greyscale images work better, so get one from just the textbox
-	croppedImage = _getSubImage(cardImage, textBoxImageArea)
-	imageWidth = croppedImage.shape[1]
-	imageHeight = croppedImage.shape[0]
-	greyscaleImage = cv2.cvtColor(croppedImage, cv2.COLOR_BGR2GRAY)
+	greyTextboxImage = _getSubImage(greyCardImage, textBoxImageArea)
+	textboxWidth = greyTextboxImage.shape[1]
+	textboxHeight = greyTextboxImage.shape[0]
 
 	# First get the effect label coordinates, so we know where we can find the flavor text separator
 	# Then get the flavor text separator and the flavor text itself
@@ -101,8 +100,8 @@ def getImageAndTextDataFromImage(pathToImage: str, hasCardText: bool = None, has
 	if hasCardText is not False:
 		isCurrentlyInLabel: bool = False
 		currentCoords = [0, 0, 0]
-		for y in range(5, imageHeight):
-			pixelValue = greyscaleImage[y, 0]
+		for y in range(5, textboxHeight):
+			pixelValue = greyTextboxImage[y, 0]
 			if isCurrentlyInLabel:
 				# Check if the pixel got lighter, indicating we left the label block
 				if pixelValue > 100:
@@ -113,10 +112,10 @@ def getImageAndTextDataFromImage(pathToImage: str, hasCardText: bool = None, has
 			elif pixelValue < 100:
 				isCurrentlyInLabel = True
 				currentCoords[0] = y
-				yToCheck = min(imageHeight - 1, y + 2)  # Check a few lines down to prevent weirdness with the edge of the label box
+				yToCheck = min(textboxHeight - 1, y + 2)  # Check a few lines down to prevent weirdness with the edge of the label box
 				# Find the width of the label
-				for x in range(imageWidth):
-					if greyscaleImage[yToCheck, x] > 125:
+				for x in range(textboxWidth):
+					if greyTextboxImage[yToCheck, x] > 125:
 						if x < 100:
 							_logger.debug(f"Skipping label at {currentCoords=} and {x=}, not wide enough to be a label")
 							currentCoords[0] = 0
@@ -133,19 +132,20 @@ def getImageAndTextDataFromImage(pathToImage: str, hasCardText: bool = None, has
 
 	# Find the line dividing the abilities from the flavor text, if needed
 	flavorTextImage = None
-	flavorTextStartY = imageHeight
+	flavorTextStartY = textboxHeight
 	flavorTextLineDetectionCroppedImage = None
-	edgeDetectedImage = None
-	greyscaleImageWithLines = None
+	flavorTextEdgeDetectedImage = None
+	flavorTextGreyscaleImageWithLines = None
 	if hasFlavorText is not False:
 		flavorTextImageTop = 0
-		flavorTextLineDetectionCroppedImage = greyscaleImage
+		flavorTextLineDetectionCroppedImage = greyTextboxImage
 		if labelCoords:
 			flavorTextImageTop = labelCoords[-1][1] + 5
-			flavorTextLineDetectionCroppedImage = greyscaleImage[flavorTextImageTop:imageHeight, 0:imageWidth]
-		edgeDetectedImage = cv2.Canny(flavorTextLineDetectionCroppedImage, 50, 200)
-		lines = cv2.HoughLinesP(edgeDetectedImage, 1, math.pi / 180, 150, minLineLength=100)
-		greyscaleImageWithLines = flavorTextLineDetectionCroppedImage.copy() if showImage else None
+			flavorTextLineDetectionCroppedImage = greyTextboxImage[flavorTextImageTop:textboxHeight, 0:textboxWidth]
+		flavorTextEdgeDetectedImage = cv2.Canny(flavorTextLineDetectionCroppedImage, 50, 200)
+		lines = cv2.HoughLinesP(flavorTextEdgeDetectedImage, 1, math.pi / 180, 150, minLineLength=100)
+		if showImage:
+			flavorTextGreyscaleImageWithLines = flavorTextLineDetectionCroppedImage.copy()
 		_logger.debug(f"Parsing flavor text images finished at {time.perf_counter() - startTime} seconds in")
 		if lines is None:
 			_logger.debug("No flavour text separator found")
@@ -160,16 +160,16 @@ def getImageAndTextDataFromImage(pathToImage: str, hasCardText: bool = None, has
 				_logger.debug(f"line length: {line[0][2] - line[0][0]}")
 				# Draw the lines for debug purposes
 				if showImage:
-					cv2.line(greyscaleImageWithLines, (line[0][0], line[0][1]), (line[0][2], line[0][3]), (0, 0, 255), 3, cv2.LINE_AA)
+					cv2.line(flavorTextGreyscaleImageWithLines, (line[0][0], line[0][1]), (line[0][2], line[0][3]), (0, 0, 255), 3, cv2.LINE_AA)
 				if line[0][1] > flavorTextStartY:
 					flavorTextStartY = line[0][1]
 			if flavorTextStartY == 0:
 				# No suitable line found, so probably no flavor text section
 				_logger.debug("No flavor text separator line found")
-				flavorTextStartY = imageHeight
+				flavorTextStartY = textboxHeight
 			else:
 				flavorTextStartY += flavorTextImageTop
-				flavorTextImage = _convertToThresholdImage(greyscaleImage[flavorTextStartY:imageHeight, 0:imageWidth], ImageArea.TEXT_COLOUR_BLACK)
+				flavorTextImage = _convertToThresholdImage(greyTextboxImage[flavorTextStartY:textboxHeight, 0:textboxWidth], ImageArea.TEXT_COLOUR_BLACK)
 				flavourText = _imageToString(flavorTextImage)
 				result["flavorText"] = ImageAndText(flavorTextImage, flavourText)
 				_logger.debug(f"{flavourText=}")
@@ -186,14 +186,14 @@ def getImageAndTextDataFromImage(pathToImage: str, hasCardText: bool = None, has
 		labelNumber = len(labelCoords)
 		for labelCoord in labelCoords:
 			# First get the label text itself. It's white on dark, so handle it the opposite way from the actual effect text
-			effectLabelImage = _convertToThresholdImage(greyscaleImage[labelCoord[0]:labelCoord[1], 0:labelCoord[2]], ImageArea.TEXT_COLOUR_WHITE)
+			effectLabelImage = _convertToThresholdImage(greyTextboxImage[labelCoord[0]:labelCoord[1], 0:labelCoord[2]], ImageArea.TEXT_COLOUR_WHITE)
 			effectLabelText = _imageToString(effectLabelImage)
 			result["effectLabels"].append(ImageAndText(effectLabelImage, effectLabelText))
 			# Then get the effect text
 			# Put a white rectangle over where the label was, because the thresholding sometimes leaves behind some pixels, which confuses Tesseract, leading to phantom letters
-			effectTextImage = greyscaleImage.copy()
+			effectTextImage = greyTextboxImage.copy()
 			cv2.rectangle(effectTextImage, (0, 0), (labelCoord[2] + _EFFECT_LABEL_MARGIN, labelCoord[1]), (255, 255, 255), thickness=-1)  # -1 thickness fills the rectangle
-			effectTextImage = _convertToThresholdImage(effectTextImage[labelCoord[0]:previousBlockTopY, 0:imageWidth], ImageArea.TEXT_COLOUR_BLACK)
+			effectTextImage = _convertToThresholdImage(effectTextImage[labelCoord[0]:previousBlockTopY, 0:textboxWidth], ImageArea.TEXT_COLOUR_BLACK)
 			effectText = _imageToString(effectTextImage)
 			result["effectTexts"].append(ImageAndText(effectTextImage, effectText))
 			_logger.debug(f"{effectLabelText=} ({labelCoord[1] - labelCoord[0]} px high), {effectText=}")
@@ -207,7 +207,7 @@ def getImageAndTextDataFromImage(pathToImage: str, hasCardText: bool = None, has
 
 		# There might be text above the label coordinates too (abilities text), especially if there aren't any labels. Get that text as well
 		if previousBlockTopY > 35:
-			remainingTextImage = _convertToThresholdImage(greyscaleImage[0:previousBlockTopY, 0:imageWidth], ImageArea.TEXT_COLOUR_BLACK)
+			remainingTextImage = _convertToThresholdImage(greyTextboxImage[0:previousBlockTopY, 0:textboxWidth], ImageArea.TEXT_COLOUR_BLACK)
 			remainingText = _imageToString(remainingTextImage)
 			if remainingText:
 				result["remainingText"] = ImageAndText(remainingTextImage, remainingText)
@@ -222,11 +222,11 @@ def getImageAndTextDataFromImage(pathToImage: str, hasCardText: bool = None, has
 	if showImage:
 		cv2.imshow("Card Image", cardImage)
 		cv2.imshow("Types greyscale", typesImage)
-		cv2.imshow("Textbox crop greyscale", greyscaleImage)
-		if edgeDetectedImage is not None:
-			cv2.imshow("Edge detected greyscale image", edgeDetectedImage)
-		if greyscaleImageWithLines is not None:
-			cv2.imshow("Greyscale with lines drawn on top", greyscaleImageWithLines)
+		cv2.imshow("Textbox crop greyscale", greyTextboxImage)
+		if flavorTextEdgeDetectedImage is not None:
+			cv2.imshow("Flavortext edge detected greyscale image", flavorTextEdgeDetectedImage)
+		if flavorTextGreyscaleImageWithLines is not None:
+			cv2.imshow("Greyscale with lines drawn on top", flavorTextGreyscaleImageWithLines)
 		if flavorTextLineDetectionCroppedImage is not None:
 			cv2.imshow("Flavor Text Cropped Image From Effect Labels", flavorTextLineDetectionCroppedImage)
 		if flavorTextImage is not None:
