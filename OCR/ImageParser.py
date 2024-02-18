@@ -48,10 +48,11 @@ def getImageAndTextDataFromImage(pathToImage: str, hasCardText: bool = None, has
 	cardImage: cv2.Mat = cv2.imread(pathToImage)
 	if cardImage is None:
 		raise ValueError(f"Card image '{pathToImage}' could not be loaded, possibly because it doesn't exist")
+	greyCardImage: cv2.Mat = cv2.cvtColor(cardImage, cv2.COLOR_BGR2GRAY)
 	_logger.debug(f"Reading {pathToImage=} finished at {time.perf_counter() - startTime} seconds in")
 
 	# First determine the card (sub)type
-	typesImage = cv2.cvtColor(_getSubImage(cardImage, ImageArea.TYPE), cv2.COLOR_BGR2GRAY)
+	typesImage = _getSubImage(greyCardImage, ImageArea.TYPE)
 	typesImage = _convertToThresholdImage(typesImage, ImageArea.TYPE.textColour)
 	typesImageText = _imageToString(typesImage)
 	_logger.debug(f"Parsing types image finished at {time.perf_counter() - startTime} seconds in")
@@ -221,6 +222,7 @@ def getImageAndTextDataFromImage(pathToImage: str, hasCardText: bool = None, has
 	_logger.debug(f"Parsing image took {time.perf_counter() - startTime} seconds")
 	if showImage:
 		cv2.imshow("Card Image", cardImage)
+		cv2.imshow("Greyscale card image", greyCardImage)
 		cv2.imshow("Types greyscale", typesImage)
 		cv2.imshow("Textbox crop greyscale", greyTextboxImage)
 		if flavorTextEdgeDetectedImage is not None:
