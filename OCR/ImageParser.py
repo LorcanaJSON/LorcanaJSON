@@ -38,7 +38,7 @@ def initialize(language: Language.Language, useLorcanaModel: bool = True, tesser
 
 def getImageAndTextDataFromImage(pathToImage: str, hasCardText: bool = None, hasFlavorText: bool = None, isEnchanted: bool = None, showImage: bool = False) -> Dict[str, Union[None, ImageAndText, List[ImageAndText]]]:
 	startTime = time.perf_counter()
-	result = {
+	result: Dict[str, Union[None, ImageAndText, List[ImageAndText]]] = {
 		"flavorText": None,
 		"effectLabels": [],
 		"effectTexts": [],
