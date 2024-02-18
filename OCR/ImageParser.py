@@ -46,11 +46,9 @@ def getImageAndTextDataFromImage(pathToImage: str, hasCardText: bool = None, has
 		"subtypesText": []
 	}
 	cardImage: cv2.Mat = cv2.imread(pathToImage)
-	_logger.debug(f"Reading finished at {time.perf_counter() - startTime} seconds in")
-	imageBaseName = os.path.basename(pathToImage)
-	_logger.debug(f"Parsing {pathToImage=}; {imageBaseName=}")
 	if cardImage is None:
 		raise ValueError(f"Card image '{pathToImage}' could not be loaded, possibly because it doesn't exist")
+	_logger.debug(f"Reading {pathToImage=} finished at {time.perf_counter() - startTime} seconds in")
 
 	# First determine the card (sub)type
 	typesImage = cv2.cvtColor(_getSubImage(cardImage, ImageArea.TYPE), cv2.COLOR_BGR2GRAY)
