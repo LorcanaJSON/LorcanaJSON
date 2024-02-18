@@ -59,7 +59,7 @@ def getImageAndTextDataFromImage(pathToImage: str, hasCardText: bool = None, has
 	if typesImageText != "Action" and typesImageText != "Item":
 		# The type separator character is always the same, but often gets interpreted wrong; fix that
 		if " " in typesImageText:
-			typesImageText = re.sub(r" \S ", f" {TYPE_SEPARATOR_UNICODE} ", typesImageText)
+			typesImageText = re.sub(r" (\S )?", f" {TYPE_SEPARATOR_UNICODE} ", typesImageText)
 		result["subtypesText"] = ImageAndText(typesImage, typesImageText)
 		_logger.debug(f"{typesImageText=}")
 	else:
