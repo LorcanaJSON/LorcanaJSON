@@ -142,6 +142,7 @@ if __name__ == '__main__':
 						print(f"{fieldName} index {fieldResultIndex}: {fieldResultItem.text}")
 				else:
 					print(f"{fieldName}: {fieldResult.text}")
+			print("")
 	else:
 		print(f"Unknown action '{parsedArguments.action}', please (re)read the help")
 		sys.exit(-10)
