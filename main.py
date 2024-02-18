@@ -134,7 +134,14 @@ if __name__ == '__main__':
 				sys.exit(-4)
 			parsedImageAndTextData = ImageParser.getImageAndTextDataFromImage(cardPath, showImage=True)
 			print(f"Card ID {cardId}:")
-			print(parsedImageAndTextData)
+			for fieldName, fieldResult in parsedImageAndTextData.items():
+				if fieldResult is None:
+					print(f"{fieldName} is empty")
+				elif isinstance(fieldResult, list):
+					for fieldResultIndex, fieldResultItem in enumerate(fieldResult):
+						print(f"{fieldName} index {fieldResultIndex}: {fieldResultItem.text}")
+				else:
+					print(f"{fieldName}: {fieldResult.text}")
 	else:
 		print(f"Unknown action '{parsedArguments.action}', please (re)read the help")
 		sys.exit(-10)
