@@ -23,9 +23,9 @@ class ImageArea:
 # Coordinates are left, top, right, bottom. Based on image size of 1468 x 2048
 TYPE = ImageArea("type", "Card Type", _Coords(168, 1300, 1298, 1360), TEXT_COLOUR_WHITE)
 INK_COST = ImageArea("inkCost", "Ink Cost", _Coords(101, 116, 191, 197), TEXT_COLOUR_WHITE, True)
-CHARACTER_NAME = ImageArea("characterName", "Character Name", _Coords(69, 1111, 1026, 1213), TEXT_COLOUR_WHITE)
+CHARACTER_NAME = ImageArea("characterName", "Character Name", _Coords(60, 1111, 1026, 1213), TEXT_COLOUR_WHITE)
 CARD_NAME = ImageArea("cardName", "Card Name", _Coords(88, 1124, 1393, 1245), TEXT_COLOUR_WHITE)
-CHARACTER_SUBTITLE = ImageArea("characterSubtitle", "Character Subtitle", _Coords(69, 1213, 1026, 1287), TEXT_COLOUR_WHITE)
+CHARACTER_SUBTITLE = ImageArea("characterSubtitle", "Character Subtitle", _Coords(60, 1213, 1026, 1287), TEXT_COLOUR_WHITE)
 STRENGTH = ImageArea("strength", "Strength", _Coords(1099, 1146, 1188, 1244), TEXT_COLOUR_BLACK, True)
 WILLPOWER = ImageArea("willpower", "Willpower", _Coords(1273, 1146, 1362, 1244), TEXT_COLOUR_WHITE, True)
 CHARACTER_TEXT_BOX = ImageArea("textbox", "Character Text Box", _Coords(66,1378,  1311,1901), TEXT_COLOUR_MIDDLE)
