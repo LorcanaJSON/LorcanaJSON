@@ -3,6 +3,10 @@ from collections import namedtuple
 import cv2
 
 
+# The image areas defined below are based on images of a set size, since that's the size they are in the official app
+IMAGE_WIDTH = 1468
+IMAGE_HEIGHT = 2048
+
 TextColour = namedtuple("TextColour", ("name", "thresholdValue", "thresholdType"))
 TEXT_COLOUR_WHITE = TextColour("white", 150, cv2.THRESH_BINARY_INV)
 TEXT_COLOUR_BLACK = TextColour("black", 50, cv2.THRESH_BINARY)
