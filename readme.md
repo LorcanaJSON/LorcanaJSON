@@ -45,3 +45,16 @@ Because OCR isn't perfect, a manual check of the resulting datafiles is still ne
 The page should then show a card name, a card image, the card's parsed text, and the parsed data. This allows for easy comparison. Use the left and right arrows keys or the entry fields at the top to navigate through the cards.  
 If you find a mistake, you can add a correction to the 'outputDataCorrections_en.json' file in the 'output'-folder. Keys here are a card ID (due to a JSON limitation these have to be strings instead of numbers). For each card ID, a dictionary with corrections is specified. The key is the name of the field to correct, and the value is a list with two entries: The first entry is the regular expression to match the error, the second entry is the correction.  
 Once one or more corrections are added, you can rerun the pogram with just the corrected card IDs, and repeat this verification process, until there are no mistakes anymore.  
+
+## External early reveals
+In the weeks before a new set is released, new cards from that set get teased, and it can sometimes take a while before they get added to the official app.  
+The 'externalCardReveals.[language].json' file can contain a list of those externally revealed cards, with identical keys to the official card data.  
+Not all those keys are mandatory, since most information can be extracted from the image. Some fields can't or it's hard to do accurate, so they have to get put in the external reveal file. These fields are:
+* **imageUrl**: This should be the URL of the externally revealed image
+* **culture_invariant_id**: The ID of the card as a number
+* **magic_ink_color**: The card color as a string
+* **ink_convertible**: Whether the card is inkable, as a boolean
+* **rarity**: The card's rarity as a string
+* **type**: The card type. This is used in determining how to parse some cards, so it's needed before parsing begins  
+
+Other fields can be added to the JSON entry too, and as long as they have the same name as the field in the official app data, it will get used instead of what's parsed from the image

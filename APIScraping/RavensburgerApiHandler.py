@@ -106,6 +106,19 @@ def downloadImages(language: Language.Language, shouldOverwriteImages: bool = Fa
 						imagesDownloaded += 1
 						time.sleep(3 * random.random())
 					break
+	# Download the external images too
+	with open(f"externalCardReveals.{language.code}.json", "r", encoding="utf-8") as externalCardRevealsFile:
+		externalCardReveals = json.load(externalCardRevealsFile)
+	if externalCardReveals:
+		externalSavePath = os.path.join("downloads", "images", language.code, "external")
+		os.makedirs(externalSavePath, exist_ok=True)
+		for externalCardReveal in externalCardReveals:
+			imagesFound += 1
+			imageExtension = externalCardReveal["imageUrl"].rsplit(".", 1)[1]
+			imageSavePath = os.path.join(externalSavePath, f"{externalCardReveal['culture_invariant_id']}.{imageExtension}")
+			wasImageDownloaded = downloadImage(externalCardReveal["imageUrl"], imageSavePath, shouldOverwriteImages)
+			if wasImageDownloaded:
+				imagesDownloaded += 1
 	_logger.info(f"Downloading {imagesDownloaded} of {imagesFound} {language.englishName} card images took {time.perf_counter() - startTime} seconds")
 
 def downloadAllImages(shouldOverwriteImages: bool = False, pathToCardCatalog: str = None):

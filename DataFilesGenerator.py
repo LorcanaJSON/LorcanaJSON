@@ -236,11 +236,25 @@ def createOutputFiles(language: Language.Language, onlyParseIds: Union[None, Lis
 				_logger.error(f"Card ID {cardId} is not in the ID parse list, but it's also not in the previous dataset. Skipping parsing for now, but this results in incomplete datafiles, so it's strongly recommended to rerun with this card ID included")
 				continue
 			try:
-				outputCard = _parseSingleCard(inputCard, cardTypeText, imageFolder, enchantedNonEnchantedIds, cardDataCorrections, shouldShowImage=shouldShowImages)
+				outputCard = _parseSingleCard(inputCard, cardTypeText, imageFolder, enchantedNonEnchantedIds, cardDataCorrections, False, shouldShowImage=shouldShowImages)
 				fullCardList.append(outputCard)
+				cardIdsStored.append(outputCard["id"])
 			except Exception as e:
 				_logger.error(f"Exception {type(e)} occured while parsing card ID {inputCard['culture_invariant_id']}")
 				raise e
+
+	# Load in the external card reveals, which are cards revealed elsewhere but which aren't added to the official app yet
+	with open(f"externalCardReveals.{language.code}.json", "r", encoding="utf-8") as externalCardRevealsFile:
+		externalCardReveals = json.load(externalCardRevealsFile)
+	imageFolder = os.path.join(imageFolder, "external")
+	for externalCard in externalCardReveals:
+		cardId = externalCard["culture_invariant_id"]
+		if cardId in cardIdsStored:
+			_logger.debug(f"Card ID {cardId} is defined in the official file and in the external file, skipping the external data")
+			continue
+		outputCard = _parseSingleCard(externalCard, externalCard["type"], imageFolder, enchantedNonEnchantedIds, cardDataCorrections, True, shouldShowImage=shouldShowImages)
+		fullCardList.append(outputCard)
+
 	if cardDataCorrections:
 		# Some card corrections are left, which shouldn't happen
 		_logger.warning(f"{len(cardDataCorrections):,} card corrections left, which shouldn't happen: {cardDataCorrections}")
@@ -294,50 +308,78 @@ def createOutputFiles(language: Language.Language, onlyParseIds: Union[None, Lis
 
 	_logger.info(f"Creating the output files took {time.perf_counter() - startTime:.4f} seconds")
 
-def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchantedNonEnchantedIds: Dict, cardDataCorrections: Dict, shouldShowImage: bool = False) -> Dict:
+def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchantedNonEnchantedIds: Dict, cardDataCorrections: Dict, isExternalReveal: bool, shouldShowImage: bool = False) -> Dict:
+	# Store some default values
 	outputCard: Dict[str, Union[str, int, List, Dict]] = {
-		"artist": inputCard["author"].strip(),
-		"baseName": inputCard["name"].strip().replace("’", "'"),
 		"color": inputCard["magic_ink_color"].title(),
-		"cost": inputCard["ink_cost"],
 		"id": inputCard["culture_invariant_id"],
 		"inkwell": inputCard["ink_convertible"],
-		"number": int(re.search(r"(\d+)/\d+", inputCard["card_identifier"]).group(1), 10),
 		"rarity": inputCard["rarity"].title(),
-		"setNumber": inputCard["expansion_number"],
-		"type": cardType,
+		"type": cardType
 	}
-	# Set 'fullName' separately so it uses the corrected baseName
+	if isExternalReveal:
+		outputCard["isExternalReveal"] = True
+
+	# Get required data by parsing the card image
+	imagePath = os.path.join(imageFolder, f"{outputCard['id']}.jpg")
+	if not os.path.isfile(imagePath):
+		imagePath = os.path.join(imageFolder, f"{outputCard['id']}.png")
+	if not os.path.isfile(imagePath):
+		raise ValueError(f"Unable to find image for card ID {outputCard['id']}")
+	parsedImageAndTextData = ImageParser.getImageAndTextDataFromImage(imagePath,
+																	  parseFully=isExternalReveal,
+																	  hasCardText=inputCard["rules_text"] != "" if "rules_text" in inputCard else None,
+																	  hasFlavorText=inputCard["flavor_text"] != "" if "flavor_text" in inputCard else None,
+																	  isEnchanted=outputCard["rarity"] == "Enchanted",
+																	  showImage=shouldShowImage)
+	if "number" in inputCard:
+		outputCard["number"] = inputCard["number"]
+	elif "card_identifier" in inputCard:
+		outputCard["number"] = int(re.search(r"^(\d+)/\d+", inputCard["card_identifier"]).group(1), 10)
+	if "expansion_number" in inputCard:
+		outputCard["setNumber"] = inputCard["expansion_number"]
+	if "number" not in outputCard and parsedImageAndTextData.get("identifier", None) is not None:
+		# Get the set and card numbers from the parsed identifier
+		cardIdentifierMatch = re.match(r"^(\d+)/\d+ .+ (\d+)$", parsedImageAndTextData["identifier"].text)
+		if not cardIdentifierMatch:
+			raise ValueError(f"Unable to parse card and set numbers from card identifier '{parsedImageAndTextData['identifier'].text}")
+		outputCard["number"] = int(cardIdentifierMatch.group(1), 10)
+		if "setNumber" not in outputCard:
+			outputCard["setNumber"] = int(cardIdentifierMatch.group(2), 10)
+
+	outputCard["artist"] = inputCard["author"].strip() if "author" in inputCard else parsedImageAndTextData["artist"].text
+	outputCard["baseName"] = inputCard["name"].strip().replace("’", "'") if "name" in inputCard else parsedImageAndTextData["baseName"].text.title()
 	outputCard["fullName"] = outputCard["baseName"]
 	outputCard["simpleName"] = outputCard["fullName"]
-	if "subtitle" in inputCard:
-		outputCard["subtitle"] = inputCard["subtitle"].strip().replace("’", "'")
+	if "subtitle" in inputCard or parsedImageAndTextData.get("subtitle", None) is not None:
+		outputCard["subtitle"] = inputCard["subtitle"].strip().replace("’", "'") if "subtitle" in inputCard else parsedImageAndTextData["subtitle"].text
 		outputCard["fullName"] += " - " + outputCard["subtitle"]
 		outputCard["simpleName"] += " " + outputCard["subtitle"]
 	# simpleName is the full name with special characters and the base-subtitle dash removed, for easier lookup. So remove the special characters
 	outputCard["simpleName"] = re.sub(r"[!.?]", "", outputCard["simpleName"].lower()).replace("ā", "a")
 	_logger.debug(f"Current card name is '{outputCard['fullName']}, ID {outputCard['id']}")
+
+	outputCard["cost"] = inputCard["ink_cost"] if "ink_cost" in inputCard else int(parsedImageAndTextData["cost"].text, 10)
 	if "quest_value" in inputCard:
 		outputCard["lore"] = inputCard["quest_value"]
-	if "strength" in inputCard:
-		outputCard["strength"] = inputCard["strength"]
-	if "willpower" in inputCard:
-		outputCard["willpower"] = inputCard["willpower"]
+	for fieldName in("strength", "willpower"):
+		if fieldName in inputCard:
+			outputCard[fieldName] = inputCard[fieldName]
+		elif parsedImageAndTextData.get(fieldName, None) is not None:
+			outputCard[fieldName] = parsedImageAndTextData[fieldName].text
 	# Image URLs end with a checksum parameter, we don't need that
-	outputCard["images"] = {
-		"full": _cleanUrl(inputCard["image_urls"][0]["url"]),
-		"thumbnail": _cleanUrl(inputCard["image_urls"][1]["url"]),
-		"foilMask": _cleanUrl(inputCard["foil_mask_url"])
-	}
+	if "image_urls" in inputCard:
+		outputCard["images"] = {
+			"full": _cleanUrl(inputCard["image_urls"][0]["url"]),
+			"thumbnail": _cleanUrl(inputCard["image_urls"][1]["url"]),
+			"foilMask": _cleanUrl(inputCard["foil_mask_url"])
+		}
+	else:
+		outputCard["images"] = {"full": inputCard["imageUrl"]}
 	# If the card is Enchanted or has an Enchanted equivalent, store that
 	if outputCard["id"] in enchantedNonEnchantedIds:
 		outputCard["nonEnchantedId" if outputCard["rarity"] == "Enchanted" else "enchantedId"] = enchantedNonEnchantedIds[outputCard["id"]]
 	# Store the different parts of the card text, correcting some values if needed
-	parsedImageAndTextData = ImageParser.getImageAndTextDataFromImage(os.path.join(imageFolder, f"{outputCard['id']}.jpg"),
-																	  hasCardText=inputCard["rules_text"] != "",
-																	  hasFlavorText=inputCard["flavor_text"] != "",
-																	  isEnchanted=outputCard["rarity"] == "Enchanted",
-																	  showImage=shouldShowImage)
 	if parsedImageAndTextData["flavorText"] is not None:
 		flavorText = correctText(parsedImageAndTextData["flavorText"].text)
 		if flavorText.count(".") > 2:
@@ -393,18 +435,17 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 		if clarifications:
 			outputCard["clarifications"] = clarifications
 	# Determine subtypes and their order. Items and Actions have an empty subtypes list, ignore those
-	if inputCard.get("subtypes", None) and parsedImageAndTextData["subtypesText"]:
-		_logger.debug(f"({_createCardIdentifier(outputCard)}) {inputCard['subtypes']=}, {parsedImageAndTextData['subtypesText'].text=}")
-		subtypesText = parsedImageAndTextData["subtypesText"].text
-		subtypeNameToIndex = {}
-		for subtype in inputCard["subtypes"]:
-			matchIndex = subtypesText.find(subtype)
-			if matchIndex == -1:
-				_logger.warning(f"Couldn't find subtype '{subtype}' in parsed subtype string '{subtypesText}'")
-			else:
-				subtypeNameToIndex[subtype] = matchIndex
-		outputCard["subtypes"]: List[str] = inputCard["subtypes"]
-		outputCard["subtypes"].sort(key=lambda subtypeKey: subtypeNameToIndex[subtypeKey])
+	if parsedImageAndTextData["subtypesText"] and parsedImageAndTextData["subtypesText"].text:
+		subtypes: List[str] = parsedImageAndTextData["subtypesText"].text.split(f" {ImageParser.TYPE_SEPARATOR_UNICODE} ")
+		# Non-character cards have their main type as their (first) subtype, remove those
+		if subtypes[0] == "Action" or subtypes[0] == "Item":
+			subtypes.pop(0)
+		# 'Seven Dwarves' is a subtype, but it might get split up into two types. Turn it back into one subtype
+		if "Seven" in subtypes and "Dwarfs" in subtypes:
+			subtypes.remove("Dwarfs")
+			subtypes[subtypes.index("Seven")] = "Seven Dwarfs"
+		if subtypes:
+			outputCard["subtypes"] = subtypes
 	# Card-specific corrections
 	#  Since the fullText gets created as the last step, if there is a correction for it, save it for later
 	fullTextCorrection = None
@@ -426,21 +467,13 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 	# For now assume that only Characters can have abilities, since they started adding f.i.
 	#  the 'Support' ability to actions that temporarily grant Support to another character,
 	#  which breaks the regex, and doesn't make too much sense, since the action itself doesn't have Support
-	if outputCard["type"] == "Character" and inputCard.get("abilities", None) and "abilities" in outputCard:
+	if outputCard["type"] == "Character" and "abilities" in outputCard:
 		outputCard["keywordAbilities"] = []
-		_logger.debug(f"{inputCard['abilities']=}, {outputCard['abilities']=}")
-		for ability in inputCard["abilities"]:
-			# Find the ability name at the start of a sentence, optionally followed by a number, and then followed by the opening bracket of the reminder text
-			for abilityLine in outputCard["abilities"]:
-				abilityMatch = re.search(fr"(^|\n){ability}( \+?\d)?(?= \()", abilityLine)
-				if abilityMatch:
-					break
-			else:
-				abilityText = "\n".join(outputCard["abilities"])
-				raise ValueError(f"Unable to match ability '{ability}' in ability text {abilityText!r} for card {_createCardIdentifier(outputCard)}")
-			outputCard["keywordAbilities"].append(abilityMatch.group(0).lstrip())
-		# Sort the abilities by card order
-		outputCard["keywordAbilities"].sort(key=lambda ability: inputCard["rules_text"].index(ability))
+		# Find the ability name at the start of a sentence, optionally followed by a number, and then followed by the opening bracket of the reminder text
+		for abilityLine in outputCard["abilities"]:
+			abilityMatch = re.search(fr"(^|\n)(\S+)( \+?\d)?(?= \()", abilityLine)
+			if abilityMatch:
+				outputCard["keywordAbilities"].append(abilityMatch.group(0).lstrip())
 	# Reconstruct the full card text. Do that after storing the parts, so any corrections will be taken into account
 	# Remove the newlines in the fields we use while we're at it, because we only needed those to reconstruct the fullText
 	# TODO Some cards (Madam Mim - Fox, ID 262) have the abilities after the effect, think of a more elegant solution than the current regex hack in the corrections file

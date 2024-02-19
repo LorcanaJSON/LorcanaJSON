@@ -130,10 +130,12 @@ if __name__ == '__main__':
 		for cardId in cardIds:
 			cardPath = os.path.join(baseImagePath, f"{cardId}.jpg")
 			if not os.path.isfile(cardPath):
+				cardPath = os.path.join(baseImagePath, "external", f"{cardId}.png")
+			if not os.path.isfile(cardPath):
 				print(f"ERROR: Unable to find local image for card ID {cardId}. Please run the 'download' command first, and make sure you didn't make a typo in the ID")
 				sys.exit(-4)
-			parsedImageAndTextData = ImageParser.getImageAndTextDataFromImage(cardPath, showImage=True)
-			print(f"Card ID {cardId}:")
+			parsedImageAndTextData = ImageParser.getImageAndTextDataFromImage(cardPath, True, showImage=True)
+			print(f"Card ID {cardId}")
 			for fieldName, fieldResult in parsedImageAndTextData.items():
 				if fieldResult is None:
 					print(f"{fieldName} is empty")

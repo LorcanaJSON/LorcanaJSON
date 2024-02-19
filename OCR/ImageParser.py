@@ -36,7 +36,7 @@ def initialize(language: Language.Language, useLorcanaModel: bool = True, tesser
 	global _tesseractApi
 	_tesseractApi = tesserocr.PyTessBaseAPI(lang=modelName, path=tesseractPath, psm=tesserocr.PSM.SINGLE_BLOCK)
 
-def getImageAndTextDataFromImage(pathToImage: str, hasCardText: bool = None, hasFlavorText: bool = None, isEnchanted: bool = None, showImage: bool = False) -> Dict[str, Union[None, ImageAndText, List[ImageAndText]]]:
+def getImageAndTextDataFromImage(pathToImage: str, parseFully: bool, hasCardText: bool = None, hasFlavorText: bool = None, isEnchanted: bool = None, showImage: bool = False) -> Dict[str, Union[None, ImageAndText, List[ImageAndText]]]:
 	startTime = time.perf_counter()
 	result: Dict[str, Union[None, ImageAndText, List[ImageAndText]]] = {
 		"flavorText": None,
@@ -45,9 +45,35 @@ def getImageAndTextDataFromImage(pathToImage: str, hasCardText: bool = None, has
 		"remainingText": None,
 		"subtypesText": []
 	}
+	if parseFully:
+		result.update({
+			"artist": None,
+			"baseName": None,
+			"cost": None,
+			"identifier": None,
+			"strength": None,
+			"subtitle": None,
+			"willpower": None
+		})
 	cardImage: cv2.Mat = cv2.imread(pathToImage)
 	if cardImage is None:
 		raise ValueError(f"Card image '{pathToImage}' could not be loaded, possibly because it doesn't exist")
+	cardImageHeight = cardImage.shape[0]
+	cardImageWidth = cardImage.shape[1]
+	if cardImageHeight != ImageArea.IMAGE_HEIGHT or cardImageWidth != ImageArea.IMAGE_WIDTH:
+		# The image isn't the expected size
+		# If it's a small difference, assume it's just some small extra black borders and remove those
+		heightDifference = cardImageHeight - ImageArea.IMAGE_HEIGHT
+		widthDifference = cardImageWidth - ImageArea.IMAGE_WIDTH
+		if 30 < heightDifference < 35 and 17 < widthDifference < 23:
+			halfHeightDifference = heightDifference // 2
+			halfWidthDifference = widthDifference // 2
+			_logger.debug(f"Image is a bit too large, assuming there are extra black borders, removing {halfHeightDifference} height on both sides and {halfWidthDifference} width")
+			cardImage = cardImage[halfHeightDifference: cardImageHeight - halfHeightDifference, halfWidthDifference: cardImageWidth - halfWidthDifference]
+		else:
+			# Otherwise, resize it so it matches our image areas
+			_logger.debug(f"Image is {cardImage.shape}, while it should be {ImageArea.IMAGE_HEIGHT} by {ImageArea.IMAGE_WIDTH}, resizing")
+			cardImage = cv2.resize(cardImage, (ImageArea.IMAGE_WIDTH, ImageArea.IMAGE_HEIGHT), interpolation=cv2.INTER_AREA)
 	greyCardImage: cv2.Mat = cv2.cvtColor(cardImage, cv2.COLOR_BGR2GRAY)
 	_logger.debug(f"Reading {pathToImage=} finished at {time.perf_counter() - startTime} seconds in")
 
@@ -62,7 +88,9 @@ def getImageAndTextDataFromImage(pathToImage: str, hasCardText: bool = None, has
 			typesImageText = re.sub(r" (\S )?", f" {TYPE_SEPARATOR_UNICODE} ", typesImageText)
 		result["subtypesText"] = ImageAndText(typesImage, typesImageText)
 		_logger.debug(f"{typesImageText=}")
+		isCharacter = not typesImageText.startswith("Action") and not typesImageText.startswith("Item")
 	else:
+		isCharacter = False
 		_logger.debug(f"Subtype is main type ({typesImageText=}, so not storing as subtypes")
 
 	if isEnchanted is None:
@@ -79,6 +107,17 @@ def getImageAndTextDataFromImage(pathToImage: str, hasCardText: bool = None, has
 		if isEnchanted is None:
 			isEnchanted = False
 		del borderSubImage
+
+	if parseFully:
+		# Parse from top to bottom
+		result["cost"] = _getSubImageAndText(greyCardImage, ImageArea.INK_COST)
+		result["baseName"] = _getSubImageAndText(greyCardImage, ImageArea.CHARACTER_NAME if isCharacter else ImageArea.CARD_NAME)
+		if isCharacter:
+			result["subtitle"] = _getSubImageAndText(greyCardImage, ImageArea.CHARACTER_SUBTITLE)
+			result["strength"] = _getSubImageAndText(greyCardImage, ImageArea.STRENGTH)
+			result["willpower"] = _getSubImageAndText(greyCardImage, ImageArea.WILLPOWER)
+		result["artist"] = _getSubImageAndText(greyCardImage, ImageArea.ARTIST)
+		result["identifier"] = _getSubImageAndText(greyCardImage, ImageArea.CARD_IDENTIFIER)
 
 	# Determine the textbox area, which is different between characters and non-characters, and between enchanted and non-enchanted characters
 	textBoxImageArea = ImageArea.FULL_WIDTH_TEXT_BOX
@@ -239,6 +278,12 @@ def getImageAndTextDataFromImage(pathToImage: str, hasCardText: bool = None, has
 			cv2.imshow("Effect text image", effectTextImage)
 		if remainingTextImage is not None:
 			cv2.imshow("Remaining text image", remainingTextImage)
+		if parseFully:
+			cv2.imshow("Artist", result["artist"].image)
+			cv2.imshow("Ink Cost", result["cost"].image)
+			cv2.imshow("Card Name", result["baseName"].image)
+			if isCharacter:
+				cv2.imshow("Card Subtitle", result["subtitle"].image)
 		cv2.waitKey(0)
 		cv2.destroyAllWindows()
 	# Done!
@@ -254,7 +299,16 @@ def _convertToThresholdImage(greyscaleImage, textColour: ImageArea.TextColour):
 def _cv2ImageToPillowImage(cv2Image) -> Image.Image:
 	return Image.fromarray(cv2.cvtColor(cv2Image, cv2.COLOR_BGR2RGB))
 
-def _imageToString(image: cv2.Mat) -> str:
+def _imageToString(image: cv2.Mat, isNumeric: bool = False) -> str:
+	_tesseractApi.SetVariable("tessedit_char_whitelist", "0123456789" if isNumeric else "")
 	# TesserOCR uses Pillow-format images, so convert our CV2-format image
 	_tesseractApi.SetImage(_cv2ImageToPillowImage(image))
 	return _tesseractApi.GetUTF8Text().rstrip("\n")
+
+def _getSubImageAndText(cardImage: cv2.Mat, imageArea: ImageArea) -> ImageAndText:
+	subImage = _getSubImage(cardImage, imageArea)
+	# Numeric reading is more sensitive, so convert to a clearer threshold image
+	if imageArea.isNumeric:
+		subImage = _convertToThresholdImage(subImage, imageArea.textColour)
+	return ImageAndText(subImage, _imageToString(subImage, imageArea.isNumeric))
+
