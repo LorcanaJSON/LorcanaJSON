@@ -262,7 +262,7 @@ def getImageAndTextDataFromImage(pathToImage: str, parseFully: bool, hasCardText
 	if showImage:
 		cv2.imshow("Card Image", cardImage)
 		cv2.imshow("Greyscale card image", greyCardImage)
-		cv2.imshow("Types greyscale", typesImage)
+		cv2.imshow("Types threshold image", typesImage)
 		cv2.imshow("Textbox crop greyscale", greyTextboxImage)
 		if flavorTextEdgeDetectedImage is not None:
 			cv2.imshow("Flavortext edge detected greyscale image", flavorTextEdgeDetectedImage)
