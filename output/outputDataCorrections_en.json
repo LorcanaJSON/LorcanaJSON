@@ -360,12 +360,6 @@
         "Rush (This character can challenge the turn\nthey're played.)"
       ]
     ],
-    "keywordAbilities": [
-      "",
-      [
-        "Rush"
-      ]
-    ],
     "fullText": [
       "(^.+\\.\\))\n(CHASING.+$)",
       "\\2\n\\1"
