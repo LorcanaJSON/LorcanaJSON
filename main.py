@@ -70,7 +70,8 @@ if __name__ == '__main__':
 		tesseractPath = config["tesseractPath"]
 
 	language = Language.getLanguageByCode(parsedArguments.language)
-	ImageParser.initialize(language, True, tesseractPath)
+	if parsedArguments.action in ("update", "parse", "show"):
+		ImageParser.initialize(language, True, tesseractPath)
 
 	cardIds = None
 	if parsedArguments.cardIds:
