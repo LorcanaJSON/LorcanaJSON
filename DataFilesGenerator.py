@@ -244,8 +244,11 @@ def createOutputFiles(language: Language.Language, onlyParseIds: Union[None, Lis
 				raise e
 
 	# Load in the external card reveals, which are cards revealed elsewhere but which aren't added to the official app yet
-	with open(f"externalCardReveals.{language.code}.json", "r", encoding="utf-8") as externalCardRevealsFile:
-		externalCardReveals = json.load(externalCardRevealsFile)
+	externalCardReveals = []
+	externalCardRevealsFileName = f"externalCardReveals.{language.code}.json"
+	if os.path.isfile(externalCardRevealsFileName):
+		with open(externalCardRevealsFileName, "r", encoding="utf-8") as externalCardRevealsFile:
+			externalCardReveals = json.load(externalCardRevealsFile)
 	imageFolder = os.path.join(imageFolder, "external")
 	for externalCard in externalCardReveals:
 		cardId = externalCard["culture_invariant_id"]

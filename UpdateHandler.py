@@ -73,20 +73,21 @@ def checkForNewCardData(language: Language, newCardCatalog: Dict = None, fieldsT
 					elif fieldValue != oldCard[fieldName]:
 						cardChanges.append((cardId, cardDescriptor, fieldName, oldCard[fieldName], fieldValue))
 
-
 	# Check if new cards have been added to the external reveals file
-	allCardsFilePath = os.path.join("output", "generated", language.code, "allCards.json")
-	existingIds = set()
-	if os.path.isfile(allCardsFilePath):
-		with open(allCardsFilePath, "r", encoding="utf-8") as allCardsFile:
-			allCards = json.load(allCardsFile)
-		for card in allCards["cards"]:
-			existingIds.add(card["id"])
-	with open(f"externalCardReveals.{language.code}.json", "r", encoding="utf-8") as externalRevealsFile:
-		externalReveals = json.load(externalRevealsFile)
-		for card in externalReveals:
-			if card["culture_invariant_id"] not in existingIds:
-				addedCards.append((card["culture_invariant_id"], "[external]"))
+	externalRevealsFileName = f"externalCardReveals.{language.code}.json"
+	if os.path.isfile(externalRevealsFileName):
+		allCardsFilePath = os.path.join("output", "generated", language.code, "allCards.json")
+		existingIds = set()
+		if os.path.isfile(allCardsFilePath):
+			with open(allCardsFilePath, "r", encoding="utf-8") as allCardsFile:
+				allCards = json.load(allCardsFile)
+			for card in allCards["cards"]:
+				existingIds.add(card["id"])
+		with open(externalRevealsFileName, "r", encoding="utf-8") as externalRevealsFile:
+			externalReveals = json.load(externalRevealsFile)
+			for card in externalReveals:
+				if card["culture_invariant_id"] not in existingIds:
+					addedCards.append((card["culture_invariant_id"], "[external]"))
 
 	return (addedCards, cardChanges)
 
