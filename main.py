@@ -120,6 +120,14 @@ if __name__ == '__main__':
 	elif parsedArguments.action == "update":
 		UpdateHandler.createOutputIfNeeded(language, False, cardFieldsToIgnore=parsedArguments.ignoreFields, shouldShowImages=parsedArguments.shouldShowSubimages)
 	elif parsedArguments.action == "download":
+		# Make sure we download from an up-to-date card catalog
+		cardCatalog = RavensburgerApiHandler.retrieveCardCatalog(language)
+		addedCards, changedCards = UpdateHandler.checkForNewCardData(language, cardCatalog, fieldsToIgnore=parsedArguments.ignoreFields)
+		if addedCards or changedCards:
+			print(f"Card catalog for language '{language.englishName}' was updated, saving")
+			RavensburgerApiHandler.saveCardCatalog(language, cardCatalog)
+		else:
+			print(f"No new version of the card catalog for language '{language.englishName}' found")
 		RavensburgerApiHandler.downloadImages(language)
 	elif parsedArguments.action == "parse":
 		DataFilesGenerator.createOutputFiles(language, cardIds, shouldShowImages=parsedArguments.shouldShowSubimages)
