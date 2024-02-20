@@ -104,7 +104,7 @@ def downloadImages(language: Language.Language, shouldOverwriteImages: bool = Fa
 					wasImageDownloaded = downloadImage(imageUrlDict["url"], imageSavePath, shouldOverwriteImages)
 					if wasImageDownloaded:
 						imagesDownloaded += 1
-						time.sleep(3 * random.random())
+						time.sleep(2 * random.random())
 					break
 	# Download the external images too
 	externalCardRevealsFileName = f"externalCardReveals.{language.code}.json"
