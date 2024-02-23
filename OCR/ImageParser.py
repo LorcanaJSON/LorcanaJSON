@@ -37,7 +37,7 @@ def initialize(language: Language.Language, useLorcanaModel: bool = True, tesser
 	global _tesseractApi
 	_tesseractApi = tesserocr.PyTessBaseAPI(lang=modelName, path=tesseractPath, psm=tesserocr.PSM.SINGLE_BLOCK)
 
-def getImageAndTextDataFromImage(pathToImage: str, parseFully: bool, hasCardText: bool = None, hasFlavorText: bool = None, isEnchanted: bool = None, showImage: bool = False) -> Dict[str, Union[None, ImageAndText, List[ImageAndText]]]:
+def getImageAndTextDataFromImage(pathToImage: str, parseFully: bool, isLocation: bool, hasCardText: bool = None, hasFlavorText: bool = None, isEnchanted: bool = None, showImage: bool = False) -> Dict[str, Union[None, ImageAndText, List[ImageAndText]]]:
 	startTime = time.perf_counter()
 	result: Dict[str, Union[None, ImageAndText, List[ImageAndText]]] = {
 		"flavorText": None,
@@ -52,6 +52,7 @@ def getImageAndTextDataFromImage(pathToImage: str, parseFully: bool, hasCardText
 			"baseName": None,
 			"cost": None,
 			"identifier": None,
+			"moveCost": None,
 			"strength": None,
 			"subtitle": None,
 			"willpower": None
@@ -75,21 +76,29 @@ def getImageAndTextDataFromImage(pathToImage: str, parseFully: bool, hasCardText
 			# Otherwise, resize it so it matches our image areas
 			_logger.debug(f"Image is {cardImage.shape}, while it should be {ImageArea.IMAGE_HEIGHT} by {ImageArea.IMAGE_WIDTH}, resizing")
 			cardImage = cv2.resize(cardImage, (ImageArea.IMAGE_WIDTH, ImageArea.IMAGE_HEIGHT), interpolation=cv2.INTER_AREA)
-	greyCardImage: cv2.Mat = cv2.cvtColor(cardImage, cv2.COLOR_BGR2GRAY)
 	_logger.debug(f"Reading {pathToImage=} finished at {time.perf_counter() - startTime} seconds in")
 
+	# Parse card cost first, since that's always in the top left, regardless of whether the card should later be rotated
+	if parseFully:
+		result["cost"] = _getSubImageAndText(cardImage, ImageArea.INK_COST)
+
+	if isLocation:
+		# Location cards are horizontal, so the image should be rotated for proper OCR
+		cardImage = cv2.rotate(cardImage, cv2.ROTATE_90_CLOCKWISE)
+	greyCardImage: cv2.Mat = cv2.cvtColor(cardImage, cv2.COLOR_BGR2GRAY)
+
 	# First determine the card (sub)type
-	typesImage = _getSubImage(greyCardImage, ImageArea.TYPE)
+	typesImage = _getSubImage(greyCardImage, ImageArea.LOCATION_TYPE if isLocation else ImageArea.TYPE)
 	typesImage = _convertToThresholdImage(typesImage, ImageArea.TYPE.textColour)
 	typesImageText = _imageToString(typesImage)
 	_logger.debug(f"Parsing types image finished at {time.perf_counter() - startTime} seconds in")
-	if typesImageText != "Action" and typesImageText != "Item":
+	if typesImageText not in ("Action", "Item", "Location"):
 		# The type separator character is always the same, but often gets interpreted wrong; fix that
 		if " " in typesImageText:
 			typesImageText = re.sub(r" (\S )?", f" {TYPE_SEPARATOR_UNICODE} ", typesImageText)
 		result["subtypesText"] = ImageAndText(typesImage, typesImageText)
 		_logger.debug(f"{typesImageText=}")
-		isCharacter = not typesImageText.startswith("Action") and not typesImageText.startswith("Item")
+		isCharacter = not typesImageText.startswith("Action") and not typesImageText.startswith("Item") and not typesImageText.startswith("Location")
 	else:
 		isCharacter = False
 		_logger.debug(f"Subtype is main type ({typesImageText=}, so not storing as subtypes")
@@ -111,21 +120,23 @@ def getImageAndTextDataFromImage(pathToImage: str, parseFully: bool, hasCardText
 
 	if parseFully:
 		# Parse from top to bottom
-		result["cost"] = _getSubImageAndText(greyCardImage, ImageArea.INK_COST)
 		result["baseName"] = _getSubImageAndText(greyCardImage, ImageArea.CHARACTER_NAME if isCharacter else ImageArea.CARD_NAME)
 		if isCharacter:
 			result["subtitle"] = _getSubImageAndText(greyCardImage, ImageArea.CHARACTER_SUBTITLE)
 			result["strength"] = _getSubImageAndText(greyCardImage, ImageArea.STRENGTH)
 			result["willpower"] = _getSubImageAndText(greyCardImage, ImageArea.WILLPOWER)
-		result["artist"] = _getSubImageAndText(greyCardImage, ImageArea.ARTIST)
-		result["identifier"] = _getSubImageAndText(greyCardImage, ImageArea.CARD_IDENTIFIER)
+		elif isLocation:
+			result["moveCost"] = _getSubImageAndText(greyCardImage, ImageArea.LOCATION_MOVE_COST)
+			result["strength"] = _getSubImageAndText(greyCardImage, ImageArea.LOCATION_STRENGTH)
+		result["artist"] = _getSubImageAndText(greyCardImage, ImageArea.LOCATION_ARTIST if isLocation else ImageArea.ARTIST)
+		result["identifier"] = _getSubImageAndText(greyCardImage, ImageArea.LOCATION_IDENTIFIER if isLocation else ImageArea.CARD_IDENTIFIER)
 
 	# Determine the textbox area, which is different between characters and non-characters, and between enchanted and non-enchanted characters
 	textBoxImageArea = ImageArea.FULL_WIDTH_TEXT_BOX
-	if isEnchanted:
-		textBoxImageArea = ImageArea.ENCHANTED_CHARACTER_TEXT_BOX
-	elif not typesImageText.startswith("Action") and not typesImageText.startswith("Item"):
-		textBoxImageArea = ImageArea.CHARACTER_TEXT_BOX
+	if isCharacter:
+		textBoxImageArea = ImageArea.ENCHANTED_CHARACTER_TEXT_BOX if isEnchanted else ImageArea.CHARACTER_TEXT_BOX
+	elif isLocation:
+		textBoxImageArea = ImageArea.ENCHANTED_LOCATION_TEXT_BOX if isEnchanted else ImageArea.LOCATION_TEXTBOX
 
 	# Greyscale images work better, so get one from just the textbox
 	greyTextboxImage = _getSubImage(greyCardImage, textBoxImageArea)

@@ -331,6 +331,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 		raise ValueError(f"Unable to find image for card ID {outputCard['id']}")
 	parsedImageAndTextData = ImageParser.getImageAndTextDataFromImage(imagePath,
 																	  parseFully=isExternalReveal,
+																	  isLocation=cardType == "Location",
 																	  hasCardText=inputCard["rules_text"] != "" if "rules_text" in inputCard else None,
 																	  hasFlavorText=inputCard["flavor_text"] != "" if "flavor_text" in inputCard else None,
 																	  isEnchanted=outputCard["rarity"] == "Enchanted",
