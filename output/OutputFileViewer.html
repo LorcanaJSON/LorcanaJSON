@@ -55,6 +55,12 @@ function setDisplayedIndex(newIndex) {
 	let currentCardData = cardsJson["cards"][currentIndex];
 	document.getElementById("name").textContent = currentCardData["fullName"];
 	document.getElementById("img").src = "../downloads/images/" + languageCode + "/" + currentCardData["id"] + ".jpg";
+  if (currentCardData["type"] == "Location") {
+    // Rotate Location cards, since they're horizontal, so verifying the data is easier
+    document.getElementById("img").style.transform = "rotate(0.25turn) translateY(-20%)";
+  } else {
+    document.getElementById("img").style.transform= "none";
+  }
 	document.getElementById("text").textContent = currentCardData["fullText"];
 	document.getElementById("flavorText").textContent = currentCardData["flavorText"];
 	document.getElementById("cardJson").textContent = JSON.stringify(currentCardData, null, "\t");
