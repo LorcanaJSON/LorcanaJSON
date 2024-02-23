@@ -375,8 +375,9 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 		outputCard["images"] = {
 			"full": _cleanUrl(inputCard["image_urls"][0]["url"]),
 			"thumbnail": _cleanUrl(inputCard["image_urls"][1]["url"]),
-			"foilMask": _cleanUrl(inputCard["foil_mask_url"])
 		}
+		if "foil_mask_url" in inputCard:
+			outputCard["images"]["foilMask"] = _cleanUrl(inputCard["foil_mask_url"])
 	else:
 		outputCard["images"] = {"full": inputCard["imageUrl"]}
 	# If the card is Enchanted or has an Enchanted equivalent, store that
