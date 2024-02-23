@@ -38,5 +38,13 @@ FULL_WIDTH_TEXT_BOX = ImageArea("textbox", "Full Width Text Box", _Coords(66,137
 ARTIST = ImageArea("artist", "Artist", _Coords(109, 1925, 666, 1969), TEXT_COLOUR_WHITE)
 CARD_IDENTIFIER = ImageArea("card_identifier", "Card Identifier", _Coords(54,1969, 359,2017), TEXT_COLOUR_WHITE)
 
+LOCATION_TYPE = ImageArea("type", "Location Type", _Coords(210,934, 1855,998), TEXT_COLOUR_WHITE)
+LOCATION_TEXTBOX = ImageArea("textbox", "Location Text Box", _Coords(65,1017, 1818,1317), TEXT_COLOUR_MIDDLE)
+ENCHANTED_LOCATION_TEXT_BOX = ImageArea("textbox", "Enchanted Location Text Box", _Coords(20,1017, 1818,1317), TEXT_COLOUR_MIDDLE)
+LOCATION_MOVE_COST = ImageArea("moveCost", "Location Move Cost", _Coords(152,767, 227,860), TEXT_COLOUR_WHITE)
+LOCATION_STRENGTH = ImageArea("stregnth", "Location Strength", _Coords(1827,767, 1919,873), TEXT_COLOUR_WHITE)
+LOCATION_ARTIST = ImageArea("artist", "Location Artist", _Coords(112,1331, 948,1381), TEXT_COLOUR_WHITE)
+LOCATION_IDENTIFIER = ImageArea("identifier", "Location Identifier", _Coords(54,1381, 365,1431), TEXT_COLOUR_WHITE)
+
 IS_INKABLE_CHECK = ImageArea("isInkable", "Is Inkable", _Coords(69,142, 70,143), TEXT_COLOUR_MIDDLE)
 IS_BORDERLESS_CHECK = ImageArea("isBorderless", "Is Borderless", _Coords(8,260, 48,1290), TEXT_COLOUR_MIDDLE)
