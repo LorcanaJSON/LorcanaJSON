@@ -179,22 +179,41 @@ def createOutputFiles(language: Language.Language, onlyParseIds: Union[None, Lis
 		_logger.warning(f"No corrections file found for language '{language.code}', assuming no corrections are necessary")
 		cardDataCorrections = {}
 
-	# Enchanted-rarity cards are special versions of existing cards. Store their shared ID so we can add a linking field to both versions
-	# There are only Character Enchanted cards for now, so only check those
-	# We do this before parse-id-checks and other parsing, so we can add these IDs to cards that have Enchanted versions, even if they're not being parsed
+	# Enchanted- and Special-rarity cards are special versions of existing cards. Store their shared ID so we can add a linking field to both versions
+	# We do this before parse-id-checks and other parsing, so we can add these IDs to cards that have variant versions, even if they're not being parsed
+	# Also, some cards have identical-rarity variants ("Dalmation Puppy', ID 436-440), store those so each can reference the others
 	enchantedDeckbuildingIds = {}
-	for card in inputData["cards"]["characters"]:
-		if card["rarity"] == "ENCHANTED":
-			enchantedDeckbuildingIds[card["deck_building_id"]] = card["culture_invariant_id"]
-	# Now find their matching non-Enchanted cards, and store both IDs with a link to each other
+	specialDeckBuildingIds = {}
+	variantsDeckBuildingIds = {}
+	for cardtype, cardlist in inputData["cards"].items():
+		for card in cardlist:
+			if card["rarity"] == "ENCHANTED":
+				enchantedDeckbuildingIds[card["deck_building_id"]] = card["culture_invariant_id"]
+			elif card["rarity"] == "SPECIAL":
+				specialDeckBuildingIds[card["deck_building_id"]] = card["culture_invariant_id"]
+			if re.match(r"^\d+[a-z]/", card["card_identifier"]):
+				if card["deck_building_id"] not in variantsDeckBuildingIds:
+					variantsDeckBuildingIds[card["deck_building_id"]] = []
+				variantsDeckBuildingIds[card["deck_building_id"]].append(card["culture_invariant_id"])
+	# Now find their matching 'normal' cards, and store both IDs with a link to each other
 	enchantedNonEnchantedIds = {}
-	for card in inputData["cards"]["characters"]:
-		if card["rarity"] != "ENCHANTED" and card["deck_building_id"] in enchantedDeckbuildingIds:
-			nonEnchantedId = card["culture_invariant_id"]
-			enchantedId = enchantedDeckbuildingIds[card["deck_building_id"]]
-			enchantedNonEnchantedIds[nonEnchantedId] = enchantedId
-			enchantedNonEnchantedIds[enchantedId] = nonEnchantedId
+	specialNonSpecialIds = {}
+	for cardtype, cardlist in inputData["cards"].items():
+		for card in cardlist:
+			if card["rarity"] == "ENCHANTED" or card["rarity"] == "SPECIAL":
+				continue
+			if card["deck_building_id"] in enchantedDeckbuildingIds:
+				nonEnchantedId = card["culture_invariant_id"]
+				enchantedId = enchantedDeckbuildingIds[card["deck_building_id"]]
+				enchantedNonEnchantedIds[nonEnchantedId] = enchantedId
+				enchantedNonEnchantedIds[enchantedId] = nonEnchantedId
+			elif card["deck_building_id"] in specialDeckBuildingIds:
+				nonSpecialId = card["culture_invariant_id"]
+				specialId = specialDeckBuildingIds[card["deck_building_id"]]
+				specialNonSpecialIds[nonSpecialId] = specialId
+				specialNonSpecialIds[specialId] = nonSpecialId
 	del enchantedDeckbuildingIds
+	del specialDeckBuildingIds
 
 	# Get the cards we don't have to parse (if any) from the previous generated file
 	fullCardList = []
@@ -219,6 +238,8 @@ def createOutputFiles(language: Language.Language, onlyParseIds: Union[None, Lis
 							# If this card is an Enchanted card or has an Enchanted equivalent, add that field, so we don't need to fully parse the card
 							if card["id"] in enchantedNonEnchantedIds:
 								card["nonEnchantedId" if card["rarity"] == "Enchanted" else "enchantedId"] = enchantedNonEnchantedIds[card["id"]]
+							elif card["id"] in specialNonSpecialIds:
+								card["nonSpecialId" if card["rarity"] == "Special" else "specialId"] = specialNonSpecialIds[card["id"]]
 				del previousCardData
 		else:
 			_logger.warning("ID list provided but previously generated file doesn't exist. Generating all card data")
@@ -236,7 +257,7 @@ def createOutputFiles(language: Language.Language, onlyParseIds: Union[None, Lis
 				_logger.error(f"Card ID {cardId} is not in the ID parse list, but it's also not in the previous dataset. Skipping parsing for now, but this results in incomplete datafiles, so it's strongly recommended to rerun with this card ID included")
 				continue
 			try:
-				outputCard = _parseSingleCard(inputCard, cardTypeText, imageFolder, enchantedNonEnchantedIds, cardDataCorrections, False, shouldShowImage=shouldShowImages)
+				outputCard = _parseSingleCard(inputCard, cardTypeText, imageFolder, enchantedNonEnchantedIds, specialNonSpecialIds, variantsDeckBuildingIds, cardDataCorrections, False, shouldShowImage=shouldShowImages)
 				fullCardList.append(outputCard)
 				cardIdsStored.append(outputCard["id"])
 			except Exception as e:
@@ -255,7 +276,7 @@ def createOutputFiles(language: Language.Language, onlyParseIds: Union[None, Lis
 		if cardId in cardIdsStored:
 			_logger.debug(f"Card ID {cardId} is defined in the official file and in the external file, skipping the external data")
 			continue
-		outputCard = _parseSingleCard(externalCard, externalCard["type"], imageFolder, enchantedNonEnchantedIds, cardDataCorrections, True, shouldShowImage=shouldShowImages)
+		outputCard = _parseSingleCard(externalCard, externalCard["type"], imageFolder, enchantedNonEnchantedIds, specialNonSpecialIds, variantsDeckBuildingIds, cardDataCorrections, True, shouldShowImage=shouldShowImages)
 		fullCardList.append(outputCard)
 
 	if cardDataCorrections:
@@ -311,7 +332,8 @@ def createOutputFiles(language: Language.Language, onlyParseIds: Union[None, Lis
 
 	_logger.info(f"Creating the output files took {time.perf_counter() - startTime:.4f} seconds")
 
-def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchantedNonEnchantedIds: Dict, cardDataCorrections: Dict, isExternalReveal: bool, shouldShowImage: bool = False) -> Dict:
+def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchantedNonEnchantedIds: Dict[str, List[int]], specialNonSpecialIds: Dict[str, List[int]], variantIds: Dict[str, List[int]],
+					 cardDataCorrections: Dict, isExternalReveal: bool, shouldShowImage: bool = False) -> Dict:
 	# Store some default values
 	outputCard: Dict[str, Union[str, int, List, Dict]] = {
 		"color": inputCard["magic_ink_color"].title(),
@@ -336,20 +358,27 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 																	  hasFlavorText=inputCard["flavor_text"] != "" if "flavor_text" in inputCard else None,
 																	  isEnchanted=outputCard["rarity"] == "Enchanted",
 																	  showImage=shouldShowImage)
+
 	if "number" in inputCard:
 		outputCard["number"] = inputCard["number"]
-	elif "card_identifier" in inputCard:
-		outputCard["number"] = int(re.search(r"^(\d+)/\d+", inputCard["card_identifier"]).group(1), 10)
 	if "expansion_number" in inputCard:
 		outputCard["setNumber"] = inputCard["expansion_number"]
-	if "number" not in outputCard and parsedImageAndTextData.get("identifier", None) is not None:
+	if "number" not in outputCard or "setNumber" not in outputCard:
 		# Get the set and card numbers from the parsed identifier
-		cardIdentifierMatch = re.match(r"^(\d+)/\d+ .+ (\d+)$", parsedImageAndTextData["identifier"].text)
+		cardIdentifier = inputCard["card_identifier"] if "card_identifier" in inputCard else parsedImageAndTextData["identifier"].text
+		cardIdentifierMatch = re.match(r"^(\d+)([a-z])?/[0-9P]+ .+ (\d+)$", cardIdentifier)
 		if not cardIdentifierMatch:
 			raise ValueError(f"Unable to parse card and set numbers from card identifier '{parsedImageAndTextData['identifier'].text}")
-		outputCard["number"] = int(cardIdentifierMatch.group(1), 10)
+		if "number" not in outputCard:
+			outputCard["number"] = int(cardIdentifierMatch.group(1), 10)
+		if cardIdentifierMatch.group(2):
+			outputCard["variant"] = cardIdentifierMatch.group(2)
+			if inputCard["deck_building_id"] in variantIds:
+				variantIdsList: List[int] = variantIds[inputCard["deck_building_id"]].copy()
+				variantIdsList.remove(outputCard["id"])
+				outputCard["variantIds"] = variantIdsList
 		if "setNumber" not in outputCard:
-			outputCard["setNumber"] = int(cardIdentifierMatch.group(2), 10)
+			outputCard["setNumber"] = int(cardIdentifierMatch.group(3), 10)
 
 	outputCard["artist"] = inputCard["author"].strip() if "author" in inputCard else parsedImageAndTextData["artist"].text
 	outputCard["baseName"] = inputCard["name"].strip().replace("’", "'") if "name" in inputCard else parsedImageAndTextData["baseName"].text.title()
@@ -366,11 +395,11 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 	outputCard["cost"] = inputCard["ink_cost"] if "ink_cost" in inputCard else int(parsedImageAndTextData["cost"].text, 10)
 	if "quest_value" in inputCard:
 		outputCard["lore"] = inputCard["quest_value"]
-	for fieldName in("strength", "willpower"):
-		if fieldName in inputCard:
-			outputCard[fieldName] = inputCard[fieldName]
-		elif parsedImageAndTextData.get(fieldName, None) is not None:
-			outputCard[fieldName] = parsedImageAndTextData[fieldName].text
+	for inputFieldName, outputFieldName in (("move_cost", "moveCost"), ("strength", "strength"), ("willpower", "willpower")):
+		if inputFieldName in inputCard:
+			outputCard[outputFieldName] = inputCard[inputFieldName]
+		elif parsedImageAndTextData.get(outputFieldName, None) is not None:
+			outputCard[outputFieldName] = int(parsedImageAndTextData[outputFieldName].text, 10)
 	# Image URLs end with a checksum parameter, we don't need that
 	if "image_urls" in inputCard:
 		outputCard["images"] = {
@@ -384,6 +413,9 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 	# If the card is Enchanted or has an Enchanted equivalent, store that
 	if outputCard["id"] in enchantedNonEnchantedIds:
 		outputCard["nonEnchantedId" if outputCard["rarity"] == "Enchanted" else "enchantedId"] = enchantedNonEnchantedIds[outputCard["id"]]
+	# If the card is a special card (promo or Disney100), store that
+	if outputCard["id"] in specialNonSpecialIds:
+		outputCard["nonSpecialId" if outputCard["rarity"] == "Special" else "specialId"] = specialNonSpecialIds[outputCard["id"]]
 	# Store the different parts of the card text, correcting some values if needed
 	if parsedImageAndTextData["flavorText"] is not None:
 		flavorText = correctText(parsedImageAndTextData["flavorText"].text)
