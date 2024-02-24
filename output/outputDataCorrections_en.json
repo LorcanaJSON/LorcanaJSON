@@ -309,20 +309,10 @@
       "gets +1 \u25ca"
     ]
   },
-  "212": {
-    "inkwell": [
-      false,
-      true
-    ]
-  },
   "214": {
     "effects": [
       "gets \\+4 \u00a4",
       "gets +4 \u25ca"
-    ],
-    "inkwell": [
-      false,
-      true
     ]
   },
   "215": {
@@ -525,12 +515,6 @@
     "abilities": [
       " I\\.\\)",
       " 1.)"
-    ]
-  },
-  "405": {
-    "fullText": [
-      "exerted. An",
-      "exerted.\nAn"
     ]
   },
   "411": {
