@@ -428,14 +428,6 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 		abilityText = correctText(parsedImageAndTextData["remainingText"].text)
 		# TODO FIXME Song reminder text is at the top of a Song card, should probably not be listed in the 'abilities' list
 		outputCard["abilities"]: List[str] = re.sub(r"(\.\)?\n)", r"\1\n", abilityText).split("\n\n")
-		# Sometimes reminder text gets split while it shouldn't, so count the opening and closing brackets to fix this
-		for abilityLineIndex in range(len(outputCard["abilities"]) - 1, 0, -1):
-			abilityLine = outputCard["abilities"][abilityLineIndex]
-			_logger.debug(f"{abilityLineIndex=} {abilityLine=}")
-			if abilityLine.count(")") > abilityLine.count("("):
-				# Closing bracket got moved a line down, merge it with the previous line
-				_logger.info(f"Merging accidentally-split ability line '{abilityLine}' with previous line '{outputCard['abilities'][abilityLineIndex - 1]}'")
-				outputCard["abilities"][abilityLineIndex - 1] += " " + outputCard["abilities"].pop(abilityLineIndex)
 	if parsedImageAndTextData["effectLabels"]:
 		outputCard["effects"]: List[Dict[str, str]] = []
 		for effectIndex in range(len(parsedImageAndTextData["effectLabels"])):
@@ -519,6 +511,15 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 		fullTextSections.append("\n".join(outputCard["abilities"]))
 		for abilityIndex in range(len(outputCard["abilities"])):
 			outputCard["abilities"][abilityIndex] = outputCard["abilities"][abilityIndex].replace("\n", " ")
+		# Sometimes reminder text gets split into multiple abilities while it shouldn't, so count the opening and closing brackets to fix this
+		# Do this after building the fulltext, since we need the newlines for that
+		for abilityLineIndex in range(len(outputCard["abilities"]) - 1, 0, -1):
+			abilityLine = outputCard["abilities"][abilityLineIndex]
+			_logger.debug(f"{abilityLineIndex=} {abilityLine=}")
+			if abilityLine.count(")") > abilityLine.count("("):
+				# Closing bracket got moved a line down, merge it with the previous line
+				_logger.info(f"Merging accidentally-split ability line '{abilityLine}' with previous line '{outputCard['abilities'][abilityLineIndex - 1]}'")
+				outputCard["abilities"][abilityLineIndex - 1] += " " + outputCard["abilities"].pop(abilityLineIndex)
 	if "effects" in outputCard:
 		for effect in outputCard["effects"]:
 			fullTextSections.append(f"{effect['name']} {effect['text']}")
