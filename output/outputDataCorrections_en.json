@@ -39,12 +39,6 @@
       "\u2014"
     ]
   },
-  "35": {
-    "flavorText": [
-      "Iwo",
-      "Two"
-    ]
-  },
   "40": {
     "artist": [
       "^Au",
@@ -85,12 +79,6 @@
     "flavorText": [
       "chill$",
       "chill."
-    ]
-  },
-  "68": {
-    "effects": [
-      "''",
-      "'"
     ]
   },
   "76": {
@@ -245,12 +233,6 @@
       "eat\u2014\nTell"
     ]
   },
-  "165": {
-    "flavorText": [
-      "Ihis",
-      "This"
-    ]
-  },
   "167": {
     "effects": [
       "\\+1 \u00a4",
@@ -261,18 +243,6 @@
     "flavorText": [
       "lired",
       "Tired"
-    ]
-  },
-  "184": {
-    "flavorText": [
-      "Ihat",
-      "That"
-    ]
-  },
-  "186": {
-    "effects": [
-      "\u00a4$",
-      "\u00a4."
     ]
   },
   "189": {
@@ -361,12 +331,6 @@
       "+1 \u25ca this"
     ]
   },
-  "275": {
-    "flavorText": [
-      "Ihey",
-      "They"
-    ]
-  },
   "277": {
     "flavorText": [
       "\u201cllamas",
@@ -445,18 +409,6 @@
       "+2 \u25ca this"
     ]
   },
-  "337": {
-    "flavorText": [
-      "\u201cIhis ",
-      "\u201cThis "
-    ]
-  },
-  "338": {
-    "flavorText": [
-      "^Iwo ",
-      "Two "
-    ]
-  },
   "340": {
     "flavorText": [
       "\u201cWy",
@@ -509,18 +461,6 @@
     "flavorText": [
       "y all",
       "y'all"
-    ]
-  },
-  "401": {
-    "abilities": [
-      " I\\.\\)",
-      " 1.)"
-    ]
-  },
-  "411": {
-    "abilities": [
-      "reduced by I\\.",
-      "reduced by 1."
     ]
   },
   "417": {
