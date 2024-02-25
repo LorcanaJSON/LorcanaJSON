@@ -490,5 +490,522 @@
       "Bodyqguard",
       "Bodyguard"
     ]
+  },
+  "434": {
+    "effects": [
+      "I'L",
+      "I'LL"
+    ]
+  },
+  "435": {
+    "artist": [
+      "a$",
+      "a / Jochem van Gool"
+    ]
+  },
+  "442": {
+    "flavorText": [
+      "^.+$",
+      "[in Atlantean] \u201cWelcome to the Inklands\u201d"
+    ]
+  },
+  "444": {
+    "effects": [
+      "\\+1 4",
+      "+1 \u25CA"
+    ]
+  },
+  "451": {
+    "artist": [
+      "m$",
+      "m / Livio Cacciatore"
+    ]
+  },
+  "452": {
+    "effects": [
+      "\\+2 \u00A4",
+      "+2 \u25CA"
+    ]
+  },
+  "453": {
+    "abilities": [
+      "Shift s",
+      "Shift 5"
+    ],
+    "artist": [
+      "z$",
+      "z / Alice Pisoni"
+    ]
+  },
+  "456": {
+    "effects": [
+      "\\+1 \u00A4",
+      "+1 \u25CA"
+    ]
+  },
+  "457": {
+    "artist": [
+      "m$",
+      "m / Denny Minonne"
+    ]
+  },
+  "461": {
+    "artist": [
+      "a$",
+      "a / Livio Cacciatore"
+    ]
+  },
+  "463": {
+    "flavorText": [
+      "ll a",
+      "ll, a"
+    ]
+  },
+  "464": {
+    "artist": [
+      "e$",
+      "e / David Navarro Arenas"
+    ]
+  },
+  "466": {
+    "artist": [
+      "m$",
+      "m / Viv Tanner"
+    ]
+  },
+  "468": {
+    "flavorText": [
+      "theyd",
+      "they'd"
+    ]
+  },
+  "469": {
+    "artist": [
+      "e$",
+      "e / Jonathan Livslyst"
+    ],
+    "effects": [
+      "\\+2 ¥",
+      "+2 \u26C9"
+    ]
+  },
+  "471": {
+    "artist": [
+      "i$",
+      "i / Raquel Villanueva"
+    ],
+    "flavorText": [
+      "quest",
+      "guest"
+    ]
+  },
+  "475": {
+    "flavorText": [
+      "leus",
+      "Zeus"
+    ]
+  },
+  "477": {
+    "artist": [
+      "o$",
+      "o / Livio Cacciatore"
+    ],
+    "flavorText": [
+      "“l ",
+      "“I "
+    ]
+  },
+  "485": {
+    "abilities": [
+      "Shift s",
+      "Shift 5"
+    ],
+    "flavorText": [
+      "“ ",
+      "“I "
+    ]
+  },
+  "490": {
+    "abilities": [
+      "\\+3 \\$",
+      "+3 \u00A4"
+    ]
+  },
+  "491": {
+    "artist": [
+      "l$",
+      "l / Alice Pisoni"
+    ]
+  },
+  "493": {
+    "artist": [
+      "d$",
+      "d / Livio Cacciatore"
+    ]
+  },
+  "497": {
+    "flavorText": [
+      "^l ",
+      "I "
+    ]
+  },
+  "500": {
+    "artist": [
+      "z$",
+      "z / Anna Stosik"
+    ],
+    "effects": [
+      "lJafar",
+      "Jafar"
+    ]
+  },
+  "504": {
+    "effects": [
+      "\\+1 4",
+      "+1 \u25CA"
+    ]
+  },
+  "506": {
+    "artist": [
+      "o$",
+      "o / Marieke Ferrari"
+    ]
+  },
+  "508": {
+    "effects": [
+      "\\+3 O",
+      "+3 \u00A4"
+    ]
+  },
+  "513": {
+    "flavorText": [
+      "quys",
+      "guys"
+    ]
+  },
+  "516": {
+    "abilities": [
+      "Shift a",
+      "Shift 4"
+    ],
+    "effects": [
+      "s’ ",
+      "s' "
+    ]
+  },
+  "518": {
+    "effects": [
+      "\u00A4",
+      "\u25CA"
+    ]
+  },
+  "521": {
+    "effects": [
+      "ILL",
+      "I'LL",
+      "\\+3 C",
+      "+3 \u00A4"
+    ]
+  },
+  "522": {
+    "flavorText": [
+      "’”",
+      "”"
+    ]
+  },
+  "529": {
+    "effects": [
+      "\\+1 \u00A4",
+      "+1 \u25CA"
+    ]
+  },
+  "538": {
+    "flavorText": [
+      "small ",
+      "small, "
+    ]
+  },
+  "545": {
+    "artist": [
+      "o$",
+      "o / Livio Cacciatore"
+    ]
+  },
+  "549": {
+    "effects": [
+      "\\+1 \u00A4",
+      "+1 \u25CA"
+    ],
+    "flavorText": [
+      "d \\.””$",
+      "d?”"
+    ]
+  },
+  "554": {
+    "flavorText": [
+      "Irigger",
+      "Trigger"
+    ]
+  },
+  "558": {
+    "effects": [
+      "\\+3 O\\.",
+      "+3 \u00A4"
+    ]
+  },
+  "562": {
+   "effects": [
+      "\\+1 \u00A4",
+      "+1 \u25CA"
+    ],
+    "flavorText": [
+      "Irigger",
+      "Trigger"
+    ]
+  },
+  "565": {
+    "abilities": [
+      "\u00A4\\.$",
+      "\u25CA."
+    ]
+  },
+  "567": {
+    "flavorText": [
+      "Why d",
+      "Why'd"
+    ]
+  },
+  "572": {
+    "effects": [
+      "TOGE THER",
+      "TOGETHER"
+    ]
+  },
+  "575": {
+    "flavorText": [
+      "! knew",
+      "! I knew"
+    ]
+  },
+  "578": {
+    "artist": [
+      "e$",
+      "e / Anna Stosik"
+    ]
+  },
+  "579": {
+    "abilities": [
+      "Iala",
+      "Tala"
+    ],
+    "artist": [
+      "k$",
+      "k / Ellie Horie"
+    ]
+  },
+  "587": {
+    "artist": [
+      "o$",
+      "o / Erin Shin"
+    ]
+  },
+  "592": {
+    "artist": [
+      "i$",
+      "i / Livio Cacciatore"
+    ]
+  },
+  "594": {
+    "abilities": [
+      "\nthis turn",
+      "\n\u00A4 this turn"
+    ]
+  },
+  "597": {
+    "artist": [
+      "d$",
+      "d / Anna Stosik"
+    ]
+  },
+  "598": {
+    "flavorText": [
+      "think \\?",
+      "think?"
+    ]
+  },
+  "600": {
+    "effects": [
+      "2 —",
+      "2 \u2B21 —"
+    ]
+  },
+  "601": {
+    "effects": [
+      "\u00A4",
+      "\u25CA"
+    ]
+  },
+  "611": {
+    "abilities": [
+      "\u00A4\\)",
+      "\u00A4.)"
+    ]
+  },
+  "612": {
+    "effects": [
+      "\u00A4",
+      "\u25CA"
+    ]
+  },
+  "614": {
+    "effects": [
+      "\u00A4",
+      "\u25CA"
+    ]
+  },
+  "616": {
+    "effects": [
+      "\u00A4",
+      "+2"
+    ]
+  },
+  "621": {
+    "artist": [
+      "a$",
+      "a / Livio Cacciatore"
+    ]
+  },
+  "628": {
+    "effects": [
+      "-",
+      "\u2022"
+    ],
+    "flavorText": [
+      "lands",
+      "Lands"
+    ]
+  },
+  "631": {
+    "flavorText": [
+      "- ",
+      "-"
+    ]
+  },
+  "643": {
+    "effects": [
+      "\\+2 ¥",
+      "+2 \u26C9"
+    ]
+  },
+  "646": {
+    "effects": [
+      "\u27F3 1",
+      "\u27F3, 1 \u2B21"
+    ]
+  },
+  "648": {
+    "artist": [
+      "n$",
+      "n / Nicholas Kole"
+    ]
+  },
+  "651": {
+    "abilities": [
+      "\\)\\.\\)",
+      ".)"
+    ]
+  },
+  "665": {
+    "abilities": [
+      "\\$\\)",
+      "\u00A4.)"
+    ]
+  },
+  "673": {
+    "flavorText": [
+      "I'",
+      "T"
+    ]
+  },
+  "674": {
+    "effects": [
+      "\u00A4",
+      "\u25CA"
+    ]
+  },
+  "676": {
+    "abilities": [
+      null,
+      null
+    ],
+    "artist": [
+      "^V.+o$",
+      "Mark Henn"
+    ],
+    "effects": [
+      null,
+      [{
+        "name": "GLAD YOU'RE HERE!",
+        "text": "Whenever this character\nquests, you pay 3 \u2B21 less for the next character\nyou play this turn."
+      }]
+    ]
+  },
+  "677": {
+    "artist": [
+      "^C.+o$",
+      "Brittney Lee"
+    ]
+  },
+  "678": {
+    "artist": [
+      "^J.+s$",
+      "Eric Goldberg"
+    ]
+  },
+  "679": {
+    "artist": [
+      "^B.+n$",
+      "Alex Kupershmidt"
+    ]
+  },
+  "680": {
+    "artist": [
+      "^G.+i$",
+      "Lorelay Bové"
+    ]
+  },
+  "681": {
+    "artist": [
+      "^I.+q$",
+      "Bill Schwab"
+    ]
+  },
+  "684": {
+    "effects": [
+      "\\$",
+      "\u00A4"
+    ],
+    "flavorText": [
+      "quys",
+      "guys"
+    ]
+  },
+  "685": {
+    "effects": [
+      "chall\n",
+      "challenge\n"
+    ]
+  },
+  "686": {
+    "artist": [
+      "d$",
+      "d / Anna Stosik"
+    ]
+  },
+  "687": {
+    "effects": [
+      "\u00A4",
+      "\u25CA"
+    ]
   }
 }
