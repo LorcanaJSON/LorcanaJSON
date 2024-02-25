@@ -508,6 +508,9 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 				else:
 					_logger.info(f"Corrected boolean field '{fieldName}' in card {_createCardIdentifier(outputCard)} from {outputCard[fieldName]} to {correction}")
 					outputCard[fieldName] = correction[1]
+			elif len(correction) > 2:
+				for correctionIndex in range(0, len(correction), 2):
+					correctCardField(outputCard, fieldName, correction[correctionIndex], correction[correctionIndex+1])
 			else:
 				correctCardField(outputCard, fieldName, correction[0], correction[1])
 		# Remove the correction, so we can check at the end if we used all the corrections
