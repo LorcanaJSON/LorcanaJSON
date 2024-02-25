@@ -95,6 +95,21 @@ def correctText(cardText: str) -> str:
 			_logger.info(f"Corrected card line from '{originalCardLine}' to '{cardLine}'")
 	return "\n".join(correctedCardLines)
 
+def correctPunctuation(textToCorrect: str) -> str:
+	"""
+	Corrects some punctuation, like fixing weirdly spaced ellipses, or quote marks
+	Mainly useful to correct flavor text
+	:param textToCorrect: The text to correct. Can be multiline
+	:return: The fixed text, or the original text if there was nothing to fix
+	"""
+	correctedText = textToCorrect
+	# Ellipses get parsed weird, with spaces between periods where they don't belong. Fix that
+	if correctedText.count(".") > 2:
+		correctedText = re.sub(r"([\xa0 ]?\.[\xa0 ]?){3}", "...", correctedText)
+	if correctedText != textToCorrect:
+		_logger.info(f"Corrected punctuation from {textToCorrect!r} to {correctedText!r}")
+	return correctedText
+
 def correctCardField(card: Dict, fieldName: str, regexMatchString: str, correction: str) -> None:
 	"""
 	Correct card-specific mistakes in the fieldName field of the provided card
@@ -386,7 +401,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 			outputCard["setNumber"] = int(cardIdentifierMatch.group(3), 10)
 
 	outputCard["artist"] = inputCard["author"].strip() if "author" in inputCard else parsedImageAndTextData["artist"].text
-	outputCard["baseName"] = inputCard["name"].strip().replace("’", "'") if "name" in inputCard else parsedImageAndTextData["baseName"].text.title()
+	outputCard["baseName"] = correctPunctuation(inputCard["name"].strip().replace("’", "'") if "name" in inputCard else parsedImageAndTextData["baseName"].text.title())
 	outputCard["fullName"] = outputCard["baseName"]
 	outputCard["simpleName"] = outputCard["fullName"]
 	if "subtitle" in inputCard or parsedImageAndTextData.get("subtitle", None) is not None:
@@ -424,10 +439,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 	# Store the different parts of the card text, correcting some values if needed
 	if parsedImageAndTextData["flavorText"] is not None:
 		flavorText = correctText(parsedImageAndTextData["flavorText"].text)
-		if flavorText.count(".") > 2:
-			_logger.info(f"Correcting weird ellipsis in flavor text of '{outputCard['fullName']}'")
-			# Flavor text with ellipses gets parsed weird, with spaces between periods where they don't belong. Fix that
-			flavorText = re.sub(r" ?\. ?\. ?\. ?", "...", flavorText)
+		flavorText = correctPunctuation(flavorText)
 		outputCard["flavorText"] = flavorText
 	if parsedImageAndTextData["remainingText"] is not None:
 		abilityText = correctText(parsedImageAndTextData["remainingText"].text)
