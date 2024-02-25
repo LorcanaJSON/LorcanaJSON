@@ -132,7 +132,7 @@ def getImageAndTextDataFromImage(pathToImage: str, parseFully: bool, isLocation:
 		result["identifier"] = _getSubImageAndText(greyCardImage, ImageArea.LOCATION_IDENTIFIER if isLocation else ImageArea.CARD_IDENTIFIER)
 
 	# Determine the textbox area, which is different between characters and non-characters, and between enchanted and non-enchanted characters
-	textBoxImageArea = ImageArea.FULL_WIDTH_TEXT_BOX
+	textBoxImageArea = ImageArea.ENCHANTED_FULL_WIDTH_TEXT_BOX if isEnchanted else ImageArea.FULL_WIDTH_TEXT_BOX
 	if isCharacter:
 		textBoxImageArea = ImageArea.ENCHANTED_CHARACTER_TEXT_BOX if isEnchanted else ImageArea.CHARACTER_TEXT_BOX
 	elif isLocation:
