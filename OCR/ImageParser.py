@@ -179,7 +179,7 @@ def getImageAndTextDataFromImage(pathToImage: str, parseFully: bool, isLocation:
 				else:
 					raise ValueError(f"Unable to find right side of label at {y=} in the cropped image")
 		if isCurrentlyInLabel:
-			_logger.warning("Still in label when end of label check reached")
+			_logger.warning(f"Still in label when end of label check reached in card image '{pathToImage}'")
 	_logger.debug(f"Finished finding label coords at {time.perf_counter() - startTime} seconds in")
 
 	# Find the line dividing the abilities from the flavor text, if needed
