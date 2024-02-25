@@ -27,8 +27,8 @@ def correctText(cardText: str) -> str:
 		if " 1O " in cardLine:
 			cardLine = cardLine.replace(" 1O ", f" 1 {ImageParser.INK_UNICODE} ")
 		if "€" in cardLine:
-			# For some reason it keeps reading the Strenght symbol as the Euro symbol
-			cardLine = re.sub(r"€[^ ]?", ImageParser.STRENGTH_UNICODE, cardLine)
+			# For some reason it keeps reading the Strength symbol as the Euro symbol
+			cardLine = re.sub(r"€[^ .]?", ImageParser.STRENGTH_UNICODE, cardLine)
 		if "”" in cardLine:
 			# Normally a closing quote mark should be preceded by a period
 			cardLine = re.sub("([^.,'!?’])”", "\\1.”", cardLine)
