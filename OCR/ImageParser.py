@@ -98,7 +98,7 @@ def getImageAndTextDataFromImage(pathToImage: str, parseFully: bool, isLocation:
 			typesImageText = re.sub(r" (\S )?", f" {TYPE_SEPARATOR_UNICODE} ", typesImageText)
 		result["subtypesText"] = ImageAndText(typesImage, typesImageText)
 		_logger.debug(f"{typesImageText=}")
-		isCharacter = not typesImageText.startswith("Action") and not typesImageText.startswith("Item") and not typesImageText.startswith("Location")
+		isCharacter = not isLocation and not typesImageText.startswith("Action") and not typesImageText.startswith("Item") and not typesImageText.startswith("Location")
 	else:
 		isCharacter = False
 		_logger.debug(f"Subtype is main type ({typesImageText=}, so not storing as subtypes")
