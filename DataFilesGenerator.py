@@ -453,11 +453,9 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 	if parsedImageAndTextData["effectLabels"]:
 		outputCard["effects"]: List[Dict[str, str]] = []
 		for effectIndex in range(len(parsedImageAndTextData["effectLabels"])):
-			effectLabel = parsedImageAndTextData["effectLabels"][effectIndex].text
-			effectText = parsedImageAndTextData["effectTexts"][effectIndex].text
 			outputCard["effects"].append({
-				"name": effectLabel.replace("’", "'"),
-				"text": correctText(effectText)
+				"name": parsedImageAndTextData["effectLabels"][effectIndex].text.replace("’", "'").replace("''", "'"),
+				"text": correctText(parsedImageAndTextData["effectTexts"][effectIndex].text)
 			})
 	# Some cards have errata or clarifications, both in the 'additional_info' fields. Split those up
 	if inputCard.get("additional_info", None):
