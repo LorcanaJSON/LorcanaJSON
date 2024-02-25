@@ -361,7 +361,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 																	  isLocation=cardType == "Location",
 																	  hasCardText=inputCard["rules_text"] != "" if "rules_text" in inputCard else None,
 																	  hasFlavorText=inputCard["flavor_text"] != "" if "flavor_text" in inputCard else None,
-																	  isEnchanted=outputCard["rarity"] == "Enchanted",
+																	  isEnchanted=outputCard["rarity"] == "Enchanted" or inputCard.get("foil_type", None) == "Satin",  # Disney100 cards need Enchanted parsing, foil_type seems best way to determine Disney100
 																	  showImage=shouldShowImage)
 
 	if "number" in inputCard:
