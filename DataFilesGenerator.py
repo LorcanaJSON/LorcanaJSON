@@ -45,7 +45,7 @@ def correctText(cardText: str) -> str:
 		if "|" in cardLine:
 			cardLine = cardLine.replace("|", "I")
 		# Correct common phrases with symbols
-		if re.search(rf"pay \d ?[^{ImageParser.INK_UNICODE}]{{1,2}} ", cardLine):
+		if re.search(rf"pay \d ?[^{ImageParser.INK_UNICODE}]{{1,2}}(?: |$)", cardLine):
 			# Lore payment discounts
 			cardLine, changeCount = re.subn(rf"pay (\d) ?[^{ImageParser.INK_UNICODE}]{{1,2}} ", f"pay \\1 {ImageParser.INK_UNICODE} ", cardLine)
 			if changeCount > 0:
