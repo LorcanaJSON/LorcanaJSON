@@ -100,11 +100,14 @@ def correctCardField(card: Dict, fieldName: str, regexMatchString: str, correcti
 	Correct card-specific mistakes in the fieldName field of the provided card
 	:param card: The output card as parsed so far
 	:param fieldName: The fieldname to correct
-	:param regexMatchString: A regex that matches the card's mistake, this text will get replaced with the 'correction' string
-	:param correction: The correction for the mistake matched by 'regexMatchString'
+	:param regexMatchString: A regex that matches the card's mistake, this text will get replaced with the 'correction' string. Can be None if the field doesn't exist yet. To remove a field, set this and 'correction' to None
+	:param correction: The correction for the mistake matched by 'regexMatchString', or the value to set if the field doesn't exist. To remove a field, set this and 'regexMatchString' to None
 	"""
 	if fieldName not in card:
 		card[fieldName] = correction
+	elif regexMatchString is None and correction is None:
+		_logger.info(f"Removing field '{fieldName}' from card {_createCardIdentifier(card)}")
+		del card[fieldName]
 	elif isinstance(card[fieldName], str):
 		preCorrectedText = card[fieldName]
 		card[fieldName] = re.sub(regexMatchString, correction, preCorrectedText, flags=re.DOTALL)
