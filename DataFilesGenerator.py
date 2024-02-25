@@ -87,6 +87,8 @@ def correctText(cardText: str) -> str:
 		elif cardLine.startswith("Ward (Upponents "):
 			_logger.info("Correcting 'Upponents' to 'Opponents'")
 			cardLine = cardLine.replace("(Upponents", "(Opponents")
+		elif re.search(r"reduced by [lI]\.", cardLine):
+			cardLine = re.sub(r"reduced by [lI]\.", "reduced by 1.", cardLine)
 		if cardLine:
 			correctedCardLines.append(cardLine)
 		if originalCardLine != cardLine:
