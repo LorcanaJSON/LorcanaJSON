@@ -324,3 +324,16 @@ def _getSubImageAndText(cardImage: cv2.Mat, imageArea: ImageArea) -> ImageAndTex
 		subImage = _convertToThresholdImage(subImage, imageArea.textColour)
 	return ImageAndText(subImage, _imageToString(subImage, imageArea.isNumeric))
 
+def _isImageBlack(image: cv2.Mat) -> bool:
+	"""
+	Check whether the whole provided image is black. Useful for border checks, to determine image type
+	:param image: The image to check. Should usually be a sub image of a card image
+	:return: True if the image is entirely black, False otherwise
+	"""
+	for y in range(image.shape[0]):
+		for x in range(image.shape[1]):
+			if sum(image[y, x]) > 10:  # Use 10 instead of a strict 1 or 0 for some leeway
+				# This pixel isn't entirely black
+				return False
+	return True
+
