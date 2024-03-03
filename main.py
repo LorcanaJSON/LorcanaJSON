@@ -143,7 +143,7 @@ if __name__ == '__main__':
 			if not os.path.isfile(cardPath):
 				print(f"ERROR: Unable to find local image for card ID {cardId}. Please run the 'download' command first, and make sure you didn't make a typo in the ID")
 				sys.exit(-4)
-			parsedImageAndTextData = ImageParser.getImageAndTextDataFromImage(cardPath, True, False, showImage=True)
+			parsedImageAndTextData = ImageParser.getImageAndTextDataFromImage(cardPath, True, showImage=True)
 			print(f"Card ID {cardId}")
 			for fieldName, fieldResult in parsedImageAndTextData.items():
 				if fieldResult is None:
