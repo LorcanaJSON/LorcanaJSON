@@ -37,7 +37,7 @@ def initialize(language: Language.Language, useLorcanaModel: bool = True, tesser
 	global _tesseractApi
 	_tesseractApi = tesserocr.PyTessBaseAPI(lang=modelName, path=tesseractPath, psm=tesserocr.PSM.SINGLE_BLOCK)
 
-def getImageAndTextDataFromImage(pathToImage: str, parseFully: bool, isLocation: bool, hasCardText: bool = None, hasFlavorText: bool = None, isEnchanted: bool = None, showImage: bool = False) -> Dict[str, Union[None, ImageAndText, List[ImageAndText]]]:
+def getImageAndTextDataFromImage(pathToImage: str, parseFully: bool, isLocation: bool = None, hasCardText: bool = None, hasFlavorText: bool = None, isEnchanted: bool = None, showImage: bool = False) -> Dict[str, Union[None, ImageAndText, List[ImageAndText]]]:
 	startTime = time.perf_counter()
 	result: Dict[str, Union[None, ImageAndText, List[ImageAndText]]] = {
 		"flavorText": None,
@@ -81,6 +81,11 @@ def getImageAndTextDataFromImage(pathToImage: str, parseFully: bool, isLocation:
 	# Parse card cost first, since that's always in the top left, regardless of whether the card should later be rotated
 	if parseFully:
 		result["cost"] = _getSubImageAndText(cardImage, ImageArea.INK_COST)
+
+	if isLocation is None:
+		# Figure out whether this is a Location card or not. We need to do this as soon as possible, because Location cards need to be rotated
+		# Location cards, both Enchanted and not Enchanted, have a thick black border at their bottom, so the right side of a non-rotated image, thicker than a non-Enchanted non-Location card. Check for that
+		isLocation = _isImageBlack(_getSubImage(cardImage, ImageArea.IS_LOCATION_CHECK))
 
 	if isLocation:
 		# Location cards are horizontal, so the image should be rotated for proper OCR
