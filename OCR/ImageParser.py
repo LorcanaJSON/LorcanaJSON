@@ -104,19 +104,7 @@ def getImageAndTextDataFromImage(pathToImage: str, parseFully: bool, isLocation:
 		_logger.debug(f"Subtype is main type ({typesImageText=}, so not storing as subtypes")
 
 	if isEnchanted is None:
-		borderSubImage = _getSubImage(cardImage, ImageArea.IS_BORDERLESS_CHECK)
-		# Check if the whole border area is entirely black
-		for y in range(borderSubImage.shape[0]):
-			for x in range(borderSubImage.shape[1]):
-				if sum(borderSubImage[y, x]) > 10:  # Use 10 instead of a strict 1 or 0 for some leeway
-					# Border isn't entirely black, so assume it's an Enchanted card
-					isEnchanted = True
-					break
-			if isEnchanted is not None:
-				break
-		if isEnchanted is None:
-			isEnchanted = False
-		del borderSubImage
+		isEnchanted = not _isImageBlack(_getSubImage(cardImage, ImageArea.IS_BORDERLESS_CHECK))
 
 	if parseFully:
 		# Parse from top to bottom
