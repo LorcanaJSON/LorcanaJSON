@@ -291,7 +291,7 @@ def getImageAndTextDataFromImage(pathToImage: str, parseFully: bool, isLocation:
 			cv2.imshow("Artist", result["artist"].image)
 			cv2.imshow("Ink Cost", result["cost"].image)
 			cv2.imshow("Card Name", result["baseName"].image)
-			if isCharacter:
+			if result["subtitle"] is not None:
 				cv2.imshow("Card Subtitle", result["subtitle"].image)
 		cv2.waitKey(0)
 		cv2.destroyAllWindows()
