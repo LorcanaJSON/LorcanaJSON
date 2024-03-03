@@ -122,7 +122,7 @@ def getImageAndTextDataFromImage(pathToImage: str, parseFully: bool, isLocation:
 			result["baseName"] = _getSubImageAndText(greyCardImage, ImageArea.LOCATION_NAME)
 			result["subtitle"] = _getSubImageAndText(greyCardImage, ImageArea.LOCATION_SUBTITLE)
 			result["moveCost"] = _getSubImageAndText(greyCardImage, ImageArea.LOCATION_MOVE_COST)
-			result["strength"] = _getSubImageAndText(greyCardImage, ImageArea.LOCATION_STRENGTH)
+			result["willpower"] = _getSubImageAndText(greyCardImage, ImageArea.LOCATION_WILLPOWER)
 		else:
 			result["baseName"] = _getSubImageAndText(greyCardImage, ImageArea.CARD_NAME)
 		result["artist"] = _getSubImageAndText(greyCardImage, ImageArea.LOCATION_ARTIST if isLocation else ImageArea.ARTIST)

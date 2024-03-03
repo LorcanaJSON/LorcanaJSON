@@ -45,7 +45,7 @@ LOCATION_TYPE = ImageArea("type", "Location Type", _Coords(210,934, 1855,998), T
 LOCATION_TEXTBOX = ImageArea("textbox", "Location Text Box", _Coords(65,1017, 1818,1317), TEXT_COLOUR_MIDDLE)
 ENCHANTED_LOCATION_TEXT_BOX = ImageArea("textbox", "Enchanted Location Text Box", _Coords(20,1017, 1818,1317), TEXT_COLOUR_MIDDLE)
 LOCATION_MOVE_COST = ImageArea("moveCost", "Location Move Cost", _Coords(152,767, 227,860), TEXT_COLOUR_WHITE, isNumeric=True)
-LOCATION_STRENGTH = ImageArea("stregnth", "Location Strength", _Coords(1827,767, 1919,873), TEXT_COLOUR_WHITE, isNumeric=True)
+LOCATION_WILLPOWER = ImageArea("willpower", "Location Willpower", _Coords(1827, 767, 1919, 873), TEXT_COLOUR_WHITE, isNumeric=True)
 LOCATION_ARTIST = ImageArea("artist", "Location Artist", _Coords(112,1331, 948,1381), TEXT_COLOUR_WHITE)
 LOCATION_IDENTIFIER = ImageArea("identifier", "Location Identifier", _Coords(54,1381, 365,1431), TEXT_COLOUR_WHITE)
 
