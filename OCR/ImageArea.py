@@ -39,6 +39,8 @@ ENCHANTED_FULL_WIDTH_TEXT_BOX = ImageArea("textbox", "Enchanted Full Width Text 
 ARTIST = ImageArea("artist", "Artist", _Coords(109, 1925, 666, 1969), TEXT_COLOUR_WHITE)
 CARD_IDENTIFIER = ImageArea("card_identifier", "Card Identifier", _Coords(54,1969, 359,2017), TEXT_COLOUR_WHITE)
 
+LOCATION_NAME = ImageArea("cardName", "Location Name", _Coords(424,740, 1700,849), TEXT_COLOUR_WHITE)
+LOCATION_SUBTITLE = ImageArea("subtitle", "Location Subtitle", _Coords(424,846, 1700,918), TEXT_COLOUR_WHITE)
 LOCATION_TYPE = ImageArea("type", "Location Type", _Coords(210,934, 1855,998), TEXT_COLOUR_WHITE)
 LOCATION_TEXTBOX = ImageArea("textbox", "Location Text Box", _Coords(65,1017, 1818,1317), TEXT_COLOUR_MIDDLE)
 ENCHANTED_LOCATION_TEXT_BOX = ImageArea("textbox", "Enchanted Location Text Box", _Coords(20,1017, 1818,1317), TEXT_COLOUR_MIDDLE)
