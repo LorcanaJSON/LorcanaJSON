@@ -7,8 +7,9 @@ Language = namedtuple("Language", ("code", "threeLetterCode", "englishName", "na
 ENGLISH = Language("en", "eng", "English", "English")
 FRENCH = Language("fr", "fra", "French", "Français")
 GERMAN = Language("de", "deu", "German", "Deutsch")
+ITALIAN = Language("it", "ita", "Italian", "Italiano")
 
-ALL: Tuple[Language, ...] = (ENGLISH, FRENCH, GERMAN)
+ALL: Tuple[Language, ...] = (ENGLISH, FRENCH, GERMAN, ITALIAN)
 
 def getLanguageByCode(languageCode: str) -> Language:
 	languageCode = languageCode.lower()
