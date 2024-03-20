@@ -19,5 +19,12 @@
     "prereleaseDate": "2024-02-23",
     "releaseDate": "2024-03-08",
     "hasAllCards": true
+  },
+  "4": {
+    "code" :"",
+    "name": "Ursula's Return",
+    "prereleaseDate": "2024-05-17",
+    "releaseDate": "2024-05-31",
+    "hasAllCards": false
   }
 }
