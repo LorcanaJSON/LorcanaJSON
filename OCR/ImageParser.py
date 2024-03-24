@@ -15,7 +15,7 @@ INK_UNICODE = "⬡"  # Unicode \u2B21  HTML entities &#11041;  &#x2B21;
 LORE_UNICODE = "◊"  # Unicode \u25CA  HTML entities &#9674;  &#x25CA;  &loz;
 STRENGTH_UNICODE = "¤"  # Unicode \u00A4  HTML entities &#164;  &#xA4;  &curren;
 WILLPOWER_UNICODE = "⛉"  # Unicode \u26C9  HTML entities: &#9929;  &#x26C9;
-TYPE_SEPARATOR_UNICODE = "•"  # Unicode \u2022 HTML entities &#8226; &bull;
+SEPARATOR_UNICODE = "•"  # Unicode \u2022 HTML entities &#8226; &bull;
 
 ImageAndText = namedtuple("ImageAndText", ("image", "text"))
 
@@ -100,7 +100,7 @@ def getImageAndTextDataFromImage(pathToImage: str, parseFully: bool, isLocation:
 	if typesImageText not in ("Action", "Item", "Location"):
 		# The type separator character is always the same, but often gets interpreted wrong; fix that
 		if " " in typesImageText:
-			typesImageText = re.sub(r" (\S )?", f" {TYPE_SEPARATOR_UNICODE} ", typesImageText)
+			typesImageText = re.sub(r" (\S )?", f" {SEPARATOR_UNICODE} ", typesImageText)
 		result["subtypesText"] = ImageAndText(typesImage, typesImageText)
 		_logger.debug(f"{typesImageText=}")
 		isCharacter = not isLocation and not typesImageText.startswith("Action") and not typesImageText.startswith("Item") and not typesImageText.startswith("Location")

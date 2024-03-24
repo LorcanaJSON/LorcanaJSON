@@ -493,7 +493,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 			outputCard["clarifications"] = clarifications
 	# Determine subtypes and their order. Items and Actions have an empty subtypes list, ignore those
 	if parsedImageAndTextData["subtypesText"] and parsedImageAndTextData["subtypesText"].text:
-		subtypes: List[str] = parsedImageAndTextData["subtypesText"].text.split(f" {ImageParser.TYPE_SEPARATOR_UNICODE} ")
+		subtypes: List[str] = parsedImageAndTextData["subtypesText"].text.split(f" {ImageParser.SEPARATOR_UNICODE} ")
 		# Non-character cards have their main type as their (first) subtype, remove those
 		if subtypes[0] == "Action" or subtypes[0] == "Item":
 			subtypes.pop(0)
