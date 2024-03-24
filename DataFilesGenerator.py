@@ -317,8 +317,11 @@ def createOutputFiles(language: Language.Language, onlyParseIds: Union[None, Lis
 	outputDict = {"metadata": metaDataDict}
 
 	# Add set data
-	with open(os.path.join("output", f"baseSetData.{language.code}.json"), "r", encoding="utf-8") as baseSetDataFile:
+	with open(os.path.join("output", f"baseSetData.json"), "r", encoding="utf-8") as baseSetDataFile:
 		setsData = json.load(baseSetDataFile)
+		for setNumber in setsData:
+			# Get just the current language's set names
+			setsData[setNumber]["name"] = setsData[setNumber].pop("names")[language.code]
 	outputDict["sets"] = setsData
 
 	# Create the output files

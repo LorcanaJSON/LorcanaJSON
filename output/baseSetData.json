@@ -1,0 +1,46 @@
+{
+  "1": {
+    "names": {
+      "de": "Das Erste Kapitel",
+      "en": "The First Chapter",
+      "fr": "Premier Chapitre",
+      "it": "Capitolo Primo"
+    },
+    "prereleaseDate": "2023-08-18",
+    "releaseDate": "2023-09-01",
+    "hasAllCards": true
+  },
+  "2": {
+    "names": {
+      "de": "Aufstieg der Flutgestalten",
+      "en": "Rise of the Floodborn",
+      "fr": "L'Ascension des Floodborn",
+      "it": "L'Ascesa degli Imbevuti"
+    },
+    "prereleaseDate": "2023-11-17",
+    "releaseDate": "2023-12-01",
+    "hasAllCards": true
+  },
+  "3": {
+    "names": {
+      "de": "Die Tintenlande",
+      "en": "Into the Inklands",
+      "fr": "Les Terres d'Encres",
+      "it": "Nelle Terre d'Inchiostro"
+    },
+    "prereleaseDate": "2024-02-23",
+    "releaseDate": "2024-03-08",
+    "hasAllCards": true
+  },
+  "4": {
+    "names": {
+      "de": "Ursulas Rückkehr",
+      "en": "Ursula's Return",
+      "fr": "Le Retour d'Ursula",
+      "it": "Il Ritorno di Ursula"
+    },
+    "prereleaseDate": "2024-05-17",
+    "releaseDate": "2024-05-31",
+    "hasAllCards": false
+  }
+}
