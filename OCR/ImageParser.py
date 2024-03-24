@@ -95,7 +95,7 @@ def getImageAndTextDataFromImage(pathToImage: str, parseFully: bool, isLocation:
 	# First determine the card (sub)type
 	typesImage = _getSubImage(greyCardImage, ImageArea.LOCATION_TYPE if isLocation else ImageArea.TYPE)
 	typesImage = _convertToThresholdImage(typesImage, ImageArea.TYPE.textColour)
-	typesImageText = _imageToString(typesImage)
+	typesImageText = _imageToString(typesImage).strip("\"'")
 	_logger.debug(f"Parsing types image finished at {time.perf_counter() - startTime} seconds in")
 	if typesImageText not in ("Action", "Item", "Location"):
 		# The type separator character is always the same, but often gets interpreted wrong; fix that
