@@ -120,7 +120,11 @@ document.getElementById("dropLocation").addEventListener("drop", (event) => {
 	file.text().then((fileText) => {
 		cardsJson = JSON.parse(fileText);
 		maxIndex = cardsJson["cards"].length - 1;
-		setDisplayedIndex(0);
+		if (currentIndex <= maxIndex) {
+			setDisplayedIndex(currentIndex);
+		} else {
+			setDisplayedIndex(0);
+		}
 		document.getElementById("maxIndex").textContent = maxIndex;
 		document.getElementById("maxId").textContent = cardsJson["cards"][maxIndex]["id"];
 	}).catch((error) => console.log("An error occurred: %o", error));
