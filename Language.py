@@ -2,12 +2,12 @@ from collections import namedtuple
 from typing import Tuple
 
 
-Language = namedtuple("Language", ("code", "threeLetterCode", "englishName", "nativeName"))
+Language = namedtuple("Language", ("code", "threeLetterCode", "englishName", "nativeName", "fromSet"))
 
-ENGLISH = Language("en", "eng", "English", "English")
-FRENCH = Language("fr", "fra", "French", "Français")
-GERMAN = Language("de", "deu", "German", "Deutsch")
-ITALIAN = Language("it", "ita", "Italian", "Italiano")
+ENGLISH = Language("en", "eng", "English", "English", 1)
+FRENCH = Language("fr", "fra", "French", "Français", 1)
+GERMAN = Language("de", "deu", "German", "Deutsch", 1)
+ITALIAN = Language("it", "ita", "Italian", "Italiano", 3)
 
 ALL: Tuple[Language, ...] = (ENGLISH, FRENCH, GERMAN, ITALIAN)
 
