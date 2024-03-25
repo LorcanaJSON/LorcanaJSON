@@ -193,6 +193,7 @@ def createOutputFiles(language: Language.Language, onlyParseIds: Union[None, Lis
 		raise FileNotFoundError(f"Card catalog for language '{language.code}' doesn't exist. Run the data downloader first")
 	with open(cardCatalogPath, "r", encoding="utf-8") as inputFile:
 		inputData = json.load(inputFile)
+	cardIdToStoryName = _determineCardIdToStoryName(language, onlyParseIds)
 
 	correctionsFilePath = os.path.join("output", f"outputDataCorrections_{language.code}.json")
 	if os.path.isfile(correctionsFilePath):
@@ -288,7 +289,7 @@ def createOutputFiles(language: Language.Language, onlyParseIds: Union[None, Lis
 				_logger.error(f"Card ID {cardId} is not in the ID parse list, but it's also not in the previous dataset. Skipping parsing for now, but this results in incomplete datafiles, so it's strongly recommended to rerun with this card ID included")
 				continue
 			try:
-				outputCard = _parseSingleCard(inputCard, cardTypeText, imageFolder, enchantedNonEnchantedIds, promoNonPromoIds, variantsDeckBuildingIds, cardDataCorrections, False, shouldShowImage=shouldShowImages)
+				outputCard = _parseSingleCard(inputCard, cardTypeText, imageFolder, enchantedNonEnchantedIds, promoNonPromoIds, variantsDeckBuildingIds, cardDataCorrections, cardIdToStoryName, False, shouldShowImage=shouldShowImages)
 				fullCardList.append(outputCard)
 				cardIdsStored.append(outputCard["id"])
 			except Exception as e:
@@ -307,7 +308,7 @@ def createOutputFiles(language: Language.Language, onlyParseIds: Union[None, Lis
 		if cardId in cardIdsStored:
 			_logger.debug(f"Card ID {cardId} is defined in the official file and in the external file, skipping the external data")
 			continue
-		outputCard = _parseSingleCard(externalCard, externalCard["type"], imageFolder, enchantedNonEnchantedIds, promoNonPromoIds, variantsDeckBuildingIds, cardDataCorrections, True, shouldShowImage=shouldShowImages)
+		outputCard = _parseSingleCard(externalCard, externalCard["type"], imageFolder, enchantedNonEnchantedIds, promoNonPromoIds, variantsDeckBuildingIds, cardDataCorrections, cardIdToStoryName, True, shouldShowImage=shouldShowImages)
 		fullCardList.append(outputCard)
 
 	if cardDataCorrections:
@@ -367,7 +368,7 @@ def createOutputFiles(language: Language.Language, onlyParseIds: Union[None, Lis
 	_logger.info(f"Creating the output files took {time.perf_counter() - startTime:.4f} seconds")
 
 def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchantedNonEnchantedIds: Dict[int, int], promoNonPromoIds: Dict[int, Union[int, List[int]]], variantIds: Dict[str, List[int]],
-					 cardDataCorrections: Dict, isExternalReveal: bool, shouldShowImage: bool = False) -> Dict:
+					 cardDataCorrections: Dict, cardIdToStoryName: Dict[int, str], isExternalReveal: bool, shouldShowImage: bool = False) -> Dict:
 	# Store some default values
 	outputCard: Dict[str, Union[str, int, List, Dict]] = {
 		"color": inputCard["magic_ink_color"].title(),
@@ -571,7 +572,83 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 	outputCard["fullText"] = "\n".join(fullTextSections)
 	if fullTextCorrection:
 		correctCardField(outputCard, "fullText", fullTextCorrection[0], fullTextCorrection[1])
+	outputCard["story"] = cardIdToStoryName[outputCard["id"]]
 	return outputCard
+
+def _determineCardIdToStoryName(targetLanguage: Language.Language, idsToParse: List[int] = None) -> Dict[int, str]:
+	startTime = time.perf_counter()
+	cardStorePath = os.path.join("downloads", "json", "carddata.en.json")
+	if not os.path.isfile(cardStorePath):
+		raise FileNotFoundError("The English carddata file does not exist, please run the 'download' action for English first")
+	with open(cardStorePath, "r", encoding="utf-8") as cardstoreFile:
+		cardstore = json.load(cardstoreFile)
+	with open(os.path.join("output", "fromStories.json"), "r", encoding="utf-8") as fromStoriesFile:
+		fromStories = json.load(fromStoriesFile)
+	# The fromStories file is organised by story to make it easy to write and maintain
+	# Reformat it so matching individual cards to a story is easier
+	cardIdToStoryName: Dict[int, str] = {}
+	cardNameToStoryName: Dict[str, str] = {}
+	fieldMatchers: Dict[str, Dict[str, str]] = {}  # A dictionary with for each fieldname a dict of matchers and their matching story name
+	for storyId, storyData in fromStories.items():
+		storyName = storyData["displayNames"][targetLanguage.code]
+		if "matchingIds" in storyData:
+			for cardId in storyData["matchingIds"]:
+				cardIdToStoryName[cardId] = storyName
+		if "matchingNames" in storyData:
+			for name in storyData["matchingNames"]:
+				cardNameToStoryName[name] = storyName
+		if "matchingFields" in storyData:
+			for fieldName, fieldMatch in storyData["matchingFields"].items():
+				if fieldName not in fieldMatchers:
+					fieldMatchers[fieldName] = {}
+				elif fieldMatch in fieldMatchers[fieldName]:
+					raise ValueError(f"Duplicate field matcher '{fieldMatch}' in '{fieldMatchers[fieldName][fieldMatch]}' and '{storyName}'")
+				fieldMatchers[fieldName][fieldMatch] = storyName
+	_logger.debug(f"Reorganized story data after {time.perf_counter() - startTime:.4f} seconds")
+	# Now we can go through every card and try to match each to a story
+	for cardtype, cardlist in cardstore["cards"].items():
+		for card in cardlist:
+			cardId = card["culture_invariant_id"]
+			if idsToParse and cardId not in idsToParse:
+				continue
+			if cardId in cardIdToStoryName:
+				# Card is already stored, by directly referencing its ID in the 'fromStories' file, so we don't need to do anything anymore
+				continue
+			if card["name"] in cardNameToStoryName:
+				cardIdToStoryName[cardId] = cardNameToStoryName[card["name"]]
+				continue
+			# Go through each field matcher to see if it matches anything
+			try:
+				for fieldName, fieldData in fieldMatchers.items():
+					if fieldName not in card:
+						continue
+					for fieldMatch, storyName in fieldData.items():
+						if isinstance(card[fieldName], list):
+							if fieldMatch in card[fieldName]:
+								cardIdToStoryName[cardId] = storyName
+								raise StopIteration()
+						elif fieldMatch in card[fieldName] or re.search(fieldMatch, card[fieldName]):
+							cardIdToStoryName[cardId] = storyName
+							raise StopIteration()
+			except StopIteration:
+				pass
+			else:
+				try:
+					# No match, try to see if any of the names occurs in some of the card's fields
+					for name, storyName in cardNameToStoryName.items():
+						nameRegex = re.compile(rf"(^|\W){name}(\W|$)")
+						for fieldName in ("flavor_text", "rules_text", "name", "subtitle"):
+							if fieldName in card and nameRegex.search(card[fieldName]):
+								_logger.debug(f"Assuming {_createCardIdentifier(card)} is in story '{storyName}' based on '{name}' in the field '{fieldName}': {card[fieldName]!r}")
+								cardIdToStoryName[cardId] = storyName
+								raise StopIteration()
+				except StopIteration:
+					pass
+				else:
+					_logger.error(f"Unable to determine story ID of card {_createCardIdentifier(card)}")
+					cardIdToStoryName[cardId] = "_unknown"
+	_logger.debug(f"Finished determining cards' stories after {time.perf_counter() - startTime:.4f} seconds")
+	return cardIdToStoryName
 
 def _saveFile(outputFilePath: str, dictToSave: Dict, createZip: bool = True):
 	with open(outputFilePath, "w", encoding="utf-8") as outputFile:

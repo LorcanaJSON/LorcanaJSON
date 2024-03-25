@@ -1,0 +1,383 @@
+{
+  "101dalmatians": {
+    "displayNames": {
+      "de": "101 Dalmatiner",
+      "en": "101 Dalmatians",
+      "fr": "Les 101 Dalmatiens",
+      "it": "La carica dei 101"
+    },
+    "matchingNames": ["Cruella De Vil", "Dalmatian Puppy", "Horace", "Jasper", "Patch", "Perdita", "Pongo", "Roger", "Rolly", "Sergeant Tibbs"],
+    "matchingIds": [106, 536],
+    "matchingFields": {
+      "subtypes": "Puppy"
+    }
+  },
+  "aladdin": {
+    "displayNames": {
+      "de": "Aladdin",
+      "en": "Aladdin",
+      "fr": "Aladdin",
+      "it": "Aladdin"
+    },
+    "matchingNames": ["Abu", "Agrabah", "Aladdin", "Genie", "Iago", "Jafar", "Jasmine", "Magic Carpet", "Razoul", "Treasure Guardian"],
+    "matchingIds": [164, 195, 564, 596]
+  },
+  "aliceinwonderland": {
+    "displayNames": {
+      "de": "Alice im Wunderland",
+      "en": "Alice In Wonderland",
+      "fr": "Alice au pays des merveilles",
+      "it": "Alice nel Paese delle Meraviglie"
+    },
+    "matchingNames": ["Alice", "Card Soldiers", "Caterpillar", "Cheshire Cat", "Mad Hatter", "Queen of Hearts"],
+    "matchingIds": [246, 282, 378]
+  },
+  "atlantis": {
+    "displayNames": {
+      "de": "Atlantis – Das Geheimnis der verlorenen Stadt",
+      "en": "Atlantis: The Lost Empire",
+      "fr": "Atlantide, l'empire perdu",
+      "it": "Atlantis - L'impero perduto"
+    },
+    "matchingNames": ["Audrey Ramirez", "Helga Sinclair", "Joshua Sweet", "Kida", "Lyle Tiberius Rourke", "Milo Thatch"],
+    "matchingIds": [598]
+  },
+  "beautybeast": {
+    "displayNames": {
+      "de": "Die Schöne und das Biest",
+      "en": "Beauty and the Beast",
+      "fr": "La Belle et la Bête",
+      "it": "La bella e la bestia"
+    },
+    "matchingNames": ["Beast", "Belle", "Chip the Teacup", "Cogsworth", "Enchantress", "Gaston", "LeFou", "Lumiere", "Maurice", "The Wardrobe"],
+    "matchingIds": [25, 26, 131, 162, 196, 198, 244, 379, 381, 691]
+  },
+  "bravelittletailor": {
+    "displayNames": {
+      "de": "Tapferes kleines Schneiderlein",
+      "en": "Brave Little Tailor",
+      "fr": "Le Brave Petit Tailleur",
+      "it": "L'eroico ammazzasette"
+    },
+    "matchingNames": ["Gustav the Giant"],
+    "matchingIds": [115, 129, 595, 659]
+  },
+  "cinderella": {
+    "displayNames": {
+      "de": "Cinderella",
+      "en": "Cinderella",
+      "fr": "Cendrillon",
+      "it": "Cenerentola"
+    },
+    "matchingNames": ["Cinderella", "Fairy Godmother", "Grand Duke", "Lady Tremaine", "Lucifer", "Prince Charming"],
+    "matchingIds": [312]
+  },
+  "ducktales": {
+    "displayNames": {
+      "de": "DuckTales",
+      "en": "DuckTales",
+      "fr": "La Bande à Picsou",
+      "it": "DuckTales"
+    },
+    "matchingNames": ["Della Duck", "Dewey", "Flintheart Glomgold", "Gyro Gearloose", "Huey", "Lena Sabrewing", "Louie", "Lucky Dime", "Magica De Spell", "Scrooge", "Scrooge McDuck", "Webby Vanderquack"],
+    "matchingIds": [636]
+  },
+  "fantasia": {
+    "displayNames": {
+      "de": "Fantasia",
+      "en": "Fantasia",
+      "fr": "Fantasia",
+      "it": "Fantasia"
+    },
+    "matchingNames": ["Chernabog", "The Firebird"]
+  },
+  "frozen": {
+    "displayNames": {
+      "de": "Die Eiskönigin – Völlig unverfroren",
+      "en": "Frozen",
+      "fr": "La Reine des neiges",
+      "it": "Frozen - Il regno di ghiaccio"
+    },
+    "matchingNames": ["Anna", "Arendelle", "Duke of Weselton", "Elsa", "Grand Pabbie", "Hans", "Kristoff", "Marshmellow", "Olaf", "Sven", "The Nokk"],
+    "matchingIds": [63, 163, 200, 415]
+  },
+  "greatmousedetective": {
+    "displayNames": {
+      "de": "Basil, der große Mäusedetektiv",
+      "en": "The Great Mouse Detective",
+      "fr": "Basil, détective privé",
+      "it": "Basil l'investigatopo"
+    },
+    "matchingNames": ["Basil", "Felicia", "Fidget", "Hiram Flaversham", "Mrs. Judson", "Ratigan"],
+    "matchingIds": [247, 347, 350, 419]
+  },
+  "hercules": {
+    "displayNames": {
+      "de": "Hercules",
+      "en": "Hercules",
+      "fr": "Hercule",
+      "it": "Hercules"
+    },
+    "matchingNames": ["Cerberus", "Hades", "Hercules", "Hermes", "Hydra", "Megara", "Olympus", "Pain", "Panic", "Philoctetes", "Zeus"],
+    "matchingIds": [167, 248, 345, 531],
+    "matchingFields": {
+      "subtypes": "Titan"
+    }
+  },
+  "junglebook": {
+    "displayNames": {
+      "de": "Das Dschungelbuch",
+      "en": "The Jungle Book",
+      "fr": "Le Livre de la jungle",
+      "it": "Il libro della giungla"
+    },
+    "matchingNames": ["Shere Khan"],
+    "matchingIds": [228, 314, 319, 464]
+  },
+  "kuzco": {
+    "displayNames": {
+      "de": "Ein Königreich für ein Lama",
+      "en": "The Emperor's New Groove",
+      "fr": "Kuzco, l'empereur mégalo",
+      "it": "Le follie dell'imperatore"
+    },
+    "matchingNames": ["Bucky", "Kronk", "Kuzco", "Pacha", "Yzma"],
+    "matchingIds": [199]
+  },
+  "liloandstitch": {
+    "displayNames": {
+      "de": "Lilo & Stitch",
+      "en": "Lilo & Stitch",
+      "fr": "Lilo et Stitch",
+      "it": "Lilo & Stitch"
+    },
+    "matchingNames": ["Cobra Bubbles", "Gantu", "Jumba Jookiba", "Lilo", "Nani", "Stitch"]
+  },
+  "lionking": {
+    "displayNames": {
+      "de": "Der König der Löwen",
+      "en": "The Lion King",
+      "fr": "Le Roi lion",
+      "it": "Il re lione"
+    },
+    "matchingNames": ["Hakuna Matata", "Mufasa", "Nala", "Pride Lands", "Pride Rock", "Pumbaa", "Rafiki", "Scar", "Simba", "Shenzi", "Timon", "Zazu"],
+    "matchingIds": [96, 128, 346]
+  },
+  "littlemermaid": {
+    "displayNames": {
+      "de": "Arielle, die Meerjungfrau",
+      "en": "The Little Mermaid",
+      "fr": "La Petite Sirène",
+      "it": "La sirenetta"
+    },
+    "matchingNames": ["Ariel", "Dinglehopper", "Flotsam", "Flounder", "Jetsam", "Prince Eric", "Sebastian", "Triton", "Ursula"],
+    "matchingIds": [30, 281, 499]
+  },
+  "lorcana": {
+    "displayNames": {
+      "de": "Lorcana",
+      "en": "Lorcana",
+      "fr": "Lorcana",
+      "it": "Lorcana"
+    },
+    "matchingNames": ["Venturo"],
+    "matchingIds": [380, 535]
+  },
+  "mickey": {
+    "displayNames": {
+      "de": "Mickey Maus & Freunde",
+      "en": "Mickey Mouse & Friends",
+      "fr": "Mickey Mouse et amis",
+      "it": "Topolino e i suoi amici"
+    },
+    "matchingNames": ["Daisy Duck", "Donald Duck", "Goofy", "Mickey Mouse", "Minnie Mouse", "Pete", "Pluto"]
+  },
+  "moana": {
+    "displayNames": {
+      "de": "Vaiana",
+      "en": "Moana",
+      "fr": "Vaiana",
+      "it": "Oceania"
+    },
+    "matchingNames": ["Chief Tui", "Gramma Tala", "HeiHei", "Kakamora", "Moana", "Motunui", "Maui", "Pua", "Tamatoa", "Te Fiti", "Te Kā"],
+    "matchingIds": [29, 166, 497, 498, 597, 686]
+  },
+  "mulan": {
+    "displayNames": {
+      "de": "Mulan",
+      "en": "Mulan",
+      "fr": "Mulan",
+      "it": "Mulan"
+    },
+    "matchingNames": ["Li Shang", "Mulan"],
+    "matchingIds": [65, 417, 418, 532]
+  },
+  "peterpan": {
+    "displayNames": {
+      "de": "Peter Pan",
+      "en": "Peter Pan",
+      "fr": "Peter Pan",
+      "it": "Le avventure di Peter Pan"
+    },
+    "matchingNames": ["Captain Hook", "Cubby", "Lost Boy", "Mr. Smee", "Nana", "Never Land", "Peter Pan", "Starkey", "Tinker Bell", "Wendy Darling"],
+    "matchingIds": [349, 566, 571]
+  },
+  "pinocchio": {
+    "displayNames": {
+      "de": "Pinocchio",
+      "en": "Pinocchio",
+      "fr": "Pinocchio",
+      "it": "Pinocchio"
+    },
+    "matchingNames": ["Blue Fairy", "Honest John", "Jiminy Cricket", "Pinocchio"]
+  },
+  "princessandthefrog": {
+    "displayNames": {
+      "de": "Küss den Frosch",
+      "en": "The Princess And The Frog",
+      "fr": "La Princesse et la Grenouille",
+      "it": "La principessa e il ranocchio"
+    },
+    "matchingNames": ["Dr. Facilier", "Eli La Bouff", "Eudora", "Friends on the Other Side", "James", "Lawrence", "Mama Odie", "Prince Naveen", "Ray", "Tiana"],
+    "matchingIds": [640]
+  },
+  "raya": {
+    "displayNames": {
+      "de": "Raya und der letzte Drache",
+      "en": "Raya and the Last Dragon",
+      "fr": "Raya et le Dernier Dragon",
+      "it": "Raya e l'ultimo drago"
+    },
+    "matchingNames": ["Benja", "Boun", "Namaari", "Noi", "Raya", "Sisu", "Tuk Tuk", "Virana"],
+    "matchingIds": [249, 382, 414, 465, 537]
+  },
+  "rescuers": {
+    "displayNames": {
+      "de": "Bernard und Bianca – Die Mäusepolizei",
+      "en": "The Rescuers",
+      "fr": "Les Aventures de Bernard et Bianca",
+      "it": "Le avventure di Bianca e Bernie"
+    },
+    "matchingNames": ["Bernard", "Madame Medusa", "Miss Bianca", "Mr. Snoops", "Orville", "Rufus"]
+  },
+  "robinhood": {
+    "displayNames": {
+      "de": "Robin Hood",
+      "en": "Robin Hood",
+      "fr": "Robin des Bois",
+      "it": "Robin Hood"
+    },
+    "matchingNames": ["Friar Tuck", "Little John", "Maid Marian", "Nutsy", "Prince John", "Robin Hood", "Sheriff of Nottingham", "Sir Hiss", "Skippy", "Trigger"]
+  },
+  "sleepingbeauty": {
+    "displayNames": {
+      "de": "Dornröschen",
+      "en": "Sleeping Beauty",
+      "fr": "La Belle au bois dormant",
+      "it": "La bella addormentata nel bosco"
+    },
+    "matchingNames": ["Aurora", "Diablo", "Dragon Fire", "Flora", "Goons", "Maleficent", "Prince Phillip"],
+    "matchingIds": [136]
+  },
+  "snowwhite": {
+    "displayNames": {
+      "de": "Schneewittchen und die sieben Zwerge",
+      "en": "Snow White and the Seven Dwarves",
+      "fr": "Blanche-Neige et les Sept Nains",
+      "it": "Biancaneve e i sette nani"
+    },
+    "matchingNames": ["Bashful", "Doc", "Dopey", "Grumpy", "Happy", "Magic Mirror", "Sleepy", "Sneezy", "Snow White", "The Huntsman", "The Prince", "The Queen"]
+  },
+  "sorcerersapprentice": {
+    "displayNames": {
+      "de": "Der Zauberlehrling",
+      "en": "The Sorcerer's Apprentice",
+      "fr": "L'Apprenti sorcier",
+      "it": "L'apprendista stregone"
+    },
+    "matchingNames": ["Magic Broom"],
+    "matchingIds": [51, 284, 501, 646]
+  },
+  "swordinthestone": {
+    "displayNames": {
+      "de": "Die Hexe und der Zauberer",
+      "en": "The Sword in the Stone",
+      "fr": "Merlin l'Enchanteur",
+      "it": "La spada nella roccia"
+    },
+    "matchingNames": ["Archimedes", "Arthur", "Madam Mim", "Merlin"],
+    "matchingIds": [62, 278, 280, 352]
+  },
+  "talespin": {
+    "displayNames": {
+      "de": "Käpt’n Balu und seine tollkühne Crew",
+      "en": "TaleSpin",
+      "fr": "Super Baloo",
+      "it": "TaleSpin"
+    },
+    "matchingNames": ["Don Karnage", "Kit Cloudkicker", "Sea Duck", "Thaddeus E. Klang", "Wildcat"],
+    "matchingIds": [433, 463, 582]
+  },
+  "tangled": {
+    "displayNames": {
+      "de": "Rapunzel – Neu verföhnt",
+      "en": "Tangled",
+      "fr": "Raiponce",
+      "it": "Rapunzel - L'intreccio della torre"
+    },
+    "matchingNames": ["Flynn Rider", "Maximus", "Mother Gothel", "Mother Knows Best", "Pascal", "Rapunzel"],
+    "matchingIds": [33, 202, 462, 565]
+  },
+  "threemusketeers": {
+    "displayNames": {
+      "de": "Die drei Musketiere",
+      "en": "The Three Musketeers",
+      "fr": "Les Trois Mousquetaires",
+      "it": "I tre moschettieri"
+    },
+    "matchingIds": [4, 13, 177, 186, 669, 670, 671, 530],
+    "matchingFields": {
+      "flavor_text": "musketeer",
+      "subtypes": "Musketeer"
+    }
+  },
+  "treasureplanet": {
+    "displayNames": {
+      "de": "Der Schatzplanet",
+      "en": "Treasure Planet",
+      "fr": "La Planète au tréso",
+      "it": "Il pianeta del tesoro"
+    },
+    "matchingNames": ["Billy Bones", "Captain Amelia", "Jim Hawkins", "John Silver", "Morph", "Scroop"],
+    "matchingIds": [572, 632, 652, 685]
+  },
+  "winniethepooh": {
+    "displayNames": {
+      "de": "Winnie Puuh",
+      "en": "Winnie the Pooh",
+      "fr": "Winnie l'ourso",
+      "it": "Winnie the Pooh"
+    },
+    "matchingNames": ["Christopher Robin", "Eeyore", "Owl", "Piglet", "Rabbit", "Tigger", "Winnie the Pooh"],
+    "matchingIds": [279]
+  },
+  "wreckitralph": {
+    "displayNames": {
+      "de": "Ralph reichts",
+      "en": "Wreck-It Ralph",
+      "fr": "Les Mondes de Ralph",
+      "it": "Ralph Spaccatutto"
+    },
+    "matchingIds": [416]
+  },
+  "zootopia": {
+    "displayNames": {
+      "de": "Zoomania",
+      "en": "Zootopia",
+      "fr": "Zootopie",
+      "it": "Zootropolis"
+    },
+    "matchingNames": ["Chief Bogo", "Duke Weaselton", "Judy Hopps", "Nick Wilde"],
+    "matchingIds": [385]
+  }
+}
