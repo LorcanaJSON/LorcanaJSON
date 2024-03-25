@@ -127,7 +127,7 @@ def correctCardField(card: Dict, fieldName: str, regexMatchString: str, correcti
 		preCorrectedText = card[fieldName]
 		card[fieldName] = re.sub(regexMatchString, correction, preCorrectedText, flags=re.DOTALL)
 		if card[fieldName] == preCorrectedText:
-			_logger.warning(f"Correcting field '{fieldName}' in card {_createCardIdentifier(card)} didn't change anything, value is still '{repr(preCorrectedText)}'")
+			_logger.warning(f"Correcting field '{fieldName}' in card {_createCardIdentifier(card)} didn't change anything, value is still {preCorrectedText!r}")
 		else:
 			_logger.info(f"Corrected field '{fieldName}' from {repr(preCorrectedText)} to {repr(card[fieldName])} for card {_createCardIdentifier(card)}")
 	elif isinstance(card[fieldName], list):
