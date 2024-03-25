@@ -383,20 +383,26 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 		raise ValueError(f"Unable to find image for card ID {outputCard['id']}")
 	parsedImageAndTextData = ImageParser.getImageAndTextDataFromImage(imagePath,
 																	  parseFully=isExternalReveal,
+																	  includeIdentifier="/P" in inputCard.get("card_identifier", "/P"),
 																	  isLocation=cardType == "Location",
 																	  hasCardText=inputCard["rules_text"] != "" if "rules_text" in inputCard else None,
 																	  hasFlavorText=inputCard["flavor_text"] != "" if "flavor_text" in inputCard else None,
 																	  isEnchanted=outputCard["rarity"] == "Enchanted" or inputCard.get("foil_type", None) == "Satin",  # Disney100 cards need Enchanted parsing, foil_type seems best way to determine Disney100
 																	  showImage=shouldShowImage)
 
+	# The card identifier in non-promo cards is mostly correct in the input card,
+	# For promo cards, get the text from the image, since it can differ quite a bit
+	if "card_identifier" in inputCard and "/P" not in inputCard["card_identifier"]:
+		outputCard["fullIdentifier"] = inputCard["card_identifier"].replace(" ", f" {ImageParser.SEPARATOR_UNICODE} ")
+	else:
+		outputCard["fullIdentifier"] = re.sub(fr" ?\W (?!$)", f" {ImageParser.SEPARATOR_UNICODE} ", parsedImageAndTextData["identifier"].text).replace("I", "/")
 	if "number" in inputCard:
 		outputCard["number"] = inputCard["number"]
 	if "expansion_number" in inputCard:
 		outputCard["setNumber"] = inputCard["expansion_number"]
 	if "number" not in outputCard or "setNumber" not in outputCard:
 		# Get the set and card numbers from the parsed identifier
-		cardIdentifier = inputCard["card_identifier"] if "card_identifier" in inputCard else parsedImageAndTextData["identifier"].text
-		cardIdentifierMatch = re.match(r"^(\d+)([a-z])?/[0-9P]+ .+ (\d+)$", cardIdentifier)
+		cardIdentifierMatch = re.match(r"^(\d+)([a-z])?/[0-9P]+ .+ (\d+)$", inputCard["card_identifier"] if "card_identifier" in inputCard else parsedImageAndTextData["identifier"].text)
 		if not cardIdentifierMatch:
 			raise ValueError(f"Unable to parse card and set numbers from card identifier '{parsedImageAndTextData['identifier'].text}")
 		if "number" not in outputCard:

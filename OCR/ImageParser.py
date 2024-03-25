@@ -37,7 +37,8 @@ def initialize(language: Language.Language, useLorcanaModel: bool = True, tesser
 	global _tesseractApi
 	_tesseractApi = tesserocr.PyTessBaseAPI(lang=modelName, path=tesseractPath, psm=tesserocr.PSM.SINGLE_BLOCK)
 
-def getImageAndTextDataFromImage(pathToImage: str, parseFully: bool, isLocation: bool = None, hasCardText: bool = None, hasFlavorText: bool = None, isEnchanted: bool = None, showImage: bool = False) -> Dict[str, Union[None, ImageAndText, List[ImageAndText]]]:
+def getImageAndTextDataFromImage(pathToImage: str, parseFully: bool, includeIdentifier: bool = False, isLocation: bool = None, hasCardText: bool = None, hasFlavorText: bool = None,
+								 isEnchanted: bool = None, showImage: bool = False) -> Dict[str, Union[None, ImageAndText, List[ImageAndText]]]:
 	startTime = time.perf_counter()
 	result: Dict[str, Union[None, ImageAndText, List[ImageAndText]]] = {
 		"flavorText": None,
@@ -111,6 +112,8 @@ def getImageAndTextDataFromImage(pathToImage: str, parseFully: bool, isLocation:
 	if isEnchanted is None:
 		isEnchanted = not _isImageBlack(_getSubImage(cardImage, ImageArea.IS_BORDERLESS_CHECK))
 
+	if parseFully or includeIdentifier:
+		result["identifier"] = _getSubImageAndText(greyCardImage, ImageArea.LOCATION_IDENTIFIER if isLocation else ImageArea.CARD_IDENTIFIER)
 	if parseFully:
 		# Parse from top to bottom
 		if isCharacter:
@@ -126,7 +129,6 @@ def getImageAndTextDataFromImage(pathToImage: str, parseFully: bool, isLocation:
 		else:
 			result["baseName"] = _getSubImageAndText(greyCardImage, ImageArea.CARD_NAME)
 		result["artist"] = _getSubImageAndText(greyCardImage, ImageArea.LOCATION_ARTIST if isLocation else ImageArea.ARTIST)
-		result["identifier"] = _getSubImageAndText(greyCardImage, ImageArea.LOCATION_IDENTIFIER if isLocation else ImageArea.CARD_IDENTIFIER)
 
 	# Determine the textbox area, which is different between characters and non-characters, and between enchanted and non-enchanted characters
 	textBoxImageArea = ImageArea.ENCHANTED_FULL_WIDTH_TEXT_BOX if isEnchanted else ImageArea.FULL_WIDTH_TEXT_BOX
@@ -273,6 +275,8 @@ def getImageAndTextDataFromImage(pathToImage: str, parseFully: bool, isLocation:
 		cv2.imshow("Greyscale card image", greyCardImage)
 		cv2.imshow("Types threshold image", typesImage)
 		cv2.imshow("Textbox crop greyscale", greyTextboxImage)
+		if result.get("identifier", None) is not None:
+			cv2.imshow("Card Identifier", result["identifier"].image)
 		if flavorTextEdgeDetectedImage is not None:
 			cv2.imshow("Flavortext edge detected greyscale image", flavorTextEdgeDetectedImage)
 		if flavorTextGreyscaleImageWithLines is not None:
