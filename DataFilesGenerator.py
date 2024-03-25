@@ -5,7 +5,7 @@ import Language
 from OCR import ImageParser
 
 _logger = logging.getLogger("LorcanaJSON")
-FORMAT_VERSION = "1.1.0"
+FORMAT_VERSION = "1.2.0"
 
 def correctText(cardText: str) -> str:
 	"""
