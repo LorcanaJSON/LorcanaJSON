@@ -1,4 +1,4 @@
-import datetime, hashlib, json, logging, os, re, time, zipfile
+import datetime, hashlib, json, logging, multiprocessing.pool, os, re, threading, time, zipfile
 from typing import Dict, List, Union
 
 import GlobalConfig, Language
@@ -6,6 +6,10 @@ from OCR import ImageParser
 
 _logger = logging.getLogger("LorcanaJSON")
 FORMAT_VERSION = "1.2.0"
+# The card parser is run in threads, and each thread needs to initialize its own ImageParser (otherwise weird errors happen in Tesseract)
+# Store each initialized ImageParser in its own thread storage
+_threadingLocalStorage = threading.local()
+_threadingLocalStorage.imageParser = None
 
 def correctText(cardText: str) -> str:
 	"""
@@ -276,44 +280,51 @@ def createOutputFiles(onlyParseIds: Union[None, List[int]] = None, shouldShowIma
 		else:
 			_logger.warning("ID list provided but previously generated file doesn't exist. Generating all card data")
 
-	# Parse the cards we need to parse
-	for cardType, inputCardlist in inputData["cards"].items():
-		cardTypeText = cardType[:-1].title()  # 'cardType' is plural ('characters', 'items', etc), make it singular
-		for inputCardIndex in range(len(inputCardlist)):
-			inputCard = inputCardlist.pop()
-			cardId = inputCard["culture_invariant_id"]
-			if cardId in cardIdsStored:
-				_logger.debug(f"Skipping parsing card with ID {inputCard['culture_invariant_id']} since it's already in the card list")
-				continue
-			elif onlyParseIds and cardId not in onlyParseIds:
-				_logger.error(f"Card ID {cardId} is not in the ID parse list, but it's also not in the previous dataset. Skipping parsing for now, but this results in incomplete datafiles, so it's strongly recommended to rerun with this card ID included")
-				continue
-			elif inputCard["expansion_number"] < GlobalConfig.language.fromSet:
-				_logger.debug(f"Skipping card with ID {inputCard['culture_invariant_id']} because it's from set {inputCard['expansion_number']} and language {GlobalConfig.language.englishName} started from set {GlobalConfig.language.fromSet}")
-				continue
-			try:
-				outputCard = _parseSingleCard(inputCard, cardTypeText, imageFolder, enchantedNonEnchantedIds.get(cardId, None), promoNonPromoIds.get(cardId, None), variantsDeckBuildingIds.get(inputCard["deck_building_id"], None),
-											  cardDataCorrections.pop(cardId, None), cardIdToStoryName.pop(cardId), False, shouldShowImage=shouldShowImages)
-				fullCardList.append(outputCard)
-				cardIdsStored.append(outputCard["id"])
-			except Exception as e:
-				_logger.error(f"Exception {type(e)} occured while parsing card ID {inputCard['culture_invariant_id']}")
-				raise e
+	def initThread():
+		_threadingLocalStorage.imageParser = None
 
-	# Load in the external card reveals, which are cards revealed elsewhere but which aren't added to the official app yet
-	externalCardReveals = []
-	externalCardRevealsFileName = f"externalCardReveals.{GlobalConfig.language.code}.json"
-	if os.path.isfile(externalCardRevealsFileName):
-		with open(externalCardRevealsFileName, "r", encoding="utf-8") as externalCardRevealsFile:
-			externalCardReveals = json.load(externalCardRevealsFile)
-	imageFolder = os.path.join(imageFolder, "external")
-	for externalCard in externalCardReveals:
-		cardId = externalCard["culture_invariant_id"]
-		if cardId in cardIdsStored:
-			_logger.debug(f"Card ID {cardId} is defined in the official file and in the external file, skipping the external data")
-			continue
-		outputCard = _parseSingleCard(externalCard, externalCard["type"], imageFolder, enchantedNonEnchantedIds.get(cardId, None), promoNonPromoIds.get(cardId, None), variantsDeckBuildingIds.get(externalCard["deck_building_id"], None),
-									  cardDataCorrections.pop(cardId, None), cardIdToStoryName.pop(cardId), True, shouldShowImage=shouldShowImages)
+	# Parse the cards we need to parse
+	with multiprocessing.pool.ThreadPool(max(1, os.cpu_count() // 2), initializer=initThread) as pool:
+		results = []
+		for cardType, inputCardlist in inputData["cards"].items():
+			cardTypeText = cardType[:-1].title()  # 'cardType' is plural ('characters', 'items', etc), make it singular
+			for inputCardIndex in range(len(inputCardlist)):
+				inputCard = inputCardlist.pop()
+				cardId = inputCard["culture_invariant_id"]
+				if cardId in cardIdsStored:
+					_logger.debug(f"Skipping parsing card with ID {inputCard['culture_invariant_id']} since it's already in the card list")
+					continue
+				elif onlyParseIds and cardId not in onlyParseIds:
+					_logger.error(f"Card ID {cardId} is not in the ID parse list, but it's also not in the previous dataset. Skipping parsing for now, but this results in incomplete datafiles, so it's strongly recommended to rerun with this card ID included")
+					continue
+				elif inputCard["expansion_number"] < GlobalConfig.language.fromSet:
+					_logger.debug(f"Skipping card with ID {inputCard['culture_invariant_id']} because it's from set {inputCard['expansion_number']} and language {GlobalConfig.language.englishName} started from set {GlobalConfig.language.fromSet}")
+					continue
+				try:
+					results.append(pool.apply_async(_parseSingleCard, (inputCard, cardTypeText, imageFolder, enchantedNonEnchantedIds.get(cardId, None), promoNonPromoIds.get(cardId, None), variantsDeckBuildingIds.get(inputCard["deck_building_id"]),
+												  cardDataCorrections.pop(cardId, None), cardIdToStoryName.pop(cardId), False, shouldShowImages)))
+					cardIdsStored.append(cardId)
+				except Exception as e:
+					_logger.error(f"Exception {type(e)} occured while parsing card ID {inputCard['culture_invariant_id']}")
+					raise e
+		# Load in the external card reveals, which are cards revealed elsewhere but which aren't added to the official app yet
+		externalCardReveals = []
+		externalCardRevealsFileName = f"externalCardReveals.{GlobalConfig.language.code}.json"
+		if os.path.isfile(externalCardRevealsFileName):
+			with open(externalCardRevealsFileName, "r", encoding="utf-8") as externalCardRevealsFile:
+				externalCardReveals = json.load(externalCardRevealsFile)
+		imageFolder = os.path.join(imageFolder, "external")
+		for externalCard in externalCardReveals:
+			cardId = externalCard["culture_invariant_id"]
+			if cardId in cardIdsStored:
+				_logger.debug(f"Card ID {cardId} is defined in the official file and in the external file, skipping the external data")
+				continue
+			results.append(pool.apply_async(_parseSingleCard, (externalCard, externalCard["type"], imageFolder, enchantedNonEnchantedIds.get(cardId, None), promoNonPromoIds.get(cardId, None), variantsDeckBuildingIds,
+															   cardDataCorrections.pop(cardId, None), cardIdToStoryName.pop(cardId), True, shouldShowImages)))
+		pool.close()
+		pool.join()
+	for result in results:
+		outputCard = result.get()
 		fullCardList.append(outputCard)
 
 	if cardDataCorrections:
@@ -391,6 +402,8 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 		imagePath = os.path.join(imageFolder, f"{outputCard['id']}.png")
 	if not os.path.isfile(imagePath):
 		raise ValueError(f"Unable to find image for card ID {outputCard['id']}")
+	if _threadingLocalStorage.imageParser is None:
+		_threadingLocalStorage.imageParser = ImageParser.ImageParser(True)
 	parsedImageAndTextData = ImageParser.ImageParser().getImageAndTextDataFromImage(imagePath,
 																	  parseFully=isExternalReveal,
 																	  includeIdentifier="/P" in inputCard.get("card_identifier", "/P"),
