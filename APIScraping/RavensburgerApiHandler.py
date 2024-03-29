@@ -97,6 +97,9 @@ def downloadImages(language: Language.Language, shouldOverwriteImages: bool = Fa
 	imagesDownloaded = 0
 	for cardType, cardList in cardCatalog["cards"].items():
 		for card in cardList:
+			if card["expansion_number"] < language.fromSet:
+				_logger.debug(f"Skipping card {card['culture_invariant_id']} from set {card['expansion_number']}, requested language only contains cards starting from set {language.fromSet}")
+				continue
 			for imageUrlDict in card["image_urls"]:
 				if imageUrlDict["height"] == 2048:
 					imagesFound += 1
