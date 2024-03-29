@@ -46,10 +46,6 @@ def retrieveAndSaveCardCatalog(language: Language.Language, pathToSaveTo: str = 
 	saveCardCatalog(language, cardCatalog, True, pathToSaveTo)
 	return cardCatalog
 
-def retrieveAndSaveAllCardCatalogs(pathToSaveTo: str = None):
-	for language in Language.ALL:
-		print(json.dumps(retrieveAndSaveCardCatalog(language, pathToSaveTo), indent=2))
-
 def saveCardCatalog(language: Language, cardCatalog: Dict, shouldSaveDatedFile: bool = True, pathToSaveTo: str = None):
 	if not pathToSaveTo:
 		pathToSaveTo = os.path.join("downloads", "json")
@@ -125,9 +121,3 @@ def downloadImages(language: Language.Language, shouldOverwriteImages: bool = Fa
 				if wasImageDownloaded:
 					imagesDownloaded += 1
 	_logger.info(f"Downloading {imagesDownloaded} of {imagesFound} {language.englishName} card images took {time.perf_counter() - startTime} seconds")
-
-def downloadAllImages(shouldOverwriteImages: bool = False, pathToCardCatalog: str = None):
-	startTime = time.perf_counter()
-	for language in Language.ALL:
-		downloadImages(language, shouldOverwriteImages, pathToCardCatalog)
-	_logger.info(f"Downloading all card images took {time.perf_counter() - startTime} seconds")
