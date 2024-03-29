@@ -20,6 +20,8 @@ if __name__ == '__main__':
 															 "For other actions, this field is ignored")
 	argumentParser.add_argument("--ignoreFields", nargs="*", help="Specify one or more card fields to ignore when checking for updates. Only used with the 'check' action", default=["foil_mask_url", "image_urls"])
 	argumentParser.add_argument("--show", action="store_true", dest="shouldShowSubimages", help="If added, the program shows all the subimages used during parsing. It stops processing until the displayed images are closed, so this is a slow option")
+	argumentParser.add_argument("--threads", type=int, help="Specify how many threads should be used when executing multithreaded tasks. Specify a negative amount to use the maximum number of threads available minus the provided amount. "
+															"Leave empty to have the amount be determined automatically")
 	parsedArguments = argumentParser.parse_args()
 
 	config = {}
@@ -70,6 +72,11 @@ if __name__ == '__main__':
 		GlobalConfig.tesseractPath = config["tesseractPath"]
 
 	GlobalConfig.language = Language.getLanguageByCode(parsedArguments.language)
+
+	if parsedArguments.threads:
+		GlobalConfig.threadCount = parsedArguments.threads
+		if GlobalConfig.threadCount < 0:
+			GlobalConfig.threadCount = os.cpu_count() + GlobalConfig.threadCount
 
 	cardIds = None
 	if parsedArguments.cardIds:
