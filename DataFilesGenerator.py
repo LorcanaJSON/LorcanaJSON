@@ -289,7 +289,7 @@ def createOutputFiles(onlyParseIds: Union[None, List[int]] = None, shouldShowIma
 				_logger.error(f"Card ID {cardId} is not in the ID parse list, but it's also not in the previous dataset. Skipping parsing for now, but this results in incomplete datafiles, so it's strongly recommended to rerun with this card ID included")
 				continue
 			elif inputCard["expansion_number"] < GlobalConfig.language.fromSet:
-				_logger.debug(f"Skipping card with ID {inputCard['culture_invariant_id']} because it's from set {inputCard['expansion_number']} and language {language.englishName} started from set {language.fromSet}")
+				_logger.debug(f"Skipping card with ID {inputCard['culture_invariant_id']} because it's from set {inputCard['expansion_number']} and language {GlobalConfig.language.englishName} started from set {GlobalConfig.language.fromSet}")
 				continue
 			try:
 				outputCard = _parseSingleCard(inputCard, cardTypeText, imageFolder, enchantedNonEnchantedIds, promoNonPromoIds, variantsDeckBuildingIds, cardDataCorrections, cardIdToStoryName, False, shouldShowImage=shouldShowImages)

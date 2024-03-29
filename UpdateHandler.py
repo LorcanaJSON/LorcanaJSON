@@ -3,7 +3,6 @@ from typing import Any, Dict, List, Tuple
 
 import DataFilesGenerator, GlobalConfig
 from APIScraping import RavensburgerApiHandler
-from Language import Language
 
 
 _logger = logging.getLogger("LorcanaJSON")
@@ -25,7 +24,7 @@ def checkForNewCardData(newCardCatalog: Dict = None, fieldsToIgnore: List[str] =
 
 	# Get the new card catalog, if needed
 	if not newCardCatalog:
-		newCardCatalog = RavensburgerApiHandler.retrieveCardCatalog(language)
+		newCardCatalog = RavensburgerApiHandler.retrieveCardCatalog()
 
 	# Now go through all the new cards and see if the card exists in the old list, and if so, if the values are the same
 	addedCards: List[Tuple[int, str]] = []  # A list of tuples, with the first tuple entry being the new card's ID and the second tuple entry the card's name
@@ -74,9 +73,9 @@ def checkForNewCardData(newCardCatalog: Dict = None, fieldsToIgnore: List[str] =
 						cardChanges.append((cardId, cardDescriptor, fieldName, oldCard[fieldName], fieldValue))
 
 	# Check if new cards have been added to the external reveals file
-	externalRevealsFileName = f"externalCardReveals.{language.code}.json"
+	externalRevealsFileName = f"externalCardReveals.{GlobalConfig.language.code}.json"
 	if os.path.isfile(externalRevealsFileName):
-		allCardsFilePath = os.path.join("output", "generated", language.code, "allCards.json")
+		allCardsFilePath = os.path.join("output", "generated", GlobalConfig.language.code, "allCards.json")
 		existingIds = set()
 		if os.path.isfile(allCardsFilePath):
 			with open(allCardsFilePath, "r", encoding="utf-8") as allCardsFile:
