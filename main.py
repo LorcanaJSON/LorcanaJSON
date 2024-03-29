@@ -1,6 +1,6 @@
 import argparse, datetime, json, logging, logging.handlers, os, re, sys, time
 
-import DataFilesGenerator, Language, UpdateHandler
+import DataFilesGenerator, GlobalConfig, Language, UpdateHandler
 from APIScraping import RavensburgerApiHandler
 from OCR import ImageParser
 
@@ -63,15 +63,15 @@ if __name__ == '__main__':
 	loggingStreamHandler.setFormatter(loggingFormatter)
 	logger.addHandler(loggingStreamHandler)
 
-	tesseractPath = os.path.dirname(__file__)
+	GlobalConfig.tesseractPath = os.path.dirname(__file__)
 	if parsedArguments.tesseractPath:
-		tesseractPath = parsedArguments.tesseractPath
+		GlobalConfig.tesseractPath = parsedArguments.tesseractPath
 	elif config.get("tesseractPath", None):
-		tesseractPath = config["tesseractPath"]
+		GlobalConfig.tesseractPath = config["tesseractPath"]
 
-	language = Language.getLanguageByCode(parsedArguments.language)
+	GlobalConfig.language = Language.getLanguageByCode(parsedArguments.language)
 	if parsedArguments.action in ("update", "parse", "show"):
-		ImageParser.initialize(language, True, tesseractPath)
+		ImageParser.initialize(GlobalConfig.language, True, GlobalConfig.tesseractPath)
 
 	cardIds = None
 	if parsedArguments.cardIds:
@@ -104,7 +104,7 @@ if __name__ == '__main__':
 
 	startTime = time.perf_counter()
 	if parsedArguments.action == "check":
-		addedCards, cardChanges = UpdateHandler.checkForNewCardData(language, fieldsToIgnore=parsedArguments.ignoreFields)
+		addedCards, cardChanges = UpdateHandler.checkForNewCardData(GlobalConfig.language, fieldsToIgnore=parsedArguments.ignoreFields)
 		print(f"{len(addedCards):,} added cards: {addedCards}")
 		# Count which fields changed
 		fieldsChanged = {}
@@ -118,24 +118,24 @@ if __name__ == '__main__':
 		for cardChange in cardChanges:
 			print(cardChange)
 	elif parsedArguments.action == "update":
-		UpdateHandler.createOutputIfNeeded(language, False, cardFieldsToIgnore=parsedArguments.ignoreFields, shouldShowImages=parsedArguments.shouldShowSubimages)
+		UpdateHandler.createOutputIfNeeded(GlobalConfig.language, False, cardFieldsToIgnore=parsedArguments.ignoreFields, shouldShowImages=parsedArguments.shouldShowSubimages)
 	elif parsedArguments.action == "download":
 		# Make sure we download from an up-to-date card catalog
-		cardCatalog = RavensburgerApiHandler.retrieveCardCatalog(language)
-		addedCards, changedCards = UpdateHandler.checkForNewCardData(language, cardCatalog, fieldsToIgnore=parsedArguments.ignoreFields)
+		cardCatalog = RavensburgerApiHandler.retrieveCardCatalog(GlobalConfig.language)
+		addedCards, changedCards = UpdateHandler.checkForNewCardData(GlobalConfig.language, cardCatalog, fieldsToIgnore=parsedArguments.ignoreFields)
 		if addedCards or changedCards:
-			print(f"Card catalog for language '{language.englishName}' was updated, saving")
-			RavensburgerApiHandler.saveCardCatalog(language, cardCatalog)
+			print(f"Card catalog for language '{GlobalConfig.language.englishName}' was updated, saving")
+			RavensburgerApiHandler.saveCardCatalog(GlobalConfig.language, cardCatalog)
 		else:
-			print(f"No new version of the card catalog for language '{language.englishName}' found")
-		RavensburgerApiHandler.downloadImages(language)
+			print(f"No new version of the card catalog for language '{GlobalConfig.language.englishName}' found")
+		RavensburgerApiHandler.downloadImages(GlobalConfig.language)
 	elif parsedArguments.action == "parse":
-		DataFilesGenerator.createOutputFiles(language, cardIds, shouldShowImages=parsedArguments.shouldShowSubimages)
+		DataFilesGenerator.createOutputFiles(GlobalConfig.language, cardIds, shouldShowImages=parsedArguments.shouldShowSubimages)
 	elif parsedArguments.action == "show":
 		if not cardIds:
 			print("ERROR: Please provide one or more card IDs to show with the '--cardIds' argument")
 			sys.exit(-3)
-		baseImagePath = os.path.join("downloads", "images", language.code)
+		baseImagePath = os.path.join("downloads", "images", GlobalConfig.language.code)
 		for cardId in cardIds:
 			cardPath = os.path.join(baseImagePath, f"{cardId}.jpg")
 			if not os.path.isfile(cardPath):
