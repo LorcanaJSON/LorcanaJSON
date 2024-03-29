@@ -104,7 +104,7 @@ if __name__ == '__main__':
 
 	startTime = time.perf_counter()
 	if parsedArguments.action == "check":
-		addedCards, cardChanges = UpdateHandler.checkForNewCardData(GlobalConfig.language, fieldsToIgnore=parsedArguments.ignoreFields)
+		addedCards, cardChanges = UpdateHandler.checkForNewCardData(fieldsToIgnore=parsedArguments.ignoreFields)
 		print(f"{len(addedCards):,} added cards: {addedCards}")
 		# Count which fields changed
 		fieldsChanged = {}
@@ -118,19 +118,19 @@ if __name__ == '__main__':
 		for cardChange in cardChanges:
 			print(cardChange)
 	elif parsedArguments.action == "update":
-		UpdateHandler.createOutputIfNeeded(GlobalConfig.language, False, cardFieldsToIgnore=parsedArguments.ignoreFields, shouldShowImages=parsedArguments.shouldShowSubimages)
+		UpdateHandler.createOutputIfNeeded(False, cardFieldsToIgnore=parsedArguments.ignoreFields, shouldShowImages=parsedArguments.shouldShowSubimages)
 	elif parsedArguments.action == "download":
 		# Make sure we download from an up-to-date card catalog
-		cardCatalog = RavensburgerApiHandler.retrieveCardCatalog(GlobalConfig.language)
-		addedCards, changedCards = UpdateHandler.checkForNewCardData(GlobalConfig.language, cardCatalog, fieldsToIgnore=parsedArguments.ignoreFields)
+		cardCatalog = RavensburgerApiHandler.retrieveCardCatalog()
+		addedCards, changedCards = UpdateHandler.checkForNewCardData(cardCatalog, fieldsToIgnore=parsedArguments.ignoreFields)
 		if addedCards or changedCards:
 			print(f"Card catalog for language '{GlobalConfig.language.englishName}' was updated, saving")
-			RavensburgerApiHandler.saveCardCatalog(GlobalConfig.language, cardCatalog)
+			RavensburgerApiHandler.saveCardCatalog(cardCatalog)
 		else:
 			print(f"No new version of the card catalog for language '{GlobalConfig.language.englishName}' found")
-		RavensburgerApiHandler.downloadImages(GlobalConfig.language)
+		RavensburgerApiHandler.downloadImages()
 	elif parsedArguments.action == "parse":
-		DataFilesGenerator.createOutputFiles(GlobalConfig.language, cardIds, shouldShowImages=parsedArguments.shouldShowSubimages)
+		DataFilesGenerator.createOutputFiles(cardIds, shouldShowImages=parsedArguments.shouldShowSubimages)
 	elif parsedArguments.action == "show":
 		if not cardIds:
 			print("ERROR: Please provide one or more card IDs to show with the '--cardIds' argument")

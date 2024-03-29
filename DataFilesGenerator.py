@@ -1,7 +1,7 @@
 import datetime, hashlib, json, logging, os, re, time, zipfile
 from typing import Dict, List, Union
 
-import Language
+import GlobalConfig, Language
 from OCR import ImageParser
 
 _logger = logging.getLogger("LorcanaJSON")
@@ -183,25 +183,25 @@ def _createCardIdentifier(card: Dict) -> str:
 	# Input card
 	return f"'{card['name']} - {card.get('subtitle', None)}' (ID {card['culture_invariant_id']})"
 
-def createOutputFiles(language: Language.Language, onlyParseIds: Union[None, List[int]] = None, shouldShowImages: bool = False) -> None:
+def createOutputFiles(onlyParseIds: Union[None, List[int]] = None, shouldShowImages: bool = False) -> None:
 	startTime = time.perf_counter()
-	imageFolder = os.path.join("downloads", "images", language.code)
+	imageFolder = os.path.join("downloads", "images", GlobalConfig.language.code)
 	if not os.path.isdir(imageFolder):
-		raise FileNotFoundError(f"Images folder for language '{language.code}' doesn't exist. Run the data downloader first")
-	cardCatalogPath = os.path.join("downloads", "json", f"carddata.{language.code}.json")
+		raise FileNotFoundError(f"Images folder for language '{GlobalConfig.language.code}' doesn't exist. Run the data downloader first")
+	cardCatalogPath = os.path.join("downloads", "json", f"carddata.{GlobalConfig.language.code}.json")
 	if not os.path.isfile(cardCatalogPath):
-		raise FileNotFoundError(f"Card catalog for language '{language.code}' doesn't exist. Run the data downloader first")
+		raise FileNotFoundError(f"Card catalog for language '{GlobalConfig.language.code}' doesn't exist. Run the data downloader first")
 	with open(cardCatalogPath, "r", encoding="utf-8") as inputFile:
 		inputData = json.load(inputFile)
-	cardIdToStoryName = _determineCardIdToStoryName(language, onlyParseIds)
+	cardIdToStoryName = _determineCardIdToStoryName(onlyParseIds)
 
-	correctionsFilePath = os.path.join("output", f"outputDataCorrections_{language.code}.json")
+	correctionsFilePath = os.path.join("output", f"outputDataCorrections_{GlobalConfig.language.code}.json")
 	if os.path.isfile(correctionsFilePath):
 		with open(correctionsFilePath, "r", encoding="utf-8") as correctionsFile:
 			# Convert all the ID keys to numbers as we load
 			cardDataCorrections: Dict[int, Dict[str, List[str, str]]] = {int(k, 10): v for k, v in json.load(correctionsFile).items()}
 	else:
-		_logger.warning(f"No corrections file found for language '{language.code}', assuming no corrections are necessary")
+		_logger.warning(f"No corrections file found for language '{GlobalConfig.language.code}', assuming no corrections are necessary")
 		cardDataCorrections = {}
 
 	# Enchanted-rarity and promo cards are special versions of existing cards. Store their shared ID so we can add a linking field to both versions
@@ -248,7 +248,7 @@ def createOutputFiles(language: Language.Language, onlyParseIds: Union[None, Lis
 	# Get the cards we don't have to parse (if any) from the previous generated file
 	fullCardList = []
 	cardIdsStored = []
-	outputFolder = os.path.join("output", "generated", language.code)
+	outputFolder = os.path.join("output", "generated", GlobalConfig.language.code)
 	if onlyParseIds:
 		# Load the previous generated file to get the card data for cards that didn't change, instead of generating all cards
 		outputFilePath = os.path.join(outputFolder, "allCards.json")
@@ -288,7 +288,7 @@ def createOutputFiles(language: Language.Language, onlyParseIds: Union[None, Lis
 			elif onlyParseIds and cardId not in onlyParseIds:
 				_logger.error(f"Card ID {cardId} is not in the ID parse list, but it's also not in the previous dataset. Skipping parsing for now, but this results in incomplete datafiles, so it's strongly recommended to rerun with this card ID included")
 				continue
-			elif inputCard["expansion_number"] < language.fromSet:
+			elif inputCard["expansion_number"] < GlobalConfig.language.fromSet:
 				_logger.debug(f"Skipping card with ID {inputCard['culture_invariant_id']} because it's from set {inputCard['expansion_number']} and language {language.englishName} started from set {language.fromSet}")
 				continue
 			try:
@@ -301,7 +301,7 @@ def createOutputFiles(language: Language.Language, onlyParseIds: Union[None, Lis
 
 	# Load in the external card reveals, which are cards revealed elsewhere but which aren't added to the official app yet
 	externalCardReveals = []
-	externalCardRevealsFileName = f"externalCardReveals.{language.code}.json"
+	externalCardRevealsFileName = f"externalCardReveals.{GlobalConfig.language.code}.json"
 	if os.path.isfile(externalCardRevealsFileName):
 		with open(externalCardRevealsFileName, "r", encoding="utf-8") as externalCardRevealsFile:
 			externalCardReveals = json.load(externalCardRevealsFile)
@@ -329,7 +329,7 @@ def createOutputFiles(language: Language.Language, onlyParseIds: Union[None, Lis
 		setsData = json.load(baseSetDataFile)
 		for setNumber in setsData:
 			# Get just the current language's set names
-			setsData[setNumber]["name"] = setsData[setNumber].pop("names")[language.code]
+			setsData[setNumber]["name"] = setsData[setNumber].pop("names")[GlobalConfig.language.code]
 	outputDict["sets"] = setsData
 
 	# Create the output files
@@ -578,7 +578,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 	outputCard["story"] = cardIdToStoryName[outputCard["id"]]
 	return outputCard
 
-def _determineCardIdToStoryName(targetLanguage: Language.Language, idsToParse: List[int] = None) -> Dict[int, str]:
+def _determineCardIdToStoryName(idsToParse: List[int] = None) -> Dict[int, str]:
 	startTime = time.perf_counter()
 	cardStorePath = os.path.join("downloads", "json", "carddata.en.json")
 	if not os.path.isfile(cardStorePath):
@@ -593,7 +593,7 @@ def _determineCardIdToStoryName(targetLanguage: Language.Language, idsToParse: L
 	cardNameToStoryName: Dict[str, str] = {}
 	fieldMatchers: Dict[str, Dict[str, str]] = {}  # A dictionary with for each fieldname a dict of matchers and their matching story name
 	for storyId, storyData in fromStories.items():
-		storyName = storyData["displayNames"][targetLanguage.code]
+		storyName = storyData["displayNames"][GlobalConfig.language.code]
 		if "matchingIds" in storyData:
 			for cardId in storyData["matchingIds"]:
 				cardIdToStoryName[cardId] = storyName

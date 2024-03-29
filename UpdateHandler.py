@@ -1,17 +1,17 @@
 import datetime, json, logging, os
 from typing import Any, Dict, List, Tuple
 
-import DataFilesGenerator
+import DataFilesGenerator, GlobalConfig
 from APIScraping import RavensburgerApiHandler
 from Language import Language
 
 
 _logger = logging.getLogger("LorcanaJSON")
 
-def checkForNewCardData(language: Language, newCardCatalog: Dict = None, fieldsToIgnore: List[str] = None, includeCardChanges: bool = True, ignoreOrderChanges: bool = True) -> Tuple[List, List]:
+def checkForNewCardData(newCardCatalog: Dict = None, fieldsToIgnore: List[str] = None, includeCardChanges: bool = True, ignoreOrderChanges: bool = True) -> Tuple[List, List]:
 	# We need to find the old cards by ID, so set up a dict
 	oldCards = {}
-	pathToCardCatalog = os.path.join("downloads", "json", f"carddata.{language.code}.json")
+	pathToCardCatalog = os.path.join("downloads", "json", f"carddata.{GlobalConfig.language.code}.json")
 	if os.path.isfile(pathToCardCatalog):
 		with open(pathToCardCatalog, "r") as cardCatalogFile:
 			oldCardCatalog = json.load(cardCatalogFile)
@@ -91,21 +91,21 @@ def checkForNewCardData(language: Language, newCardCatalog: Dict = None, fieldsT
 
 	return (addedCards, cardChanges)
 
-def createOutputIfNeeded(language: Language, onlyCreateOnNewCards: bool, cardFieldsToIgnore: List[str] = None, shouldShowImages: bool = False):
-	cardCatalog = RavensburgerApiHandler.retrieveCardCatalog(language)
-	addedCards, cardChanges = checkForNewCardData(language, cardCatalog, cardFieldsToIgnore, includeCardChanges=not onlyCreateOnNewCards)
+def createOutputIfNeeded(onlyCreateOnNewCards: bool, cardFieldsToIgnore: List[str] = None, shouldShowImages: bool = False):
+	cardCatalog = RavensburgerApiHandler.retrieveCardCatalog()
+	addedCards, cardChanges = checkForNewCardData(cardCatalog, cardFieldsToIgnore, includeCardChanges=not onlyCreateOnNewCards)
 	if not addedCards and (onlyCreateOnNewCards or not cardChanges):
 		_logger.info("No catalog updates, not running output generator")
 		return
 	_logger.info(f"Found {len(addedCards):,} new cards and {len(cardChanges):,} changed cards")
 	idsToParse = [entry[0] for entry in addedCards]
 	idsToParse.extend([entry[0] for entry in cardChanges])
-	RavensburgerApiHandler.saveCardCatalog(language, cardCatalog)
-	RavensburgerApiHandler.downloadImages(language)
-	DataFilesGenerator.createOutputFiles(language, idsToParse, shouldShowImages=shouldShowImages)
-	createChangelog(language, addedCards, cardChanges)
+	RavensburgerApiHandler.saveCardCatalog(cardCatalog)
+	RavensburgerApiHandler.downloadImages()
+	DataFilesGenerator.createOutputFiles(idsToParse, shouldShowImages=shouldShowImages)
+	createChangelog(addedCards, cardChanges)
 
-def createChangelog(language: Language, addedCards: List[Tuple[int, str]], cardChanges, subVersion: str = "1"):
+def createChangelog(addedCards: List[Tuple[int, str]], cardChanges, subVersion: str = "1"):
 	if not addedCards and not cardChanges:
 		return
 
@@ -146,6 +146,6 @@ def createChangelog(language: Language, addedCards: List[Tuple[int, str]], cardC
 				newChangelogEntryFile.write(f"{doubleIndent}</ul>\n")
 				newChangelogEntryFile.write(f"{indent}</li>\n")
 		newChangelogEntryFile.write(f"</ul>\n")
-		filePrefix = f"files/{changelogEntryDescriptor}/{language.code}/"
+		filePrefix = f"files/{changelogEntryDescriptor}/{GlobalConfig.language.code}/"
 		newChangelogEntryFile.write(f"Permanent links: <a href=\"{filePrefix}allCards.json.zip\">allCards.json.zip</a> (<a href=\"{filePrefix}allCards.json.zip.md5\">md5</a>), "
 									f"<a href=\"{filePrefix}allSets.json.zip\">allSets.json.zip</a> (<a href=\"{filePrefix}allSets.json.zip.md5\">md5</a>)\n")
