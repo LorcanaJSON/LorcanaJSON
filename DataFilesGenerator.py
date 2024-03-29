@@ -391,7 +391,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 		imagePath = os.path.join(imageFolder, f"{outputCard['id']}.png")
 	if not os.path.isfile(imagePath):
 		raise ValueError(f"Unable to find image for card ID {outputCard['id']}")
-	parsedImageAndTextData = ImageParser.getImageAndTextDataFromImage(imagePath,
+	parsedImageAndTextData = ImageParser.ImageParser().getImageAndTextDataFromImage(imagePath,
 																	  parseFully=isExternalReveal,
 																	  includeIdentifier="/P" in inputCard.get("card_identifier", "/P"),
 																	  isLocation=cardType == "Location",
