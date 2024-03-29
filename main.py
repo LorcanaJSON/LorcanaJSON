@@ -2,7 +2,7 @@ import argparse, datetime, json, logging, logging.handlers, os, re, sys, time
 
 import DataFilesGenerator, GlobalConfig, Language, UpdateHandler
 from APIScraping import RavensburgerApiHandler
-from OCR import ImageParser
+from OCR.ImageParser import ImageParser
 
 
 if __name__ == '__main__':
