@@ -292,7 +292,8 @@ def createOutputFiles(onlyParseIds: Union[None, List[int]] = None, shouldShowIma
 				_logger.debug(f"Skipping card with ID {inputCard['culture_invariant_id']} because it's from set {inputCard['expansion_number']} and language {GlobalConfig.language.englishName} started from set {GlobalConfig.language.fromSet}")
 				continue
 			try:
-				outputCard = _parseSingleCard(inputCard, cardTypeText, imageFolder, enchantedNonEnchantedIds, promoNonPromoIds, variantsDeckBuildingIds, cardDataCorrections, cardIdToStoryName, False, shouldShowImage=shouldShowImages)
+				outputCard = _parseSingleCard(inputCard, cardTypeText, imageFolder, enchantedNonEnchantedIds.get(cardId, None), promoNonPromoIds.get(cardId, None), variantsDeckBuildingIds.get(inputCard["deck_building_id"], None),
+											  cardDataCorrections.pop(cardId, None), cardIdToStoryName.pop(cardId), False, shouldShowImage=shouldShowImages)
 				fullCardList.append(outputCard)
 				cardIdsStored.append(outputCard["id"])
 			except Exception as e:
@@ -311,7 +312,8 @@ def createOutputFiles(onlyParseIds: Union[None, List[int]] = None, shouldShowIma
 		if cardId in cardIdsStored:
 			_logger.debug(f"Card ID {cardId} is defined in the official file and in the external file, skipping the external data")
 			continue
-		outputCard = _parseSingleCard(externalCard, externalCard["type"], imageFolder, enchantedNonEnchantedIds, promoNonPromoIds, variantsDeckBuildingIds, cardDataCorrections, cardIdToStoryName, True, shouldShowImage=shouldShowImages)
+		outputCard = _parseSingleCard(externalCard, externalCard["type"], imageFolder, enchantedNonEnchantedIds.get(cardId, None), promoNonPromoIds.get(cardId, None), variantsDeckBuildingIds.get(externalCard["deck_building_id"], None),
+									  cardDataCorrections.pop(cardId, None), cardIdToStoryName.pop(cardId), True, shouldShowImage=shouldShowImages)
 		fullCardList.append(outputCard)
 
 	if cardDataCorrections:
@@ -370,8 +372,8 @@ def createOutputFiles(onlyParseIds: Union[None, List[int]] = None, shouldShowIma
 
 	_logger.info(f"Creating the output files took {time.perf_counter() - startTime:.4f} seconds")
 
-def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchantedNonEnchantedIds: Dict[int, int], promoNonPromoIds: Dict[int, Union[int, List[int]]], variantIds: Dict[str, List[int]],
-					 cardDataCorrections: Dict, cardIdToStoryName: Dict[int, str], isExternalReveal: bool, shouldShowImage: bool = False) -> Dict:
+def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchantedNonEnchantedId: Union[int, None], promoNonPromoId: Union[int, List[int], None], variantIds: Union[List[int], None],
+					 cardDataCorrections: Dict, storyName: str, isExternalReveal: bool, shouldShowImage: bool = False) -> Dict:
 	# Store some default values
 	outputCard: Dict[str, Union[str, int, List, Dict]] = {
 		"color": inputCard["magic_ink_color"].title(),
@@ -417,10 +419,8 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 			outputCard["number"] = int(cardIdentifierMatch.group(1), 10)
 		if cardIdentifierMatch.group(2):
 			outputCard["variant"] = cardIdentifierMatch.group(2)
-			if inputCard["deck_building_id"] in variantIds:
-				variantIdsList: List[int] = variantIds[inputCard["deck_building_id"]].copy()
-				variantIdsList.remove(outputCard["id"])
-				outputCard["variantIds"] = variantIdsList
+			if variantIds:
+				outputCard["variantIds"] = [variantId for variantId in variantIds if variantId != outputCard["id"]]
 		if "setNumber" not in outputCard:
 			outputCard["setNumber"] = int(cardIdentifierMatch.group(3), 10)
 
@@ -457,12 +457,12 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 	else:
 		outputCard["images"] = {"full": inputCard["imageUrl"]}
 	# If the card is Enchanted or has an Enchanted equivalent, store that
-	if outputCard["id"] in enchantedNonEnchantedIds:
-		outputCard["nonEnchantedId" if outputCard["rarity"] == "Enchanted" else "enchantedId"] = enchantedNonEnchantedIds[outputCard["id"]]
+	if enchantedNonEnchantedId:
+		outputCard["nonEnchantedId" if outputCard["rarity"] == "Enchanted" else "enchantedId"] = enchantedNonEnchantedId
 	# If the card is a promo card, store the non-promo ID
 	# If the card has promo version, store the promo IDs
-	if outputCard["id"] in promoNonPromoIds:
-		outputCard["nonPromoId" if "/P" in inputCard["card_identifier"] else "promoIds"] = promoNonPromoIds[outputCard["id"]]
+	if promoNonPromoId:
+		outputCard["nonPromoId" if "/P" in inputCard["card_identifier"] else "promoIds"] = promoNonPromoId
 	# Store the different parts of the card text, correcting some values if needed
 	if parsedImageAndTextData["flavorText"] is not None:
 		flavorText = correctText(parsedImageAndTextData["flavorText"].text)
@@ -523,8 +523,8 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 	# Card-specific corrections
 	#  Since the fullText gets created as the last step, if there is a correction for it, save it for later
 	fullTextCorrection = None
-	if outputCard["id"] in cardDataCorrections:
-		for fieldName, correction in cardDataCorrections[outputCard["id"]].items():
+	if cardDataCorrections:
+		for fieldName, correction in cardDataCorrections.items():
 			if fieldName == "fullText":
 				fullTextCorrection = correction
 			elif isinstance(correction[0], bool):
@@ -538,8 +538,6 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 					correctCardField(outputCard, fieldName, correction[correctionIndex], correction[correctionIndex+1])
 			else:
 				correctCardField(outputCard, fieldName, correction[0], correction[1])
-		# Remove the correction, so we can check at the end if we used all the corrections
-		del cardDataCorrections[outputCard["id"]]
 	# Store keyword abilities. Some abilities have a number after them (Like Shift 5), store those too
 	# For now assume that only Characters can have abilities, since they started adding f.i.
 	#  the 'Support' ability to actions that temporarily grant Support to another character,
@@ -575,7 +573,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 	outputCard["fullText"] = "\n".join(fullTextSections)
 	if fullTextCorrection:
 		correctCardField(outputCard, "fullText", fullTextCorrection[0], fullTextCorrection[1])
-	outputCard["story"] = cardIdToStoryName[outputCard["id"]]
+	outputCard["story"] = storyName
 	return outputCard
 
 def _determineCardIdToStoryName(idsToParse: List[int] = None) -> Dict[int, str]:
