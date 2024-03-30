@@ -327,7 +327,7 @@ class ImageParser():
 		return ImageAndText(subImage, self._imageToString(subImage, imageArea.isNumeric))
 
 	@staticmethod
-	def _isImageBlack(self, image: cv2.Mat) -> bool:
+	def _isImageBlack(image: cv2.Mat) -> bool:
 		"""
 		Check whether the whole provided image is black. Useful for border checks, to determine image type
 		:param image: The image to check. Should usually be a sub image of a card image
