@@ -185,9 +185,9 @@
   },
   "mickey": {
     "displayNames": {
-      "de": "Mickey Maus & Freunde",
+      "de": "Mickey Maus und Freunde",
       "en": "Mickey Mouse & Friends",
-      "fr": "Mickey Mouse et amis",
+      "fr": "Mickey Mouse et ses amis",
       "it": "Topolino e i suoi amici"
     },
     "matchingNames": ["Daisy Duck", "Donald Duck", "Goofy", "Mickey Mouse", "Minnie Mouse", "Pete", "Pluto"]
