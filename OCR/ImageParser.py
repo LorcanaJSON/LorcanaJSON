@@ -160,7 +160,7 @@ class ImageParser():
 				elif pixelValue < 100:
 					isCurrentlyInLabel = True
 					currentCoords[0] = y
-					yToCheck = min(textboxHeight - 1, y + 2)  # Check a few lines down to prevent weirdness with the edge of the label box
+					yToCheck = min(textboxHeight - 1, y + 1)  # Check a few lines down to prevent weirdness with the edge of the label box
 					# Find the width of the label
 					for x in range(textboxWidth):
 						if greyTextboxImage[yToCheck, x] > 125:
