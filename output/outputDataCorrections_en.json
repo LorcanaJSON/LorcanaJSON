@@ -57,12 +57,6 @@
       "Is"
     ]
   },
-  "58": {
-    "effects": [
-      "LAND",
-      "L AND"
-    ]
-  },
   "59": {
     "flavorText": [
       "you ve",
@@ -407,12 +401,6 @@
     "effects": [
       "\\+2 ¤ this",
       "+2 ◊ this"
-    ]
-  },
-  "340": {
-    "flavorText": [
-      "“Wy",
-      "“My"
     ]
   },
   "344": {
