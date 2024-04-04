@@ -281,7 +281,7 @@ def createOutputFiles(onlyParseIds: Union[None, List[int]] = None, shouldShowIma
 			_logger.warning("ID list provided but previously generated file doesn't exist. Generating all card data")
 
 	def initThread():
-		_threadingLocalStorage.imageParser = None
+		_threadingLocalStorage.imageParser = ImageParser.ImageParser(True)
 
 	# Parse the cards we need to parse
 	threadCount = GlobalConfig.threadCount
@@ -407,9 +407,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 		imagePath = os.path.join(imageFolder, f"{outputCard['id']}.png")
 	if not os.path.isfile(imagePath):
 		raise ValueError(f"Unable to find image for card ID {outputCard['id']}")
-	if _threadingLocalStorage.imageParser is None:
-		_threadingLocalStorage.imageParser = ImageParser.ImageParser(True)
-	parsedImageAndTextData = ImageParser.ImageParser().getImageAndTextDataFromImage(imagePath,
+	parsedImageAndTextData = _threadingLocalStorage.imageParser.getImageAndTextDataFromImage(imagePath,
 																	  parseFully=isExternalReveal,
 																	  includeIdentifier="/P" in inputCard.get("card_identifier", "/P"),
 																	  isLocation=cardType == "Location",
