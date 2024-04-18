@@ -53,7 +53,7 @@ def correctText(cardText: str) -> str:
 			# Lore payment discounts
 			cardLine, changeCount = re.subn(rf"pay (\d) ?[^{ImageParser.INK_UNICODE}]{{1,2}}( |$)", f"pay \\1 {ImageParser.INK_UNICODE}\\2", cardLine)
 			if changeCount > 0:
-				_logger.info("Correcting lore payment discount text")
+				_logger.info("Correcting lore payment text")
 		# Fields with Errata corrections have 'ERRATA' in the text, possibly with a colon. Remove that
 		if "ERRATA" in cardLine:
 			cardLine = re.sub(" ?ERRATA:? ?", "", cardLine)
