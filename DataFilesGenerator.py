@@ -58,12 +58,7 @@ def correctText(cardText: str) -> str:
 		if "ERRATA" in cardLine:
 			cardLine = re.sub(" ?ERRATA:? ?", "", cardLine)
 		# Correct reminder text
-		if cardLine.startswith("Shift "):
-			# Shift
-			cardLine, changeCount = re.subn(f" [^{ImageParser.INK_UNICODE}]{{1,2}} to play this on top", f" {ImageParser.INK_UNICODE} to play this on top", cardLine)
-			if changeCount > 0:
-				_logger.info("Correcting Shift reminder text")
-		elif re.match(r"^gets \+\d .{1,2}?\.?\)?$", cardLine):
+		if re.match(r"^gets \+\d .{1,2}?\.?\)?$", cardLine):
 			# Challenger, second line
 			cardLine, changeCount = re.subn(rf"gets \+(\d) [^{ImageParser.STRENGTH_UNICODE}]{{1,2}}?\.?\)", fr"gets +\1 {ImageParser.STRENGTH_UNICODE}.)", cardLine)
 			if changeCount > 0:
