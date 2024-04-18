@@ -116,6 +116,8 @@ def downloadImages(shouldOverwriteImages: bool = False, pathToCardCatalog: str =
 			for externalCardReveal in externalCardReveals:
 				imagesFound += 1
 				imageExtension = externalCardReveal["imageUrl"].rsplit(".", 1)[1]
+				if "?" in imageExtension:
+					imageExtension = imageExtension.split("?", 1)[0]
 				imageSavePath = os.path.join(externalSavePath, f"{externalCardReveal['culture_invariant_id']}.{imageExtension}")
 				wasImageDownloaded = downloadImage(externalCardReveal["imageUrl"], imageSavePath, shouldOverwriteImages)
 				if wasImageDownloaded:
