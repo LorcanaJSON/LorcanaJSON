@@ -325,7 +325,7 @@ def createOutputFiles(onlyParseIds: Union[None, List[int]] = None, shouldShowIma
 				_logger.debug(f"Card ID {cardId} is defined in the official file and in the external file, skipping the external data")
 				continue
 			results.append(pool.apply_async(_parseSingleCard, (externalCard, externalCard["type"], imageFolder, enchantedNonEnchantedIds.get(cardId, None), promoNonPromoIds.get(cardId, None), variantsDeckBuildingIds,
-															   cardDataCorrections.pop(cardId, None), cardIdToStoryName.pop(cardId), True, shouldShowImages)))
+															   cardDataCorrections.pop(cardId, None), cardIdToStoryName.pop(cardId, None), True, shouldShowImages)))
 		pool.close()
 		pool.join()
 	for result in results:
@@ -589,7 +589,12 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 	outputCard["fullText"] = "\n".join(fullTextSections)
 	if fullTextCorrection:
 		correctCardField(outputCard, "fullText", fullTextCorrection[0], fullTextCorrection[1])
-	outputCard["story"] = storyName
+	if "story" in inputCard:
+		outputCard["story"] = inputCard["story"]
+	elif storyName:
+		outputCard["story"] = storyName
+	else:
+		outputCard["story"] = "[unknown]"
 	return outputCard
 
 def _determineCardIdToStoryName(idsToParse: List[int] = None) -> Dict[int, str]:
