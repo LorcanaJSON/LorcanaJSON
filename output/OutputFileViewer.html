@@ -54,7 +54,8 @@ function setDisplayedIndex(newIndex) {
 	currentIndex = newIndex;
 	let currentCardData = cardsJson["cards"][currentIndex];
 	document.getElementById("name").textContent = currentCardData["fullName"];
-	document.getElementById("img").src = "../downloads/images/" + languageCode + "/" + currentCardData["id"] + ".jpg";
+  const isExternal = currentCardData.hasOwnProperty("isExternalReveal");
+	document.getElementById("img").src = "../downloads/images/" + languageCode + "/" + (isExternal ? "external/" : "") + currentCardData["id"] + (isExternal ? ".png" : ".jpg");
   if (currentCardData["type"] == "Location") {
     // Rotate Location cards, since they're horizontal, so verifying the data is easier
     document.getElementById("img").style.transform = "rotate(0.25turn) translateY(-20%)";
