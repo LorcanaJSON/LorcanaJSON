@@ -154,8 +154,11 @@ class ImageParser():
 					# Check if the pixel got lighter, indicating we left the label block
 					if pixelValue > 100:
 						isCurrentlyInLabel = False
-						currentCoords[1] = y - 1
-						labelCoords.append(tuple(currentCoords))  # Copy the coordinates list so we can't accidentally change a value anymore
+						if y - currentCoords[0] < 50:
+							self._logger.debug(f"Skipping possible label starting at y={currentCoords[0]} and ending at {y=}, not high enough to be a label")
+						else:
+							currentCoords[1] = y - 1
+							labelCoords.append(tuple(currentCoords))  # Copy the coordinates list so we can't accidentally change a value anymore
 				# Check if a label started here
 				elif pixelValue < 100:
 					isCurrentlyInLabel = True
