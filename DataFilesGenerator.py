@@ -275,7 +275,7 @@ def createOutputFiles(onlyParseIds: Union[None, List[int]] = None, shouldShowIma
 							if card["id"] in promoNonPromoIds and "promoIds" not in card and "nonPromoId" not in card:
 								promoResult = promoNonPromoIds[card["id"]]
 								# For non-promo cards it stores a list of promo IDs, for promo cards it stores a single non-promo ID
-								card["promoIds" if isinstance(promoNonPromoIds[card["id"]], list) else "nonPromoId"] = promoNonPromoIds[card["id"]]
+								card["promoIds" if isinstance(promoResult, list) else "nonPromoId"] = promoResult
 				del previousCardData
 		else:
 			_logger.warning("ID list provided but previously generated file doesn't exist. Generating all card data")
