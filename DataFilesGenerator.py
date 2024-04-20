@@ -21,13 +21,8 @@ def correctText(cardText: str) -> str:
 	for cardLine in cardText.splitlines():
 		originalCardLine = cardLine
 		# First simple typos
-		if re.match("[‘`']Shift ", cardLine):
-			_logger.info("Removing erroneous character at the start of " + cardLine)
-			cardLine = cardLine[1:]
 		if "’" in cardLine:
 			cardLine = re.sub(r"(?<=\w)’(?=\w)", "'", cardLine)
-		if "1lore" in cardLine:
-			cardLine = cardLine.replace("1lore", "1 lore")
 		if " 1O " in cardLine:
 			cardLine = cardLine.replace(" 1O ", f" 1 {ImageParser.INK_UNICODE} ")
 		if "€" in cardLine:
@@ -36,61 +31,68 @@ def correctText(cardText: str) -> str:
 		if "”" in cardLine:
 			# Normally a closing quote mark should be preceded by a period
 			cardLine = re.sub("([^.,'!?’])”", "\\1.”", cardLine)
-		if "Bodyquard" in cardLine:
-			# Somehow it reads 'Bodyquard' with a 'q' instead of a 'g' a lot...
-			cardLine = cardLine.replace("Bodyquard", "Bodyguard")
 		if "( " in cardLine:
 			cardLine = cardLine.replace("( ", "(")
-		if "lll" in cardLine:
-			# 'Illuminary' and 'Illumineer(s)' often gets read as starting with three l's, instead of an I and two l's
-			cardLine = cardLine.replace("lllumin", "Illumin")
-		if "Ihe" in cardLine:
-			cardLine = re.sub(r"\bIhe\b", "The", cardLine)
-		if "|" in cardLine:
-			cardLine = cardLine.replace("|", "I")
-		if cardLine.endswith("of i"):
-			# The 'Floodborn' inksplashes sometimes confuse the reader into imagining another 'i' at the end of some reminder text, remove that
-			cardLine = cardLine.rstrip(" i")
-		# Correct common phrases with symbols
-		if re.search(rf"pay \d ?[^{ImageParser.INK_UNICODE}]{{1,2}}(?: |$)", cardLine):
-			# Lore payment discounts
-			cardLine, changeCount = re.subn(rf"pay (\d) ?[^{ImageParser.INK_UNICODE}]{{1,2}}( |$)", f"pay \\1 {ImageParser.INK_UNICODE}\\2", cardLine)
-			if changeCount > 0:
-				_logger.info("Correcting lore payment text")
-		# Fields with Errata corrections have 'ERRATA' in the text, possibly with a colon. Remove that
-		if "ERRATA" in cardLine:
-			cardLine = re.sub(" ?ERRATA:? ?", "", cardLine)
-		# Correct reminder text
-		if re.match(r"^gets \+\d .{1,2}?\.?\)?$", cardLine):
-			# Challenger, second line
-			cardLine, changeCount = re.subn(rf"gets \+(\d) [^{ImageParser.STRENGTH_UNICODE}]{{1,2}}?\.?\)", fr"gets +\1 {ImageParser.STRENGTH_UNICODE}.)", cardLine)
-			if changeCount > 0:
-				_logger.info("Correcting second line of Challenger reminder text")
-		elif re.match(r"\(A character with cost \d or more can .{1,2} to sing this( song for free)?", cardLine):
-			# Song
-			cardLine, changeCount = re.subn(f"can [^{ImageParser.EXERT_UNICODE}]{{1,2}} to sing this", f"can {ImageParser.EXERT_UNICODE} to sing this", cardLine)
-			if changeCount > 0:
-				_logger.info("Correcting Song reminder text")
-		elif re.match("add their .{1,2} to another chosen character['’]s .{1,2} this", cardLine):
-			# Support, full line (not sure why it sometimes doesn't get cut into two lines
-			cardLine, changeCount = re.subn(f"their [^{ImageParser.STRENGTH_UNICODE}]{{1,2}} to", f"their {ImageParser.STRENGTH_UNICODE} to", cardLine)
-			cardLine, changeCount2 = re.subn(f"character's [^{ImageParser.STRENGTH_UNICODE}]{{1,2}} this", f"character's {ImageParser.STRENGTH_UNICODE} this", cardLine)
-			if changeCount > 0 or changeCount2 > 0:
-				_logger.info("Correcting Support reminder text (both symobls on one line)")
-		elif re.match("may add their .{1,2} to another chosen character[’']s", cardLine):
-			# Support, first line if split
-			cardLine, changeCount = re.subn(f"their {ImageParser.STRENGTH_UNICODE}{{1,2}} to", f"their {ImageParser.STRENGTH_UNICODE} to", cardLine)
-			if changeCount > 0:
-				_logger.info("Correcting first line of Support reminder text")
-		elif re.match(rf"[^{ImageParser.STRENGTH_UNICODE}]{{1,2}} this turn\.?\)?", cardLine):
-			# Support, second line if split
-			_logger.info("Correcting second line of Support reminder text")
-			cardLine = f"{ImageParser.STRENGTH_UNICODE} this turn.)"
-		elif cardLine.startswith("Ward (Upponents "):
-			_logger.info("Correcting 'Upponents' to 'Opponents'")
-			cardLine = cardLine.replace("(Upponents", "(Opponents")
-		elif re.search(r"reduced by [lI]\.", cardLine):
-			cardLine = re.sub(r"reduced by [lI]\.", "reduced by 1.", cardLine)
+
+		if GlobalConfig.language == Language.ENGLISH:
+			if re.match("[‘`']Shift ", cardLine):
+				_logger.info("Removing erroneous character at the start of " + cardLine)
+				cardLine = cardLine[1:]
+			if "1lore" in cardLine:
+				cardLine = cardLine.replace("1lore", "1 lore")
+			if "Bodyquard" in cardLine:
+				# Somehow it reads 'Bodyquard' with a 'q' instead of a 'g' a lot...
+				cardLine = cardLine.replace("Bodyquard", "Bodyguard")
+			if "lll" in cardLine:
+				# 'Illuminary' and 'Illumineer(s)' often gets read as starting with three l's, instead of an I and two l's
+				cardLine = cardLine.replace("lllumin", "Illumin")
+			if "Ihe" in cardLine:
+				cardLine = re.sub(r"\bIhe\b", "The", cardLine)
+			if "|" in cardLine:
+				cardLine = cardLine.replace("|", "I")
+			if cardLine.endswith("of i"):
+				# The 'Floodborn' inksplashes sometimes confuse the reader into imagining another 'i' at the end of some reminder text, remove that
+				cardLine = cardLine.rstrip(" i")
+			# Correct common phrases with symbols
+			if re.search(rf"pay \d ?[^{ImageParser.INK_UNICODE}]{{1,2}}(?: |$)", cardLine):
+				# Lore payment discounts
+				cardLine, changeCount = re.subn(rf"pay (\d) ?[^{ImageParser.INK_UNICODE}]{{1,2}}( |$)", f"pay \\1 {ImageParser.INK_UNICODE}\\2", cardLine)
+				if changeCount > 0:
+					_logger.info("Correcting lore payment text")
+			# Fields with Errata corrections have 'ERRATA' in the text, possibly with a colon. Remove that
+			if "ERRATA" in cardLine:
+				cardLine = re.sub(" ?ERRATA:? ?", "", cardLine)
+			# Correct reminder text
+			if re.match(r"^gets \+\d .{1,2}?\.?\)?$", cardLine):
+				# Challenger, second line
+				cardLine, changeCount = re.subn(rf"gets \+(\d) [^{ImageParser.STRENGTH_UNICODE}]{{1,2}}?\.?\)", fr"gets +\1 {ImageParser.STRENGTH_UNICODE}.)", cardLine)
+				if changeCount > 0:
+					_logger.info("Correcting second line of Challenger reminder text")
+			elif re.match(r"\(A character with cost \d or more can .{1,2} to sing this( song for free)?", cardLine):
+				# Song
+				cardLine, changeCount = re.subn(f"can [^{ImageParser.EXERT_UNICODE}]{{1,2}} to sing this", f"can {ImageParser.EXERT_UNICODE} to sing this", cardLine)
+				if changeCount > 0:
+					_logger.info("Correcting Song reminder text")
+			elif re.match("add their .{1,2} to another chosen character['’]s .{1,2} this", cardLine):
+				# Support, full line (not sure why it sometimes doesn't get cut into two lines
+				cardLine, changeCount = re.subn(f"their [^{ImageParser.STRENGTH_UNICODE}]{{1,2}} to", f"their {ImageParser.STRENGTH_UNICODE} to", cardLine)
+				cardLine, changeCount2 = re.subn(f"character's [^{ImageParser.STRENGTH_UNICODE}]{{1,2}} this", f"character's {ImageParser.STRENGTH_UNICODE} this", cardLine)
+				if changeCount > 0 or changeCount2 > 0:
+					_logger.info("Correcting Support reminder text (both symobls on one line)")
+			elif re.match("may add their .{1,2} to another chosen character[’']s", cardLine):
+				# Support, first line if split
+				cardLine, changeCount = re.subn(f"their {ImageParser.STRENGTH_UNICODE}{{1,2}} to", f"their {ImageParser.STRENGTH_UNICODE} to", cardLine)
+				if changeCount > 0:
+					_logger.info("Correcting first line of Support reminder text")
+			elif re.match(rf"[^{ImageParser.STRENGTH_UNICODE}]{{1,2}} this turn\.?\)?", cardLine):
+				# Support, second line if split
+				_logger.info("Correcting second line of Support reminder text")
+				cardLine = f"{ImageParser.STRENGTH_UNICODE} this turn.)"
+			elif cardLine.startswith("Ward (Upponents "):
+				_logger.info("Correcting 'Upponents' to 'Opponents'")
+				cardLine = cardLine.replace("(Upponents", "(Opponents")
+			elif re.search(r"reduced by [lI]\.", cardLine):
+				cardLine = re.sub(r"reduced by [lI]\.", "reduced by 1.", cardLine)
 		if cardLine:
 			correctedCardLines.append(cardLine)
 		if originalCardLine != cardLine:
