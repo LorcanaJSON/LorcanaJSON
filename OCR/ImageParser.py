@@ -148,7 +148,7 @@ class ImageParser():
 		if hasCardText is not False:
 			isCurrentlyInLabel: bool = False
 			currentCoords = [0, 0, 0]
-			for y in range(5, textboxHeight):
+			for y in range(textboxHeight):
 				pixelValue = greyTextboxImage[y, 0]
 				if isCurrentlyInLabel:
 					# Check if the pixel got lighter, indicating we left the label block
