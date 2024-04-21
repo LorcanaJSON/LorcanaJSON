@@ -164,17 +164,22 @@ class ImageParser():
 					isCurrentlyInLabel = True
 					currentCoords[0] = y
 					yToCheck = min(textboxHeight - 1, y + 1)  # Check a few lines down to prevent weirdness with the edge of the label box
-					# Find the width of the label
+					# Find the width of the label. Since accented characters can reach the top of the label, we need several light pixels in succession to be sure the label ended
+					successiveLightPixels: int = 0
 					for x in range(textboxWidth):
-						if greyTextboxImage[yToCheck, x] > 125:
-							if x < 100:
-								self._logger.debug(f"Skipping label at {currentCoords=} and {x=}, not wide enough to be a label")
-								currentCoords[0] = 0
-								currentCoords[1] = 0
-								isCurrentlyInLabel = False
-							else:
-								currentCoords[2] = x - _EFFECT_LABEL_MARGIN
-							break
+						if greyTextboxImage[yToCheck, x] > 120:
+							successiveLightPixels += 1
+							if successiveLightPixels > 4:
+								if x < 100:
+									self._logger.debug(f"Skipping label at {currentCoords=} and {x=}, not wide enough to be a label")
+									currentCoords[0] = 0
+									currentCoords[1] = 0
+									isCurrentlyInLabel = False
+								else:
+									currentCoords[2] = x - _EFFECT_LABEL_MARGIN - 5
+								break
+						else:
+							successiveLightPixels = 0
 					else:
 						raise ValueError(f"Unable to find right side of label at {y=} in the cropped image")
 			if isCurrentlyInLabel:
