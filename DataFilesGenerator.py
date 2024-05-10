@@ -307,14 +307,14 @@ def createOutputFiles(onlyParseIds: Union[None, List[int]] = None, shouldShowIma
 				if cardId in cardIdsStored:
 					_logger.debug(f"Skipping parsing card with ID {inputCard['culture_invariant_id']} since it's already in the card list")
 					continue
-				elif onlyParseIds and cardId not in onlyParseIds:
-					_logger.error(f"Card ID {cardId} is not in the ID parse list, but it's also not in the previous dataset. Skipping parsing for now, but this results in incomplete datafiles, so it's strongly recommended to rerun with this card ID included")
-					continue
 				elif inputCard["expansion_number"] < GlobalConfig.language.fromSet:
 					_logger.debug(f"Skipping card with ID {inputCard['culture_invariant_id']} because it's from set {inputCard['expansion_number']} and language {GlobalConfig.language.englishName} started from set {GlobalConfig.language.fromSet}")
 					continue
 				elif languageCodeToCheck not in inputCard["card_identifier"]:
 					_logger.debug(f"Skipping card with ID {inputCard['culture_invariant_id']} because it's not in the requested language")
+					continue
+				elif onlyParseIds and cardId not in onlyParseIds:
+					_logger.error(f"Card ID {cardId} is not in the ID parse list, but it's also not in the previous dataset. Skipping parsing for now, but this results in incomplete datafiles, so it's strongly recommended to rerun with this card ID included")
 					continue
 				try:
 					results.append(pool.apply_async(_parseSingleCard, (inputCard, cardTypeText, imageFolder, enchantedNonEnchantedIds.get(cardId, None), promoNonPromoIds.get(cardId, None), variantsDeckBuildingIds.get(inputCard["deck_building_id"]),
