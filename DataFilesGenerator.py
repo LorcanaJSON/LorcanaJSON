@@ -466,7 +466,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 		outputCard["simpleName"] += " " + outputCard["subtitle"]
 	# simpleName is the full name with special characters and the base-subtitle dash removed, for easier lookup. So remove the special characters
 	outputCard["simpleName"] = re.sub(r"[!.?]", "", outputCard["simpleName"].lower()).replace("ā", "a").rstrip()
-	_logger.debug(f"Current card name is '{outputCard['fullName']}, ID {outputCard['id']}")
+	_logger.debug(f"Current card name is '{outputCard['fullName']}', ID {outputCard['id']}")
 
 	outputCard["cost"] = inputCard["ink_cost"] if "ink_cost" in inputCard else int(parsedImageAndTextData["cost"].text, 10)
 	if "quest_value" in inputCard:
