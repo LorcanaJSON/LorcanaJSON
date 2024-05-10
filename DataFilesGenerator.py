@@ -38,6 +38,8 @@ def correctText(cardText: str) -> str:
 			cardLine = cardLine[:-2]
 		if re.search(r"[^.,'!?’]\)", cardLine):
 			cardLine = re.sub(r"([^.,'!?’])\)", r"\1.)", cardLine)
+		if re.search(r"\b\d ,", cardLine):
+			cardLine = re.sub(r"\b(\d) ,", fr"\1 {ImageParser.INK_UNICODE},", cardLine)
 
 		if GlobalConfig.language == Language.ENGLISH:
 			if re.match("[‘`']Shift ", cardLine):
