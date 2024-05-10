@@ -296,6 +296,7 @@ def createOutputFiles(onlyParseIds: Union[None, List[int]] = None, shouldShowIma
 		# Only use half the available cores for threads, because we're also IO- and GIL-bound, so more threads would just slow things down
 		threadCount = max(1, os.cpu_count() // 2)
 	_logger.debug(f"Using {threadCount:,} threads for parsing the cards")
+	languageCodeToCheck = GlobalConfig.language.code.upper()
 	with multiprocessing.pool.ThreadPool(threadCount, initializer=initThread) as pool:
 		results = []
 		for cardType, inputCardlist in inputData["cards"].items():
@@ -311,6 +312,9 @@ def createOutputFiles(onlyParseIds: Union[None, List[int]] = None, shouldShowIma
 					continue
 				elif inputCard["expansion_number"] < GlobalConfig.language.fromSet:
 					_logger.debug(f"Skipping card with ID {inputCard['culture_invariant_id']} because it's from set {inputCard['expansion_number']} and language {GlobalConfig.language.englishName} started from set {GlobalConfig.language.fromSet}")
+					continue
+				elif languageCodeToCheck not in inputCard["card_identifier"]:
+					_logger.debug(f"Skipping card with ID {inputCard['culture_invariant_id']} because it's not in the requested language")
 					continue
 				try:
 					results.append(pool.apply_async(_parseSingleCard, (inputCard, cardTypeText, imageFolder, enchantedNonEnchantedIds.get(cardId, None), promoNonPromoIds.get(cardId, None), variantsDeckBuildingIds.get(inputCard["deck_building_id"]),
