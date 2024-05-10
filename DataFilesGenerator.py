@@ -40,6 +40,9 @@ def correctText(cardText: str) -> str:
 			cardLine = re.sub(r"([^.,'!?’])\)", r"\1.)", cardLine)
 		if re.search(r"\b\d ,", cardLine):
 			cardLine = re.sub(r"\b(\d) ,", fr"\1 {ImageParser.INK_UNICODE},", cardLine)
+		if "lll" in cardLine:
+			# 'Illuminary' and 'Illumineer(s)' often gets read as starting with three l's, instead of an I and two l's
+			cardLine = cardLine.replace("lllumin", "Illumin")
 
 		if GlobalConfig.language == Language.ENGLISH:
 			if re.match("[‘`']Shift ", cardLine):
@@ -50,9 +53,6 @@ def correctText(cardText: str) -> str:
 			if "Bodyquard" in cardLine:
 				# Somehow it reads 'Bodyquard' with a 'q' instead of a 'g' a lot...
 				cardLine = cardLine.replace("Bodyquard", "Bodyguard")
-			if "lll" in cardLine:
-				# 'Illuminary' and 'Illumineer(s)' often gets read as starting with three l's, instead of an I and two l's
-				cardLine = cardLine.replace("lllumin", "Illumin")
 			if "Ihe" in cardLine:
 				cardLine = re.sub(r"\bIhe\b", "The", cardLine)
 			if "|" in cardLine:
