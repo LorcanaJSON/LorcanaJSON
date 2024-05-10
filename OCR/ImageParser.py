@@ -22,16 +22,16 @@ ImageAndText = namedtuple("ImageAndText", ("image", "text"))
 _EFFECT_LABEL_MARGIN: int = 12
 
 class ImageParser():
-	def __init__(self, useLorcanaModel: bool = True):
+	def __init__(self, forceGenericModel: bool = False):
 		"""
 		Creae an image parser
-		:param useLorcanaModel: If True, a Lorcana-specific model will be used. If False, the generic model for the language will be used. Defaults to True
+		:param forceGenericModel: If True, force the use of the generic Tesseract model for the language, even if a Lorcana-specific one exists. If False or not provided, uses the Lorcana model if available for the current language. Defaults to False
 		"""
 		self._logger = logging.getLogger("LorcanaJSON")
-		if useLorcanaModel:
-			modelName = f"Lorcana_{GlobalConfig.language.code}"
-		else:
+		if forceGenericModel or not GlobalConfig.language.hasLorcanaTesseractModel:
 			modelName = GlobalConfig.language.threeLetterCode
+		else:
+			modelName = f"Lorcana_{GlobalConfig.language.code}"
 		self._tesseractApi = tesserocr.PyTessBaseAPI(lang=modelName, path=GlobalConfig.tesseractPath, psm=tesserocr.PSM.SINGLE_BLOCK)
 
 	def getImageAndTextDataFromImage(self, pathToImage: str, parseFully: bool, includeIdentifier: bool = False, isLocation: bool = None, hasCardText: bool = None, hasFlavorText: bool = None,

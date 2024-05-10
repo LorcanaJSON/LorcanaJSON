@@ -288,7 +288,7 @@ def createOutputFiles(onlyParseIds: Union[None, List[int]] = None, shouldShowIma
 			_logger.warning("ID list provided but previously generated file doesn't exist. Generating all card data")
 
 	def initThread():
-		_threadingLocalStorage.imageParser = ImageParser.ImageParser(True)
+		_threadingLocalStorage.imageParser = ImageParser.ImageParser()
 
 	# Parse the cards we need to parse
 	threadCount = GlobalConfig.threadCount
