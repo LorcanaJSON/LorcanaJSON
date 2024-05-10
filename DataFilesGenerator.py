@@ -36,6 +36,8 @@ def correctText(cardText: str) -> str:
 		if re.search(r"[”’)]\s.$", cardLine):
 			# Sometimes an extra character gets added after the closing quote mark or bracket from an inksplotch, remove that
 			cardLine = cardLine[:-2]
+		if re.search(r"[^.,'!?’]\)", cardLine):
+			cardLine = re.sub(r"([^.,'!?’])\)", r"\1.)", cardLine)
 
 		if GlobalConfig.language == Language.ENGLISH:
 			if re.match("[‘`']Shift ", cardLine):
