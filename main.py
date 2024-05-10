@@ -100,13 +100,13 @@ if __name__ == '__main__':
 						upperBound = int(cardIdRangeMatch.group(2), 10)
 						cardIds.extend(list(range(lowerBound, upperBound + 1)))
 					else:
-						logger.warning(f"Invalid value '{inputCardId}' in the '--cardIds' list, ignoring it")
+						raise ValueError(f"Invalid range value '{inputCardId}' in the '--cardIds' list")
 			else:
 				# Normal number, add it to the to-parse list
 				try:
 					cardIds.append(int(inputCardId, 10))
 				except ValueError:
-					logger.warning(f"Invalid value '{inputCardId}' in the '--cardIds' list, should be numeric, ignoring this value")
+					raise ValueError(f"Invalid value '{inputCardId}' in the '--cardIds' list, should be numeric")
 
 	startTime = time.perf_counter()
 	if parsedArguments.action == "check":
