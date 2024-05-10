@@ -545,9 +545,10 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 		if subtypes[0] == "Action" or subtypes[0] == "Item":
 			subtypes.pop(0)
 		# 'Seven Dwarves' is a subtype, but it might get split up into two types. Turn it back into one subtype
-		if "Seven" in subtypes and "Dwarfs" in subtypes:
-			subtypes.remove("Dwarfs")
-			subtypes[subtypes.index("Seven")] = "Seven Dwarfs"
+		if GlobalConfig.language == Language.ENGLISH:
+			if "Seven" in subtypes and "Dwarfs" in subtypes:
+				subtypes.remove("Dwarfs")
+				subtypes[subtypes.index("Seven")] = "Seven Dwarfs"
 		if subtypes:
 			outputCard["subtypes"] = subtypes
 	# Card-specific corrections
