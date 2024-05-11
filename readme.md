@@ -8,9 +8,10 @@ The code in this repository is written in Python 3. Supported Python versions ar
 Make sure you have Python 3 installed, either from the [official website](https://www.python.org) or from your OS's package manager.  
 Verify that Python works by running the command 'python --version' on the commandline.  
 If you get an error that the command can't be found, try 'python3 --version' instead, and replace instances of the 'python' command in subsequent examples with 'python3'.   
-### Tesseract model
+### Tesseract models
 This project uses a specially generated model for Tesseract, trained on *Lorcana* cards.  
-Download the file 'Lorcana_en.traineddata' from the ['Releases' tab](https://github.com/LorcanaJSON/LorcanaJSON/releases), and place it somewhere easily accessible.    
+Download the file 'Lorcana_en.traineddata' from the ['Releases' tab](https://github.com/LorcanaJSON/LorcanaJSON/releases), and place it somewhere easily accessible.  
+For languages other than English, you also need to download the Tesseract model for that language (indicated by its three-letter code) from the official repository [here](https://github.com/tesseract-ocr/tessdata_best/tree/e12c65a915945e4c28e237a9b52bc4a8f39a0cec), and place it in the same place as where you put 'Lorcana_en.traineddata'.    
 ### Libraries
 This project needs some libraries to work. These are listed in the 'requirements.txt' file.  
 To install these libraries, run the command 'python -m pip install -r requirements.txt'.  
