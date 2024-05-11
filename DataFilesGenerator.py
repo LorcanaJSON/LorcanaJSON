@@ -322,6 +322,7 @@ def createOutputFiles(onlyParseIds: Union[None, List[int]] = None, shouldShowIma
 		results = []
 		for cardType, inputCardlist in inputData["cards"].items():
 			cardTypeText = cardType[:-1].title()  # 'cardType' is plural ('characters', 'items', etc), make it singular
+			cardTypeText = Language.TRANSLATIONS[GlobalConfig.language][cardTypeText]
 			for inputCardIndex in range(len(inputCardlist)):
 				inputCard = inputCardlist.pop()
 				cardId = inputCard["culture_invariant_id"]
