@@ -458,6 +458,9 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 	outputCard["baseName"] = correctPunctuation(inputCard["name"].strip().replace("’", "'") if "name" in inputCard else parsedImageAndTextData["baseName"].text.title())
 	if outputCard["baseName"].isupper():
 		outputCard["baseName"] = outputCard["baseName"].title()
+		# Some names don't handle .title() well, correct those
+		if outputCard["baseName"] == "Heihei":
+			outputCard["baseName"] = "HeiHei"
 	outputCard["fullName"] = outputCard["baseName"]
 	outputCard["simpleName"] = outputCard["fullName"]
 	if "subtitle" in inputCard or parsedImageAndTextData.get("subtitle", None) is not None:
