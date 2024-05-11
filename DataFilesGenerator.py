@@ -526,8 +526,8 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 				if replacementCount > 0:
 					_logger.debug(f"Added a space before the exclamation mark in effect '{effectName}'")
 			outputCard["effects"].append({
-				"name": parsedImageAndTextData["effectLabels"][effectIndex].text.replace("’", "'").replace("''", "'"),
 				"text": correctText(parsedImageAndTextData["effectTexts"][effectIndex].text)
+				"name": effectName,
 			})
 	# Some cards have errata or clarifications, both in the 'additional_info' fields. Split those up
 	if inputCard.get("additional_info", None):
