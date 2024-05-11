@@ -461,6 +461,14 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 		# Some names don't handle .title() well, correct those
 		if outputCard["baseName"] == "Heihei":
 			outputCard["baseName"] = "HeiHei"
+		elif GlobalConfig.language == Language.FRENCH and "'" in outputCard["baseName"]:
+			# Some combined words get a bit mangled by .title(), like "c'est" gets turned into "C'Est" while it should be "C'est". Correct that
+			# "d'" is a special case though, since it's short for 'de', and the 'd' shouldn't be capitalized
+			# TODO Better title parsing for French, the rules are far more complex than just doing .title()
+			outputCard["baseName"] = outputCard["baseName"].replace("D'", "d'")
+			for quoteMatch in re.finditer("[A-Z]'[A-Z]", outputCard["baseName"]):
+				quoteMatchStartPos = quoteMatch.start()
+				outputCard["baseName"] = outputCard["baseName"][:quoteMatchStartPos + 2] + outputCard["baseName"][quoteMatchStartPos + 2].lower() + outputCard["baseName"][quoteMatchStartPos + 3:]
 	outputCard["fullName"] = outputCard["baseName"]
 	outputCard["simpleName"] = outputCard["fullName"]
 	if "subtitle" in inputCard or parsedImageAndTextData.get("subtitle", None) is not None:
