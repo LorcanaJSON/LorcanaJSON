@@ -1,5 +1,4 @@
-import logging, math, time
-import re
+import logging, math, re, string, time
 from collections import namedtuple
 from typing import Dict, List, Union
 
@@ -321,7 +320,7 @@ class ImageParser():
 		return Image.fromarray(cv2.cvtColor(cv2Image, cv2.COLOR_BGR2RGB))
 
 	def _imageToString(self, image: cv2.Mat, isNumeric: bool = False) -> str:
-		self._tesseractApi.SetVariable("tessedit_char_whitelist", "0123456789" if isNumeric else "")
+		self._tesseractApi.SetVariable("tessedit_char_whitelist", string.digits if isNumeric else "")
 		# TesserOCR uses Pillow-format images, so convert our CV2-format image
 		self._tesseractApi.SetImage(self._cv2ImageToPillowImage(image))
 		return self._tesseractApi.GetUTF8Text().rstrip("\n")
