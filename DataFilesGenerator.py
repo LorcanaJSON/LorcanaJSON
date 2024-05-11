@@ -428,7 +428,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 		"color": Language.TRANSLATIONS[GlobalConfig.language][inputCard["magic_ink_color"]],
 		"id": inputCard["culture_invariant_id"],
 		"inkwell": inputCard["ink_convertible"],
-		"rarity": inputCard["rarity"].title(),
+		"rarity": Language.TRANSLATIONS[GlobalConfig.language][inputCard["rarity"]],
 		"type": cardType
 	}
 	if isExternalReveal:
