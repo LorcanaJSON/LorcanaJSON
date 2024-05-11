@@ -100,6 +100,27 @@ def correctText(cardText: str) -> str:
 				cardLine = cardLine.replace("(Upponents", "(Opponents")
 			elif re.search(r"reduced by [lI]\.", cardLine):
 				cardLine = re.sub(r"reduced by [lI]\.", "reduced by 1.", cardLine)
+		elif GlobalConfig.language == Language.FRENCH:
+			if "payer" in cardLine:
+				# Correct payment text
+				cardLine = re.sub(r"\bpayer (\d+) \W pour\b", f"payer \\1 {ImageParser.INK_UNICODE} pour", cardLine)
+			elif re.search(r"vous pouvez ajouter sa \W+ à celle", cardLine):
+				cardLine = re.sub(r"(?<= )\W+(?= )", ImageParser.STRENGTH_UNICODE, cardLine)
+			elif re.search(fr"coûte \d+ ?[^{ImageParser.INK_UNICODE} ]+ de moins", cardLine):
+				# Cost discount text
+				cardLine = re.sub(r"coûte (\d+) [^ ]+ de moins", fr"coûte \1 {ImageParser.INK_UNICODE} de moins", cardLine)
+			elif re.search(r"Vous pouvez \W+ un personnage coûtant", cardLine):
+				# Song card reminder text
+				cardLine = re.sub(r"Vous pouvez \W+ un personnage coûtant", f"Vous pouvez {ImageParser.EXERT_UNICODE} un personnage coûtant", cardLine)
+			if ".." in cardLine:
+				# Fix punctuation by turning multiple periods into an ellipsis character
+				cardLine = re.sub(r"\.{2,}", "…", cardLine)
+			if "‘" in cardLine:
+				cardLine = re.sub(r"^‘", "“", cardLine)
+			if re.search(r"\S!", cardLine):
+				# French always has a space before punctuation marks
+				cardLine = re.sub(r"(\S)!", r"\1 !", cardLine)
+
 		if cardLine:
 			correctedCardLines.append(cardLine)
 		if originalCardLine != cardLine:
