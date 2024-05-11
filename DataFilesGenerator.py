@@ -509,7 +509,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 		flavorText = correctText(parsedImageAndTextData["flavorText"].text)
 		flavorText = correctPunctuation(flavorText)
 		# Tesseract often sees the italic 'T' as an 'I', especially at the start of a word. Fix that
-		if "I" in flavorText:
+		if GlobalConfig.language == Language.ENGLISH and "I" in flavorText:
 			flavorText = re.sub(r"(^|\W)I(?=[ehiow]\w)", r"\1T", flavorText)
 		outputCard["flavorText"] = flavorText
 	if parsedImageAndTextData["remainingText"] is not None:
