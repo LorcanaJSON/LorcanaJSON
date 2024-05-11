@@ -51,6 +51,8 @@ if __name__ == '__main__':
 
 	loggingFormatter = logging.Formatter('%(asctime)s (%(levelname)s) %(message)s', datefmt="%Y-%m-%d %H:%M:%S")
 	#Log everything to a file. Use a new file each time the program is launched
+	if not os.path.isdir("logs"):
+		os.mkdir("logs")
 	logfilePath = os.path.join("logs", "LorcanaJSON.log")
 	loggingFileHandler = logging.handlers.RotatingFileHandler(logfilePath, mode="w", backupCount=10, encoding="utf-8", delay=True)
 	loggingFileHandler.setLevel(logging.DEBUG)
