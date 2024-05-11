@@ -54,9 +54,9 @@ TRANSLATIONS = {
 		"STEEL": "Acier",
 		# Rarities (Always fully capitalized in the data file)
 		"COMMON": "Commune",
-		"UNCOMMON": "Inhabituelle",
+		"UNCOMMON": "Peu commune",
 		"RARE": "Rare",
-		"SUPER": "Très Rare",
+		"SUPER": "Super Rare",
 		"LEGENDARY": "Légendaire",
 		"ENCHANTED": "Enchantée",
 		"SPECIAL": "Spécial",
