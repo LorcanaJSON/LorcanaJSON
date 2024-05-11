@@ -616,7 +616,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 	# For now assume that only Characters can have abilities, since they started adding f.i.
 	#  the 'Support' ability to actions that temporarily grant Support to another character,
 	#  which breaks the regex, and doesn't make too much sense, since the action itself doesn't have Support
-	if outputCard["type"] == "Character" and "abilities" in outputCard:
+	if "abilities" in outputCard and outputCard["type"] == Language.TRANSLATIONS[GlobalConfig.language]["Character"]:
 		outputCard["keywordAbilities"] = []
 		# Find the ability name at the start of a sentence, optionally followed by a number, and then followed by the opening bracket of the reminder text
 		for abilityLine in outputCard["abilities"]:
