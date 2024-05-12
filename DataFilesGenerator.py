@@ -299,7 +299,7 @@ def createOutputFiles(onlyParseIds: Union[None, List[int]] = None, shouldShowIma
 							cardDataCorrections.pop(card["id"], None)
 							# If this card is an Enchanted card or has an Enchanted equivalent, add that field, so we don't need to fully parse the card
 							if card["id"] in enchantedNonEnchantedIds:
-								card["nonEnchantedId" if card["rarity"] == "Enchanted" else "enchantedId"] = enchantedNonEnchantedIds[card["id"]]
+								card["nonEnchantedId" if card["rarity"] == Language.TRANSLATIONS[GlobalConfig.language]["ENCHANTED"] else "enchantedId"] = enchantedNonEnchantedIds[card["id"]]
 							if card["id"] in promoNonPromoIds and "promoIds" not in card and "nonPromoId" not in card:
 								promoResult = promoNonPromoIds[card["id"]]
 								# For non-promo cards it stores a list of promo IDs, for promo cards it stores a single non-promo ID
@@ -443,10 +443,10 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 	parsedImageAndTextData = _threadingLocalStorage.imageParser.getImageAndTextDataFromImage(imagePath,
 																	  parseFully=isExternalReveal,
 																	  includeIdentifier="/P" in inputCard.get("card_identifier", "/P"),
-																	  isLocation=cardType == "Location",
+																	  isLocation=cardType == Language.TRANSLATIONS[GlobalConfig.language]["Location"],
 																	  hasCardText=inputCard["rules_text"] != "" if "rules_text" in inputCard else None,
 																	  hasFlavorText=inputCard["flavor_text"] != "" if "flavor_text" in inputCard else None,
-																	  isEnchanted=outputCard["rarity"] == "Enchanted" or inputCard.get("foil_type", None) == "Satin",  # Disney100 cards need Enchanted parsing, foil_type seems best way to determine Disney100
+																	  isEnchanted=outputCard["rarity"] == Language.TRANSLATIONS[GlobalConfig.language]["ENCHANTED"] or inputCard.get("foil_type", None) == "Satin",  # Disney100 cards need Enchanted parsing, foil_type seems best way to determine Disney100
 																	  showImage=shouldShowImage)
 
 	# The card identifier in non-promo cards is mostly correct in the input card,
@@ -521,7 +521,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 		outputCard["images"] = {"full": inputCard["imageUrl"]}
 	# If the card is Enchanted or has an Enchanted equivalent, store that
 	if enchantedNonEnchantedId:
-		outputCard["nonEnchantedId" if outputCard["rarity"] == "Enchanted" else "enchantedId"] = enchantedNonEnchantedId
+		outputCard["nonEnchantedId" if outputCard["rarity"] == Language.TRANSLATIONS[GlobalConfig.language]["ENCHANTED"] else "enchantedId"] = enchantedNonEnchantedId
 	# If the card is a promo card, store the non-promo ID
 	# If the card has promo version, store the promo IDs
 	if promoNonPromoId:
