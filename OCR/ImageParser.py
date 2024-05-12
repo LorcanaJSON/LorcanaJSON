@@ -5,7 +5,7 @@ from typing import Dict, List, Union
 import cv2, tesserocr
 from PIL import Image
 
-import GlobalConfig
+import GlobalConfig, Language
 from OCR import ImageArea
 
 
