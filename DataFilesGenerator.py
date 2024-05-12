@@ -622,6 +622,9 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 			abilityMatch = re.search(fr"(^|\n)(\S+)( \+?\d)?(?= \()", abilityLine)
 			if abilityMatch:
 				outputCard["keywordAbilities"].append(abilityMatch.group(0).lstrip())
+			# French has multi-word keyword abilities, add them manually for now
+			elif GlobalConfig.language == Language.FRENCH and abilityLine.startswith("Hors d'atteinte ("):
+				outputCard["keywordAbilities"].append("Hors d'atteinte")  # French translation of 'Ward'
 	# Reconstruct the full card text. Do that after storing the parts, so any corrections will be taken into account
 	# Remove the newlines in the fields we use while we're at it, because we only needed those to reconstruct the fullText
 	# TODO Some cards (Madam Mim - Fox, ID 262) have the abilities after the effect, think of a more elegant solution than the current regex hack in the corrections file
