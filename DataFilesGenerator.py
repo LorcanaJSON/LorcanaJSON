@@ -186,7 +186,7 @@ def correctCardField(card: Dict, fieldName: str, regexMatchString: str, correcti
 				if match:
 					matchFound = True
 					preCorrectedText = fieldValue
-					card[fieldName][fieldIndex] = re.sub(regexMatchString, correction, fieldValue)
+					card[fieldName][fieldIndex] = re.sub(regexMatchString, correction, fieldValue, flags=re.DOTALL)
 					if card[fieldName][fieldIndex] == preCorrectedText:
 						_logger.warning(f"Correcting index {fieldIndex} of field '{fieldName}' in card {_createCardIdentifier(card)} didn't change anything")
 					else:
