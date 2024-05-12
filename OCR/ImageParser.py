@@ -31,6 +31,8 @@ class ImageParser():
 			modelName = GlobalConfig.language.threeLetterCode
 		else:
 			modelName = f"Lorcana_{GlobalConfig.language.code}"
+		translations = Language.TRANSLATIONS[GlobalConfig.language]
+		self.nonCharacterTypes = (translations["Action"], translations["Item"], translations["Location"])
 		self._tesseractApi = tesserocr.PyTessBaseAPI(lang=modelName, path=GlobalConfig.tesseractPath, psm=tesserocr.PSM.SINGLE_BLOCK)
 
 	def getImageAndTextDataFromImage(self, pathToImage: str, parseFully: bool, includeIdentifier: bool = False, isLocation: bool = None, hasCardText: bool = None, hasFlavorText: bool = None,
@@ -94,13 +96,13 @@ class ImageParser():
 		typesImage = self._convertToThresholdImage(typesImage, ImageArea.TYPE.textColour)
 		typesImageText = self._imageToString(typesImage).strip("\"'")
 		self._logger.debug(f"Parsing types image finished at {time.perf_counter() - startTime} seconds in")
-		if typesImageText not in ("Action", "Item", "Location"):
+		if typesImageText not in self.nonCharacterTypes:
 			# The type separator character is always the same, but often gets interpreted wrong; fix that
 			if " " in typesImageText:
 				typesImageText = re.sub(r" (\S )?", f" {SEPARATOR_UNICODE} ", typesImageText)
 			result["subtypesText"] = ImageAndText(typesImage, typesImageText)
 			self._logger.debug(f"{typesImageText=}")
-			isCharacter = not isLocation and not typesImageText.startswith("Action") and not typesImageText.startswith("Item") and not typesImageText.startswith("Location")
+			isCharacter = not isLocation and typesImageText not in self.nonCharacterTypes and typesImageText.split(" ", 1)[0] not in self.nonCharacterTypes
 		else:
 			isCharacter = False
 			self._logger.debug(f"Subtype is main type ({typesImageText=}, so not storing as subtypes")
