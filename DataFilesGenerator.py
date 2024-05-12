@@ -547,13 +547,9 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 				effectName, replacementCount = re.subn(r"(\S)!", r"\1 !", effectName)
 				if replacementCount > 0:
 					_logger.debug(f"Added a space before the exclamation mark in effect '{effectName}'")
-			effectText = correctText(parsedImageAndTextData["effectTexts"][effectIndex].text)
-			if "“" in effectText:
-				effectText = effectText.replace("“", "\"").replace("”", "\"")
-				_logger.debug(f"Replaced fancy quote marks with simple ones in effect text '{effectText}' for effect '{effectName}'")
 			outputCard["effects"].append({
 				"name": effectName,
-				"text": effectText
+				"text": correctText(parsedImageAndTextData["effectTexts"][effectIndex].text)
 			})
 	# Some cards have errata or clarifications, both in the 'additional_info' fields. Split those up
 	if inputCard.get("additional_info", None):
