@@ -109,9 +109,9 @@ def correctText(cardText: str) -> str:
 			elif re.search(fr"coûte \d+ ?[^{ImageParser.INK_UNICODE} ]+ de moins", cardLine):
 				# Cost discount text
 				cardLine = re.sub(r"coûte (\d+) [^ ]+ de moins", fr"coûte \1 {ImageParser.INK_UNICODE} de moins", cardLine)
-			elif re.search(r"Vous pouvez \W+ un personnage coûtant", cardLine):
+			elif re.search(fr"Vous pouvez [^ {ImageParser.EXERT_UNICODE}]+ un(?:e carte)? personnage coûtant", cardLine):
 				# Song card reminder text
-				cardLine = re.sub(r"Vous pouvez \W+ un personnage coûtant", f"Vous pouvez {ImageParser.EXERT_UNICODE} un personnage coûtant", cardLine)
+				cardLine = re.sub(fr"Vous pouvez [^ {ImageParser.EXERT_UNICODE}]+ un(e carte)? personnage coûtant", f"Vous pouvez {ImageParser.EXERT_UNICODE} un\\1 personnage coûtant", cardLine)
 			if ".." in cardLine:
 				# Fix punctuation by turning multiple periods into an ellipsis character
 				cardLine = re.sub(r"\.{2,}", "…", cardLine)
