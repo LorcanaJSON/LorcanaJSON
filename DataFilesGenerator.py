@@ -115,6 +115,8 @@ def correctText(cardText: str) -> str:
 			if ".." in cardLine:
 				# Fix punctuation by turning multiple periods into an ellipsis character
 				cardLine = re.sub(r"\.{2,}", "…", cardLine)
+			if ".…" in cardLine:
+				cardLine = re.sub(r"\.+…", "…", cardLine)
 			if "‘" in cardLine:
 				cardLine = re.sub(r"^‘", "“", cardLine)
 			if "I!" in cardLine:
