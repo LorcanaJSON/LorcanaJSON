@@ -131,6 +131,8 @@ def correctText(cardText: str) -> str:
 			if re.search(r"\S!", cardLine):
 				# French always has a space before punctuation marks
 				cardLine = re.sub(r"(\S)!", r"\1 !", cardLine)
+			if "//" in cardLine:
+				cardLine = cardLine.replace("//", "Il")
 
 		if cardLine:
 			correctedCardLines.append(cardLine)
