@@ -556,7 +556,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 	if parsedImageAndTextData["effectLabels"]:
 		outputCard["effects"]: List[Dict[str, str]] = []
 		for effectIndex in range(len(parsedImageAndTextData["effectLabels"])):
-			effectName = parsedImageAndTextData["effectLabels"][effectIndex].text.replace("’", "'").replace("''", "'")
+			effectName = correctPunctuation(parsedImageAndTextData["effectLabels"][effectIndex].text.replace("’", "'").replace("''", "'"))
 			if GlobalConfig.language == Language.FRENCH and "!" in effectName:
 				# French puts a space before an exclamation mark, add that in
 				effectName, replacementCount = re.subn(r"(\S)!", r"\1 !", effectName)
