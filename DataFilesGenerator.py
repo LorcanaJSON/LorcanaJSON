@@ -585,7 +585,9 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 					infoText = infoEntry["title"].split(" - ")[1] + "\n" + infoText
 				errata.append(infoText)
 			elif infoEntry["title"].startswith("FAQ") or infoEntry["title"].startswith("Keyword") or infoEntry["title"] == "Good to know":
-				clarifications.append(infoText)
+				# Sometimes they cram multiple questions and answers into one entry, split those up into separate clarifications
+				infoEntryClarifications = re.split("\\s*\n+(?=Q:)", infoText)
+				clarifications.extend(infoEntryClarifications)
 			else:
 				_logger.error(f"Unknown 'additional_info' type '{infoEntry['title']}' in card {_createCardIdentifier(outputCard)}")
 		if errata:
