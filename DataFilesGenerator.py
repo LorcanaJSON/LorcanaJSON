@@ -46,6 +46,9 @@ def correctText(cardText: str) -> str:
 		if re.match(r"^[(@G]{1,2} ", cardLine):
 			# The 'exert' symbol often gets mistaken for a @ or G, correct that
 			cardLine = re.sub(r"^[(@G]{1,2} ", f"{ImageParser.EXERT_UNICODE} ", cardLine)
+		if re.search(r" [‘;]$", cardLine):
+			# Strip erroneously detected characters from the end
+			cardLine = cardLine[:-2]
 
 		if GlobalConfig.language == Language.ENGLISH:
 			if re.match("[‘`']Shift ", cardLine):
