@@ -23,8 +23,8 @@ def correctText(cardText: str) -> str:
 		# First simple typos
 		if "’" in cardLine:
 			cardLine = re.sub(r"(?<=\w)’(?=\w)", "'", cardLine)
-		if re.match("(^| )1[0O]( [-—]|,)", cardLine):
-			cardLine = re.sub(r"(^| )1[0O]( [-—]|,)", fr"\g<1>1 {ImageParser.INK_UNICODE}\2", cardLine)
+		if re.search(r"(^| )\d ?[0O]( ?[-—]|,)", cardLine):
+			cardLine = re.sub(r"(^| )(\d) ?[0O]( ?[-—]|,)", fr"\1\2 {ImageParser.INK_UNICODE}\3", cardLine)
 		if "€" in cardLine:
 			# For some reason it keeps reading the Strength symbol as the Euro symbol
 			cardLine = re.sub(r"€[^ .]?", ImageParser.STRENGTH_UNICODE, cardLine)
