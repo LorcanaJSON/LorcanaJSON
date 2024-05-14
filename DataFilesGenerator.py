@@ -140,6 +140,11 @@ def correctText(cardText: str) -> str:
 				cardLine = re.sub(r"(\S)!", r"\1 !", cardLine)
 			if "//" in cardLine:
 				cardLine = cardLine.replace("//", "Il")
+			if re.search(r"\(Lorsqu'il défie, ce personnage gagne \+\d .\.\)", cardLine):
+				cardLine = re.sub(r"gagne \+(\d) .\.", fr"gagne +\1 {ImageParser.STRENGTH_UNICODE}.", cardLine)
+			if re.match(r"^\+\d ?[^.]{0,2}\.\)$", cardLine):
+				# Fix second line of 'Challenger'/'Offensif' reminder text
+				cardLine = re.sub(r"^\+(\d) ?[^.]{0,2}\.\)$", fr"+\1 {ImageParser.STRENGTH_UNICODE}.)", cardLine)
 
 		if cardLine:
 			correctedCardLines.append(cardLine)
