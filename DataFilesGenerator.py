@@ -49,6 +49,9 @@ def correctText(cardText: str) -> str:
 		if re.search(r" [‘;]$", cardLine):
 			# Strip erroneously detected characters from the end
 			cardLine = cardLine[:-2]
+		if re.search(r"\d 4", cardLine):
+			# The Lore symbol often gets mistaken for a 4, correctt hat
+			cardLine = re.sub(r"(\d) 4", fr"\1 {ImageParser.LORE_UNICODE}", cardLine)
 
 		if GlobalConfig.language == Language.ENGLISH:
 			if re.match("[‘`']Shift ", cardLine):
