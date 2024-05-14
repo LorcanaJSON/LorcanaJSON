@@ -43,9 +43,9 @@ def correctText(cardText: str) -> str:
 		if "lll" in cardLine:
 			# 'Illuminary' and 'Illumineer(s)' often gets read as starting with three l's, instead of an I and two l's
 			cardLine = cardLine.replace("lllumin", "Illumin")
-		if re.match(r"^[(@G]{1,2} ", cardLine):
+		if re.match(r"^[(@G©]{1,2}[ ,]", cardLine):
 			# The 'exert' symbol often gets mistaken for a @ or G, correct that
-			cardLine = re.sub(r"^[(@G]{1,2} ", f"{ImageParser.EXERT_UNICODE} ", cardLine)
+			cardLine = re.sub(r"^[(@G©]{1,2}([ ,])", fr"{ImageParser.EXERT_UNICODE}\1", cardLine)
 		if re.search(r" [‘;]$", cardLine):
 			# Strip erroneously detected characters from the end
 			cardLine = cardLine[:-2]
