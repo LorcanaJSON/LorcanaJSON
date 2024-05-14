@@ -610,7 +610,8 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 	if parsedImageAndTextData["subtypesText"] and parsedImageAndTextData["subtypesText"].text:
 		subtypes: List[str] = parsedImageAndTextData["subtypesText"].text.split(f" {ImageParser.SEPARATOR_UNICODE} ")
 		# Non-character cards have their main type as their (first) subtype, remove those
-		if subtypes[0] == "Action" or subtypes[0] == "Item":
+		translation = Language.TRANSLATIONS[GlobalConfig.language]
+		if subtypes[0] == translation["Action"] or subtypes[0] == translation["Item"] or subtypes[0] == translation["Location"]:
 			subtypes.pop(0)
 		# 'Seven Dwarves' is a subtype, but it might get split up into two types. Turn it back into one subtype
 		if GlobalConfig.language == Language.ENGLISH:
