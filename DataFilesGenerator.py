@@ -112,7 +112,7 @@ def correctText(cardText: str) -> str:
 		elif GlobalConfig.language == Language.FRENCH:
 			if "payer" in cardLine:
 				# Correct payment text
-				cardLine = re.sub(r"\bpayer (\d+) \W pour\b", f"payer \\1 {ImageParser.INK_UNICODE} pour", cardLine)
+				cardLine = re.sub(r"\bpayer (\d+) (?:\W|O) pour\b", f"payer \\1 {ImageParser.INK_UNICODE} pour", cardLine)
 			elif re.search(r"vous pouvez ajouter sa \W+ à celle", cardLine):
 				cardLine = re.sub(r"(?<= )\W+(?= )", ImageParser.STRENGTH_UNICODE, cardLine)
 			elif re.search(fr"coûte \d+ ?[^{ImageParser.INK_UNICODE} ]+ de moins", cardLine):
