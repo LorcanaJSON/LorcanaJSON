@@ -124,6 +124,10 @@ def correctText(cardText: str) -> str:
 			if ".." in cardLine:
 				# Fix punctuation by turning multiple periods into an ellipsis character
 				cardLine = re.sub(r"\.{2,}", "…", cardLine)
+			if re.search(r"\. [a-z]", cardLine):
+				# Ellipsis get misread as periods often, try to correct that
+				# Try to recognize it by the first letter afterwards not being capitalized
+				cardLine = re.sub(r"\.+ ([a-z])", r"… \1", cardLine)
 			if ".…" in cardLine:
 				cardLine = re.sub(r"\.+…", "…", cardLine)
 			if "‘" in cardLine:
