@@ -94,7 +94,7 @@ class ImageParser():
 		# First determine the card (sub)type
 		typesImage = self._getSubImage(greyCardImage, ImageArea.LOCATION_TYPE if isLocation else ImageArea.TYPE)
 		typesImage = self._convertToThresholdImage(typesImage, ImageArea.TYPE.textColour)
-		typesImageText = self._imageToString(typesImage).strip("\"'")
+		typesImageText = self._imageToString(typesImage).strip("\"'- ")
 		self._logger.debug(f"Parsing types image finished at {time.perf_counter() - startTime} seconds in")
 		if typesImageText not in self.nonCharacterTypes:
 			# The type separator character is always the same, but often gets interpreted wrong; fix that
