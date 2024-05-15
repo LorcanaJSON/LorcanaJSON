@@ -82,6 +82,17 @@
     "matchingNames": ["Della Duck", "Dewey", "Flintheart Glomgold", "Gyro Gearloose", "Huey", "Lena Sabrewing", "Louie", "Lucky Dime", "Magica De Spell", "Scrooge", "Scrooge McDuck", "Webby Vanderquack"],
     "matchingIds": [636]
   },
+  "encanto": {
+    "displayNames": {
+      "de": "Encanto",
+      "en": "Encanto",
+      "fr": "Encanto",
+      "it": "Encanto"
+    },
+    "matchingFields": {
+      "subtypes": "Madrigal"
+    }
+  },
   "fantasia": {
     "displayNames": {
       "de": "Fantasia",
