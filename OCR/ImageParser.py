@@ -326,7 +326,6 @@ class ImageParser():
 		# TesserOCR uses Pillow-format images, so convert our CV2-format image
 		self._tesseractApi.SetImage(self._cv2ImageToPillowImage(image))
 		return self._tesseractApi.GetUTF8Text().rstrip("\n")
-		# return tesserocr.image_to_text(self._cv2ImageToPillowImage(image), lang="Lorcana_en", path=r"D:\Programs\Tesseract-OCR\tessdata", psm=tesserocr.PSM.SINGLE_BLOCK).rstrip("\n")
 
 	def _getSubImageAndText(self, cardImage: cv2.Mat, imageArea: ImageArea) -> ImageAndText:
 		subImage = self._getSubImage(cardImage, imageArea)
