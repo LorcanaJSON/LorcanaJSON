@@ -349,7 +349,7 @@ class ImageParser():
 	def _getSubImageAndText(self, cardImage: cv2.Mat, imageArea: ImageArea) -> ImageAndText:
 		subImage = self._getSubImage(cardImage, imageArea)
 		# Numeric reading is more sensitive, so convert to a clearer threshold image
-		if imageArea.isNumeric:
+		if imageArea.isNumeric or imageArea.textColour == ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND:
 			subImage = self._convertToThresholdImage(subImage, imageArea.textColour)
 		return ImageAndText(subImage, self._imageToString(subImage, imageArea.isNumeric, imageArea.keyName))
 
