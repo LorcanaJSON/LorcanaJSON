@@ -1046,6 +1046,10 @@
     "abilities": [
       " \\.\\)",
       ".)"
+    ],
+    "subtypes": [
+      "Floodbarn",
+      "Floodborn"
     ]
   }
 }
