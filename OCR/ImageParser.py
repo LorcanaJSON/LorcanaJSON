@@ -321,18 +321,37 @@ class ImageParser():
 	def _cv2ImageToPillowImage(cv2Image) -> Image.Image:
 		return Image.fromarray(cv2.cvtColor(cv2Image, cv2.COLOR_BGR2RGB))
 
-	def _imageToString(self, image: cv2.Mat, isNumeric: bool = False) -> str:
-		self._tesseractApi.SetVariable("tessedit_char_whitelist", string.digits if isNumeric else "")
+	def _imageToString(self, image: cv2.Mat, isNumeric: bool = False, imageAreaName: str = None) -> str:
 		# TesserOCR uses Pillow-format images, so convert our CV2-format image
 		self._tesseractApi.SetImage(self._cv2ImageToPillowImage(image))
-		return self._tesseractApi.GetUTF8Text().rstrip("\n")
+		result: str = self._tesseractApi.GetUTF8Text().rstrip("\n")
+		if isNumeric and not result.isnumeric():
+			# Forcing Tesseract to only recognise numbers for isNumeric often leads to empty results
+			# Instead correct common mistaken numbers ourselves, if possible
+			originalResult = result
+			if result == "O":
+				result = "0"
+			elif result == "l":
+				result = "1"
+			elif result == "b":
+				result = "6"
+			elif result == "Q":
+				result = "9"
+			if originalResult == result:
+				self._logger.error(f"Asked to find number in image area '{imageAreaName}' but found non-numeric result '{result}'")
+				return "-1"
+			else:
+				self._logger.info(f"Corrected non-numeric result '{originalResult}' to '{result}' for image area '{imageAreaName}'")
+				return result
+		else:
+			return result
 
 	def _getSubImageAndText(self, cardImage: cv2.Mat, imageArea: ImageArea) -> ImageAndText:
 		subImage = self._getSubImage(cardImage, imageArea)
 		# Numeric reading is more sensitive, so convert to a clearer threshold image
 		if imageArea.isNumeric:
 			subImage = self._convertToThresholdImage(subImage, imageArea.textColour)
-		return ImageAndText(subImage, self._imageToString(subImage, imageArea.isNumeric))
+		return ImageAndText(subImage, self._imageToString(subImage, imageArea.isNumeric, imageArea.keyName))
 
 	@staticmethod
 	def _isImageBlack(image: cv2.Mat) -> bool:
