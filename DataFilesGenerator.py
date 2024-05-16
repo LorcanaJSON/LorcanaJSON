@@ -507,20 +507,12 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 	outputCard["artist"] = inputCard["author"].strip() if "author" in inputCard else parsedImageAndTextData["artist"].text.replace(" I ", " / ")
 	if outputCard["artist"].startswith("Illus. "):
 		outputCard["artist"] = outputCard["artist"].split(" ", 1)[1]
-	outputCard["baseName"] = correctPunctuation(inputCard["name"].strip().replace("’", "'") if "name" in inputCard else parsedImageAndTextData["baseName"].text.title())
+	outputCard["baseName"] = correctPunctuation(inputCard["name"].strip() if "name" in inputCard else parsedImageAndTextData["baseName"].text).replace("’", "'")
 	if outputCard["baseName"].isupper():
-		outputCard["baseName"] = outputCard["baseName"].title()
+		outputCard["baseName"] = _toTitleCase(outputCard["baseName"])
 		# Some names don't handle .title() well, correct those
 		if outputCard["baseName"] == "Heihei":
 			outputCard["baseName"] = "HeiHei"
-		elif GlobalConfig.language == Language.FRENCH and "'" in outputCard["baseName"]:
-			# Some combined words get a bit mangled by .title(), like "c'est" gets turned into "C'Est" while it should be "C'est". Correct that
-			# "d'" is a special case though, since it's short for 'de', and the 'd' shouldn't be capitalized
-			# TODO Better title parsing for French, the rules are far more complex than just doing .title()
-			outputCard["baseName"] = outputCard["baseName"].replace("D'", "d'")
-			for quoteMatch in re.finditer("[A-Z]'[A-Z]", outputCard["baseName"]):
-				quoteMatchStartPos = quoteMatch.start()
-				outputCard["baseName"] = outputCard["baseName"][:quoteMatchStartPos + 2] + outputCard["baseName"][quoteMatchStartPos + 2].lower() + outputCard["baseName"][quoteMatchStartPos + 3:]
 	outputCard["fullName"] = outputCard["baseName"]
 	outputCard["simpleName"] = outputCard["fullName"]
 	if "subtitle" in inputCard or parsedImageAndTextData.get("subtitle", None) is not None:
@@ -709,3 +701,14 @@ def _createMd5ForFile(filePath: str):
 	with open(filePath, "rb") as fileToHash, open(filePath + ".md5", "w", encoding="utf-8") as md5File:
 		fileHash = hashlib.md5(fileToHash.read()).hexdigest()
 		md5File.write(fileHash)
+
+def _toTitleCase(s: str) -> str:
+	s = re.sub(r"(?:^| |\n|\(|-)([a-z])", lambda m: m.group(0).upper(), s.lower())
+	toLowerCaseWords = None
+	if GlobalConfig.language == Language.ENGLISH:
+		toLowerCaseWords = (" A ", " In ", " Of ", " The ", " To ")
+	if toLowerCaseWords:
+		for toLowerCaseWord in toLowerCaseWords:
+			if toLowerCaseWord in s:
+				s = s.replace(toLowerCaseWord, toLowerCaseWord.lower())
+	return s
