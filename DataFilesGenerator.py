@@ -542,7 +542,11 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 		if inputFieldName in inputCard:
 			outputCard[outputFieldName] = inputCard[inputFieldName]
 		elif parsedImageAndTextData.get(outputFieldName, None) is not None:
-			outputCard[outputFieldName] = int(parsedImageAndTextData[outputFieldName].text, 10)
+			try:
+				outputCard[outputFieldName] = int(parsedImageAndTextData[outputFieldName].text, 10)
+			except ValueError:
+				_logger.error(f"Unable to parse {parsedImageAndTextData[outputFieldName].text!r} as {outputFieldName} in card ID {outputCard['id']}")
+				outputCard[outputFieldName] = -1
 	# Image URLs end with a checksum parameter, we don't need that
 	if "image_urls" in inputCard:
 		outputCard["images"] = {
