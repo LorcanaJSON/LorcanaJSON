@@ -531,7 +531,11 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 	outputCard["simpleName"] = re.sub(r"[!.?]", "", outputCard["simpleName"].lower()).rstrip().replace("ā", "a").replace("œ", "oe").replace("“", "\"").replace("”", "\"")
 	_logger.debug(f"Current card name is '{outputCard['fullName']}', ID {outputCard['id']}")
 
-	outputCard["cost"] = inputCard["ink_cost"] if "ink_cost" in inputCard else int(parsedImageAndTextData["cost"].text, 10)
+	try:
+		outputCard["cost"] = inputCard["ink_cost"] if "ink_cost" in inputCard else int(parsedImageAndTextData["cost"].text)
+	except Exception as e:
+		_logger.error(f"Unable to parse {parsedImageAndTextData['cost'].text!r} as card cost in card ID {outputCard['id']}; Exception {type(e).__name__}: {e}")
+		outputCard["cost"] = -1
 	if "quest_value" in inputCard:
 		outputCard["lore"] = inputCard["quest_value"]
 	for inputFieldName, outputFieldName in (("move_cost", "moveCost"), ("strength", "strength"), ("willpower", "willpower")):
