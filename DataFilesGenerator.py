@@ -3,6 +3,8 @@ from typing import Dict, List, Union
 
 import GlobalConfig, Language
 from OCR import ImageParser
+from output.StoryParser import StoryParser
+
 
 _logger = logging.getLogger("LorcanaJSON")
 FORMAT_VERSION = "1.2.0"
@@ -252,7 +254,6 @@ def createOutputFiles(onlyParseIds: Union[None, List[int]] = None, shouldShowIma
 		raise FileNotFoundError(f"Card catalog for language '{GlobalConfig.language.code}' doesn't exist. Run the data downloader first")
 	with open(cardCatalogPath, "r", encoding="utf-8") as inputFile:
 		inputData = json.load(inputFile)
-	cardIdToStoryName = _determineCardIdToStoryName(onlyParseIds)
 
 	correctionsFilePath = os.path.join("output", f"outputDataCorrections_{GlobalConfig.language.code}.json")
 	if os.path.isfile(correctionsFilePath):
@@ -338,13 +339,15 @@ def createOutputFiles(onlyParseIds: Union[None, List[int]] = None, shouldShowIma
 	def initThread():
 		_threadingLocalStorage.imageParser = ImageParser.ImageParser()
 
-	# Parse the cards we need to parse
 	threadCount = GlobalConfig.threadCount
 	if not threadCount:
 		# Only use half the available cores for threads, because we're also IO- and GIL-bound, so more threads would just slow things down
 		threadCount = max(1, os.cpu_count() // 2)
 	_logger.debug(f"Using {threadCount:,} threads for parsing the cards")
+
+	# Parse the cards we need to parse
 	languageCodeToCheck = GlobalConfig.language.code.upper()
+	cardToStoryParser = StoryParser()
 	with multiprocessing.pool.ThreadPool(threadCount, initializer=initThread) as pool:
 		results = []
 		for cardType, inputCardlist in inputData["cards"].items():
@@ -367,7 +370,7 @@ def createOutputFiles(onlyParseIds: Union[None, List[int]] = None, shouldShowIma
 					continue
 				try:
 					results.append(pool.apply_async(_parseSingleCard, (inputCard, cardTypeText, imageFolder, enchantedNonEnchantedIds.get(cardId, None), promoNonPromoIds.get(cardId, None), variantsDeckBuildingIds.get(inputCard["deck_building_id"]),
-												  cardDataCorrections.pop(cardId, None), cardIdToStoryName.pop(cardId), False, shouldShowImages)))
+												  cardDataCorrections.pop(cardId, None), cardToStoryParser, False, shouldShowImages)))
 					cardIdsStored.append(cardId)
 				except Exception as e:
 					_logger.error(f"Exception {type(e)} occured while parsing card ID {inputCard['culture_invariant_id']}")
@@ -385,7 +388,7 @@ def createOutputFiles(onlyParseIds: Union[None, List[int]] = None, shouldShowIma
 				_logger.debug(f"Card ID {cardId} is defined in the official file and in the external file, skipping the external data")
 				continue
 			results.append(pool.apply_async(_parseSingleCard, (externalCard, externalCard["type"], imageFolder, enchantedNonEnchantedIds.get(cardId, None), promoNonPromoIds.get(cardId, None), variantsDeckBuildingIds,
-															   cardDataCorrections.pop(cardId, None), cardIdToStoryName.pop(cardId, None), True, shouldShowImages)))
+															   cardDataCorrections.pop(cardId, None), cardToStoryParser, True, shouldShowImages)))
 		pool.close()
 		pool.join()
 	for result in results:
@@ -449,7 +452,7 @@ def createOutputFiles(onlyParseIds: Union[None, List[int]] = None, shouldShowIma
 	_logger.info(f"Creating the output files took {time.perf_counter() - startTime:.4f} seconds")
 
 def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchantedNonEnchantedId: Union[int, None], promoNonPromoId: Union[int, List[int], None], variantIds: Union[List[int], None],
-					 cardDataCorrections: Dict, storyName: str, isExternalReveal: bool, shouldShowImage: bool = False) -> Dict:
+					 cardDataCorrections: Dict, storyParser: StoryParser, isExternalReveal: bool, shouldShowImage: bool = False) -> Dict:
 	# Store some default values
 	outputCard: Dict[str, Union[str, int, List, Dict]] = {
 		"color": Language.TRANSLATIONS[GlobalConfig.language][inputCard["magic_ink_color"]],
@@ -678,86 +681,10 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 		correctCardField(outputCard, "fullText", fullTextCorrection[0], fullTextCorrection[1])
 	if "story" in inputCard:
 		outputCard["story"] = inputCard["story"]
-	elif storyName:
-		outputCard["story"] = storyName
 	else:
-		outputCard["story"] = "[unknown]"
+		storyName = storyParser.getStoryNameForCard(outputCard, outputCard["id"])
+		outputCard["story"] = storyName if storyName else "[[unknown]]"
 	return outputCard
-
-def _determineCardIdToStoryName(idsToParse: List[int] = None) -> Dict[int, str]:
-	startTime = time.perf_counter()
-	cardStorePath = os.path.join("downloads", "json", "carddata.en.json")
-	if not os.path.isfile(cardStorePath):
-		raise FileNotFoundError("The English carddata file does not exist, please run the 'download' action for English first")
-	with open(cardStorePath, "r", encoding="utf-8") as cardstoreFile:
-		cardstore = json.load(cardstoreFile)
-	with open(os.path.join("output", "fromStories.json"), "r", encoding="utf-8") as fromStoriesFile:
-		fromStories = json.load(fromStoriesFile)
-	# The fromStories file is organised by story to make it easy to write and maintain
-	# Reformat it so matching individual cards to a story is easier
-	cardIdToStoryName: Dict[int, str] = {}
-	cardNameToStoryName: Dict[str, str] = {}
-	fieldMatchers: Dict[str, Dict[str, str]] = {}  # A dictionary with for each fieldname a dict of matchers and their matching story name
-	for storyId, storyData in fromStories.items():
-		storyName = storyData["displayNames"][GlobalConfig.language.code]
-		if "matchingIds" in storyData:
-			for cardId in storyData["matchingIds"]:
-				cardIdToStoryName[cardId] = storyName
-		if "matchingNames" in storyData:
-			for name in storyData["matchingNames"]:
-				cardNameToStoryName[name] = storyName
-		if "matchingFields" in storyData:
-			for fieldName, fieldMatch in storyData["matchingFields"].items():
-				if fieldName not in fieldMatchers:
-					fieldMatchers[fieldName] = {}
-				elif fieldMatch in fieldMatchers[fieldName]:
-					raise ValueError(f"Duplicate field matcher '{fieldMatch}' in '{fieldMatchers[fieldName][fieldMatch]}' and '{storyName}'")
-				fieldMatchers[fieldName][fieldMatch] = storyName
-	_logger.debug(f"Reorganized story data after {time.perf_counter() - startTime:.4f} seconds")
-	# Now we can go through every card and try to match each to a story
-	for cardtype, cardlist in cardstore["cards"].items():
-		for card in cardlist:
-			cardId = card["culture_invariant_id"]
-			if idsToParse and cardId not in idsToParse:
-				continue
-			if cardId in cardIdToStoryName:
-				# Card is already stored, by directly referencing its ID in the 'fromStories' file, so we don't need to do anything anymore
-				continue
-			if card["name"] in cardNameToStoryName:
-				cardIdToStoryName[cardId] = cardNameToStoryName[card["name"]]
-				continue
-			# Go through each field matcher to see if it matches anything
-			try:
-				for fieldName, fieldData in fieldMatchers.items():
-					if fieldName not in card:
-						continue
-					for fieldMatch, storyName in fieldData.items():
-						if isinstance(card[fieldName], list):
-							if fieldMatch in card[fieldName]:
-								cardIdToStoryName[cardId] = storyName
-								raise StopIteration()
-						elif fieldMatch in card[fieldName] or re.search(fieldMatch, card[fieldName]):
-							cardIdToStoryName[cardId] = storyName
-							raise StopIteration()
-			except StopIteration:
-				pass
-			else:
-				try:
-					# No match, try to see if any of the names occurs in some of the card's fields
-					for name, storyName in cardNameToStoryName.items():
-						nameRegex = re.compile(rf"(^|\W){name}(\W|$)")
-						for fieldName in ("flavor_text", "rules_text", "name", "subtitle"):
-							if fieldName in card and nameRegex.search(card[fieldName]):
-								_logger.debug(f"Assuming {_createCardIdentifier(card)} is in story '{storyName}' based on '{name}' in the field '{fieldName}': {card[fieldName]!r}")
-								cardIdToStoryName[cardId] = storyName
-								raise StopIteration()
-				except StopIteration:
-					pass
-				else:
-					_logger.error(f"Unable to determine story ID of card {_createCardIdentifier(card)}")
-					cardIdToStoryName[cardId] = "_unknown"
-	_logger.debug(f"Finished determining cards' stories after {time.perf_counter() - startTime:.4f} seconds")
-	return cardIdToStoryName
 
 def _saveFile(outputFilePath: str, dictToSave: Dict, createZip: bool = True):
 	with open(outputFilePath, "w", encoding="utf-8") as outputFile:
