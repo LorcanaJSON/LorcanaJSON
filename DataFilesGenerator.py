@@ -72,6 +72,13 @@ def correctText(cardText: str) -> str:
 			if cardLine.endswith("of i"):
 				# The 'Floodborn' inksplashes sometimes confuse the reader into imagining another 'i' at the end of some reminder text, remove that
 				cardLine = cardLine.rstrip(" i")
+			# Correct some fancy qoute marks at theend of some plural possessives. This is needed on a case-by-case basis, otherwise too much text is changed
+			if "teammates’" in cardLine:
+				cardLine = re.sub(r"teammates’( |$)", r"teammates'\1", cardLine)
+			if "players’" in cardLine:
+				cardLine = re.sub(r"players’( |$)", r"players'\1", cardLine)
+			if "opponents’" in cardLine:
+				cardLine = re.sub(r"opponents’( |$)", r"opponents'\1", cardLine)
 			# Correct common phrases with symbols
 			if re.search(rf"pay \d ?[^{ImageParser.INK_UNICODE}]{{1,2}}(?: |$)", cardLine):
 				# Lore payment discounts
