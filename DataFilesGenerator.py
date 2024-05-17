@@ -515,7 +515,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 	outputCard["artist"] = inputCard["author"].strip() if "author" in inputCard else parsedImageAndTextData["artist"].text.replace(" I ", " / ")
 	if outputCard["artist"].startswith("Illus. "):
 		outputCard["artist"] = outputCard["artist"].split(" ", 1)[1]
-	outputCard["baseName"] = correctPunctuation(inputCard["name"].strip() if "name" in inputCard else parsedImageAndTextData["baseName"].text).replace("’", "'")
+	outputCard["baseName"] = correctPunctuation(inputCard["name"].strip() if "name" in inputCard else parsedImageAndTextData["baseName"].text).replace("’", "'").replace("''", "'")
 	if outputCard["baseName"].isupper():
 		outputCard["baseName"] = _toTitleCase(outputCard["baseName"])
 		# Some names don't handle .title() well, correct those
