@@ -670,6 +670,15 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 			# French has multi-word keyword abilities, add them manually for now
 			elif GlobalConfig.language == Language.FRENCH and abilityLine.startswith("Hors d'atteinte ("):
 				outputCard["keywordAbilities"].append("Hors d'atteinte")  # French translation of 'Ward'
+			# Some cards list keyword abilities without reminder text, sometimes multiple separated by commas
+			elif ", " in abilityLine and not abilityLine.endswith("."):
+				abilityLineParts = abilityLine.split(", ")
+				for abilityLinePart in abilityLineParts:
+					if " " in abilityLinePart and abilityLinePart != "Hors d'atteinte" and not re.match(r"Sing Together \d+", abilityLinePart):
+						break
+				else:
+					# Sentence is single-word comma-separated parts, assume it's a list of keyword abilities
+					keywordAbilities.extend(abilityLineParts)
 	# Reconstruct the full card text. Do that after storing the parts, so any corrections will be taken into account
 	# Remove the newlines in the fields we use while we're at it, because we only needed those to reconstruct the fullText
 	# TODO Some cards (Madam Mim - Fox, ID 262) have the abilities after the effect, think of a more elegant solution than the current regex hack in the corrections file
