@@ -28,8 +28,8 @@ class ImageArea:
 # Coordinates are left, top, right, bottom. Based on image size of 1468 x 2048
 TYPE = ImageArea("type", "Card Type", _Coords(168, 1300, 1298, 1360), TEXT_COLOUR_WHITE)
 INK_COST = ImageArea("inkCost", "Ink Cost", _Coords(101, 116, 191, 197), TEXT_COLOUR_WHITE, True)
-CHARACTER_NAME = ImageArea("characterName", "Character Name", _Coords(60, 1111, 1026, 1213), TEXT_COLOUR_WHITE)
-CARD_NAME = ImageArea("cardName", "Card Name", _Coords(88, 1124, 1393, 1245), TEXT_COLOUR_WHITE)
+CHARACTER_NAME = ImageArea("characterName", "Character Name", _Coords(60, 1111, 1026, 1213), TEXT_COLOUR_WHITE_LIGHT_BACKGROUND)
+CARD_NAME = ImageArea("cardName", "Card Name", _Coords(88, 1124, 1393, 1245), TEXT_COLOUR_WHITE_LIGHT_BACKGROUND)
 CHARACTER_SUBTITLE = ImageArea("characterSubtitle", "Character Subtitle", _Coords(60, 1213, 1026, 1287), TEXT_COLOUR_WHITE_LIGHT_BACKGROUND)
 STRENGTH = ImageArea("strength", "Strength", _Coords(1099, 1146, 1188, 1244), TEXT_COLOUR_BLACK, True)
 WILLPOWER = ImageArea("willpower", "Willpower", _Coords(1273, 1146, 1362, 1244), TEXT_COLOUR_WHITE, True)
@@ -40,8 +40,8 @@ ENCHANTED_FULL_WIDTH_TEXT_BOX = ImageArea("textbox", "Enchanted Full Width Text 
 ARTIST = ImageArea("artist", "Artist", _Coords(109, 1925, 666, 1969), TEXT_COLOUR_WHITE)
 CARD_IDENTIFIER = ImageArea("card_identifier", "Card Identifier", _Coords(54,1969, 359,2017), TEXT_COLOUR_WHITE)
 
-LOCATION_NAME = ImageArea("cardName", "Location Name", _Coords(424,740, 1700,849), TEXT_COLOUR_WHITE)
-LOCATION_SUBTITLE = ImageArea("subtitle", "Location Subtitle", _Coords(424,846, 1700,918), TEXT_COLOUR_WHITE)
+LOCATION_NAME = ImageArea("cardName", "Location Name", _Coords(424,740, 1700,849), TEXT_COLOUR_WHITE_LIGHT_BACKGROUND)
+LOCATION_SUBTITLE = ImageArea("subtitle", "Location Subtitle", _Coords(424,846, 1700,918), TEXT_COLOUR_WHITE_LIGHT_BACKGROUND)
 LOCATION_TYPE = ImageArea("type", "Location Type", _Coords(210,934, 1855,998), TEXT_COLOUR_WHITE)
 LOCATION_TEXTBOX = ImageArea("textbox", "Location Text Box", _Coords(65,1017, 1818,1317), TEXT_COLOUR_MIDDLE)
 ENCHANTED_LOCATION_TEXT_BOX = ImageArea("textbox", "Enchanted Location Text Box", _Coords(20,1017, 1818,1317), TEXT_COLOUR_MIDDLE)
