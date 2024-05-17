@@ -24,6 +24,7 @@ def correctText(cardText: str) -> str:
 		originalCardLine = cardLine
 		# First simple typos
 		if "’" in cardLine:
+			# Simplify quote mark if it's used in a contraction
 			cardLine = re.sub(r"(?<=\w)’(?=\w)", "'", cardLine)
 		if re.search(r"(^| )\d ?[0O]?( ?[-—]|,)", cardLine):
 			# There's usually an ink symbol between a number and a dash
@@ -35,6 +36,7 @@ def correctText(cardText: str) -> str:
 			# Normally a closing quote mark should be preceded by a period
 			cardLine = re.sub("([^.,'!?’])”", "\\1.”", cardLine)
 		if "( " in cardLine:
+			# An opening bracket shouldn't have a space after it
 			cardLine = cardLine.replace("( ", "(")
 		if re.search(r"[”’)]\s.$", cardLine):
 			# Sometimes an extra character gets added after the closing quote mark or bracket from an inksplotch, remove that
