@@ -577,7 +577,12 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 	if parsedImageAndTextData["remainingText"] is not None:
 		abilityText = correctText(parsedImageAndTextData["remainingText"].text)
 		# TODO FIXME Song reminder text is at the top of a Song card, should probably not be listed in the 'abilities' list
-		outputCard["abilities"]: List[str] = re.sub(r"(\.\)?\n)", r"\1\n", abilityText).split("\n\n")
+		abilityLines = re.sub(r"(\.\)?\n)", r"\1\n", abilityText).split("\n\n")
+		for abilityLineIndex in range(len(abilityLines) - 1, 0, -1):
+			if abilityLines[abilityLineIndex].startswith("- "):
+				# Assume this is an ability that lists options, join this line back up with the previous line, so the choice list stays in one ability
+				abilityLines[abilityLineIndex - 1] += "\n" + abilityLines.pop(abilityLineIndex)
+		outputCard["abilities"] = abilityLines
 	if parsedImageAndTextData["effectLabels"]:
 		outputCard["effects"]: List[Dict[str, str]] = []
 		for effectIndex in range(len(parsedImageAndTextData["effectLabels"])):
