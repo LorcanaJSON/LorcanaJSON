@@ -524,7 +524,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 	outputCard["fullName"] = outputCard["baseName"]
 	outputCard["simpleName"] = outputCard["fullName"]
 	if "subtitle" in inputCard or parsedImageAndTextData.get("subtitle", None) is not None:
-		outputCard["subtitle"] = inputCard["subtitle"].strip().replace("’", "'") if "subtitle" in inputCard else parsedImageAndTextData["subtitle"].text
+		outputCard["subtitle"] = (inputCard["subtitle"].strip() if "subtitle" in inputCard else parsedImageAndTextData["subtitle"].text).replace("’", "'")
 		outputCard["fullName"] += " - " + outputCard["subtitle"]
 		outputCard["simpleName"] += " " + outputCard["subtitle"]
 	# simpleName is the full name with special characters and the base-subtitle dash removed, for easier lookup. So remove the special characters
