@@ -91,7 +91,7 @@ document.getElementById("cardIdForm").addEventListener("submit", (event) => {
 	let targetId = parseInt(document.getElementById("cardId").value, 10);
 	// Try to find the specified index in the card list
 	let targetIndex = -1;
-	for (let cardIndex = maxIndex; cardIndex--; cardIndex >= 0) {
+	for (let cardIndex = maxIndex; cardIndex >= 0; cardIndex--) {
 		if (cardsJson["cards"][cardIndex]["id"] === targetId) {
 			targetIndex = cardIndex;
 			break;
