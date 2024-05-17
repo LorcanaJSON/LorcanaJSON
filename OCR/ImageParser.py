@@ -130,11 +130,12 @@ class ImageParser():
 			result["artist"] = self._getSubImageAndText(greyCardImage, ImageArea.LOCATION_ARTIST if isLocation else ImageArea.ARTIST)
 
 		# Determine the textbox area, which is different between characters and non-characters, and between enchanted and non-enchanted characters
-		textBoxImageArea = ImageArea.ENCHANTED_FULL_WIDTH_TEXT_BOX if isEnchanted else ImageArea.FULL_WIDTH_TEXT_BOX
 		if isCharacter:
 			textBoxImageArea = ImageArea.ENCHANTED_CHARACTER_TEXT_BOX if isEnchanted else ImageArea.CHARACTER_TEXT_BOX
 		elif isLocation:
 			textBoxImageArea = ImageArea.ENCHANTED_LOCATION_TEXT_BOX if isEnchanted else ImageArea.LOCATION_TEXTBOX
+		else:
+			textBoxImageArea = ImageArea.ENCHANTED_FULL_WIDTH_TEXT_BOX if isEnchanted else ImageArea.FULL_WIDTH_TEXT_BOX
 
 		# Greyscale images work better, so get one from just the textbox
 		greyTextboxImage = self._getSubImage(greyCardImage, textBoxImageArea)
