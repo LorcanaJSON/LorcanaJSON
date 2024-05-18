@@ -57,6 +57,9 @@ def correctText(cardText: str) -> str:
 		if re.search(r"\d 4", cardLine):
 			# The Lore symbol often gets mistaken for a 4, correctt hat
 			cardLine = re.sub(r"(\d) 4", fr"\1 {ImageParser.LORE_UNICODE}", cardLine)
+		if cardLine.startswith("- "):
+			# Assume this is a list, replace the start with the official separator
+			cardLine = f"{ImageParser.SEPARATOR_UNICODE} {cardLine[2:]}"
 
 		if GlobalConfig.language == Language.ENGLISH:
 			if re.match("[‘`']Shift ", cardLine):
@@ -581,7 +584,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 		# TODO FIXME Song reminder text is at the top of a Song card, should probably not be listed in the 'abilities' list
 		abilityLines = re.sub(r"(\.\)?\n)", r"\1\n", abilityText).split("\n\n")
 		for abilityLineIndex in range(len(abilityLines) - 1, 0, -1):
-			if abilityLines[abilityLineIndex].startswith("- "):
+			if abilityLines[abilityLineIndex].startswith(ImageParser.SEPARATOR_UNICODE):
 				# Assume this is an ability that lists options, join this line back up with the previous line, so the choice list stays in one ability
 				abilityLines[abilityLineIndex - 1] += "\n" + abilityLines.pop(abilityLineIndex)
 		outputCard["abilities"] = abilityLines
