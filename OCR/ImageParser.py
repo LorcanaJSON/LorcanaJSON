@@ -303,8 +303,14 @@ class ImageParser():
 				cv2.imshow("Artist", result["artist"].image)
 				cv2.imshow("Ink Cost", result["cost"].image)
 				cv2.imshow("Card Name", result["baseName"].image)
+				if result["moveCost"] is not None:
+					cv2.imshow("Card Move Cost", result["moveCost"].image)
+				if result["strength"] is not None:
+					cv2.imshow("Card Strength", result["strength"].image)
 				if result["subtitle"] is not None:
 					cv2.imshow("Card Subtitle", result["subtitle"].image)
+				if result["willpower"] is not None:
+					cv2.imshow("Card Willpower", result["willpower"].image)
 			cv2.waitKey(0)
 			cv2.destroyAllWindows()
 		# Done!
