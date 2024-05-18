@@ -36,7 +36,7 @@ WILLPOWER = ImageArea("willpower", "Willpower", _Coords(1273, 1146, 1362, 1244),
 CHARACTER_TEXT_BOX = ImageArea("textbox", "Character Text Box", _Coords(66,1378,  1311,1901), TEXT_COLOUR_MIDDLE)
 ENCHANTED_CHARACTER_TEXT_BOX = ImageArea("textbox", "Enchanted Character Text Box", _Coords(36,1395,  1309,1901), TEXT_COLOUR_MIDDLE)
 FULL_WIDTH_TEXT_BOX = ImageArea("textbox", "Full Width Text Box", _Coords(66,1378,  1400,1901), TEXT_COLOUR_MIDDLE)
-ENCHANTED_FULL_WIDTH_TEXT_BOX = ImageArea("textbox", "Enchanted Full Width Text Box", _Coords(35,1378,  1400,1901), TEXT_COLOUR_MIDDLE)
+ENCHANTED_FULL_WIDTH_TEXT_BOX = ImageArea("textbox", "Enchanted Full Width Text Box", _Coords(35,1378,  1435,1901), TEXT_COLOUR_MIDDLE)
 ARTIST = ImageArea("artist", "Artist", _Coords(109, 1925, 666, 1969), TEXT_COLOUR_WHITE)
 CARD_IDENTIFIER = ImageArea("card_identifier", "Card Identifier", _Coords(54,1969, 359,2017), TEXT_COLOUR_WHITE)
 
