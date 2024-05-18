@@ -987,5 +987,541 @@
       "Floodbarn",
       "Floodborn"
     ]
+  },
+  "695": {
+    "abilities": [
+      "cost to",
+      "cost 9 to"
+    ],
+    "effects": [
+      "¤",
+      "◊"
+    ],
+    "enchantedId": [
+      null,
+      896
+    ]
+  },
+  "699": {
+    "effects": [
+      "¤",
+      "◊"
+    ]
+  },
+  "700": {
+    "artist": [
+      "Hig",
+      "Häg"
+    ],
+    "baseName": [
+      "Felix",
+      "Félix"
+    ],
+    "fullName": [
+      "Felix",
+      "Félix"
+    ]
+  },
+  "708": {
+    "enchantedId": [
+      null,
+      897
+    ]
+  },
+  "709": {
+    "effects": [
+      "¤",
+      "◊"
+    ]
+  },
+  "719": {
+    "enchantedId": [
+      null,
+      898
+    ]
+  },
+  "720": {
+    "flavorText": [
+      "^'",
+      "I'"
+    ]
+  },
+  "729": {
+    "effects": [
+      "\\.”",
+      "”"
+    ]
+  },
+  "731": {
+    "effects": [
+      "1 ¤",
+      "1 ◊"
+    ]
+  },
+  "736": {
+    "effects": [
+      "¤",
+      "◊"
+    ]
+  },
+  "739": {
+    "fullName": [
+      "lll",
+      "Ill"
+    ],
+    "simpleName": [
+      "lll",
+      "ill"
+    ],
+    "subtitle": [
+      "lll",
+      "Ill"
+    ]
+  },
+  "746": {
+    "artist": [
+      "dij",
+      "dj"
+    ]
+  },
+  "749": {
+    "enchantedId": [
+      null,
+      899
+    ]
+  },
+  "750": {
+    "effects": [
+      "¤",
+      "◊"
+    ],
+    "enchantedId": [
+      null,
+      900
+    ]
+  },
+  "752": {
+    "enchantedId": [
+      null,
+      901
+    ]
+  },
+  "755": {
+    "effects": [
+      "¤",
+      "◊"
+    ]
+  },
+  "759": {
+    "effects": [
+      "¤",
+      "◊"
+    ]
+  },
+  "761": {
+    "enchantedId": [
+      null,
+      902
+    ]
+  },
+  "763": {
+    "flavorText": [
+      " t ",
+      " It "
+    ]
+  },
+  "768": {
+    "baseName": [
+      "Jao",
+      "Jaq"
+    ],
+    "fullName": [
+      "Jao",
+      "Jaq"
+    ],
+    "simpleName": [
+      "jao",
+      "jaq"
+    ]
+  },
+  "769": {
+    "enchantedId": [
+      null,
+      903
+    ]
+  },
+  "770": {
+    "artist": [
+      "é",
+      "ễ"
+    ]
+  },
+  "775": {
+    "flavorText": [
+      "—l",
+      "—Z"
+    ]
+  },
+  "783": {
+    "fullName": [
+      "M\\.",
+      "Mr."
+    ],
+    "simpleName": [
+      " m ",
+      " mr "
+    ],
+    "subtitle": [
+      "M\\.",
+      "Mr."
+    ]
+  },
+  "788": {
+    "enchantedId": [
+      null,
+      904
+    ]
+  },
+  "789": {
+    "effects": [
+      "¤",
+      "◉"
+    ]
+  },
+  "790": {
+    "artist": [
+      "fi",
+      "ñ"
+    ]
+  },
+  "791": {
+    "flavorText": [
+      "Tio",
+      "Tío"
+    ]
+  },
+  "792": {
+    "effects": [
+      "1 ¥ wh",
+      "1 ⛉ wh"
+    ]
+  },
+  "793": {
+    "effects": [
+      "¤",
+      "◊"
+    ]
+  },
+  "797": {
+    "flavorText": [
+      "—l'",
+      "—I'"
+    ]
+  },
+  "798": {
+    "enchantedId": [
+      null,
+      905
+    ]
+  },
+  "803": {
+    "effects": [
+      "1 ¤",
+      "1 ◊"
+    ]
+  },
+  "816": {
+    "baseName": [
+      " \\.",
+      ""
+    ],
+    "enchantedId": [
+      null,
+      906
+    ],
+    "fullName": [
+      " \\.",
+      ""
+    ],
+    "simpleName": [
+      "  ",
+      " "
+    ]
+  },
+  "823": {
+    "artist": [
+      "Toziim",
+      "Tözüm"
+    ]
+  },
+  "826": {
+    "enchantedId": [
+      null,
+      907
+    ]
+  },
+  "828": {
+    "effects": [
+      "¤",
+      "◊"
+    ]
+  },
+  "829": {
+    "effects": [
+      "¤",
+      "◊"
+    ],
+    "enchantedId": [
+      null,
+      908
+    ]
+  },
+  "830": {
+    "effects": [
+      "¤",
+      "◊"
+    ]
+  },
+  "837": {
+    "flavorText": [
+      "-",
+      "—"
+    ]
+  },
+  "841": {
+    "flavorText": [
+      "'l\n",
+      "'ll\n"
+    ]
+  },
+  "847": {
+    "enchantedId": [
+      null,
+      909
+    ]
+  },
+  "849": {
+    "abilities": [
+      "Iri",
+      "Tri"
+    ]
+  },
+  "854": {
+    "abilities": [
+      " lts ",
+      " Its "
+    ]
+  },
+  "860": {
+    "effects": [
+      "¤",
+      "◊"
+    ],
+    "enchantedId": [
+      null,
+      910
+    ]
+  },
+  "866": {
+    "enchantedId": [
+      null,
+      911
+    ]
+  },
+  "868": {
+    "effects": [
+      "¤",
+      "◊"
+    ]
+  },
+  "870": {
+    "effects": [
+      "¤",
+      "◊"
+    ]
+  },
+  "873": {
+    "flavorText": [
+      "-",
+      "—"
+    ]
+  },
+  "882": {
+    "enchantedId": [
+      null,
+      912
+    ]
+  },
+  "894": {
+    "enchantedId": [
+      null,
+      913
+    ]
+  },
+  "896": {
+    "abilities": [
+      "cost to",
+      "cost 9 to"
+    ],
+    "artist": [
+      "d",
+      "4"
+    ],
+    "effects": [
+      "¤",
+      "◊"
+    ],
+    "nonEnchantedId": [
+      null,
+      695
+    ]
+  },
+  "897": {
+    "nonEnchantedId": [
+      null,
+      708
+    ]
+  },
+  "897": {
+    "nonEnchantedId": [
+      null,
+      708
+    ]
+  },
+  "898": {
+    "nonEnchantedId": [
+      null,
+      719
+    ]
+  },
+  "899": {
+    "effects": [
+      "LLL",
+      "LL L"
+    ],
+    "nonEnchantedId": [
+      null,
+      749
+    ]
+  },
+  "900": {
+    "effects": [
+      "¤",
+      "◊"
+    ],
+    "nonEnchantedId": [
+      null,
+      750
+    ]
+  },
+  "901": {
+    "nonEnchantedId": [
+      null,
+      752
+    ]
+  },
+  "902": {
+    "effects": [
+      " \\.\\)",
+      ""
+    ],
+    "nonEnchantedId": [
+      null,
+      761
+    ]
+  },
+  "903": {
+    "artist": [
+      "d",
+      "4"
+    ],
+    "nonEnchantedId": [
+      null,
+      769
+    ]
+  },
+  "904": {
+    "nonEnchantedId": [
+      null,
+      788
+    ]
+  },
+  "905": {
+    "nonEnchantedId": [
+      null,
+      798
+    ]
+  },
+  "906": {
+    "artist": [
+      "d",
+      "ã"
+    ],
+    "nonEnchantedId": [
+      null,
+      816
+    ]
+  },
+  "907": {
+    "nonEnchantedId": [
+      null,
+      826
+    ]
+  },
+  "908": {
+    "artist": [
+      "d",
+      "4"
+    ],
+    "effects": [
+      "¤",
+      "◊"
+    ],
+    "nonEnchantedId": [
+      null,
+      829
+    ]
+  },
+  "909": {
+    "artist": [
+      "d",
+      "4"
+    ],
+    "nonEnchantedId": [
+      null,
+      847
+    ]
+  },
+  "910": {
+    "effects": [
+      "¤",
+      "◊"
+    ],
+    "nonEnchantedId": [
+      null,
+      860
+    ]
+  },
+  "911": {
+    "artist": [
+      "d",
+      "4"
+    ],
+    "nonEnchantedId": [
+      null,
+      866
+    ]
+  },
+  "912": {
+    "nonEnchantedId": [
+      null,
+      882
+    ]
+  },
+  "913": {
+    "nonEnchantedId": [
+      null,
+      894
+    ]
   }
 }
