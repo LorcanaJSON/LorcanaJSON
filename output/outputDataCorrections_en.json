@@ -1,15 +1,5 @@
 {
-  "1": {
-    "flavorText": [
-      ".+",
-      "“...”"
-    ]
-  },
   "5": {
-    "effects": [
-      "\\+1 .",
-      "+1 ◊"
-    ],
     "flavorText": [
       "y\\.",
       "y,",
@@ -944,10 +934,6 @@
       null,
       null
     ],
-    "artist": [
-      "^V.+o$",
-      "Mark Henn"
-    ],
     "effects": [
       null,
       [
@@ -956,36 +942,6 @@
           "text": "Whenever this character\nquests, you pay 3 ⬡ less for the next character\nyou play this turn."
         }
       ]
-    ]
-  },
-  "677": {
-    "artist": [
-      "^C.+o$",
-      "Brittney Lee"
-    ]
-  },
-  "678": {
-    "artist": [
-      "^J.+s$",
-      "Eric Goldberg"
-    ]
-  },
-  "679": {
-    "artist": [
-      "^B.+n$",
-      "Alex Kupershmidt"
-    ]
-  },
-  "680": {
-    "artist": [
-      "^G.+i$",
-      "Lorelay Bové"
-    ]
-  },
-  "681": {
-    "artist": [
-      "^I.+q$",
-      "Bill Schwab"
     ]
   },
   "684": {
