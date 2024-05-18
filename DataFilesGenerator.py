@@ -60,6 +60,9 @@ def correctText(cardText: str) -> str:
 		if cardLine.startswith("- "):
 			# Assume this is a list, replace the start with the official separator
 			cardLine = f"{ImageParser.SEPARATOR_UNICODE} {cardLine[2:]}"
+		if " / " in cardLine:
+			# A 7 often gets mistaken for a /, correct that
+			cardLine = cardLine.replace(" / ", " 7 ")
 
 		if GlobalConfig.language == Language.ENGLISH:
 			if re.match("[‘`']Shift ", cardLine):
