@@ -241,6 +241,12 @@ def correctCardField(card: Dict, fieldName: str, regexMatchString: str, correcti
 			_logger.error(f"Unhandled type of list entries ({type(card[fieldName][0])}) in card {_createCardIdentifier(card)}")
 		if not matchFound:
 			_logger.warning(f"Correction regex '{regexMatchString}' for field '{fieldName}' in card {_createCardIdentifier(card)} didn't match any of the entries in that field")
+	elif isinstance(card[fieldName], int):
+		if card[fieldName] != regexMatchString:
+			_logger.warning(f"Expected value of field '{fieldName}' in card {_createCardIdentifier(card)} is {regexMatchString}, but actual value is {card[fieldName]}, skipping correction")
+		else:
+			_logger.info(f"Corrected numerical value of field '{fieldName}' in card {_createCardIdentifier(card)} from {card[fieldName]} to {correction}")
+			card[fieldName] = correction
 	else:
 		raise ValueError(f"Card correction for field '{fieldName}' in card {_createCardIdentifier(card)} is of unsupported type '{type(card[fieldName])}'")
 
