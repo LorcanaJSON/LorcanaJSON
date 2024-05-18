@@ -26,6 +26,8 @@ def correctText(cardText: str) -> str:
 		if "’" in cardLine:
 			# Simplify quote mark if it's used in a contraction
 			cardLine = re.sub(r"(?<=\w)’(?=\w)", "'", cardLine)
+		if " ‘em " in cardLine:
+			cardLine = cardLine.replace(" ‘em ", " 'em ")
 		if re.search(r"(^| )\d ?[0O]?( ?[-—]|,)", cardLine):
 			# There's usually an ink symbol between a number and a dash
 			cardLine = re.sub(r"(^| )(\d) ?[0O]?( ?[-—]|,)", fr"\1\2 {ImageParser.INK_UNICODE}\3", cardLine)
