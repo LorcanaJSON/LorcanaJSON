@@ -283,13 +283,24 @@ def createOutputFiles(onlyParseIds: Union[None, List[int]] = None, shouldShowIma
 	with open(cardCatalogPath, "r", encoding="utf-8") as inputFile:
 		inputData = json.load(inputFile)
 
+	with open(os.path.join("output", "outputDataCorrections.json"), "r", encoding="utf-8") as correctionsFile:
+		cardDataCorrections: Dict[int, Dict[str, List[str, str]]] = {int(k, 10): v for k, v in json.load(correctionsFile).items()}
 	correctionsFilePath = os.path.join("output", f"outputDataCorrections_{GlobalConfig.language.code}.json")
 	if os.path.isfile(correctionsFilePath):
 		with open(correctionsFilePath, "r", encoding="utf-8") as correctionsFile:
 			# Convert all the ID keys to numbers as we load
-			cardDataCorrections: Dict[int, Dict[str, List[str, str]]] = {int(k, 10): v for k, v in json.load(correctionsFile).items()}
+			for cardId, corrections in json.load(correctionsFile).items():
+				cardId = int(cardId, 10)
+				if cardId in cardDataCorrections:
+					# Merge the language-specific corrections with the global corrections
+					for fieldCorrectionName, fieldCorrection in corrections.items():
+						if fieldCorrectionName in cardDataCorrections[cardId]:
+							cardDataCorrections[cardId][fieldCorrectionName].extend(fieldCorrection)
+						else:
+							cardDataCorrections[cardId][fieldCorrectionName] = fieldCorrection
+				else:
+					cardDataCorrections[cardId] = corrections
 	else:
-		cardDataCorrections = {}
 		_logger.warning(f"No corrections file exists for language '{GlobalConfig.language.code}', so no language-specific corrections will be done. This doesn't break anything, but results might not be perfect")
 
 	# Enchanted-rarity and promo cards are special versions of existing cards. Store their shared ID so we can add a linking field to both versions
