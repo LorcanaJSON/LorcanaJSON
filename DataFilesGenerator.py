@@ -65,6 +65,8 @@ def correctText(cardText: str) -> str:
 		if " / " in cardLine:
 			# A 7 often gets mistaken for a /, correct that
 			cardLine = cardLine.replace(" / ", " 7 ")
+		if f"{ImageParser.INK_UNICODE}—" in cardLine:
+			cardLine = cardLine.replace(f"{ImageParser.INK_UNICODE}—", f"{ImageParser.INK_UNICODE} —")
 
 		if GlobalConfig.language == Language.ENGLISH:
 			if re.match("[‘`']Shift ", cardLine):
