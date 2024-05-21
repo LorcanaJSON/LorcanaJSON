@@ -121,7 +121,7 @@ def correctText(cardText: str) -> str:
 					_logger.info("Correcting Support reminder text (both symobls on one line)")
 			elif re.match("may add their .{1,2} to another chosen character[’']s", cardLine):
 				# Support, first line if split
-				cardLine, changeCount = re.subn(f"their {ImageParser.STRENGTH_UNICODE}{{1,2}} to", f"their {ImageParser.STRENGTH_UNICODE} to", cardLine)
+				cardLine, changeCount = re.subn(f"their [^{ImageParser.STRENGTH_UNICODE}]{{1,2}} to", f"their {ImageParser.STRENGTH_UNICODE} to", cardLine)
 				if changeCount > 0:
 					_logger.info("Correcting first line of Support reminder text")
 			elif re.match(rf"[^{ImageParser.STRENGTH_UNICODE}]{{1,2}} this turn\.?\)?", cardLine):
