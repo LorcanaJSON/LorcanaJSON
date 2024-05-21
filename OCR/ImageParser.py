@@ -209,7 +209,7 @@ class ImageParser():
 			if lines is None:
 				self._logger.debug("No flavour text separator found")
 			else:
-				self._logger.debug(f"{len(lines):,} lines found: {repr(lines)}")
+				self._logger.debug(f"{len(lines):,} lines found: {lines!r}")
 				flavorTextStartY = 0
 				for line in lines:
 					if line[0][0] < 80 or line[0][1] < 25:
