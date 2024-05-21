@@ -21,6 +21,9 @@ def correctText(cardText: str) -> str:
 	"""
 	correctedCardLines = []
 	for cardLine in cardText.splitlines():
+		if len(cardLine) < 2:
+			_logger.debug(f"Ignoring line {cardLine!r} during correction because it's too short")
+			continue
 		originalCardLine = cardLine
 		# First simple typos
 		if "’" in cardLine:
