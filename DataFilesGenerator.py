@@ -207,7 +207,10 @@ def correctCardField(card: Dict, fieldName: str, regexMatchString: str, correcti
 	:param correction: The correction for the mistake matched by 'regexMatchString', or the value to set if the field doesn't exist. To remove a field, set this and 'regexMatchString' to None
 	"""
 	if fieldName not in card:
-		card[fieldName] = correction
+		if regexMatchString is not None:
+			_logger.warning(f"Trying to correct field '{fieldName}' in card {_createCardIdentifier(card)} from '{regexMatchString}' to '{correction}' but the field does not exist. Set the match string to 'null' if you want to add a field")
+		else:
+			card[fieldName] = correction
 	elif regexMatchString is None and correction is None:
 		_logger.info(f"Removing field '{fieldName}' from card {_createCardIdentifier(card)}")
 		del card[fieldName]

@@ -303,7 +303,7 @@
       "your hand."
     ],
     "abilities": [
-      "",
+      null,
       [
         "Rush (This character can challenge the turn\nthey're played.)"
       ]
