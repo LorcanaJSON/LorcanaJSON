@@ -51,7 +51,7 @@ def checkForNewCardData(newCardCatalog: Dict = None, fieldsToIgnore: List[str] =
 							for listValueIndex in range(len(fieldValue)):
 								oldListEntry = oldCard[fieldName][listValueIndex]
 								newListEntry = fieldValue[listValueIndex]
-								if isinstance(newListEntry, str):
+								if isinstance(newListEntry, str) or isinstance(newListEntry, int):
 									if ignoreOrderChanges:
 										if newListEntry not in oldCard[fieldName]:
 											cardChanges.append((cardId, cardDescriptor, fieldName, None, newListEntry))
