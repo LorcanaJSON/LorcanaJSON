@@ -75,6 +75,8 @@ def correctText(cardText: str) -> str:
 			if re.match("[‘`']Shift ", cardLine):
 				_logger.info("Removing erroneous character at the start of " + cardLine)
 				cardLine = cardLine[1:]
+			elif cardLine.startswith("‘"):
+				cardLine = "“" + cardLine[1:]
 			if "1lore" in cardLine:
 				cardLine = cardLine.replace("1lore", "1 lore")
 			if "Bodyquard" in cardLine:
