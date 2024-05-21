@@ -91,10 +91,11 @@ def downloadImages(shouldOverwriteImages: bool = False, pathToCardCatalog: str =
 		cardCatalog = json.load(cardCatalogFile)
 	imagesFound = 0
 	imagesDownloaded = 0
+	languageCodeToCheck = f" {GlobalConfig.language.code.upper()} "
 	for cardType, cardList in cardCatalog["cards"].items():
 		for card in cardList:
-			if card["expansion_number"] < GlobalConfig.language.fromSet:
-				_logger.debug(f"Skipping card {card['culture_invariant_id']} from set {card['expansion_number']}, requested language only contains cards starting from set {GlobalConfig.language.fromSet}")
+			if languageCodeToCheck not in card["card_identifier"]:
+				_logger.debug(f"Skipping card with ID {card['culture_invariant_id']} because it's not in the requested language")
 				continue
 			for imageUrlDict in card["image_urls"]:
 				if imageUrlDict["height"] == 2048:

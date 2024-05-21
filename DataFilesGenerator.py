@@ -406,9 +406,6 @@ def createOutputFiles(onlyParseIds: Union[None, List[int]] = None, shouldShowIma
 				if cardId in cardIdsStored:
 					_logger.debug(f"Skipping parsing card with ID {inputCard['culture_invariant_id']} since it's already in the card list")
 					continue
-				elif inputCard["expansion_number"] < GlobalConfig.language.fromSet:
-					_logger.debug(f"Skipping card with ID {inputCard['culture_invariant_id']} because it's from set {inputCard['expansion_number']} and language {GlobalConfig.language.englishName} started from set {GlobalConfig.language.fromSet}")
-					continue
 				elif languageCodeToCheck not in inputCard["card_identifier"]:
 					_logger.debug(f"Skipping card with ID {inputCard['culture_invariant_id']} because it's not in the requested language")
 					continue
