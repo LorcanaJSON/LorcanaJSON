@@ -767,7 +767,7 @@ def _toTitleCase(s: str) -> str:
 	s = re.sub(r"(?:^| |\n|\(|-| ')([a-z])", lambda m: m.group(0).upper(), s.lower())
 	toLowerCaseWords = None
 	if GlobalConfig.language == Language.ENGLISH:
-		toLowerCaseWords = (" A ", " In ", " Of ", " The ", " To ")
+		toLowerCaseWords = (" A ", " At ", " In ", " Into ", " Of ", " The ", " To ")
 	if toLowerCaseWords:
 		for toLowerCaseWord in toLowerCaseWords:
 			if toLowerCaseWord in s:
