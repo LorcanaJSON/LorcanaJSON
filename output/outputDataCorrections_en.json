@@ -1072,6 +1072,12 @@
       "Ill"
     ]
   },
+  "743": {
+    "artist": [
+      "o$",
+      "o / Livio Cacciatore"
+    ]
+  },
   "746": {
     "artist": [
       "dij",
@@ -1107,6 +1113,10 @@
     ]
   },
   "759": {
+    "artist": [
+      "i$",
+      "i / Sam Burley"
+    ],
     "effects": [
       "¤",
       "◊"
@@ -1242,6 +1252,12 @@
       " "
     ]
   },
+  "821": {
+    "artist": [
+      "a$",
+      "a / L. Giammichele"
+    ]
+  },
   "823": {
     "artist": [
       "Toziim",
@@ -1277,6 +1293,10 @@
     ]
   },
   "837": {
+    "artist": [
+      "o$",
+      "o / Leonardo Giammichele"
+    ],
     "flavorText": [
       "-",
       "—"
@@ -1286,6 +1306,12 @@
     "flavorText": [
       "'l\n",
       "'ll\n"
+    ]
+  },
+  "846": {
+    "artist": [
+      "z$",
+      "z / Hayley Evans"
     ]
   },
   "847": {
@@ -1304,6 +1330,10 @@
     "abilities": [
       " lts ",
       " Its "
+    ],
+    "artist": [
+      "o$",
+      "o / Livio Cacciatore"
     ]
   },
   "860": {
@@ -1328,6 +1358,12 @@
       "◊"
     ]
   },
+  "869": {
+    "artist": [
+      "e$",
+      "e / Giulia Priori"
+    ]
+  },
   "870": {
     "effects": [
       "¤",
@@ -1340,10 +1376,22 @@
       "—"
     ]
   },
+  "874": {
+    "artist": [
+      "e$",
+      "e / Giulia Priori"
+    ]
+  },
   "882": {
     "enchantedId": [
       null,
       912
+    ]
+  },
+  "885": {
+    "artist": [
+      "e$",
+      "e / Giulia Priori"
     ]
   },
   "894": {
@@ -1389,6 +1437,10 @@
     ]
   },
   "899": {
+    "artist": [
+      "n$",
+      "n / Nicholas Kole"
+    ],
     "effects": [
       "LLL",
       "LL L"
