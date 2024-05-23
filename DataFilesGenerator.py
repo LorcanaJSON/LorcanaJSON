@@ -550,7 +550,11 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 			if variantIds:
 				outputCard["variantIds"] = [variantId for variantId in variantIds if variantId != outputCard["id"]]
 		if "setNumber" not in outputCard:
-			outputCard["setNumber"] = int(cardIdentifierMatch.group(3), 10)
+			if "Q" in cardIdentifierMatch.group(3):
+				# TODO FIXME Think of a better way to mark the setnumber of Illumineer's Quest Deep Trouble
+				outputCard["setNumber"] = 4
+			else:
+				outputCard["setNumber"] = int(cardIdentifierMatch.group(3), 10)
 
 	outputCard["artist"] = inputCard["author"].strip() if "author" in inputCard else parsedImageAndTextData["artist"].text.replace(" I ", " / ")
 	if outputCard["artist"].startswith("Illus. "):
