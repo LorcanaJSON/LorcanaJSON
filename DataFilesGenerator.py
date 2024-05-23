@@ -533,6 +533,10 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 		outputCard["number"] = inputCard["number"]
 	if "expansion_number" in inputCard:
 		outputCard["setNumber"] = inputCard["expansion_number"]
+	elif "card_sets" in inputCard:
+		# For some reason 'card_sets' lists all the sets the car is in, but "Illumineer's Quest: Deep Trouble" is 'set' 1 here,
+		# and the actual set number is increased by one. So cards in actual set 1 have 'card_sets: [2]' here
+		outputCard["setNumber"] = max(inputCard["card_sets"]) - 1
 	if "number" not in outputCard or "setNumber" not in outputCard:
 		# Get the set and card numbers from the parsed identifier
 		cardIdentifier = inputCard["card_identifier"] if "card_identifier" in inputCard else parsedImageAndTextData["identifier"].text
