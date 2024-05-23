@@ -21,6 +21,9 @@ ImageAndText = namedtuple("ImageAndText", ("image", "text"))
 
 _EFFECT_LABEL_MARGIN: int = 12
 
+_BLACK = (0, 0, 0)
+_WHITE = (255, 255, 255)
+
 class ImageParser():
 	def __init__(self, forceGenericModel: bool = False):
 		"""
@@ -37,7 +40,7 @@ class ImageParser():
 		self._tesseractApi = tesserocr.PyTessBaseAPI(lang=modelName, path=GlobalConfig.tesseractPath, psm=tesserocr.PSM.SINGLE_BLOCK)
 
 	def getImageAndTextDataFromImage(self, pathToImage: str, parseFully: bool, includeIdentifier: bool = False, isLocation: bool = None, hasCardText: bool = None, hasFlavorText: bool = None,
-									 isEnchanted: bool = None, showImage: bool = False) -> Dict[str, Union[None, ImageAndText, List[ImageAndText]]]:
+									 isEnchanted: bool = None, isQuest: bool = None, showImage: bool = False) -> Dict[str, Union[None, ImageAndText, List[ImageAndText]]]:
 		startTime = time.perf_counter()
 		result: Dict[str, Union[None, ImageAndText, List[ImageAndText]]] = {
 			"flavorText": None,
@@ -111,8 +114,10 @@ class ImageParser():
 		if isEnchanted is None:
 			isEnchanted = not self._isImageBlack(self._getSubImage(cardImage, ImageArea.IS_BORDERLESS_CHECK))
 
-		if parseFully or includeIdentifier:
+		if parseFully or includeIdentifier or isQuest is None:
 			result["identifier"] = self._getSubImageAndText(greyCardImage, ImageArea.LOCATION_IDENTIFIER if isLocation else ImageArea.CARD_IDENTIFIER)
+			if isQuest is None:
+				isQuest = " Q" in result["identifier"].text
 		if parseFully:
 			# Parse from top to bottom
 			if isCharacter:
@@ -130,7 +135,9 @@ class ImageParser():
 			result["artist"] = self._getSubImageAndText(greyCardImage, ImageArea.LOCATION_ARTIST if isLocation else ImageArea.ARTIST)
 
 		# Determine the textbox area, which is different between characters and non-characters, and between enchanted and non-enchanted characters
-		if isCharacter:
+		if isQuest:
+			textBoxImageArea = ImageArea.QUEST_TEXTBOX
+		elif isCharacter:
 			textBoxImageArea = ImageArea.ENCHANTED_CHARACTER_TEXT_BOX if isEnchanted else ImageArea.CHARACTER_TEXT_BOX
 		elif isLocation:
 			textBoxImageArea = ImageArea.ENCHANTED_LOCATION_TEXT_BOX if isEnchanted else ImageArea.LOCATION_TEXTBOX
@@ -139,6 +146,7 @@ class ImageParser():
 
 		# Greyscale images work better, so get one from just the textbox
 		greyTextboxImage = self._getSubImage(greyCardImage, textBoxImageArea)
+		colorTextboxImage = self._getSubImage(cardImage, textBoxImageArea) if isQuest else None
 		textboxWidth = greyTextboxImage.shape[1]
 		textboxHeight = greyTextboxImage.shape[0]
 
@@ -152,10 +160,10 @@ class ImageParser():
 			isCurrentlyInLabel: bool = False
 			currentCoords = [0, 0, 0]
 			for y in range(textboxHeight):
-				pixelValue = greyTextboxImage[y, 0]
+				pixelValue = colorTextboxImage[y, 11] if isQuest else greyTextboxImage[y, 0]
 				if isCurrentlyInLabel:
 					# Check if the pixel got lighter, indicating we left the label block
-					if pixelValue > 100:
+					if (isQuest and pixelValue[0] > 60 and pixelValue[1] > 35) or (not isQuest and pixelValue > 100):
 						isCurrentlyInLabel = False
 						if y - currentCoords[0] < 50:
 							self._logger.debug(f"Skipping possible label starting at y={currentCoords[0]} and ending at {y=}, not high enough to be a label")
@@ -163,14 +171,15 @@ class ImageParser():
 							currentCoords[1] = y - 1
 							labelCoords.append(tuple(currentCoords))  # Copy the coordinates list so we can't accidentally change a value anymore
 				# Check if a label started here
-				elif pixelValue < 100:
+				elif (isQuest and pixelValue[0] < 55 and pixelValue[1] < 42) or (not isQuest and pixelValue < 100):
 					isCurrentlyInLabel = True
 					currentCoords[0] = y
 					yToCheck = min(textboxHeight - 1, y + 1)  # Check a few lines down to prevent weirdness with the edge of the label box
 					# Find the width of the label. Since accented characters can reach the top of the label, we need several light pixels in succession to be sure the label ended
 					successiveLightPixels: int = 0
 					for x in range(textboxWidth):
-						if greyTextboxImage[yToCheck, x] > 120:
+						checkValue = colorTextboxImage[yToCheck, x] if isQuest else greyTextboxImage[yToCheck, x]
+						if (isQuest and checkValue[0] > 60 and checkValue[1] > 35) or (not isQuest and checkValue > 120):
 							successiveLightPixels += 1
 							if successiveLightPixels > 4:
 								if x < 100:
@@ -184,10 +193,17 @@ class ImageParser():
 						else:
 							successiveLightPixels = 0
 					else:
-						raise ValueError(f"Unable to find right side of label at {y=} in the cropped image")
+						#raise ValueError(f"Unable to find right side of label at {y=} in the cropped image")
+						# 'effect label' is as wide as the image, disqualify it
+						# Don't raise an exception, because this is sometimes hit in Quest cards
+						self._logger.debug(f"Reached right side of image in effect label check at {y=}, assuming it's not a label")
+						currentCoords = [0, 0, 0]
+						isCurrentlyInLabel = False
 			if isCurrentlyInLabel:
 				self._logger.warning(f"Still in label when end of label check reached in card image '{pathToImage}'")
 		self._logger.debug(f"Finished finding label coords at {time.perf_counter() - startTime} seconds in")
+
+		thresholdTextColor = ImageArea.TEXT_COLOUR_WHITE if isQuest else ImageArea.TEXT_COLOUR_BLACK
 
 		# Find the line dividing the abilities from the flavor text, if needed
 		flavorTextImage = None
@@ -228,7 +244,7 @@ class ImageParser():
 					flavorTextStartY = textboxHeight
 				else:
 					flavorTextStartY += flavorTextImageTop
-					flavorTextImage = self._convertToThresholdImage(greyTextboxImage[flavorTextStartY:textboxHeight, 0:textboxWidth], ImageArea.TEXT_COLOUR_BLACK)
+					flavorTextImage = self._convertToThresholdImage(greyTextboxImage[flavorTextStartY:textboxHeight, 0:textboxWidth], thresholdTextColor)
 					flavourText = self._imageToString(flavorTextImage)
 					result["flavorText"] = ImageAndText(flavorTextImage, flavourText)
 					self._logger.debug(f"{flavourText=}")
@@ -251,8 +267,9 @@ class ImageParser():
 				# Then get the effect text
 				# Put a white rectangle over where the label was, because the thresholding sometimes leaves behind some pixels, which confuses Tesseract, leading to phantom letters
 				effectTextImage = greyTextboxImage.copy()
-				cv2.rectangle(effectTextImage, (0, 0), (labelCoord[2] + _EFFECT_LABEL_MARGIN, labelCoord[1]), (255, 255, 255), thickness=-1)  # -1 thickness fills the rectangle
-				effectTextImage = self._convertToThresholdImage(effectTextImage[labelCoord[0]:previousBlockTopY, 0:textboxWidth], ImageArea.TEXT_COLOUR_BLACK)
+				labelMaskColor = _BLACK if textBoxImageArea.textColour == ImageArea.TEXT_COLOUR_WHITE else _WHITE
+				cv2.rectangle(effectTextImage, (0, 0), (labelCoord[2] + _EFFECT_LABEL_MARGIN, labelCoord[1]), labelMaskColor, thickness=-1)  # -1 thickness fills the rectangle
+				effectTextImage = self._convertToThresholdImage(effectTextImage[labelCoord[0]:previousBlockTopY, 0:textboxWidth], thresholdTextColor)
 				effectText = self._imageToString(effectTextImage)
 				result["effectTexts"].append(ImageAndText(effectTextImage, effectText))
 				self._logger.debug(f"{effectLabelText=} ({labelCoord[1] - labelCoord[0]} px high), {effectText=}")
@@ -266,7 +283,7 @@ class ImageParser():
 
 			# There might be text above the label coordinates too (abilities text), especially if there aren't any labels. Get that text as well
 			if previousBlockTopY > 35:
-				remainingTextImage = self._convertToThresholdImage(greyTextboxImage[0:previousBlockTopY, 0:textboxWidth], ImageArea.TEXT_COLOUR_BLACK)
+				remainingTextImage = self._convertToThresholdImage(greyTextboxImage[0:previousBlockTopY, 0:textboxWidth], thresholdTextColor)
 				remainingText = self._imageToString(remainingTextImage)
 				if remainingText:
 					result["remainingText"] = ImageAndText(remainingTextImage, remainingText)
@@ -283,6 +300,8 @@ class ImageParser():
 			cv2.imshow("Greyscale card image", greyCardImage)
 			cv2.imshow("Types threshold image", typesImage)
 			cv2.imshow("Textbox crop greyscale", greyTextboxImage)
+			if colorTextboxImage is not None:
+				cv2.imshow("Textbox crop color", colorTextboxImage)
 			if result.get("identifier", None) is not None:
 				cv2.imshow("Card Identifier", result["identifier"].image)
 			if flavorTextEdgeDetectedImage is not None:

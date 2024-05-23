@@ -521,6 +521,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 																	  hasCardText=inputCard["rules_text"] != "" if "rules_text" in inputCard else None,
 																	  hasFlavorText=inputCard["flavor_text"] != "" if "flavor_text" in inputCard else None,
 																	  isEnchanted=outputCard["rarity"] == Language.TRANSLATIONS[GlobalConfig.language]["ENCHANTED"] or inputCard.get("foil_type", None) == "Satin",  # Disney100 cards need Enchanted parsing, foil_type seems best way to determine Disney100
+																	  isQuest="Q" in inputCard["card_identifier"] if "card_identifier" in inputCard else None,
 																	  showImage=shouldShowImage)
 
 	# The card identifier in non-promo cards is mostly correct in the input card,

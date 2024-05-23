@@ -50,6 +50,8 @@ LOCATION_WILLPOWER = ImageArea("willpower", "Location Willpower", _Coords(1827, 
 LOCATION_ARTIST = ImageArea("artist", "Location Artist", _Coords(112,1331, 948,1381), TEXT_COLOUR_WHITE)
 LOCATION_IDENTIFIER = ImageArea("identifier", "Location Identifier", _Coords(54,1381, 365,1431), TEXT_COLOUR_WHITE)
 
+QUEST_TEXTBOX = ImageArea("textbox", "Quest Text Box", _Coords(66,1378,  1311,1901), TEXT_COLOUR_WHITE)
+
 IS_INKABLE_CHECK = ImageArea("isInkable", "Is Inkable", _Coords(69,142, 70,143), TEXT_COLOUR_MIDDLE)
 IS_BORDERLESS_CHECK = ImageArea("isBorderless", "Is Borderless", _Coords(8,260, 48,1290), TEXT_COLOUR_MIDDLE)
 IS_LOCATION_CHECK = ImageArea("isLocation", "Is Location", _Coords(1330,414, 1392,848), TEXT_COLOUR_MIDDLE)
