@@ -15,8 +15,8 @@ def retrieveCardCatalog() -> Dict[str, Any]:
 									  # API key captured from the official Lorcana app
 									  "authorization": "Basic bG9yY2FuYS1hcGktcmVhZDpFdkJrMzJkQWtkMzludWt5QVNIMHc2X2FJcVZEcHpJenVrS0lxcDlBNXRlb2c5R3JkQ1JHMUFBaDVSendMdERkYlRpc2k3THJYWDl2Y0FkSTI4S096dw==",
 									  "content-type": "application/x-www-form-urlencoded",
-									  "user-agent": "UnityPlayer/2021.3.23f1 (UnityWebRequest/1.0, libcurl/7.84.0-DEV)",
-									  "x-unity-version": "2021.3.23f1"
+									  "user-agent": "UnityPlayer / 2022.3.21f1(UnityWebRequest / 1.0, libcurl / 8.5.0 - DEV)",
+									  "x-unity-version": "2022.3.21f1"
 								  },
 								  data={"grant_type": "client_credentials"},
 								  timeout=10)
@@ -27,11 +27,11 @@ def retrieveCardCatalog() -> Dict[str, Any]:
 		raise ValueError(f"Missing access_token or token_type in token request: {tokenResponse.text}")
 
 	# Now we can retrieve the card catalog, again just like the official app
-	catalogResponse = requests.get(f"https://api.lorcana.ravensburger.com/v1/catalog/{GlobalConfig.language.code}",
+	catalogResponse = requests.get(f"https://api.lorcana.ravensburger.com/v2/catalog/{GlobalConfig.language.code}",
 								   headers={
-									   "user-agent": "Lorcana/2023.1",
+									   "user-agent": "Lorcana/2024.2",
 									   "authorization": f"{tokenData['token_type']} {tokenData['access_token']}",
-									   "x-unity-version": "2021.3.23f1"
+									   "x-unity-version": "2022.3.21f1"
 								   },
 								   timeout=10)
 	if catalogResponse.status_code != 200:
