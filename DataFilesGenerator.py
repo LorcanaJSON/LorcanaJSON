@@ -576,6 +576,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 	# simpleName is the full name with special characters and the base-subtitle dash removed, for easier lookup. So remove the special characters
 	outputCard["simpleName"] = (re.sub(r"[!.?]", "", outputCard["simpleName"].lower()).rstrip()
 								.replace("ā", "a")
+								.replace("é", "e")
 								.replace("œ", "oe")
 								.replace("“", "\"")
 								.replace("”", "\""))
