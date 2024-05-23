@@ -540,7 +540,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 	if "number" not in outputCard or "setNumber" not in outputCard:
 		# Get the set and card numbers from the parsed identifier
 		cardIdentifier = inputCard["card_identifier"] if "card_identifier" in inputCard else parsedImageAndTextData["identifier"].text
-		cardIdentifierMatch = re.match(r"^(\d+)([a-z])?/[0-9P]+ .+ (\d+)$", cardIdentifier)
+		cardIdentifierMatch = re.match(r"^(\d+)([a-z])?/[0-9P]+ .+ ([Q\d]+)$", cardIdentifier)
 		if not cardIdentifierMatch:
 			raise ValueError(f"Unable to parse card and set numbers from card identifier '{cardIdentifier}' in card ID {outputCard['id']}")
 		if "number" not in outputCard:
