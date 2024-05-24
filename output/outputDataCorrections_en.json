@@ -2,9 +2,7 @@
   "5": {
     "flavorText": [
       "y\\.",
-      "y,",
-      "\nM",
-      ""
+      "y,"
     ]
   },
   "8": {
@@ -87,12 +85,6 @@
       "Duyen Nguyen / Jared"
     ]
   },
-  "84": {
-    "flavorText": [
-      "“l",
-      "“I"
-    ]
-  },
   "90": {
     "flavorText": [
       "quy",
@@ -139,12 +131,6 @@
     "effects": [
       "Te Ka",
       "Te Kā"
-    ]
-  },
-  "118": {
-    "effects": [
-      "get \\+1 ¤",
-      "get +1 ◊"
     ]
   },
   "131": {
@@ -197,12 +183,6 @@
     "flavorText": [
       "Iry",
       "Try"
-    ]
-  },
-  "159": {
-    "effects": [
-      "\\+1 ¤",
-      "+1 ◊"
     ]
   },
   "162": {
@@ -259,12 +239,6 @@
     "flavorText": [
       "\n",
       ""
-    ]
-  },
-  "205": {
-    "effects": [
-      "gets \\+1 ¤",
-      "gets +1 ◊"
     ]
   },
   "214": {
@@ -473,16 +447,10 @@
       "+4 ◊."
     ]
   },
-  "432": {
-    "abilities": [
-      "Bodyqguard",
-      "Bodyguard"
-    ]
-  },
   "434": {
     "effects": [
-      "I'L",
-      "I'LL"
+      "I'L ",
+      "I'LL "
     ]
   },
   "435": {
@@ -495,12 +463,6 @@
     "flavorText": [
       "^.+$",
       "[in Atlantean] “Welcome to the Inklands”"
-    ]
-  },
-  "444": {
-    "effects": [
-      "\\+1 4",
-      "+1 ◊"
     ]
   },
   "451": {
@@ -649,12 +611,6 @@
       null
     ]
   },
-  "504": {
-    "effects": [
-      "\\+1 4",
-      "+1 ◊"
-    ]
-  },
   "506": {
     "artist": [
       "o$",
@@ -677,10 +633,6 @@
     "abilities": [
       "Shift a",
       "Shift 4"
-    ],
-    "effects": [
-      "s’ ",
-      "s' "
     ]
   },
   "518": {
@@ -823,12 +775,6 @@
       "think?"
     ]
   },
-  "600": {
-    "effects": [
-      "2 —",
-      "2 ⬡ —"
-    ]
-  },
   "601": {
     "effects": [
       "¤",
@@ -905,10 +851,6 @@
     "abilities": [
       "\\$\\.\\)",
       "¤.)"
-    ],
-    "fullIdentifier": [
-      "J",
-      "7"
     ]
   },
   "673": {
@@ -990,10 +932,6 @@
     "effects": [
       "¤",
       "◊"
-    ],
-    "enchantedId": [
-      null,
-      896
     ]
   },
   "699": {
@@ -1002,36 +940,10 @@
       "◊"
     ]
   },
-  "700": {
-    "artist": [
-      "Hig",
-      "Häg"
-    ],
-    "baseName": [
-      "Felix",
-      "Félix"
-    ],
-    "fullName": [
-      "Felix",
-      "Félix"
-    ]
-  },
-  "708": {
-    "enchantedId": [
-      null,
-      897
-    ]
-  },
   "709": {
     "effects": [
       "¤",
       "◊"
-    ]
-  },
-  "719": {
-    "enchantedId": [
-      null,
-      898
     ]
   },
   "720": {
@@ -1058,52 +970,16 @@
       "◊"
     ]
   },
-  "739": {
-    "fullName": [
-      "lll",
-      "Ill"
-    ],
-    "simpleName": [
-      "lll",
-      "ill"
-    ],
-    "subtitle": [
-      "lll",
-      "Ill"
-    ]
-  },
   "743": {
     "artist": [
       "o$",
       "o / Livio Cacciatore"
     ]
   },
-  "746": {
-    "artist": [
-      "dij",
-      "dj"
-    ]
-  },
-  "749": {
-    "enchantedId": [
-      null,
-      899
-    ]
-  },
   "750": {
     "effects": [
       "¤",
       "◊"
-    ],
-    "enchantedId": [
-      null,
-      900
-    ]
-  },
-  "752": {
-    "enchantedId": [
-      null,
-      901
     ]
   },
   "755": {
@@ -1122,62 +998,16 @@
       "◊"
     ]
   },
-  "761": {
-    "enchantedId": [
-      null,
-      902
-    ]
-  },
   "763": {
     "flavorText": [
       " t ",
       " It "
     ]
   },
-  "768": {
-    "baseName": [
-      "Jao",
-      "Jaq"
-    ],
-    "fullName": [
-      "Jao",
-      "Jaq"
-    ],
-    "simpleName": [
-      "jao",
-      "jaq"
-    ]
-  },
-  "769": {
-    "enchantedId": [
-      null,
-      903
-    ]
-  },
-  "770": {
-    "artist": [
-      "é",
-      "ễ"
-    ]
-  },
   "775": {
     "flavorText": [
       "—l",
       "—Z"
-    ]
-  },
-  "783": {
-    "fullName": [
-      "M\\.",
-      "Mr."
-    ],
-    "simpleName": [
-      " m ",
-      " mr "
-    ],
-    "subtitle": [
-      "M\\.",
-      "Mr."
     ]
   },
   "788": {
@@ -1190,12 +1020,6 @@
     "effects": [
       "¤",
       "◉"
-    ]
-  },
-  "790": {
-    "artist": [
-      "fi",
-      "ñ"
     ]
   },
   "791": {
@@ -1222,52 +1046,16 @@
       "—I'"
     ]
   },
-  "798": {
-    "enchantedId": [
-      null,
-      905
-    ]
-  },
   "803": {
     "effects": [
       "1 ¤",
       "1 ◊"
     ]
   },
-  "816": {
-    "baseName": [
-      " \\.",
-      ""
-    ],
-    "enchantedId": [
-      null,
-      906
-    ],
-    "fullName": [
-      " \\.",
-      ""
-    ],
-    "simpleName": [
-      "  ",
-      " "
-    ]
-  },
   "821": {
     "artist": [
       "a$",
       "a / L. Giammichele"
-    ]
-  },
-  "823": {
-    "artist": [
-      "Toziim",
-      "Tözüm"
-    ]
-  },
-  "826": {
-    "enchantedId": [
-      null,
-      907
     ]
   },
   "828": {
@@ -1280,10 +1068,6 @@
     "effects": [
       "¤",
       "◊"
-    ],
-    "enchantedId": [
-      null,
-      908
     ]
   },
   "830": {
@@ -1314,12 +1098,6 @@
       "z / Hayley Evans"
     ]
   },
-  "847": {
-    "enchantedId": [
-      null,
-      909
-    ]
-  },
   "849": {
     "abilities": [
       "Iri",
@@ -1340,16 +1118,6 @@
     "effects": [
       "¤",
       "◊"
-    ],
-    "enchantedId": [
-      null,
-      910
-    ]
-  },
-  "866": {
-    "enchantedId": [
-      null,
-      911
     ]
   },
   "868": {
@@ -1382,22 +1150,10 @@
       "e / Giulia Priori"
     ]
   },
-  "882": {
-    "enchantedId": [
-      null,
-      912
-    ]
-  },
   "885": {
     "artist": [
       "e$",
       "e / Giulia Priori"
-    ]
-  },
-  "894": {
-    "enchantedId": [
-      null,
-      913
     ]
   },
   "896": {
@@ -1405,29 +1161,9 @@
       "cost to",
       "cost 9 to"
     ],
-    "artist": [
-      "d",
-      "4"
-    ],
     "effects": [
       "¤",
       "◊"
-    ],
-    "nonEnchantedId": [
-      null,
-      695
-    ]
-  },
-  "897": {
-    "nonEnchantedId": [
-      null,
-      708
-    ]
-  },
-  "898": {
-    "nonEnchantedId": [
-      null,
-      719
     ]
   },
   "899": {
@@ -1438,46 +1174,18 @@
     "effects": [
       "LLL",
       "LL L"
-    ],
-    "nonEnchantedId": [
-      null,
-      749
     ]
   },
   "900": {
     "effects": [
       "¤",
       "◊"
-    ],
-    "nonEnchantedId": [
-      946,
-      750
-    ]
-  },
-  "901": {
-    "nonEnchantedId": [
-      null,
-      752
     ]
   },
   "902": {
     "effects": [
       " \\.\\)",
       ""
-    ],
-    "nonEnchantedId": [
-      null,
-      761
-    ]
-  },
-  "903": {
-    "artist": [
-      "d",
-      "4"
-    ],
-    "nonEnchantedId": [
-      null,
-      769
     ]
   },
   "904": {
@@ -1486,82 +1194,16 @@
       788
     ]
   },
-  "905": {
-    "nonEnchantedId": [
-      null,
-      798
-    ]
-  },
-  "906": {
-    "artist": [
-      "d",
-      "ã"
-    ],
-    "nonEnchantedId": [
-      null,
-      816
-    ]
-  },
-  "907": {
-    "nonEnchantedId": [
-      null,
-      826
-    ]
-  },
   "908": {
-    "artist": [
-      "d",
-      "4"
-    ],
     "effects": [
       "¤",
       "◊"
-    ],
-    "nonEnchantedId": [
-      null,
-      829
-    ]
-  },
-  "909": {
-    "artist": [
-      "d",
-      "4"
-    ],
-    "nonEnchantedId": [
-      null,
-      847
     ]
   },
   "910": {
     "effects": [
       "¤",
       "◊"
-    ],
-    "nonEnchantedId": [
-      null,
-      860
-    ]
-  },
-  "911": {
-    "artist": [
-      "d",
-      "4"
-    ],
-    "nonEnchantedId": [
-      null,
-      866
-    ]
-  },
-  "912": {
-    "nonEnchantedId": [
-      null,
-      882
-    ]
-  },
-  "913": {
-    "nonEnchantedId": [
-      null,
-      894
     ]
   }
 }
