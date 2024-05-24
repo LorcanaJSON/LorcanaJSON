@@ -1205,5 +1205,89 @@
       "¤",
       "◊"
     ]
+  },
+  "915": {
+    "effects": [
+      "EC$",
+      "ECY"
+    ]
+  },
+  "919": {
+    "artist": [
+      "o$",
+      "o / Livio Cacciatore"
+    ],
+    "flavorText": [
+      "sn’ ",
+      "sn't "
+    ]
+  },
+  "922": {
+    "effects": [
+      "!",
+      "S"
+    ]
+  },
+  "941": {
+    "artist": [
+      "o$",
+      "o / Livio Cacciatore"
+    ]
+  },
+  "942": {
+    "artist": [
+      "o$",
+      "o / Livio Cacciatore"
+    ]
+  },
+  "944": {
+    "artist": [
+      "^$",
+      "Jonathan Livslyst"
+    ]
+  },
+  "945": {
+    "abilities": [
+      null,
+      null
+    ],
+    "artist": [
+      "Jonathan Livslyst",
+      "Grace Tran"
+    ],
+    "effects": [
+      "¤",
+      "◊"
+    ],
+    "flavorText": [
+      "\n“\\.",
+      ""
+    ]
+  },
+  "946": {
+    "effects": [
+      " h\n",
+      "\n",
+      "¤",
+      "◊",
+      "\nIRU.”",
+      ""
+    ]
+  },
+  "948": {
+    "abilities": [
+      " \\(¤ J",
+      ""
+    ]
+  },
+  "949": {
+    "abilities": [
+      " C J",
+      ""
+    ],
+    "effects": [
+      "\nIRU.”",
+      ""
+    ]
   }
 }
