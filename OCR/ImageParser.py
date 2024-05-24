@@ -389,7 +389,8 @@ class ImageParser():
 		"""
 		for y in range(image.shape[0]):
 			for x in range(image.shape[1]):
-				if sum(image[y, x]) > 10:  # Use 10 instead of a strict 1 or 0 for some leeway
+				pixel = image[y, x]
+				if pixel[0] > 15 or pixel[1] > 15 or pixel[2] > 15:  # Use 15 instead of a strict 1 or 0 for some leeway
 					# This pixel isn't entirely black
 					return False
 		return True
