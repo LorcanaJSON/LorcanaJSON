@@ -136,7 +136,7 @@ class ImageParser():
 
 		# Determine the textbox area, which is different between characters and non-characters, and between enchanted and non-enchanted characters
 		if isQuest:
-			textBoxImageArea = ImageArea.QUEST_TEXTBOX
+			textBoxImageArea = ImageArea.QUEST_TEXTBOX if isCharacter else ImageArea.QUEST_FULL_WIDTH_TEXT_BOX
 		elif isCharacter:
 			textBoxImageArea = ImageArea.ENCHANTED_CHARACTER_TEXT_BOX if isEnchanted else ImageArea.CHARACTER_TEXT_BOX
 		elif isLocation:
