@@ -184,7 +184,7 @@
       "it": "La sirenetta"
     },
     "matchingNames": ["Ariel", "Atlantica", "Dinglehopper", "Flotsam", "Flounder", "Jetsam", "Prince Eric", "Scuttle", "Sebastian", "Triton", "Ursula"],
-    "matchingIds": [30, 281, 499, 721, 751, 786, 856]
+    "matchingIds": [30, 281, 499, 721, 751, 786, 856, 930, 938]
   },
   "lorcana": {
     "displayNames": {
@@ -194,7 +194,7 @@
       "it": "Lorcana"
     },
     "matchingNames": ["Venturo"],
-    "matchingIds": [380, 535, 789, 792, 825, 859, 891]
+    "matchingIds": [380, 535, 789, 792, 825, 859, 891, 942]
   },
   "mickey": {
     "displayNames": {
@@ -320,7 +320,7 @@
       "it": "L'apprendista stregone"
     },
     "matchingNames": ["Magic Broom", "Yen Sid"],
-    "matchingIds": [51, 284, 501, 646, 878]
+    "matchingIds": [51, 284, 501, 646, 878, 949]
   },
   "swordinthestone": {
     "displayNames": {
