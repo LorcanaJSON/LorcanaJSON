@@ -54,5 +54,5 @@ QUEST_TEXTBOX = ImageArea("textbox", "Quest Text Box", _Coords(66,1378,  1311,19
 QUEST_FULL_WIDTH_TEXT_BOX = ImageArea("textbox", "Full Width Quest Text Box", _Coords(66,1378,  1400,1901), TEXT_COLOUR_WHITE)
 
 IS_INKABLE_CHECK = ImageArea("isInkable", "Is Inkable", _Coords(69,142, 70,143), TEXT_COLOUR_MIDDLE)
-IS_BORDERLESS_CHECK = ImageArea("isBorderless", "Is Borderless", _Coords(8,260, 48,1290), TEXT_COLOUR_MIDDLE)
+IS_BORDERLESS_CHECK = ImageArea("isBorderless", "Is Borderless", _Coords(5,260, 40,1290), TEXT_COLOUR_MIDDLE)
 IS_LOCATION_CHECK = ImageArea("isLocation", "Is Location", _Coords(1330,414, 1392,848), TEXT_COLOUR_MIDDLE)
