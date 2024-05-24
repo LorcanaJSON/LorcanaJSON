@@ -79,9 +79,9 @@ def correctText(cardText: str) -> str:
 				cardLine = "“" + cardLine[1:]
 			if "1lore" in cardLine:
 				cardLine = cardLine.replace("1lore", "1 lore")
-			if "Bodyquard" in cardLine:
-				# Somehow it reads 'Bodyquard' with a 'q' instead of a 'g' a lot...
-				cardLine = cardLine.replace("Bodyquard", "Bodyguard")
+			if "Bodyquard" in cardLine or "Bodyqguard":
+				# Somehow it reads 'Bodyquard' with a 'q' instead of or in addition to a 'g' a lot...
+				cardLine = re.sub("Bodyqg?uard", "Bodyguard", cardLine)
 			if "Ihe" in cardLine:
 				cardLine = re.sub(r"\bIhe\b", "The", cardLine)
 			if "|" in cardLine:
