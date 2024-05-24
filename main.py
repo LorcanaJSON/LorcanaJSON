@@ -160,9 +160,9 @@ if __name__ == '__main__':
 					print(f"{fieldName} is empty")
 				elif isinstance(fieldResult, list):
 					for fieldResultIndex, fieldResultItem in enumerate(fieldResult):
-						print(f"{fieldName} index {fieldResultIndex}: {fieldResultItem.text}")
+						print(f"{fieldName} index {fieldResultIndex}: {fieldResultItem.text!r}")
 				else:
-					print(f"{fieldName}: {fieldResult.text}")
+					print(f"{fieldName}: {fieldResult.text!r}")
 			print("")
 	else:
 		print(f"Unknown action '{parsedArguments.action}', please (re)read the help or the readme")
