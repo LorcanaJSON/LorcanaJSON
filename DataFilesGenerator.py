@@ -517,9 +517,12 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 		imagePath = os.path.join(imageFolder, f"{outputCard['id']}.png")
 	if not os.path.isfile(imagePath):
 		raise ValueError(f"Unable to find image for card ID {outputCard['id']}")
+	isPromoCard: Union[None, bool] = None
+	if "card_identifier" in inputCard:
+		isPromoCard = re.match(r"^\d+/P\d", inputCard["card_identifier"]) is not None
 	parsedImageAndTextData = _threadingLocalStorage.imageParser.getImageAndTextDataFromImage(imagePath,
 																	  parseFully=isExternalReveal,
-																	  includeIdentifier="/P" in inputCard.get("card_identifier", "/P"),
+																	  includeIdentifier=True if isPromoCard is None else isPromoCard,
 																	  isLocation=cardType == Language.TRANSLATIONS[GlobalConfig.language]["Location"],
 																	  hasCardText=inputCard["rules_text"] != "" if "rules_text" in inputCard else None,
 																	  hasFlavorText=inputCard["flavor_text"] != "" if "flavor_text" in inputCard else None,
@@ -529,7 +532,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 
 	# The card identifier in non-promo cards is mostly correct in the input card,
 	# For promo cards, get the text from the image, since it can differ quite a bit
-	if "card_identifier" in inputCard and "/P" not in inputCard["card_identifier"]:
+	if "card_identifier" in inputCard and isPromoCard is not True:
 		outputCard["fullIdentifier"] = inputCard["card_identifier"].replace(" ", f" {ImageParser.SEPARATOR_UNICODE} ")
 	else:
 		outputCard["fullIdentifier"] = re.sub(fr" ?\W (?!$)", f" {ImageParser.SEPARATOR_UNICODE} ", parsedImageAndTextData["identifier"].text).replace("I", "/")
@@ -618,7 +621,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 	# If the card is a promo card, store the non-promo ID
 	# If the card has promo version, store the promo IDs
 	if promoNonPromoId:
-		outputCard["nonPromoId" if "/P" in inputCard["card_identifier"] else "promoIds"] = promoNonPromoId
+		outputCard["nonPromoId" if isPromoCard else "promoIds"] = promoNonPromoId
 	# Store the different parts of the card text, correcting some values if needed
 	if parsedImageAndTextData["flavorText"] is not None:
 		flavorText = correctText(parsedImageAndTextData["flavorText"].text)
