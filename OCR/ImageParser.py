@@ -160,7 +160,7 @@ class ImageParser():
 			isCurrentlyInLabel: bool = False
 			currentCoords = [0, 0, 0]
 			for y in range(textboxHeight):
-				pixelValue = colorTextboxImage[y, 11] if isQuest else greyTextboxImage[y, 0]
+				pixelValue = colorTextboxImage[y, 0] if isQuest else greyTextboxImage[y, 0]
 				if isCurrentlyInLabel:
 					# Check if the pixel got lighter, indicating we left the label block
 					if (isQuest and pixelValue[0] > 60 and pixelValue[1] > 35) or (not isQuest and pixelValue > 100):
