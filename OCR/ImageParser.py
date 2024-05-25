@@ -159,8 +159,9 @@ class ImageParser():
 		if hasCardText is not False:
 			isCurrentlyInLabel: bool = False
 			currentCoords = [0, 0, 0]
+			textBoxImageToCheck = colorTextboxImage if isQuest else greyTextboxImage
 			for y in range(textboxHeight):
-				pixelValue = colorTextboxImage[y, 0] if isQuest else greyTextboxImage[y, 0]
+				pixelValue = textBoxImageToCheck[y, 0]
 				if isCurrentlyInLabel:
 					# Check if the pixel got lighter, indicating we left the label block
 					if (isQuest and pixelValue[0] > 60 and pixelValue[1] > 35) or (not isQuest and pixelValue > 100):
@@ -178,7 +179,7 @@ class ImageParser():
 					# Find the width of the label. Since accented characters can reach the top of the label, we need several light pixels in succession to be sure the label ended
 					successiveLightPixels: int = 0
 					for x in range(textboxWidth):
-						checkValue = colorTextboxImage[yToCheck, x] if isQuest else greyTextboxImage[yToCheck, x]
+						checkValue = textBoxImageToCheck[yToCheck, x]
 						if (isQuest and checkValue[0] > 60 and checkValue[1] > 35) or (not isQuest and checkValue > 120):
 							successiveLightPixels += 1
 							if successiveLightPixels > 4:
