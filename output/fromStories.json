@@ -184,7 +184,7 @@
       "it": "La sirenetta"
     },
     "matchingNames": ["Ariel", "Atlantica", "Dinglehopper", "Flotsam", "Flounder", "Jetsam", "Prince Eric", "Scuttle", "Sebastian", "Triton", "Ursula"],
-    "matchingIds": [30, 281, 499, 721, 751, 786, 856, 930, 938]
+    "matchingIds": [30, 281, 499, 721, 751, 786, 856]
   },
   "lorcana": {
     "displayNames": {
@@ -194,7 +194,10 @@
       "it": "Lorcana"
     },
     "matchingNames": ["Venturo"],
-    "matchingIds": [380, 535, 789, 792, 825, 859, 891, 942]
+    "matchingIds": [380, 535, 789, 792, 825, 859, 891],
+    "matchingFields": {
+      "card_identifier": " Q1$"
+    }
   },
   "mickey": {
     "displayNames": {
