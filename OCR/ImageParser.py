@@ -109,7 +109,7 @@ class ImageParser():
 			isCharacter = not isLocation and typesImageText not in self.nonCharacterTypes and typesImageText.split(" ", 1)[0] not in self.nonCharacterTypes
 		else:
 			isCharacter = False
-			self._logger.debug(f"Subtype is main type ({typesImageText=}, so not storing as subtypes")
+			self._logger.debug(f"Subtype is main type ({typesImageText=}), so not storing as subtypes")
 
 		if isEnchanted is None:
 			isEnchanted = not self._isImageBlack(self._getSubImage(cardImage, ImageArea.IS_BORDERLESS_CHECK))
