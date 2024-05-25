@@ -665,7 +665,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 			# Sometimes they write cardnames as "basename- subtitle", add the space before the dash back in
 			infoText = re.sub(r"(\w)- ", r"\1 - ", infoText)
 			# The text uses {I} for ink and {S} for strength, replace those with our symbols
-			infoText = infoText.format(I=ImageParser.INK_UNICODE, L=ImageParser.LORE_UNICODE, S=ImageParser.STRENGTH_UNICODE, W=ImageParser.WILLPOWER_UNICODE)
+			infoText = infoText.format(E=ImageParser.EXERT_UNICODE, I=ImageParser.INK_UNICODE, L=ImageParser.LORE_UNICODE, S=ImageParser.STRENGTH_UNICODE, W=ImageParser.WILLPOWER_UNICODE)
 			if infoEntry["title"].startswith("Errata"):
 				if " - " in infoEntry["title"]:
 					# There's a suffix explaining what field the errata is about, prepend it to the text
