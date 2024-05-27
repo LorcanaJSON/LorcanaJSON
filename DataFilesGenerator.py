@@ -566,6 +566,9 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 	outputCard["artist"] = inputCard["author"].strip() if "author" in inputCard else parsedImageAndTextData["artist"].text.replace(" I ", " / ")
 	if outputCard["artist"].startswith("Illus. "):
 		outputCard["artist"] = outputCard["artist"].split(" ", 1)[1]
+	if "“" in outputCard["artist"]:
+		# Simplify quotemarks
+		outputCard["artist"] = outputCard["artist"].replace("“", "\"").replace("”", "\"")
 	outputCard["baseName"] = correctPunctuation(inputCard["name"].strip() if "name" in inputCard else parsedImageAndTextData["baseName"].text).replace("’", "'").replace("''", "'")
 	if outputCard["baseName"].isupper():
 		# Some names have capitals in the middle, correct those
