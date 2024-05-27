@@ -34,7 +34,7 @@ TRANSLATIONS = {
 		"COMMON": "Common",
 		"UNCOMMON": "Uncommon",
 		"RARE": "Rare",
-		"SUPER": "Super",
+		"SUPER": "Super Rare",
 		"LEGENDARY": "Legendary",
 		"ENCHANTED": "Enchanted",
 		"SPECIAL": "Special",
