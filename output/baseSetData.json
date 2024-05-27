@@ -8,7 +8,8 @@
     },
     "prereleaseDate": "2023-08-18",
     "releaseDate": "2023-09-01",
-    "hasAllCards": true
+    "hasAllCards": true,
+    "type": "expansion"
   },
   "2": {
     "names": {
@@ -19,7 +20,8 @@
     },
     "prereleaseDate": "2023-11-17",
     "releaseDate": "2023-12-01",
-    "hasAllCards": true
+    "hasAllCards": true,
+    "type": "expansion"
   },
   "3": {
     "names": {
@@ -30,7 +32,8 @@
     },
     "prereleaseDate": "2024-02-23",
     "releaseDate": "2024-03-08",
-    "hasAllCards": true
+    "hasAllCards": true,
+    "type": "expansion"
   },
   "4": {
     "names": {
@@ -41,9 +44,10 @@
     },
     "prereleaseDate": "2024-05-17",
     "releaseDate": "2024-05-31",
-    "hasAllCards": true
+    "hasAllCards": true,
+    "type": "expansion"
   },
-  "0": {
+  "Q1": {
     "names": {
       "de": "Die Luminari Chroniken: Gefahr aus der Tiefe",
       "en": "Illumineer's Quest: Deep Trouble",
@@ -52,6 +56,7 @@
     },
     "prereleaseDate": "2024-05-17",
     "releaseDate": "2024-05-31",
-    "hasAllCards": true
+    "hasAllCards": true,
+    "type": "quest"
   }
 }

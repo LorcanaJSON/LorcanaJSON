@@ -7,7 +7,7 @@ from output.StoryParser import StoryParser
 
 
 _logger = logging.getLogger("LorcanaJSON")
-FORMAT_VERSION = "1.2.0"
+FORMAT_VERSION = "1.3.0"
 # The card parser is run in threads, and each thread needs to initialize its own ImageParser (otherwise weird errors happen in Tesseract)
 # Store each initialized ImageParser in its own thread storage
 _threadingLocalStorage = threading.local()
@@ -480,7 +480,9 @@ def createOutputFiles(onlyParseIds: Union[None, List[int]] = None, shouldShowIma
 	for setdata in setsData.values():
 		setdata["cards"] = []
 	for card in outputDict["cards"]:
-		setId = str(card.pop("setNumber"))
+		# Remove the setNumber, if any, and the setCode, since those are clear from the setfile the card is in
+		card.pop("setNumber", None)
+		setId = card.pop("setCode")
 		setsData[setId]["cards"].append(card)
 	for setId, setData in setsData.items():
 		if len(setData["cards"]) == 0:
@@ -535,33 +537,22 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 	if "card_identifier" in inputCard and isPromoCard is not True:
 		outputCard["fullIdentifier"] = inputCard["card_identifier"].replace(" ", f" {ImageParser.SEPARATOR_UNICODE} ")
 	else:
-		outputCard["fullIdentifier"] = re.sub(fr" ?\W (?!$)", f" {ImageParser.SEPARATOR_UNICODE} ", parsedImageAndTextData["identifier"].text).replace("I", "/")
-	if "number" in inputCard:
-		outputCard["number"] = inputCard["number"]
-	if "expansion_number" in inputCard:
-		outputCard["setNumber"] = inputCard["expansion_number"]
-	elif "card_sets" in inputCard:
-		# For some reason 'card_sets' lists all the sets the car is in, but "Illumineer's Quest: Deep Trouble" is 'set' 1 here,
-		# and the actual set number is increased by one. So cards in actual set 1 have 'card_sets: [2]' here
-		outputCard["setNumber"] = max(inputCard["card_sets"]) - 1
-	if "number" not in outputCard or "setNumber" not in outputCard:
-		# Get the set and card numbers from the parsed identifier
-		cardIdentifier = inputCard["card_identifier"] if "card_identifier" in inputCard else parsedImageAndTextData["identifier"].text
-		cardIdentifierMatch = re.match(r"^(\d+)([a-z])?/[0-9P]+ .+ ([Q\d]+)$", cardIdentifier)
-		if not cardIdentifierMatch:
-			raise ValueError(f"Unable to parse card and set numbers from card identifier '{cardIdentifier}' in card ID {outputCard['id']}")
-		if "number" not in outputCard:
-			outputCard["number"] = int(cardIdentifierMatch.group(1), 10)
-		if cardIdentifierMatch.group(2):
-			outputCard["variant"] = cardIdentifierMatch.group(2)
-			if variantIds:
-				outputCard["variantIds"] = [variantId for variantId in variantIds if variantId != outputCard["id"]]
-		if "setNumber" not in outputCard:
-			if "Q" in cardIdentifierMatch.group(3):
-				# TODO FIXME Think of a better way to mark the setnumber of Illumineer's Quest Deep Trouble
-				outputCard["setNumber"] = 4
-			else:
-				outputCard["setNumber"] = int(cardIdentifierMatch.group(3), 10)
+		outputCard["fullIdentifier"] = re.sub(fr" ?\W (?!$)", f" {ImageParser.SEPARATOR_UNICODE} ", parsedImageAndTextData["identifier"].text).replace("I", "/").replace("1P ", "/P ")
+
+	# Get the set and card numbers from the identifier
+	# Use the input card's identifier instead of the output card's, because the former's layout is consistent, while the latter's isn't (mainly in Set 1 promos)
+	cardIdentifierMatch = re.match(r"^(\d+)([a-z])?/P?[0-9]+ .+ (Q?\d+)$", inputCard["card_identifier"])
+	if not cardIdentifierMatch:
+		raise ValueError(f"Unable to parse card and set numbers from card identifier '{outputCard['fullIdentifier']}' in card ID {outputCard['id']}")
+	outputCard["number"] = int(cardIdentifierMatch.group(1), 10)
+	if cardIdentifierMatch.group(2):
+		outputCard["variant"] = cardIdentifierMatch.group(2)
+		if variantIds:
+			outputCard["variantIds"] = [variantId for variantId in variantIds if variantId != outputCard["id"]]
+	outputCard["setCode"] = cardIdentifierMatch.group(3)
+	if "Q" not in outputCard["setCode"]:
+		# Quests don't have a set number, just a set code
+		outputCard["setNumber"] = int(outputCard["setCode"], 10)
 
 	outputCard["artist"] = inputCard["author"].strip() if "author" in inputCard else parsedImageAndTextData["artist"].text.replace(" I ", " / ")
 	if outputCard["artist"].startswith("Illus. "):
