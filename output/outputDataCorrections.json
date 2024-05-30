@@ -153,6 +153,18 @@
       "+2 ⛉"
     ]
   },
+  "743": {
+    "artist": [
+      "o$",
+      "o / Livio Cacciatore"
+    ]
+  },
+  "759": {
+    "artist": [
+      "i$",
+      "i / Sam Burley"
+    ]
+  },
   "771": {
     "artist": [
       "g$",
@@ -165,10 +177,58 @@
       "k / Hayley Evans"
     ]
   },
+  "821": {
+    "artist": [
+      "a$",
+      "a / L. Giammichele"
+    ]
+  },
+  "837": {
+    "artist": [
+      "o$",
+      "o / Leonardo Giammichele"
+    ]
+  },
+  "846": {
+    "artist": [
+      "z$",
+      "z / Hayley Evans"
+    ]
+  },
   "849": {
     "effects": [
       "1 \\W",
       "1 ¤"
+    ]
+  },
+  "854": {
+    "artist": [
+      "o$",
+      "o / Livio Cacciatore"
+    ]
+  },
+  "869": {
+    "artist": [
+      "e$",
+      "e / Giulia Priori"
+    ]
+  },
+  "874": {
+    "artist": [
+      "e$",
+      "e / Giulia Priori"
+    ]
+  },
+  "885": {
+    "artist": [
+      "e$",
+      "e / Giulia Priori"
+    ]
+  },
+  "899": {
+    "artist": [
+      "n$",
+      "n / Nicholas Kole"
     ]
   },
   "900": {
@@ -177,10 +237,28 @@
       750
     ]
   },
+  "919": {
+    "artist": [
+      "o$",
+      "o / Livio Cacciatore"
+    ]
+  },
   "930": {
     "abilities": [
       "6 \\S+",
       "6 ⬡"
+    ]
+  },
+  "941": {
+    "artist": [
+      "o$",
+      "o / Livio Cacciatore"
+    ]
+  },
+  "942": {
+    "artist": [
+      "o$",
+      "o / Livio Cacciatore"
     ]
   }
 }

@@ -970,12 +970,6 @@
       "◊"
     ]
   },
-  "743": {
-    "artist": [
-      "o$",
-      "o / Livio Cacciatore"
-    ]
-  },
   "750": {
     "effects": [
       "¤",
@@ -989,10 +983,6 @@
     ]
   },
   "759": {
-    "artist": [
-      "i$",
-      "i / Sam Burley"
-    ],
     "effects": [
       "¤",
       "◊"
@@ -1052,12 +1042,6 @@
       "1 ◊"
     ]
   },
-  "821": {
-    "artist": [
-      "a$",
-      "a / L. Giammichele"
-    ]
-  },
   "828": {
     "effects": [
       "¤",
@@ -1077,10 +1061,6 @@
     ]
   },
   "837": {
-    "artist": [
-      "o$",
-      "o / Leonardo Giammichele"
-    ],
     "flavorText": [
       "-",
       "—"
@@ -1090,12 +1070,6 @@
     "flavorText": [
       "'l\n",
       "'ll\n"
-    ]
-  },
-  "846": {
-    "artist": [
-      "z$",
-      "z / Hayley Evans"
     ]
   },
   "849": {
@@ -1108,10 +1082,6 @@
     "abilities": [
       " lts ",
       " Its "
-    ],
-    "artist": [
-      "o$",
-      "o / Livio Cacciatore"
     ]
   },
   "860": {
@@ -1126,12 +1096,6 @@
       "◊"
     ]
   },
-  "869": {
-    "artist": [
-      "e$",
-      "e / Giulia Priori"
-    ]
-  },
   "870": {
     "effects": [
       "¤",
@@ -1142,18 +1106,6 @@
     "flavorText": [
       "-",
       "—"
-    ]
-  },
-  "874": {
-    "artist": [
-      "e$",
-      "e / Giulia Priori"
-    ]
-  },
-  "885": {
-    "artist": [
-      "e$",
-      "e / Giulia Priori"
     ]
   },
   "896": {
@@ -1167,10 +1119,6 @@
     ]
   },
   "899": {
-    "artist": [
-      "n$",
-      "n / Nicholas Kole"
-    ],
     "effects": [
       "LLL",
       "LL L"
@@ -1213,10 +1161,6 @@
     ]
   },
   "919": {
-    "artist": [
-      "o$",
-      "o / Livio Cacciatore"
-    ],
     "flavorText": [
       "sn’ ",
       "sn't "
@@ -1226,18 +1170,6 @@
     "effects": [
       "!",
       "S"
-    ]
-  },
-  "941": {
-    "artist": [
-      "o$",
-      "o / Livio Cacciatore"
-    ]
-  },
-  "942": {
-    "artist": [
-      "o$",
-      "o / Livio Cacciatore"
     ]
   },
   "944": {
