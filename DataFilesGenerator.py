@@ -614,7 +614,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 			# The text has multiple \r\n's as newlines, reduce that to just a single \n
 			infoText: str = infoEntry["body"].rstrip().replace("\r", "").replace("\n\n", "\n").replace("\t", " ")
 			# The text uses unicode characters in some places, replace those with their simple equivalents
-			infoText = infoText.replace("\u2019", "'").replace("\u2013", "-").replace("\u201c", "\"").replace("\u201d", "\"")
+			infoText = infoText.replace("’", "'").replace("–", "-").replace("“", "\"").replace("”", "\"")
 			# Sometimes they write cardnames as "basename- subtitle", add the space before the dash back in
 			infoText = re.sub(r"(\w)- ", r"\1 - ", infoText)
 			# The text uses {I} for ink and {S} for strength, replace those with our symbols
