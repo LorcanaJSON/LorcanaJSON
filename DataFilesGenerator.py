@@ -25,51 +25,40 @@ def correctText(cardText: str) -> str:
 			_logger.debug(f"Ignoring line {cardLine!r} during correction because it's too short")
 			continue
 		originalCardLine = cardLine
-		# First simple typos
-		if "’" in cardLine:
-			# Simplify quote mark if it's used in a contraction
-			cardLine = re.sub(r"(?<=\w)’(?=\w)", "'", cardLine)
-		if " ‘em " in cardLine:
-			cardLine = cardLine.replace(" ‘em ", " 'em ")
-		if re.search(r"(^| )\d ?[0O]?( ?[-—]|,)", cardLine):
-			# There's usually an ink symbol between a number and a dash
-			cardLine = re.sub(r"(^| )(\d) ?[0O]?( ?[-—]|,)", fr"\1\2 {ImageParser.INK_UNICODE}\3", cardLine)
-		if "€" in cardLine:
-			# For some reason it keeps reading the Strength symbol as the Euro symbol
-			cardLine = re.sub(r"€[^ .]?", ImageParser.STRENGTH_UNICODE, cardLine)
-		if "”" in cardLine:
-			# Normally a closing quote mark should be preceded by a period
-			cardLine = re.sub("([^.,'!?’])”", "\\1.”", cardLine)
-		if "( " in cardLine:
-			# An opening bracket shouldn't have a space after it
-			cardLine = cardLine.replace("( ", "(")
+		## First simple typos ##
+		# Simplify quote mark if it's used in a contraction
+		cardLine = re.sub(r"(?<=\w)’(?=\w)", "'", cardLine)
+		cardLine = cardLine.replace(" ‘em ", " 'em ")
+		# There's usually an ink symbol between a number and a dash
+		cardLine = re.sub(r"(^| )(\d) ?[0O]?( ?[-—]|,)", fr"\1\2 {ImageParser.INK_UNICODE}\3", cardLine)
+		# For some reason it keeps reading the Strength symbol as the Euro symbol
+		cardLine = re.sub(r"€[^ .]?", ImageParser.STRENGTH_UNICODE, cardLine)
+		# Normally a closing quote mark should be preceded by a period
+		cardLine = re.sub("([^.,'!?’])”", "\\1.”", cardLine)
+		# An opening bracket shouldn't have a space after it
+		cardLine = cardLine.replace("( ", "(")
 		if re.search(r"[”’)]\s.$", cardLine):
 			# Sometimes an extra character gets added after the closing quote mark or bracket from an inksplotch, remove that
 			cardLine = cardLine[:-2]
-		if re.search(r"[^.,'!?’]\)", cardLine):
-			cardLine = re.sub(r"([^.,'!?’])\)", r"\1.)", cardLine)
-		if re.search(r"\b\d ,", cardLine):
-			cardLine = re.sub(r"\b(\d) ,", fr"\1 {ImageParser.INK_UNICODE},", cardLine)
-		if "lll" in cardLine:
-			# 'Illuminary' and 'Illumineer(s)' often gets read as starting with three l's, instead of an I and two l's
-			cardLine = cardLine.replace("lllumin", "Illumin")
-		if re.match(r"^[(@G©]{1,2}[ ,]", cardLine):
-			# The 'exert' symbol often gets mistaken for a @ or G, correct that
-			cardLine = re.sub(r"^[(@G©]{1,2}([ ,])", fr"{ImageParser.EXERT_UNICODE}\1", cardLine)
+		# Make sure there's a period before a closing bracket
+		cardLine = re.sub(r"([^.,'!?’])\)", r"\1.)", cardLine)
+		# Numbers followed by a comma generally need an Ink symbol inbetween
+		cardLine = re.sub(r"\b(\d) ,", fr"\1 {ImageParser.INK_UNICODE},", cardLine)
+		# 'Illuminary' and 'Illumineer(s)' often gets read as starting with three l's, instead of an I and two l's
+		cardLine = cardLine.replace("lllumin", "Illumin")
+		# The 'exert' symbol often gets mistaken for a @ or G, correct that
+		cardLine = re.sub(r"^[(@G©]{1,2}([ ,])", fr"{ImageParser.EXERT_UNICODE}\1", cardLine)
 		if re.search(r" [‘;]$", cardLine):
 			# Strip erroneously detected characters from the end
 			cardLine = cardLine[:-2]
-		if re.search(r"\d 4", cardLine):
-			# The Lore symbol often gets mistaken for a 4, correctt hat
-			cardLine = re.sub(r"(\d) 4", fr"\1 {ImageParser.LORE_UNICODE}", cardLine)
+		# The Lore symbol often gets mistaken for a 4, correctt hat
+		cardLine = re.sub(r"(\d) 4", fr"\1 {ImageParser.LORE_UNICODE}", cardLine)
 		if cardLine.startswith("- "):
 			# Assume this is a list, replace the start with the official separator
 			cardLine = f"{ImageParser.SEPARATOR_UNICODE} {cardLine[2:]}"
-		if " / " in cardLine:
-			# A 7 often gets mistaken for a /, correct that
-			cardLine = cardLine.replace(" / ", " 7 ")
-		if f"{ImageParser.INK_UNICODE}—" in cardLine:
-			cardLine = cardLine.replace(f"{ImageParser.INK_UNICODE}—", f"{ImageParser.INK_UNICODE} —")
+		# A 7 often gets mistaken for a /, correct that
+		cardLine = cardLine.replace(" / ", " 7 ")
+		cardLine = cardLine.replace(f"{ImageParser.INK_UNICODE}—", f"{ImageParser.INK_UNICODE} —")
 
 		if GlobalConfig.language == Language.ENGLISH:
 			if re.match("[‘`']Shift ", cardLine):
@@ -77,103 +66,73 @@ def correctText(cardText: str) -> str:
 				cardLine = cardLine[1:]
 			elif cardLine.startswith("‘"):
 				cardLine = "“" + cardLine[1:]
-			if "1lore" in cardLine:
-				cardLine = cardLine.replace("1lore", "1 lore")
-			if "Bodyquard" in cardLine or "Bodyqguard":
-				# Somehow it reads 'Bodyquard' with a 'q' instead of or in addition to a 'g' a lot...
-				cardLine = re.sub("Bodyqg?uard", "Bodyguard", cardLine)
-			if "Ihe" in cardLine:
-				cardLine = re.sub(r"\bIhe\b", "The", cardLine)
-			if "|" in cardLine:
-				cardLine = cardLine.replace("|", "I")
-			if "“l " in cardLine:
-				cardLine = cardLine.replace("“l ", "“I ")
+			cardLine = cardLine.replace("1lore", "1 lore")
+			# Somehow it reads 'Bodyquard' with a 'q' instead of or in addition to a 'g' a lot...
+			cardLine = re.sub("Bodyqg?uard", "Bodyguard", cardLine)
+			cardLine = re.sub(r"\bIhe\b", "The", cardLine)
+			cardLine = cardLine.replace("|", "I")
+			cardLine = cardLine.replace("“l ", "“I ")
 			if cardLine.endswith("of i"):
 				# The 'Floodborn' inksplashes sometimes confuse the reader into imagining another 'i' at the end of some reminder text, remove that
 				cardLine = cardLine.rstrip(" i")
 			# Correct some fancy qoute marks at theend of some plural possessives. This is needed on a case-by-case basis, otherwise too much text is changed
-			if "teammates’" in cardLine:
-				cardLine = re.sub(r"teammates’( |$)", r"teammates'\1", cardLine)
-			if "players’" in cardLine:
-				cardLine = re.sub(r"players’( |$)", r"players'\1", cardLine)
-			if "opponents’" in cardLine:
-				cardLine = re.sub(r"opponents’( |$)", r"opponents'\1", cardLine)
-			# Correct common phrases with symbols
-			if re.search(rf"pay \d ?[^{ImageParser.INK_UNICODE}]{{1,2}}(?: |$)", cardLine):
-				# Lore payment discounts
-				cardLine, changeCount = re.subn(rf"pay (\d) ?[^{ImageParser.INK_UNICODE}]{{1,2}}( |$)", f"pay \\1 {ImageParser.INK_UNICODE}\\2", cardLine)
-				if changeCount > 0:
-					_logger.info("Correcting lore payment text")
+			cardLine = re.sub(r"teammates’( |$)", r"teammates'\1", cardLine)
+			cardLine = re.sub(r"players’( |$)", r"players'\1", cardLine)
+			cardLine = re.sub(r"opponents’( |$)", r"opponents'\1", cardLine)
+			## Correct common phrases with symbols ##
+			# Lore payment discounts
+			cardLine, changeCount = re.subn(rf"pay (\d) ?[^{ImageParser.INK_UNICODE}]{{1,2}}( |$)", f"pay \\1 {ImageParser.INK_UNICODE}\\2", cardLine)
+			if changeCount > 0:
+				_logger.info("Correcting lore payment text")
 			# Fields with Errata corrections have 'ERRATA' in the text, possibly with a colon. Remove that
-			if "ERRATA" in cardLine:
-				cardLine = re.sub(" ?ERRATA:? ?", "", cardLine)
-			# Correct reminder text
-			if re.match(r"^gets \+\d .{1,2}?\.?\)?$", cardLine):
-				# Challenger, second line
-				cardLine, changeCount = re.subn(rf"gets \+(\d) [^{ImageParser.STRENGTH_UNICODE}]{{1,2}}?\.?\)", fr"gets +\1 {ImageParser.STRENGTH_UNICODE}.)", cardLine)
-				if changeCount > 0:
-					_logger.info("Correcting second line of Challenger reminder text")
-			elif re.match(r"\(A character with cost \d or more can .{1,2} to sing this( song for free)?", cardLine):
-				# Song
-				cardLine, changeCount = re.subn(f"can [^{ImageParser.EXERT_UNICODE}]{{1,2}} to sing this", f"can {ImageParser.EXERT_UNICODE} to sing this", cardLine)
-				if changeCount > 0:
-					_logger.info("Correcting Song reminder text")
-			elif re.match("add their .{1,2} to another chosen character['’]s .{1,2} this", cardLine):
-				# Support, full line (not sure why it sometimes doesn't get cut into two lines
+			cardLine = re.sub(" ?ERRATA:? ?", "", cardLine)
+			## Correct reminder text ##
+			# Challenger, second line
+			cardLine, changeCount = re.subn(rf"gets \+(\d) [^{ImageParser.STRENGTH_UNICODE}]{{1,2}}?\.?\)", fr"gets +\1 {ImageParser.STRENGTH_UNICODE}.)", cardLine)
+			if changeCount > 0:
+				_logger.info("Correcting second line of Challenger reminder text")
+			# Song
+			cardLine, changeCount = re.subn(f"can [^{ImageParser.EXERT_UNICODE}]{{1,2}} to sing this", f"can {ImageParser.EXERT_UNICODE} to sing this", cardLine)
+			if changeCount > 0:
+				_logger.info("Correcting Song reminder text")
+			# Support, full line (not sure why it sometimes doesn't get cut into two lines
+			if re.match("add their .{1,2} to another chosen character['’]s .{1,2} this", cardLine):
 				cardLine, changeCount = re.subn(f"their [^{ImageParser.STRENGTH_UNICODE}]{{1,2}} to", f"their {ImageParser.STRENGTH_UNICODE} to", cardLine)
 				cardLine, changeCount2 = re.subn(f"character's [^{ImageParser.STRENGTH_UNICODE}]{{1,2}} this", f"character's {ImageParser.STRENGTH_UNICODE} this", cardLine)
 				if changeCount > 0 or changeCount2 > 0:
 					_logger.info("Correcting Support reminder text (both symobls on one line)")
-			elif re.match("may add their .{1,2} to another chosen character[’']s", cardLine):
-				# Support, first line if split
-				cardLine, changeCount = re.subn(f"their [^{ImageParser.STRENGTH_UNICODE}]{{1,2}} to", f"their {ImageParser.STRENGTH_UNICODE} to", cardLine)
-				if changeCount > 0:
-					_logger.info("Correcting first line of Support reminder text")
-			elif re.match(rf"[^{ImageParser.STRENGTH_UNICODE}]{{1,2}} this turn\.?\)?", cardLine):
-				# Support, second line if split
+			# Support, first line if split
+			cardLine, changeCount = re.subn(f"^their [^{ImageParser.STRENGTH_UNICODE}]{{1,2}} to", f"their {ImageParser.STRENGTH_UNICODE} to", cardLine)
+			if changeCount > 0:
+				_logger.info("Correcting first line of Support reminder text")
+			# Support, second line if split
+			cardLine, changeCount = re.subn(rf"^[^{ImageParser.STRENGTH_UNICODE}]{{1,2}} this turn\.?\)?", f"{ImageParser.STRENGTH_UNICODE} this turn.)", cardLine)
+			if changeCount > 0:
 				_logger.info("Correcting second line of Support reminder text")
-				cardLine = f"{ImageParser.STRENGTH_UNICODE} this turn.)"
-			elif cardLine.startswith("Ward (Upponents "):
-				_logger.info("Correcting 'Upponents' to 'Opponents'")
-				cardLine = cardLine.replace("(Upponents", "(Opponents")
-			elif re.search(r"reduced by [lI]\.", cardLine):
-				cardLine = re.sub(r"reduced by [lI]\.", "reduced by 1.", cardLine)
+			cardLine = cardLine.replace("(Upponents", "(Opponents")
+			cardLine = re.sub(r"reduced by [lI]\.", "reduced by 1.", cardLine)
 		elif GlobalConfig.language == Language.FRENCH:
-			if "payer" in cardLine:
-				# Correct payment text
-				cardLine = re.sub(r"\bpayer (\d+) (?:\W|O) pour\b", f"payer \\1 {ImageParser.INK_UNICODE} pour", cardLine)
-			elif re.search(r"vous pouvez ajouter sa \W+ à celle", cardLine):
-				cardLine = re.sub(r"(?<= )\W+(?= )", ImageParser.STRENGTH_UNICODE, cardLine)
-			elif re.search(fr"coûte \d+ ?[^{ImageParser.INK_UNICODE} ]+ de moins", cardLine):
-				# Cost discount text
-				cardLine = re.sub(r"coûte (\d+) [^ ]+ de moins", fr"coûte \1 {ImageParser.INK_UNICODE} de moins", cardLine)
-			elif re.search(fr"Vous pouvez [^ {ImageParser.EXERT_UNICODE}]+ un(?:e carte)? personnage coûtant", cardLine):
-				# Song card reminder text
-				cardLine = re.sub(fr"Vous pouvez [^ {ImageParser.EXERT_UNICODE}]+ un(e carte)? personnage coûtant", f"Vous pouvez {ImageParser.EXERT_UNICODE} un\\1 personnage coûtant", cardLine)
-			if ".." in cardLine:
-				# Fix punctuation by turning multiple periods into an ellipsis character
-				cardLine = re.sub(r"\.{2,}", "…", cardLine)
-			if re.search(r"\. [a-z]", cardLine):
-				# Ellipsis get misread as periods often, try to correct that
-				# Try to recognize it by the first letter afterwards not being capitalized
-				cardLine = re.sub(r"\.+ ([a-z])", r"… \1", cardLine)
-			if ".…" in cardLine:
-				cardLine = re.sub(r"\.+…", "…", cardLine)
-			if "‘" in cardLine:
-				cardLine = re.sub(r"^‘", "“", cardLine)
-			if "I!" in cardLine:
-				# "Il" often gets misread as "I!"
-				cardLine = re.sub("(?<![A-Z])I!", "Il", cardLine)
-			if re.search(r"\S!", cardLine):
-				# French always has a space before punctuation marks
-				cardLine = re.sub(r"(\S)!", r"\1 !", cardLine)
-			if "//" in cardLine:
-				cardLine = cardLine.replace("//", "Il")
-			if re.search(r"\(Lorsqu'il défie, ce personnage gagne \+\d .\.\)", cardLine):
-				cardLine = re.sub(r"gagne \+(\d) .\.", fr"gagne +\1 {ImageParser.STRENGTH_UNICODE}.", cardLine)
-			if re.match(r"^\+\d ?[^.]{0,2}\.\)$", cardLine):
-				# Fix second line of 'Challenger'/'Offensif' reminder text
-				cardLine = re.sub(r"^\+(\d) ?[^.]{0,2}\.\)$", fr"+\1 {ImageParser.STRENGTH_UNICODE}.)", cardLine)
+			# Correct payment text
+			cardLine = re.sub(r"\bpayer (\d+) (?:\W|O) pour\b", f"payer \\1 {ImageParser.INK_UNICODE} pour", cardLine)
+			cardLine = re.sub(r"(?<=vous pouvez ajouter sa )\W+(?= à celle)", ImageParser.STRENGTH_UNICODE, cardLine)
+			# Cost discount text
+			cardLine = re.sub(fr"coûte (\d+) [^{ImageParser.INK_UNICODE} ]+ de moins", fr"coûte \1 {ImageParser.INK_UNICODE} de moins", cardLine)
+			# Song card reminder text
+			cardLine = re.sub(fr"Vous pouvez [^ {ImageParser.EXERT_UNICODE}]+ un(e carte)? personnage coûtant", f"Vous pouvez {ImageParser.EXERT_UNICODE} un\\1 personnage coûtant", cardLine)
+			# Fix punctuation by turning multiple periods into an ellipsis character, and correct ellipsis preceded or followed by periods
+			cardLine = re.sub(r"…?\.{2,}…?", "…", cardLine)
+			# Ellipsis get misread as periods often, try to correct that
+			# Try to recognize it by the first letter afterwards not being capitalized
+			cardLine = re.sub(r"\.+ ([a-z])", r"… \1", cardLine)
+			cardLine = re.sub(r"^‘", "“", cardLine)
+			# "Il" often gets misread as "I!"
+			cardLine = re.sub("(?<![A-Z])I!", "Il", cardLine)
+			# French always has a space before punctuation marks
+			cardLine = re.sub(r"(\S)!", r"\1 !", cardLine)
+			cardLine = cardLine.replace("//", "Il")
+			cardLine = re.sub(r"(?<=\(Lorsqu'il défie, ce personnage gagne )\+(\d) .\.", fr"+\1 {ImageParser.STRENGTH_UNICODE}.", cardLine)
+			# Fix second line of 'Challenger'/'Offensif' reminder text
+			cardLine = re.sub(r"^\+(\d) ?[^.]{0,2}\.\)$", fr"+\1 {ImageParser.STRENGTH_UNICODE}.)", cardLine)
 
 		if cardLine:
 			correctedCardLines.append(cardLine)
