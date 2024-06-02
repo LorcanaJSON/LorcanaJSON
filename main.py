@@ -3,15 +3,17 @@ import argparse, datetime, json, logging, logging.handlers, os, re, sys, time
 import DataFilesGenerator, GlobalConfig, Language, UpdateHandler
 from APIScraping import RavensburgerApiHandler
 from OCR.ImageParser import ImageParser
+from output import Verifier
 
 
 if __name__ == '__main__':
 	argumentParser = argparse.ArgumentParser(description="Handle LorcanaJSON data, depending on the action argument")
-	argumentParser.add_argument("action", choices=("check", "update", "download", "parse", "show"), help="Specify the action to take. "
+	argumentParser.add_argument("action", choices=("check", "update", "download", "parse", "show", "verify"), help="Specify the action to take. "
 																										 "'check' checks if new card data is available, 'update' actually updates the local card datafiles. "
 																										 "'download' downloads missing images. "
 																										 "'parse' parses the images specified in the 'cardIds' argument. "
-																										 "'show' shows the image(s) specified in the 'cardIds' argument along with subimages used in parsing")
+																										 "'show' shows the image(s) specified in the 'cardIds' argument along with subimages used in parsing. "
+																										 "'verify' compares the input and the output files and lists differences for important fields")
 	argumentParser.add_argument("--loglevel", dest="loglevel", choices=("debug", "info", "warning", "error"), default=None, help="Specify the log level. If omitted, defaults to 'warning'")
 	argumentParser.add_argument("--tesseractPath", help="Specify the path to Tesseract. This is needed if Tesseract can't just be called with 'tesseract' from the commandline")
 	argumentParser.add_argument("--language", help="Specify the language to use by its two-letter code. Defaults to 'en'", default="en")
@@ -164,6 +166,8 @@ if __name__ == '__main__':
 				else:
 					print(f"{fieldName}: {fieldResult.text!r}")
 			print("")
+	elif parsedArguments.action == "verify":
+		Verifier.compareInputToOutput(cardIds)
 	else:
 		print(f"Unknown action '{parsedArguments.action}', please (re)read the help or the readme")
 		sys.exit(-10)
