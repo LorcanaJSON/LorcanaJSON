@@ -33,8 +33,8 @@ def correctText(cardText: str) -> str:
 		cardLine = re.sub(r"(^| )(\d) ?[0O]?( ?[-—]|,)", fr"\1\2 {ImageParser.INK_UNICODE}\3", cardLine)
 		# For some reason it keeps reading the Strength symbol as the Euro symbol
 		cardLine = re.sub(r"€[^ .]?", ImageParser.STRENGTH_UNICODE, cardLine)
-		# Normally a closing quote mark should be preceded by a period
-		cardLine = re.sub("([^.,'!?’])”", "\\1.”", cardLine)
+		# Normally a closing quote mark should be preceded by a period, except mid-sentence
+		cardLine = re.sub("([^.,'!?’])”(?!,)", "\\1.”", cardLine)
 		# An opening bracket shouldn't have a space after it
 		cardLine = cardLine.replace("( ", "(")
 		if re.search(r"[”’)]\s.$", cardLine):
