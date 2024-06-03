@@ -734,10 +734,12 @@ def _createMd5ForFile(filePath: str):
 		md5File.write(fileHash)
 
 def _toTitleCase(s: str) -> str:
-	s = re.sub(r"(?:^| |\n|\(|-| ')([a-z])", lambda m: m.group(0).upper(), s.lower())
+	s = re.sub(r"(?:^| |\n|\(|-| '| d')([a-z])(?!')", lambda m: m.group(0).upper(), s.lower())
 	toLowerCaseWords = None
 	if GlobalConfig.language == Language.ENGLISH:
 		toLowerCaseWords = (" A ", " At ", " In ", " Into ", " Of ", " The ", " To ")
+	elif GlobalConfig.language == Language.FRENCH:
+		toLowerCaseWords = (" D'", " De ", " Des ", " Du ")
 	if toLowerCaseWords:
 		for toLowerCaseWord in toLowerCaseWords:
 			if toLowerCaseWord in s:
