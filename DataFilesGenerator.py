@@ -116,7 +116,7 @@ def correctText(cardText: str) -> str:
 			cardLine = re.sub(r"\bpayer (\d+) (?:\W|O) pour\b", f"payer \\1 {ImageParser.INK_UNICODE} pour", cardLine)
 			cardLine = re.sub(r"(?<=vous pouvez ajouter sa )\W+(?= à celle)", ImageParser.STRENGTH_UNICODE, cardLine)
 			# Cost discount text
-			cardLine = re.sub(fr"coûte (\d+) [^{ImageParser.INK_UNICODE} ]+ de moins", fr"coûte \1 {ImageParser.INK_UNICODE} de moins", cardLine)
+			cardLine = re.sub(fr"coûte (\d+) [^{ImageParser.INK_UNICODE} ]+", fr"coûte \1 {ImageParser.INK_UNICODE}", cardLine)
 			# Song card reminder text
 			cardLine = re.sub(fr"Vous pouvez [^ {ImageParser.EXERT_UNICODE}]+ un(e carte)? personnage coûtant", f"Vous pouvez {ImageParser.EXERT_UNICODE} un\\1 personnage coûtant", cardLine)
 			# Fix punctuation by turning multiple periods into an ellipsis character, and correct ellipsis preceded or followed by periods
