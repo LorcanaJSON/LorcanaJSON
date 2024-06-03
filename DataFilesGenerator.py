@@ -335,7 +335,7 @@ def createOutputFiles(onlyParseIds: Union[None, List[int]] = None, shouldShowIma
 							# Remove the card from the corrections list, so we can still check if the corrections got applied properly
 							cardDataCorrections.pop(card["id"], None)
 							# If this card is an Enchanted card or has an Enchanted equivalent, add that field, so we don't need to fully parse the card
-							if card["id"] in enchantedNonEnchantedIds:
+							if card["id"] in enchantedNonEnchantedIds and "nonEnchantedId" not in card and "enchantedId" not in card:
 								card["nonEnchantedId" if card["rarity"] == Language.TRANSLATIONS[GlobalConfig.language]["ENCHANTED"] else "enchantedId"] = enchantedNonEnchantedIds[card["id"]]
 							if card["id"] in promoNonPromoIds and "promoIds" not in card and "nonPromoId" not in card:
 								promoResult = promoNonPromoIds[card["id"]]
