@@ -53,7 +53,7 @@ def compareInputToOutput(cardIdsToVerify: Union[List[int], None]):
 		# Compare flavor text
 		if inputCard.get("flavor_text", None) and "flavorText" in outputCard:
 			if "flavor_text" in inputCard and inputCard["flavor_text"] != "ERRATA":
-				inputFlavorText: str = inputCard["flavor_text"].replace("\u00a0", "").replace("‘", "'").replace("’", "'").replace(" ..", "..").replace(".. ", "..").replace("<", "").replace(">", "").replace("%", " ").rstrip()
+				inputFlavorText: str = inputCard["flavor_text"].replace("\u00a0", "").replace("‘", "'").replace("’", "'").replace("…", "...").replace(" ..", "..").replace(".. ", "..").replace("<", "").replace(">", "").replace("%", " ").rstrip()
 				if inputFlavorText.endswith(" ERRATA"):
 					inputFlavorText = inputFlavorText.rsplit(" ", 1)[0]
 				if GlobalConfig.language == Language.FRENCH:
@@ -65,7 +65,7 @@ def compareInputToOutput(cardIdsToVerify: Union[List[int], None]):
 				outputFlavorText = outputCard['flavorText']
 				outputFlavorText = outputFlavorText.replace("“", "").replace("”", "").replace("‘", "'").replace("’", "'")
 				outputFlavorText = outputFlavorText.replace("-\n", "-").replace("—\n", "—").replace("\n", " ")
-				outputFlavorText = outputFlavorText.replace(" ..", "..").replace(".. ", "..")
+				outputFlavorText = outputFlavorText.replace("…", "...").replace(" ..", "..").replace(".. ", "..")
 			else:
 				outputFlavorText = ""
 
