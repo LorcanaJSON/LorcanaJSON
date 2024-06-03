@@ -522,10 +522,16 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 	outputCard["baseName"] = correctPunctuation(inputCard["name"].strip() if "name" in inputCard else parsedImageAndTextData["baseName"].text).replace("’", "'").replace("''", "'")
 	if outputCard["baseName"].isupper():
 		# Some names have capitals in the middle, correct those
-		if outputCard["baseName"] == "HEIHEI":
-			outputCard["baseName"] = "HeiHei"
-		elif outputCard["baseName"] == "LEFOU":
-			outputCard["baseName"] = "LeFou"
+		if cardType == Language.TRANSLATIONS[GlobalConfig.language]["Character"]:
+			if outputCard["baseName"] == "HEIHEI":
+				outputCard["baseName"] = "HeiHei"
+			elif outputCard["baseName"] == "LEFOU":
+				outputCard["baseName"] = "LeFou"
+			else:
+				outputCard["baseName"] = _toTitleCase(outputCard["baseName"])
+		elif GlobalConfig.language == Language.FRENCH:
+			# French titlecase rules are complicated, just capitalize the first letter for now
+			outputCard["baseName"] = outputCard["baseName"][0] + outputCard["baseName"][1:].lower()
 		else:
 			outputCard["baseName"] = _toTitleCase(outputCard["baseName"])
 	outputCard["fullName"] = outputCard["baseName"]
