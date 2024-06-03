@@ -86,6 +86,10 @@ function handleKeyPress(e) {
 	}
 }
 
+function openCardImage() {
+  window.open(cardsJson["cards"][currentIndex]["images"]["full"], "_blank");
+}
+
 document.addEventListener("keydown", handleKeyPress);
 document.getElementById("text").addEventListener("keydown", handleKeyPress);
 
