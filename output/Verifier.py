@@ -31,20 +31,26 @@ def compareInputToOutput(cardIdsToVerify: Union[List[int], None]):
 			continue
 		inputCard = idToInputCard[outputCard["id"]]
 		# Compare rules text
-		if inputCard.get("rules_text", None) and outputCard["fullText"]:
-			inputRulesText = inputCard["rules_text"].replace("–", "-").replace("\\", "")
-			inputRulesText = re.sub(r"(?<=\w)’(?=\w)", "'", inputRulesText)
-			inputRulesText = inputRulesText.replace("\u00a0", " " if GlobalConfig.language == Language.FRENCH else "")
-			if GlobalConfig.language == Language.ENGLISH:
-				inputRulesText = inputRulesText.replace("Shift D", "Shift: D").replace("teammates’ ", "teammates' ").replace("players’ ", "players' ")
-			elif GlobalConfig.language == Language.FRENCH:
-				# Exclamation marks etc. should be preceded by a space
-				inputRulesText = re.sub(r"(?<=\w)([?!:])", r" \1", inputRulesText)
+		if inputCard.get("rules_text", None) or outputCard["fullText"]:
+			if inputCard.get("rules_text", None):
+				inputRulesText = inputCard["rules_text"].replace("–", "-").replace("\\", "")
+				inputRulesText = re.sub(r"(?<=\w)’(?=\w)", "'", inputRulesText)
+				inputRulesText = inputRulesText.replace("\u00a0", " " if GlobalConfig.language == Language.FRENCH else "")
+				if GlobalConfig.language == Language.ENGLISH:
+					inputRulesText = inputRulesText.replace("Shift D", "Shift: D").replace("teammates’ ", "teammates' ").replace("players’ ", "players' ")
+				elif GlobalConfig.language == Language.FRENCH:
+					# Exclamation marks etc. should be preceded by a space
+					inputRulesText = re.sub(r"(?<=\w)([?!:])", r" \1", inputRulesText)
+			else:
+				inputRulesText = ""
 
-			outputRulesText = outputCard["fullText"].replace("\n", " ")
-			# Remove all the Lorcana symbols:
-			outputRulesText = re.sub(fr" ?[{ImageParser.EXERT_UNICODE}{ImageParser.INK_UNICODE}{ImageParser.LORE_UNICODE}{ImageParser.STRENGTH_UNICODE}{ImageParser.WILLPOWER_UNICODE}{ImageParser.INKWELL_UNICODE}] ?", " ", outputRulesText)
-			outputRulesText = outputRulesText.replace("  ", " ").replace(" .", ".")
+			if outputCard["fullText"]:
+				outputRulesText = outputCard["fullText"].replace("\n", " ")
+				# Remove all the Lorcana symbols:
+				outputRulesText = re.sub(fr" ?[{ImageParser.EXERT_UNICODE}{ImageParser.INK_UNICODE}{ImageParser.LORE_UNICODE}{ImageParser.STRENGTH_UNICODE}{ImageParser.WILLPOWER_UNICODE}{ImageParser.INKWELL_UNICODE}] ?", " ", outputRulesText)
+				outputRulesText = outputRulesText.replace("  ", " ").replace(" .", ".")
+			else:
+				outputRulesText = ""
 
 			if inputRulesText != outputRulesText:
 				cardDifferencesCount += 1
