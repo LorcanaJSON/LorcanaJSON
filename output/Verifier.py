@@ -57,7 +57,7 @@ def compareInputToOutput(cardIdsToVerify: Union[List[int], None]):
 				_printDifferencesDescription(f"{outputCard['fullName']} (ID {outputCard['id']})", "rules text", inputRulesText, outputRulesText)
 
 		# Compare flavor text
-		if inputCard.get("flavor_text", None) and "flavorText" in outputCard:
+		if inputCard.get("flavor_text", None) or "flavorText" in outputCard:
 			if "flavor_text" in inputCard and inputCard["flavor_text"] != "ERRATA":
 				inputFlavorText: str = inputCard["flavor_text"].replace("\u00a0", "").replace("‘", "'").replace("’", "'").replace("…", "...").replace(" ..", "..").replace(".. ", "..").replace("<", "").replace(">", "").replace("%", " ").rstrip()
 				if inputFlavorText.endswith(" ERRATA"):
