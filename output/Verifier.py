@@ -1,5 +1,5 @@
 import json, os, re
-from typing import List, Union
+from typing import Dict, List, Union
 
 import GlobalConfig, Language
 from OCR import ImageParser
@@ -54,7 +54,7 @@ def compareInputToOutput(cardIdsToVerify: Union[List[int], None]):
 
 			if inputRulesText != outputRulesText:
 				cardDifferencesCount += 1
-				_printDifferencesDescription(f"{outputCard['fullName']} (ID {outputCard['id']})", "rules text", inputRulesText, outputRulesText)
+				_printDifferencesDescription(outputCard, "rules text", inputRulesText, outputRulesText)
 
 		# Compare flavor text
 		if inputCard.get("flavor_text", None) or "flavorText" in outputCard:
@@ -77,10 +77,10 @@ def compareInputToOutput(cardIdsToVerify: Union[List[int], None]):
 
 			if outputFlavorText != inputFlavorText:
 				cardDifferencesCount += 1
-				_printDifferencesDescription(f"{outputCard['fullName']} (ID {outputCard['id']})", "flavor text", inputFlavorText, outputFlavorText)
+				_printDifferencesDescription(outputCard, "flavor text", inputFlavorText, outputFlavorText)
 	print(f"Found {cardDifferencesCount:,} difference{'' if cardDifferencesCount == 1 else 's'} between input and output")
 
-def _printDifferencesDescription(cardDescriptor: str, fieldName: str, inputString: str, outputString: str):
+def _printDifferencesDescription(outputCard: Dict, fieldName: str, inputString: str, outputString: str):
 	maxCharIndex = max(len(inputString), len(outputString))
 	fieldDifferencesPointers = [" " for _ in range(maxCharIndex)]
 	fieldDifferencesCount = 0
@@ -88,8 +88,7 @@ def _printDifferencesDescription(cardDescriptor: str, fieldName: str, inputStrin
 		if len(inputString) <= charIndex or len(outputString) <= charIndex or inputString[charIndex] != outputString[charIndex]:
 			fieldDifferencesPointers[charIndex] = "^"
 			fieldDifferencesCount += 1
-	print(f"{cardDescriptor}, {fieldName}, {fieldDifferencesCount:,} difference{'' if fieldDifferencesCount == 1 else 's'}:\n"
+	print(f"{outputCard['fullName']} (ID {outputCard['id']}), {fieldName}, {fieldDifferencesCount:,} difference{'' if fieldDifferencesCount == 1 else 's'}:\n"
 		  f"  IN:  {inputString!r}\n"
 		  f"  OUT: {outputString!r}\n"
 		  f"        {''.join(fieldDifferencesPointers)}")
-
