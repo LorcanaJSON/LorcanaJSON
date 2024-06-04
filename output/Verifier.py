@@ -5,6 +5,8 @@ import GlobalConfig, Language
 from OCR import ImageParser
 
 
+_subtypeSeparatorString = f" {ImageParser.SEPARATOR_UNICODE} "
+
 def compareInputToOutput(cardIdsToVerify: Union[List[int], None]):
 	inputFilePath = os.path.join("downloads", "json", f"carddata.{GlobalConfig.language.code}.json")
 	if not os.path.isfile(inputFilePath):
@@ -30,6 +32,7 @@ def compareInputToOutput(cardIdsToVerify: Union[List[int], None]):
 		if cardIdsToVerify and outputCard["id"] not in cardIdsToVerify:
 			continue
 		inputCard = idToInputCard[outputCard["id"]]
+
 		# Compare rules text
 		if inputCard.get("rules_text", None) or outputCard["fullText"]:
 			if inputCard.get("rules_text", None):
@@ -78,6 +81,15 @@ def compareInputToOutput(cardIdsToVerify: Union[List[int], None]):
 			if outputFlavorText != inputFlavorText:
 				cardDifferencesCount += 1
 				_printDifferencesDescription(outputCard, "flavor text", inputFlavorText, outputFlavorText)
+
+		# Compare subtypes
+		if inputCard["subtypes"] or "subtypes" in outputCard:
+			inputSubtypesText = _subtypeSeparatorString.join(inputCard["subtypes"])
+			outputSubtypesText = _subtypeSeparatorString.join(outputCard.get("subtypes", []))
+			if inputSubtypesText != outputSubtypesText:
+				cardDifferencesCount += 1
+				_printDifferencesDescription(outputCard, "subtypes", inputSubtypesText, outputSubtypesText)
+
 	print(f"Found {cardDifferencesCount:,} difference{'' if cardDifferencesCount == 1 else 's'} between input and output")
 
 def _printDifferencesDescription(outputCard: Dict, fieldName: str, inputString: str, outputString: str):
