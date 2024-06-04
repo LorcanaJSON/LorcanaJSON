@@ -35,7 +35,7 @@ def compareInputToOutput(cardIdsToVerify: Union[List[int], None]):
 			if inputCard.get("rules_text", None):
 				inputRulesText = inputCard["rules_text"].replace("–", "-").replace("\\", "")
 				inputRulesText = re.sub(r"(?<=\w)’(?=\w)", "'", inputRulesText)
-				inputRulesText = inputRulesText.replace("\u00a0", " " if GlobalConfig.language == Language.FRENCH else "")
+				inputRulesText = inputRulesText.replace("\u00a0", " " if GlobalConfig.language == Language.FRENCH else "").replace("  ", " ")
 				if GlobalConfig.language == Language.ENGLISH:
 					inputRulesText = inputRulesText.replace("Shift D", "Shift: D").replace("teammates’ ", "teammates' ").replace("players’ ", "players' ")
 				elif GlobalConfig.language == Language.FRENCH:
