@@ -658,6 +658,12 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 		if sevenDwarvesCheckTypes and sevenDwarvesCheckTypes[0] in subtypes and sevenDwarvesCheckTypes[1] in subtypes:
 			subtypes.remove(sevenDwarvesCheckTypes[1])
 			subtypes[subtypes.index(sevenDwarvesCheckTypes[0])] = " ".join(sevenDwarvesCheckTypes)
+		for subtypeIndex in range(len(subtypes) - 1, -1, -1):
+			subtype = subtypes[subtypeIndex]
+			# Correct 'Floodborn'
+			if subtype != "Floodborn" and re.match(r"^Flood[^b]?b?[^b]?orn$", subtype):
+				_logger.debug(f"Correcting '{subtype}' to 'Floodborn'")
+				subtypes[subtypeIndex] = "Floodborn"
 		if subtypes:
 			outputCard["subtypes"] = subtypes
 	# Card-specific corrections
