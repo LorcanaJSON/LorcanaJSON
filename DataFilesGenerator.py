@@ -136,6 +136,8 @@ def correctText(cardText: str) -> str:
 			# Misc common mistakes
 			cardLine = cardLine.replace("||", "Il")
 			cardLine = cardLine.replace("Ily", "Il y")
+			cardLine = re.sub(r"\bCa\b", "Ça", cardLine)
+			cardLine = re.sub(r"\bca\b", "ça", cardLine)
 
 		if cardLine:
 			correctedCardLines.append(cardLine)
