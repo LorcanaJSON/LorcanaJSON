@@ -113,7 +113,7 @@ def correctText(cardText: str) -> str:
 			cardLine = re.sub(r"reduced by [lI]\.", "reduced by 1.", cardLine)
 		elif GlobalConfig.language == Language.FRENCH:
 			# Correct payment text
-			cardLine = re.sub(r"\bpayer (\d+) (?:\W|O) pour\b", f"payer \\1 {ImageParser.INK_UNICODE} pour", cardLine)
+			cardLine = re.sub(r"\bpayer (\d+) (?:\W|O|Ô) pour\b", f"payer \\1 {ImageParser.INK_UNICODE} pour", cardLine)
 			cardLine = re.sub(r"(?<=vous pouvez ajouter sa )\W+(?= à celle)", ImageParser.STRENGTH_UNICODE, cardLine)
 			# Cost discount text
 			cardLine = re.sub(fr"(coûte(?:nt)? )(\d+) [^{ImageParser.INK_UNICODE} ]+", fr"\1\2 {ImageParser.INK_UNICODE}", cardLine)
