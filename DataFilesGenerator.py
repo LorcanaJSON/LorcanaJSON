@@ -57,7 +57,7 @@ def correctText(cardText: str) -> str:
 			cardLine = ImageParser.SEPARATOR_UNICODE + cardLine[1:]
 		# A 7 often gets mistaken for a /, correct that
 		cardLine = cardLine.replace(" / ", " 7 ")
-		cardLine = cardLine.replace(f"{ImageParser.INK_UNICODE}—", f"{ImageParser.INK_UNICODE} —")
+		cardLine = re.sub(f"{ImageParser.INK_UNICODE}([-—])", fr"{ImageParser.INK_UNICODE} \1", cardLine)
 
 		if GlobalConfig.language == Language.ENGLISH:
 			if re.match("[‘`']Shift ", cardLine):
