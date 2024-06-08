@@ -50,7 +50,7 @@ def correctText(cardText: str) -> str:
 		if re.search(r" [‘;]$", cardLine):
 			# Strip erroneously detected characters from the end
 			cardLine = cardLine[:-2]
-		# The Lore symbol often gets mistaken for a 4, correctt hat
+		# The Lore symbol often gets mistaken for a 4, correct hat
 		cardLine = re.sub(r"(\d) 4", fr"\1 {ImageParser.LORE_UNICODE}", cardLine)
 		if re.match(r"- \w+ \w+", cardLine):
 			# Assume this is a list, replace the start with the official separator
