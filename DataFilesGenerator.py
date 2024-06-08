@@ -28,7 +28,6 @@ def correctText(cardText: str) -> str:
 		## First simple typos ##
 		# Simplify quote mark if it's used in a contraction
 		cardLine = re.sub(r"(?<=\w)’(?=\w)", "'", cardLine)
-		cardLine = cardLine.replace(" ‘em ", " 'em ")
 		# There's usually an ink symbol between a number and a dash
 		cardLine = re.sub(r"(^| )(\d) ?[0O]?( ?[-—]|,)", fr"\1\2 {ImageParser.INK_UNICODE}\3", cardLine)
 		# For some reason it keeps reading the Strength symbol as the Euro symbol
@@ -75,7 +74,8 @@ def correctText(cardText: str) -> str:
 			if cardLine.endswith("of i"):
 				# The 'Floodborn' inksplashes sometimes confuse the reader into imagining another 'i' at the end of some reminder text, remove that
 				cardLine = cardLine.rstrip(" i")
-			# Correct some fancy qoute marks at theend of some plural possessives. This is needed on a case-by-case basis, otherwise too much text is changed
+			cardLine = cardLine.replace(" ‘em ", " 'em ")
+			# Correct some fancy qoute marks at the end of some plural possessives. This is needed on a case-by-case basis, otherwise too much text is changed
 			cardLine = re.sub(r"teammates’( |$)", r"teammates'\1", cardLine)
 			cardLine = re.sub(r"players’( |$)", r"players'\1", cardLine)
 			cardLine = re.sub(r"opponents’( |$)", r"opponents'\1", cardLine)
