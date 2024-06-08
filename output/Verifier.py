@@ -48,7 +48,7 @@ def compareInputToOutput(cardIdsToVerify: Union[List[int], None]):
 				inputRulesText = ""
 
 			if outputCard["fullText"]:
-				outputRulesText = outputCard["fullText"].replace("\n", " ")
+				outputRulesText = outputCard["fullText"].replace(" -\n", " - ").replace("-\n", "-").replace("\n", " ")
 				# Remove all the Lorcana symbols:
 				outputRulesText = re.sub(fr" ?[{ImageParser.EXERT_UNICODE}{ImageParser.INK_UNICODE}{ImageParser.LORE_UNICODE}{ImageParser.STRENGTH_UNICODE}{ImageParser.WILLPOWER_UNICODE}{ImageParser.INKWELL_UNICODE}] ?", " ", outputRulesText)
 				outputRulesText = outputRulesText.replace("  ", " ").replace(" .", ".").replace("“", "\"").replace("”", "\"")
