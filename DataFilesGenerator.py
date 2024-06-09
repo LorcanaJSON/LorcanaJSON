@@ -594,6 +594,9 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 		# Tesseract often sees the italic 'T' as an 'I', especially at the start of a word. Fix that
 		if GlobalConfig.language == Language.ENGLISH and "I" in flavorText:
 			flavorText = re.sub(r"(^|\W)I(?=[ehiow]\w)", r"\1T", flavorText)
+		elif GlobalConfig.language == Language.FRENCH and "-" in flavorText:
+			# French cards use '–' (en dash, \u2013) a lot, for quote attribution and the like, which gets read as '-' (a normal dash) often. Correct that
+			flavorText = flavorText.replace("\n-", "\n–").replace("” -", "” –")
 		outputCard["flavorText"] = flavorText
 	if parsedImageAndTextData["remainingText"] is not None:
 		abilityText = correctText(parsedImageAndTextData["remainingText"].text)
