@@ -413,7 +413,7 @@ def createOutputFiles(onlyParseIds: Union[None, List[int]] = None, shouldShowIma
 	fullCardList.sort(key=lambda card: card["id"])
 	os.makedirs(outputFolder, exist_ok=True)
 	# Add metadata
-	metaDataDict = {"formatVersion": FORMAT_VERSION, "generatedOn": datetime.datetime.utcnow().isoformat()}
+	metaDataDict = {"formatVersion": FORMAT_VERSION, "generatedOn": datetime.datetime.utcnow().isoformat(), "language": GlobalConfig.language.code}
 	outputDict = {"metadata": metaDataDict}
 
 	# Add set data
