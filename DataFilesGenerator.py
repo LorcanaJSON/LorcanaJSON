@@ -419,9 +419,9 @@ def createOutputFiles(onlyParseIds: Union[None, List[int]] = None, shouldShowIma
 	# Add set data
 	with open(os.path.join("output", f"baseSetData.json"), "r", encoding="utf-8") as baseSetDataFile:
 		setsData = json.load(baseSetDataFile)
-		for setNumber in setsData:
+		for setCode in setsData:
 			# Get just the current language's set names
-			setsData[setNumber]["name"] = setsData[setNumber].pop("names")[GlobalConfig.language.code]
+			setsData[setCode]["name"] = setsData[setCode].pop("names")[GlobalConfig.language.code]
 	outputDict["sets"] = setsData
 
 	# Create the output files
