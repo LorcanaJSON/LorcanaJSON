@@ -141,6 +141,7 @@ def correctText(cardText: str) -> str:
 			cardLine = cardLine.replace("Ily", "Il y")
 			cardLine = re.sub(r"\bCa\b", "Ça", cardLine)
 			cardLine = re.sub(r"\bca\b", "ça", cardLine)
+			cardLine = cardLine.replace("personhage", "personnage")
 
 		if cardLine:
 			correctedCardLines.append(cardLine)
