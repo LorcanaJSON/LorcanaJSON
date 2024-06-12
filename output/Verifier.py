@@ -107,7 +107,7 @@ def _printDifferencesDescription(outputCard: Dict, fieldName: str, inputString: 
 		if len(inputString) <= charIndex or len(outputString) <= charIndex or inputString[charIndex] != outputString[charIndex]:
 			fieldDifferencesPointers[charIndex] = "^"
 			fieldDifferencesCount += 1
-	print(f"{outputCard['fullName']} (ID {outputCard['id']}), {fieldName}, {fieldDifferencesCount:,} difference{'' if fieldDifferencesCount == 1 else 's'}:\n"
+	print(f"{outputCard['fullName']} (ID {outputCard['id']}, {outputCard['number']} of set {outputCard['setCode']}), {fieldName}, {fieldDifferencesCount:,} difference{'' if fieldDifferencesCount == 1 else 's'}:\n"
 		  f"  IN:  {inputString!r}\n"
 		  f"  OUT: {outputString!r}\n"
 		  f"        {''.join(fieldDifferencesPointers).rstrip()}")
