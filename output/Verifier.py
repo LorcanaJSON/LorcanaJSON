@@ -49,6 +49,7 @@ def compareInputToOutput(cardIdsToVerify: Union[List[int], None]):
 				elif GlobalConfig.language == Language.FRENCH:
 					# Exclamation marks etc. should be preceded by a space
 					inputRulesText = re.sub(r"(?<=\w)([?!:])", r" \1", inputRulesText)
+					inputRulesText = re.sub("\\.{2,}", "…", inputRulesText)
 			else:
 				inputRulesText = ""
 
