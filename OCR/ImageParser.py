@@ -229,7 +229,7 @@ class ImageParser():
 				self._logger.debug(f"{len(lines):,} lines found: {lines!r}")
 				flavorTextStartY = 0
 				for line in lines:
-					if line[0][0] < 80 or line[0][1] < 25:
+					if line[0][0] < 80 or line[0][1] < 20:
 						# Too far to the left or to the top, probably a mistaken effect label
 						self._logger.debug(f"Skipping line at {line[0]}, too close to the edge, probably a mistake")
 						continue
