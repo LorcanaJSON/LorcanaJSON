@@ -53,7 +53,7 @@ def correctText(cardText: str) -> str:
 			cardLine = cardLine[:-2]
 		# The Lore symbol often gets mistaken for a 4, correct hat
 		cardLine = re.sub(r"(\d) 4", fr"\1 {ImageParser.LORE_UNICODE}", cardLine)
-		if re.match(r"- \w+ \w+", cardLine):
+		if re.match(r"[-+»] \w{2,} \w+", cardLine):
 			# Assume this is a list, replace the start with the official separator
 			cardLine = ImageParser.SEPARATOR_UNICODE + cardLine[1:]
 		# A 7 often gets mistaken for a /, correct that
