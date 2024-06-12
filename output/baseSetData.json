@@ -51,6 +51,19 @@
     "type": "expansion",
     "number": 4
   },
+  "5": {
+    "names": {
+      "de": "",
+      "en": "Shimmering Skies",
+      "fr": "Ciel Scintillant",
+      "it": ""
+    },
+    "prereleaseDate": "2024-08-09",
+    "releaseDate": "2024-08-23",
+    "hasAllCards": false,
+    "type": "expansion",
+    "number": 5
+  },
   "Q1": {
     "names": {
       "de": "Die Luminari Chroniken: Gefahr aus der Tiefe",
