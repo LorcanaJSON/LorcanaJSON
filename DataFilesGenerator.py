@@ -445,6 +445,7 @@ def createOutputFiles(onlyParseIds: Union[None, List[int]] = None, shouldShowIma
 	for setCode, setdata in setsData.items():
 		# Add setcode to the set file, so it's easier to find. 'allCards' doesn't need it, since it's already the dictionary key there
 		setdata["code"] = setCode
+		setdata["metadata"] = metaDataDict
 		setdata["cards"] = []
 	for card in outputDict["cards"]:
 		# Remove the setNumber, if any, and the setCode, since those are clear from the setfile the card is in
@@ -455,7 +456,6 @@ def createOutputFiles(onlyParseIds: Union[None, List[int]] = None, shouldShowIma
 		if len(setData["cards"]) == 0:
 			_logger.warning(f"No cards found for set '{setId}', not creating data file for it")
 			continue
-		setData["metadata"] = metaDataDict
 		setFilePaths.append(os.path.join(setOutputFolder, f"setdata.{setId}.json"))
 		_saveFile(setFilePaths[-1], setData)
 	# Create a zipfile containing all the setfiles
