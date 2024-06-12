@@ -88,7 +88,15 @@ function handleKeyPress(e) {
 			changeDisplayedIndex(-1);
 		} else if (e.key === "ArrowRight") {
 			changeDisplayedIndex(1);
-		}
+		} else if (e.key === "e") {
+      setLanguage("en");
+    } else if (e.key === "f") {
+      setLanguage("fr");
+    } else if (e.key === "d" || e.key === "g") {
+      setLanguage("de");
+    } else if (e.key === "i") {
+      setLanguage("it");
+    }
 	}
 }
 
