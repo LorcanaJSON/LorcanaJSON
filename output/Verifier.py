@@ -110,4 +110,4 @@ def _printDifferencesDescription(outputCard: Dict, fieldName: str, inputString: 
 	print(f"{outputCard['fullName']} (ID {outputCard['id']}), {fieldName}, {fieldDifferencesCount:,} difference{'' if fieldDifferencesCount == 1 else 's'}:\n"
 		  f"  IN:  {inputString!r}\n"
 		  f"  OUT: {outputString!r}\n"
-		  f"        {''.join(fieldDifferencesPointers)}")
+		  f"        {''.join(fieldDifferencesPointers).rstrip()}")
