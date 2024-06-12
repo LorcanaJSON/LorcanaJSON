@@ -13,9 +13,6 @@
 
 <body>
 <div id="dropLocation" style="background-color: lightgreen; width: 100%; height: 100px;"><b style="text-align: center;">Drag JSON here</b></div>
-<form id="languageCodeForm" name="languageCodeForm">
-	<input id="languageCode" type="text" placeholder="en" style="max-width: 5em;" />
-</form>
 <a href="#" onclick="changeDisplayedIndex(-1); return false;">Previous</a>
 <form id="indexForm" name="indexForm">
 	<span>Index: </span>
@@ -35,6 +32,15 @@
 <hr>
 <div id="name"></div>
 <hr>
+<div>
+  <span>
+  <a href="#" onclick="setLanguage('en'); return false;">English</a>
+  <a href="#" onclick="setLanguage('fr'); return false;">French</a>
+  <a href="#" onclick="setLanguage('de'); return false;">German</a>
+  <a href="#" onclick="setLanguage('it'); return false;">Italian</a>
+  </span>
+</div>
+<br />
 <img id="img" src="" style="max-height: 900px" />
 <hr>
 <pre id="text"></pre>
@@ -90,6 +96,12 @@ function openCardImage() {
   window.open(cardsJson["cards"][currentIndex]["images"]["full"], "_blank");
 }
 
+function setLanguage(newLanguageCode) {
+	languageCode = newLanguageCode;
+	setDisplayedIndex(currentIndex);
+  return false;
+}
+
 document.addEventListener("keydown", handleKeyPress);
 document.getElementById("text").addEventListener("keydown", handleKeyPress);
 
@@ -114,12 +126,6 @@ document.getElementById("cardIdForm").addEventListener("submit", (event) => {
 	} else {
 		setDisplayedIndex(targetIndex);
 	}
-	return false;
-});
-document.getElementById("languageCodeForm").addEventListener("submit", (event) => {
-	event.preventDefault();
-	languageCode = document.getElementById("languageCode").value;
-	setDisplayedIndex(currentIndex);
 	return false;
 });
 
