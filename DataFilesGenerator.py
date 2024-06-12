@@ -131,6 +131,7 @@ def correctText(cardText: str) -> str:
 			cardLine = re.sub("(?<![A-Z])[I|/]!", "Il", cardLine)
 			# French always has a space before punctuation marks
 			cardLine = re.sub(r"(\S)!", r"\1 !", cardLine)
+			cardLine = re.sub(r"!(\w)", r"! \1", cardLine)
 			cardLine = cardLine.replace("//", "Il")
 			cardLine = re.sub(r"(?<=\(Lorsqu'il défie, ce personnage gagne )\+(\d) .\.", fr"+\1 {ImageParser.STRENGTH_UNICODE}.", cardLine)
 			# Fix second line of 'Challenger'/'Offensif' reminder text
