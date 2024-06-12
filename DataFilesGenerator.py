@@ -558,12 +558,14 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 		outputCard["fullName"] += " - " + outputCard["subtitle"]
 		outputCard["simpleName"] += " " + outputCard["subtitle"]
 	# simpleName is the full name with special characters and the base-subtitle dash removed, for easier lookup. So remove the special characters
-	outputCard["simpleName"] = (re.sub(r"[!.?]", "", outputCard["simpleName"].lower()).rstrip()
+	outputCard["simpleName"] = (re.sub(r"[!.…?]", "", outputCard["simpleName"].lower()).rstrip()
 								.replace("ā", "a")
 								.replace("é", "e")
-								.replace("œ", "oe")
 								.replace("“", "\"")
 								.replace("”", "\""))
+	if GlobalConfig.language == Language.FRENCH:
+		for charToReplace, replaceWithChar in {"à": "a", "â": "a", "ç": "c", "è": "e", "ê": "e", "í": "i", "î": "i", "ï": "i", "ô": "o", "û": "u", "œ": "oe"}.items():
+			outputCard["simpleName"] = outputCard["simpleName"].replace(charToReplace, replaceWithChar)
 	_logger.debug(f"Current card name is '{outputCard['fullName']}', ID {outputCard['id']}")
 
 	try:
