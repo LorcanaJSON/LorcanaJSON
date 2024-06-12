@@ -442,7 +442,9 @@ def createOutputFiles(onlyParseIds: Union[None, List[int]] = None, shouldShowIma
 	setOutputFolder = os.path.join(outputFolder, "sets")
 	os.makedirs(setOutputFolder, exist_ok=True)
 	setFilePaths = []
-	for setdata in setsData.values():
+	for setCode, setdata in setsData.items():
+		# Add setcode to the set file, so it's easier to find. 'allCards' doesn't need it, since it's already the dictionary key there
+		setdata["code"] = setCode
 		setdata["cards"] = []
 	for card in outputDict["cards"]:
 		# Remove the setNumber, if any, and the setCode, since those are clear from the setfile the card is in
