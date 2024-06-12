@@ -69,6 +69,7 @@ def compareInputToOutput(cardIdsToVerify: Union[List[int], None]):
 		if inputCard.get("flavor_text", None) or "flavorText" in outputCard:
 			if "flavor_text" in inputCard and inputCard["flavor_text"] != "ERRATA":
 				inputFlavorText: str = inputCard["flavor_text"].replace("\u00a0", "").replace("‘", "'").replace("’", "'").replace("…", "...").replace(" ..", "..").replace(".. ", "..").replace("<", "").replace(">", "").replace("%", " ").rstrip()
+				inputFlavorText = inputFlavorText.replace("  ", " ")
 				if inputFlavorText.endswith(" ERRATA"):
 					inputFlavorText = inputFlavorText.rsplit(" ", 1)[0]
 				if GlobalConfig.language == Language.FRENCH:
