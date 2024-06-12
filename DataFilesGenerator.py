@@ -8,6 +8,7 @@ from output.StoryParser import StoryParser
 
 _logger = logging.getLogger("LorcanaJSON")
 FORMAT_VERSION = "1.3.0"
+_CARD_CODE_LOOKUP = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 # The card parser is run in threads, and each thread needs to initialize its own ImageParser (otherwise weird errors happen in Tesseract)
 # Store each initialized ImageParser in its own thread storage
 _threadingLocalStorage = threading.local()
@@ -476,6 +477,11 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 	}
 	if isExternalReveal:
 		outputCard["isExternalReveal"] = True
+
+	# When building a deck in the official app, it gets saves as a string. This string starts with a '2', and then each card gets a two-character code based on the card's ID
+	# This card code is the card ID in base 62, using 0-9, a-z, and then A-Z for individual digits
+	cardCodeDigits = divmod(outputCard["id"], 62)
+	outputCard["code"] = _CARD_CODE_LOOKUP[cardCodeDigits[0]] + _CARD_CODE_LOOKUP[cardCodeDigits[1]]
 
 	# Get required data by parsing the card image
 	imagePath = os.path.join(imageFolder, f"{outputCard['id']}.jpg")
