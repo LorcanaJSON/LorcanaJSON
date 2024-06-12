@@ -162,6 +162,7 @@ def correctPunctuation(textToCorrect: str) -> str:
 		correctedText = re.sub(r"([\xa0 ]?\.[\xa0 ]?){3}", "..." if GlobalConfig.language == Language.ENGLISH else "…", correctedText)
 	if ".…" in correctedText:
 		correctedText = re.sub(r"\.+…", "…", correctedText)
+	correctedText = correctedText.rstrip(" -_")
 	if correctedText != textToCorrect:
 		_logger.info(f"Corrected punctuation from {textToCorrect!r} to {correctedText!r}")
 	return correctedText
