@@ -613,7 +613,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 			flavorText = flavorText.replace("\n-", "\n–").replace("” -", "” –")
 		outputCard["flavorText"] = flavorText
 	if parsedImageAndTextData["remainingText"] is not None:
-		abilityText = correctText(parsedImageAndTextData["remainingText"].text)
+		abilityText = correctText(parsedImageAndTextData["remainingText"].text).lstrip("“")
 		# TODO FIXME Song reminder text is at the top of a Song card, should probably not be listed in the 'abilities' list
 		abilityLines = re.sub(r"(\.\)?\n)", r"\1\n", abilityText).split("\n\n")
 		for abilityLineIndex in range(len(abilityLines) - 1, 0, -1):
