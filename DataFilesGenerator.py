@@ -626,11 +626,12 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 		for effectIndex in range(len(parsedImageAndTextData["effectLabels"])):
 			effectName = correctPunctuation(parsedImageAndTextData["effectLabels"][effectIndex].text.replace("’", "'").replace("''", "'"))
 			if GlobalConfig.language == Language.FRENCH:
-				if "!" in effectName:
-					# French puts a space before an exclamation mark, add that in
-					effectName, replacementCount = re.subn(r"(\S)!", r"\1 !", effectName)
+				effectName = re.sub("A ?!(?=.{3,})", "AI", effectName)
+				if "!" in effectName or "?" in effectName:
+					# French puts a space before an exclamation or question mark, add that in
+					effectName, replacementCount = re.subn(r"(\S)([!?])", r"\1 \2", effectName)
 					if replacementCount > 0:
-						_logger.debug(f"Added a space before the exclamation mark in effect '{effectName}'")
+						_logger.debug(f"Added a space before the exclamation or question mark in effect '{effectName}'")
 				effectName, replacementCount = re.subn(r"\bCA\b", "ÇA", effectName)
 				if replacementCount > 0:
 					_logger.debug(f"Corrected 'CA' to 'ÇA' in effect '{effectName}'")
