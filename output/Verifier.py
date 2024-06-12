@@ -31,6 +31,11 @@ def compareInputToOutput(cardIdsToVerify: Union[List[int], None]):
 	for outputCard in outputCardStore["cards"]:
 		if cardIdsToVerify and outputCard["id"] not in cardIdsToVerify:
 			continue
+		if outputCard.get("isExternalReval", False):
+			continue
+		if outputCard["id"] not in idToInputCard:
+			print(f"WARNING: '{outputCard['fullName']}' (ID {outputCard['id']}) does not exist in the input file, skipping")
+			continue
 		inputCard = idToInputCard[outputCard["id"]]
 
 		# Compare rules text
