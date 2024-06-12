@@ -61,6 +61,7 @@
     "prereleaseDate": "2024-05-17",
     "releaseDate": "2024-05-31",
     "hasAllCards": true,
-    "type": "quest"
+    "type": "quest",
+    "number": 1
   }
 }
