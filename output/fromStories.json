@@ -193,8 +193,8 @@
       "fr": "Lorcana",
       "it": "Lorcana"
     },
-    "matchingNames": ["Venturo"],
-    "matchingIds": [380, 535, 789, 792, 825, 859, 891],
+    "matchingNames": ["Hexwell", "Venturo"],
+    "matchingIds": [380, 535, 789, 792, 825, 859, 891, 1172],
     "matchingFields": {
       "card_identifier": " Q1$"
     }
@@ -382,7 +382,7 @@
     "displayNames": {
       "de": "Winnie Puuh",
       "en": "Winnie the Pooh",
-      "fr": "Winnie l'ourson",
+      "fr": "Winnie l'Ourson",
       "it": "Winnie the Pooh"
     },
     "matchingNames": ["Christopher Robin", "Eeyore", "Owl", "Piglet", "Rabbit", "Tigger", "Winnie the Pooh"],
