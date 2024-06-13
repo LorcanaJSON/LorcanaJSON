@@ -14,7 +14,7 @@ if __name__ == '__main__':
 																										 "'parse' parses the images specified in the 'cardIds' argument. "
 																										 "'show' shows the image(s) specified in the 'cardIds' argument along with subimages used in parsing. "
 																										 "'verify' compares the input and the output files and lists differences for important fields")
-	argumentParser.add_argument("--loglevel", dest="loglevel", choices=("debug", "info", "warning", "error"), default=None, help="Specify the log level. If omitted, defaults to 'warning'")
+	argumentParser.add_argument("--loglevel", dest="loglevel", choices=("debug", "info", "warn", "warning", "error"), default=None, help="Specify the log level. If omitted, defaults to 'warning'")
 	argumentParser.add_argument("--tesseractPath", help="Specify the path to Tesseract. This is needed if Tesseract can't just be called with 'tesseract' from the commandline")
 	argumentParser.add_argument("--language", help="Specify the language to use by its two-letter code. Defaults to 'en'", default="en")
 	argumentParser.add_argument("--cardIds", nargs="*", help="List the card IDs to parse. For the 'show' action, specify one or more card IDs to show. "
@@ -42,7 +42,7 @@ if __name__ == '__main__':
 		loglevel = logging.DEBUG
 	elif loglevelName == "info":
 		loglevel = logging.INFO
-	elif loglevelName == "warning":
+	elif loglevelName == "warn" or loglevelName == "warning":
 		loglevel = logging.WARNING
 	elif loglevelName == "error":
 		loglevel = logging.ERROR
