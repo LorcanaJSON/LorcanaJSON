@@ -1,0 +1,954 @@
+{
+  "1": {
+    "flavorText": [
+      ".*",
+      "“…”"
+    ]
+  },
+  "3": {
+    "effects": [
+      "Dommacge",
+      "Dommage"
+    ]
+  },
+  "5": {
+    "flavorText": [
+      "J'",
+      "j'"
+    ]
+  },
+  "6": {
+    "flavorText": [
+      "s a",
+      "s'a"
+    ]
+  },
+  "9": {
+    "flavorText": [
+      "aga",
+      "aaa"
+    ]
+  },
+  "15": {
+    "flavorText": [
+      "\\.””",
+      "?”"
+    ]
+  },
+  "27": {
+    "baseName": [
+      "m",
+      "M"
+    ],
+    "flavorText": [
+      "Mois",
+      "Mais"
+    ],
+    "fullName": [
+      "m",
+      "M"
+    ]
+  },
+  "34": {
+    "baseName": [
+      "d'u",
+      "d'U"
+    ],
+    "fullName": [
+      "d'u",
+      "d'U"
+    ]
+  },
+  "38": {
+    "abilities": [
+      "\\d+\\.\\)",
+      "+2 ¤.)"
+    ],
+    "flavorText": [
+      "Enchont",
+      "Enchant"
+    ]
+  },
+  "42": {
+    "effects": [
+      "LI",
+      "L I"
+    ],
+    "flavorText": [
+      "^l",
+      "L"
+    ]
+  },
+  "45": {
+    "abilities": [
+      "\\d+\\.\\)",
+      "+3 ¤.)"
+    ]
+  },
+  "47": {
+    "baseName": [
+      "M",
+      "m"
+    ],
+    "fullName": [
+      "M",
+      "m"
+    ]
+  },
+  "48": {
+    "flavorText": [
+      "IL",
+      "Il"
+    ]
+  },
+  "51": {
+    "flavorText": [
+      " I ",
+      " Il "
+    ]
+  },
+  "56": {
+    "effects": [
+      "JETE",
+      "JE TE"
+    ]
+  },
+  "58": {
+    "effects": [
+      "Is ",
+      "Ils "
+    ]
+  },
+  "60": {
+    "effects": [
+      "TES",
+      "T'ES "
+    ]
+  },
+  "64": {
+    "flavorText": [
+      "t\\.$",
+      "t…"
+    ]
+  },
+  "67": {
+    "baseName": [
+      "d'u",
+      "d'U"
+    ],
+    "fullName": [
+      "d'u",
+      "d'U"
+    ]
+  },
+  "68": {
+    "effects": [
+      "NR",
+      "N R"
+    ]
+  },
+  "76": {
+    "abilities": [
+      "^.+Alt",
+      "Alt"
+    ]
+  },
+  "81": {
+    "flavorText": [
+      "J'tai",
+      "J't'ai"
+    ]
+  },
+  "83": {
+    "flavorText": [
+      " !",
+      "!"
+    ]
+  },
+  "88": {
+    "flavorText": [
+      "s\\.$",
+      "s…"
+    ]
+  },
+  "94": {
+    "flavorText": [
+      "s\\.",
+      "s…"
+    ]
+  },
+  "98": {
+    "flavorText": [
+      "e\\.",
+      "e…"
+    ]
+  },
+  "99": {
+    "baseName": [
+      "b",
+      "B"
+    ],
+    "flavorText": [
+      "IL",
+      "Il"
+    ],
+    "fullName": [
+      "b",
+      "B"
+    ]
+  },
+  "101": {
+    "baseName": [
+      "dr. f",
+      "Dr. F"
+    ],
+    "fullName": [
+      "dr. f",
+      "Dr. F"
+    ]
+  },
+  "112": {
+    "effects": [
+      "e, C",
+      "e. C"
+    ]
+  },
+  "114": {
+    "flavorText": [
+      " M",
+      " ‘M",
+      "!”",
+      "!’"
+    ]
+  },
+  "117": {
+    "effects": [
+      "ä",
+      "ā"
+    ]
+  },
+  "120": {
+    "flavorText": [
+      "A ",
+      "À ",
+      "… j",
+      "…, j"
+    ]
+  },
+  "121": {
+    "subtypes": [
+      "Storyborn",
+      "Dreamborn"
+    ]
+  },
+  "123": {
+    "flavorText": [
+      "\\|",
+      "Il"
+    ]
+  },
+  "127": {
+    "flavorText": [
+      "Do",
+      "bo"
+    ]
+  },
+  "134": {
+    "effects": [
+      " - ",
+      " – "
+    ],
+    "flavorText": [
+      "s\\.”",
+      "s…”"
+    ]
+  },
+  "135": {
+    "effects": [
+      " I ",
+      " Il "
+    ]
+  },
+  "138": {
+    "effects": [
+      "2(?=\\n)",
+      "2 ¤"
+    ],
+    "flavorText": [
+      "•",
+      "—"
+    ]
+  },
+  "139": {
+    "abilities": [
+      "nñ",
+      "nn"
+    ],
+    "effects": [
+      " !/s",
+      "Ils"
+    ]
+  },
+  "146": {
+    "flavorText": [
+      "lala",
+      "Tala"
+    ]
+  },
+  "147": {
+    "effects": [
+      "ILUN",
+      "IL UN"
+    ]
+  },
+  "157": {
+    "effects": [
+      "LIT",
+      "LI T"
+    ],
+    "flavorText": [
+      "s\\. ",
+      "s… "
+    ]
+  },
+  "162": {
+    "flavorText": [
+      "cest",
+      "c'est"
+    ]
+  },
+  "167": {
+    "flavorText": [
+      "s\\.",
+      "s…"
+    ]
+  },
+  "170": {
+    "baseName": [
+      "d'a",
+      "d'A"
+    ],
+    "effects": [
+      "%",
+      "¤"
+    ],
+    "fullName": [
+      "d'a",
+      "d'A"
+    ]
+  },
+  "173": {
+    "effects": [
+      "MEC",
+      "MÊC"
+    ]
+  },
+  "176": {
+    "flavorText": [
+      "s\\.",
+      "s…"
+    ]
+  },
+  "178": {
+    "flavorText": [
+      "\\.”",
+      "…”"
+    ]
+  },
+  "184": {
+    "flavorText": [
+      "“l",
+      "“L"
+    ]
+  },
+  "187": {
+    "abilities": [
+      "120",
+      "+2 ¤"
+    ]
+  },
+  "189": {
+    "effects": [
+      " !/",
+      "Il"
+    ]
+  },
+  "191": {
+    "flavorText": [
+      "\\.”",
+      "”"
+    ]
+  },
+  "193": {
+    "abilities": [
+      "\\.\\)",
+      ")"
+    ]
+  },
+  "198": {
+    "baseName": [
+      "b",
+      "B"
+    ],
+    "flavorText": [
+      "^l",
+      "L"
+    ],
+    "fullName": [
+      "b",
+      "B"
+    ]
+  },
+  "200": {
+    "flavorText": [
+      "““",
+      "“"
+    ]
+  },
+  "201": {
+    "baseName": [
+      "b",
+      "B"
+    ],
+    "fullName": [
+      "b",
+      "B"
+    ]
+  },
+  "204": {
+    "effects": [
+      "--",
+      "-"
+    ],
+    "flavorText": [
+      "w' ",
+      "w’ ",
+      "–",
+      "—"
+    ]
+  },
+  "207": {
+    "effects": [
+      "LI",
+      "L I"
+    ]
+  },
+  "211": {
+    "artist": [
+      "la",
+      "lia"
+    ]
+  },
+  "212": {
+    "artist": [
+      "/S",
+      "/ S"
+    ]
+  },
+  "216": {
+    "abilities": [
+      "\\.\\)",
+      ")"
+    ],
+    "artist": [
+      "^M.+y$",
+      "Cookie"
+    ]
+  },
+  "217": {
+    "effects": [
+      "H\\.",
+      "H…"
+    ]
+  },
+  "220": {
+    "flavorText": [
+      "\\.”",
+      "”",
+      "”$",
+      "” ?"
+    ]
+  },
+  "223": {
+    "flavorText": [
+      "^l",
+      "L"
+    ]
+  },
+  "226": {
+    "effects": [
+      "ILY",
+      "IL Y"
+    ]
+  },
+  "227": {
+    "flavorText": [
+      ",$",
+      "."
+    ]
+  },
+  "228": {
+    "effects": [
+      "JEM",
+      "JE M",
+      "NO",
+      "N O"
+    ]
+  },
+  "233": {
+    "flavorText": [
+      "^l",
+      "L"
+    ]
+  },
+  "235": {
+    "effects": [
+      ":",
+      ""
+    ]
+  },
+  "236": {
+    "effects": [
+      " - ",
+      " – "
+    ]
+  },
+  "237": {
+    "effects": [
+      "…\\.",
+      "…"
+    ]
+  },
+  "240": {
+    "flavorText": [
+      "0",
+      "a",
+      "\\.”",
+      "”"
+    ]
+  },
+  "242": {
+    "effects": [
+      "¤ p",
+      "¤, p"
+    ]
+  },
+  "245": {
+    "flavorText": [
+      "Q",
+      "O",
+      "”\n; ’\n—",
+      "”\n—"
+    ]
+  },
+  "246": {
+    "abilities": [
+      "1\n",
+      "1 ¤\n"
+    ]
+  },
+  "247": {
+    "abilities": [
+      "5",
+      "5 ¤"
+    ]
+  },
+  "248": {
+    "abilities": [
+      "X \\w,",
+      "X ⬡,"
+    ]
+  },
+  "255": {
+    "abilities": [
+      "1",
+      "3"
+    ]
+  },
+  "257": {
+    "effects": [
+      "%%",
+      "¤"
+    ]
+  },
+  "258": {
+    "effects": [
+      "”",
+      "'"
+    ]
+  },
+  "259": {
+    "effects": [
+      "ILEST",
+      "IL EST"
+    ]
+  },
+  "262": {
+    "abilities": [
+      null,
+      [
+        "Charge (Ce personnage peut défier le tour où il\nest joué.)"
+      ]
+    ],
+    "effects": [
+      "\nCharge.+$",
+      ""
+    ],
+    "fullText": [
+      "(^.+\\.\\))\n(À LA POURSUITE.+$)",
+      "\\2\n\\1"
+    ]
+  },
+  "263": {
+    "flavorText": [
+      "jai",
+      "j'ai"
+    ]
+  },
+  "264": {
+    "effects": [
+      " - ",
+      " – "
+    ]
+  },
+  "266": {
+    "effects": [
+      "©",
+      "¤"
+    ]
+  },
+  "270": {
+    "flavorText": [
+      "Na",
+      "N'a"
+    ]
+  },
+  "274": {
+    "flavorText": [
+      "•",
+      "–"
+    ]
+  },
+  "279": {
+    "flavorText": [
+      "-",
+      "–"
+    ]
+  },
+  "281": {
+    "effects": [
+      " - ",
+      " – "
+    ]
+  },
+  "282": {
+    "effects": [
+      " - ",
+      " – "
+    ]
+  },
+  "294": {
+    "effects": [
+      "2\n",
+      "2 ¤\n"
+    ]
+  },
+  "299": {
+    "effects": [
+      ":",
+      ""
+    ],
+    "fullText": [
+      "E T",
+      "E\nT"
+    ]
+  },
+  "302": {
+    "flavorText": [
+      "\n–",
+      "\n-"
+    ]
+  },
+  "305": {
+    "effects": [
+      "JETE",
+      "JE TE"
+    ]
+  },
+  "309": {
+    "effects": [
+      "\\$",
+      "◊"
+    ],
+    "flavorText": [
+      "\\.",
+      "…"
+    ]
+  },
+  "315": {
+    "abilities": [
+      "1 ",
+      "1 ¤ "
+    ]
+  },
+  "316": {
+    "flavorText": [
+      "J",
+      "j"
+    ]
+  },
+  "317": {
+    "flavorText": [
+      "A",
+      "À"
+    ]
+  },
+  "318": {
+    "effects": [
+      " - ",
+      " – "
+    ]
+  },
+  "321": {
+    "flavorText": [
+      "Ô",
+      "ô"
+    ]
+  },
+  "322": {
+    "effects": [
+      "NAIA",
+      "N AI A"
+    ]
+  },
+  "323": {
+    "flavorText": [
+      "\n–",
+      "\n-"
+    ]
+  },
+  "328": {
+    "flavorText": [
+      "sem",
+      "s'em"
+    ]
+  },
+  "330": {
+    "abilities": [
+      "^.+Alter",
+      "Alter"
+    ]
+  },
+  "332": {
+    "effects": [
+      "\\* ",
+      ""
+    ]
+  },
+  "334": {
+    "effects": [
+      " - ",
+      " – "
+    ]
+  },
+  "337": {
+    "effects": [
+      " I ",
+      " Il "
+    ]
+  },
+  "344": {
+    "flavorText": [
+      "Â",
+      "A",
+      "D",
+      "b"
+    ]
+  },
+  "348": {
+    "flavorText": [
+      " – ",
+      " - "
+    ]
+  },
+  "350": {
+    "effects": [
+      " - ",
+      " – "
+    ]
+  },
+  "352": {
+    "abilities": [
+      " - ",
+      " – "
+    ]
+  },
+  "353": {
+    "effects": [
+      "%\\*",
+      "¤"
+    ]
+  },
+  "354": {
+    "abilities": [
+      "ce °°",
+      " ce"
+    ],
+    "effects": [
+      "LY",
+      "L Y"
+    ]
+  },
+  "359": {
+    "effects": [
+      "\\(@",
+      "⟳",
+      " - ",
+      " – "
+    ]
+  },
+  "361": {
+    "flavorText": [
+      "Cest",
+      "C'est"
+    ]
+  },
+  "367": {
+    "effects": [
+      "\\|",
+      "1"
+    ]
+  },
+  "368": {
+    "flavorText": [
+      "\\bfoire\\b",
+      "faire"
+    ]
+  },
+  "374": {
+    "flavorText": [
+      "\\bYa\\b",
+      "Y'a",
+      "\\.”",
+      "””"
+    ]
+  },
+  "377": {
+    "flavorText": [
+      "\\blo\\b",
+      "la"
+    ]
+  },
+  "382": {
+    "effects": [
+      " -(?= |\n)",
+      " –",
+      "-2",
+      "-2 ¤"
+    ]
+  },
+  "383": {
+    "effects": [
+      "\\(9 -",
+      "⟳ –"
+    ],
+    "fullText": [
+      " ⟳",
+      "\n⟳"
+    ]
+  },
+  "385": {
+    "effects": [
+      " -",
+      " –"
+    ]
+  },
+  "386": {
+    "effects": [
+      "l/s",
+      "Ils"
+    ],
+    "flavorText": [
+      "/",
+      "7",
+      "\n–",
+      "\n-"
+    ]
+  },
+  "394": {
+    "flavorText": [
+      "por",
+      "par"
+    ]
+  },
+  "397": {
+    "abilities": [
+      " 5",
+      ""
+    ]
+  },
+  "398": {
+    "flavorText": [
+      "-1 ",
+      "-I "
+    ]
+  },
+  "403": {
+    "flavorText": [
+      "““",
+      "“"
+    ]
+  },
+  "409": {
+    "effects": [
+      " -",
+      " –"
+    ],
+    "flavorText": [
+      "nav",
+      "n'av"
+    ]
+  },
+  "414": {
+    "abilities": [
+      "&\\*",
+      "¤"
+    ],
+    "flavorText": [
+      "\\|",
+      "Il"
+    ]
+  },
+  "418": {
+    "effects": [
+      " - ",
+      " – ",
+      " D\\.",
+      " ¤."
+    ]
+  },
+  "419": {
+    "effects": [
+      " - ",
+      " – "
+    ]
+  },
+  "420": {
+    "effects": [
+      "1 O",
+      "1 ⬡"
+    ]
+  },
+  "429": {
+    "effects": [
+      "%\\*",
+      "¤"
+    ]
+  },
+  "430": {
+    "effects": [
+      "NT",
+      "N T"
+    ]
+  }
+}
