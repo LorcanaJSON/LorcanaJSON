@@ -540,7 +540,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 	if outputCard["baseName"].isupper():
 		# Some names have capitals in the middle, correct those
 		if cardType == Language.TRANSLATIONS[GlobalConfig.language]["Character"]:
-			if outputCard["baseName"] == "HEIHEI":
+			if outputCard["baseName"] == "HEIHEI" and GlobalConfig.language == Language.ENGLISH:
 				outputCard["baseName"] = "HeiHei"
 			elif outputCard["baseName"] == "LEFOU":
 				outputCard["baseName"] = "LeFou"
