@@ -359,7 +359,7 @@ class ImageParser():
 			originalResult = result
 			if result == "O":
 				result = "0"
-			elif result == "l":
+			elif result == "l" or result == "|":
 				result = "1"
 			elif result == "b":
 				result = "6"
