@@ -755,6 +755,22 @@
       "+3 ¤."
     ]
   },
+  "560": {
+    "effects": [
+      "character\\..+$",
+      "character."
+    ],
+    "abilities": [
+      null,
+      [
+        "Evasive (Only characters with Evasive can challenge this character.)"
+      ]
+    ],
+    "fullText": [
+      "(^.+\\.\\))\n(THE FOX.+$)",
+      "\\2\n\\1"
+    ]
+  },
   "562": {
     "effects": [
       "\\+1 ¤",
