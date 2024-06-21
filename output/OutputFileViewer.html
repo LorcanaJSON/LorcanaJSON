@@ -84,6 +84,9 @@ function setDisplayedIndex(newIndex) {
   // Some 'fullText' goes off the screen, creating a scrollbar. Pressing left or right both scrolls and changes index. Reset horizontal scroll after changing index so we don't start a new image scrolled
   document.scrollLeft = 0;
   document.getElementById("text").scrollLeft = 0;
+  // Deselect input fields, so typing letters or pressing arrows doesn't (also) affect the input field
+  document.getElementById("currentIndex").blur();
+  document.getElementById("cardId").blur();
 }
 function handleKeyPress(e) {
 	if (!e.repeat) {
