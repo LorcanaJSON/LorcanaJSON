@@ -81,6 +81,9 @@ function setDisplayedIndex(newIndex) {
 	document.getElementById("cardJson").textContent = JSON.stringify(currentCardData, null, "\t");
 	document.getElementById("currentIndex").value = currentIndex;
 	document.getElementById("cardId").value = currentCardData["id"];
+  // Some 'fullText' goes off the screen, creating a scrollbar. Pressing left or right both scrolls and changes index. Reset horizontal scroll after changing index so we don't start a new image scrolled
+  document.scrollLeft = 0;
+  document.getElementById("text").scrollLeft = 0;
 }
 function handleKeyPress(e) {
 	if (!e.repeat) {
@@ -98,6 +101,9 @@ function handleKeyPress(e) {
       setLanguage("it");
     }
 	}
+  if (e.key == "ArrowLeft" || e.key == "ArrowRight") {
+    e.preventDefault();
+  }
 }
 
 function openCardImage() {
