@@ -163,6 +163,7 @@ def correctPunctuation(textToCorrect: str) -> str:
 	if ".…" in correctedText:
 		correctedText = re.sub(r"\.+…", "…", correctedText)
 	correctedText = correctedText.rstrip(" -_")
+	correctedText = correctedText.replace("““", "“")
 	if correctedText != textToCorrect:
 		_logger.info(f"Corrected punctuation from {textToCorrect!r} to {correctedText!r}")
 	return correctedText
