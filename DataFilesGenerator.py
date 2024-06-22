@@ -722,7 +722,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 		# Find the ability name at the start of a sentence, optionally followed by a number, and then followed by the opening bracket of the reminder text
 		for abilityLine in outputCard["abilities"]:
 			# To prevent accidental matches, check if it's actually a keyword ability, and not just the last word(s) of a sentence. Check by assuming keyword abilities never end in a period
-			abilityMatch = re.search(r"(?:^|\n)([A-Z][^.]+)(?= \()", abilityLine)
+			abilityMatch = re.search(r"(?:^|\n)([A-ZÀ][^.]+)(?= \()", abilityLine)
 			if abilityMatch:
 				keywordAbilities.append(abilityMatch.group(1))
 			# Some cards list keyword abilities without reminder text, sometimes multiple separated by commas
