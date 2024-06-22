@@ -516,7 +516,9 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 	if "card_identifier" in inputCard and isPromoCard is not True:
 		outputCard["fullIdentifier"] = inputCard["card_identifier"].replace(" ", f" {ImageParser.SEPARATOR_UNICODE} ")
 	else:
-		outputCard["fullIdentifier"] = re.sub(fr" ?\W (?!$)", f" {ImageParser.SEPARATOR_UNICODE} ", parsedImageAndTextData["identifier"].text).replace("I", "/").replace("1P ", "/P ")
+		outputCard["fullIdentifier"] = re.sub(fr" ?\W (?!$)", f" {ImageParser.SEPARATOR_UNICODE} ", parsedImageAndTextData["identifier"].text)
+		outputCard["fullIdentifier"] = outputCard["fullIdentifier"].replace("I", "/").replace("1P ", "/P ")
+		outputCard["fullIdentifier"] = re.sub(fr" ?[-+] ?", f" {ImageParser.SEPARATOR_UNICODE} ", outputCard["fullIdentifier"])
 
 	# Get the set and card numbers from the identifier
 	# Use the input card's identifier instead of the output card's, because the former's layout is consistent, while the latter's isn't (mainly in Set 1 promos)
