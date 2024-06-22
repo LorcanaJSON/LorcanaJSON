@@ -121,6 +121,8 @@ def correctText(cardText: str) -> str:
 			cardLine = re.sub(fr"(coûte(?:nt)? )(\d+) [^{ImageParser.INK_UNICODE} ]+", fr"\1\2 {ImageParser.INK_UNICODE}", cardLine)
 			# Song card reminder text
 			cardLine = re.sub(fr"Vous pouvez [^ {ImageParser.EXERT_UNICODE}]+ un(e carte)? personnage coûtant", f"Vous pouvez {ImageParser.EXERT_UNICODE} un\\1 personnage coûtant", cardLine)
+			# 'Sing Together' reminder text
+			cardLine = re.sub(fr"\(Vous pouvez [^ {ImageParser.EXERT_UNICODE}]+ n'importe quel", f"(Vous pouvez {ImageParser.EXERT_UNICODE} n'importe quel", cardLine)
 			# Fix punctuation by turning multiple periods into an ellipsis character, and correct ellipsis preceded or followed by periods
 			cardLine = re.sub(r"…?\.{2,}…?", "…", cardLine)
 			# Ellipsis get misread as periods often, try to correct that
