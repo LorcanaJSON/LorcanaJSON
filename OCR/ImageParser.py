@@ -182,14 +182,14 @@ class ImageParser():
 						checkValue = textBoxImageToCheck[yToCheck, x]
 						if (isQuest and checkValue[0] > 60 and checkValue[1] > 35) or (not isQuest and checkValue > 120):
 							successiveLightPixels += 1
-							if successiveLightPixels > 4:
+							if successiveLightPixels > 5:
 								if x < 100:
 									self._logger.debug(f"Skipping label at {currentCoords=} and {x=}, not wide enough to be a label")
 									currentCoords[0] = 0
 									currentCoords[1] = 0
 									isCurrentlyInLabel = False
 								else:
-									currentCoords[2] = x - _EFFECT_LABEL_MARGIN - 5
+									currentCoords[2] = x - _EFFECT_LABEL_MARGIN - 6
 								break
 						else:
 							successiveLightPixels = 0
