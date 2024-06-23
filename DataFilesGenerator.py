@@ -30,7 +30,7 @@ def correctText(cardText: str) -> str:
 		# Simplify quote mark if it's used in a contraction
 		cardLine = re.sub(r"(?<=\w)’(?=\w)", "'", cardLine)
 		# There's usually an ink symbol between a number and a dash
-		cardLine = re.sub(r"(^| )(\d) ?[0O©]?( ?[-—]|,)", fr"\1\2 {ImageParser.INK_UNICODE}\3", cardLine)
+		cardLine = re.sub(r"(^| )(\d) ?[0OQ©]?( ?[-—]|,)", fr"\1\2 {ImageParser.INK_UNICODE}\3", cardLine)
 		# For some reason it keeps reading the Strength symbol as the Euro symbol
 		cardLine = re.sub(r"€[^ .]?", ImageParser.STRENGTH_UNICODE, cardLine)
 		# Normally a closing quote mark should be preceded by a period, except mid-sentence
