@@ -118,7 +118,7 @@ def correctText(cardText: str) -> str:
 			# Correct support reminder text
 			cardLine = re.sub(r"(?<=ajouter sa )\W+(?= à celle)", ImageParser.STRENGTH_UNICODE, cardLine)
 			# Cost discount text
-			cardLine = re.sub(fr"(coûte(?:nt)? )(\d+) [^{ImageParser.INK_UNICODE} ]+", fr"\1\2 {ImageParser.INK_UNICODE}", cardLine)
+			cardLine = re.sub(fr"(coûte(?:nt)? )(\d+) [^{ImageParser.INK_UNICODE} ou]+", fr"\1\2 {ImageParser.INK_UNICODE}", cardLine)
 			# Song card reminder text
 			cardLine = re.sub(fr"Vous pouvez [^ {ImageParser.EXERT_UNICODE}]+ un(e carte)? personnage coûtant", f"Vous pouvez {ImageParser.EXERT_UNICODE} un\\1 personnage coûtant", cardLine)
 			# 'Sing Together' reminder text
