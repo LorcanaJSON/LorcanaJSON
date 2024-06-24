@@ -117,7 +117,8 @@ class ImageParser():
 		if parseFully or includeIdentifier or isQuest is None:
 			result["identifier"] = self._getSubImageAndText(greyCardImage, ImageArea.LOCATION_IDENTIFIER if isLocation else ImageArea.CARD_IDENTIFIER)
 			if isQuest is None:
-				isQuest = " Q" in result["identifier"].text
+				lastIdentifierPart = result["identifier"].text.rsplit(" ", 1)[1]
+				isQuest = lastIdentifierPart.startswith("Q") or lastIdentifierPart.startswith("0")  # Also check for '0' because the 'Q' sometimes gets misread
 		if parseFully:
 			# Parse from top to bottom
 			if isCharacter:
