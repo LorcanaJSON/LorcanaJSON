@@ -209,7 +209,7 @@ class ImageParser():
 
 		# Find the line dividing the abilities from the flavor text, if needed
 		flavorTextImage = None
-		flavorTextStartY = textboxHeight
+		flavorTextSeparatorY = textboxHeight
 		flavorTextLineDetectionCroppedImage = None
 		flavorTextEdgeDetectedImage = None
 		flavorTextGreyscaleImageWithLines = None
@@ -225,10 +225,11 @@ class ImageParser():
 				flavorTextGreyscaleImageWithLines = flavorTextLineDetectionCroppedImage.copy()
 			self._logger.debug(f"Parsing flavor text images finished at {time.perf_counter() - startTime} seconds in")
 			if lines is None:
+				hasFlavorText = False
 				self._logger.debug("No flavour text separator found")
 			else:
 				self._logger.debug(f"{len(lines):,} lines found: {lines!r}")
-				flavorTextStartY = 0
+				flavorTextSeparatorY = 0
 				for line in lines:
 					if line[0][0] < 80 or line[0][1] < 20:
 						# Too far to the left or to the top, probably a mistaken effect label
@@ -238,15 +239,17 @@ class ImageParser():
 					# Draw the lines for debug purposes
 					if showImage:
 						cv2.line(flavorTextGreyscaleImageWithLines, (line[0][0], line[0][1]), (line[0][2], line[0][3]), (0, 0, 255), 3, cv2.LINE_AA)
-					if line[0][1] > flavorTextStartY:
-						flavorTextStartY = line[0][1]
-				if flavorTextStartY == 0:
+					if line[0][1] > flavorTextSeparatorY:
+						flavorTextSeparatorY = line[0][1]
+				if flavorTextSeparatorY == 0:
 					# No suitable line found, so probably no flavor text section
+					hasFlavorText = False
 					self._logger.debug("No flavor text separator line found")
-					flavorTextStartY = textboxHeight
+					flavorTextSeparatorY = textboxHeight
 				else:
-					flavorTextStartY += flavorTextImageTop
-					flavorTextImage = self._convertToThresholdImage(greyTextboxImage[flavorTextStartY:textboxHeight, 0:textboxWidth], thresholdTextColor)
+					hasFlavorText = True
+					flavorTextSeparatorY += flavorTextImageTop
+					flavorTextImage = self._convertToThresholdImage(greyTextboxImage[flavorTextSeparatorY + 14:textboxHeight, 0:textboxWidth], thresholdTextColor)
 					flavourText = self._imageToString(flavorTextImage)
 					result["flavorText"] = ImageAndText(flavorTextImage, flavourText)
 					self._logger.debug(f"{flavourText=}")
@@ -259,7 +262,7 @@ class ImageParser():
 		remainingTextImage = None
 		if hasCardText is not False:
 			labelCoords.reverse()
-			previousBlockTopY = flavorTextStartY
+			previousBlockTopY = flavorTextSeparatorY - (15 if hasFlavorText else 0)
 			labelNumber = len(labelCoords)
 			for labelCoord in labelCoords:
 				# First get the label text itself. It's white on dark, so handle it the opposite way from the actual effect text
