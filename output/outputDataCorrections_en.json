@@ -640,7 +640,9 @@
   "497": {
     "flavorText": [
       "^l ",
-      "I "
+      "I ",
+      "l'",
+      "I'"
     ]
   },
   "500": {
@@ -797,6 +799,12 @@
     "effects": [
       "TOGE THER",
       "TOGETHER"
+    ]
+  },
+  "573": {
+    "flavorText": [
+      "wd",
+      "w'd"
     ]
   },
   "575": {
