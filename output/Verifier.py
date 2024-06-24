@@ -58,6 +58,9 @@ def compareInputToOutput(cardIdsToVerify: Union[List[int], None]):
 				# Remove all the Lorcana symbols:
 				outputRulesText = re.sub(fr" ?[{ImageParser.EXERT_UNICODE}{ImageParser.INK_UNICODE}{ImageParser.LORE_UNICODE}{ImageParser.STRENGTH_UNICODE}{ImageParser.WILLPOWER_UNICODE}{ImageParser.INKWELL_UNICODE}] ?", " ", outputRulesText).lstrip()
 				outputRulesText = outputRulesText.replace("  ", " ").replace(" .", ".").replace("“", "\"").replace("”", "\"")
+				if GlobalConfig.language == Language.FRENCH:
+					# 'Alter' ('Shift') with special costs is followed by a colon, but that's missing from the input text, so remove it from the output too, otherwise comparison becomes impossible
+					outputRulesText = outputRulesText.replace("Alter : ", "Alter ")
 			else:
 				outputRulesText = ""
 
