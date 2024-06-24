@@ -627,7 +627,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 	if parsedImageAndTextData["effectLabels"]:
 		outputCard["effects"]: List[Dict[str, str]] = []
 		for effectIndex in range(len(parsedImageAndTextData["effectLabels"])):
-			effectName = correctPunctuation(parsedImageAndTextData["effectLabels"][effectIndex].text.replace("’", "'").replace("''", "'"))
+			effectName = correctPunctuation(parsedImageAndTextData["effectLabels"][effectIndex].text.replace("’", "'").replace("''", "'")).rstrip(":")
 			if GlobalConfig.language == Language.FRENCH:
 				effectName = re.sub("A ?!(?=.{3,})", "AI", effectName)
 				if "!" in effectName or "?" in effectName:
