@@ -622,13 +622,16 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 			flavorText = flavorText.replace("\n-", "\n–").replace("” -", "” –")
 		outputCard["flavorText"] = flavorText
 	if parsedImageAndTextData["remainingText"] is not None:
-		abilityText = correctText(parsedImageAndTextData["remainingText"].text).lstrip("“")
+		abilityText = parsedImageAndTextData["remainingText"].text.lstrip("“")
 		# TODO FIXME Song reminder text is at the top of a Song card, should probably not be listed in the 'abilities' list
-		abilityLines = re.sub(r"(\.\)?\n)", r"\1\n", abilityText).split("\n\n")
+		abilityLines = re.sub(r"(\.\)\n)", r"\1\n", abilityText).split("\n\n")
 		for abilityLineIndex in range(len(abilityLines) - 1, 0, -1):
-			if abilityLines[abilityLineIndex].startswith(ImageParser.SEPARATOR_UNICODE):
-				# Assume this is an ability that lists options, join this line back up with the previous line, so the choice list stays in one ability
+			# Sometimes lines get split up into separate abilities when they shouldn't be,
+			# for instance in choice lists, or just accidentally. Fix that
+			if abilityLines[abilityLineIndex].startswith("-") or re.match(r"[a-z]", abilityLines[abilityLineIndex]):
 				abilityLines[abilityLineIndex - 1] += "\n" + abilityLines.pop(abilityLineIndex)
+		for abilityLineIndex in range(len(abilityLines)):
+			abilityLines[abilityLineIndex] = correctText(abilityLines[abilityLineIndex])
 		outputCard["abilities"] = abilityLines
 	if parsedImageAndTextData["effectLabels"]:
 		outputCard["effects"]: List[Dict[str, str]] = []
