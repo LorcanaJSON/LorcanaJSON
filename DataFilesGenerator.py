@@ -59,6 +59,8 @@ def correctText(cardText: str) -> str:
 		# A 7 often gets mistaken for a /, correct that
 		cardLine = cardLine.replace(" / ", " 7 ")
 		cardLine = re.sub(f"{ImageParser.INK_UNICODE}([-—])", fr"{ImageParser.INK_UNICODE} \1", cardLine)
+		# Negative numbers are always followed by a strength symbol, correct that
+		cardLine = re.sub(fr"(?<= )(-\d) [^{ImageParser.STRENGTH_UNICODE}{ImageParser.LORE_UNICODE}a-z]", fr"\1 {ImageParser.STRENGTH_UNICODE}", cardLine)
 
 		if GlobalConfig.language == Language.ENGLISH:
 			if re.match("[‘`']Shift ", cardLine):
