@@ -1387,5 +1387,531 @@
       "DE\n"
     ]
   },
+  "676": {
+    "abilities": [
+      null,
+      null
+    ],
+    "effects": [
+      null,
+      [
+        {
+          "name": "BIENVENUE DANS MA MAISON",
+          "text": "Lorsque ce\npersonnage est envoyé à l'aventure, le prochain\npersonnage que vous jouez durant ce tour vous\ncoûte 3 ⬡ de moins."
+        }
+      ]
+    ]
+  },
+  "677": {
+    "abilities": [
+      "13",
+      "+3 ¤"
+    ]
+  },
+  "693": {
+    "effects": [
+      "ÂT",
+      "À T"
+    ]
+  },
+  "701": {
+    "flavorText": [
+      "Q",
+      "O"
+    ]
+  },
+  "707": {
+    "abilities": [
+      "r5",
+      "r 5",
+      " a\n",
+      "\n"
+    ]
+  },
+  "713": {
+    "abilities": [
+      "jouerce",
+      "jouer ce"
+    ]
+  },
+  "715": {
+    "abilities": [
+      "^.+Alter",
+      "Alter"
+    ]
+  },
+  "720": {
+    "abilities": [
+      "2\n",
+      "2 ¤\n"
+    ]
+  },
+  "726": {
+    "flavorText": [
+      "\\.",
+      "…"
+    ]
+  },
+  "728": {
+    "flavorText": [
+      "bas",
+      "pas"
+    ]
+  },
+  "729": {
+    "effects": [
+      "AV",
+      "A V"
+    ]
+  },
+  "733": {
+    "effects": [
+      "©",
+      "¤"
+    ]
+  },
+  "734": {
+    "effects": [
+      "\\.”",
+      "”"
+    ]
+  },
+  "736":{
+    "effects": [
+      "\\. -$",
+      "."
+    ]
+  },
+  "737": {
+    "abilities": [
+      "#20",
+      "+2 ¤"
+    ]
+  },
+  "739": {
+    "flavorText": [
+      "e\\.$",
+      "e…"
+    ]
+  },
+  "743": {
+    "effects": [
+      "ILY",
+      "IL Y"
+    ]
+  },
+  "748": {
+    "abilities": [
+      "120",
+      "+2 ¤"
+    ],
+    "flavorText": [
+      "Ho",
+      "Flo"
+    ]
+  },
+  "749": {
+    "abilities": [
+      "r5",
+      "r 5",
+      " a\n",
+      "\n"
+    ]
+  },
+  "755": {
+    "flavorText": [
+      "^l",
+      "L",
+      "e\\.$",
+      "e…"
+    ]
+  },
+  "757": {
+    "flavorText": [
+      "\\.”",
+      "…”"
+    ]
+  },
+  "761": {
+    "abilities": [
+      "^.+Alter",
+      "Alter"
+    ]
+  },
+  "762": {
+    "flavorText": [
+      "oa",
+      "a"
+    ]
+  },
+  "768": {
+    "flavorText": [
+      "^l",
+      "L"
+    ]
+  },
+  "771": {
+    "fullText": [
+      "S C",
+      "S\nC"
+    ]
+  },
+  "774": {
+    "abilities": [
+      "^.+Alter",
+      "Alter"
+    ]
+  },
+  "775": {
+    "flavorText": [
+      "\\.”",
+      "…”",
+      "/",
+      "Z"
+    ]
+  },
+  "778": {
+    "abilities": [
+      " a\n",
+      "\n"
+    ]
+  },
+  "780": {
+    "flavorText": [
+      "\\[",
+      "L"
+    ]
+  },
+  "782": {
+    "flavorText": [
+      "\\bdons\\b",
+      "dans"
+    ]
+  },
+  "783": {
+    "effects": [
+      "%\\*",
+      "¤"
+    ]
+  },
+  "786": {
+    "abilities": [
+      " ou\n",
+      " au\n"
+    ]
+  },
+  "787": {
+    "flavorText": [
+      "\\.”",
+      "?"
+    ]
+  },
+  "788": {
+    "enchantedId": [
+      null,
+      904
+    ]
+  },
+  "789": {
+    "effects": [
+      "nt\n.+con",
+      "nt\ncon",
+      "Ç",
+      "◉"
+    ]
+  },
+  "790": {
+    "flavorText": [
+      "\\.”",
+      "…”"
+    ]
+  },
+  "794": {
+    "effects": [
+      "\"",
+      ""
+    ]
+  },
+  "797": {
+    "effects": [
+      "%\\*",
+      "¤"
+    ]
+  },
+  "805": {
+    "abilities": [
+      "ñ",
+      "n"
+    ],
+    "effects": [
+      "aa",
+      "ag",
+      " \\{$",
+      ""
+    ]
+  },
+  "806": {
+    "effects": [
+      "2\n",
+      "2 ¤\n"
+    ]
+  },
+  "815": {
+    "effects": [
+      "1\n",
+      "1 ¤\n"
+    ]
+  },
+  "821": {
+    "artist": [
+      "^Rosa",
+      "R."
+    ]
+  },
+  "826": {
+    "effects": [
+      "6",
+      "6 ¤"
+    ]
+  },
+  "831": {
+    "abilities": [
+      " cc",
+      ""
+    ]
+  },
+  "832": {
+    "flavorText": [
+      "IH",
+      "Il"
+    ]
+  },
+  "833": {
+    "effects": [
+      "©",
+      "¤"
+    ]
+  },
+  "836": {
+    "flavorText": [
+      "s\\.\n",
+      "s…\n"
+    ]
+  },
+  "840": {
+    "effects": [
+      "[*©]",
+      "¤"
+    ]
+  },
+  "848": {
+    "flavorText": [
+      "-",
+      ""
+    ]
+  },
+  "851": {
+    "effects": [
+      " !/",
+      "Il"
+    ]
+  },
+  "852": {
+    "flavorText": [
+      "\\.”",
+      "…”"
+    ]
+  },
+  "859": {
+    "flavorText": [
+      "^l",
+      "L"
+    ]
+  },
+  "872": {
+    "effects": [
+      "AUPRES",
+      "AUPRÈS"
+    ]
+  },
+  "875": {
+    "flavorText": [
+      "y à",
+      "y a"
+    ]
+  },
+  "876": {
+    "effects": [
+      " !/",
+      "Il"
+    ]
+  },
+  "881": {
+    "effects": [
+      "©",
+      "¤"
+    ]
+  },
+  "884": {
+    "effects": [
+      "Ll",
+      "L"
+    ]
+  },
+  "885": {
+    "abilities": [
+      "120",
+      "+2 ¤"
+    ]
+  },
+  "886": {
+    "flavorText": [
+      "e\\.$",
+      "e…"
+    ]
+  },
+  "892": {
+    "effects": [
+      "%",
+      "¤"
+    ]
+  },
+  "902": {
+    "abilities": [
+      "efau",
+      "éfau"
+    ],
+    "effects": [
+      "r…",
+      "r,",
+      "… a$",
+      "."
+    ]
+  },
+  "904": {
+    "nonEnchantedId": [
+      null,
+      788
+    ]
+  },
+  "906": {
+    "effects": [
+      "2",
+      "2 ¤"
+    ]
+  },
+  "919": {
+    "flavorText": [
+      "! !",
+      "Il"
+    ]
+  },
+  "922": {
+    "effects": [
+      " À ",
+      " A "
+    ]
+  },
+  "925": {
+    "flavorText": [
+      "-",
+      "–"
+    ]
+  },
+  "928": {
+    "flavorText": [
+      ",”",
+      ".”"
+    ]
+  },
+  "933": {
+    "flavorText": [
+      "\\.”",
+      "…”",
+      "1 DS",
+      "—Ursula"
+    ]
+  },
+  "941": {
+    "abilities": [
+      "^E",
+      "É"
+    ]
+  },
+  "942": {
+    "effects": [
+      "-",
+      "—"
+    ]
+  },
+  "944": {
+    "effects": [
+      "-",
+      "—"
+    ]
+  },
+  "945": {
+    "effects": [
+      " &",
+      ""
+    ],
+    "flavorText": [
+      "_ 1\\?\n",
+      "",
+      " 0$",
+      "”"
+    ]
+  },
+  "946": {
+    "effects": [
+      "… rc\n",
+      "",
+      "\neN 25$",
+      ""
+    ]
+  },
+  "948": {
+    "abilities": [
+      " ¤\n",
+      "\n"
+    ],
+    "effects": [
+      "aae",
+      "age",
+      "\\. TI$",
+      "."
+    ]
+  },
+  "949": {
+    "abilities": [
+      " C\n",
+      "\n"
+    ],
+    "effects": [
+      "\\. -$",
+      "."
+    ]
+  },
+  "1172": {
+    "baseName": [
+      " c",
+      " C",
+      "'h",
+      "'H"
+    ],
+    "effects": [
+      " -",
+      " —"
+    ],
+    "flavorText": [
+      "\\..+$",
+      "."
+    ],
+    "fullName": [
+      " c",
+      " C",
+      "'h",
+      "'H"
+    ]
   }
 }
