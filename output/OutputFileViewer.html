@@ -155,7 +155,7 @@ document.getElementById("dropLocation").addEventListener("drop", (event) => {
 	const file = event.dataTransfer.items[0].getAsFile();
 	file.text().then((fileText) => {
 		cardsJson = JSON.parse(fileText);
-    setLanguage(cardsJson["metadata"]["language"]);
+    languageCode = cardsJson["metadata"]["language"];
 		maxIndex = cardsJson["cards"].length - 1;
 		if (currentIndex <= maxIndex) {
 			setDisplayedIndex(currentIndex);
