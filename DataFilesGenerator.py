@@ -628,7 +628,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 		for abilityLineIndex in range(len(abilityLines) - 1, 0, -1):
 			# Sometimes lines get split up into separate abilities when they shouldn't be,
 			# for instance in choice lists, or just accidentally. Fix that
-			if abilityLines[abilityLineIndex].startswith("-") or re.match(r"[a-z]", abilityLines[abilityLineIndex]):
+			if abilityLines[abilityLineIndex].startswith("-") or re.match(r"[a-z(]", abilityLines[abilityLineIndex]):
 				abilityLines[abilityLineIndex - 1] += "\n" + abilityLines.pop(abilityLineIndex)
 		for abilityLineIndex in range(len(abilityLines)):
 			abilityLines[abilityLineIndex] = correctText(abilityLines[abilityLineIndex])
