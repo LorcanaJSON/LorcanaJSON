@@ -452,6 +452,10 @@
     ]
   },
   "642": {
+    "artist": [
+      "i[^ń]+ski",
+      "iński"
+    ],
     "effects": [
       "3 \\S+",
       "3 ¤"
@@ -461,42 +465,6 @@
     "effects": [
       "2 \\S",
       "2 ⛉"
-    ]
-  },
-  "676": {
-    "artist": [
-      "^V.+o$",
-      "Mark Henn"
-    ]
-  },
-  "677": {
-    "artist": [
-      "^C.+o$",
-      "Brittney Lee"
-    ]
-  },
-  "678": {
-    "artist": [
-      "^J.+s$",
-      "Eric Goldberg"
-    ]
-  },
-  "679": {
-    "artist": [
-      "^B.+n$",
-      "Alex Kupershmidt"
-    ]
-  },
-  "680": {
-    "artist": [
-      "^G.+i$",
-      "Lorelay Bové"
-    ]
-  },
-  "681": {
-    "artist": [
-      "^I.+q$",
-      "Bill Schwab"
     ]
   },
   "695": {
@@ -541,12 +509,6 @@
       "1 ¤"
     ]
   },
-  "743": {
-    "artist": [
-      "o$",
-      "o / Livio Cacciatore"
-    ]
-  },
   "750": {
     "promoIds": [
       null,
@@ -561,34 +523,22 @@
       "1 ¤"
     ]
   },
-  "759": {
-    "artist": [
-      "i$",
-      "i / Sam Burley"
-    ]
-  },
   "760": {
     "effects": [
       "3 \\S+",
       "3 ¤"
     ]
   },
-  "771": {
+  "770": {
     "artist": [
-      "g$",
-      "g / Raquel Villanueva"
+      "y[^ễ]+n",
+      "yễn"
     ]
   },
   "776": {
     "effects": [
       "5 \\S+",
       "5 ¤"
-    ]
-  },
-  "780": {
-    "artist": [
-      "k$",
-      "k / Hayley Evans"
     ]
   },
   "781": {
@@ -601,6 +551,12 @@
     "abilities": [
       "2 \\S+",
       "2 ¤"
+    ]
+  },
+  "790": {
+    "artist": [
+      "Pe[^ñ]+a$",
+      "Peña"
     ]
   },
   "792": {
@@ -651,12 +607,6 @@
       "1 ¤"
     ]
   },
-  "821": {
-    "artist": [
-      "a$",
-      "a / L. Giammichele"
-    ]
-  },
   "823": {
     "effects": [
       "\\+2 \\S+",
@@ -681,30 +631,6 @@
       "+1 ¤"
     ]
   },
-  "837": {
-    "artist": [
-      "o$",
-      "o / Leonardo Giammichele"
-    ]
-  },
-  "840": {
-    "artist": [
-      "Barger",
-      "Levering"
-    ]
-  },
-  "846": {
-    "artist": [
-      "z$",
-      "z / Hayley Evans"
-    ]
-  },
-  "854": {
-    "artist": [
-      "o$",
-      "o / Livio Cacciatore"
-    ]
-  },
   "855": {
     "abilities": [
       "3 \\S+",
@@ -723,20 +649,10 @@
       "2 ◊"
     ]
   },
-  "869": {
-    "artist": [
-      "e$",
-      "e / Giulia Priori"
-    ]
-  },
   "874": {
     "effects": [
       "1 \\S",
       "1 ¤"
-    ],
-    "artist": [
-      "e$",
-      "e / Giulia Priori"
     ]
   },
   "875": {
@@ -759,12 +675,6 @@
       ]
     ]
   },
-  "885": {
-    "artist": [
-      "e$",
-      "e / Giulia Priori"
-    ]
-  },
   "896": {
     "effects": [
       "1 \\S+",
@@ -777,12 +687,6 @@
       "5 ¤"
     ]
   },
-  "899": {
-    "artist": [
-      "n$",
-      "n / Nicholas Kole"
-    ]
-  },
   "900": {
     "nonEnchantedId": [
       946,
@@ -791,8 +695,8 @@
   },
   "906": {
     "artist": [
-      "Jennifer Park",
-      "João Moura"
+      "Jo[^ã]+o ",
+      "João "
     ]
   },
   "907": {
@@ -801,28 +705,10 @@
       "\\1 ¤ "
     ]
   },
-  "919": {
-    "artist": [
-      "o$",
-      "o / Livio Cacciatore"
-    ]
-  },
   "930": {
     "abilities": [
       "([67]) \\S+",
       "\\1 ⬡"
-    ]
-  },
-  "941": {
-    "artist": [
-      "o$",
-      "o / Livio Cacciatore"
-    ]
-  },
-  "942": {
-    "artist": [
-      "o$",
-      "o / Livio Cacciatore"
     ]
   },
   "945": {

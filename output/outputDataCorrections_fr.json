@@ -421,26 +421,10 @@
       "L I"
     ]
   },
-  "211": {
-    "artist": [
-      "la",
-      "lia"
-    ]
-  },
-  "212": {
-    "artist": [
-      "/S",
-      "/ S"
-    ]
-  },
   "216": {
     "abilities": [
       "\\.\\)",
       ")"
-    ],
-    "artist": [
-      "^M.+y$",
-      "Cookie"
     ]
   },
   "217": {
@@ -510,6 +494,10 @@
     ]
   },
   "242": {
+    "abilities": [
+      "r2",
+      "r 2"
+    ],
     "effects": [
       "¤ p",
       "¤, p"
@@ -929,12 +917,6 @@
       "IL EN"
     ]
   },
-  "435": {
-    "artist": [
-      "a$",
-      "a / Jochem van Gool"
-    ]
-  },
   "442": {
     "flavorText": [
       null,
@@ -959,28 +941,10 @@
       "“L"
     ]
   },
-  "451": {
-    "artist": [
-      "m$",
-      "m / Livio Cacciatore"
-    ]
-  },
-  "453": {
-    "artist": [
-      "z$",
-      "z / Alice Pisoni"
-    ]
-  },
   "456": {
     "effects": [
       "1 p",
       "1 ◊ p"
-    ]
-  },
-  "457": {
-    "artist": [
-      "m$",
-      "m / Denny Minonne"
     ]
   },
   "460": {
@@ -990,10 +954,6 @@
     ]
   },
   "461": {
-    "artist": [
-      "a$",
-      "a / Livio Cacciatore"
-    ],
     "flavorText": [
       "—-",
       "—"
@@ -1006,45 +966,21 @@
     ]
   },
   "464": {
-    "artist": [
-      "e$",
-      "e / David Navarro Arenas"
-    ],
     "flavorText": [
       "\\.$",
       "…"
     ]
   },
   "466": {
-    "artist": [
-      "m$",
-      "m / Viv Tanner"
-    ],
     "effects": [
       "^\\(9",
       "⟳"
     ]
   },
-  "469": {
-    "artist": [
-      "e$",
-      "e / Jonathan Livslyst"
-    ]
-  },
   "471": {
-    "artist": [
-      "i$",
-      "i / Raquel Villanueva"
-    ],
     "effects": [
       "TR[EÉ]S",
       "TRÈS"
-    ]
-  },
-  "477": {
-    "artist": [
-      "o$",
-      "o / Livio Cacciatore"
     ]
   },
   "480": {
@@ -1057,18 +993,6 @@
     "effects": [
       "%",
       "¤"
-    ]
-  },
-  "491": {
-    "artist": [
-      "l$",
-      "l / Alice Pisoni"
-    ]
-  },
-  "493": {
-    "artist": [
-      "d$",
-      "d / Livio Cacciatore"
     ]
   },
   "495": {
@@ -1089,12 +1013,6 @@
       "¤"
     ]
   },
-  "500": {
-    "artist": [
-      "z$",
-      "z / Anna Stosik"
-    ]
-  },
   "503": {
     "baseName": [
       " r",
@@ -1106,10 +1024,6 @@
     ]
   },
   "506": {
-    "artist": [
-      "o$",
-      "o / Marieke Ferrari"
-    ],
     "flavorText": [
       "IL",
       "Il",
@@ -1175,12 +1089,6 @@
       "'"
     ]
   },
-  "545": {
-    "artist": [
-      "o$",
-      "o / Livio Cacciatore"
-    ]
-  },
   "552": {
     "abilities": [
       "jouerce",
@@ -1238,10 +1146,6 @@
     ]
   },
   "578": {
-    "artist": [
-      "e$",
-      "e / Anna Stosik"
-    ],
     "effects": [
       "N°",
       " N'"
@@ -1249,12 +1153,6 @@
     "flavorText": [
       "^E",
       "É"
-    ]
-  },
-  "579": {
-    "artist": [
-      "k$",
-      "k / Ellie Horie"
     ]
   },
   "580": {
@@ -1269,34 +1167,16 @@
       "s'é"
     ]
   },
-  "587": {
-    "artist": [
-      "o$",
-      "o / Erin Shin"
-    ]
-  },
   "589": {
     "fullText": [
       "IS ",
       "IS\n"
     ]
   },
-  "592": {
-    "artist": [
-      "i$",
-      "i / Livio Cacciatore"
-    ]
-  },
   "593": {
     "effects": [
       "dencre",
       "d'encre"
-    ]
-  },
-  "597": {
-    "artist": [
-      "d$",
-      "d / Anna Stosik"
     ]
   },
   "600": {
@@ -1341,12 +1221,6 @@
       "LA LA"
     ]
   },
-  "621": {
-    "artist": [
-      "a$",
-      "a / Livio Cacciatore"
-    ]
-  },
   "625": {
     "flavorText": [
       "I",
@@ -1373,12 +1247,6 @@
     "fullText": [
       "R L",
       "R\nL"
-    ]
-  },
-  "648": {
-    "artist": [
-      "n$",
-      "n / Nicholas Kole"
     ]
   },
   "654": {
@@ -1660,12 +1528,6 @@
     "effects": [
       "1\n",
       "1 ¤\n"
-    ]
-  },
-  "821": {
-    "artist": [
-      "^Rosa",
-      "R."
     ]
   },
   "826": {

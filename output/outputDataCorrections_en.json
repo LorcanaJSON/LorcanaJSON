@@ -29,26 +29,6 @@
       "—"
     ]
   },
-  "40": {
-    "artist": [
-      "^Au",
-      "Duyen Nguyen / Au"
-    ]
-  },
-  "47": {
-    "artist": [
-      "au$",
-      "au / Giulia Riva"
-    ]
-  },
-  "50": {
-    "artist": [
-      "^.+/",
-      "",
-      "e A",
-      "e / A"
-    ]
-  },
   "56": {
     "flavorText": [
       "ls",
@@ -83,12 +63,6 @@
     "flavorText": [
       "way\\.$",
       "way.”"
-    ]
-  },
-  "82": {
-    "artist": [
-      "^Jared",
-      "Duyen Nguyen / Jared"
     ]
   },
   "86": {
@@ -127,12 +101,6 @@
       "you've"
     ]
   },
-  "109": {
-    "artist": [
-      "/W",
-      "/ W"
-    ]
-  },
   "114": {
     "flavorText": [
       "'”$",
@@ -167,12 +135,6 @@
     "effects": [
       "FINALENCHANTMENT",
       "FINAL ENCHANTMENT"
-    ]
-  },
-  "141": {
-    "artist": [
-      "ro$",
-      "ro / Pix Smith"
     ]
   },
   "142": {
@@ -269,6 +231,12 @@
     "abilities": [
       "\\+4 \\.\\)",
       "+4 ¤.)"
+    ]
+  },
+  "216": {
+    "artist": [
+      "^$",
+      "Cookie"
     ]
   },
   "228": {
@@ -501,22 +469,10 @@
       "I'LL "
     ]
   },
-  "435": {
-    "artist": [
-      "a$",
-      "a / Jochem van Gool"
-    ]
-  },
   "442": {
     "flavorText": [
       "^.+$",
       "[in Atlantean] “Welcome to the Inklands”"
-    ]
-  },
-  "451": {
-    "artist": [
-      "m$",
-      "m / Livio Cacciatore"
     ]
   },
   "452": {
@@ -529,10 +485,6 @@
     "abilities": [
       "Shift s",
       "Shift 5"
-    ],
-    "artist": [
-      "z$",
-      "z / Alice Pisoni"
     ]
   },
   "456": {
@@ -541,34 +493,16 @@
       "+1 ◊"
     ]
   },
-  "457": {
-    "artist": [
-      "m$",
-      "m / Denny Minonne"
-    ]
-  },
   "461": {
     "artist": [
-      "a$",
-      "a / Livio Cacciatore"
+      "a L",
+      "a / L"
     ]
   },
   "463": {
     "flavorText": [
       "ll a",
       "ll, a"
-    ]
-  },
-  "464": {
-    "artist": [
-      "e$",
-      "e / David Navarro Arenas"
-    ]
-  },
-  "466": {
-    "artist": [
-      "m$",
-      "m / Viv Tanner"
     ]
   },
   "468": {
@@ -578,20 +512,12 @@
     ]
   },
   "469": {
-    "artist": [
-      "e$",
-      "e / Jonathan Livslyst"
-    ],
     "effects": [
       "\\+2 ¥",
       "+2 ⛉"
     ]
   },
   "471": {
-    "artist": [
-      "i$",
-      "i / Raquel Villanueva"
-    ],
     "flavorText": [
       "quest",
       "guest"
@@ -601,12 +527,6 @@
     "flavorText": [
       "leus",
       "Zeus"
-    ]
-  },
-  "477": {
-    "artist": [
-      "o$",
-      "o / Livio Cacciatore"
     ]
   },
   "485": {
@@ -625,18 +545,6 @@
       "+3 ¤"
     ]
   },
-  "491": {
-    "artist": [
-      "l$",
-      "l / Alice Pisoni"
-    ]
-  },
-  "493": {
-    "artist": [
-      "d$",
-      "d / Livio Cacciatore"
-    ]
-  },
   "497": {
     "flavorText": [
       "^l ",
@@ -646,10 +554,6 @@
     ]
   },
   "500": {
-    "artist": [
-      "z$",
-      "z / Anna Stosik"
-    ],
     "effects": [
       "lJafar",
       "Jafar"
@@ -659,12 +563,6 @@
     "clarifications": [
       null,
       null
-    ]
-  },
-  "506": {
-    "artist": [
-      "o$",
-      "o / Marieke Ferrari"
     ]
   },
   "508": {
@@ -727,12 +625,6 @@
     "flavorText": [
       "small ",
       "small, "
-    ]
-  },
-  "545": {
-    "artist": [
-      "o$",
-      "o / Livio Cacciatore"
     ]
   },
   "549": {
@@ -813,44 +705,22 @@
       "! I knew"
     ]
   },
-  "578": {
-    "artist": [
-      "e$",
-      "e / Anna Stosik"
-    ]
-  },
   "579": {
     "abilities": [
       "Iala",
       "Tala"
-    ],
-    "artist": [
-      "k$",
-      "k / Ellie Horie"
-    ]
-  },
-  "587": {
-    "artist": [
-      "o$",
-      "o / Erin Shin"
     ]
   },
   "592": {
     "artist": [
-      "i$",
-      "i / Livio Cacciatore"
+      "zii",
+      "zzi"
     ]
   },
   "594": {
     "abilities": [
       "\nthis turn",
       "\n¤ this turn"
-    ]
-  },
-  "597": {
-    "artist": [
-      "d$",
-      "d / Anna Stosik"
     ]
   },
   "598": {
@@ -885,12 +755,6 @@
       ""
     ]
   },
-  "621": {
-    "artist": [
-      "a$",
-      "a / Livio Cacciatore"
-    ]
-  },
   "628": {
     "flavorText": [
       "lands",
@@ -913,12 +777,6 @@
     "effects": [
       "⟳ 1",
       "⟳, 1"
-    ]
-  },
-  "648": {
-    "artist": [
-      "n$",
-      "n / Nicholas Kole"
     ]
   },
   "651": {
@@ -992,22 +850,10 @@
       "challenge\n"
     ]
   },
-  "686": {
-    "artist": [
-      "d$",
-      "d / Anna Stosik"
-    ]
-  },
   "687": {
     "effects": [
       "¤",
       "◊"
-    ]
-  },
-  "688": {
-    "artist": [
-      "^S.+a$",
-      "Nicholas Kole"
     ]
   },
   "689": {
@@ -1088,6 +934,12 @@
     "flavorText": [
       " t ",
       " It "
+    ]
+  },
+  "770": {
+    "artist": [
+      "q",
+      "g"
     ]
   },
   "775": {
@@ -1262,20 +1114,10 @@
       "S"
     ]
   },
-  "944": {
-    "artist": [
-      "^$",
-      "Jonathan Livslyst"
-    ]
-  },
   "945": {
     "abilities": [
       null,
       null
-    ],
-    "artist": [
-      "Jonathan Livslyst",
-      "Grace Tran"
     ],
     "effects": [
       "¤",

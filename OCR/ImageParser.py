@@ -114,6 +114,7 @@ class ImageParser():
 		if isEnchanted is None:
 			isEnchanted = not self._isImageBlack(self._getSubImage(cardImage, ImageArea.IS_BORDERLESS_CHECK))
 
+		result["artist"] = self._getSubImageAndText(greyCardImage, ImageArea.LOCATION_ARTIST if isLocation else ImageArea.ARTIST)
 		if parseFully or includeIdentifier or isQuest is None:
 			result["identifier"] = self._getSubImageAndText(greyCardImage, ImageArea.LOCATION_IDENTIFIER if isLocation else ImageArea.CARD_IDENTIFIER)
 			if isQuest is None:
@@ -133,7 +134,6 @@ class ImageParser():
 				result["willpower"] = self._getSubImageAndText(greyCardImage, ImageArea.LOCATION_WILLPOWER)
 			else:
 				result["baseName"] = self._getSubImageAndText(greyCardImage, ImageArea.CARD_NAME)
-			result["artist"] = self._getSubImageAndText(greyCardImage, ImageArea.LOCATION_ARTIST if isLocation else ImageArea.ARTIST)
 
 		# Determine the textbox area, which is different between characters and non-characters, and between enchanted and non-enchanted characters
 		if isQuest:
