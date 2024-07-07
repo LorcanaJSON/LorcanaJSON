@@ -7,7 +7,7 @@ from APIScraping import RavensburgerApiHandler
 
 _logger = logging.getLogger("LorcanaJSON")
 
-def checkForNewCardData(newCardCatalog: Dict = None, fieldsToIgnore: List[str] = None, includeCardChanges: bool = True, ignoreOrderChanges: bool = True) -> Tuple[List, List]:
+def checkForNewCardData(newCardCatalog: Dict = None, fieldsToIgnore: List[str] = None, includeCardChanges: bool = True, ignoreOrderChanges: bool = True) -> Tuple[List, List, List]:
 	# We need to find the old cards by ID, so set up a dict
 	oldCards = {}
 	pathToCardCatalog = os.path.join("downloads", "json", f"carddata.{GlobalConfig.language.code}.json")
@@ -29,6 +29,7 @@ def checkForNewCardData(newCardCatalog: Dict = None, fieldsToIgnore: List[str] =
 	# Now go through all the new cards and see if the card exists in the old list, and if so, if the values are the same
 	addedCards: List[Tuple[int, str]] = []  # A list of tuples, with the first tuple entry being the new card's ID and the second tuple entry the card's name
 	cardChanges: List[Tuple[int, str, str, Any, Any]] = []  # A list of tuples, with each tuple consisting of the changed card's ID, its name, the name of the changed field, the old field value, and the new field value
+	possibleImageChanges: List[Tuple[int, str, str]] = []  # A list of tuples where the image checksum might have changed, with each tuple being the card ID, the card name, and the image URL
 	for cardType, cardList in newCardCatalog["cards"].items():
 		for card in cardList:
 			cardId = card["culture_invariant_id"]
@@ -39,6 +40,22 @@ def checkForNewCardData(newCardCatalog: Dict = None, fieldsToIgnore: List[str] =
 				addedCards.append((cardId, cardDescriptor))
 			elif includeCardChanges:
 				oldCard = oldCards[cardId]
+				if fieldsToIgnore and "image_urls" not in fieldsToIgnore:
+					# Specifically check for image URLs, because if the checksum changed, we may need to redownload it
+					imageUrl = None
+					oldImageUrl = None
+					for imageData in card["image_urls"]:
+						if imageData["height"] == 2048:
+							imageUrl = imageData["url"]
+							break
+					for imageData in oldCard["image_urls"]:
+						if imageData["height"] == 2048:
+							oldImageUrl = imageData["url"]
+							break
+					if imageUrl != oldImageUrl:
+						possibleImageChanges.append((cardId, cardDescriptor, imageUrl))
+					# Remove the field so it doesn't get checked twice
+					del card["image_urls"]
 				for fieldName, fieldValue in card.items():
 					if fieldsToIgnore and fieldName in fieldsToIgnore:
 						continue
@@ -88,17 +105,21 @@ def checkForNewCardData(newCardCatalog: Dict = None, fieldsToIgnore: List[str] =
 				if card["culture_invariant_id"] not in existingIds:
 					addedCards.append((card["culture_invariant_id"], "[external]"))
 
-	return (addedCards, cardChanges)
+	return (addedCards, cardChanges, possibleImageChanges)
 
 def createOutputIfNeeded(onlyCreateOnNewCards: bool, cardFieldsToIgnore: List[str] = None, shouldShowImages: bool = False):
 	cardCatalog = RavensburgerApiHandler.retrieveCardCatalog()
-	addedCards, cardChanges = checkForNewCardData(cardCatalog, cardFieldsToIgnore, includeCardChanges=not onlyCreateOnNewCards)
-	if not addedCards and not cardChanges:
+	addedCards, cardChanges, possibleImageChanges = checkForNewCardData(cardCatalog, cardFieldsToIgnore, includeCardChanges=not onlyCreateOnNewCards)
+	if not addedCards and not cardChanges and not possibleImageChanges:
 		_logger.info("No catalog updates, not running output generator")
 		return
-	_logger.info(f"Found {len(addedCards):,} new cards and {len(cardChanges):,} changed cards")
+	_logger.info(f"Found {len(addedCards):,} new cards, {len(cardChanges):,} changed cards, and {len(possibleImageChanges):,} possible image changes")
 	idsToParse = [entry[0] for entry in addedCards]
 	idsToParse.extend([entry[0] for entry in cardChanges])
+	# Not all possible image changes are actual changes, update only the changed images
+	actualImageChanges = RavensburgerApiHandler.downloadImagesIfUpdated(possibleImageChanges)
+	_logger.info(f"{len(actualImageChanges):,} actual image changes")
+	idsToParse.extend(actualImageChanges)
 	RavensburgerApiHandler.saveCardCatalog(cardCatalog)
 	RavensburgerApiHandler.downloadImages()
 	DataFilesGenerator.createOutputFiles(idsToParse, shouldShowImages=shouldShowImages)

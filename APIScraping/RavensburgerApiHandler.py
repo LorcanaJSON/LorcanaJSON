@@ -1,5 +1,5 @@
-import datetime, json, logging, os, random, time
-from typing import Any, Dict
+import datetime, hashlib, json, logging, os, random, time
+from typing import Any, Dict, List
 
 import requests
 
@@ -63,6 +63,31 @@ def downloadImage(imageUrl: str, savePath: str, shouldOverwriteImage: bool = Fal
 		imageFile.write(imageResponse.content)
 	_logger.info(f"Successfully downloaded '{savePath}'")
 	return True
+
+def downloadImagesIfUpdated(cardIdsToCheck: List[int]) -> List[int]:
+	with open(os.path.join("downloads", "json", f"carddata.{GlobalConfig.language.code}.json"), "r", encoding="utf-8") as cardCatalogFile:
+		cardCatalog = json.load(cardCatalogFile)
+	cardIdsWithUpdatedImage: List[int] = []
+	for cardType, cardList in cardCatalog["cards"].items():
+		for card in cardList:
+			cardId = card["culture_invariant_id"]
+			if cardId not in cardIdsToCheck:
+				continue
+			localImagePath = os.path.join("downloads", "images", GlobalConfig.language.code, f"{cardId}.jpg")
+			with open(localImagePath, "rb") as localImageFile:
+				localImageChecksum = hashlib.md5(localImageFile.read()).hexdigest()
+			for imageData in card["image_urls"]:
+				if imageData["height"] == 2048:
+					remoteImageRequest = _retrieveFromUrl(imageData["url"])
+					remoteImageBytes = remoteImageRequest.content
+					remoteImageChecksum = hashlib.md5(remoteImageBytes).hexdigest()
+					if localImageChecksum != remoteImageChecksum:
+						# Images actually differ, save the new version
+						with open(localImagePath, "wb") as localImageFile:
+							localImageFile.write(remoteImageBytes)
+						cardIdsWithUpdatedImage.append(cardId)
+					break
+	return cardIdsWithUpdatedImage
 
 def downloadImages(shouldOverwriteImages: bool = False, pathToCardCatalog: str = None):
 	startTime = time.perf_counter()
