@@ -263,22 +263,6 @@
       "”"
     ]
   },
-  "262": {
-    "effects": [
-      "your hand\\..+$",
-      "your hand."
-    ],
-    "abilities": [
-      null,
-      [
-        "Rush (This character can challenge the turn\nthey're played.)"
-      ]
-    ],
-    "fullText": [
-      "(^.+\\.\\))\n(CHASING.+$)",
-      "\\2\n\\1"
-    ]
-  },
   "269": {
     "effects": [
       "\\+1 this",
@@ -647,22 +631,6 @@
     "effects": [
       "\\+3 O\\.",
       "+3 ¤."
-    ]
-  },
-  "560": {
-    "effects": [
-      "character\\..+$",
-      "character."
-    ],
-    "abilities": [
-      null,
-      [
-        "Evasive (Only characters with Evasive can challenge this character.)"
-      ]
-    ],
-    "fullText": [
-      "(^.+\\.\\))\n(THE FOX.+$)",
-      "\\2\n\\1"
     ]
   },
   "562": {

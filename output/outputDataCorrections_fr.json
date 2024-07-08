@@ -553,22 +553,6 @@
       "IL EST"
     ]
   },
-  "262": {
-    "abilities": [
-      null,
-      [
-        "Charge (Ce personnage peut défier le tour où il\nest joué.)"
-      ]
-    ],
-    "effects": [
-      "\nCharge.+$",
-      ""
-    ],
-    "fullText": [
-      "(^.+\\.\\))\n(À LA POURSUITE.+$)",
-      "\\2\n\\1"
-    ]
-  },
   "263": {
     "flavorText": [
       "jai",
@@ -1103,22 +1087,6 @@
     "flavorText": [
       "^l",
       "L"
-    ]
-  },
-  "560": {
-    "effects": [
-      "moins\\..+$",
-      "moins."
-    ],
-    "abilities": [
-      null,
-      [
-        "Insaisissable (Seuls les personnages avec\nInsaisissable peuvent défier ce personnage.)"
-      ]
-    ],
-    "fullText": [
-      "(^.+\\.\\))\n(LE RENARD.+$)",
-      "\\2\n\\1"
     ]
   },
   "562": {

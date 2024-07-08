@@ -143,6 +143,9 @@
       "5 ¤"
     ]
   },
+  "262": {
+    "_moveKeywordsLast": true
+  },
   "281": {
     "effects": [
       ", \\W ",
@@ -380,6 +383,9 @@
       "«",
       ""
     ]
+  },
+  "560": {
+    "_moveKeywordsLast": true
   },
   "562": {
     "effects": [

@@ -730,7 +730,17 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 	# Card-specific corrections
 	#  Since the fullText gets created as the last step, if there is a correction for it, save it for later
 	fullTextCorrection = None
+	areKeywordsLast: bool = False
 	if cardDataCorrections:
+		if cardDataCorrections.pop("_moveKeywordsLast", False):
+			# Normally keyword abilities come before named abilities, except on some cards (e.g. 'Madam Mim - Fox' (ID 262))
+			# Correct that by removing the keyword ability text from the last named ability text, and adding it as an ability
+			areKeywordsLast = True
+			lastEffect: Dict[str, str] = outputCard["effects"][-1]
+			keywordMatch = re.search(r"\n([A-ZÀ][^.]+)(?= \()", lastEffect["text"])
+			_logger.debug(f"'keywordsLast' is set, splitting last effect at index {keywordMatch.start()}")
+			outputCard["abilities"] = [lastEffect["text"][keywordMatch.start():].lstrip()]
+			lastEffect["text"] = lastEffect["text"][:keywordMatch.start()]
 		for fieldName, correction in cardDataCorrections.items():
 			if fieldName == "fullText":
 				fullTextCorrection = correction
@@ -786,6 +796,11 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 		for effect in outputCard["effects"]:
 			fullTextSections.append(f"{effect['name']} {effect['text']}")
 			effect["text"] = effect["text"].replace("\n", " ")
+	if areKeywordsLast:
+		# On most cards, keywords are listed before named abilities, except on some cards (e.g. 'Madam Mim - Fox' (ID 262)),
+		# so there we need to correct that assumption
+		_logger.debug("'keywordsLast' is set, so moving first ability to the end of the fullTextSections")
+		fullTextSections.append(fullTextSections.pop(0))
 	outputCard["fullText"] = "\n".join(fullTextSections)
 	if fullTextCorrection:
 		correctCardField(outputCard, "fullText", fullTextCorrection[0], fullTextCorrection[1])
