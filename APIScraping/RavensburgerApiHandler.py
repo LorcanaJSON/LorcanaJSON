@@ -155,7 +155,7 @@ def _retrieveFromUrl(url: str, additionalHeaderFields: Dict[str, str] = None) ->
 			request = requests.get(url, headers=headers, timeout=10)
 			lastRequestThrewException = False
 			if request.status_code == 200:
-				_logger.debug(f"Retrieval of '{url}' failed with status code {request.status_code} on attempt {attempt}")
+				_logger.debug(f"Retrieval of '{url}' succeeded on attempt {attempt}")
 				return request
 		except requests.exceptions.SSLError:
 			_logger.debug(f"Retrieval of '{url}' threw an SSL error on attempt {attempt}")
