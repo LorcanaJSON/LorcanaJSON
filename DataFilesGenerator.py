@@ -896,6 +896,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 	if "effects" in outputCard:
 		fullTextSections.extend(outputCard["effects"])
 	outputCard["fullText"] = "\n".join(fullTextSections)
+	outputCard["fullTextSections"] = fullTextSections
 	if fullTextCorrection:
 		correctCardField(outputCard, "fullText", fullTextCorrection[0], fullTextCorrection[1])
 	if "story" in inputCard:
