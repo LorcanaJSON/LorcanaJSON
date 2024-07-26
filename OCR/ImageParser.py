@@ -52,12 +52,12 @@ class ImageParser():
 		if parseFully:
 			result.update({
 				"artist": None,
-				"baseName": None,
 				"cost": None,
 				"identifier": None,
 				"moveCost": None,
+				"name": None,
 				"strength": None,
-				"subtitle": None,
+				"version": None,
 				"willpower": None
 			})
 		cardImage: cv2.Mat = cv2.imread(pathToImage)
@@ -123,17 +123,17 @@ class ImageParser():
 		if parseFully:
 			# Parse from top to bottom
 			if isCharacter:
-				result["baseName"] = self._getSubImageAndText(greyCardImage, ImageArea.CHARACTER_NAME)
-				result["subtitle"] = self._getSubImageAndText(greyCardImage, ImageArea.CHARACTER_SUBTITLE)
+				result["name"] = self._getSubImageAndText(greyCardImage, ImageArea.CHARACTER_NAME)
+				result["version"] = self._getSubImageAndText(greyCardImage, ImageArea.CHARACTER_VERSION)
 				result["strength"] = self._getSubImageAndText(greyCardImage, ImageArea.STRENGTH)
 				result["willpower"] = self._getSubImageAndText(greyCardImage, ImageArea.WILLPOWER)
 			elif isLocation:
-				result["baseName"] = self._getSubImageAndText(greyCardImage, ImageArea.LOCATION_NAME)
-				result["subtitle"] = self._getSubImageAndText(greyCardImage, ImageArea.LOCATION_SUBTITLE)
+				result["name"] = self._getSubImageAndText(greyCardImage, ImageArea.LOCATION_NAME)
+				result["version"] = self._getSubImageAndText(greyCardImage, ImageArea.LOCATION_VERSION)
 				result["moveCost"] = self._getSubImageAndText(greyCardImage, ImageArea.LOCATION_MOVE_COST)
 				result["willpower"] = self._getSubImageAndText(greyCardImage, ImageArea.LOCATION_WILLPOWER)
 			else:
-				result["baseName"] = self._getSubImageAndText(greyCardImage, ImageArea.CARD_NAME)
+				result["name"] = self._getSubImageAndText(greyCardImage, ImageArea.CARD_NAME)
 
 		# Determine the textbox area, which is different between characters and non-characters, and between enchanted and non-enchanted characters
 		if isQuest:
@@ -326,13 +326,13 @@ class ImageParser():
 			if parseFully:
 				cv2.imshow("Artist", result["artist"].image)
 				cv2.imshow("Ink Cost", result["cost"].image)
-				cv2.imshow("Card Name", result["baseName"].image)
+				cv2.imshow("Card Name", result["name"].image)
 				if result["moveCost"] is not None:
 					cv2.imshow("Card Move Cost", result["moveCost"].image)
 				if result["strength"] is not None:
 					cv2.imshow("Card Strength", result["strength"].image)
-				if result["subtitle"] is not None:
-					cv2.imshow("Card Subtitle", result["subtitle"].image)
+				if result["version"] is not None:
+					cv2.imshow("Card Subtitle", result["version"].image)
 				if result["willpower"] is not None:
 					cv2.imshow("Card Willpower", result["willpower"].image)
 			cv2.waitKey(0)

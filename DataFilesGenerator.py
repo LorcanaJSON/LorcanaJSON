@@ -562,31 +562,31 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 		# Simplify quotemarks
 		outputCard["artistsText"] = outputCard["artistsText"].replace("“", "\"").replace("”", "\"")
 
-	outputCard["baseName"] = correctPunctuation(inputCard["name"].strip() if "name" in inputCard else parsedImageAndTextData["baseName"].text).replace("’", "'").replace("''", "'")
-	if outputCard["baseName"] == "Balais Magiques":
+	outputCard["name"] = correctPunctuation(inputCard["name"].strip() if "name" in inputCard else parsedImageAndTextData["name"].text).replace("’", "'").replace("''", "'")
+	if outputCard["name"] == "Balais Magiques":
 		# This name is inconsistent, sometimes it has a capital 'M', sometimes a lowercase 'm'
 		# Comparing with capitalization of other cards, this should be a lowercase 'm'
-		outputCard["baseName"] = outputCard["baseName"].replace("M", "m")
-	elif outputCard["baseName"].isupper():
+		outputCard["name"] = outputCard["name"].replace("M", "m")
+	elif outputCard["name"].isupper():
 		# Some names have capitals in the middle, correct those
 		if cardType == Language.TRANSLATIONS[GlobalConfig.language]["Character"]:
-			if outputCard["baseName"] == "HEIHEI" and GlobalConfig.language == Language.ENGLISH:
-				outputCard["baseName"] = "HeiHei"
-			elif outputCard["baseName"] == "LEFOU":
-				outputCard["baseName"] = "LeFou"
+			if outputCard["name"] == "HEIHEI" and GlobalConfig.language == Language.ENGLISH:
+				outputCard["name"] = "HeiHei"
+			elif outputCard["name"] == "LEFOU":
+				outputCard["name"] = "LeFou"
 			else:
-				outputCard["baseName"] = _toTitleCase(outputCard["baseName"])
+				outputCard["name"] = _toTitleCase(outputCard["name"])
 		elif GlobalConfig.language == Language.FRENCH:
 			# French titlecase rules are complicated, just capitalize the first letter for now
-			outputCard["baseName"] = outputCard["baseName"][0] + outputCard["baseName"][1:].lower()
+			outputCard["name"] = outputCard["name"][0] + outputCard["name"][1:].lower()
 		else:
-			outputCard["baseName"] = _toTitleCase(outputCard["baseName"])
-	outputCard["fullName"] = outputCard["baseName"]
+			outputCard["name"] = _toTitleCase(outputCard["name"])
+	outputCard["fullName"] = outputCard["name"]
 	outputCard["simpleName"] = outputCard["fullName"]
-	if "subtitle" in inputCard or parsedImageAndTextData.get("subtitle", None) is not None:
-		outputCard["subtitle"] = (inputCard["subtitle"].strip() if "subtitle" in inputCard else parsedImageAndTextData["subtitle"].text).replace("’", "'")
-		outputCard["fullName"] += " - " + outputCard["subtitle"]
-		outputCard["simpleName"] += " " + outputCard["subtitle"]
+	if "subtitle" in inputCard or parsedImageAndTextData.get("version", None) is not None:
+		outputCard["version"] = (inputCard["subtitle"].strip() if "subtitle" in inputCard else parsedImageAndTextData["version"].text).replace("’", "'")
+		outputCard["fullName"] += " - " + outputCard["version"]
+		outputCard["simpleName"] += " " + outputCard["version"]
 	# simpleName is the full name with special characters and the base-subtitle dash removed, for easier lookup. So remove the special characters
 	outputCard["simpleName"] = (re.sub(r"[!.,…?“”\"]", "", outputCard["simpleName"].lower()).rstrip()
 								.replace("ā", "a")
