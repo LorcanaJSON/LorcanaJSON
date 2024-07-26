@@ -468,8 +468,7 @@ def createOutputFiles(onlyParseIds: Union[None, List[int]] = None, shouldShowIma
 		setdata["metadata"] = metaDataDict
 		setdata["cards"] = []
 	for card in outputDict["cards"]:
-		# Remove the setNumber, if any, and the setCode, since those are clear from the setfile the card is in
-		card.pop("setNumber", None)
+		# Remove the setCode, since it's clear from the setfile the card is in
 		setId = card.pop("setCode")
 		setsData[setId]["cards"].append(card)
 	for setId, setData in setsData.items():
@@ -544,9 +543,6 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 		if variantIds:
 			outputCard["variantIds"] = [variantId for variantId in variantIds if variantId != outputCard["id"]]
 	outputCard["setCode"] = cardIdentifierMatch.group(3)
-	if "Q" not in outputCard["setCode"]:
-		# Quests don't have a set number, just a set code
-		outputCard["setNumber"] = int(outputCard["setCode"], 10)
 
 	# Always get the artist from the parsed data, since in the input data it often only lists the first artist when there's multiple, so it's not reliable
 	outputCard["artistsText"] = parsedImageAndTextData["artist"].text.replace(" I ", " / ")
