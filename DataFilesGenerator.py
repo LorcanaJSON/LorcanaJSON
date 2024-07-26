@@ -539,28 +539,28 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 		outputCard["setNumber"] = int(outputCard["setCode"], 10)
 
 	# Always get the artist from the parsed data, since in the input data it often only lists the first artist when there's multiple, so it's not reliable
-	outputCard["artist"] = parsedImageAndTextData["artist"].text.replace(" I ", " / ")
-	if outputCard["artist"].startswith("Illus. ") or outputCard["artist"].startswith(". "):
-		outputCard["artist"] = outputCard["artist"].split(" ", 1)[1]
-	if outputCard["artist"].startswith("l") or outputCard["artist"].startswith("["):
-		outputCard["artist"] = "I" + outputCard["artist"][1:]
-	if re.search(" [a-z]$", outputCard["artist"]):
-		outputCard["artist"] = outputCard["artist"].rsplit(" ", 1)[0]
-	if outputCard["artist"].startswith("lan "):
-		outputCard["artist"] = re.sub("^lan ", "Ian ", outputCard["artist"])
-	if "Hadijie" in outputCard["artist"]:
-		outputCard["artist"] = outputCard["artist"].replace("Hadijie", "Hadjie")
-	elif "Higgman-Sund" in outputCard["artist"]:
-		outputCard["artist"] = outputCard["artist"].replace("Higgman-Sund", "Häggman-Sund")
-	elif re.match("noc[^4]urne", outputCard["artist"]):
-		outputCard["artist"] = "noc4urne"
-	elif "Nquyen" in outputCard["artist"]:
-		outputCard["artist"] = outputCard["artist"].replace("Nquyen", "Nguyen")
-	elif "Toziim" in outputCard["artist"] or "Tôzüm" in outputCard["artist"]:
-		outputCard["artist"] = re.sub(r"\bT\w+z\w+m\b", "Tözüm", outputCard["artist"])
-	if "“" in outputCard["artist"]:
+	outputCard["artistsText"] = parsedImageAndTextData["artist"].text.replace(" I ", " / ")
+	if outputCard["artistsText"].startswith("Illus. ") or outputCard["artistsText"].startswith(". "):
+		outputCard["artistsText"] = outputCard["artistsText"].split(" ", 1)[1]
+	if outputCard["artistsText"].startswith("l") or outputCard["artistsText"].startswith("["):
+		outputCard["artistsText"] = "I" + outputCard["artistsText"][1:]
+	if re.search(" [a-z]$", outputCard["artistsText"]):
+		outputCard["artistsText"] = outputCard["artistsText"].rsplit(" ", 1)[0]
+	if outputCard["artistsText"].startswith("lan "):
+		outputCard["artistsText"] = re.sub("^lan ", "Ian ", outputCard["artistsText"])
+	if "Hadijie" in outputCard["artistsText"]:
+		outputCard["artistsText"] = outputCard["artistsText"].replace("Hadijie", "Hadjie")
+	elif "Higgman-Sund" in outputCard["artistsText"]:
+		outputCard["artistsText"] = outputCard["artistsText"].replace("Higgman-Sund", "Häggman-Sund")
+	elif re.match("noc[^4]urne", outputCard["artistsText"]):
+		outputCard["artistsText"] = "noc4urne"
+	elif "Nquyen" in outputCard["artistsText"]:
+		outputCard["artistsText"] = outputCard["artistsText"].replace("Nquyen", "Nguyen")
+	elif "Toziim" in outputCard["artistsText"] or "Tôzüm" in outputCard["artistsText"]:
+		outputCard["artistsText"] = re.sub(r"\bT\w+z\w+m\b", "Tözüm", outputCard["artistsText"])
+	if "“" in outputCard["artistsText"]:
 		# Simplify quotemarks
-		outputCard["artist"] = outputCard["artist"].replace("“", "\"").replace("”", "\"")
+		outputCard["artistsText"] = outputCard["artistsText"].replace("“", "\"").replace("”", "\"")
 
 	outputCard["baseName"] = correctPunctuation(inputCard["name"].strip() if "name" in inputCard else parsedImageAndTextData["baseName"].text).replace("’", "'").replace("''", "'")
 	if outputCard["baseName"] == "Balais Magiques":
