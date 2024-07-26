@@ -332,6 +332,13 @@ def createOutputFiles(onlyParseIds: Union[None, List[int]] = None, shouldShowIma
 	del enchantedDeckbuildingIds
 	del promoDeckBuildingIds
 
+	historicDataFilePath = os.path.join("output", f"historicData_{GlobalConfig.language.code}.json")
+	if os.path.isfile(historicDataFilePath):
+		with open(historicDataFilePath, "r", encoding="utf-8") as historicDataFile:
+			historicData = {int(k, 10): v for k, v in json.load(historicDataFile).items()}
+	else:
+		historicData = {}
+
 	# Get the cards we don't have to parse (if any) from the previous generated file
 	fullCardList = []
 	cardIdsStored = []
@@ -359,6 +366,7 @@ def createOutputFiles(onlyParseIds: Union[None, List[int]] = None, shouldShowIma
 								promoResult = promoNonPromoIds[card["id"]]
 								# For non-promo cards it stores a list of promo IDs, for promo cards it stores a single non-promo ID
 								card["promoIds" if isinstance(promoResult, list) else "nonPromoId"] = promoResult
+							historicData.pop(card["id"], None)
 				del previousCardData
 		else:
 			_logger.warning("ID list provided but previously generated file doesn't exist. Generating all card data")
@@ -394,7 +402,7 @@ def createOutputFiles(onlyParseIds: Union[None, List[int]] = None, shouldShowIma
 					continue
 				try:
 					results.append(pool.apply_async(_parseSingleCard, (inputCard, cardTypeText, imageFolder, enchantedNonEnchantedIds.get(cardId, None), promoNonPromoIds.get(cardId, None), variantsDeckBuildingIds.get(inputCard["deck_building_id"]),
-												  cardDataCorrections.pop(cardId, None), cardToStoryParser, False, shouldShowImages)))
+												  cardDataCorrections.pop(cardId, None), cardToStoryParser, False, historicData.get(cardId, None), shouldShowImages)))
 					cardIdsStored.append(cardId)
 				except Exception as e:
 					_logger.error(f"Exception {type(e)} occured while parsing card ID {inputCard['culture_invariant_id']}")
@@ -412,7 +420,7 @@ def createOutputFiles(onlyParseIds: Union[None, List[int]] = None, shouldShowIma
 				_logger.debug(f"Card ID {cardId} is defined in the official file and in the external file, skipping the external data")
 				continue
 			results.append(pool.apply_async(_parseSingleCard, (externalCard, externalCard["type"], imageFolder, enchantedNonEnchantedIds.get(cardId, None), promoNonPromoIds.get(cardId, None), variantsDeckBuildingIds,
-															   cardDataCorrections.pop(cardId, None), cardToStoryParser, True, shouldShowImages)))
+															   cardDataCorrections.pop(cardId, None), cardToStoryParser, True, historicData.get(cardId, None), shouldShowImages)))
 		pool.close()
 		pool.join()
 	for result in results:
@@ -480,7 +488,7 @@ def createOutputFiles(onlyParseIds: Union[None, List[int]] = None, shouldShowIma
 	_logger.info(f"Creating the output files took {time.perf_counter() - startTime:.4f} seconds")
 
 def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchantedNonEnchantedId: Union[int, None], promoNonPromoId: Union[int, List[int], None], variantIds: Union[List[int], None],
-					 cardDataCorrections: Dict, storyParser: StoryParser, isExternalReveal: bool, shouldShowImage: bool = False) -> Dict:
+					 cardDataCorrections: Dict, storyParser: StoryParser, isExternalReveal: bool, historicData: List[Dict], shouldShowImage: bool = False) -> Dict:
 	# Store some default values
 	outputCard: Dict[str, Union[str, int, List, Dict]] = {
 		"color": Language.TRANSLATIONS[GlobalConfig.language][inputCard["magic_ink_colors"][0]] if inputCard["magic_ink_colors"] else "",
@@ -899,6 +907,8 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 	else:
 		storyName = storyParser.getStoryNameForCard(outputCard, outputCard["id"])
 		outputCard["story"] = storyName if storyName else "[[unknown]]"
+	if historicData:
+		outputCard["historicData"] = historicData
 	return outputCard
 
 def _saveFile(outputFilePath: str, dictToSave: Dict, createZip: bool = True):

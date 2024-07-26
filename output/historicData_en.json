@@ -1,0 +1,30 @@
+{
+  "289": [
+    {
+      "abilities": [
+        {
+          "type": "keyword",
+          "keyword": "Ward",
+          "reminderText": "Opponents can't choose this character except to challenge.",
+          "fullText": "Ward (Opponents can't choose this character except to challenge.)"
+        },
+        {
+          "type": "triggered",
+          "name": "SQUEAK",
+          "effect": "Whenever you play a Floodborn character, each opponent chooses and discards a card.",
+          "fullText": "SQUEAK Whenever you play a Floodborn character, each opponent chooses and discards a card."
+        }
+      ],
+      "cost": 2,
+      "fullText": "Ward (Opponents can't choose this character except to\nchallenge.)\nSQUEAK Whenever you play a Floodborn character,\neach opponent chooses and discards a card.",
+      "fullTextSections": [
+        "Ward (Opponents can't choose this character except to\nchallenge.)",
+        "SQUEAK Whenever you play a Floodborn character,\neach opponent chooses and discards a card."
+      ],
+      "keywordAbilities": [
+        "Ward"
+      ],
+      "usedUntil": "2024-08-09"
+    }
+  ]
+}

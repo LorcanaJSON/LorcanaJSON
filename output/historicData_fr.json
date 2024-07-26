@@ -1,0 +1,30 @@
+{
+  "289": [
+    {
+      "abilities": [
+        {
+          "fullText": "Hors d'atteinte (Les adversaires ne peuvent pas choisir ce\npersonnage, hormis pour un d\u00e9fi.)",
+          "keyword": "Hors d'atteinte",
+          "reminderText": "Les adversaires ne peuvent pas choisir ce personnage, hormis pour un d\u00e9fi.",
+          "type": "keyword"
+        },
+        {
+          "effect": "Chaque fois que vous jouez un personnage Floodborn, chaque adversaire choisit une carte et la d\u00e9fausse.",
+          "fullText": "SQUEAK Chaque fois que vous jouez un personnage\nFloodborn, chaque adversaire choisit une carte et la d\u00e9fausse.",
+          "name": "SQUEAK",
+          "type": "triggered"
+        }
+      ],
+      "cost": 2,
+      "fullText": "Hors d'atteinte (Les adversaires ne peuvent pas choisir ce\npersonnage, hormis pour un d\u00e9fi.)\nSQUEAK Chaque fois que vous jouez un personnage\nFloodborn, chaque adversaire choisit une carte et la d\u00e9fausse.",
+      "fullTextSections": [
+        "Hors d'atteinte (Les adversaires ne peuvent pas choisir ce\npersonnage, hormis pour un d\u00e9fi.)",
+        "SQUEAK Chaque fois que vous jouez un personnage\nFloodborn, chaque adversaire choisit une carte et la d\u00e9fausse."
+      ],
+      "keywordAbilities": [
+        "Hors d'atteinte"
+      ],
+      "usedUntil": "2024-08-09"
+    }
+  ]
+}
