@@ -205,6 +205,8 @@ def correctCardField(card: Dict, fieldName: str, regexMatchString: str, correcti
 			# The field is a list of dicts, apply the correction to each entry if applicable
 			for fieldIndex, fieldEntry in enumerate(card[fieldName]):
 				for fieldKey, fieldValue in fieldEntry.items():
+					if not isinstance(fieldValue, str):
+						continue
 					match = re.search(regexMatchString, fieldValue, flags=re.DOTALL)
 					if match:
 						matchFound = True
