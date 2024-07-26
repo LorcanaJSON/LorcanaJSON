@@ -54,7 +54,7 @@
     ]
   },
   "76": {
-    "effects": [
+    "abilities": [
       "guests",
       "quests"
     ]
@@ -108,13 +108,13 @@
     ]
   },
   "117": {
-    "effects": [
+    "abilities": [
       "Te Ka",
       "Te Kā"
     ]
   },
   "131": {
-    "abilities": [
+    "effects": [
       "¤ this turn.\\)",
       "of this turn."
     ]
@@ -132,13 +132,13 @@
     ]
   },
   "136": {
-    "effects": [
+    "abilities": [
       "FINALENCHANTMENT",
       "FINAL ENCHANTMENT"
     ]
   },
   "142": {
-    "effects": [
+    "abilities": [
       "\\+4 ¤\\.",
       "+4 ◊."
     ],
@@ -166,7 +166,7 @@
     ]
   },
   "162": {
-    "baseName": [
+    "name": [
       "it's",
       "It's"
     ],
@@ -188,7 +188,7 @@
     ]
   },
   "167": {
-    "effects": [
+    "abilities": [
       "\\+1 ¤",
       "+1 ◊"
     ]
@@ -206,7 +206,7 @@
     ]
   },
   "191": {
-    "effects": [
+    "abilities": [
       "\\+1 ¤",
       "+1 ◊"
     ],
@@ -222,7 +222,7 @@
     ]
   },
   "214": {
-    "effects": [
+    "abilities": [
       "gets \\+4 ¤",
       "gets +4 ◊"
     ]
@@ -234,7 +234,7 @@
     ]
   },
   "216": {
-    "artist": [
+    "artistsText": [
       "^$",
       "Cookie"
     ]
@@ -246,7 +246,7 @@
     ]
   },
   "248": {
-    "abilities": [
+    "effects": [
       "amount of O less",
       "amount of ⬡ less"
     ]
@@ -258,13 +258,13 @@
     ]
   },
   "257": {
-    "effects": [
+    "abilities": [
       "\\.”",
       "”"
     ]
   },
   "269": {
-    "effects": [
+    "abilities": [
       "\\+1 this",
       "+1 ◊ this"
     ],
@@ -288,43 +288,43 @@
     ]
   },
   "280": {
-    "abilities": [
+    "effects": [
       "\\+3 while",
       "+3 ¤ while"
     ]
   },
   "282": {
-    "effects": [
+    "abilities": [
       "theyre",
       "they're"
     ]
   },
   "287": {
-    "effects": [
+    "abilities": [
       "\\+2 ¤",
       "+2 ◊"
     ]
   },
   "296": {
-    "effects": [
+    "abilities": [
       "¤$",
       "¤."
     ]
   },
   "298": {
-    "effects": [
+    "abilities": [
       "-1 ¤",
       "-1 ◊"
     ]
   },
   "302": {
-    "effects": [
+    "abilities": [
       "\\+2 ¤",
       "+2 ◊"
     ]
   },
   "304": {
-    "effects": [
+    "abilities": [
       "\\+2 ¤\\.",
       "+2 ◊."
     ]
@@ -336,7 +336,7 @@
     ]
   },
   "309": {
-    "effects": [
+    "abilities": [
       " ¤\\.$",
       " ◊."
     ]
@@ -348,7 +348,7 @@
     ]
   },
   "322": {
-    "effects": [
+    "abilities": [
       "\\+1 ¤",
       "+1 ◊"
     ]
@@ -360,7 +360,7 @@
     ]
   },
   "330": {
-    "effects": [
+    "abilities": [
       "\\+2 ¤ this",
       "+2 ◊ this"
     ]
@@ -384,7 +384,7 @@
     ]
   },
   "353": {
-    "effects": [
+    "abilities": [
       "\\+4 ¤",
       "+4 ◊"
     ]
@@ -434,21 +434,19 @@
   "425": {
     "abilities": [
       "can t",
-      "can't"
-    ],
-    "effects": [
+      "can't",
       "\\+2 ¤\\.",
       "+2 ◊."
     ]
   },
   "429": {
-    "effects": [
+    "abilities": [
       "\\+4 ¤\\.",
       "+4 ◊."
     ]
   },
   "434": {
-    "effects": [
+    "abilities": [
       "I'L ",
       "I'LL "
     ]
@@ -460,7 +458,7 @@
     ]
   },
   "452": {
-    "effects": [
+    "abilities": [
       "\\+2 ¤",
       "+2 ◊"
     ]
@@ -472,13 +470,13 @@
     ]
   },
   "456": {
-    "effects": [
+    "abilities": [
       "\\+1 ¤",
       "+1 ◊"
     ]
   },
   "461": {
-    "artist": [
+    "artistsText": [
       "a L",
       "a / L"
     ]
@@ -496,7 +494,7 @@
     ]
   },
   "469": {
-    "effects": [
+    "abilities": [
       "\\+2 ¥",
       "+2 ⛉"
     ]
@@ -538,7 +536,7 @@
     ]
   },
   "500": {
-    "effects": [
+    "abilities": [
       "lJafar",
       "Jafar"
     ]
@@ -550,7 +548,7 @@
     ]
   },
   "508": {
-    "effects": [
+    "abilities": [
       "\\+3 O",
       "+3 ¤"
     ]
@@ -568,13 +566,13 @@
     ]
   },
   "518": {
-    "effects": [
+    "abilities": [
       "¤",
       "◊"
     ]
   },
   "521": {
-    "effects": [
+    "abilities": [
       "ILL",
       "I'LL",
       "\\+3 C",
@@ -588,7 +586,7 @@
     ]
   },
   "529": {
-    "effects": [
+    "abilities": [
       "\\+1 ¤",
       "+1 ◊"
     ]
@@ -612,7 +610,7 @@
     ]
   },
   "549": {
-    "effects": [
+    "abilities": [
       "\\+1 ¤",
       "+1 ◊"
     ],
@@ -628,13 +626,13 @@
     ]
   },
   "558": {
-    "effects": [
+    "abilities": [
       "\\+3 O\\.",
       "+3 ¤."
     ]
   },
   "562": {
-    "effects": [
+    "abilities": [
       "\\+1 ¤",
       "+1 ◊"
     ],
@@ -644,7 +642,7 @@
     ]
   },
   "565": {
-    "abilities": [
+    "effects": [
       "¤\\.$",
       "◊."
     ]
@@ -656,7 +654,7 @@
     ]
   },
   "572": {
-    "effects": [
+    "abilities": [
       "TOGE THER",
       "TOGETHER"
     ]
@@ -680,7 +678,7 @@
     ]
   },
   "592": {
-    "artist": [
+    "artistsText": [
       "zii",
       "zzi"
     ]
@@ -698,29 +696,29 @@
     ]
   },
   "601": {
-    "effects": [
+    "abilities": [
       "¤",
       "◊"
     ]
   },
   "612": {
-    "effects": [
+    "abilities": [
       "¤",
       "◊"
     ]
   },
   "614": {
-    "effects": [
+    "abilities": [
       "¤",
       "◊"
     ]
   },
   "616": {
-    "effects": [
+    "abilities": [
       "¤",
       "+2",
-      "\\)$",
-      ""
+      "n\\.\\)$",
+      "n."
     ]
   },
   "628": {
@@ -736,13 +734,13 @@
     ]
   },
   "643": {
-    "effects": [
+    "abilities": [
       "\\+2 ¥",
       "+2 ⛉"
     ]
   },
   "646": {
-    "effects": [
+    "abilities": [
       "⟳ 1",
       "⟳, 1"
     ]
@@ -760,8 +758,8 @@
     ]
   },
   "662": {
-    "effects": [
-      "SORRY",
+    "abilities": [
+      "SORRY$",
       "SORRY!"
     ]
   },
@@ -778,7 +776,7 @@
     ]
   },
   "674": {
-    "effects": [
+    "abilities": [
       "¤",
       "◊"
     ],
@@ -788,22 +786,22 @@
     ]
   },
   "676": {
-    "abilities": [
+    "effects": [
       null,
       null
     ],
-    "effects": [
+    "abilities": [
       null,
       [
         {
           "name": "GLAD YOU'RE HERE!",
-          "text": "Whenever this character\nquests, you pay 3 ⬡ less for the next character\nyou play this turn."
+          "effect": "Whenever this character\nquests, you pay 3 ⬡ less for the next character\nyou play this turn."
         }
       ]
     ]
   },
   "684": {
-    "effects": [
+    "abilities": [
       "\\$",
       "¤"
     ],
@@ -813,13 +811,13 @@
     ]
   },
   "685": {
-    "effects": [
+    "abilities": [
       "chall\n",
       "challenge\n"
     ]
   },
   "687": {
-    "effects": [
+    "abilities": [
       "¤",
       "◊"
     ]
@@ -833,23 +831,21 @@
   "695": {
     "abilities": [
       "cost to",
-      "cost 9 to"
-    ],
-    "effects": [
+      "cost 9 to",
       "¤",
       "◊"
     ]
   },
   "699": {
-    "effects": [
+    "abilities": [
       "¤",
       "◊"
     ]
   },
   "709": {
-    "effects": [
-      "¤",
-      "◊"
+    "abilities": [
+      "1 ¤",
+      "1 ◊"
     ]
   },
   "720": {
@@ -859,37 +855,37 @@
     ]
   },
   "729": {
-    "effects": [
+    "abilities": [
       "\\.”",
       "”"
     ]
   },
   "731": {
-    "effects": [
+    "abilities": [
       "1 ¤",
       "1 ◊"
     ]
   },
   "736": {
-    "effects": [
+    "abilities": [
       "¤",
       "◊"
     ]
   },
   "750": {
-    "effects": [
+    "abilities": [
       "¤",
       "◊"
     ]
   },
   "755": {
-    "effects": [
+    "abilities": [
       "¤",
       "◊"
     ]
   },
   "759": {
-    "effects": [
+    "abilities": [
       "¤",
       "◊"
     ]
@@ -901,7 +897,7 @@
     ]
   },
   "770": {
-    "artist": [
+    "artistsText": [
       "q",
       "g"
     ]
@@ -919,7 +915,7 @@
     ]
   },
   "789": {
-    "effects": [
+    "abilities": [
       "¤",
       "◉"
     ]
@@ -931,7 +927,7 @@
     ]
   },
   "793": {
-    "effects": [
+    "abilities": [
       "¤",
       "◊"
     ]
@@ -943,25 +939,25 @@
     ]
   },
   "803": {
-    "effects": [
+    "abilities": [
       "1 ¤",
       "1 ◊"
     ]
   },
   "828": {
-    "effects": [
+    "abilities": [
       "¤",
       "◊"
     ]
   },
   "829": {
-    "effects": [
+    "abilities": [
       "¤",
       "◊"
     ]
   },
   "830": {
-    "effects": [
+    "abilities": [
       "¤",
       "◊"
     ]
@@ -985,25 +981,25 @@
     ]
   },
   "854": {
-    "abilities": [
+    "effects": [
       " lts ",
       " Its "
     ]
   },
   "860": {
-    "effects": [
+    "abilities": [
       "¤",
       "◊"
     ]
   },
   "868": {
-    "effects": [
+    "abilities": [
       "¤",
       "◊"
     ]
   },
   "870": {
-    "effects": [
+    "abilities": [
       "¤",
       "◊"
     ]
@@ -1018,26 +1014,22 @@
     "abilities": [
       "cost to",
       "cost 9 to"
-    ],
-    "effects": [
-      "¤",
-      "◊"
     ]
   },
   "899": {
-    "effects": [
+    "abilities": [
       "LLL",
       "LL L"
     ]
   },
   "900": {
-    "effects": [
+    "abilities": [
       "¤",
       "◊"
     ]
   },
   "902": {
-    "effects": [
+    "abilities": [
       " \\.\\)",
       ""
     ]
@@ -1049,19 +1041,19 @@
     ]
   },
   "908": {
-    "effects": [
+    "abilities": [
       "¤",
       "◊"
     ]
   },
   "910": {
-    "effects": [
+    "abilities": [
       "¤",
       "◊"
     ]
   },
   "915": {
-    "effects": [
+    "abilities": [
       "EC$",
       "ECY"
     ]
@@ -1073,17 +1065,17 @@
     ]
   },
   "922": {
-    "effects": [
+    "abilities": [
       "!",
       "S"
     ]
   },
   "945": {
-    "abilities": [
+    "effects": [
       null,
       null
     ],
-    "effects": [
+    "abilities": [
       "¤",
       "◊"
     ],
@@ -1093,7 +1085,7 @@
     ]
   },
   "946": {
-    "effects": [
+    "abilities": [
       " h\n",
       "\n",
       "¤",
@@ -1111,15 +1103,13 @@
   "949": {
     "abilities": [
       " C J",
-      ""
-    ],
-    "effects": [
+      "",
       "\nIRU.”",
       ""
     ]
   },
   "1172": {
-    "effects": [
+    "abilities": [
       "-",
       "—"
     ],

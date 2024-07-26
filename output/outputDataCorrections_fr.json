@@ -6,7 +6,7 @@
     ]
   },
   "3": {
-    "effects": [
+    "abilities": [
       "Dommacge",
       "Dommage"
     ]
@@ -36,7 +36,7 @@
     ]
   },
   "27": {
-    "baseName": [
+    "name": [
       "m",
       "M"
     ],
@@ -50,7 +50,7 @@
     ]
   },
   "34": {
-    "baseName": [
+    "name": [
       "d'u",
       "d'U"
     ],
@@ -58,6 +58,9 @@
       "d'u",
       "d'U"
     ]
+  },
+  "37": {
+    "_forceAbilityIndexToTriggered": 1
   },
   "38": {
     "abilities": [
@@ -70,7 +73,7 @@
     ]
   },
   "42": {
-    "effects": [
+    "abilities": [
       "LI",
       "L I"
     ],
@@ -86,7 +89,7 @@
     ]
   },
   "47": {
-    "baseName": [
+    "name": [
       "M",
       "m"
     ],
@@ -108,19 +111,19 @@
     ]
   },
   "56": {
-    "effects": [
+    "abilities": [
       "JETE",
       "JE TE"
     ]
   },
   "58": {
-    "effects": [
+    "abilities": [
       "Is ",
       "Ils "
     ]
   },
   "60": {
-    "effects": [
+    "abilities": [
       "TES",
       "T'ES "
     ]
@@ -132,7 +135,7 @@
     ]
   },
   "67": {
-    "baseName": [
+    "name": [
       "d'u",
       "d'U"
     ],
@@ -142,7 +145,7 @@
     ]
   },
   "68": {
-    "effects": [
+    "abilities": [
       "NR",
       "N R"
     ]
@@ -178,7 +181,7 @@
     ]
   },
   "99": {
-    "baseName": [
+    "name": [
       "b",
       "B"
     ],
@@ -192,7 +195,7 @@
     ]
   },
   "101": {
-    "baseName": [
+    "name": [
       "dr. f",
       "Dr. F"
     ],
@@ -202,7 +205,7 @@
     ]
   },
   "112": {
-    "effects": [
+    "abilities": [
       "e, C",
       "e. C"
     ]
@@ -216,7 +219,7 @@
     ]
   },
   "117": {
-    "effects": [
+    "abilities": [
       "ä",
       "ā"
     ]
@@ -248,7 +251,7 @@
     ]
   },
   "134": {
-    "effects": [
+    "abilities": [
       " - ",
       " – "
     ],
@@ -258,13 +261,13 @@
     ]
   },
   "135": {
-    "effects": [
+    "abilities": [
       " I ",
       " Il "
     ]
   },
   "138": {
-    "effects": [
+    "abilities": [
       "2(?=\\n)",
       "2 ¤"
     ],
@@ -276,9 +279,7 @@
   "139": {
     "abilities": [
       "nñ",
-      "nn"
-    ],
-    "effects": [
+      "nn",
       " !/s",
       "Ils"
     ]
@@ -290,13 +291,13 @@
     ]
   },
   "147": {
-    "effects": [
+    "abilities": [
       "ILUN",
       "IL UN"
     ]
   },
   "157": {
-    "effects": [
+    "abilities": [
       "LIT",
       "LI T"
     ],
@@ -318,11 +319,11 @@
     ]
   },
   "170": {
-    "baseName": [
+    "name": [
       "d'a",
       "d'A"
     ],
-    "effects": [
+    "abilities": [
       "%",
       "¤"
     ],
@@ -332,7 +333,7 @@
     ]
   },
   "173": {
-    "effects": [
+    "abilities": [
       "MEC",
       "MÊC"
     ]
@@ -362,7 +363,7 @@
     ]
   },
   "189": {
-    "effects": [
+    "abilities": [
       " !/",
       "Il"
     ]
@@ -380,7 +381,7 @@
     ]
   },
   "198": {
-    "baseName": [
+    "name": [
       "b",
       "B"
     ],
@@ -394,7 +395,7 @@
     ]
   },
   "201": {
-    "baseName": [
+    "name": [
       "b",
       "B"
     ],
@@ -404,7 +405,7 @@
     ]
   },
   "204": {
-    "effects": [
+    "abilities": [
       "--",
       "-"
     ],
@@ -416,7 +417,7 @@
     ]
   },
   "207": {
-    "effects": [
+    "abilities": [
       "LI",
       "L I"
     ]
@@ -428,7 +429,7 @@
     ]
   },
   "217": {
-    "effects": [
+    "abilities": [
       "H\\.",
       "H…"
     ]
@@ -448,7 +449,7 @@
     ]
   },
   "226": {
-    "effects": [
+    "abilities": [
       "ILY",
       "IL Y"
     ]
@@ -460,7 +461,7 @@
     ]
   },
   "228": {
-    "effects": [
+    "abilities": [
       "JEM",
       "JE M",
       "NO",
@@ -474,13 +475,13 @@
     ]
   },
   "236": {
-    "effects": [
+    "abilities": [
       " - ",
       " – "
     ]
   },
   "237": {
-    "effects": [
+    "abilities": [
       "…\\.",
       "…"
     ]
@@ -496,9 +497,7 @@
   "242": {
     "abilities": [
       "r2",
-      "r 2"
-    ],
-    "effects": [
+      "r 2",
       "¤ p",
       "¤, p"
     ]
@@ -512,19 +511,19 @@
     ]
   },
   "246": {
-    "abilities": [
+    "effects": [
       "1\n",
       "1 ¤\n"
     ]
   },
   "247": {
-    "abilities": [
+    "effects": [
       "5",
       "5 ¤"
     ]
   },
   "248": {
-    "abilities": [
+    "effects": [
       "X \\w,",
       "X ⬡,"
     ]
@@ -536,19 +535,19 @@
     ]
   },
   "257": {
-    "effects": [
+    "abilities": [
       "%%",
       "¤"
     ]
   },
   "258": {
-    "effects": [
+    "abilities": [
       "”",
       "'"
     ]
   },
   "259": {
-    "effects": [
+    "abilities": [
       "ILEST",
       "IL EST"
     ]
@@ -560,13 +559,13 @@
     ]
   },
   "264": {
-    "effects": [
+    "abilities": [
       " - ",
       " – "
     ]
   },
   "266": {
-    "effects": [
+    "abilities": [
       "©",
       "¤"
     ]
@@ -590,28 +589,25 @@
     ]
   },
   "281": {
-    "effects": [
+    "abilities": [
       " - ",
       " – "
     ]
   },
   "282": {
-    "effects": [
+    "abilities": [
       " - ",
       " – "
     ]
   },
   "294": {
-    "effects": [
+    "abilities": [
       "2\n",
       "2 ¤\n"
     ]
   },
   "299": {
-    "fullText": [
-      "E T",
-      "E\nT"
-    ]
+    "_newlineAfterLabelIndex": 0
   },
   "302": {
     "flavorText": [
@@ -620,13 +616,13 @@
     ]
   },
   "305": {
-    "effects": [
+    "abilities": [
       "JETE",
       "JE TE"
     ]
   },
   "309": {
-    "effects": [
+    "abilities": [
       "\\$",
       "◊"
     ],
@@ -636,7 +632,7 @@
     ]
   },
   "315": {
-    "abilities": [
+    "effects": [
       "1 ",
       "1 ¤ "
     ]
@@ -654,7 +650,7 @@
     ]
   },
   "318": {
-    "effects": [
+    "abilities": [
       " - ",
       " – "
     ]
@@ -666,7 +662,7 @@
     ]
   },
   "322": {
-    "effects": [
+    "abilities": [
       "NAIA",
       "N AI A"
     ]
@@ -690,19 +686,19 @@
     ]
   },
   "332": {
-    "effects": [
+    "abilities": [
       "\\* ",
       ""
     ]
   },
   "334": {
-    "effects": [
+    "abilities": [
       " - ",
       " – "
     ]
   },
   "337": {
-    "effects": [
+    "abilities": [
       " I ",
       " Il "
     ]
@@ -722,7 +718,7 @@
     ]
   },
   "350": {
-    "effects": [
+    "abilities": [
       " - ",
       " – "
     ]
@@ -734,7 +730,7 @@
     ]
   },
   "353": {
-    "effects": [
+    "abilities": [
       "%\\*",
       "¤"
     ]
@@ -742,15 +738,13 @@
   "354": {
     "abilities": [
       "ce °°",
-      " ce"
-    ],
-    "effects": [
+      " ce",
       "LY",
       "L Y"
     ]
   },
   "359": {
-    "effects": [
+    "abilities": [
       "\\(@",
       "⟳",
       " - ",
@@ -764,7 +758,7 @@
     ]
   },
   "367": {
-    "effects": [
+    "abilities": [
       "\\|",
       "1"
     ]
@@ -790,31 +784,28 @@
     ]
   },
   "382": {
-    "effects": [
+    "abilities": [
       " -(?= |\n)",
       " –",
-      "-2",
+      "-2(?! ¤)",
       "-2 ¤"
     ]
   },
   "383": {
-    "effects": [
+    "_newlineAfterLabelIndex": 0,
+    "abilities": [
       "\\(9 -",
       "⟳ –"
-    ],
-    "fullText": [
-      " ⟳",
-      "\n⟳"
     ]
   },
   "385": {
-    "effects": [
+    "abilities": [
       " -",
       " –"
     ]
   },
   "386": {
-    "effects": [
+    "abilities": [
       "l/s",
       "Ils"
     ],
@@ -844,7 +835,7 @@
     ]
   },
   "409": {
-    "effects": [
+    "abilities": [
       " -",
       " –"
     ],
@@ -854,7 +845,7 @@
     ]
   },
   "414": {
-    "abilities": [
+    "effects": [
       "&\\*",
       "¤"
     ],
@@ -864,7 +855,7 @@
     ]
   },
   "418": {
-    "effects": [
+    "abilities": [
       " - ",
       " – ",
       " D\\.",
@@ -872,31 +863,31 @@
     ]
   },
   "419": {
-    "effects": [
+    "abilities": [
       " - ",
       " – "
     ]
   },
   "420": {
-    "effects": [
+    "abilities": [
       "1 O",
       "1 ⬡"
     ]
   },
   "429": {
-    "effects": [
+    "abilities": [
       "%\\*",
       "¤"
     ]
   },
   "430": {
-    "effects": [
+    "abilities": [
       "NT",
       "N T"
     ]
   },
   "434": {
-    "effects": [
+    "abilities": [
       "ILEN",
       "IL EN"
     ]
@@ -908,7 +899,7 @@
     ]
   },
   "444": {
-    "effects": [
+    "abilities": [
       " _$",
       ""
     ]
@@ -926,7 +917,7 @@
     ]
   },
   "456": {
-    "effects": [
+    "abilities": [
       "1 p",
       "1 ◊ p"
     ]
@@ -956,31 +947,31 @@
     ]
   },
   "466": {
-    "effects": [
+    "abilities": [
       "^\\(9",
       "⟳"
     ]
   },
   "471": {
-    "effects": [
+    "abilities": [
       "TR[EÉ]S",
       "TRÈS"
     ]
   },
   "480": {
-    "effects": [
+    "abilities": [
       "\\[\\|",
       "Il"
     ]
   },
   "486": {
-    "effects": [
+    "abilities": [
       "%",
       "¤"
     ]
   },
   "495": {
-    "effects": [
+    "abilities": [
       "PT",
       "P T"
     ]
@@ -992,13 +983,13 @@
     ]
   },
   "498": {
-    "abilities": [
+    "effects": [
       "Q",
       "¤"
     ]
   },
   "503": {
-    "baseName": [
+    "name": [
       " r",
       " R"
     ],
@@ -1022,7 +1013,7 @@
     ]
   },
   "513": {
-    "effects": [
+    "abilities": [
       "2\n",
       "2 ¤\n"
     ]
@@ -1044,7 +1035,7 @@
     ]
   },
   "529": {
-    "effects": [
+    "abilities": [
       "ILEST",
       "IL EST"
     ]
@@ -1056,13 +1047,13 @@
     ]
   },
   "533": {
-    "effects": [
+    "abilities": [
       "JY",
       "J'Y"
     ]
   },
   "537": {
-    "effects": [
+    "abilities": [
       "E ",
       "É "
     ]
@@ -1076,9 +1067,7 @@
   "552": {
     "abilities": [
       "jouerce",
-      "jouer ce"
-    ],
-    "effects": [
+      "jouer ce",
       "\nls",
       "\nIls"
     ]
@@ -1096,7 +1085,7 @@
     ]
   },
   "565": {
-    "abilities": [
+    "effects": [
       "Il",
       "il"
     ]
@@ -1114,7 +1103,7 @@
     ]
   },
   "578": {
-    "effects": [
+    "abilities": [
       "N°",
       " N'"
     ],
@@ -1124,10 +1113,7 @@
     ]
   },
   "580": {
-    "fullText": [
-      "AL ",
-      "AL\n"
-    ]
+    "_newlineAfterLabelIndex": 0
   },
   "584": {
     "flavorText": [
@@ -1135,26 +1121,33 @@
       "s'é"
     ]
   },
-  "589": {
-    "fullText": [
-      "IS ",
-      "IS\n"
+  "587": {
+    "abilities": [
+      "CAVAË",
+      "ÇA VA Ê"
+    ],
+    "flavorText": [
+      "fout",
+      "faut"
     ]
   },
+  "589": {
+    "_newlineAfterLabelIndex": 0
+  },
   "593": {
-    "effects": [
+    "abilities": [
       "dencre",
       "d'encre"
     ]
   },
   "600": {
-    "effects": [
+    "abilities": [
       "LAV",
       "LA V"
     ]
   },
   "601": {
-    "effects": [
+    "abilities": [
       "4",
       "◊"
     ]
@@ -1172,19 +1165,19 @@
     ]
   },
   "617": {
-    "effects": [
+    "abilities": [
       "1",
       "1 ¤"
     ]
   },
   "619": {
-    "effects": [
+    "abilities": [
       "#",
       "+"
     ]
   },
   "620": {
-    "effects": [
+    "abilities": [
       "LALA",
       "LA LA"
     ]
@@ -1206,34 +1199,28 @@
     ]
   },
   "635": {
-    "effects": [
+    "abilities": [
       "3",
       "¤"
     ]
   },
   "642": {
-    "fullText": [
-      "R L",
-      "R\nL"
-    ]
+    "_newlineAfterLabelIndex": 1
   },
   "654": {
-    "fullText": [
-      "DE ",
-      "DE\n"
-    ]
+    "_newlineAfterLabelIndex": 1
   },
   "676": {
-    "abilities": [
+    "effects": [
       null,
       null
     ],
-    "effects": [
+    "abilities": [
       null,
       [
         {
           "name": "BIENVENUE DANS MA MAISON",
-          "text": "Lorsque ce\npersonnage est envoyé à l'aventure, le prochain\npersonnage que vous jouez durant ce tour vous\ncoûte 3 ⬡ de moins."
+          "effect": "Lorsque ce\npersonnage est envoyé à l'aventure, le prochain\npersonnage que vous jouez durant ce tour vous\ncoûte 3 ⬡ de moins."
         }
       ]
     ]
@@ -1245,7 +1232,7 @@
     ]
   },
   "693": {
-    "effects": [
+    "abilities": [
       "ÂT",
       "À T"
     ]
@@ -1277,7 +1264,7 @@
     ]
   },
   "720": {
-    "abilities": [
+    "effects": [
       "2\n",
       "2 ¤\n"
     ]
@@ -1295,25 +1282,25 @@
     ]
   },
   "729": {
-    "effects": [
+    "abilities": [
       "AV",
       "A V"
     ]
   },
   "733": {
-    "effects": [
+    "abilities": [
       "©",
       "¤"
     ]
   },
   "734": {
-    "effects": [
+    "abilities": [
       "\\.”",
       "”"
     ]
   },
   "736":{
-    "effects": [
+    "abilities": [
       "\\. -$",
       "."
     ]
@@ -1331,7 +1318,7 @@
     ]
   },
   "743": {
-    "effects": [
+    "abilities": [
       "ILY",
       "IL Y"
     ]
@@ -1387,14 +1374,11 @@
     ]
   },
   "771": {
-    "fullText": [
-      "S C",
-      "S\nC"
-    ]
+    "_newlineAfterLabelIndex": 1
   },
   "774": {
     "abilities": [
-      "^.+Alter",
+      "^.+\nAlter",
       "Alter"
     ]
   },
@@ -1425,7 +1409,7 @@
     ]
   },
   "783": {
-    "effects": [
+    "abilities": [
       "%\\*",
       "¤"
     ]
@@ -1449,7 +1433,7 @@
     ]
   },
   "789": {
-    "effects": [
+    "abilities": [
       "nt\n.+con",
       "nt\ncon",
       "Ç",
@@ -1463,13 +1447,13 @@
     ]
   },
   "794": {
-    "effects": [
+    "abilities": [
       "\"",
       ""
     ]
   },
   "797": {
-    "effects": [
+    "abilities": [
       "%\\*",
       "¤"
     ]
@@ -1477,9 +1461,7 @@
   "805": {
     "abilities": [
       "ñ",
-      "n"
-    ],
-    "effects": [
+      "n",
       "aa",
       "ag",
       " \\{$",
@@ -1487,19 +1469,19 @@
     ]
   },
   "806": {
-    "effects": [
+    "abilities": [
       "2\n",
       "2 ¤\n"
     ]
   },
   "815": {
-    "effects": [
+    "abilities": [
       "1\n",
       "1 ¤\n"
     ]
   },
   "826": {
-    "effects": [
+    "abilities": [
       "6",
       "6 ¤"
     ]
@@ -1517,7 +1499,7 @@
     ]
   },
   "833": {
-    "effects": [
+    "abilities": [
       "©",
       "¤"
     ]
@@ -1529,7 +1511,7 @@
     ]
   },
   "840": {
-    "effects": [
+    "abilities": [
       "[*©]",
       "¤"
     ]
@@ -1541,7 +1523,7 @@
     ]
   },
   "851": {
-    "effects": [
+    "abilities": [
       " !/",
       "Il"
     ]
@@ -1559,7 +1541,7 @@
     ]
   },
   "872": {
-    "effects": [
+    "abilities": [
       "AUPRES",
       "AUPRÈS"
     ]
@@ -1571,19 +1553,19 @@
     ]
   },
   "876": {
-    "effects": [
+    "abilities": [
       " !/",
       "Il"
     ]
   },
   "881": {
-    "effects": [
+    "abilities": [
       "©",
       "¤"
     ]
   },
   "884": {
-    "effects": [
+    "abilities": [
       "Ll",
       "L"
     ]
@@ -1601,7 +1583,7 @@
     ]
   },
   "892": {
-    "effects": [
+    "abilities": [
       "%",
       "¤"
     ]
@@ -1609,9 +1591,7 @@
   "902": {
     "abilities": [
       "efau",
-      "éfau"
-    ],
-    "effects": [
+      "éfau",
       "r…",
       "r,",
       "… a$",
@@ -1625,7 +1605,7 @@
     ]
   },
   "906": {
-    "effects": [
+    "abilities": [
       "2",
       "2 ¤"
     ]
@@ -1637,7 +1617,7 @@
     ]
   },
   "922": {
-    "effects": [
+    "abilities": [
       " À ",
       " A "
     ]
@@ -1663,25 +1643,25 @@
     ]
   },
   "941": {
-    "abilities": [
+    "effects": [
       "^E",
       "É"
     ]
   },
   "942": {
-    "effects": [
+    "abilities": [
       "-",
       "—"
     ]
   },
   "944": {
-    "effects": [
+    "abilities": [
       "-",
       "—"
     ]
   },
   "945": {
-    "effects": [
+    "abilities": [
       " &",
       ""
     ],
@@ -1693,7 +1673,7 @@
     ]
   },
   "946": {
-    "effects": [
+    "abilities": [
       "… rc\n",
       "",
       "\neN 25$",
@@ -1703,9 +1683,7 @@
   "948": {
     "abilities": [
       " ¤\n",
-      "\n"
-    ],
-    "effects": [
+      "\n",
       "aae",
       "age",
       "\\. TI$",
@@ -1715,21 +1693,19 @@
   "949": {
     "abilities": [
       " C\n",
-      "\n"
-    ],
-    "effects": [
+      "\n",
       "\\. -$",
       "."
     ]
   },
   "1172": {
-    "baseName": [
+    "name": [
       " c",
       " C",
       "'h",
       "'H"
     ],
-    "effects": [
+    "abilities": [
       " -",
       " —"
     ],

@@ -19,7 +19,7 @@ SEPARATOR_UNICODE = "•"  # Unicode \u2022 HTML entities &#8226; &bull;
 
 ImageAndText = namedtuple("ImageAndText", ("image", "text"))
 
-_EFFECT_LABEL_MARGIN: int = 12
+_ABILITY_LABEL_MARGIN: int = 12
 
 _BLACK = (0, 0, 0)
 _WHITE = (255, 255, 255)
@@ -44,8 +44,8 @@ class ImageParser():
 		startTime = time.perf_counter()
 		result: Dict[str, Union[None, ImageAndText, List[ImageAndText]]] = {
 			"flavorText": None,
-			"effectLabels": [],
-			"effectTexts": [],
+			"abilityLabels": [],
+			"abilityTexts": [],
 			"remainingText": None,
 			"subtypesText": []
 		}
@@ -151,11 +151,11 @@ class ImageParser():
 		textboxWidth = greyTextboxImage.shape[1]
 		textboxHeight = greyTextboxImage.shape[0]
 
-		# First get the effect label coordinates, so we know where we can find the flavor text separator
+		# First get the ability label coordinates, so we know where we can find the flavor text separator
 		# Then get the flavor text separator and the flavor text itself
-		# Finally get the effect text, since that goes between the labels and the flavor text
+		# Finally get the ability text, since that goes between the labels and the flavor text
 
-		# Find where the effect name labels are, store them as the top y, bottom y and the right x, so we know where to get the text from
+		# Find where the ability name labels are, store them as the top y, bottom y and the right x, so we know where to get the text from
 		labelCoords = []
 		if hasCardText is not False:
 			isCurrentlyInLabel: bool = False
@@ -190,15 +190,15 @@ class ImageParser():
 									currentCoords[1] = 0
 									isCurrentlyInLabel = False
 								else:
-									currentCoords[2] = x - _EFFECT_LABEL_MARGIN - 6
+									currentCoords[2] = x - _ABILITY_LABEL_MARGIN - 6
 								break
 						else:
 							successiveLightPixels = 0
 					else:
 						#raise ValueError(f"Unable to find right side of label at {y=} in the cropped image")
-						# 'effect label' is as wide as the image, disqualify it
+						# 'ability label' is as wide as the image, disqualify it
 						# Don't raise an exception, because this is sometimes hit in Quest cards
-						self._logger.debug(f"Reached right side of image in effect label check at {y=}, assuming it's not a label")
+						self._logger.debug(f"Reached right side of image in ability label check at {y=}, assuming it's not a label")
 						currentCoords = [0, 0, 0]
 						isCurrentlyInLabel = False
 			if isCurrentlyInLabel:
@@ -232,7 +232,7 @@ class ImageParser():
 				flavorTextSeparatorY = 0
 				for line in lines:
 					if line[0][0] < 80 or line[0][1] < 20:
-						# Too far to the left or to the top, probably a mistaken effect label
+						# Too far to the left or to the top, probably a mistaken label
 						self._logger.debug(f"Skipping line at {line[0]}, too close to the edge, probably a mistake")
 						continue
 					self._logger.debug(f"line length: {line[0][2] - line[0][0]}")
@@ -255,36 +255,36 @@ class ImageParser():
 					self._logger.debug(f"{flavourText=}")
 				self._logger.debug(f"Finding flavor text finished at {time.perf_counter() - startTime} seconds in")
 
-		#Find the card text, one block at the time, separated by the effect label
+		#Find the card text, one block at the time, separated by the ability name label
 		# We have to go from bottom to top, because non-labelled text is above labelled text
-		effectLabelImage = None
-		effectTextImage = None
+		abilityLabelImage = None
+		abilityTextImage = None
 		remainingTextImage = None
 		if hasCardText is not False:
 			labelCoords.reverse()
 			previousBlockTopY = flavorTextSeparatorY - (15 if hasFlavorText else 0)
 			labelNumber = len(labelCoords)
 			for labelCoord in labelCoords:
-				# First get the label text itself. It's white on dark, so handle it the opposite way from the actual effect text
-				effectLabelImage = self._convertToThresholdImage(greyTextboxImage[labelCoord[0]:labelCoord[1], 0:labelCoord[2]], ImageArea.TEXT_COLOUR_WHITE)
-				effectLabelText = self._imageToString(effectLabelImage)
-				result["effectLabels"].append(ImageAndText(effectLabelImage, effectLabelText))
-				# Then get the effect text
+				# First get the label text itself. It's white on dark, so handle it the opposite way from the actual ability text
+				abilityLabelImage = self._convertToThresholdImage(greyTextboxImage[labelCoord[0]:labelCoord[1], 0:labelCoord[2]], ImageArea.TEXT_COLOUR_WHITE)
+				abilityLabelText = self._imageToString(abilityLabelImage)
+				result["abilityLabels"].append(ImageAndText(abilityLabelImage, abilityLabelText))
+				# Then get the ability text
 				# Put a white rectangle over where the label was, because the thresholding sometimes leaves behind some pixels, which confuses Tesseract, leading to phantom letters
-				effectTextImage = greyTextboxImage.copy()
+				abilityTextImage = greyTextboxImage.copy()
 				labelMaskColor = _BLACK if textBoxImageArea.textColour == ImageArea.TEXT_COLOUR_WHITE else _WHITE
-				cv2.rectangle(effectTextImage, (0, 0), (labelCoord[2] + _EFFECT_LABEL_MARGIN, labelCoord[1]), labelMaskColor, thickness=-1)  # -1 thickness fills the rectangle
-				effectTextImage = self._convertToThresholdImage(effectTextImage[labelCoord[0]:previousBlockTopY, 0:textboxWidth], thresholdTextColor)
-				effectText = self._imageToString(effectTextImage)
-				result["effectTexts"].append(ImageAndText(effectTextImage, effectText))
-				self._logger.debug(f"{effectLabelText=} ({labelCoord[1] - labelCoord[0]} px high), {effectText=}")
+				cv2.rectangle(abilityTextImage, (0, 0), (labelCoord[2] + _ABILITY_LABEL_MARGIN, labelCoord[1]), labelMaskColor, thickness=-1)  # -1 thickness fills the rectangle
+				abilityTextImage = self._convertToThresholdImage(abilityTextImage[labelCoord[0]:previousBlockTopY, 0:textboxWidth], thresholdTextColor)
+				abilityText = self._imageToString(abilityTextImage)
+				result["abilityTexts"].append(ImageAndText(abilityTextImage, abilityText))
+				self._logger.debug(f"{abilityLabelText=} ({labelCoord[1] - labelCoord[0]} px high), {abilityText=}")
 				previousBlockTopY = labelCoord[0]
 				labelNumber -= 1
 			self._logger.debug(f"{len(labelCoords)} {labelCoords=}")
-			self._logger.debug(f"Finding effects finished at {time.perf_counter() - startTime} seconds in")
+			self._logger.debug(f"Finding abilities finished at {time.perf_counter() - startTime} seconds in")
 			# Order the labels from top to bottom
-			result["effectLabels"].reverse()
-			result["effectTexts"].reverse()
+			result["abilityLabels"].reverse()
+			result["abilityTexts"].reverse()
 
 			# There might be text above the label coordinates too (abilities text), especially if there aren't any labels. Get that text as well
 			if previousBlockTopY > 35:
@@ -297,7 +297,7 @@ class ImageParser():
 					self._logger.debug("No remaining text found")
 				self._logger.debug(f"Finding remaining text finished at {time.perf_counter() - startTime} seconds in")
 			else:
-				self._logger.debug(f"No text above effect labels, highest label is at y={previousBlockTopY}")
+				self._logger.debug(f"No text above ability labels, highest label is at y={previousBlockTopY}")
 
 		self._logger.debug(f"Parsing image took {time.perf_counter() - startTime} seconds")
 		if showImage:
@@ -314,13 +314,13 @@ class ImageParser():
 			if flavorTextGreyscaleImageWithLines is not None:
 				cv2.imshow("Greyscale with lines drawn on top", flavorTextGreyscaleImageWithLines)
 			if flavorTextLineDetectionCroppedImage is not None:
-				cv2.imshow("Flavor Text Cropped Image From Effect Labels", flavorTextLineDetectionCroppedImage)
+				cv2.imshow("Flavor Text Cropped Image From Ability Labels", flavorTextLineDetectionCroppedImage)
 			if flavorTextImage is not None:
 				cv2.imshow("Flavor Text Image", flavorTextImage)
-			if effectLabelImage is not None:
-				cv2.imshow("Effect label image", effectLabelImage)
-			if effectTextImage is not None:
-				cv2.imshow("Effect text image", effectTextImage)
+			if abilityLabelImage is not None:
+				cv2.imshow("Ability label image", abilityLabelImage)
+			if abilityTextImage is not None:
+				cv2.imshow("Ability text image", abilityTextImage)
 			if remainingTextImage is not None:
 				cv2.imshow("Remaining text image", remainingTextImage)
 			if parseFully:

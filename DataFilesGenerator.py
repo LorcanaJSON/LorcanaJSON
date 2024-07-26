@@ -7,8 +7,9 @@ from output.StoryParser import StoryParser
 
 
 _logger = logging.getLogger("LorcanaJSON")
-FORMAT_VERSION = "1.3.1"
+FORMAT_VERSION = "2.0.0"
 _CARD_CODE_LOOKUP = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+_KEYWORD_REGEX = re.compile(r"(?:^|\n)([A-ZÀ][^.]+)(?= \()")
 # The card parser is run in threads, and each thread needs to initialize its own ImageParser (otherwise weird errors happen in Tesseract)
 # Store each initialized ImageParser in its own thread storage
 _threadingLocalStorage = threading.local()
@@ -639,36 +640,74 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 			# French cards use '–' (en dash, \u2013) a lot, for quote attribution and the like, which gets read as '-' (a normal dash) often. Correct that
 			flavorText = flavorText.replace("\n-", "\n–").replace("” -", "” –")
 		outputCard["flavorText"] = flavorText
+	abilities: List[Dict[str, str]] = []
+	effects: List[str] = []
 	if parsedImageAndTextData["remainingText"] is not None:
-		abilityText = parsedImageAndTextData["remainingText"].text.lstrip("“‘")
-		# TODO FIXME Song reminder text is at the top of a Song card, should probably not be listed in the 'abilities' list
-		abilityLines = re.sub(r"(\.\)\n)", r"\1\n", abilityText).split("\n\n")
-		for abilityLineIndex in range(len(abilityLines) - 1, 0, -1):
-			# Sometimes lines get split up into separate abilities when they shouldn't be,
+		remainingText = parsedImageAndTextData["remainingText"].text.lstrip("“‘")
+		remainingTextLines = re.sub(r"(\.\)\n)", r"\1\n", remainingText).split("\n\n")
+		for remainingTextLineIndex in range(len(remainingTextLines) - 1, 0, -1):
+			remainingTextLine = remainingTextLines[remainingTextLineIndex]
+			# Sometimes lines get split up into separate list entries when they shouldn't be,
 			# for instance in choice lists, or just accidentally. Fix that
-			if abilityLines[abilityLineIndex].startswith("-") or re.match(r"[a-z(]", abilityLines[abilityLineIndex]):
-				abilityLines[abilityLineIndex - 1] += "\n" + abilityLines.pop(abilityLineIndex)
-		for abilityLineIndex in range(len(abilityLines)):
-			abilityLines[abilityLineIndex] = correctText(abilityLines[abilityLineIndex])
-		outputCard["abilities"] = abilityLines
-	if parsedImageAndTextData["effectLabels"]:
-		outputCard["effects"]: List[Dict[str, str]] = []
-		for effectIndex in range(len(parsedImageAndTextData["effectLabels"])):
-			effectName = correctPunctuation(parsedImageAndTextData["effectLabels"][effectIndex].text.replace("’", "'").replace("''", "'")).rstrip(":")
+			if remainingTextLine.startswith("-") or re.match(r"[a-z(]", remainingTextLine) or remainingTextLine.count(")") > remainingTextLine.count("("):
+				_logger.info(f"Merging accidentally-split line '{remainingTextLine}' with previous line '{remainingTextLines[remainingTextLineIndex - 1]}'")
+				remainingTextLines[remainingTextLineIndex - 1] += "\n" + remainingTextLines.pop(remainingTextLineIndex)
+
+		for remainingTextLine in remainingTextLines:
+			remainingTextLine = correctText(remainingTextLine)
+			# Check if this is a keyword ability
+			if outputCard["type"] == Language.TRANSLATIONS[GlobalConfig.language]["Character"] or outputCard["type"] == Language.TRANSLATIONS[GlobalConfig.language]["Action"]:
+				if remainingTextLine.startswith("("):
+					# Song cards have reminder text of how Songs work, and for instance 'Flotsam & Jetsam - Entangling Eels' (ID 735) has a bracketed phrase at the bottom
+					# Treat those as static abilities
+					abilities.append({"effect": remainingTextLine})
+					continue
+				keywordLines: List[str] = []
+				keywordMatch = _KEYWORD_REGEX.search(remainingTextLine)
+				if keywordMatch:
+					keywordLines.append(remainingTextLine)
+				# Some cards list keyword abilities without reminder text, sometimes multiple separated by commas
+				elif ", " in remainingTextLine and not remainingTextLine.endswith("."):
+					remainingTextLineParts = remainingTextLine.split(", ")
+					for remainingTextLinePart in remainingTextLineParts:
+						if " " in remainingTextLinePart and remainingTextLinePart != "Hors d'atteinte" and not re.match(r"Sing Together \d+", remainingTextLinePart):
+							break
+					else:
+						# Sentence is single-word comma-separated parts, assume it's a list of keyword abilities
+						keywordLines.extend(remainingTextLineParts)
+				if keywordLines:
+					for keywordLine in keywordLines:
+						abilities.append({"type": "keyword", "fullText": keywordLine})
+						# These entries will get more fleshed out after the corrections (if any) are applied, to prevent having to correct multiple fields
+				else:
+					# Since this isn't a named or keyword ability, assume it's a one-off effect
+					effects.append(remainingTextLine)
+			elif outputCard["type"] == Language.TRANSLATIONS[GlobalConfig.language]["Item"]:
+				# Some items ("Peter Pan's Dagger", ID 351; "Sword in the Stone", ID 352) have an ability without an ability name label. Store these as abilities too
+				abilities.append({"effect": remainingTextLine})
+
+	if parsedImageAndTextData["abilityLabels"]:
+		for abilityIndex in range(len(parsedImageAndTextData["abilityLabels"])):
+			abilityName = correctPunctuation(parsedImageAndTextData["abilityLabels"][abilityIndex].text.replace("’", "'").replace("''", "'")).rstrip(":")
 			if GlobalConfig.language == Language.FRENCH:
-				effectName = re.sub("A ?!(?=.{3,})", "AI", effectName)
-				if "!" in effectName or "?" in effectName:
+				abilityName = re.sub("A ?!(?=.{3,})", "AI", abilityName)
+				if "!" in abilityName or "?" in abilityName:
 					# French puts a space before an exclamation or question mark, add that in
-					effectName, replacementCount = re.subn(r"(\S)([!?])", r"\1 \2", effectName)
+					abilityName, replacementCount = re.subn(r"(\S)([!?])", r"\1 \2", abilityName)
 					if replacementCount > 0:
-						_logger.debug(f"Added a space before the exclamation or question mark in effect '{effectName}'")
-				effectName, replacementCount = re.subn(r"\bCA\b", "ÇA", effectName)
+						_logger.debug(f"Added a space before the exclamation or question mark in ability name '{abilityName}'")
+				abilityName, replacementCount = re.subn(r"\bCA\b", "ÇA", abilityName)
 				if replacementCount > 0:
-					_logger.debug(f"Corrected 'CA' to 'ÇA' in effect '{effectName}'")
-			outputCard["effects"].append({
-				"name": effectName,
-				"text": correctText(parsedImageAndTextData["effectTexts"][effectIndex].text)
+					_logger.debug(f"Corrected 'CA' to 'ÇA' in abilty name '{abilityName}'")
+			abilityEffect = correctText(parsedImageAndTextData["abilityTexts"][abilityIndex].text)
+			abilities.append({
+				"name": abilityName,
+				"effect": abilityEffect
 			})
+	if abilities:
+		outputCard["abilities"] = abilities
+	if effects:
+		outputCard["effects"] = effects
 	# Some cards have errata or clarifications, both in the 'additional_info' fields. Split those up
 	if inputCard.get("additional_info", None):
 		errata = []
@@ -730,17 +769,21 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 	# Card-specific corrections
 	#  Since the fullText gets created as the last step, if there is a correction for it, save it for later
 	fullTextCorrection = None
-	areKeywordsLast: bool = False
+	forceAbilityTypeIndexToTriggered = -1
+	newlineAfterLabelIndex = -1
 	if cardDataCorrections:
 		if cardDataCorrections.pop("_moveKeywordsLast", False):
 			# Normally keyword abilities come before named abilities, except on some cards (e.g. 'Madam Mim - Fox' (ID 262))
 			# Correct that by removing the keyword ability text from the last named ability text, and adding it as an ability
-			areKeywordsLast = True
-			lastEffect: Dict[str, str] = outputCard["effects"][-1]
-			keywordMatch = re.search(r"\n([A-ZÀ][^.]+)(?= \()", lastEffect["text"])
-			_logger.debug(f"'keywordsLast' is set, splitting last effect at index {keywordMatch.start()}")
-			outputCard["abilities"] = [lastEffect["text"][keywordMatch.start():].lstrip()]
-			lastEffect["text"] = lastEffect["text"][:keywordMatch.start()]
+			lastAbility: Dict[str, str] = outputCard["abilities"][-1]
+			lastAbilityText = lastAbility["effect"]
+			keywordMatch = re.search(r"\n([A-ZÀ][^.]+)(?= \()", lastAbilityText)
+			_logger.debug(f"'keywordsLast' is set, splitting last ability at index {keywordMatch.start()}")
+			keywordText = lastAbilityText[keywordMatch.start() + 1:]  # +1 to skip the \n at the start of the match
+			lastAbility["effect"] = lastAbilityText[:keywordMatch.start()]
+			outputCard["abilities"].append({"type": "keyword", "fullText": keywordText})
+		forceAbilityTypeIndexToTriggered = cardDataCorrections.pop("_forceAbilityIndexToTriggered", -1)
+		newlineAfterLabelIndex = cardDataCorrections.pop("_newlineAfterLabelIndex", -1)
 		for fieldName, correction in cardDataCorrections.items():
 			if fieldName == "fullText":
 				fullTextCorrection = correction
@@ -755,52 +798,97 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 					correctCardField(outputCard, fieldName, correction[correctionIndex], correction[correctionIndex+1])
 			else:
 				correctCardField(outputCard, fieldName, correction[0], correction[1])
-	# Store keyword abilities. Some abilities have a number after them (Like Shift 5), store those too
-	if "abilities" in outputCard and (outputCard["type"] == Language.TRANSLATIONS[GlobalConfig.language]["Character"] or outputCard["type"] == Language.TRANSLATIONS[GlobalConfig.language]["Action"]):
-		keywordAbilities = []
-		# Find the ability name at the start of a sentence, optionally followed by a number, and then followed by the opening bracket of the reminder text
-		for abilityLine in outputCard["abilities"]:
-			# To prevent accidental matches, check if it's actually a keyword ability, and not just the last word(s) of a sentence. Check by assuming keyword abilities never end in a period
-			abilityMatch = re.search(r"(?:^|\n)([A-ZÀ][^.]+)(?= \()", abilityLine)
-			if abilityMatch:
-				keywordAbilities.append(abilityMatch.group(1))
-			# Some cards list keyword abilities without reminder text, sometimes multiple separated by commas
-			elif ", " in abilityLine and not abilityLine.endswith("."):
-				abilityLineParts = abilityLine.split(", ")
-				for abilityLinePart in abilityLineParts:
-					if " " in abilityLinePart and abilityLinePart != "Hors d'atteinte" and not re.match(r"Sing Together \d+", abilityLinePart):
-						break
+	# Now we can expand the ability fields with extra info, since it's all been corrected
+	keywordAbilities: List[str] = []
+	if "abilities" in outputCard:
+		for abilityIndex in range(len(outputCard["abilities"])):
+			ability: Dict = outputCard["abilities"][abilityIndex]
+			if ability.get("type", None) == "keyword":
+				keyword = ability["fullText"]
+				reminderText = None
+				if "(" in keyword:
+					# This includes reminder text, extract that
+					keyword, reminderText = keyword.rstrip(")").split(" (", 1)
+					reminderText = reminderText.replace("\n", " ")
+				keywordValue: Optional[str] = None
+				if keyword[-1].isnumeric():
+					keyword, keywordValue = keyword.rsplit(" ", 1)
+				elif ":" in keyword:
+					keyword, keywordValue = re.split(" ?: ?", keyword)
+				ability["keyword"] = keyword
+				if keywordValue is not None:
+					ability["keywordValue"] = keywordValue
+					if keywordValue[-1].isnumeric():
+						ability["keywordValueNumber"] = int(keywordValue.lstrip("+"), 10)
+				if reminderText is not None:
+					ability["reminderText"] = reminderText
+				keywordAbilities.append(keyword)
+			else:
+				# Non-keyword ability, determine which type it is
+				activatedAbilityMatch = re.search(" [-–—][ \n]", ability["effect"])
+				if forceAbilityTypeIndexToTriggered == abilityIndex:
+					_logger.info(f"Forcing ability type at index {abilityIndex} of card ID {outputCard['id']} to 'triggered'")
+					ability["type"] = "triggered"
+				# Activated abilities require a cost, a dash, and then an effect
+				# Some static abilities give characters such an activated ability, don't trigger on that
+				# Some cards contain their own name (e.g. 'Dalmatian Puppy - Tail Wagger', ID 436), don't trigger on that dash either
+				elif (activatedAbilityMatch and
+						("“" not in ability["effect"] or ability["effect"].index("“") > activatedAbilityMatch.start()) and
+						(outputCard["name"] not in ability["effect"] or ability["effect"].index(outputCard["name"]) > activatedAbilityMatch.start())):
+					# Assume there's a payment text in there
+					ability["type"] = "activated"
+					ability["costsText"] = ability["effect"][:activatedAbilityMatch.start()]
+					ability["effect"] = ability["effect"][activatedAbilityMatch.end():]
+				elif GlobalConfig.language == Language.ENGLISH and (ability["effect"].startswith("At the start of") or ability["effect"].startswith("At the end of") or
+						re.search(r"(^W|,[ \n]w)hen(ever)?[ \n]", ability["effect"]) or re.search("when (he|she|it|they) enters play", ability["effect"])):
+					ability["type"] = "triggered"
+				elif GlobalConfig.language == Language.FRENCH and (ability["effect"].startswith("Au début de chacun") or ability["effect"].startswith("Au début de votre tour") or ability["effect"].startswith("À la fin de votre tour") or
+						re.search(r"(^L|\bl)orsqu(e|'un|'il)\b", ability["effect"]) or re.search(r"(^À c|^C|,\sc)haque\sfois", ability["effect"]) or
+						re.match("Si (?!vous avez|un personnage)", ability["effect"]) or re.search("gagnez .+ pour chaque", ability["effect"])):
+					ability["type"] = "triggered"
 				else:
-					# Sentence is single-word comma-separated parts, assume it's a list of keyword abilities
-					keywordAbilities.extend(abilityLineParts)
-		if keywordAbilities:
-			outputCard["keywordAbilities"] = keywordAbilities
-	# Reconstruct the full card text. Do that after storing the parts, so any corrections will be taken into account
+					ability["type"] = "static"
+				# All parts determined, now reconstruct the full ability text
+				if "name" in ability:
+					ability["fullText"] = ability["name"]
+					if newlineAfterLabelIndex == abilityIndex:
+						_logger.info(f"Adding newline after abilty label index {abilityIndex}")
+						ability["fullText"] += "\n"
+					else:
+						ability["fullText"] += " "
+				else:
+					ability["fullText"] = ""
+				if "costsText" in ability:
+					ability["fullText"] += ability["costsText"] + activatedAbilityMatch.group(0)  # Since we don't know the exact type of separating dash, get it from the regex
+					ability["costsText"] = ability["costsText"].replace("\n", " ")
+					ability["costs"] = ability["costsText"].split(", ")
+				ability["fullText"] += ability["effect"]
+				ability["effect"] = ability["effect"].replace("\n", " ")
+				if ability["effect"].startswith("("):
+					# Song reminder text has brackets around it. Keep it in the 'fullText', but remove it from the 'effect'
+					ability["effect"] = ability["effect"].strip("()")
+			outputCard["abilities"][abilityIndex] = {abilityKey: ability[abilityKey] for abilityKey in sorted(ability)}
+	if keywordAbilities:
+		outputCard["keywordAbilities"] = keywordAbilities
+	outputCard["artists"] = outputCard["artistsText"].split(" / ")
+	# Reconstruct the full card text. Do that after storing and correcting fields, so any corrections will be taken into account
 	# Remove the newlines in the fields we use while we're at it, because we only needed those to reconstruct the fullText
-	# TODO Some cards (Madam Mim - Fox, ID 262) have the abilities after the effect, think of a more elegant solution than the current regex hack in the corrections file
 	fullTextSections = []
 	if "abilities" in outputCard:
-		fullTextSections.append("\n".join(outputCard["abilities"]))
-		for abilityIndex in range(len(outputCard["abilities"])):
-			outputCard["abilities"][abilityIndex] = outputCard["abilities"][abilityIndex].replace("\n", " ")
-		# Sometimes reminder text gets split into multiple abilities while it shouldn't, so count the opening and closing brackets to fix this
-		# Do this after building the fulltext, since we need the newlines for that
-		for abilityLineIndex in range(len(outputCard["abilities"]) - 1, 0, -1):
-			abilityLine = outputCard["abilities"][abilityLineIndex]
-			_logger.debug(f"{abilityLineIndex=} {abilityLine=}")
-			if abilityLine.count(")") > abilityLine.count("("):
-				# Closing bracket got moved a line down, merge it with the previous line
-				_logger.info(f"Merging accidentally-split ability line '{abilityLine}' with previous line '{outputCard['abilities'][abilityLineIndex - 1]}'")
-				outputCard["abilities"][abilityLineIndex - 1] += " " + outputCard["abilities"].pop(abilityLineIndex)
+		previousAbilityWasKeywordWithoutReminder: bool = False
+		for ability in outputCard["abilities"]:  # type: Dict[str, str]
+			# Some cards have multiple keyword abilities on one line without reminder text. They'll be stored as separate abilities, but they should be in one section
+			if ability["type"] == "keyword" and ability["keyword"] == ability["fullText"]:
+				if previousAbilityWasKeywordWithoutReminder:
+					# Add this keyword to the previous section, since that's how it's on the card
+					fullTextSections[-1] += ", " + ability["fullText"]
+				else:
+					previousAbilityWasKeywordWithoutReminder = True
+					fullTextSections.append(ability["fullText"])
+			else:
+				fullTextSections.append(ability["fullText"])
 	if "effects" in outputCard:
-		for effect in outputCard["effects"]:
-			fullTextSections.append(f"{effect['name']} {effect['text']}")
-			effect["text"] = effect["text"].replace("\n", " ")
-	if areKeywordsLast:
-		# On most cards, keywords are listed before named abilities, except on some cards (e.g. 'Madam Mim - Fox' (ID 262)),
-		# so there we need to correct that assumption
-		_logger.debug("'keywordsLast' is set, so moving first ability to the end of the fullTextSections")
-		fullTextSections.append(fullTextSections.pop(0))
+		fullTextSections.extend(outputCard["effects"])
 	outputCard["fullText"] = "\n".join(fullTextSections)
 	if fullTextCorrection:
 		correctCardField(outputCard, "fullText", fullTextCorrection[0], fullTextCorrection[1])
