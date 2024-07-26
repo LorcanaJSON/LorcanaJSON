@@ -912,6 +912,8 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 		outputCard["foilTypes"] = ["None", "Cold"]
 	if historicData:
 		outputCard["historicData"] = historicData
+	# Sort the dictionary by key
+	outputCard = {key: outputCard[key] for key in sorted(outputCard)}
 	return outputCard
 
 def _saveFile(outputFilePath: str, dictToSave: Dict, createZip: bool = True):
