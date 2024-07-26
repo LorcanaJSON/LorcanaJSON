@@ -904,6 +904,12 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 	else:
 		storyName = storyParser.getStoryNameForCard(outputCard, outputCard["id"])
 		outputCard["story"] = storyName if storyName else "[[unknown]]"
+	if "foil_type" in inputCard:
+		outputCard["foilTypes"] = ["None"] if inputCard["foil_type"] is None else [inputCard["foil_type"]]
+	elif not isExternalReveal:
+		# We can't know the foil type(s) of externally revealed cards, so not having the data at all is better than adding possibly wrong data
+		# 'Normal' (so non-promo non-Enchanted) cards exist in unfoiled and cold-foiled types, so just default to that if no explicit foil type is provided
+		outputCard["foilTypes"] = ["None", "Cold"]
 	if historicData:
 		outputCard["historicData"] = historicData
 	return outputCard
