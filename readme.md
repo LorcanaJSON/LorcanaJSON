@@ -44,9 +44,20 @@ These arguments work with most or all of the actions described above. All of the
 
 ## Verifying the result
 Because OCR isn't perfect, a manual check of the resulting datafiles is still necessary.  
-'OutputFileViewer.html' in the 'output'-folder exists for this purpose. Open the file in a webbrowser, and drag either the 'allCards.json' or the 'parsedCards.json' onto the big green rectangle to load this data.  
-The page should then show a card name, a card image, the card's parsed text, and the parsed data. This allows for easy comparison. Use the left and right arrows keys or the entry fields at the top to navigate through the cards.  
-If you find a mistake, you can add a correction to the 'outputDataCorrections_en.json' file in the 'output'-folder. Keys here are a card ID (due to a JSON limitation these have to be strings instead of numbers). For each card ID, a dictionary with corrections is specified. The key is the name of the field to correct, and the value is a list with two entries: The first entry is the regular expression to match the error, the second entry is the correction.  
+'OutputFileViewer.html' in the 'output'-folder exists for this purpose. Open the file in a webbrowser, and drag either an 'allCards.json' or the 'parsedCards.json' onto the big green rectangle to load this data.  
+The page should then show a card name, a card image, the card's parsed text, and the parsed data. This allows for easy comparison.  
+Use the left and right arrows keys or the entry fields at the top to navigate through the cards. Press 'E' for the English card image, 'F' for French, 'D' or 'G' for German, and 'I' for Italian.
+### Output data corrections
+If you find a mistake in the generated data, you can add a correction to one of the 'outputDataCorrections' JSON files in the 'output'-folder.
+The general 'outputDataCorrections.json' file is applied to every lanugage, and each language can have its own corrections file called 'outputDataCorrections_[languagecode].json' (So for English it'd be 'outputDataCorrections_en.json'). The genral corrections are applied before language-specific ones.  
+In these corrections files, keys are a card ID (due to a JSON limitation these have to be strings instead of numbers), and the values are a dictionary with corrections for that card.  
+The correction entry key is the name of the field to correct, and the value is a list with two entries: The first entry is the regular expression that should match the text error, the second entry is the correction. The matched text will get replaced in the card data with the correction.  
+It's also possible to remove erroneously generated fields by specifying 'null' for both the first matching entry and the correction.  Adding fields that weren't generated is done by specifying 'null' for the match, and the value to add as the correction.  
+If a correction match can't be found in the card's generated text, a warning will be printed to the log.  
+There are also some special correction entry keys to fix issues not easily matched with a regular expression, prefixed with an underscore so they stand out and don't match existing fields:  
+* '_moveKeywordsLast': On most cards, keyword abilities come before named abilities. There are a few cards where this isn't true (f.i. 'Madam Mim - Fox' ID 262; 'Slightly - Lost Boy' ID 560). Due to how the parsing code works, the keyword ability on these cards gets added to the named ability. Adding '_moveKeywordsLast' and setting it to 'true' in the correction file fixes this problem by making the keyword ability be detected separately, and having it listed last in the 'fullTextSections' field.  
+* '_forceAbilityIndexToTriggered': Determining the type of an ability is done by careful language matching, since the phrasing of each type is usually pretty clear. For some French cards, this matching doesn't quite work, and the ability gets wrongly determined as a 'static' ability type. Adding '_forceAbilityIndexToTriggered' and setting it to the ability index that should be 'triggered' type instead of 'static' fixes this problem (Note that indexes start at 0).  
+
 Once one or more corrections are added, you can rerun the pogram with just the corrected card IDs, and repeat this verification process, until there are no mistakes anymore.  
 
 ## External early reveals
