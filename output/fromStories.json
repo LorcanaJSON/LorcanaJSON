@@ -245,8 +245,8 @@
       "fr": "Peter Pan",
       "it": "Le avventure di Peter Pan"
     },
-    "matchingNames": ["Captain Hook", "Cubby", "Lost Boy", "Mr. Smee", "Nana", "Never Land", "Peter Pan", "Starkey", "Tinker Bell", "Wendy Darling"],
-    "matchingIds": [349, 566, 571, 752, 819, 824, 901]
+    "matchingNames": ["Captain Hook", "Cubby", "Jolly Roger", "Lost Boy", "Mr. Smee", "Nana", "Never Land", "Peter Pan", "Starkey", "Tinker Bell", "Wendy Darling"],
+    "matchingIds": [349, 566, 752, 819, 824, 901]
   },
   "pinocchio": {
     "displayNames": {
@@ -376,7 +376,7 @@
       "it": "Il pianeta del tesoro"
     },
     "matchingNames": ["Billy Bones", "Captain Amelia", "Jim Hawkins", "John Silver", "Morph", "Scroop"],
-    "matchingIds": [572, 632, 652, 685]
+    "matchingIds": [572, 632, 652]
   },
   "winniethepooh": {
     "displayNames": {
