@@ -107,6 +107,9 @@ def compareInputToOutput(cardIdsToVerify: Union[List[int], None]):
 		elif "Q" not in outputCard["setCode"] and outputCard["rarity"] == Language.TRANSLATIONS[GlobalConfig.language]["SPECIAL"] and "nonPromoId" not in outputCard:
 			print(f"{outputCard['fullName']} (ID {outputCard['id']}) should have a non-promo ID field, but it doesn't")
 
+		inputIdentifier = inputCard["card_identifier"].replace(" ", f" {ImageParser.SEPARATOR_UNICODE} ")
+		if inputIdentifier != outputCard["fullIdentifier"]:
+			_printDifferencesDescription(outputCard, "fullIdentifier", inputIdentifier, outputCard["fullIdentifier"])
 	print(f"Found {cardDifferencesCount:,} difference{'' if cardDifferencesCount == 1 else 's'} between input and output")
 
 def _printDifferencesDescription(outputCard: Dict, fieldName: str, inputString: str, outputString: str):
