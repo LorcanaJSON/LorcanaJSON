@@ -317,8 +317,12 @@ class ImageParser():
 				cv2.imshow("Flavor Text Cropped Image From Ability Labels", flavorTextLineDetectionCroppedImage)
 			if flavorTextImage is not None:
 				cv2.imshow("Flavor Text Image", flavorTextImage)
-			if abilityLabelImage is not None:
-				cv2.imshow("Ability label image", abilityLabelImage)
+			if result["abilityLabels"]:
+				for index, abilityLabelEntry in enumerate(result["abilityLabels"]):
+					cv2.imshow(f"Ability label image {index}", abilityLabelEntry.image)
+			if result["abilityTexts"]:
+				for index, abilityTextEntry in enumerate(result["abilityTexts"]):
+					cv2.imshow(f"Ability text image {index}", abilityTextEntry.image)
 			if abilityTextImage is not None:
 				cv2.imshow("Ability text image", abilityTextImage)
 			if remainingTextImage is not None:
