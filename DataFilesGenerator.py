@@ -1,5 +1,5 @@
 import datetime, hashlib, json, logging, multiprocessing.pool, os, re, threading, time, zipfile
-from typing import Dict, List, Tuple, Union, Optional
+from typing import Dict, List, Optional, Union
 
 import GlobalConfig
 from OCR import ImageParser
