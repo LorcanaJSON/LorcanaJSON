@@ -110,6 +110,16 @@ def compareInputToOutput(cardIdsToVerify: Union[List[int], None]):
 		inputIdentifier = inputCard["card_identifier"].replace(" ", f" {ImageParser.SEPARATOR_UNICODE} ")
 		if inputIdentifier != outputCard["fullIdentifier"]:
 			_printDifferencesDescription(outputCard, "fullIdentifier", inputIdentifier, outputCard["fullIdentifier"])
+
+		# Compare basic fields
+		for inputField, outputField in (("author", "artistsText"), ("ink_cost", "cost"), ("move_cost", "moveCost"), ("quest_value", "lore"), ("strength", "strength"), ("willpower", "willpower")):
+			inputValue = inputCard.get(inputField, None)
+			outputValue = outputCard.get(outputField, None)
+			if inputValue is None and outputValue is None:
+				continue
+			if inputValue != outputValue:
+				_printDifferencesDescription(outputCard, outputField, str(inputValue), str(outputValue))
+
 	print(f"Found {cardDifferencesCount:,} difference{'' if cardDifferencesCount == 1 else 's'} between input and output")
 
 def _printDifferencesDescription(outputCard: Dict, fieldName: str, inputString: str, outputString: str):
