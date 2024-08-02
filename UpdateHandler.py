@@ -1,13 +1,14 @@
-import datetime, json, logging, os
+import datetime, hashlib, json, logging, os, random
 from typing import Any, Dict, List, Tuple
 
 import DataFilesGenerator, GlobalConfig
 from APIScraping import RavensburgerApiHandler
+from util import DownloadUtil
 
 
 _logger = logging.getLogger("LorcanaJSON")
 
-def checkForNewCardData(newCardCatalog: Dict = None, fieldsToIgnore: List[str] = None, includeCardChanges: bool = True, ignoreOrderChanges: bool = True) -> Tuple[List, List, List]:
+def checkForNewCardData(newCardCatalog: Dict = None, fieldsToIgnore: List[str] = None, includeCardChanges: bool = True, ignoreOrderChanges: bool = True) -> Tuple[List, List, List, List]:
 	# We need to find the old cards by ID, so set up a dict
 	oldCards = {}
 	pathToCardCatalog = os.path.join("downloads", "json", f"carddata.{GlobalConfig.language.code}.json")
@@ -105,11 +106,41 @@ def checkForNewCardData(newCardCatalog: Dict = None, fieldsToIgnore: List[str] =
 				if card["culture_invariant_id"] not in existingIds:
 					addedCards.append((card["culture_invariant_id"], "[external]"))
 
-	return (addedCards, cardChanges, possibleImageChanges)
+	# Check if card images were uploaded to Ravensburger's server but not added to the app yet
+	with open(os.path.join("output", "baseSetData.json"), "r", encoding="utf-8") as baseSetDataFile:
+		baseSetData = json.load(baseSetDataFile)
+	highestIncompleteSetNumber = -1
+	highestSetNumber = -1
+	for setCode, setData in baseSetData.items():
+		if setData["type"] == "expansion":
+			setNumber = setData["number"]
+			if not setData["hasAllCards"]:
+				highestIncompleteSetNumber = setNumber
+			if setNumber > highestSetNumber:
+				highestSetNumber = setNumber
+	if highestIncompleteSetNumber > -1:
+		setNumberToCheck = highestIncompleteSetNumber
+	else:
+		setNumberToCheck = highestSetNumber + 1
+	unlistedCardImageNumbers = []
+	if setNumberToCheck > -1:
+		for cardNumberToCheck in random.sample(range(1, 205), 3):
+			hashedCardNumberToCheck = hashlib.sha1(bytes(str(cardNumberToCheck), encoding="utf-8")).hexdigest()
+			urlToCheck = f"https://api.lorcana.ravensburger.com/images/en/expansions/{setNumberToCheck}/cards/1468x2048/{hashedCardNumberToCheck}.jpg"
+			try:
+				DownloadUtil.retrieveFromUrl(urlToCheck, maxAttempts=3)
+			except DownloadUtil.DownloadException:
+				# Download failed, image doesn't exist
+				pass
+			else:
+				# Download succeeded, store it
+				unlistedCardImageNumbers.append(cardNumberToCheck)
+
+	return (addedCards, cardChanges, possibleImageChanges, unlistedCardImageNumbers)
 
 def createOutputIfNeeded(onlyCreateOnNewCards: bool, cardFieldsToIgnore: List[str] = None, shouldShowImages: bool = False):
 	cardCatalog = RavensburgerApiHandler.retrieveCardCatalog()
-	addedCards, cardChanges, possibleImageChanges = checkForNewCardData(cardCatalog, cardFieldsToIgnore, includeCardChanges=not onlyCreateOnNewCards)
+	addedCards, cardChanges, possibleImageChanges, unlistedCardImageNumbers = checkForNewCardData(cardCatalog, cardFieldsToIgnore, includeCardChanges=not onlyCreateOnNewCards)
 	if not addedCards and not cardChanges and not possibleImageChanges:
 		_logger.info("No catalog updates, not running output generator")
 		return
