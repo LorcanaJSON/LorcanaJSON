@@ -4,7 +4,7 @@ from typing import Dict, List, Optional, Union
 import GlobalConfig
 from OCR import ImageParser
 from output.StoryParser import StoryParser
-from util import Language
+from util import Language, LorcanaSymbols
 from util.Translations import TRANSLATIONS
 
 
@@ -33,9 +33,9 @@ def correctText(cardText: str) -> str:
 		# Simplify quote mark if it's used in a contraction
 		cardLine = re.sub(r"(?<=\w)’(?=\w)", "'", cardLine)
 		# There's usually an ink symbol between a number and a dash
-		cardLine = re.sub(r"(^| )(\d) ?[0OQ©]?( ?[-—]|,)", fr"\1\2 {ImageParser.INK_UNICODE}\3", cardLine)
+		cardLine = re.sub(r"(^| )(\d) ?[0OQ©]?( ?[-—]|,)", fr"\1\2 {LorcanaSymbols.INK_UNICODE}\3", cardLine)
 		# For some reason it keeps reading the Strength symbol as the Euro symbol
-		cardLine = re.sub(r"€[^ .]?", ImageParser.STRENGTH_UNICODE, cardLine)
+		cardLine = re.sub(r"€[^ .]?", LorcanaSymbols.STRENGTH_UNICODE, cardLine)
 		# Normally a closing quote mark should be preceded by a period, except mid-sentence
 		cardLine = re.sub(r"([^.,'!?’])”(?!,| \w)", "\\1.”", cardLine)
 		# An opening bracket shouldn't have a space after it
@@ -46,24 +46,24 @@ def correctText(cardText: str) -> str:
 		# Make sure there's a period before a closing bracket
 		cardLine = re.sub(r"([^.,'!?’])\)", r"\1.)", cardLine)
 		# Numbers followed by a comma generally need an Ink symbol inbetween
-		cardLine = re.sub(r"\b(\d) ,", fr"\1 {ImageParser.INK_UNICODE},", cardLine)
+		cardLine = re.sub(r"\b(\d) ,", fr"\1 {LorcanaSymbols.INK_UNICODE},", cardLine)
 		# 'Illuminary' and 'Illumineer(s)' often gets read as starting with three l's, instead of an I and two l's
 		cardLine = cardLine.replace("lllumin", "Illumin")
 		# The 'exert' symbol often gets mistaken for a @ or G, correct that
-		cardLine = re.sub(r"^[(@G©]{1,2}([ ,])", fr"{ImageParser.EXERT_UNICODE}\1", cardLine)
+		cardLine = re.sub(r"^[(@G©]{1,2}([ ,])", fr"{LorcanaSymbols.EXERT_UNICODE}\1", cardLine)
 		if re.search(r" [‘;]$", cardLine):
 			# Strip erroneously detected characters from the end
 			cardLine = cardLine[:-2]
 		# The Lore symbol often gets mistaken for a 4, correct hat
-		cardLine = re.sub(r"(\d) 4", fr"\1 {ImageParser.LORE_UNICODE}", cardLine)
+		cardLine = re.sub(r"(\d) 4", fr"\1 {LorcanaSymbols.LORE_UNICODE}", cardLine)
 		if re.match(r"[-+»] \w{2,} \w+", cardLine):
 			# Assume this is a list, replace the start with the official separator
-			cardLine = ImageParser.SEPARATOR_UNICODE + cardLine[1:]
+			cardLine = LorcanaSymbols.SEPARATOR_UNICODE + cardLine[1:]
 		# A 7 often gets mistaken for a /, correct that
 		cardLine = cardLine.replace(" / ", " 7 ")
-		cardLine = re.sub(f"{ImageParser.INK_UNICODE}([-—])", fr"{ImageParser.INK_UNICODE} \1", cardLine)
+		cardLine = re.sub(f"{LorcanaSymbols.INK_UNICODE}([-—])", fr"{LorcanaSymbols.INK_UNICODE} \1", cardLine)
 		# Negative numbers are always followed by a strength symbol, correct that
-		cardLine = re.sub(fr"(?<= )(-\d) [^{ImageParser.STRENGTH_UNICODE}{ImageParser.LORE_UNICODE}a-z]", fr"\1 {ImageParser.STRENGTH_UNICODE}", cardLine)
+		cardLine = re.sub(fr"(?<= )(-\d) [^{LorcanaSymbols.STRENGTH_UNICODE}{LorcanaSymbols.LORE_UNICODE}a-z]", fr"\1 {LorcanaSymbols.STRENGTH_UNICODE}", cardLine)
 
 		if GlobalConfig.language == Language.ENGLISH:
 			if re.match("[‘`']Shift ", cardLine):
@@ -87,47 +87,47 @@ def correctText(cardText: str) -> str:
 			cardLine = re.sub(r"opponents’( |$)", r"opponents'\1", cardLine)
 			## Correct common phrases with symbols ##
 			# Lore payment discounts
-			cardLine, changeCount = re.subn(rf"pay (\d) ?[^{ImageParser.INK_UNICODE}]{{1,2}}( |$)", f"pay \\1 {ImageParser.INK_UNICODE}\\2", cardLine)
+			cardLine, changeCount = re.subn(rf"pay (\d) ?[^{LorcanaSymbols.INK_UNICODE}]{{1,2}}( |$)", f"pay \\1 {LorcanaSymbols.INK_UNICODE}\\2", cardLine)
 			if changeCount > 0:
 				_logger.info("Correcting lore payment text")
 			# Fields with Errata corrections have 'ERRATA' in the text, possibly with a colon. Remove that
 			cardLine = re.sub(" ?ERRATA:? ?", "", cardLine)
 			## Correct reminder text ##
 			# Challenger, second line
-			cardLine, changeCount = re.subn(rf"gets \+(\d) [^{ImageParser.STRENGTH_UNICODE}]{{1,2}}?\.?\)", fr"gets +\1 {ImageParser.STRENGTH_UNICODE}.)", cardLine)
+			cardLine, changeCount = re.subn(rf"gets \+(\d) [^{LorcanaSymbols.STRENGTH_UNICODE}]{{1,2}}?\.?\)", fr"gets +\1 {LorcanaSymbols.STRENGTH_UNICODE}.)", cardLine)
 			if changeCount > 0:
 				_logger.info("Correcting second line of Challenger reminder text")
 			# Song
-			cardLine, changeCount = re.subn(f"can [^{ImageParser.EXERT_UNICODE}]{{1,2}} to sing this", f"can {ImageParser.EXERT_UNICODE} to sing this", cardLine)
+			cardLine, changeCount = re.subn(f"can [^{LorcanaSymbols.EXERT_UNICODE}]{{1,2}} to sing this", f"can {LorcanaSymbols.EXERT_UNICODE} to sing this", cardLine)
 			if changeCount > 0:
 				_logger.info("Correcting Song reminder text")
 			# Support, full line (not sure why it sometimes doesn't get cut into two lines
 			if re.match("add their .{1,2} to another chosen character['’]s .{1,2} this", cardLine):
-				cardLine, changeCount = re.subn(f"their [^{ImageParser.STRENGTH_UNICODE}]{{1,2}} to", f"their {ImageParser.STRENGTH_UNICODE} to", cardLine)
-				cardLine, changeCount2 = re.subn(f"character's [^{ImageParser.STRENGTH_UNICODE}]{{1,2}} this", f"character's {ImageParser.STRENGTH_UNICODE} this", cardLine)
+				cardLine, changeCount = re.subn(f"their [^{LorcanaSymbols.STRENGTH_UNICODE}]{{1,2}} to", f"their {LorcanaSymbols.STRENGTH_UNICODE} to", cardLine)
+				cardLine, changeCount2 = re.subn(f"character's [^{LorcanaSymbols.STRENGTH_UNICODE}]{{1,2}} this", f"character's {LorcanaSymbols.STRENGTH_UNICODE} this", cardLine)
 				if changeCount > 0 or changeCount2 > 0:
 					_logger.info("Correcting Support reminder text (both symobls on one line)")
 			# Support, first line if split
-			cardLine, changeCount = re.subn(f"^their [^{ImageParser.STRENGTH_UNICODE}]{{1,2}} to", f"their {ImageParser.STRENGTH_UNICODE} to", cardLine)
+			cardLine, changeCount = re.subn(f"^their [^{LorcanaSymbols.STRENGTH_UNICODE}]{{1,2}} to", f"their {LorcanaSymbols.STRENGTH_UNICODE} to", cardLine)
 			if changeCount > 0:
 				_logger.info("Correcting first line of Support reminder text")
 			# Support, second line if split
-			cardLine, changeCount = re.subn(rf"^[^{ImageParser.STRENGTH_UNICODE}]{{1,2}} this turn\.?\)?", f"{ImageParser.STRENGTH_UNICODE} this turn.)", cardLine)
+			cardLine, changeCount = re.subn(rf"^[^{LorcanaSymbols.STRENGTH_UNICODE}]{{1,2}} this turn\.?\)?", f"{LorcanaSymbols.STRENGTH_UNICODE} this turn.)", cardLine)
 			if changeCount > 0:
 				_logger.info("Correcting second line of Support reminder text")
 			cardLine = cardLine.replace("(Upponents", "(Opponents")
 			cardLine = re.sub(r"reduced by [lI]\.", "reduced by 1.", cardLine)
 		elif GlobalConfig.language == Language.FRENCH:
 			# Correct payment text
-			cardLine = re.sub(r"\bpayer (\d+) (?:\W|O|Ô|Q) pour\b", f"payer \\1 {ImageParser.INK_UNICODE} pour", cardLine)
+			cardLine = re.sub(r"\bpayer (\d+) (?:\W|O|Ô|Q) pour\b", f"payer \\1 {LorcanaSymbols.INK_UNICODE} pour", cardLine)
 			# Correct support reminder text
-			cardLine = re.sub(r"(?<=ajouter sa )\W+(?= à celle)", ImageParser.STRENGTH_UNICODE, cardLine)
+			cardLine = re.sub(r"(?<=ajouter sa )\W+(?= à celle)", LorcanaSymbols.STRENGTH_UNICODE, cardLine)
 			# Cost discount text
-			cardLine = re.sub(fr"(coûte(?:nt)? )(\d+) [^{ImageParser.INK_UNICODE} ou]+", fr"\1\2 {ImageParser.INK_UNICODE}", cardLine)
+			cardLine = re.sub(fr"(coûte(?:nt)? )(\d+) [^{LorcanaSymbols.INK_UNICODE} ou]+", fr"\1\2 {LorcanaSymbols.INK_UNICODE}", cardLine)
 			# Song card reminder text
-			cardLine = re.sub(fr"Vous pouvez [^ {ImageParser.EXERT_UNICODE}]+ un(e carte)? personnage coûtant", f"Vous pouvez {ImageParser.EXERT_UNICODE} un\\1 personnage coûtant", cardLine)
+			cardLine = re.sub(fr"Vous pouvez [^ {LorcanaSymbols.EXERT_UNICODE}]+ un(e carte)? personnage coûtant", f"Vous pouvez {LorcanaSymbols.EXERT_UNICODE} un\\1 personnage coûtant", cardLine)
 			# 'Sing Together' reminder text
-			cardLine = re.sub(fr"\(Vous pouvez [^ {ImageParser.EXERT_UNICODE}]+ n'importe quel", f"(Vous pouvez {ImageParser.EXERT_UNICODE} n'importe quel", cardLine)
+			cardLine = re.sub(fr"\(Vous pouvez [^ {LorcanaSymbols.EXERT_UNICODE}]+ n'importe quel", f"(Vous pouvez {LorcanaSymbols.EXERT_UNICODE} n'importe quel", cardLine)
 			# Fix punctuation by turning multiple periods into an ellipsis character, and correct ellipsis preceded or followed by periods
 			cardLine = re.sub(r"…?\.{2,}…?", "…", cardLine)
 			# Ellipsis get misread as periods often, try to correct that
@@ -140,9 +140,9 @@ def correctText(cardText: str) -> str:
 			cardLine = re.sub(r"(\S)!", r"\1 !", cardLine)
 			cardLine = re.sub(r"!(\w)", r"! \1", cardLine)
 			cardLine = cardLine.replace("//", "Il")
-			cardLine = re.sub(r"(?<=\(Lorsqu'il défie, ce personnage gagne )\+(\d) .\.", fr"+\1 {ImageParser.STRENGTH_UNICODE}.", cardLine)
+			cardLine = re.sub(r"(?<=\(Lorsqu'il défie, ce personnage gagne )\+(\d) .\.", fr"+\1 {LorcanaSymbols.STRENGTH_UNICODE}.", cardLine)
 			# Fix second line of 'Challenger'/'Offensif' reminder text
-			cardLine = re.sub(r"^\+(\d) ?[^.]{0,2}\.\)$", fr"+\1 {ImageParser.STRENGTH_UNICODE}.)", cardLine)
+			cardLine = re.sub(r"^\+(\d) ?[^.]{0,2}\.\)$", fr"+\1 {LorcanaSymbols.STRENGTH_UNICODE}.)", cardLine)
 			# Misc common mistakes
 			cardLine = cardLine.replace("||", "Il")
 			cardLine = cardLine.replace("Ily", "Il y")
@@ -530,11 +530,11 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 	# The card identifier in non-promo cards is mostly correct in the input card,
 	# For promo cards, get the text from the image, since it can differ quite a bit
 	if "card_identifier" in inputCard and isPromoCard is not True:
-		outputCard["fullIdentifier"] = inputCard["card_identifier"].replace(" ", f" {ImageParser.SEPARATOR_UNICODE} ")
+		outputCard["fullIdentifier"] = inputCard["card_identifier"].replace(" ", f" {LorcanaSymbols.SEPARATOR_UNICODE} ")
 	else:
-		outputCard["fullIdentifier"] = re.sub(fr" ?\W (?!$)", f" {ImageParser.SEPARATOR_UNICODE} ", parsedImageAndTextData["identifier"].text)
+		outputCard["fullIdentifier"] = re.sub(fr" ?\W (?!$)", f" {LorcanaSymbols.SEPARATOR_UNICODE} ", parsedImageAndTextData["identifier"].text)
 		outputCard["fullIdentifier"] = outputCard["fullIdentifier"].replace("I", "/").replace("1P ", "/P ").replace(".", "")
-		outputCard["fullIdentifier"] = re.sub(fr" ?[-+] ?", f" {ImageParser.SEPARATOR_UNICODE} ", outputCard["fullIdentifier"])
+		outputCard["fullIdentifier"] = re.sub(fr" ?[-+] ?", f" {LorcanaSymbols.SEPARATOR_UNICODE} ", outputCard["fullIdentifier"])
 
 	# Get the set and card numbers from the identifier
 	# Use the input card's identifier instead of the output card's, because the former's layout is consistent, while the latter's isn't (mainly in Set 1 promos)
@@ -730,7 +730,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 			# Sometimes they write cardnames as "basename- subtitle", add the space before the dash back in
 			infoText = re.sub(r"(\w)- ", r"\1 - ", infoText)
 			# The text uses {I} for ink and {S} for strength, replace those with our symbols
-			infoText = infoText.format(E=ImageParser.EXERT_UNICODE, I=ImageParser.INK_UNICODE, L=ImageParser.LORE_UNICODE, S=ImageParser.STRENGTH_UNICODE, W=ImageParser.WILLPOWER_UNICODE)
+			infoText = infoText.format(E=LorcanaSymbols.EXERT_UNICODE, I=LorcanaSymbols.INK_UNICODE, L=LorcanaSymbols.LORE_UNICODE, S=LorcanaSymbols.STRENGTH_UNICODE, W=LorcanaSymbols.WILLPOWER_UNICODE)
 			if infoEntry["title"].startswith("Errata"):
 				if " - " in infoEntry["title"]:
 					# There's a suffix explaining what field the errata is about, prepend it to the text
@@ -748,7 +748,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 			outputCard["clarifications"] = clarifications
 	# Determine subtypes and their order. Items and Actions have an empty subtypes list, ignore those
 	if parsedImageAndTextData["subtypesText"] and parsedImageAndTextData["subtypesText"].text:
-		subtypes: List[str] = parsedImageAndTextData["subtypesText"].text.split(f" {ImageParser.SEPARATOR_UNICODE} ")
+		subtypes: List[str] = parsedImageAndTextData["subtypesText"].text.split(f" {LorcanaSymbols.SEPARATOR_UNICODE} ")
 		# Non-character cards have their main type as their (first) subtype, remove those
 		translation = TRANSLATIONS[GlobalConfig.language]
 		if subtypes[0] == translation["Action"] or subtypes[0] == translation["Item"] or subtypes[0] == translation["Location"]:
