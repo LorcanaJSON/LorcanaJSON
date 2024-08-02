@@ -4,11 +4,10 @@ from typing import Any, Dict, List
 import requests
 
 import GlobalConfig
+from util import DownloadUtil
 
 
 _logger = logging.getLogger("LorcanaJSON")
-_UNITY_VERSION = "2022.3.21f1"
-_DEFAULT_HEADERS = {"user-agent": "Lorcana/2023.1", "x-unity-version": _UNITY_VERSION}
 
 def retrieveCardCatalog() -> Dict[str, Any]:
 	# First get the token we need for the API, in the same way the official app does
@@ -17,8 +16,8 @@ def retrieveCardCatalog() -> Dict[str, Any]:
 									  # API key captured from the official Lorcana app
 									  "authorization": "Basic bG9yY2FuYS1hcGktcmVhZDpFdkJrMzJkQWtkMzludWt5QVNIMHc2X2FJcVZEcHpJenVrS0lxcDlBNXRlb2c5R3JkQ1JHMUFBaDVSendMdERkYlRpc2k3THJYWDl2Y0FkSTI4S096dw==",
 									  "content-type": "application/x-www-form-urlencoded",
-									  "user-agent": f"UnityPlayer / {_UNITY_VERSION}(UnityWebRequest / 1.0, libcurl / 8.5.0 - DEV)",
-									  "x-unity-version": _UNITY_VERSION
+									  "user-agent": f"UnityPlayer / {DownloadUtil.UNITY_VERSION}(UnityWebRequest / 1.0, libcurl / 8.5.0 - DEV)",
+									  "x-unity-version": DownloadUtil.UNITY_VERSION
 								  },
 								  data={"grant_type": "client_credentials"},
 								  timeout=10)
@@ -29,7 +28,7 @@ def retrieveCardCatalog() -> Dict[str, Any]:
 		raise ValueError(f"Missing access_token or token_type in token request: {tokenResponse.text}")
 
 	# Now we can retrieve the card catalog, again just like the official app
-	catalogResponse = _retrieveFromUrl(f"https://api.lorcana.ravensburger.com/v2/catalog/{GlobalConfig.language.code}", additionalHeaderFields={"authorization": f"{tokenData['token_type']} {tokenData['access_token']}"})
+	catalogResponse = DownloadUtil.retrieveFromUrl(f"https://api.lorcana.ravensburger.com/v2/catalog/{GlobalConfig.language.code}", additionalHeaderFields={"authorization": f"{tokenData['token_type']} {tokenData['access_token']}"})
 	cardCatalog = catalogResponse.json()
 	if "cards" not in cardCatalog:
 		raise ValueError(f"Invalid data in catalog response: {catalogResponse.text}")
@@ -57,7 +56,7 @@ def downloadImage(imageUrl: str, savePath: str, shouldOverwriteImage: bool = Fal
 	if not shouldOverwriteImage and os.path.isfile(savePath):
 		_logger.debug(f"Image '{savePath}' already exists, skipping download")
 		return False
-	imageResponse = _retrieveFromUrl(imageUrl)
+	imageResponse = DownloadUtil.retrieveFromUrl(imageUrl)
 	os.makedirs(os.path.dirname(savePath), exist_ok=True)
 	with open(savePath, "wb") as imageFile:
 		imageFile.write(imageResponse.content)
@@ -78,7 +77,7 @@ def downloadImagesIfUpdated(cardIdsToCheck: List[int]) -> List[int]:
 				localImageChecksum = hashlib.md5(localImageFile.read()).hexdigest()
 			for imageData in card["image_urls"]:
 				if imageData["height"] == 2048:
-					remoteImageRequest = _retrieveFromUrl(imageData["url"])
+					remoteImageRequest = DownloadUtil.retrieveFromUrl(imageData["url"])
 					remoteImageBytes = remoteImageRequest.content
 					remoteImageChecksum = hashlib.md5(remoteImageBytes).hexdigest()
 					if localImageChecksum != remoteImageChecksum:
@@ -133,38 +132,3 @@ def downloadImages(shouldOverwriteImages: bool = False, pathToCardCatalog: str =
 				if wasImageDownloaded:
 					imagesDownloaded += 1
 	_logger.info(f"Downloading {imagesDownloaded} of {imagesFound} {GlobalConfig.language.englishName} card images took {time.perf_counter() - startTime} seconds")
-
-def _retrieveFromUrl(url: str, maxAttempts: int = 5, additionalHeaderFields: Dict[str, str] = None) -> requests.api.request:
-	"""
-	Since downloading from the Ravensburger API and CDN can sometimes take a few attempts, this helper method exists.
-	It downloads the provided URL, tries a few times if it somehow fails, and if if succeeds, it returns the request
-	:param url: The URL to retrieve
-	:param maxAttempts: How many times to try to download the file
-	:param additionalHeaderFields: Optional extra header fieldss to pass along with the call, on top of the default header fields
-	:return: The Requests request with the data from the provided URL
-	:raises DowloadException: Raised if the retrieval failed even after several attempts
-	"""
-	headers = _DEFAULT_HEADERS
-	if additionalHeaderFields:
-		headers = _DEFAULT_HEADERS.copy()
-		headers.update(additionalHeaderFields)
-	request = None
-	lastRequestThrewException: bool = False
-	for attempt in range(1, maxAttempts + 1):
-		try:
-			request = requests.get(url, headers=headers, timeout=10)
-			lastRequestThrewException = False
-			if request.status_code == 200:
-				_logger.debug(f"Retrieval of '{url}' succeeded on attempt {attempt}")
-				return request
-		except requests.exceptions.SSLError:
-			_logger.debug(f"Retrieval of '{url}' threw an SSL error on attempt {attempt}")
-			lastRequestThrewException = True
-		except requests.exceptions.Timeout:
-			_logger.debug(f"Retrieval of '{url}' timed out on attempt {attempt}")
-			lastRequestThrewException = True
-	raise DownloadException(f"Download of '{url}' failed after {maxAttempts:,} attempts ({lastRequestThrewException=}, last attempt's status code: {request.status_code if request else 'missing'}")
-
-
-class DownloadException(BaseException):
-	pass
