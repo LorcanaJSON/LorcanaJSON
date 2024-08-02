@@ -32,6 +32,7 @@ def compareInputToOutput(cardIdsToVerify: Union[List[int], None]):
 		if cardIdsToVerify and outputCard["id"] not in cardIdsToVerify:
 			continue
 		if outputCard.get("isExternalReval", False):
+			print(f"Skipping external reveal card '{outputCard['fullName']}' (ID {outputCard['id']})")
 			continue
 		if outputCard["id"] not in idToInputCard:
 			print(f"WARNING: '{outputCard['fullName']}' (ID {outputCard['id']}) does not exist in the input file, skipping")
