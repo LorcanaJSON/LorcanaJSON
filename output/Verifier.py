@@ -4,6 +4,7 @@ from typing import Dict, List, Union
 import GlobalConfig
 from OCR import ImageParser
 from util import Language
+from util.Translations import TRANSLATIONS
 
 
 _subtypeSeparatorString = f" {ImageParser.SEPARATOR_UNICODE} "
@@ -103,9 +104,9 @@ def compareInputToOutput(cardIdsToVerify: Union[List[int], None]):
 				_printDifferencesDescription(outputCard, "subtypes", inputSubtypesText, outputSubtypesText)
 
 		# Cards beyond the 'normal' numbering are either Enchanted or otherwise Special, check if that's stored properly
-		if outputCard["rarity"] == Language.TRANSLATIONS[GlobalConfig.language]["ENCHANTED"] and "nonEnchantedId" not in outputCard and "nonPromoId" not in outputCard:
+		if outputCard["rarity"] == TRANSLATIONS[GlobalConfig.language]["ENCHANTED"] and "nonEnchantedId" not in outputCard and "nonPromoId" not in outputCard:
 			print(f"{outputCard['fullName']} (ID {outputCard['id']}) should have a non-enchanted ID or non-promo ID field, but it doesn't")
-		elif "Q" not in outputCard["setCode"] and outputCard["rarity"] == Language.TRANSLATIONS[GlobalConfig.language]["SPECIAL"] and "nonPromoId" not in outputCard:
+		elif "Q" not in outputCard["setCode"] and outputCard["rarity"] == TRANSLATIONS[GlobalConfig.language]["SPECIAL"] and "nonPromoId" not in outputCard:
 			print(f"{outputCard['fullName']} (ID {outputCard['id']}) should have a non-promo ID field, but it doesn't")
 
 		inputIdentifier = inputCard["card_identifier"].replace(" ", f" {ImageParser.SEPARATOR_UNICODE} ")

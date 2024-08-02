@@ -8,6 +8,7 @@ from PIL import Image
 import GlobalConfig
 from OCR import ImageArea
 from util import Language
+from util.Translations import TRANSLATIONS
 
 
 EXERT_UNICODE = "⟳"  # Unicode \u27F3   HTML entities &#10227;  &#x27F3;
@@ -36,7 +37,7 @@ class ImageParser():
 			modelName = GlobalConfig.language.threeLetterCode
 		else:
 			modelName = f"Lorcana_{GlobalConfig.language.code}"
-		translations = Language.TRANSLATIONS[GlobalConfig.language]
+		translations = TRANSLATIONS[GlobalConfig.language]
 		self.nonCharacterTypes = (translations["Action"], translations["Item"], translations["Location"])
 		self._tesseractApi = tesserocr.PyTessBaseAPI(lang=modelName, path=GlobalConfig.tesseractPath, psm=tesserocr.PSM.SINGLE_BLOCK)
 
