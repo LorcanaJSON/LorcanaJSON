@@ -550,7 +550,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 		outputCard["artistsText"] = outputCard["artistsText"].split(" ", 1)[1]
 	if outputCard["artistsText"].startswith("l") or outputCard["artistsText"].startswith("["):
 		outputCard["artistsText"] = "I" + outputCard["artistsText"][1:]
-	if re.search(" [a-z]$", outputCard["artistsText"]):
+	if re.search(" [a-zI|(]$", outputCard["artistsText"]):
 		outputCard["artistsText"] = outputCard["artistsText"].rsplit(" ", 1)[0]
 	if outputCard["artistsText"].startswith("lan "):
 		outputCard["artistsText"] = re.sub("^lan ", "Ian ", outputCard["artistsText"])
