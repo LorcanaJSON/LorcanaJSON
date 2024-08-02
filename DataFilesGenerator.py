@@ -1,9 +1,10 @@
 import datetime, hashlib, json, logging, multiprocessing.pool, os, re, threading, time, zipfile
 from typing import Dict, List, Tuple, Union, Optional
 
-import GlobalConfig, Language
+import GlobalConfig
 from OCR import ImageParser
 from output.StoryParser import StoryParser
+from util import Language
 
 
 _logger = logging.getLogger("LorcanaJSON")

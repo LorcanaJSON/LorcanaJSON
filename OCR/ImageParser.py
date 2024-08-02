@@ -5,8 +5,9 @@ from typing import Dict, List, Union
 import cv2, tesserocr
 from PIL import Image
 
-import GlobalConfig, Language
+import GlobalConfig
 from OCR import ImageArea
+from util import Language
 
 
 EXERT_UNICODE = "⟳"  # Unicode \u27F3   HTML entities &#10227;  &#x27F3;

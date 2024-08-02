@@ -1,9 +1,10 @@
 import argparse, datetime, json, logging, logging.handlers, os, re, sys, time
 
-import DataFilesGenerator, GlobalConfig, Language, UpdateHandler
+import DataFilesGenerator, GlobalConfig, UpdateHandler
 from APIScraping import RavensburgerApiHandler
 from OCR.ImageParser import ImageParser
 from output import Verifier
+from util import Language
 
 
 if __name__ == '__main__':

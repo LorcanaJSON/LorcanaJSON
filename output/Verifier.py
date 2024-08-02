@@ -1,8 +1,9 @@
 import json, os, re
 from typing import Dict, List, Union
 
-import GlobalConfig, Language
+import GlobalConfig
 from OCR import ImageParser
+from util import Language
 
 
 _subtypeSeparatorString = f" {ImageParser.SEPARATOR_UNICODE} "
