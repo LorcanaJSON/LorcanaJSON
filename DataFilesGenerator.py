@@ -529,7 +529,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 		outputCard["fullIdentifier"] = inputCard["card_identifier"].replace(" ", f" {ImageParser.SEPARATOR_UNICODE} ")
 	else:
 		outputCard["fullIdentifier"] = re.sub(fr" ?\W (?!$)", f" {ImageParser.SEPARATOR_UNICODE} ", parsedImageAndTextData["identifier"].text)
-		outputCard["fullIdentifier"] = outputCard["fullIdentifier"].replace("I", "/").replace("1P ", "/P ")
+		outputCard["fullIdentifier"] = outputCard["fullIdentifier"].replace("I", "/").replace("1P ", "/P ").replace(".", "")
 		outputCard["fullIdentifier"] = re.sub(fr" ?[-+] ?", f" {ImageParser.SEPARATOR_UNICODE} ", outputCard["fullIdentifier"])
 
 	# Get the set and card numbers from the identifier
