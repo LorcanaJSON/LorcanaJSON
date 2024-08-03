@@ -5,7 +5,6 @@ import GlobalConfig
 from OCR import ImageParser
 from output.StoryParser import StoryParser
 from util import Language, LorcanaSymbols
-from util.Translations import TRANSLATIONS
 
 
 _logger = logging.getLogger("LorcanaJSON")
@@ -363,7 +362,7 @@ def createOutputFiles(onlyParseIds: Union[None, List[int]] = None, shouldShowIma
 							cardDataCorrections.pop(card["id"], None)
 							# If this card is an Enchanted card or has an Enchanted equivalent, add that field, so we don't need to fully parse the card
 							if card["id"] in enchantedNonEnchantedIds and "nonEnchantedId" not in card and "enchantedId" not in card:
-								card["nonEnchantedId" if card["rarity"] == TRANSLATIONS[GlobalConfig.language]["ENCHANTED"] else "enchantedId"] = enchantedNonEnchantedIds[card["id"]]
+								card["nonEnchantedId" if card["rarity"] == GlobalConfig.translation["ENCHANTED"] else "enchantedId"] = enchantedNonEnchantedIds[card["id"]]
 							if card["id"] in promoNonPromoIds and "promoIds" not in card and "nonPromoId" not in card:
 								promoResult = promoNonPromoIds[card["id"]]
 								# For non-promo cards it stores a list of promo IDs, for promo cards it stores a single non-promo ID
@@ -389,7 +388,7 @@ def createOutputFiles(onlyParseIds: Union[None, List[int]] = None, shouldShowIma
 		results = []
 		for cardType, inputCardlist in inputData["cards"].items():
 			cardTypeText = cardType[:-1].title()  # 'cardType' is plural ('characters', 'items', etc), make it singular
-			cardTypeText = TRANSLATIONS[GlobalConfig.language][cardTypeText]
+			cardTypeText = GlobalConfig.translation[cardTypeText]
 			for inputCardIndex in range(len(inputCardlist)):
 				inputCard = inputCardlist.pop()
 				cardId = inputCard["culture_invariant_id"]
@@ -492,10 +491,10 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 					 cardDataCorrections: Dict, storyParser: StoryParser, isExternalReveal: bool, historicData: List[Dict], shouldShowImage: bool = False) -> Dict:
 	# Store some default values
 	outputCard: Dict[str, Union[str, int, List, Dict]] = {
-		"color": TRANSLATIONS[GlobalConfig.language][inputCard["magic_ink_colors"][0]] if inputCard["magic_ink_colors"] else "",
+		"color": GlobalConfig.translation[inputCard["magic_ink_colors"][0]] if inputCard["magic_ink_colors"] else "",
 		"id": inputCard["culture_invariant_id"],
 		"inkwell": inputCard["ink_convertible"],
-		"rarity": TRANSLATIONS[GlobalConfig.language][inputCard["rarity"]],
+		"rarity": GlobalConfig.translation[inputCard["rarity"]],
 		"type": cardType
 	}
 	if isExternalReveal:
@@ -519,10 +518,10 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 		imagePath,
 		parseFully=isExternalReveal,
 		includeIdentifier=True if isPromoCard is None else isPromoCard,
-		isLocation=cardType == TRANSLATIONS[GlobalConfig.language]["Location"],
+		isLocation=cardType == GlobalConfig.translation["Location"],
 		hasCardText=inputCard["rules_text"] != "" if "rules_text" in inputCard else None,
 		hasFlavorText=inputCard["flavor_text"] != "" if "flavor_text" in inputCard else None,
-		isEnchanted=outputCard["rarity"] == TRANSLATIONS[GlobalConfig.language]["ENCHANTED"] or inputCard.get("foil_type", None) == "Satin",  # Disney100 cards need Enchanted parsing, foil_type seems best way to determine Disney100
+		isEnchanted=outputCard["rarity"] == GlobalConfig.translation["ENCHANTED"] or inputCard.get("foil_type", None) == "Satin",  # Disney100 cards need Enchanted parsing, foil_type seems best way to determine Disney100
 		isQuest="Q" in inputCard["card_identifier"] if "card_identifier" in inputCard else None,
  		showImage=shouldShowImage
 	)
@@ -579,7 +578,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 		outputCard["name"] = outputCard["name"].replace("M", "m")
 	elif outputCard["name"].isupper():
 		# Some names have capitals in the middle, correct those
-		if cardType == TRANSLATIONS[GlobalConfig.language]["Character"]:
+		if cardType == GlobalConfig.translation["Character"]:
 			if outputCard["name"] == "HEIHEI" and GlobalConfig.language == Language.ENGLISH:
 				outputCard["name"] = "HeiHei"
 			elif outputCard["name"] == "LEFOU":
@@ -634,7 +633,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 		outputCard["images"] = {"full": inputCard["imageUrl"]}
 	# If the card is Enchanted or has an Enchanted equivalent, store that
 	if enchantedNonEnchantedId:
-		outputCard["nonEnchantedId" if outputCard["rarity"] == TRANSLATIONS[GlobalConfig.language]["ENCHANTED"] else "enchantedId"] = enchantedNonEnchantedId
+		outputCard["nonEnchantedId" if outputCard["rarity"] == GlobalConfig.translation["ENCHANTED"] else "enchantedId"] = enchantedNonEnchantedId
 	# If the card is a promo card, store the non-promo ID
 	# If the card has promo version, store the promo IDs
 	if promoNonPromoId:
@@ -666,7 +665,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 		for remainingTextLine in remainingTextLines:
 			remainingTextLine = correctText(remainingTextLine)
 			# Check if this is a keyword ability
-			if outputCard["type"] == TRANSLATIONS[GlobalConfig.language]["Character"] or outputCard["type"] == TRANSLATIONS[GlobalConfig.language]["Action"]:
+			if outputCard["type"] == GlobalConfig.translation["Character"] or outputCard["type"] == GlobalConfig.translation["Action"]:
 				if remainingTextLine.startswith("("):
 					# Song cards have reminder text of how Songs work, and for instance 'Flotsam & Jetsam - Entangling Eels' (ID 735) has a bracketed phrase at the bottom
 					# Treat those as static abilities
@@ -692,7 +691,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 				else:
 					# Since this isn't a named or keyword ability, assume it's a one-off effect
 					effects.append(remainingTextLine)
-			elif outputCard["type"] == TRANSLATIONS[GlobalConfig.language]["Item"]:
+			elif outputCard["type"] == GlobalConfig.translation["Item"]:
 				# Some items ("Peter Pan's Dagger", ID 351; "Sword in the Stone", ID 352) have an ability without an ability name label. Store these as abilities too
 				abilities.append({"effect": remainingTextLine})
 
@@ -750,7 +749,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 	if parsedImageAndTextData["subtypesText"] and parsedImageAndTextData["subtypesText"].text:
 		subtypes: List[str] = parsedImageAndTextData["subtypesText"].text.split(f" {LorcanaSymbols.SEPARATOR} ")
 		# Non-character cards have their main type as their (first) subtype, remove those
-		translation = TRANSLATIONS[GlobalConfig.language]
+		translation = GlobalConfig.translation
 		if subtypes[0] == translation["Action"] or subtypes[0] == translation["Item"] or subtypes[0] == translation["Location"]:
 			subtypes.pop(0)
 		# 'Seven Dwarves' is a subtype, but it might get split up into two types. Turn it back into one subtype

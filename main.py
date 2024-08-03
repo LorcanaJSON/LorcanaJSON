@@ -4,7 +4,7 @@ import DataFilesGenerator, GlobalConfig, UpdateHandler
 from APIScraping import RavensburgerApiHandler
 from OCR.ImageParser import ImageParser
 from output import Verifier
-from util import Language
+from util import Language, Translations
 
 
 if __name__ == '__main__':
@@ -77,6 +77,7 @@ if __name__ == '__main__':
 		GlobalConfig.tesseractPath = config["tesseractPath"]
 
 	GlobalConfig.language = Language.getLanguageByCode(parsedArguments.language)
+	GlobalConfig.translation = Translations.TRANSLATIONS[GlobalConfig.language]
 	logger.info(f"Using language '{GlobalConfig.language.englishName}'")
 
 	if parsedArguments.threads:
