@@ -6,7 +6,7 @@ from util import Language, LorcanaSymbols
 from util.Translations import TRANSLATIONS
 
 
-_subtypeSeparatorString = f" {LorcanaSymbols.SEPARATOR_UNICODE} "
+_subtypeSeparatorString = f" {LorcanaSymbols.SEPARATOR} "
 
 def compareInputToOutput(cardIdsToVerify: Union[List[int], None]):
 	inputFilePath = os.path.join("downloads", "json", f"carddata.{GlobalConfig.language.code}.json")
@@ -58,7 +58,7 @@ def compareInputToOutput(cardIdsToVerify: Union[List[int], None]):
 			if outputCard["fullText"]:
 				outputRulesText = outputCard["fullText"].replace(" -\n", " - ").replace("-\n", "-").replace("\n", " ")
 				# Remove all the Lorcana symbols:
-				outputRulesText = re.sub(fr" ?[{LorcanaSymbols.EXERT_UNICODE}{LorcanaSymbols.INK_UNICODE}{LorcanaSymbols.LORE_UNICODE}{LorcanaSymbols.STRENGTH_UNICODE}{LorcanaSymbols.WILLPOWER_UNICODE}{LorcanaSymbols.INKWELL_UNICODE}] ?", " ", outputRulesText).lstrip()
+				outputRulesText = re.sub(fr" ?[{LorcanaSymbols.EXERT}{LorcanaSymbols.INK}{LorcanaSymbols.LORE}{LorcanaSymbols.STRENGTH}{LorcanaSymbols.WILLPOWER}{LorcanaSymbols.INKWELL}] ?", " ", outputRulesText).lstrip()
 				outputRulesText = outputRulesText.replace("  ", " ").replace(" .", ".").replace("“", "\"").replace("”", "\"")
 				if GlobalConfig.language == Language.FRENCH:
 					# 'Alter' ('Shift') with special costs is followed by a colon, but that's missing from the input text, so remove it from the output too, otherwise comparison becomes impossible
@@ -108,7 +108,7 @@ def compareInputToOutput(cardIdsToVerify: Union[List[int], None]):
 		elif "Q" not in outputCard["setCode"] and outputCard["rarity"] == TRANSLATIONS[GlobalConfig.language]["SPECIAL"] and "nonPromoId" not in outputCard:
 			print(f"{outputCard['fullName']} (ID {outputCard['id']}) should have a non-promo ID field, but it doesn't")
 
-		inputIdentifier = inputCard["card_identifier"].replace(" ", f" {LorcanaSymbols.SEPARATOR_UNICODE} ")
+		inputIdentifier = inputCard["card_identifier"].replace(" ", f" {LorcanaSymbols.SEPARATOR} ")
 		if inputIdentifier != outputCard["fullIdentifier"]:
 			_printDifferencesDescription(outputCard, "fullIdentifier", inputIdentifier, outputCard["fullIdentifier"])
 
