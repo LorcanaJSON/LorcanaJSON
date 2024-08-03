@@ -30,6 +30,7 @@ class Translation:
 		# This allows the use of item subscription (myTranslation['AMBER'] or myTranslation[card[color]])
 		return self.__getattribute__(item)
 
+
 # An English translation doesn't make much sense, but it saves a lot of if language == ENGLISH or translation == ..." checks
 # It also works as a good template when adding languages
 ENGLISH = Translation(
