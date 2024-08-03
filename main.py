@@ -77,7 +77,7 @@ if __name__ == '__main__':
 		GlobalConfig.tesseractPath = config["tesseractPath"]
 
 	GlobalConfig.language = Language.getLanguageByCode(parsedArguments.language)
-	GlobalConfig.translation = Translations.TRANSLATIONS[GlobalConfig.language]
+	GlobalConfig.translation = Translations.getForLanguage(GlobalConfig.language)
 	logger.info(f"Using language '{GlobalConfig.language.englishName}'")
 
 	if parsedArguments.threads:

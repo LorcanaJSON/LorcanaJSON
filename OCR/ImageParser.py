@@ -28,7 +28,7 @@ class ImageParser():
 			modelName = GlobalConfig.language.threeLetterCode
 		else:
 			modelName = f"Lorcana_{GlobalConfig.language.code}"
-		self.nonCharacterTypes = (GlobalConfig.translation["Action"], GlobalConfig.translation["Item"], GlobalConfig.translation["Location"])
+		self.nonCharacterTypes = (GlobalConfig.translation.Action, GlobalConfig.translation.Item, GlobalConfig.translation.Location)
 		self._tesseractApi = tesserocr.PyTessBaseAPI(lang=modelName, path=GlobalConfig.tesseractPath, psm=tesserocr.PSM.SINGLE_BLOCK)
 
 	def getImageAndTextDataFromImage(self, pathToImage: str, parseFully: bool, includeIdentifier: bool = False, isLocation: bool = None, hasCardText: bool = None, hasFlavorText: bool = None,
