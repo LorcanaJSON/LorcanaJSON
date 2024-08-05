@@ -120,6 +120,11 @@ def compareInputToOutput(cardIdsToVerify: Union[List[int], None]):
 			if inputValue != outputValue:
 				_printDifferencesDescription(outputCard, outputField, str(inputValue), str(outputValue))
 
+		# Check if the story is properly filled in
+		# This isn't strictly speaking a verification since it doesn't compare with anything in the input file, but it is important to know about missing stories
+		if outputCard["story"] == "[[unknown]]":
+			print(f"WARNING: {outputCard['fullName']} (ID {outputCard['id']}) does not have a valid story set")
+
 	print(f"Found {cardDifferencesCount:,} difference{'' if cardDifferencesCount == 1 else 's'} between input and output")
 
 def _printDifferencesDescription(outputCard: Dict, fieldName: str, inputString: str, outputString: str):
