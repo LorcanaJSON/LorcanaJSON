@@ -770,6 +770,8 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 			if subtype != "Floodborn" and re.match(r"^Flo[ao]d[^b]?b?[^b]?[ao]rn$", subtype):
 				_logger.debug(f"Correcting '{subtype}' to 'Floodborn'")
 				subtypes[subtypeIndex] = "Floodborn"
+			elif subtype == "Hera":
+				subtypes[subtypeIndex] = "Hero"
 			# Remove short subtypes, probably erroneous
 			elif len(subtype) < 3:
 				_logger.debug(f"Removing subtype '{subtype}', too short")
