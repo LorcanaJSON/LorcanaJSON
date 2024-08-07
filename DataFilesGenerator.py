@@ -11,6 +11,7 @@ _logger = logging.getLogger("LorcanaJSON")
 FORMAT_VERSION = "2.0.0"
 _CARD_CODE_LOOKUP = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 _KEYWORD_REGEX = re.compile(r"(?:^|\n)([A-ZÀ][^.]+)(?= \()")
+_PROMO_MATCH_REGEX = re.compile(r"^\d+/[A-Z]\d")
 # The card parser is run in threads, and each thread needs to initialize its own ImageParser (otherwise weird errors happen in Tesseract)
 # Store each initialized ImageParser in its own thread storage
 _threadingLocalStorage = threading.local()
@@ -300,8 +301,8 @@ def createOutputFiles(onlyParseIds: Union[None, List[int]] = None, shouldShowIma
 	variantsDeckBuildingIds = {}
 	for cardtype, cardlist in inputData["cards"].items():
 		for card in cardlist:
-			# Promo cards are number x of 'P1' instead of a number of cards
-			if "/P" in card["card_identifier"]:
+			# Promo cards are number x of 'P1', or 'D23' or the like, instead of a number of cards
+			if _PROMO_MATCH_REGEX.match(card["card_identifier"]):
 				if card["deck_building_id"] not in promoDeckBuildingIds:
 					promoDeckBuildingIds[card["deck_building_id"]] = []
 				promoDeckBuildingIds[card["deck_building_id"]].append(card["culture_invariant_id"])
@@ -324,7 +325,7 @@ def createOutputFiles(onlyParseIds: Union[None, List[int]] = None, shouldShowIma
 				enchantedId = enchantedDeckbuildingIds[card["deck_building_id"]]
 				enchantedNonEnchantedIds[nonEnchantedId] = enchantedId
 				enchantedNonEnchantedIds[enchantedId] = nonEnchantedId
-			if "/P" not in card["card_identifier"] and card["deck_building_id"] in promoDeckBuildingIds:
+			if _PROMO_MATCH_REGEX.match(card["card_identifier"]) is None and card["deck_building_id"] in promoDeckBuildingIds:
 				nonPromoId = card["culture_invariant_id"]
 				promoIds = promoDeckBuildingIds[card["deck_building_id"]]
 				promoNonPromoIds[nonPromoId] = promoIds
@@ -513,7 +514,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 		raise ValueError(f"Unable to find image for card ID {outputCard['id']}")
 	isPromoCard: Union[None, bool] = None
 	if "card_identifier" in inputCard:
-		isPromoCard = re.match(r"^\d+/P\d", inputCard["card_identifier"]) is not None
+		isPromoCard = _PROMO_MATCH_REGEX.match(inputCard["card_identifier"]) is not None
 	parsedImageAndTextData = _threadingLocalStorage.imageParser.getImageAndTextDataFromImage(
 		imagePath,
 		parseFully=isExternalReveal,
@@ -537,7 +538,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 
 	# Get the set and card numbers from the identifier
 	# Use the input card's identifier instead of the output card's, because the former's layout is consistent, while the latter's isn't (mainly in Set 1 promos)
-	cardIdentifierMatch = re.match(r"^(\d+)([a-z])?/P?[0-9]+ .+ (Q?\d+)$", inputCard["card_identifier"])
+	cardIdentifierMatch = re.match(r"^(\d+)([a-z])?/[A-Z]?[0-9]+ .+ (Q?\d+)$", inputCard["card_identifier"])
 	if not cardIdentifierMatch:
 		raise ValueError(f"Unable to parse card and set numbers from card identifier '{outputCard['fullIdentifier']}' in card ID {outputCard['id']}")
 	outputCard["number"] = int(cardIdentifierMatch.group(1), 10)
