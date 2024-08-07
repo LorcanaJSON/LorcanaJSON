@@ -117,6 +117,7 @@ def correctText(cardText: str) -> str:
 				_logger.info("Correcting second line of Support reminder text")
 			cardLine = cardLine.replace("(Upponents", "(Opponents")
 			cardLine = re.sub(r"reduced by [lI]\.", "reduced by 1.", cardLine)
+			cardLine = cardLine.replace("lorcana", "Lorcana")
 		elif GlobalConfig.language == Language.FRENCH:
 			# Correct payment text
 			cardLine = re.sub(r"\bpayer (\d+) (?:\W|O|Ô|Q) pour\b", f"payer \\1 {LorcanaSymbols.INK} pour", cardLine)
