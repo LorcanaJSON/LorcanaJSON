@@ -115,9 +115,9 @@ def downloadImages(shouldOverwriteImages: bool = False, pathToCardCatalog: str =
 						time.sleep(2 * random.random())
 					break
 	# Download the external images too
-	externalCardRevealsFileName = f"externalCardReveals.{GlobalConfig.language.code}.json"
-	if os.path.isfile(externalCardRevealsFileName):
-		with open(externalCardRevealsFileName, "r", encoding="utf-8") as externalCardRevealsFile:
+	externalCardRevealsFilePath = os.path.join("output", f"externalCardReveals.{GlobalConfig.language.code}.json")
+	if os.path.isfile(externalCardRevealsFilePath):
+		with open(externalCardRevealsFilePath, "r", encoding="utf-8") as externalCardRevealsFile:
 			externalCardReveals = json.load(externalCardRevealsFile)
 		if externalCardReveals:
 			externalSavePath = os.path.join("downloads", "images", GlobalConfig.language.code, "external")
