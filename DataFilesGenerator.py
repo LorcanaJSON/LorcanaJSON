@@ -91,10 +91,10 @@ def correctText(cardText: str) -> str:
 			cardLine = re.sub(r"players’( |$)", r"players'\1", cardLine)
 			cardLine = re.sub(r"opponents’( |$)", r"opponents'\1", cardLine)
 			## Correct common phrases with symbols ##
-			# Lore payment discounts
+			# Ink payment discounts
 			cardLine, changeCount = re.subn(rf"pay (\d) ?[^{LorcanaSymbols.INK}]{{1,2}}( |$)", f"pay \\1 {LorcanaSymbols.INK}\\2", cardLine)
 			if changeCount > 0:
-				_logger.info("Correcting lore payment text")
+				_logger.info("Correcting ink payment text")
 			# Fields with Errata corrections have 'ERRATA' in the text, possibly with a colon. Remove that
 			cardLine = re.sub(" ?ERRATA:? ?", "", cardLine)
 			## Correct reminder text ##
