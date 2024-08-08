@@ -35,7 +35,7 @@ def correctText(cardText: str) -> str:
 		# There's usually an ink symbol between a number and a dash
 		cardLine = re.sub(r"(^| )(\d) ?[0OQ©]?( ?[-—]|,)", fr"\1\2 {LorcanaSymbols.INK}\3", cardLine)
 		# For some reason it keeps reading the Strength symbol as the Euro symbol
-		cardLine = re.sub(r"€[^ .]?", LorcanaSymbols.STRENGTH, cardLine)
+		cardLine = re.sub(r"€[^ .)]?", LorcanaSymbols.STRENGTH, cardLine)
 		# Normally a closing quote mark should be preceded by a period, except mid-sentence
 		cardLine = re.sub(r"([^.,'!?’])”(?!,| \w)", "\\1.”", cardLine)
 		# An opening bracket shouldn't have a space after it
