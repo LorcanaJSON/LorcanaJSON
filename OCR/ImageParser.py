@@ -13,6 +13,7 @@ from util import LorcanaSymbols
 ImageAndText = namedtuple("ImageAndText", ("image", "text"))
 
 _ABILITY_LABEL_MARGIN: int = 12
+_FLAVORTEXT_MARGIN: int = 14
 
 _BLACK = (0, 0, 0)
 _WHITE = (255, 255, 255)
@@ -241,10 +242,14 @@ class ImageParser():
 				else:
 					hasFlavorText = True
 					flavorTextSeparatorY += flavorTextImageTop
-					flavorTextImage = self._convertToThresholdImage(greyTextboxImage[flavorTextSeparatorY + 14:textboxHeight, 0:textboxWidth], thresholdTextColor)
-					flavourText = self._imageToString(flavorTextImage)
-					result["flavorText"] = ImageAndText(flavorTextImage, flavourText)
-					self._logger.debug(f"{flavourText=}")
+					if flavorTextSeparatorY + _FLAVORTEXT_MARGIN >= textboxHeight:
+						self._logger.warning(f"Flavortext separator Y {flavorTextSeparatorY} plus margin {_FLAVORTEXT_MARGIN} is larger than textbox height {textboxHeight}")
+						hasFlavorText = False
+					else:
+						flavorTextImage = self._convertToThresholdImage(greyTextboxImage[flavorTextSeparatorY + _FLAVORTEXT_MARGIN:textboxHeight, 0:textboxWidth], thresholdTextColor)
+						flavourText = self._imageToString(flavorTextImage)
+						result["flavorText"] = ImageAndText(flavorTextImage, flavourText)
+						self._logger.debug(f"{flavourText=}")
 				self._logger.debug(f"Finding flavor text finished at {time.perf_counter() - startTime} seconds in")
 
 		#Find the card text, one block at the time, separated by the ability name label
@@ -254,7 +259,7 @@ class ImageParser():
 		remainingTextImage = None
 		if hasCardText is not False:
 			labelCoords.reverse()
-			previousBlockTopY = flavorTextSeparatorY - (15 if hasFlavorText else 0)
+			previousBlockTopY = flavorTextSeparatorY - (_FLAVORTEXT_MARGIN + 1 if hasFlavorText else 0)
 			labelNumber = len(labelCoords)
 			for labelCoord in labelCoords:
 				# First get the label text itself. It's white on dark, so handle it the opposite way from the actual ability text
