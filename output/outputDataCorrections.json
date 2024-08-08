@@ -744,5 +744,73 @@
       1,
       2
     ]
+  },
+  "968": {
+    "abilities": [
+      "2 \\S",
+      "2 ⛉"
+    ]
+  },
+  "969": {
+    "_moveKeywordsLast": true
+  },
+  "989": {
+    "abilities": [
+      "3 \\S",
+      "3 ⛉"
+    ]
+  },
+  "1006": {
+    "_moveKeywordsLast": true
+  },
+  "1025": {
+    "_moveKeywordsLast": true
+  },
+  "1044": {
+    "abilities": [
+      "1 ?\\S*",
+      "1 ◊"
+    ]
+  },
+  "1068": {
+    "abilities": [
+      "2 \\S+",
+      "2 ¤."
+    ]
+  },
+  "1075": {
+    "_moveKeywordsLast": true
+  },
+  "1092": {
+    "abilities": [
+      "2 \\S",
+      "2 ◊"
+    ]
+  },
+  "1100": {
+    "abilities": [
+      "1 \\S",
+      "1 ◊"
+    ]
+  },
+  "1101": {
+    "_moveKeywordsLast": true
+  },
+  "1121": {
+    "abilities": [
+      "\\+2 \\S+",
+      "+2 ◊"
+    ]
+  },
+  "1125": {
+    "abilities": [
+      "1 \\S",
+      "1 ◊",
+      "2 \\S",
+      "2 ⛉"
+    ]
+  },
+  "1138": {
+    "_moveKeywordsLast": true
   }
 }

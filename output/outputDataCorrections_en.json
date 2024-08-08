@@ -1126,14 +1126,152 @@
       "37"
     ]
   },
-  "1172": {
+  "957": {
+    "abilities": [
+      "\nantlose lore (.+)$",
+      "\\1\ncan't lose lore."
+    ]
+  },
+  "960": {
+    "flavorText": [
+      "“l",
+      "“L"
+    ]
+  },
+  "962": {
+    "flavorText": [
+      "“l",
+      "“L"
+    ]
+  },
+  "968": {
+    "artistsText": [
+      "Jodo",
+      "João"
+    ]
+  },
+  "976": {
+    "flavorText": [
+      "”",
+      "'”"
+    ]
+  },
+  "981": {
+    "flavorText": [
+      "^w",
+      "I w"
+    ]
+  },
+  "993": {
+    "abilities": [
+      "y r",
+      "y'r"
+    ],
+    "flavorText": [
+      "l",
+      "T"
+    ]
+  },
+  "1001": {
+    "flavorText": [
+      "’",
+      "'"
+    ]
+  },
+  "1014": {
+    "abilities": [
+      "¤",
+      "◊"
+    ]
+  },
+  "1015": {
+    "flavorText": [
+      "C",
+      "c"
+    ]
+  },
+  "1016": {
+    "flavorText": [
+      "l",
+      "I"
+    ]
+  },
+  "1035": {
+    "artistsText": [
+      "ii",
+      "ji"
+    ]
+  },
+  "1046": {
+    "abilities": [
+      "If",
+      "if"
+    ]
+  },
+  "1056": {
+    "flavorText": [
+      "“I",
+      "“T"
+    ]
+  },
+  "1057": {
+    "abilities": [
+      "6",
+      "⟳"
+    ]
+  },
+  "1073": {
+    "abilities": [
+      "I",
+      "T"
+    ]
+  },
+  "1086": {
+    "flavorText": [
+      "“l",
+      "“L"
+    ]
+  },
+  "1097": {
+    "flavorText": [
+      "\\.”",
+      ".’”"
+    ]
+  },
+  "1109": {
+    "flavorText": [
+      "rs",
+      "s"
+    ]
+  },
+  "1134": {
+    "flavorText": [
+      "q",
+      "g"
+    ]
+  },
+  "1135": {
+    "flavorText": [
+      "\"",
+      "“"
+    ]
+  },
+  "1141": {
+    "subtypes": [
+      "Cop",
+      "Cap"
+    ]
+  },
+  "1155": {
+    "flavorText": [
+      "h ",
+      "h, "
+    ]
+  },
+  "1159": {
     "abilities": [
       "-",
       "—"
-    ],
-    "flavorText": [
-      "\n.+$",
-      ""
     ]
   }
 }
