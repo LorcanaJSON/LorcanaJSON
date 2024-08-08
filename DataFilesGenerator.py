@@ -102,6 +102,10 @@ def correctText(cardText: str) -> str:
 			cardLine, changeCount = re.subn(rf"gets \+(\d) [^{LorcanaSymbols.STRENGTH}]{{1,2}}?\.?\)", fr"gets +\1 {LorcanaSymbols.STRENGTH}.)", cardLine)
 			if changeCount > 0:
 				_logger.info("Correcting second line of Challenger reminder text")
+			#Shift
+			cardLine, changeCount = re.subn(f"pay (\\d+) {LorcanaSymbols.INK} play this", f"pay \\1 {LorcanaSymbols.INK} to play this", cardLine)
+			if changeCount > 0:
+				_logger.info("Correcting Shift reminder text by adding in Ink symbol")
 			# Song
 			cardLine, changeCount = re.subn(f"can [^{LorcanaSymbols.EXERT}]{{1,2}} to sing this", f"can {LorcanaSymbols.EXERT} to sing this", cardLine)
 			if changeCount > 0:
