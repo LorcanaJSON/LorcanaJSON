@@ -81,7 +81,7 @@ def correctText(cardText: str) -> str:
 			cardLine = re.sub("Bodyqg?uard", "Bodyguard", cardLine)
 			cardLine = re.sub(r"\bIhe\b", "The", cardLine)
 			cardLine = cardLine.replace("|", "I")
-			cardLine = cardLine.replace("“l ", "“I ")
+			cardLine = cardLine.replace("“L ", "“I ")
 			if cardLine.endswith("of i"):
 				# The 'Floodborn' inksplashes sometimes confuse the reader into imagining another 'i' at the end of some reminder text, remove that
 				cardLine = cardLine.rstrip(" i")
