@@ -120,8 +120,8 @@ def correctText(cardText: str) -> str:
 			cardLine, changeCount = re.subn(f"^their [^{LorcanaSymbols.STRENGTH}]{{1,2}} to", f"their {LorcanaSymbols.STRENGTH} to", cardLine)
 			if changeCount > 0:
 				_logger.info("Correcting first line of Support reminder text")
-			# Support, second line if split
-			cardLine, changeCount = re.subn(rf"^[^{LorcanaSymbols.STRENGTH}]{{1,2}} this turn\.?\)?", f"{LorcanaSymbols.STRENGTH} this turn.)", cardLine)
+			# Support, second line if split (prevent hit on 'of this turn.', which is unrelated to what we're correcting)
+			cardLine, changeCount = re.subn(rf"^[^{LorcanaSymbols.STRENGTH}of]{{1,2}} this turn\.?\)?", f"{LorcanaSymbols.STRENGTH} this turn.)", cardLine)
 			if changeCount > 0:
 				_logger.info("Correcting second line of Support reminder text")
 			cardLine = cardLine.replace("(Upponents", "(Opponents")
