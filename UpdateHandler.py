@@ -122,7 +122,7 @@ def checkForNewCardData(newCardCatalog: Dict = None, fieldsToIgnore: List[str] =
 		setNumberToCheck = highestIncompleteSetNumber
 	else:
 		setNumberToCheck = highestSetNumber + 1
-	unlistedCardImageNumbers = []
+	unlistedCards = []
 	if setNumberToCheck > -1:
 		for cardNumberToCheck in random.sample(range(1, 205), 3):
 			hashedCardNumberToCheck = hashlib.sha1(bytes(str(cardNumberToCheck), encoding="utf-8")).hexdigest()
@@ -134,13 +134,13 @@ def checkForNewCardData(newCardCatalog: Dict = None, fieldsToIgnore: List[str] =
 				pass
 			else:
 				# Download succeeded, store it
-				unlistedCardImageNumbers.append(cardNumberToCheck)
+				unlistedCards.append((setNumberToCheck, cardNumberToCheck, urlToCheck))
 
-	return (addedCards, cardChanges, possibleImageChanges, unlistedCardImageNumbers)
+	return (addedCards, cardChanges, possibleImageChanges, unlistedCards)
 
 def createOutputIfNeeded(onlyCreateOnNewCards: bool, cardFieldsToIgnore: List[str] = None, shouldShowImages: bool = False):
 	cardCatalog = RavensburgerApiHandler.retrieveCardCatalog()
-	addedCards, cardChanges, possibleImageChanges, unlistedCardImageNumbers = checkForNewCardData(cardCatalog, cardFieldsToIgnore, includeCardChanges=not onlyCreateOnNewCards)
+	addedCards, cardChanges, possibleImageChanges, unlistedCards = checkForNewCardData(cardCatalog, cardFieldsToIgnore, includeCardChanges=not onlyCreateOnNewCards)
 	if not addedCards and not cardChanges and not possibleImageChanges:
 		_logger.info("No catalog updates, not running output generator")
 		return

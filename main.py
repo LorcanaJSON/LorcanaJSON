@@ -116,7 +116,7 @@ if __name__ == '__main__':
 
 	startTime = time.perf_counter()
 	if parsedArguments.action == "check":
-		addedCards, cardChanges, possibleImageChanges, unlistedCardImageNumbers = UpdateHandler.checkForNewCardData(fieldsToIgnore=parsedArguments.ignoreFields)
+		addedCards, cardChanges, possibleImageChanges, unlistedCards = UpdateHandler.checkForNewCardData(fieldsToIgnore=parsedArguments.ignoreFields)
 		print(f"{len(addedCards):,} added cards: {addedCards}")
 		# Count which fields changed
 		fieldsChanged = {}
@@ -132,13 +132,13 @@ if __name__ == '__main__':
 		print(f"{len(possibleImageChanges):,} possible image changes:")
 		for possibleImageChange in possibleImageChanges:
 			print(possibleImageChange)
-		print(f"{len(unlistedCardImageNumbers)} unlisted card images found: {unlistedCardImageNumbers}")
+		print(f"{len(unlistedCards)} unlisted cards found: {unlistedCards}")
 	elif parsedArguments.action == "update":
 		UpdateHandler.createOutputIfNeeded(False, cardFieldsToIgnore=parsedArguments.ignoreFields, shouldShowImages=parsedArguments.shouldShowSubimages)
 	elif parsedArguments.action == "download":
 		# Make sure we download from an up-to-date card catalog
 		cardCatalog = RavensburgerApiHandler.retrieveCardCatalog()
-		addedCards, changedCards, possibleImageChanges, unlistedCardImageNumbers = UpdateHandler.checkForNewCardData(cardCatalog, fieldsToIgnore=parsedArguments.ignoreFields)
+		addedCards, changedCards, possibleImageChanges, unlistedCards = UpdateHandler.checkForNewCardData(cardCatalog, fieldsToIgnore=parsedArguments.ignoreFields)
 		if addedCards or changedCards or possibleImageChanges:
 			print(f"Card catalog for language '{GlobalConfig.language.englishName}' was updated, saving ({len(addedCards):,} added cards, {len(changedCards):,} changed cards, {len(possibleImageChanges):,} possible image changes)")
 			RavensburgerApiHandler.saveCardCatalog(cardCatalog)
