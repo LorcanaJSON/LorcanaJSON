@@ -20,7 +20,7 @@
       "it": "Aladdin"
     },
     "matchingNames": ["Abu", "Agrabah", "Aladdin", "Genie", "Iago", "Jafar", "Jasmine", "Magic Carpet", "Rajah", "Razoul", "Treasure Guardian"],
-    "matchingIds": [164, 195, 564, 596]
+    "matchingIds": [164, 195, 564, 596, 984, 1015, 1166]
   },
   "aliceinwonderland": {
     "displayNames": {
@@ -29,7 +29,7 @@
       "fr": "Alice au pays des merveilles",
       "it": "Alice nel Paese delle Meraviglie"
     },
-    "matchingNames": ["Alice", "Card Soldiers", "Caterpillar", "Cheshire Cat", "Mad Hatter", "Queen of Hearts"],
+    "matchingNames": ["Alice", "Card Soldiers", "Caterpillar", "Cheshire Cat", "King of Hearts", "Mad Hatter", "Queen of Hearts", "White Rabbit"],
     "matchingIds": [246, 282, 378]
   },
   "atlantis": {
@@ -50,7 +50,7 @@
       "it": "La bella e la bestia"
     },
     "matchingNames": ["Beast", "Belle", "Chip the Teacup", "Cogsworth", "Enchantress", "Gaston", "LeFou", "Lumiere", "Maurice", "Mrs. Potts", "The Wardrobe"],
-    "matchingIds": [25, 26, 131, 162, 196, 198, 244, 379, 381, 691, 854, 889]
+    "matchingIds": [25, 26, 131, 162, 196, 198, 244, 379, 381, 691, 854, 889, 1087, 1118]
   },
   "bravelittletailor": {
     "displayNames": {
@@ -62,6 +62,15 @@
     "matchingNames": ["Gustav the Giant"],
     "matchingIds": [115, 129, 595, 659]
   },
+  "brotherbear": {
+    "displayNames": {
+      "de": "Bärenbrüder",
+      "en": "Brother Bear",
+      "fr": "Frère des ours",
+      "it": "Koda, fratello orso"
+    },
+    "matchingNames": ["Denahi", "Kenai", "Koda", "Rutt", "Tanana", "Tuke"]
+  },
   "cinderella": {
     "displayNames": {
       "de": "Cinderella",
@@ -70,7 +79,7 @@
       "it": "Cenerentola"
     },
     "matchingNames": ["Cinderella", "Fairy Godmother", "Grand Duke", "Gus", "Jaq", "Lady Tremaine", "Lucifer", "Prince Charming"],
-    "matchingIds": [312]
+    "matchingIds": [312, 985]
   },
   "ducktales": {
     "displayNames": {
@@ -89,7 +98,7 @@
       "fr": "Encanto",
       "it": "Encanto"
     },
-    "matchingNames": ["Bruno", "Pico"],
+    "matchingNames": ["Bruno", "Camilo", "Luisa", "Mirabel", "Pico"],
     "matchingIds": [719, 722, 753, 887, 898],
     "matchingFields": {
       "subtypes": "Madrigal"
@@ -111,8 +120,8 @@
       "fr": "La Reine des neiges",
       "it": "Frozen - Il regno di ghiaccio"
     },
-    "matchingNames": ["Anna", "Arendelle", "Duke of Weselton", "Elsa", "Grand Pabbie", "Hans", "Iduna", "Kristoff", "Marshmellow", "Olaf", "Sven", "The Nokk"],
-    "matchingIds": [63, 163, 200, 415, 720, 857]
+    "matchingNames": ["Anna", "Arendelle", "Bruni", "Duke of Weselton", "Elsa", "Grand Pabbie", "Hans", "Iduna", "Kristoff", "Marshmellow", "Olaf", "Sven", "The Nokk"],
+    "matchingIds": [63, 163, 200, 415, 720, 857, 997, 998, 1085, 1188]
   },
   "greatmousedetective": {
     "displayNames": {
@@ -122,7 +131,7 @@
       "it": "Basil l'investigatopo"
     },
     "matchingNames": ["Basil", "Felicia", "Fidget", "Hiram Flaversham", "Mrs. Judson", "Ratigan"],
-    "matchingIds": [247, 347, 350, 419]
+    "matchingIds": [247, 347, 350, 419, 1050]
   },
   "hercules": {
     "displayNames": {
@@ -154,8 +163,8 @@
       "fr": "Kuzco, l'empereur mégalo",
       "it": "Le follie dell'imperatore"
     },
-    "matchingNames": ["Bucky", "Kronk", "Kuzco", "Pacha", "Yzma"],
-    "matchingIds": [199]
+    "matchingNames": ["Bucky", "Chaca", "Chicha", "Kronk", "Kuzco", "Pacha", "Tipo", "Yzma"],
+    "matchingIds": [199, 1058, 1120, 1130, 1131]
   },
   "liloandstitch": {
     "displayNames": {
@@ -173,8 +182,11 @@
       "fr": "Le Roi lion",
       "it": "Il re lione"
     },
-    "matchingNames": ["Hakuna Matata", "Mufasa", "Nala", "Pride Lands", "Pride Rock", "Pumbaa", "Rafiki", "Scar", "Simba", "Shenzi", "Timon", "Zazu"],
-    "matchingIds": [96, 128, 346, 820]
+    "matchingNames": ["Banzai", "Hakuna Matata", "Hyena", "Mufasa", "Nala", "Pride Lands", "Pride Rock", "Pumbaa", "Rafiki", "Scar", "Simba", "Shenzi", "Timon", "Zazu"],
+    "matchingIds": [96, 128, 346, 820, 1053, 1084],
+    "matchingFields": {
+      "subtypes": "Hyena"
+    }
   },
   "littlemermaid": {
     "displayNames": {
@@ -193,8 +205,8 @@
       "fr": "Lorcana",
       "it": "Lorcana"
     },
-    "matchingNames": ["Hexwell", "Venturo"],
-    "matchingIds": [380, 535, 789, 792, 825, 859, 891, 952, 1172],
+    "matchingNames": ["Chromicon", "Hexwell", "Venturo"],
+    "matchingIds": [380, 535, 789, 792, 825, 859, 891, 952, 986, 987, 1020, 1055, 1125, 1179],
     "matchingFields": {
       "card_identifier": " Q1$"
     }
@@ -206,8 +218,8 @@
       "fr": "Mickey Mouse et ses amis",
       "it": "Topolino e i suoi amici"
     },
-    "matchingNames": ["Daisy Duck", "Donald Duck", "Goofy", "Mickey Mouse", "Minnie Mouse", "Pete", "Pluto"],
-    "matchingIds": [718, 784]
+    "matchingNames": ["Clarabelle", "Daisy Duck", "Donald Duck", "Goofy", "Ludwig von Drake", "Mickey Mouse", "Minnie Mouse", "Pete", "Pluto"],
+    "matchingIds": [718, 784, 1154, 1155]
   },
   "mickeyandthebeanstalk": {
     "displayNames": {
@@ -226,7 +238,7 @@
       "it": "Oceania"
     },
     "matchingNames": ["Chief Tui", "Gramma Tala", "HeiHei", "Kakamora", "Moana", "Motunui", "Maui", "Pua", "Tamatoa", "Te Fiti", "Te Kā"],
-    "matchingIds": [29, 166, 497, 498, 597, 686]
+    "matchingIds": [29, 166, 497, 498, 597, 686, 1017, 1052, 1169]
   },
   "mulan": {
     "displayNames": {
@@ -246,7 +258,7 @@
       "it": "Le avventure di Peter Pan"
     },
     "matchingNames": ["Captain Hook", "Cubby", "Jolly Roger", "Lost Boy", "Mr. Smee", "Nana", "Never Land", "Peter Pan", "Starkey", "Tinker Bell", "Wendy Darling"],
-    "matchingIds": [349, 566, 752, 819, 824, 901]
+    "matchingIds": [349, 566, 752, 819, 824, 901, 1083, 1152]
   },
   "pinocchio": {
     "displayNames": {
@@ -255,7 +267,7 @@
       "fr": "Pinocchio",
       "it": "Pinocchio"
     },
-    "matchingNames": ["Blue Fairy", "Honest John", "Jiminy Cricket", "Pinocchio"]
+    "matchingNames": ["Blue Fairy", "Honest John", "Jiminy Cricket", "Monstro", "Pinocchio"]
   },
   "princessandthefrog": {
     "displayNames": {
@@ -293,7 +305,8 @@
       "fr": "Robin des Bois",
       "it": "Robin Hood"
     },
-    "matchingNames": ["Friar Tuck", "Little John", "Maid Marian", "Nutsy", "Prince John", "Robin Hood", "Sheriff of Nottingham", "Sir Hiss", "Skippy", "Trigger"]
+    "matchingNames": ["Alan-a-Dale", "Friar Tuck", "Little John", "Maid Marian", "Nutsy", "Prince John", "Robin Hood", "Sheriff of Nottingham", "Sherwood", "Sir Hiss", "Skippy", "Trigger"],
+    "matchingIds": [1117, 1175]
   },
   "sleepingbeauty": {
     "displayNames": {
@@ -302,7 +315,7 @@
       "fr": "La Belle au bois dormant",
       "it": "La bella addormentata nel bosco"
     },
-    "matchingNames": ["Aurora", "Diablo", "Dragon Fire", "Flora", "Goons", "Maleficent", "Prince Phillip"],
+    "matchingNames": ["Aurora", "Diablo", "Dragon Fire", "Fauna", "Flora", "Goons", "Maleficent", "Merryweather", "Prince Phillip"],
     "matchingIds": [136, 855]
   },
   "snowwhite": {
@@ -312,8 +325,8 @@
       "fr": "Blanche-Neige et les Sept Nains",
       "it": "Biancaneve e i sette nani"
     },
-    "matchingNames": ["Bashful", "Doc", "Dopey", "Grumpy", "Happy", "Magic Mirror", "Sleepy", "Sneezy", "Snow White", "The Huntsman", "The Prince", "The Queen"],
-    "matchingIds": [785]
+    "matchingNames": ["Bashful", "Doc", "Dopey", "Grumpy", "Happy", "Magic Mirror", "Seven Dwarfs", "Sleepy", "Sneezy", "Snow White", "The Huntsman", "The Prince", "The Queen"],
+    "matchingIds": [785, 1088]
   },
   "sorcerersapprentice": {
     "displayNames": {
@@ -332,8 +345,8 @@
       "fr": "Merlin l'Enchanteur",
       "it": "La spada nella roccia"
     },
-    "matchingNames": ["Archimedes", "Arthur", "Madam Mim", "Merlin"],
-    "matchingIds": [62, 278, 280, 352]
+    "matchingNames": ["Archimedes", "Arthur", "Madam Mim", "Merlin", "Sir Ector"],
+    "matchingIds": [62, 278, 280, 352, 1018, 1089, 1116, 1157]
   },
   "talespin": {
     "displayNames": {
@@ -352,8 +365,8 @@
       "fr": "Raiponce",
       "it": "Rapunzel - L'intreccio della torre"
     },
-    "matchingNames": ["Flynn Rider", "Gunther", "Maximus", "Mother Gothel", "Mother Knows Best", "Pascal", "Rapunzel", "Snuggly Duckling", "Tor"],
-    "matchingIds": [33, 202, 462, 565]
+    "matchingNames": ["Flynn Rider", "Gunther", "Maximus", "Mother Gothel", "Mother Knows Best", "Pascal", "Rapunzel", "Snuggly Duckling", "Tor", "Ulf"],
+    "matchingIds": [33, 202, 462, 565, 983, 1153, 1163]
   },
   "threemusketeers": {
     "displayNames": {
@@ -395,7 +408,8 @@
       "fr": "Les Mondes de Ralph",
       "it": "Ralph Spaccatutto"
     },
-    "matchingIds": [416]
+    "matchingNames": ["Bad-Anon", "Felix", "Fix-It Felix, Jr.", "King Candy", "Ralph", "Rancis", "Snowanna", "Taffyta", "Wreck-It Ralph", "Vanellope"],
+    "matchingIds": [416, 1091, 1121]
   },
   "zootopia": {
     "displayNames": {
@@ -405,6 +419,6 @@
       "it": "Zootropolis"
     },
     "matchingNames": ["Chief Bogo", "Duke Weaselton", "Judy Hopps", "Nick Wilde"],
-    "matchingIds": [385]
+    "matchingIds": [385, 967, 981]
   }
 }
