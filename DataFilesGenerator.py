@@ -64,6 +64,11 @@ def correctText(cardText: str) -> str:
 		cardLine = re.sub(f"{LorcanaSymbols.INK}([-—])", fr"{LorcanaSymbols.INK} \1", cardLine)
 		# Negative numbers are always followed by a strength symbol, correct that
 		cardLine = re.sub(fr"(?<= )(-\d) [^{LorcanaSymbols.STRENGTH}{LorcanaSymbols.LORE}a-z]", fr"\1 {LorcanaSymbols.STRENGTH}", cardLine)
+		# Letters after a quotemark at the start of a line should be capitalized
+		match = re.match("“[a-z]", cardLine)
+		if match:
+			lowercasePosition = match.start() + 1
+			cardLine = cardLine[:lowercasePosition] + cardLine[lowercasePosition].upper() + cardLine[lowercasePosition + 1:]
 
 		if GlobalConfig.language == Language.ENGLISH:
 			if re.match("[‘`']Shift ", cardLine):
