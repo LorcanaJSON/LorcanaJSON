@@ -57,6 +57,7 @@ def compareInputToOutput(cardIdsToVerify: Union[List[int], None]):
 			if outputCard["fullText"]:
 				outputRulesText = outputCard["fullText"].replace(" -\n", " - ").replace("-\n", "-").replace("\n", " ")
 				# Remove all the Lorcana symbols:
+				outputRulesText = outputRulesText.replace(f"{LorcanaSymbols.EXERT},", ",")
 				outputRulesText = re.sub(fr" ?[{LorcanaSymbols.EXERT}{LorcanaSymbols.INK}{LorcanaSymbols.LORE}{LorcanaSymbols.STRENGTH}{LorcanaSymbols.WILLPOWER}{LorcanaSymbols.INKWELL}] ?", " ", outputRulesText).lstrip()
 				outputRulesText = outputRulesText.replace("  ", " ").replace(" .", ".").replace("“", "\"").replace("”", "\"")
 				if GlobalConfig.language == Language.FRENCH:
