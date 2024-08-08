@@ -846,7 +846,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 				keywordAbilities.append(keyword)
 			else:
 				# Non-keyword ability, determine which type it is
-				activatedAbilityMatch = re.search(" [-–—][ \n]", ability["effect"])
+				activatedAbilityMatch = re.search("[ \n][-–—][ \n]", ability["effect"])
 				if forceAbilityTypeIndexToTriggered == abilityIndex:
 					_logger.info(f"Forcing ability type at index {abilityIndex} of card ID {outputCard['id']} to 'triggered'")
 					ability["type"] = "triggered"
