@@ -11,7 +11,7 @@ _logger = logging.getLogger("LorcanaJSON")
 FORMAT_VERSION = "2.0.0"
 _CARD_CODE_LOOKUP = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 _KEYWORD_REGEX = re.compile(r"(?:^|\n)([A-ZÀ][^.]+)(?= \()")
-_PROMO_MATCH_REGEX = re.compile(r"^\d+/[A-Z]\d")
+_PROMO_MATCH_REGEX = re.compile(r"^\d+[a-z]?/[A-Z]\d")
 # The card parser is run in threads, and each thread needs to initialize its own ImageParser (otherwise weird errors happen in Tesseract)
 # Store each initialized ImageParser in its own thread storage
 _threadingLocalStorage = threading.local()
