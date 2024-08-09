@@ -53,6 +53,15 @@ LOCATION_IDENTIFIER = ImageArea("identifier", "Location Identifier", _Coords(54,
 QUEST_TEXTBOX = ImageArea("textbox", "Quest Text Box", _Coords(78,1378,  1311,1882), TEXT_COLOUR_WHITE)
 QUEST_FULL_WIDTH_TEXT_BOX = ImageArea("textbox", "Full Width Quest Text Box", _Coords(78,1378,  1400,1861), TEXT_COLOUR_WHITE)
 
+NEW_ENCHANTED_TYPE = ImageArea("newEnchantedType", "New Enchanted Type", _Coords(135,1320, 1062,1376), TEXT_COLOUR_MIDDLE)
+NEW_ENCHANTED_LOCATION_TYPE = ImageArea("newEnchantedLocationType", "New Enchanted Location Type", _Coords(622,891, 1487,944), TEXT_COLOUR_MIDDLE)
+NEW_ENCHANTED_CARD_NAME = ImageArea("newEnchantedCardName", "New Enchanted Card Name", _Coords(287,1213, 1215,1290), TEXT_COLOUR_WHITE)
+NEW_ENCHANTED_CHARACTER_NAME = ImageArea("newEnchantedCharacterName", "New Enchanted Character Name", _Coords(68,1162, 1087,1238), TEXT_COLOUR_WHITE)
+NEW_ENCHANTED_VERSION = ImageArea("newEnchantedVersion", "New Enchanted Version Subtitle", _Coords(68,1238, 1087,1300), TEXT_COLOUR_WHITE)
+NEW_ENCHANTED_CHARACTER_TEXT_BOX = ImageArea("newEnchantedCharacterTextbox", "New Enchanted Character Textbox", _Coords(134,1406, 1261,1869), TEXT_COLOUR_WHITE)
+NEW_ENCHANTED_FULL_WIDTH_TEXT_BOX = ImageArea("newEnchantedFullWidthTextbox", "New Enchanted Full Width Textbox", _Coords(134,1406, 1375,1869), TEXT_COLOUR_WHITE)
+NEW_ENCHANTED_LOCATION_TEXT_BOX = ImageArea("newEnchantedLocationTextbox", "New Enchanted Location Textbox", _Coords(127,954, 1686,1286), TEXT_COLOUR_WHITE)
+
 IS_INKABLE_CHECK = ImageArea("isInkable", "Is Inkable", _Coords(69,142, 70,143), TEXT_COLOUR_MIDDLE)
 IS_BORDERLESS_CHECK = ImageArea("isBorderless", "Is Borderless", _Coords(5,260, 40,1290), TEXT_COLOUR_MIDDLE)
 IS_LOCATION_CHECK = ImageArea("isLocation", "Is Location", _Coords(1330,414, 1392,848), TEXT_COLOUR_MIDDLE)
