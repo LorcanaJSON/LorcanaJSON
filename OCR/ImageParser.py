@@ -88,6 +88,10 @@ class ImageParser():
 			cardImage = cv2.rotate(cardImage, cv2.ROTATE_90_CLOCKWISE)
 		greyCardImage: cv2.Mat = cv2.cvtColor(cardImage, cv2.COLOR_BGR2GRAY)
 
+		if isEnchanted is None:
+			isEnchanted = not self._isImageBlack(self._getSubImage(cardImage, ImageArea.IS_BORDERLESS_CHECK))
+			#TODO Add way to determine whether this is old- or new-style Enchanted (from set 5 onward the Enchanted design changed)
+
 		# First determine the card (sub)type
 		typesImage = self._getSubImage(greyCardImage, ImageArea.LOCATION_TYPE if isLocation else ImageArea.TYPE)
 		typesImage = self._convertToThresholdImage(typesImage, ImageArea.TYPE.textColour)
@@ -103,9 +107,6 @@ class ImageParser():
 		else:
 			isCharacter = False
 			self._logger.debug(f"Subtype is main type ({typesImageText=}), so not storing as subtypes")
-
-		if isEnchanted is None:
-			isEnchanted = not self._isImageBlack(self._getSubImage(cardImage, ImageArea.IS_BORDERLESS_CHECK))
 
 		result["artist"] = self._getSubImageAndText(greyCardImage, ImageArea.LOCATION_ARTIST if isLocation else ImageArea.ARTIST)
 		if parseFully or includeIdentifier or isQuest is None:
