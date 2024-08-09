@@ -229,16 +229,22 @@ def correctCardField(card: Dict, fieldName: str, regexMatchString: str, correcti
 						else:
 							_logger.info(f"Corrected index {fieldIndex} of field '{fieldName}' from {preCorrectedText!r} to {fieldEntry[fieldKey]!r} for card {_createCardIdentifier(card)}")
 		elif isinstance(card[fieldName][0], str):
-			for fieldIndex, fieldValue in enumerate(card[fieldName]):
+			for fieldIndex in range(len(card[fieldName]) - 1, -1, -1):
+				fieldValue = card[fieldName][fieldIndex]
 				match = re.search(regexMatchString, fieldValue, flags=re.DOTALL)
 				if match:
 					matchFound = True
-					preCorrectedText = fieldValue
-					card[fieldName][fieldIndex] = re.sub(regexMatchString, correction, fieldValue, flags=re.DOTALL)
-					if card[fieldName][fieldIndex] == preCorrectedText:
-						_logger.warning(f"Correcting index {fieldIndex} of field '{fieldName}' in card {_createCardIdentifier(card)} didn't change anything")
+					if correction is None:
+						# Delete the value
+						_logger.info(f"Removing index {fieldIndex} value '{fieldValue}' from field '{fieldName}' in card {_createCardIdentifier(card)}")
+						card[fieldName].pop(fieldIndex)
 					else:
-						_logger.info(f"Corrected index {fieldIndex} of field '{fieldName}' from {preCorrectedText!r} to {card[fieldName][fieldIndex]!r} for card {_createCardIdentifier(card)}")
+						preCorrectedText = fieldValue
+						card[fieldName][fieldIndex] = re.sub(regexMatchString, correction, fieldValue, flags=re.DOTALL)
+						if card[fieldName][fieldIndex] == preCorrectedText:
+							_logger.warning(f"Correcting index {fieldIndex} of field '{fieldName}' in card {_createCardIdentifier(card)} didn't change anything")
+						else:
+							_logger.info(f"Corrected index {fieldIndex} of field '{fieldName}' from {preCorrectedText!r} to {card[fieldName][fieldIndex]!r} for card {_createCardIdentifier(card)}")
 		else:
 			_logger.error(f"Unhandled type of list entries ({type(card[fieldName][0])}) in card {_createCardIdentifier(card)}")
 		if not matchFound:
