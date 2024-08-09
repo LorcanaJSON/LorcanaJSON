@@ -336,7 +336,7 @@ def createOutputFiles(onlyParseIds: Union[None, List[int]] = None, shouldShowIma
 	promoNonPromoIds: Dict[int, Union[int, List[int]]] = {}
 	for cardtype, cardlist in inputData["cards"].items():
 		for card in cardlist:
-			if card["rarity"] != "ENCHANTED" and card["deck_building_id"] in enchantedDeckbuildingIds:
+			if card["rarity"] not in ("ENCHANTED", "SPECIAL") and card["deck_building_id"] in enchantedDeckbuildingIds:
 				nonEnchantedId = card["culture_invariant_id"]
 				enchantedId = enchantedDeckbuildingIds[card["deck_building_id"]]
 				enchantedNonEnchantedIds[nonEnchantedId] = enchantedId
