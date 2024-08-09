@@ -540,6 +540,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 		hasFlavorText=inputCard["flavor_text"] != "" if "flavor_text" in inputCard else None,
 		isEnchanted=outputCard["rarity"] == GlobalConfig.translation.ENCHANTED or inputCard.get("foil_type", None) == "Satin",  # Disney100 cards need Enchanted parsing, foil_type seems best way to determine Disney100
 		isQuest="Q" in inputCard["card_identifier"] if "card_identifier" in inputCard else None,
+		useNewEnchanted=int(inputCard.get("card_identifier", "0")[-1], 10) >= 5,
  		showImage=shouldShowImage
 	)
 

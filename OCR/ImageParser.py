@@ -33,7 +33,7 @@ class ImageParser():
 		self._tesseractApi = tesserocr.PyTessBaseAPI(lang=modelName, path=GlobalConfig.tesseractPath, psm=tesserocr.PSM.SINGLE_BLOCK)
 
 	def getImageAndTextDataFromImage(self, pathToImage: str, parseFully: bool, includeIdentifier: bool = False, isLocation: bool = None, hasCardText: bool = None, hasFlavorText: bool = None,
-									 isEnchanted: bool = None, isQuest: bool = None, showImage: bool = False) -> Dict[str, Union[None, ImageAndText, List[ImageAndText]]]:
+									 isEnchanted: bool = None, isQuest: bool = None, useNewEnchanted: bool = False, showImage: bool = False) -> Dict[str, Union[None, ImageAndText, List[ImageAndText]]]:
 		startTime = time.perf_counter()
 		result: Dict[str, Union[None, ImageAndText, List[ImageAndText]]] = {
 			"flavorText": None,
@@ -93,8 +93,14 @@ class ImageParser():
 			#TODO Add way to determine whether this is old- or new-style Enchanted (from set 5 onward the Enchanted design changed)
 
 		# First determine the card (sub)type
-		typesImage = self._getSubImage(greyCardImage, ImageArea.LOCATION_TYPE if isLocation else ImageArea.TYPE)
-		typesImage = self._convertToThresholdImage(typesImage, ImageArea.TYPE.textColour)
+		if isEnchanted and useNewEnchanted:
+			typesImageArea = ImageArea.NEW_ENCHANTED_LOCATION_TYPE if isLocation else ImageArea.NEW_ENCHANTED_TYPE
+		elif isLocation:
+			typesImageArea = ImageArea.LOCATION_TYPE
+		else:
+			typesImageArea = ImageArea.TYPE
+		typesImage = self._getSubImage(greyCardImage, typesImageArea)
+		typesImage = self._convertToThresholdImage(typesImage, typesImageArea.textColour)
 		typesImageText = self._imageToString(typesImage).strip("\"'- ")
 		self._logger.debug(f"Parsing types image finished at {time.perf_counter() - startTime} seconds in")
 		if typesImageText not in self.nonCharacterTypes:
@@ -133,11 +139,20 @@ class ImageParser():
 		if isQuest:
 			textBoxImageArea = ImageArea.QUEST_TEXTBOX if isCharacter else ImageArea.QUEST_FULL_WIDTH_TEXT_BOX
 		elif isCharacter:
-			textBoxImageArea = ImageArea.ENCHANTED_CHARACTER_TEXT_BOX if isEnchanted else ImageArea.CHARACTER_TEXT_BOX
+			if isEnchanted:
+				textBoxImageArea = ImageArea.NEW_ENCHANTED_CHARACTER_TEXT_BOX if useNewEnchanted else ImageArea.ENCHANTED_CHARACTER_TEXT_BOX
+			else:
+				textBoxImageArea = ImageArea.CHARACTER_TEXT_BOX
 		elif isLocation:
-			textBoxImageArea = ImageArea.ENCHANTED_LOCATION_TEXT_BOX if isEnchanted else ImageArea.LOCATION_TEXTBOX
+			if isEnchanted:
+				textBoxImageArea = ImageArea.NEW_ENCHANTED_LOCATION_TEXT_BOX if useNewEnchanted else ImageArea.ENCHANTED_LOCATION_TEXT_BOX
+			else:
+				textBoxImageArea = ImageArea.LOCATION_TEXTBOX
 		else:
-			textBoxImageArea = ImageArea.ENCHANTED_FULL_WIDTH_TEXT_BOX if isEnchanted else ImageArea.FULL_WIDTH_TEXT_BOX
+			if isEnchanted:
+				textBoxImageArea = ImageArea.NEW_ENCHANTED_FULL_WIDTH_TEXT_BOX if useNewEnchanted else ImageArea.ENCHANTED_FULL_WIDTH_TEXT_BOX
+			else:
+				textBoxImageArea = ImageArea.FULL_WIDTH_TEXT_BOX
 
 		# Greyscale images work better, so get one from just the textbox
 		greyTextboxImage = self._getSubImage(greyCardImage, textBoxImageArea)
@@ -151,7 +166,7 @@ class ImageParser():
 
 		# Find where the ability name labels are, store them as the top y, bottom y and the right x, so we know where to get the text from
 		labelCoords = []
-		if hasCardText is not False:
+		if hasCardText is not False and (not isEnchanted or not useNewEnchanted):
 			isCurrentlyInLabel: bool = False
 			currentCoords = [0, 0, 0]
 			textBoxImageToCheck = colorTextboxImage if isQuest else greyTextboxImage
@@ -207,7 +222,7 @@ class ImageParser():
 		flavorTextLineDetectionCroppedImage = None
 		flavorTextEdgeDetectedImage = None
 		flavorTextGreyscaleImageWithLines = None
-		if hasFlavorText is not False:
+		if hasFlavorText is not False and (not isEnchanted or not useNewEnchanted):
 			flavorTextImageTop = 0
 			flavorTextLineDetectionCroppedImage = greyTextboxImage
 			if labelCoords:
@@ -287,10 +302,35 @@ class ImageParser():
 			# There might be text above the label coordinates too (abilities text), especially if there aren't any labels. Get that text as well
 			if previousBlockTopY > 35:
 				remainingTextImage = self._convertToThresholdImage(greyTextboxImage[0:previousBlockTopY, 0:textboxWidth], thresholdTextColor)
+				if isEnchanted and useNewEnchanted:
+					# New-style Enchanted cards have white text with a dark outline, which confuses Tesseract. Making the whole background black vastly improves accuracy
+					remainingTextImage = cv2.floodFill(remainingTextImage, None, (0, 0), (0,))[1]
 				remainingText = self._imageToString(remainingTextImage)
 				if remainingText:
-					result["remainingText"] = ImageAndText(remainingTextImage, remainingText)
-					self._logger.debug(f"{remainingText=}")
+					if isEnchanted and useNewEnchanted and re.search("[A-Z]{2,}", remainingText):
+						# Detecting labels on new-style Enchanted cards is hard, so for those the full card text is 'remainingText'
+						# Try to get the labels and effects out
+						labelMatch = re.search("([AI] )?[A-Z]{2}", remainingText)
+						if labelMatch:
+							labelAndEffectText = remainingText[labelMatch.start():]
+							remainingText = remainingText[:labelMatch.start()].rstrip()
+							while labelAndEffectText:
+								effectMatch = re.search(r"\b[A-Z][a-z]", labelAndEffectText, flags=re.DOTALL)
+								labelText = labelAndEffectText[:effectMatch.start()]
+								effectText = labelAndEffectText[effectMatch.start():]
+								nextLabelMatch = re.search("([AI] )?[A-Z]{2}", effectText)
+								if nextLabelMatch:
+									labelAndEffectText = effectText[nextLabelMatch.start():]
+									effectText = effectText[:nextLabelMatch.start()].rstrip()
+									self._logger.info("Correcting effect text on new-style Enchanted card to ability label and text")
+								else:
+									labelAndEffectText = None
+								result["abilityLabels"].append(ImageAndText(remainingTextImage, labelText))
+								result["abilityTexts"].append(ImageAndText(remainingTextImage, effectText))
+
+					if remainingText:
+						result["remainingText"] = ImageAndText(remainingTextImage, remainingText)
+						self._logger.debug(f"{remainingText=}")
 				else:
 					self._logger.debug("No remaining text found")
 				self._logger.debug(f"Finding remaining text finished at {time.perf_counter() - startTime} seconds in")
