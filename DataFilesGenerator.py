@@ -813,6 +813,14 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 			outputCard["abilities"].append({"type": "keyword", "fullText": keywordText})
 		forceAbilityTypeIndexToTriggered = cardDataCorrections.pop("_forceAbilityIndexToTriggered", -1)
 		newlineAfterLabelIndex = cardDataCorrections.pop("_newlineAfterLabelIndex", -1)
+		if "_effectAtIndexIsAbility" in cardDataCorrections:
+			effectIndexToMoveToAbilities = cardDataCorrections.pop("_effectAtIndexIsAbility", -1)
+			_logger.info(f"Moving effect index {effectIndexToMoveToAbilities} to abilities")
+			if "abilities" not in outputCard:
+				outputCard["abilities"] = []
+			outputCard["abilities"].append({"name": "", "effect": outputCard["effects"].pop(effectIndexToMoveToAbilities)})
+			if len(outputCard["effects"]) == 0:
+				del outputCard["effects"]
 		for fieldName, correction in cardDataCorrections.items():
 			if fieldName == "fullText":
 				fullTextCorrection = correction
