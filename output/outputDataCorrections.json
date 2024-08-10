@@ -832,35 +832,13 @@
     "_moveKeywordsLast": true
   },
   "1193": {
-    "_effectAtIndexIsAbility": 0,
-    "abilities": [
-      "^$",
-      "YOU'LL NEVER EVEN MISS IT",
-      "~+",
-      "",
-      "\nW .+$",
-      ""
-    ]
+    "_effectAtIndexIsAbility": 0
   },
   "1194": {
-    "_effectAtIndexIsAbility": 0,
-    "abilities": [
-      "^$",
-      "YOU JUST HAVE TO SEE IT",
-      "TalE rm Of ",
-      "",
-      " ¤",
-      ""
-    ]
+    "_effectAtIndexIsAbility": 0
   },
   "1195": {
     "_effectAtIndexIsAbility": 0,
-    "abilities": [
-      "^$",
-      "I HEREBY DECREE",
-      "~ ",
-      ""
-    ],
     "nonPromoId": [
       1162,
       975

@@ -1511,5 +1511,33 @@
       " Will,",
       "n"
     ]
+  },
+  "1193": {
+    "abilities": [
+      "^$",
+      "YOU'LL NEVER EVEN MISS IT",
+      "~+",
+      "",
+      "\nW .+$",
+      ""
+    ]
+  },
+  "1194": {
+    "abilities": [
+      "^$",
+      "YOU JUST HAVE TO SEE IT",
+      "TalE rm Of ",
+      "",
+      " ¤",
+      ""
+    ]
+  },
+  "1195": {
+    "abilities": [
+      "^$",
+      "I HEREBY DECREE",
+      "~ ",
+      ""
+    ]
   }
 }
