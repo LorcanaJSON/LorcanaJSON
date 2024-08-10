@@ -410,7 +410,6 @@ def createOutputFiles(onlyParseIds: Union[None, List[int]] = None, shouldShowIma
 				inputCard = inputCardlist.pop()
 				cardId = inputCard["culture_invariant_id"]
 				if cardId in cardIdsStored:
-					_logger.debug(f"Skipping parsing card with ID {inputCard['culture_invariant_id']} since it's already in the card list")
 					continue
 				elif languageCodeToCheck not in inputCard["card_identifier"]:
 					_logger.debug(f"Skipping card with ID {inputCard['culture_invariant_id']} because it's not in the requested language")
