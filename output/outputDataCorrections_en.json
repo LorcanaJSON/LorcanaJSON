@@ -1273,5 +1273,243 @@
       "-",
       "—"
     ]
+  },
+  "1161": {
+    "subtypes": [
+      null,
+      null,
+      null,
+      [
+        "Storyborn",
+        "Hero",
+        "Prince"
+      ]
+    ]
+  },
+  "1162": {
+    "abilities": [
+      "tep",
+      "top",
+      ":",
+      "z",
+      "YD",
+      "Y D",
+      "'$",
+      ""
+    ]
+  },
+  "1167": {
+    "abilities": [
+      "P'",
+      "P",
+      "epp",
+      "opp"
+    ]
+  },
+  "1168": {
+    "abilities": [
+      "Q25 pucni",
+      "Opponent",
+      "sS",
+      "os",
+      " bs ",
+      " to ",
+      "s\\.",
+      ".",
+      "ES",
+      "E'S",
+      "\\?”",
+      "?",
+      "ae",
+      "ac"
+    ]
+  },
+  "1169": {
+    "abilities": [
+      "t i",
+      "thi",
+      "f e",
+      "fre"
+    ]
+  },
+  "1170": {
+    "abilities": [
+      "har: ",
+      "charac",
+      "l\\. ",
+      "la",
+      "\\.r\\. ",
+      "ara",
+      "eppe",
+      "oppo",
+      " er",
+      " or",
+      " mer",
+      " mor"
+    ]
+  },
+  "1171": {
+    "abilities": [
+      "In",
+      "in"
+    ]
+  },
+  "1172": {
+    "abilities": [
+      "c \\.t",
+      "cat",
+      "¤",
+      "◊"
+    ]
+  },
+  "1173": {
+    "abilities": [
+      " te ",
+      " to ",
+      "dl\\.",
+      "d."
+    ]
+  },
+  "1174": {
+    "abilities": [
+      "EC",
+      "E C",
+      " en ",
+      " on "
+    ]
+  },
+  "1175": {
+    "effects": [
+      "fer",
+      "for"
+    ]
+  },
+  "1176": {
+    "abilities": [
+      "h\\.r",
+      "har",
+      "h\\.v",
+      "hav"
+    ],
+    "subtypes": [
+      "J\"ie",
+      null
+    ]
+  },
+  "1177": {
+    "abilities": [
+      "EK",
+      "E K",
+      "G'",
+      "G",
+      "yeu",
+      "you"
+    ]
+  },
+  "1178": {
+    "abilities": [
+      "\"",
+      "“",
+      "@",
+      "⬡"
+    ]
+  },
+  "1179": {
+    "flavorText": [
+      "\nRU r—",
+      ""
+    ]
+  },
+  "1183": {
+    "flavorText": [
+      "l",
+      "I"
+    ],
+    "fullIdentifier": [
+      "N 5",
+      "N • 5"
+    ],
+    "nonPromoId": [
+      1166,
+      1016
+    ]
+  },
+  "1186": {
+    "abilities": [
+      "unles ",
+      "unless ",
+      "mere",
+      "more",
+      "In",
+      "in"
+    ],
+    "subtypes": [
+      null,
+      null,
+      null,
+      [
+        "Storyborn",
+        "Hero",
+        "Madrigal"
+      ]
+    ]
+  },
+  "1187": {
+    "flavorText": [
+      "@",
+      "a",
+      "\nI w t\\.",
+      ""
+    ]
+  },
+  "1188": {
+    "artistsText": [
+      "_\\+",
+      ""
+    ],
+    "flavorText": [
+      "lo",
+      "To"
+    ],
+    "fullIdentifier": [
+      " \\)",
+      ""
+    ]
+  },
+  "1189": {
+    "abilities": [
+      "^y ",
+      "",
+      "rh",
+      "ch"
+    ],
+    "artistsText": [
+      " R\\.",
+      ""
+    ],
+    "fullIdentifier": [
+      " ,$",
+      ""
+    ]
+  },
+  "1190": {
+    "artistsText": [
+      "^$",
+      "Grace Tran"
+    ],
+    "fullIdentifier": [
+      " “$",
+      ""
+    ]
+  },
+  "1192": {
+    "abilities": [
+      "^I ",
+      ""
+    ],
+    "artistsText": [
+      " Will,",
+      "n"
+    ]
   }
 }

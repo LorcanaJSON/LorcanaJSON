@@ -763,6 +763,12 @@
   "1006": {
     "_moveKeywordsLast": true
   },
+  "1021": {
+    "promoIds": [
+      null,
+      [1179]
+    ]
+  },
   "1025": {
     "_moveKeywordsLast": true
   },
@@ -812,5 +818,52 @@
   },
   "1138": {
     "_moveKeywordsLast": true
+  },
+  "1165": {
+    "_moveKeywordsLast": true
+  },
+  "1179": {
+    "nonPromoId": [
+      null,
+      1021
+    ]
+  },
+  "1181": {
+    "_moveKeywordsLast": true
+  },
+  "1193": {
+    "_effectAtIndexIsAbility": 0,
+    "abilities": [
+      "^$",
+      "YOU'LL NEVER EVEN MISS IT",
+      "~+",
+      "",
+      "\nW .+$",
+      ""
+    ]
+  },
+  "1194": {
+    "_effectAtIndexIsAbility": 0,
+    "abilities": [
+      "^$",
+      "YOU JUST HAVE TO SEE IT",
+      "TalE rm Of ",
+      "",
+      " ¤",
+      ""
+    ]
+  },
+  "1195": {
+    "_effectAtIndexIsAbility": 0,
+    "abilities": [
+      "^$",
+      "I HEREBY DECREE",
+      "~ ",
+      ""
+    ],
+    "nonPromoId": [
+      1162,
+      975
+    ]
   }
 }
