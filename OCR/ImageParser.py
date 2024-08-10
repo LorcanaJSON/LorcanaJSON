@@ -14,6 +14,7 @@ ImageAndText = namedtuple("ImageAndText", ("image", "text"))
 
 _ABILITY_LABEL_MARGIN: int = 12
 _FLAVORTEXT_MARGIN: int = 14
+_OPTIONAL_TEXTBOX_OFFSET: int = 41  # Only used if 'isTextboxOffset' is True, for special cards
 
 _BLACK = (0, 0, 0)
 _WHITE = (255, 255, 255)
@@ -33,7 +34,7 @@ class ImageParser():
 		self._tesseractApi = tesserocr.PyTessBaseAPI(lang=modelName, path=GlobalConfig.tesseractPath, psm=tesserocr.PSM.SINGLE_BLOCK)
 
 	def getImageAndTextDataFromImage(self, pathToImage: str, parseFully: bool, includeIdentifier: bool = False, isLocation: bool = None, hasCardText: bool = None, hasFlavorText: bool = None,
-									 isEnchanted: bool = None, isQuest: bool = None, useNewEnchanted: bool = False, showImage: bool = False) -> Dict[str, Union[None, ImageAndText, List[ImageAndText]]]:
+									 isEnchanted: bool = None, isQuest: bool = None, useNewEnchanted: bool = False, isTextboxOffset: bool = False, showImage: bool = False) -> Dict[str, Union[None, ImageAndText, List[ImageAndText]]]:
 		startTime = time.perf_counter()
 		result: Dict[str, Union[None, ImageAndText, List[ImageAndText]]] = {
 			"flavorText": None,
@@ -159,6 +160,7 @@ class ImageParser():
 		colorTextboxImage = self._getSubImage(cardImage, textBoxImageArea) if isQuest else None
 		textboxWidth = greyTextboxImage.shape[1]
 		textboxHeight = greyTextboxImage.shape[0]
+		textboxOffset = _OPTIONAL_TEXTBOX_OFFSET if isTextboxOffset else 0
 
 		# First get the ability label coordinates, so we know where we can find the flavor text separator
 		# Then get the flavor text separator and the flavor text itself
@@ -171,7 +173,7 @@ class ImageParser():
 			currentCoords = [0, 0, 0]
 			textBoxImageToCheck = colorTextboxImage if isQuest else greyTextboxImage
 			for y in range(textboxHeight):
-				pixelValue = textBoxImageToCheck[y, 0]
+				pixelValue = textBoxImageToCheck[y, textboxOffset]
 				if isCurrentlyInLabel:
 					# Check if the pixel got lighter, indicating we left the label block
 					if (isQuest and pixelValue[0] > 60 and pixelValue[1] > 35) or (not isQuest and pixelValue > 100):
@@ -188,7 +190,7 @@ class ImageParser():
 					yToCheck = min(textboxHeight - 1, y + 1)  # Check a few lines down to prevent weirdness with the edge of the label box
 					# Find the width of the label. Since accented characters can reach the top of the label, we need several light pixels in succession to be sure the label ended
 					successiveLightPixels: int = 0
-					for x in range(textboxWidth):
+					for x in range(textboxOffset, textboxWidth):
 						checkValue = textBoxImageToCheck[yToCheck, x]
 						if (isQuest and checkValue[0] > 60 and checkValue[1] > 35) or (not isQuest and checkValue > 120):
 							successiveLightPixels += 1
@@ -301,7 +303,7 @@ class ImageParser():
 
 			# There might be text above the label coordinates too (abilities text), especially if there aren't any labels. Get that text as well
 			if previousBlockTopY > 35:
-				remainingTextImage = self._convertToThresholdImage(greyTextboxImage[0:previousBlockTopY, 0:textboxWidth], thresholdTextColor)
+				remainingTextImage = self._convertToThresholdImage(greyTextboxImage[0:previousBlockTopY, textboxOffset:textboxWidth], thresholdTextColor)
 				if isEnchanted and useNewEnchanted:
 					# New-style Enchanted cards have white text with a dark outline, which confuses Tesseract. Making the whole background black vastly improves accuracy
 					remainingTextImage = cv2.floodFill(remainingTextImage, None, (0, 0), (0,))[1]
