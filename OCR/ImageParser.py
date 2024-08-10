@@ -176,7 +176,7 @@ class ImageParser():
 				pixelValue = textBoxImageToCheck[y, textboxOffset]
 				if isCurrentlyInLabel:
 					# Check if the pixel got lighter, indicating we left the label block
-					if (isQuest and pixelValue[0] > 60 and pixelValue[1] > 35) or (not isQuest and pixelValue > 100):
+					if (isQuest and pixelValue[0] > 60 and pixelValue[1] > 35) or (not isQuest and pixelValue > 110):
 						isCurrentlyInLabel = False
 						if y - currentCoords[0] < 50:
 							self._logger.debug(f"Skipping possible label starting at y={currentCoords[0]} and ending at {y=}, not high enough to be a label")
@@ -184,7 +184,7 @@ class ImageParser():
 							currentCoords[1] = y - 1
 							labelCoords.append(tuple(currentCoords))  # Copy the coordinates list so we can't accidentally change a value anymore
 				# Check if a label started here
-				elif (isQuest and 42 < pixelValue[0] < 54 and 22 < pixelValue[1] < 32) or (not isQuest and pixelValue < 100):
+				elif (isQuest and 42 < pixelValue[0] < 54 and 22 < pixelValue[1] < 32) or (not isQuest and pixelValue < 105):
 					isCurrentlyInLabel = True
 					currentCoords[0] = y
 					yToCheck = min(textboxHeight - 1, y + 1)  # Check a few lines down to prevent weirdness with the edge of the label box
