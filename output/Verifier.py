@@ -21,6 +21,16 @@ def compareInputToOutput(cardIdsToVerify: Union[List[int], None]):
 		inputCardStore = json.load(inputFile)
 	with open(outputFilePath, "r", encoding="utf-8") as outputFile:
 		outputCardStore = json.load(outputFile)
+	idToEnglishOutputCard = {}
+	if GlobalConfig.language != Language.ENGLISH:
+		englishOutputFilePath = os.path.join("output", "generated", Language.ENGLISH.code, "allCards.json")
+		if os.path.isfile(englishOutputFilePath):
+			with open(englishOutputFilePath, "r", encoding="utf-8") as englishOutputFile:
+				englishOutputCardStore = json.load(englishOutputFile)
+				for englishCard in englishOutputCardStore["cards"]:
+					idToEnglishOutputCard[englishCard["id"]] = englishCard
+		else:
+			print("WARNING: English output file doesn't exist, skipping comparison")
 
 	idToInputCard = {}
 	for cardtype, cardlist in inputCardStore["cards"].items():
@@ -128,6 +138,41 @@ def compareInputToOutput(cardIdsToVerify: Union[List[int], None]):
 		if outputCard["story"] == "[[unknown]]":
 			cardDifferencesCount += 1
 			print(f"WARNING: {outputCard['fullName']} (ID {outputCard['id']}) does not have a valid story set")
+
+		# If this isn't English, compare with the English results
+		# English is easier to manually verify, so this is done to prevent mistakes or oddities, like ability type mismatches between languages
+		englishCard = idToEnglishOutputCard[outputCard["id"]]
+		cardId = outputCard["id"]
+		for fieldname in ('abilities', 'artistsText', 'enchantedId', 'cost', 'effects', 'fullTextSections', 'historicData', 'inkwell', 'keywordAbilities',
+						  'lore', 'moveCost', 'nonEnchantedId', 'nonPromoId', 'number', 'strength', 'subtypes', 'variant', 'variandIds', 'willPower'):
+			if fieldname not in outputCard and fieldname not in englishCard:
+				continue
+			if fieldname in outputCard and fieldname not in englishCard:
+				cardDifferencesCount += 1
+				print(f"{cardId}: '{fieldname}' exists in {GlobalConfig.language.englishName} but not in English")
+			elif fieldname not in outputCard and fieldname in englishCard:
+				cardDifferencesCount += 1
+				print(f"{cardId}: '{fieldname}' doesn't exist in {GlobalConfig.language.englishName} but does in English")
+			elif isinstance(outputCard[fieldname], list):
+				if len(outputCard[fieldname]) != len(outputCard[fieldname]):
+					cardDifferencesCount += 1
+					print(f"{cardId}: '{fieldname}' doesn't have same length in {GlobalConfig.language.englishName} card {len(outputCard[fieldname])} and English card {len(englishCard[fieldname])}")
+			elif outputCard[fieldname] != englishCard[fieldname]:
+				cardDifferencesCount += 1
+				print(f"{cardId}: '{fieldname}' differs between {GlobalConfig.language.englishName} '{outputCard[fieldname]}' and English '{englishCard[fieldname]}'")
+		if outputCard["fullText"] or englishCard["fullText"]:
+			for symbol in ("⟳", "⬡", "◊", "¤", "⛉", "◉", "•"):
+				if symbol in outputCard["fullText"] and symbol not in englishCard["fullText"]:
+					cardDifferencesCount += 1
+					print(f"{cardId}: Symbol '{symbol}' in {GlobalConfig.language.englishName} fullText but not in English fullText")
+				elif symbol not in outputCard["fullText"] and symbol in englishCard["fullText"]:
+					cardDifferencesCount += 1
+					print(f"{cardId}: Symbol '{symbol}' not in {GlobalConfig.language.englishName} fullText but is in English fullText")
+		if "abilities" in outputCard and "abilities" in englishCard:
+			for abilityIndex in range(min(len(outputCard["abilities"]), len(englishCard["abilities"]))):
+				if outputCard["abilities"][abilityIndex]["type"] != englishCard["abilities"][abilityIndex]["type"]:
+					cardDifferencesCount += 1
+					print(f"{cardId}: Ability index {abilityIndex} type mismatch, {GlobalConfig.language.englishName} type is '{outputCard['abilities'][abilityIndex]['type']}', English type is '{englishCard['abilities'][abilityIndex]['type']}'")
 
 	print(f"Found {cardDifferencesCount:,} difference{'' if cardDifferencesCount == 1 else 's'} between input and output")
 
