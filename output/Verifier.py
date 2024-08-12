@@ -154,7 +154,7 @@ def compareInputToOutput(cardIdsToVerify: Union[List[int], None]):
 				cardDifferencesCount += 1
 				print(f"{cardId}: '{fieldname}' doesn't exist in {GlobalConfig.language.englishName} but does in English")
 			elif isinstance(outputCard[fieldname], list):
-				if len(outputCard[fieldname]) != len(outputCard[fieldname]):
+				if len(outputCard[fieldname]) != len(englishCard[fieldname]):
 					cardDifferencesCount += 1
 					print(f"{cardId}: '{fieldname}' doesn't have same length in {GlobalConfig.language.englishName} card {len(outputCard[fieldname])} and English card {len(englishCard[fieldname])}")
 			elif outputCard[fieldname] != englishCard[fieldname]:
