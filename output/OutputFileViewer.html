@@ -87,6 +87,7 @@ function setDisplayedIndex(newIndex) {
   // Deselect input fields, so typing letters or pressing arrows doesn't (also) affect the input field
   document.getElementById("currentIndex").blur();
   document.getElementById("cardId").blur();
+  document.title = `Output Data Verification Viewer | ${currentCardData["id"]} ${currentCardData["fullName"]}`;
 }
 function handleKeyPress(e) {
 	if (!e.repeat) {
