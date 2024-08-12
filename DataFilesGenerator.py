@@ -804,6 +804,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 	#  Since the fullText gets created as the last step, if there is a correction for it, save it for later
 	fullTextCorrection = None
 	forceAbilityTypeIndexToTriggered = -1
+	forceAbilityTypeIndexToStatic = -1
 	newlineAfterLabelIndex = -1
 	if cardDataCorrections:
 		if cardDataCorrections.pop("_moveKeywordsLast", False):
@@ -820,6 +821,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 			else:
 				_logger.error(f"'keywordsLast' set but keyword couldn't be found for card {outputCard['id']}")
 		forceAbilityTypeIndexToTriggered = cardDataCorrections.pop("_forceAbilityIndexToTriggered", -1)
+		forceAbilityTypeIndexToStatic = cardDataCorrections.pop("_forceAbilityIndexToStatic", -1)
 		newlineAfterLabelIndex = cardDataCorrections.pop("_newlineAfterLabelIndex", -1)
 		if "_effectAtIndexIsAbility" in cardDataCorrections:
 			effectIndexToMoveToAbilities = cardDataCorrections.pop("_effectAtIndexIsAbility", -1)
@@ -874,6 +876,9 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 				if forceAbilityTypeIndexToTriggered == abilityIndex:
 					_logger.info(f"Forcing ability type at index {abilityIndex} of card ID {outputCard['id']} to 'triggered'")
 					ability["type"] = "triggered"
+				elif forceAbilityTypeIndexToStatic == abilityIndex:
+					_logger.info(f"Forcing ability type at index {abilityIndex} of card ID {outputCard['id']} to 'static'")
+					ability["type"] = "static"
 				# Activated abilities require a cost, a dash, and then an effect
 				# Some static abilities give characters such an activated ability, don't trigger on that
 				# Some cards contain their own name (e.g. 'Dalmatian Puppy - Tail Wagger', ID 436), don't trigger on that dash either
