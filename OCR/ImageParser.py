@@ -318,8 +318,12 @@ class ImageParser():
 							remainingText = remainingText[:labelMatch.start()].rstrip()
 							while labelAndEffectText:
 								effectMatch = re.search(r"\b[A-Z][a-z]", labelAndEffectText, flags=re.DOTALL)
-								labelText = labelAndEffectText[:effectMatch.start()]
-								effectText = labelAndEffectText[effectMatch.start():]
+								if effectMatch:
+									labelText = labelAndEffectText[:effectMatch.start()]
+									effectText = labelAndEffectText[effectMatch.start():]
+								else:
+									labelText = ""
+									effectText = ""
 								nextLabelMatch = re.search("([AI] )?[A-Z]{2}", effectText)
 								if nextLabelMatch:
 									labelAndEffectText = effectText[nextLabelMatch.start():]
