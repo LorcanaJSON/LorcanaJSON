@@ -85,6 +85,8 @@ def compareInputToOutput(cardIdsToVerify: Union[List[int], None]):
 			if "flavor_text" in inputCard and inputCard["flavor_text"] != "ERRATA":
 				inputFlavorText: str = inputCard["flavor_text"].replace("\u00a0", "").replace("‘", "'").replace("’", "'").replace("…", "...").replace(" ..", "..").replace(".. ", "..").replace("<", "").replace(">", "").replace("%", " ").rstrip()
 				inputFlavorText = inputFlavorText.replace("  ", " ")
+				# The quote attribution dash always has a space after it in the input text, but never on the actual card. Ignore that
+				inputFlavorText = re.sub(" ([—-]) (?=[A-Z])", r" \1", inputFlavorText)
 				if inputFlavorText.endswith(" ERRATA"):
 					inputFlavorText = inputFlavorText.rsplit(" ", 1)[0]
 				if GlobalConfig.language == Language.FRENCH:
