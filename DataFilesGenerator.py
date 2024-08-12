@@ -132,6 +132,8 @@ def correctText(cardText: str) -> str:
 			cardLine = re.sub(r"\bpayer (\d+) (?:\W|O|Ô|Q) pour\b", f"payer \\1 {LorcanaSymbols.INK} pour", cardLine)
 			# Correct support reminder text
 			cardLine = re.sub(r"(?<=ajouter sa )\W+(?= à celle)", LorcanaSymbols.STRENGTH, cardLine)
+			# Correct Challenger/Offensif reminder text
+			cardLine = re.sub(r"gagne \+(\d+) \.\)", fr"gagne +\1 {LorcanaSymbols.STRENGTH}.)", cardLine)
 			# Cost discount text
 			cardLine = re.sub(fr"(coûte(?:nt)? )(\d+) [^{LorcanaSymbols.INK} ou]+", fr"\1\2 {LorcanaSymbols.INK}", cardLine)
 			# Song card reminder text
