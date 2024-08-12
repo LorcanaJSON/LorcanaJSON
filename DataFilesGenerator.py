@@ -129,7 +129,7 @@ def correctText(cardText: str) -> str:
 			cardLine = cardLine.replace("lorcana", "Lorcana")
 		elif GlobalConfig.language == Language.FRENCH:
 			# Correct payment text
-			cardLine = re.sub(r"\bpayer (\d+) (?:\W|O|Ô|Q) pour\b", f"payer \\1 {LorcanaSymbols.INK} pour", cardLine)
+			cardLine = re.sub(r"\bpayer (\d+) (?:\W|O|Ô|Q)", f"payer \\1 {LorcanaSymbols.INK}", cardLine)
 			# Correct support reminder text
 			cardLine = re.sub(r"(?<=ajouter sa )\W+(?= à celle)", LorcanaSymbols.STRENGTH, cardLine)
 			# Correct Challenger/Offensif reminder text
