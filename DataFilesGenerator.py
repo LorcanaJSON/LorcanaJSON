@@ -134,6 +134,8 @@ def correctText(cardText: str) -> str:
 			cardLine = re.sub(r"(?<=ajouter sa )\W+(?= à celle)", LorcanaSymbols.STRENGTH, cardLine)
 			# Correct Challenger/Offensif reminder text
 			cardLine = re.sub(r"gagne \+(\d+) \.\)", fr"gagne +\1 {LorcanaSymbols.STRENGTH}.)", cardLine)
+			# Sometimes '1 INK' gets read as '1O' (a one followed by the letter O), correct that
+			cardLine = cardLine.replace("1O", f"1 {LorcanaSymbols.INK}")
 			# Cost discount text
 			cardLine = re.sub(fr"(coûte(?:nt)? )(\d+) [^{LorcanaSymbols.INK} ou]+", fr"\1\2 {LorcanaSymbols.INK}", cardLine)
 			# Song card reminder text
