@@ -110,6 +110,7 @@ def compareInputToOutput(cardIdsToVerify: Union[List[int], None]):
 
 		inputIdentifier = inputCard["card_identifier"].replace(" ", f" {LorcanaSymbols.SEPARATOR} ")
 		if inputIdentifier != outputCard["fullIdentifier"]:
+			cardDifferencesCount += 1
 			_printDifferencesDescription(outputCard, "fullIdentifier", inputIdentifier, outputCard["fullIdentifier"])
 
 		# Compare basic fields
@@ -119,11 +120,13 @@ def compareInputToOutput(cardIdsToVerify: Union[List[int], None]):
 			if inputValue is None and outputValue is None:
 				continue
 			if inputValue != outputValue:
+				cardDifferencesCount += 1
 				_printDifferencesDescription(outputCard, outputField, str(inputValue), str(outputValue))
 
 		# Check if the story is properly filled in
 		# This isn't strictly speaking a verification since it doesn't compare with anything in the input file, but it is important to know about missing stories
 		if outputCard["story"] == "[[unknown]]":
+			cardDifferencesCount += 1
 			print(f"WARNING: {outputCard['fullName']} (ID {outputCard['id']}) does not have a valid story set")
 
 	print(f"Found {cardDifferencesCount:,} difference{'' if cardDifferencesCount == 1 else 's'} between input and output")
