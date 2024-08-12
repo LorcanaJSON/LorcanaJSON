@@ -679,6 +679,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 		remainingText = parsedImageAndTextData["remainingText"].text.lstrip("“‘")
 		# No effect ends with a colon, it's probably the start of a choice list. Make sure it doesn't get split up
 		remainingText = remainingText.replace(":\n\n", ":\n")
+		# A closing bracket indicates the end of a section, make sure it gets read as such by making sure there's two newlines
 		remainingTextLines = re.sub(r"(\.\)\n)", r"\1\n", remainingText).split("\n\n")
 		for remainingTextLineIndex in range(len(remainingTextLines) - 1, 0, -1):
 			remainingTextLine = remainingTextLines[remainingTextLineIndex]
