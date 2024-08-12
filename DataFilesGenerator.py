@@ -806,10 +806,13 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 			lastAbility: Dict[str, str] = outputCard["abilities"][-1]
 			lastAbilityText = lastAbility["effect"]
 			keywordMatch = re.search(r"\n([A-ZÀ][^.]+)(?= \()", lastAbilityText)
-			_logger.debug(f"'keywordsLast' is set, splitting last ability at index {keywordMatch.start()}")
-			keywordText = lastAbilityText[keywordMatch.start() + 1:]  # +1 to skip the \n at the start of the match
-			lastAbility["effect"] = lastAbilityText[:keywordMatch.start()]
-			outputCard["abilities"].append({"type": "keyword", "fullText": keywordText})
+			if keywordMatch:
+				_logger.debug(f"'keywordsLast' is set, splitting last ability at index {keywordMatch.start()}")
+				keywordText = lastAbilityText[keywordMatch.start() + 1:]  # +1 to skip the \n at the start of the match
+				lastAbility["effect"] = lastAbilityText[:keywordMatch.start()]
+				outputCard["abilities"].append({"type": "keyword", "fullText": keywordText})
+			else:
+				_logger.error(f"'keywordsLast' set but keyword couldn't be found for card {outputCard['id']}")
 		forceAbilityTypeIndexToTriggered = cardDataCorrections.pop("_forceAbilityIndexToTriggered", -1)
 		newlineAfterLabelIndex = cardDataCorrections.pop("_newlineAfterLabelIndex", -1)
 		if "_effectAtIndexIsAbility" in cardDataCorrections:
