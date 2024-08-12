@@ -400,6 +400,8 @@ def createOutputFiles(onlyParseIds: Union[None, List[int]] = None, shouldShowIma
 	if not threadCount:
 		# Only use half the available cores for threads, because we're also IO- and GIL-bound, so more threads would just slow things down
 		threadCount = max(1, os.cpu_count() // 2)
+	if onlyParseIds:
+		threadCount = min(threadCount, len(onlyParseIds))
 	_logger.debug(f"Using {threadCount:,} threads for parsing the cards")
 
 	# Parse the cards we need to parse
