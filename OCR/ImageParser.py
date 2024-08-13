@@ -314,19 +314,19 @@ class ImageParser():
 					if isEnchanted and useNewEnchanted and re.search("[A-Z]{2,}", remainingText):
 						# Detecting labels on new-style Enchanted cards is hard, so for those the full card text is 'remainingText'
 						# Try to get the labels and effects out
-						labelMatch = re.search("([AI] )?[A-Z]{2}", remainingText)
+						labelMatch = re.search("([AÀI] )?[A-ZÊ]{2}", remainingText)
 						if labelMatch:
 							labelAndEffectText = remainingText[labelMatch.start():]
 							remainingText = remainingText[:labelMatch.start()].rstrip()
 							while labelAndEffectText:
-								effectMatch = re.search(r"\b[A-Z][a-z]", labelAndEffectText, flags=re.DOTALL)
+								effectMatch = re.search(r"([A-Z]|À )[a-z]", labelAndEffectText, flags=re.DOTALL)
 								if effectMatch:
 									labelText = labelAndEffectText[:effectMatch.start()]
 									effectText = labelAndEffectText[effectMatch.start():]
 								else:
 									labelText = ""
 									effectText = ""
-								nextLabelMatch = re.search("([AI] )?[A-Z]{2}", effectText)
+								nextLabelMatch = re.search("([AÀI] )?[A-ZÊ]{2}", effectText)
 								if nextLabelMatch:
 									labelAndEffectText = effectText[nextLabelMatch.start():]
 									effectText = effectText[:nextLabelMatch.start()].rstrip()
