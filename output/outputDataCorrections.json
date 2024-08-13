@@ -913,6 +913,12 @@
   "1181": {
     "_moveKeywordsLast": true
   },
+  "1183": {
+    "nonPromoId": [
+      1166,
+      1016
+    ]
+  },
   "1193": {
     "_effectAtIndexIsAbility": 0
   },
