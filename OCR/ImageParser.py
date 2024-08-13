@@ -309,9 +309,6 @@ class ImageParser():
 			# There might be text above the label coordinates too (abilities text), especially if there aren't any labels. Get that text as well
 			if previousBlockTopY > 35:
 				remainingTextImage = self._convertToThresholdImage(greyTextboxImage[0:previousBlockTopY, textboxOffset:textboxWidth], thresholdTextColor)
-				if isEnchanted and useNewEnchanted:
-					# New-style Enchanted cards have white text with a dark outline, which confuses Tesseract. Making the whole background black vastly improves accuracy
-					remainingTextImage = cv2.floodFill(remainingTextImage, None, (0, 0), (0,))[1]
 				remainingText = self._imageToString(remainingTextImage)
 				if remainingText:
 					if isEnchanted and useNewEnchanted and re.search("[A-Z]{2,}", remainingText):
