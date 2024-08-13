@@ -58,8 +58,8 @@ NEW_ENCHANTED_LOCATION_TYPE = ImageArea("newEnchantedLocationType", "New Enchant
 NEW_ENCHANTED_CARD_NAME = ImageArea("newEnchantedCardName", "New Enchanted Card Name", _Coords(287,1213, 1215,1290), TEXT_COLOUR_WHITE)
 NEW_ENCHANTED_CHARACTER_NAME = ImageArea("newEnchantedCharacterName", "New Enchanted Character Name", _Coords(68,1162, 1087,1238), TEXT_COLOUR_WHITE)
 NEW_ENCHANTED_VERSION = ImageArea("newEnchantedVersion", "New Enchanted Version Subtitle", _Coords(68,1238, 1087,1300), TEXT_COLOUR_WHITE)
-NEW_ENCHANTED_CHARACTER_TEXT_BOX = ImageArea("newEnchantedCharacterTextbox", "New Enchanted Character Textbox", _Coords(134,1406, 1261,1869), TEXT_COLOUR_WHITE)
-NEW_ENCHANTED_FULL_WIDTH_TEXT_BOX = ImageArea("newEnchantedFullWidthTextbox", "New Enchanted Full Width Textbox", _Coords(134,1406, 1375,1869), TEXT_COLOUR_WHITE)
+NEW_ENCHANTED_CHARACTER_TEXT_BOX = ImageArea("newEnchantedCharacterTextbox", "New Enchanted Character Textbox", _Coords(134,1388, 1261,1869), TEXT_COLOUR_WHITE_LIGHT_BACKGROUND)
+NEW_ENCHANTED_FULL_WIDTH_TEXT_BOX = ImageArea("newEnchantedFullWidthTextbox", "New Enchanted Full Width Textbox", _Coords(134,1406, 1375,1843), TEXT_COLOUR_WHITE)
 NEW_ENCHANTED_LOCATION_TEXT_BOX = ImageArea("newEnchantedLocationTextbox", "New Enchanted Location Textbox", _Coords(127,954, 1686,1286), TEXT_COLOUR_WHITE)
 
 IS_INKABLE_CHECK = ImageArea("isInkable", "Is Inkable", _Coords(69,142, 70,143), TEXT_COLOUR_MIDDLE)
