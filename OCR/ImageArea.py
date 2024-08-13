@@ -53,7 +53,7 @@ LOCATION_IDENTIFIER = ImageArea("identifier", "Location Identifier", _Coords(54,
 QUEST_TEXTBOX = ImageArea("textbox", "Quest Text Box", _Coords(78,1378,  1311,1882), TEXT_COLOUR_WHITE)
 QUEST_FULL_WIDTH_TEXT_BOX = ImageArea("textbox", "Full Width Quest Text Box", _Coords(78,1378,  1400,1861), TEXT_COLOUR_WHITE)
 
-NEW_ENCHANTED_TYPE = ImageArea("newEnchantedType", "New Enchanted Type", _Coords(135,1320, 1062,1376), TEXT_COLOUR_MIDDLE)
+NEW_ENCHANTED_TYPE = ImageArea("newEnchantedType", "New Enchanted Type", _Coords(138,1320, 979,1376), TEXT_COLOUR_MIDDLE)
 NEW_ENCHANTED_LOCATION_TYPE = ImageArea("newEnchantedLocationType", "New Enchanted Location Type", _Coords(622,891, 1487,944), TEXT_COLOUR_MIDDLE)
 NEW_ENCHANTED_CARD_NAME = ImageArea("newEnchantedCardName", "New Enchanted Card Name", _Coords(287,1213, 1215,1290), TEXT_COLOUR_WHITE)
 NEW_ENCHANTED_CHARACTER_NAME = ImageArea("newEnchantedCharacterName", "New Enchanted Character Name", _Coords(68,1162, 1087,1238), TEXT_COLOUR_WHITE)
