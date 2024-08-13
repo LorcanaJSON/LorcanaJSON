@@ -216,7 +216,12 @@ class ImageParser():
 				self._logger.warning(f"Still in label when end of label check reached in card image '{pathToImage}'")
 		self._logger.debug(f"Finished finding label coords at {time.perf_counter() - startTime} seconds in")
 
-		thresholdTextColor = ImageArea.TEXT_COLOUR_WHITE if isQuest else ImageArea.TEXT_COLOUR_BLACK
+		if isQuest:
+			thresholdTextColor = ImageArea.TEXT_COLOUR_WHITE
+		elif isEnchanted and useNewEnchanted:
+			thresholdTextColor = ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND
+		else:
+			thresholdTextColor = ImageArea.TEXT_COLOUR_BLACK
 
 		# Find the line dividing the abilities from the flavor text, if needed
 		flavorTextImage = None

@@ -1269,6 +1269,10 @@
     ]
   },
   "1161": {
+    "abilities": [
+      "Y 2\n",
+      ""
+    ],
     "subtypes": [
       null,
       null,
@@ -1281,131 +1285,47 @@
     ]
   },
   "1162": {
-    "abilities": [
-      "tep",
-      "top",
+    "abilities": [  
       ":",
-      "z",
-      "YD",
-      "Y D",
-      "'$",
-      ""
+      "z"
     ]
   },
-  "1167": {
+  "1164": {
     "abilities": [
-      "P'",
-      "P",
-      "epp",
-      "opp"
+      "3⬡",
+      "3 ⬡"
+    ]
+  },
+  "1165": {
+    "abilities": [
+      "RT",
+      "R T"
     ]
   },
   "1168": {
     "abilities": [
-      "Q25 pucni",
-      "Opponent",
-      "sS",
-      "os",
-      " bs ",
-      " to ",
-      "s\\.",
-      ".",
-      "ES",
-      "E'S",
-      "\\?”",
-      "?",
-      "ae",
-      "ac"
-    ]
-  },
-  "1169": {
-    "abilities": [
-      "t i",
-      "thi",
-      "f e",
-      "fre"
-    ]
-  },
-  "1170": {
-    "abilities": [
-      "har: ",
-      "charac",
-      "l\\. ",
-      "la",
-      "\\.r\\. ",
-      "ara",
-      "eppe",
-      "oppo",
-      " er",
-      " or",
-      " mer",
-      " mor"
+      "”",
+      ""
     ]
   },
   "1171": {
     "abilities": [
+      " b ",
+      " 6 ",
       "In",
       "in"
     ]
   },
-  "1172": {
-    "abilities": [
-      "c \\.t",
-      "cat",
-      "¤",
-      "◊"
-    ]
-  },
-  "1173": {
-    "abilities": [
-      " te ",
-      " to ",
-      "dl\\.",
-      "d."
-    ]
-  },
-  "1174": {
-    "abilities": [
-      "EC",
-      "E C",
-      " en ",
-      " on "
-    ]
-  },
-  "1175": {
-    "effects": [
-      "fer",
-      "for"
-    ]
-  },
   "1176": {
     "abilities": [
-      "h\\.r",
-      "har",
-      "h\\.v",
-      "hav"
-    ],
-    "subtypes": [
-      "J\"ie",
-      null
-    ]
-  },
-  "1177": {
-    "abilities": [
-      "EK",
-      "E K",
-      "G'",
-      "G",
-      "yeu",
-      "you"
+      "LL",
+      "L L"
     ]
   },
   "1178": {
     "abilities": [
-      "\"",
-      "“",
-      "@",
-      "⬡"
+      "\"@",
+      "“⟳"
     ]
   },
   "1179": {
