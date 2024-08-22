@@ -32,6 +32,19 @@ class ImageParser():
 			modelName = f"Lorcana_{GlobalConfig.language.code}"
 		self.nonCharacterTypes = (GlobalConfig.translation.Action, GlobalConfig.translation.Item, GlobalConfig.translation.Location)
 		self._tesseractApi = tesserocr.PyTessBaseAPI(lang=modelName, path=GlobalConfig.tesseractPath, psm=tesserocr.PSM.SINGLE_BLOCK)
+		self._tesseractApi.SetVariable("textord_tabfind_find_tables", "0")
+		self._tesseractApi.SetVariable("textord_tabfind_vertical_text", "0")
+		self._tesseractApi.SetVariable("textord_disable_pitch_test", "1")
+		self._tesseractApi.SetVariable("textord_restore_underlines", "0")
+		self._tesseractApi.SetVariable("tessedit_single_match", "1")
+		self._tesseractApi.SetVariable("il1_adaption_test", "0")
+		self._tesseractApi.SetVariable("tessedit_page_number", "0")
+		self._tesseractApi.SetVariable("permute_only_top", "1")
+		self._tesseractApi.SetVariable("tessedit_enable_bigram_correction", "0")
+		self._tesseractApi.SetVariable("enable_noise_removal", "0")
+		self._tesseractApi.SetVariable("tessedit_fix_fuzzy_spaces", "0")
+		self._tesseractApi.SetVariable("tessedit_fix_hyphens", "0")
+		self._tesseractApi.SetVariable("crunch_early_convert_bad_unlv_chs", "1")
 
 	def getImageAndTextDataFromImage(self, pathToImage: str, parseFully: bool, includeIdentifier: bool = False, isLocation: bool = None, hasCardText: bool = None, hasFlavorText: bool = None,
 									 isEnchanted: bool = None, isQuest: bool = None, useNewEnchanted: bool = False, isTextboxOffset: bool = False, showImage: bool = False) -> Dict[str, Union[None, ImageAndText, List[ImageAndText]]]:
