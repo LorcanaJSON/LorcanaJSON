@@ -936,18 +936,5 @@
       1166,
       1016
     ]
-  },
-  "1193": {
-    "_effectAtIndexIsAbility": 0
-  },
-  "1194": {
-    "_effectAtIndexIsAbility": 0
-  },
-  "1195": {
-    "_effectAtIndexIsAbility": 0,
-    "nonPromoId": [
-      1162,
-      975
-    ]
   }
 }

@@ -1417,6 +1417,7 @@
     ]
   },
   "1193": {
+    "_effectAtIndexIsAbility": 0,
     "abilities": [
       "^$",
       "YOU'LL NEVER EVEN MISS IT",
@@ -1427,6 +1428,7 @@
     ]
   },
   "1194": {
+    "_effectAtIndexIsAbility": 0,
     "abilities": [
       "^$",
       "YOU JUST HAVE TO SEE IT",
@@ -1437,11 +1439,16 @@
     ]
   },
   "1195": {
+    "_effectAtIndexIsAbility": 0,
     "abilities": [
       "^$",
       "I HEREBY DECREE",
       "~ ",
       ""
+    ],
+    "nonPromoId": [
+      1162,
+      975
     ]
   }
 }
