@@ -56,7 +56,7 @@ def compareInputToOutput(cardIdsToVerify: Union[List[int], None]):
 				inputRulesText = re.sub(r"(?<=\w)’(?=\w)", "'", inputRulesText)
 				inputRulesText = inputRulesText.replace("\u00a0", " " if GlobalConfig.language == Language.FRENCH else "").replace("  ", " ")
 				if GlobalConfig.language == Language.ENGLISH:
-					inputRulesText = inputRulesText.replace("Shift D", "Shift: D").replace("teammates’ ", "teammates' ").replace("players’ ", "players' ")
+					inputRulesText = inputRulesText.replace("teammates’ ", "teammates' ").replace("players’ ", "players' ")
 				elif GlobalConfig.language == Language.FRENCH:
 					# Exclamation marks etc. should be preceded by a space
 					inputRulesText = re.sub(r"(?<=\w)([?!:])", r" \1", inputRulesText)
