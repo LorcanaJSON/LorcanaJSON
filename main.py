@@ -21,7 +21,7 @@ if __name__ == '__main__':
 	argumentParser.add_argument("--cardIds", nargs="*", help="List the card IDs to parse. For the 'show' action, specify one or more card IDs to show. "
 															 "For the 'parse' action, specify one or more card IDs to parse, or omit this argument to parse all cards. "
 															 "For other actions, this field is ignored")
-	argumentParser.add_argument("--ignoreFields", nargs="*", help="Specify one or more card fields to ignore when checking for updates. Only used with the 'check' action", default=["foil_mask_url", "image_urls"])
+	argumentParser.add_argument("--ignoreFields", nargs="*", help="Specify one or more card fields to ignore when checking for updates. Only used with the 'check' action", default=None)
 	argumentParser.add_argument("--show", action="store_true", dest="shouldShowSubimages", help="If added, the program shows all the subimages used during parsing. It stops processing until the displayed images are closed, so this is a slow option")
 	argumentParser.add_argument("--threads", type=int, help="Specify how many threads should be used when executing multithreaded tasks. Specify a negative amount to use the maximum number of threads available minus the provided amount. "
 															"Leave empty to have the amount be determined automatically")
