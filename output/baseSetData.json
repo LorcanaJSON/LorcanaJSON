@@ -65,12 +65,12 @@
     "number": 5
   },
   "6": {
-    "names": [
+    "names": {
       "de": "Azurblaues Meer",
       "en": "Azurite Sea",
       "fr": "La Mer Azurite",
       "it": "Mare di Azzurrite"
-    ],
+    },
     "prereleaseDate": "2024-11-15",
     "releaseDate": "2024-11-25",
     "hasAllCards": false,
