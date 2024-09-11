@@ -64,6 +64,19 @@
     "type": "expansion",
     "number": 5
   },
+  "6": {
+    "names": [
+      "de": "Azurblaues Meer",
+      "en": "Azurite Sea",
+      "fr": "La Mer Azurite",
+      "it": "Mare di Azzurrite"
+    ],
+    "prereleaseDate": "2024-11-15",
+    "releaseDate": "2024-11-25",
+    "hasAllCards": false,
+    "type": "expansion",
+    "number": 6
+  },
   "Q1": {
     "names": {
       "de": "Die Luminari Chroniken: Gefahr aus der Tiefe",
