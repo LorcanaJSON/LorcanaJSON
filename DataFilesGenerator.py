@@ -577,6 +577,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 
 	# Always get the artist from the parsed data, since in the input data it often only lists the first artist when there's multiple, so it's not reliable
 	outputCard["artistsText"] = parsedImageAndTextData["artist"].text.replace(" I ", " / ").replace("’", "'")
+	oldArtistsText = outputCard["artistsText"]
 	if outputCard["artistsText"].startswith("Illus. ") or outputCard["artistsText"].startswith(". "):
 		outputCard["artistsText"] = outputCard["artistsText"].split(" ", 1)[1]
 	if outputCard["artistsText"].startswith("l") or outputCard["artistsText"].startswith("["):
@@ -598,6 +599,8 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 	if "“" in outputCard["artistsText"]:
 		# Simplify quotemarks
 		outputCard["artistsText"] = outputCard["artistsText"].replace("“", "\"").replace("”", "\"")
+	if oldArtistsText != outputCard["artistsText"]:
+		_logger.info(f"Corrected artist name from '{oldArtistsText}' to '{outputCard['artistsText']}' in card {_createCardIdentifier(inputCard)}")
 
 	outputCard["name"] = correctPunctuation(inputCard["name"].strip() if "name" in inputCard else parsedImageAndTextData["name"].text).replace("’", "'").replace("''", "'")
 	if outputCard["name"] == "Balais Magiques":
