@@ -63,7 +63,7 @@ def correctText(cardText: str) -> str:
 		cardLine = cardLine.replace(" / ", " 7 ")
 		cardLine = re.sub(f"{LorcanaSymbols.INK}([-—])", fr"{LorcanaSymbols.INK} \1", cardLine)
 		# Negative numbers are always followed by a strength symbol, correct that
-		cardLine = re.sub(fr"(?<= )(-\d) [^{LorcanaSymbols.STRENGTH}{LorcanaSymbols.LORE}a-z ]{{1,2}}", fr"\1 {LorcanaSymbols.STRENGTH}", cardLine)
+		cardLine = re.sub(fr"(?<= )(-\d) [^{LorcanaSymbols.STRENGTH}{LorcanaSymbols.LORE}a-z .]{{1,2}}", fr"\1 {LorcanaSymbols.STRENGTH}", cardLine)
 		# Letters after a quotemark at the start of a line should be capitalized
 		match = re.match("“[a-z]", cardLine)
 		if match:
