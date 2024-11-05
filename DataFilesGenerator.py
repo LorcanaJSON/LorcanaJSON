@@ -596,6 +596,8 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 		outputCard["artistsText"] = outputCard["artistsText"].replace("Nquyen", "Nguyen")
 	elif "Toziim" in outputCard["artistsText"] or "Tôzüm" in outputCard["artistsText"]:
 		outputCard["artistsText"] = re.sub(r"\bT\w+z\w+m\b", "Tözüm", outputCard["artistsText"])
+	elif re.match(r"Jo[^ã]o\b", outputCard["artistsText"]):
+		outputCard["artistsText"] = re.sub("Jo[^ã]o", "João", outputCard["artistsText"])
 	if "“" in outputCard["artistsText"]:
 		# Simplify quotemarks
 		outputCard["artistsText"] = outputCard["artistsText"].replace("“", "\"").replace("”", "\"")
