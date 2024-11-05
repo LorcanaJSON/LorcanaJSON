@@ -180,6 +180,7 @@ class ImageParser():
 		# Finally get the ability text, since that goes between the labels and the flavor text
 
 		# Find where the ability name labels are, store them as the top y, bottom y and the right x, so we know where to get the text from
+		# New-style Enchanted cards get parsed differently because this method doesn't find labels on those, it's handled in the 'remainingText' parsing section
 		labelCoords = []
 		if hasCardText is not False and (not isEnchanted or not useNewEnchanted):
 			isCurrentlyInLabel: bool = False
