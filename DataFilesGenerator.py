@@ -201,7 +201,7 @@ def correctCardField(card: Dict, fieldName: str, regexMatchString: str, correcti
 	"""
 	if fieldName not in card:
 		if regexMatchString is not None:
-			_logger.warning(f"Trying to correct field '{fieldName}' in card {_createCardIdentifier(card)} from '{regexMatchString}' to '{correction}' but the field does not exist. Set the match string to 'null' if you want to add a field")
+			_logger.warning(f"Trying to correct field '{fieldName}' in card {_createCardIdentifier(card)} from {regexMatchString!r} to {correction!r} but the field does not exist. Set the match string to 'null' if you want to add a field")
 		elif correction is None:
 			_logger.warning(f"Trying to remove field '{fieldName}' but it already doesn't exist in card {_createCardIdentifier(card)}")
 		else:
@@ -211,7 +211,7 @@ def correctCardField(card: Dict, fieldName: str, regexMatchString: str, correcti
 			_logger.info(f"Removing field '{fieldName}' (value {card[fieldName]!r}) from card {_createCardIdentifier(card)}")
 			del card[fieldName]
 		elif fieldName in card:
-			_logger.warning(f"Trying to add field '{fieldName}' to card {_createCardIdentifier(card)}, but that field already exists (value '{card[fieldName]!r}")
+			_logger.warning(f"Trying to add field '{fieldName}' to card {_createCardIdentifier(card)}, but that field already exists (value {card[fieldName]!r}")
 	elif isinstance(card[fieldName], str):
 		preCorrectedText = card[fieldName]
 		card[fieldName] = re.sub(regexMatchString, correction, preCorrectedText, flags=re.DOTALL)
@@ -233,7 +233,7 @@ def correctCardField(card: Dict, fieldName: str, regexMatchString: str, correcti
 						preCorrectedText = fieldValue
 						fieldEntry[fieldKey] = re.sub(regexMatchString, correction, fieldValue, flags=re.DOTALL)
 						if fieldEntry[fieldKey] == preCorrectedText:
-							_logger.warning(f"Correcting index {fieldIndex} of field '{fieldName}' in card {_createCardIdentifier(card)} didn't change anything, value is still '{preCorrectedText!r}'")
+							_logger.warning(f"Correcting index {fieldIndex} of field '{fieldName}' in card {_createCardIdentifier(card)} didn't change anything, value is still {preCorrectedText!r}")
 						else:
 							_logger.info(f"Corrected index {fieldIndex} of field '{fieldName}' from {preCorrectedText!r} to {fieldEntry[fieldKey]!r} for card {_createCardIdentifier(card)}")
 		elif isinstance(card[fieldName][0], str):
@@ -244,7 +244,7 @@ def correctCardField(card: Dict, fieldName: str, regexMatchString: str, correcti
 					matchFound = True
 					if correction is None:
 						# Delete the value
-						_logger.info(f"Removing index {fieldIndex} value '{fieldValue}' from field '{fieldName}' in card {_createCardIdentifier(card)}")
+						_logger.info(f"Removing index {fieldIndex} value {fieldValue!r} from field '{fieldName}' in card {_createCardIdentifier(card)}")
 						card[fieldName].pop(fieldIndex)
 					else:
 						preCorrectedText = fieldValue
@@ -256,10 +256,10 @@ def correctCardField(card: Dict, fieldName: str, regexMatchString: str, correcti
 		else:
 			_logger.error(f"Unhandled type of list entries ({type(card[fieldName][0])}) in card {_createCardIdentifier(card)}")
 		if not matchFound:
-			_logger.warning(f"Correction regex '{regexMatchString}' for field '{fieldName}' in card {_createCardIdentifier(card)} didn't match any of the entries in that field")
+			_logger.warning(f"Correction regex {regexMatchString!r} for field '{fieldName}' in card {_createCardIdentifier(card)} didn't match any of the entries in that field")
 	elif isinstance(card[fieldName], int):
 		if card[fieldName] != regexMatchString:
-			_logger.warning(f"Expected value of field '{fieldName}' in card {_createCardIdentifier(card)} is {regexMatchString}, but actual value is {card[fieldName]}, skipping correction")
+			_logger.warning(f"Expected value of field '{fieldName}' in card {_createCardIdentifier(card)} is {regexMatchString!r}, but actual value is {card[fieldName]!r}, skipping correction")
 		else:
 			_logger.info(f"Corrected numerical value of field '{fieldName}' in card {_createCardIdentifier(card)} from {card[fieldName]} to {correction}")
 			card[fieldName] = correction
