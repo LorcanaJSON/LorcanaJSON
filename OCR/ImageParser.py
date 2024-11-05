@@ -267,7 +267,7 @@ class ImageParser():
 					self._logger.debug(f"line length: {line[0][2] - line[0][0]}")
 					# Draw the lines for debug purposes
 					if showImage:
-						cv2.line(flavorTextGreyscaleImageWithLines, (line[0][0], line[0][1]), (line[0][2], line[0][3]), (0, 0, 255), 3, cv2.LINE_AA)
+						cv2.line(flavorTextGreyscaleImageWithLines, (line[0][0], line[0][1]), (line[0][2], line[0][3]), (0, 0, 0), 3, cv2.LINE_AA)
 					if line[0][1] > flavorTextSeparatorY:
 						flavorTextSeparatorY = line[0][1]
 				if flavorTextSeparatorY == 0:
