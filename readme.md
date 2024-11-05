@@ -64,7 +64,7 @@ There are also some special correction entry keys to fix issues not easily match
 * '_moveKeywordsLast': On most cards, keyword abilities come before named abilities. There are a few cards where this isn't true (f.i. 'Madam Mim - Fox' ID 262; 'Slightly - Lost Boy' ID 560). Due to how the parsing code works, the keyword ability on these cards gets added to the named ability. Adding '_moveKeywordsLast' and setting it to 'true' in the correction file fixes this problem by making the keyword ability be detected separately, and having it listed last in the 'fullTextSections' field.  
 * '_newlineAfterLabelIndex': In some languages, the ability label can be as wide as the card itself. This means a newline isn't added between the label text and the effect text. If this field exists and is set to the ability index, a newline will be added after the label text to correct this.  
 
-Once one or more corrections are added, you can rerun the pogram with just the corrected card IDs, and repeat this verification process, until there are no mistakes anymore.  
+Once one or more corrections are added, you can rerun the 'parse' action with just the corrected card IDs, and repeat this verification process, until there are no mistakes anymore.  
 
 ## External early reveals
 In the weeks before a new set is released, new cards from that set get teased, and it can sometimes take a while before they get added to the official app.  
