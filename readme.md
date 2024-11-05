@@ -48,8 +48,8 @@ Because OCR isn't perfect, a manual check of the resulting datafiles is still ne
 The page should then show a card name, a card image, the card's parsed text, and the parsed data. This allows for easy comparison.  
 Use the left and right arrows keys or the entry fields at the top to navigate through the cards. Press 'E' for the English card image, 'F' for French, 'D' or 'G' for German, and 'I' for Italian.
 ### Output data corrections
-If you find a mistake in the generated data, you can add a correction to one of the 'outputDataCorrections' JSON files in the 'output'-folder.
 The general 'outputDataCorrections.json' file is applied to every lanugage, and each language can have its own corrections file called 'outputDataCorrections_[languagecode].json' (So for English it'd be 'outputDataCorrections_en.json'). The genral corrections are applied before language-specific ones.  
+If you find a mistake in the generated data, you can add a correction to one of the 'outputDataCorrections' JSON files in the 'output'-folder.  
 In these corrections files, keys are a card ID (due to a JSON limitation these have to be strings instead of numbers), and the values are a dictionary with corrections for that card.  
 The correction entry key is the name of the field to correct, and the value is a list with two entries: The first entry is the regular expression that should match the text error, the second entry is the correction. The matched text will get replaced in the card data with the correction.  
 It's also possible to remove erroneously generated fields by specifying 'null' for both the first matching entry and the correction.  
