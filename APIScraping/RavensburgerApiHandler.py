@@ -16,7 +16,7 @@ def retrieveCardCatalog() -> Dict[str, Any]:
 									  # API key captured from the official Lorcana app
 									  "authorization": "Basic bG9yY2FuYS1hcGktcmVhZDpFdkJrMzJkQWtkMzludWt5QVNIMHc2X2FJcVZEcHpJenVrS0lxcDlBNXRlb2c5R3JkQ1JHMUFBaDVSendMdERkYlRpc2k3THJYWDl2Y0FkSTI4S096dw==",
 									  "content-type": "application/x-www-form-urlencoded",
-									  "user-agent": f"UnityPlayer / {DownloadUtil.UNITY_VERSION}(UnityWebRequest / 1.0, libcurl / 8.5.0 - DEV)",
+									  "user-agent": f"UnityPlayer / {DownloadUtil.UNITY_VERSION} (UnityWebRequest/1.0, libcurl/8.5.0-DEV)",
 									  "x-unity-version": DownloadUtil.UNITY_VERSION
 								  },
 								  data={"grant_type": "client_credentials"},

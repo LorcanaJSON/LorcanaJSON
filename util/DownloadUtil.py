@@ -4,8 +4,8 @@ from typing import Dict
 import requests
 
 _logger = logging.getLogger("LorcanaJSON")
-UNITY_VERSION = "2022.3.21f1"
-DEFAULT_HEADERS = {"user-agent": "Lorcana/2023.1", "x-unity-version": UNITY_VERSION}
+UNITY_VERSION = "2022.3.44f1"
+DEFAULT_HEADERS = {"user-agent": "Lorcana/2024.4", "x-unity-version": UNITY_VERSION}
 
 
 class DownloadException(BaseException):
