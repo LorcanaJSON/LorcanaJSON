@@ -604,7 +604,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 	if oldArtistsText != outputCard["artistsText"]:
 		_logger.info(f"Corrected artist name from '{oldArtistsText}' to '{outputCard['artistsText']}' in card {_createCardIdentifier(inputCard)}")
 
-	outputCard["name"] = correctPunctuation(inputCard["name"].strip() if "name" in inputCard else parsedImageAndTextData["name"].text).replace("’", "'").replace("''", "'")
+	outputCard["name"] = correctPunctuation(inputCard["name"].strip() if "name" in inputCard else parsedImageAndTextData["name"].text).replace("’", "'").replace("‘", "'").replace("''", "'")
 	if outputCard["name"] == "Balais Magiques":
 		# This name is inconsistent, sometimes it has a capital 'M', sometimes a lowercase 'm'
 		# Comparing with capitalization of other cards, this should be a lowercase 'm'
