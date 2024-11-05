@@ -2,7 +2,7 @@ import json, os, re
 from typing import Dict, List, Union
 
 import GlobalConfig
-from util import Language, LorcanaSymbols
+from util import Language, LorcanaSymbols, Translations
 
 
 _subtypeSeparatorString = f" {LorcanaSymbols.SEPARATOR} "
@@ -22,6 +22,8 @@ def compareInputToOutput(cardIdsToVerify: Union[List[int], None]):
 	with open(outputFilePath, "r", encoding="utf-8") as outputFile:
 		outputCardStore = json.load(outputFile)
 	idToEnglishOutputCard = {}
+	englishRarities = ()
+	currentLanguageRarities = ()
 	if GlobalConfig.language != Language.ENGLISH:
 		englishOutputFilePath = os.path.join("output", "generated", Language.ENGLISH.code, "allCards.json")
 		if os.path.isfile(englishOutputFilePath):
@@ -31,6 +33,9 @@ def compareInputToOutput(cardIdsToVerify: Union[List[int], None]):
 					idToEnglishOutputCard[englishCard["id"]] = englishCard
 		else:
 			print("WARNING: English output file doesn't exist, skipping comparison")
+		englishRarities = (Translations.ENGLISH.COMMON, Translations.ENGLISH.UNCOMMON, Translations.ENGLISH.RARE, Translations.ENGLISH.SUPER, Translations.ENGLISH.LEGENDARY, Translations.ENGLISH.ENCHANTED, Translations.ENGLISH.SPECIAL)
+		currentTranslation = Translations.getForLanguage(GlobalConfig.language)
+		currentLanguageRarities = (currentTranslation.COMMON, currentTranslation.UNCOMMON, currentTranslation.RARE, currentTranslation.SUPER, currentTranslation.LEGENDARY, currentTranslation.ENCHANTED, currentTranslation.SPECIAL)
 
 	idToInputCard = {}
 	for cardtype, cardlist in inputCardStore["cards"].items():
@@ -176,6 +181,10 @@ def compareInputToOutput(cardIdsToVerify: Union[List[int], None]):
 					if outputCard["abilities"][abilityIndex]["type"] != englishCard["abilities"][abilityIndex]["type"]:
 						cardDifferencesCount += 1
 						print(f"{cardId}: Ability index {abilityIndex} type mismatch, {GlobalConfig.language.englishName} type is '{outputCard['abilities'][abilityIndex]['type']}', English type is '{englishCard['abilities'][abilityIndex]['type']}'")
+			# Compare rarities
+			if currentLanguageRarities.index(outputCard["rarity"]) != englishRarities.index(englishCard["rarity"]):
+				cardDifferencesCount += 1
+				print(f"{cardId}: {GlobalConfig.language.englishName} rarity is {englishRarities[currentLanguageRarities.index(outputCard['rarity'])]} ({outputCard['rarity']}) but English rarity is {englishCard['rarity']}")
 
 	print(f"Found {cardDifferencesCount:,} difference{'' if cardDifferencesCount == 1 else 's'} between input and output")
 
