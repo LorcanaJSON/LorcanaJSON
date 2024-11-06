@@ -41,7 +41,7 @@ def checkForNewCardData(newCardCatalog: Dict = None, fieldsToIgnore: List[str] =
 				addedCards.append((cardId, cardDescriptor))
 			elif includeCardChanges:
 				oldCard = oldCards[cardId]
-				if fieldsToIgnore and "image_urls" not in fieldsToIgnore:
+				if not fieldsToIgnore or "image_urls" not in fieldsToIgnore:
 					# Specifically check for image URLs, because if the checksum changed, we may need to redownload it
 					imageUrl = None
 					oldImageUrl = None
