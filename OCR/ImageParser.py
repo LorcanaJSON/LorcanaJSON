@@ -251,6 +251,9 @@ class ImageParser():
 				flavorTextLineDetectionCroppedImage = greyTextboxImage[flavorTextImageTop:textboxHeight, 0:textboxWidth]
 			flavorTextEdgeDetectedImage = cv2.Canny(flavorTextLineDetectionCroppedImage, 50, 200)
 			lines = cv2.HoughLinesP(flavorTextEdgeDetectedImage, 1, math.pi / 180, 150, minLineLength=70)
+			if lines is None and hasFlavorText is True:
+				# Sometimes it can't find the full separator line, try to find a section of it instead
+				lines = cv2.HoughLinesP(flavorTextEdgeDetectedImage, 1, math.pi / 180, 100, minLineLength=25, maxLineGap=0)
 			if showImage:
 				flavorTextGreyscaleImageWithLines = flavorTextLineDetectionCroppedImage.copy()
 			self._logger.debug(f"Parsing flavor text images finished at {time.perf_counter() - startTime} seconds in")
