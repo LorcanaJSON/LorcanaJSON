@@ -179,18 +179,20 @@ class ImageParser():
 		# Then get the flavor text separator and the flavor text itself
 		# Finally get the ability text, since that goes between the labels and the flavor text
 
+		# Quest cards and Enchanted cards from Set 5 use all-white text, use a fallback method instead of trying to find the labels
+		useFallbackLabelFinding = isQuest or (isEnchanted and useNewEnchanted)
+
 		# Find where the ability name labels are, store them as the top y, bottom y and the right x, so we know where to get the text from
 		# New-style Enchanted cards get parsed differently because this method doesn't find labels on those, it's handled in the 'remainingText' parsing section
 		labelCoords = []
-		if hasCardText is not False and (not isEnchanted or not useNewEnchanted):
+		if hasCardText is not False and not useFallbackLabelFinding:
 			isCurrentlyInLabel: bool = False
 			currentCoords = [0, 0, 0]
-			textBoxImageToCheck = colorTextboxImage if isQuest else greyTextboxImage
 			for y in range(textboxHeight):
-				pixelValue = textBoxImageToCheck[y, textboxOffset]
+				pixelValue = greyTextboxImage[y, textboxOffset]
 				if isCurrentlyInLabel:
 					# Check if the pixel got lighter, indicating we left the label block
-					if (isQuest and pixelValue[0] > 60 and pixelValue[1] > 35) or (not isQuest and pixelValue > 110):
+					if pixelValue > 110:
 						isCurrentlyInLabel = False
 						if y - currentCoords[0] < 50:
 							self._logger.debug(f"Skipping possible label starting at y={currentCoords[0]} and ending at {y=}, not high enough to be a label")
@@ -198,15 +200,15 @@ class ImageParser():
 							currentCoords[1] = y - 1
 							labelCoords.append(tuple(currentCoords))  # Copy the coordinates list so we can't accidentally change a value anymore
 				# Check if a label started here
-				elif (isQuest and 42 < pixelValue[0] < 54 and 22 < pixelValue[1] < 32) or (not isQuest and pixelValue < 105):
+				elif pixelValue < 105:
 					isCurrentlyInLabel = True
 					currentCoords[0] = y
 					yToCheck = min(textboxHeight - 1, y + 1)  # Check a few lines down to prevent weirdness with the edge of the label box
 					# Find the width of the label. Since accented characters can reach the top of the label, we need several light pixels in succession to be sure the label ended
 					successiveLightPixels: int = 0
 					for x in range(textboxOffset, textboxWidth):
-						checkValue = textBoxImageToCheck[yToCheck, x]
-						if (isQuest and checkValue[0] > 60 and checkValue[1] > 35) or (not isQuest and checkValue > 120):
+						checkValue = greyTextboxImage[yToCheck, x]
+						if checkValue > 120:
 							successiveLightPixels += 1
 							if successiveLightPixels > 5:
 								if x < 100:
@@ -328,7 +330,7 @@ class ImageParser():
 				remainingTextImage = self._convertToThresholdImage(greyTextboxImage[0:previousBlockTopY, textboxOffset:textboxWidth], thresholdTextColor)
 				remainingText = self._imageToString(remainingTextImage)
 				if remainingText:
-					if isEnchanted and useNewEnchanted and re.search("[A-Z]{2,}", remainingText):
+					if useFallbackLabelFinding and re.search("[A-Z]{2,}", remainingText):
 						# Detecting labels on new-style Enchanted cards is hard, so for those the full card text is 'remainingText'
 						# Try to get the labels and effects out
 						labelMatch = re.search("([AÀI] )?[A-ZÊ]{2}", remainingText)
@@ -336,7 +338,7 @@ class ImageParser():
 							labelAndEffectText = remainingText[labelMatch.start():]
 							remainingText = remainingText[:labelMatch.start()].rstrip()
 							while labelAndEffectText:
-								effectMatch = re.search(r"([A-Z]|À )[a-z]", labelAndEffectText, flags=re.DOTALL)
+								effectMatch = re.search(fr"(([A-Z]|À )[a-z]|[1-9{LorcanaSymbols.EXERT}])", labelAndEffectText, flags=re.DOTALL)
 								if effectMatch:
 									labelText = labelAndEffectText[:effectMatch.start()]
 									effectText = labelAndEffectText[effectMatch.start():]
