@@ -840,10 +840,9 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 			outputCard["abilities"].append({"name": "", "effect": outputCard["effects"].pop(effectIndexToMoveToAbilities)})
 			if len(outputCard["effects"]) == 0:
 				del outputCard["effects"]
+		fullTextCorrection = cardDataCorrections.pop("fullText", None)
 		for fieldName, correction in cardDataCorrections.items():
-			if fieldName == "fullText":
-				fullTextCorrection = correction
-			elif isinstance(correction[0], bool):
+			if isinstance(correction[0], bool):
 				if outputCard[fieldName] == correction[1]:
 					_logger.warning(f"Corrected value for boolean field '{fieldName}' is the same as the existing value '{outputCard[fieldName]}' for card {_createCardIdentifier(outputCard)}")
 				else:
