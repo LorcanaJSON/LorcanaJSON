@@ -67,6 +67,10 @@ def downloadImagesIfUpdated(cardIdsToCheck: List[int]) -> List[int]:
 	with open(os.path.join("downloads", "json", f"carddata.{GlobalConfig.language.code}.json"), "r", encoding="utf-8") as cardCatalogFile:
 		cardCatalog = json.load(cardCatalogFile)
 	cardIdsWithUpdatedImage: List[int] = []
+	imageBackupFolderPath = os.path.join("downloads", "images", GlobalConfig.language.code, "backups")
+	if not os.path.isdir(imageBackupFolderPath):
+		os.makedirs(imageBackupFolderPath)
+	today: str = datetime.datetime.today().strftime("%Y-%m-%d")
 	for cardType, cardList in cardCatalog["cards"].items():
 		for card in cardList:
 			cardId = card["culture_invariant_id"]
@@ -74,14 +78,20 @@ def downloadImagesIfUpdated(cardIdsToCheck: List[int]) -> List[int]:
 				continue
 			localImagePath = os.path.join("downloads", "images", GlobalConfig.language.code, f"{cardId}.jpg")
 			with open(localImagePath, "rb") as localImageFile:
-				localImageChecksum = hashlib.md5(localImageFile.read()).hexdigest()
+				localImageBytes = localImageFile.read()
+				localImageChecksum = hashlib.md5(localImageBytes).hexdigest()
 			for imageData in card["image_urls"]:
 				if imageData["height"] == 2048:
 					remoteImageRequest = DownloadUtil.retrieveFromUrl(imageData["url"])
 					remoteImageBytes = remoteImageRequest.content
 					remoteImageChecksum = hashlib.md5(remoteImageBytes).hexdigest()
 					if localImageChecksum != remoteImageChecksum:
-						# Images actually differ, save the new version
+						_logger.debug(f"Image for card with ID {cardId} has changed, backing up old version and saving new version")
+						# Images actually differ
+						# Backup the original image first
+						with open(os.path.join(imageBackupFolderPath, f"{cardId}_until_{today}.jpg"), "wb") as backupImageFile:
+							backupImageFile.write(localImageBytes)
+						# Then save the new version
 						with open(localImagePath, "wb") as localImageFile:
 							localImageFile.write(remoteImageBytes)
 						cardIdsWithUpdatedImage.append(cardId)
