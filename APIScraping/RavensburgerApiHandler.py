@@ -96,6 +96,8 @@ def downloadImagesIfUpdated(cardIdsToCheck: List[int]) -> List[int]:
 							localImageFile.write(remoteImageBytes)
 						cardIdsWithUpdatedImage.append(cardId)
 					break
+			else:
+				_logger.warning(f"Unable to find correct 2048-high image for card ID {cardId}, unable to check if image changed")
 	return cardIdsWithUpdatedImage
 
 def downloadImages(shouldOverwriteImages: bool = False, pathToCardCatalog: str = None):

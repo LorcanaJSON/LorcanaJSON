@@ -49,10 +49,14 @@ def checkForNewCardData(newCardCatalog: Dict = None, fieldsToIgnore: List[str] =
 						if imageData["height"] == 2048:
 							imageUrl = imageData["url"]
 							break
+					else:
+						_logger.warning(f"Unable to find properly sized image in downloaded data for card ID {cardId}")
 					for imageData in oldCard["image_urls"]:
 						if imageData["height"] == 2048:
 							oldImageUrl = imageData["url"]
 							break
+					else:
+						_logger.warning(f"Unable to find properly sized image in old data for card ID {cardId}")
 					if imageUrl != oldImageUrl:
 						possibleImageChanges.append((cardId, cardDescriptor, imageUrl))
 					# Remove the field so it doesn't get checked twice
