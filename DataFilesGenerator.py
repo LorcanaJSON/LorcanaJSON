@@ -263,6 +263,12 @@ def correctCardField(card: Dict, fieldName: str, regexMatchString: str, correcti
 		else:
 			_logger.info(f"Corrected numerical value of field '{fieldName}' in card {_createCardIdentifier(card)} from {card[fieldName]} to {correction}")
 			card[fieldName] = correction
+	elif isinstance(card[fieldName], bool):
+		if card[fieldName] == correction:
+			_logger.warning(f"Corrected value for boolean field '{fieldName}' is the same as the existing value '{card[fieldName]}' for card {_createCardIdentifier(card)}")
+		else:
+			_logger.info(f"Corrected boolean field '{fieldName}' in card {_createCardIdentifier(card)} from {card[fieldName]} to {correction}")
+			card[fieldName] = correction
 	else:
 		raise ValueError(f"Card correction for field '{fieldName}' in card {_createCardIdentifier(card)} is of unsupported type '{type(card[fieldName])}'")
 
@@ -842,13 +848,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 				del outputCard["effects"]
 		fullTextCorrection = cardDataCorrections.pop("fullText", None)
 		for fieldName, correction in cardDataCorrections.items():
-			if isinstance(correction[0], bool):
-				if outputCard[fieldName] == correction[1]:
-					_logger.warning(f"Corrected value for boolean field '{fieldName}' is the same as the existing value '{outputCard[fieldName]}' for card {_createCardIdentifier(outputCard)}")
-				else:
-					_logger.info(f"Corrected boolean field '{fieldName}' in card {_createCardIdentifier(outputCard)} from {outputCard[fieldName]} to {correction}")
-					outputCard[fieldName] = correction[1]
-			elif len(correction) > 2:
+			if len(correction) > 2:
 				for correctionIndex in range(0, len(correction), 2):
 					correctCardField(outputCard, fieldName, correction[correctionIndex], correction[correctionIndex+1])
 			else:
