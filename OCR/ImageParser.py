@@ -170,7 +170,6 @@ class ImageParser():
 
 		# Greyscale images work better, so get one from just the textbox
 		greyTextboxImage = self._getSubImage(greyCardImage, textBoxImageArea)
-		colorTextboxImage = self._getSubImage(cardImage, textBoxImageArea) if isQuest else None
 		textboxWidth = greyTextboxImage.shape[1]
 		textboxHeight = greyTextboxImage.shape[0]
 		textboxOffset = _OPTIONAL_TEXTBOX_OFFSET if isTextboxOffset else 0
@@ -370,8 +369,6 @@ class ImageParser():
 			cv2.imshow("Greyscale card image", greyCardImage)
 			cv2.imshow("Types threshold image", typesImage)
 			cv2.imshow("Textbox crop greyscale", greyTextboxImage)
-			if colorTextboxImage is not None:
-				cv2.imshow("Textbox crop color", colorTextboxImage)
 			if result.get("identifier", None) is not None:
 				cv2.imshow("Card Identifier", result["identifier"].image)
 			if flavorTextEdgeDetectedImage is not None:
