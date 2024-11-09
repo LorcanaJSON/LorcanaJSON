@@ -193,51 +193,52 @@ class ImageParser():
 		# Find where the ability name labels are, store them as the top y, bottom y and the right x, so we know where to get the text from
 		# New-style Enchanted cards get parsed differently because this method doesn't find labels on those, it's handled in the 'remainingText' parsing section
 		labelCoords = []
-		if hasCardText is not False and labelParseMethod == _LABEL_PARSING_METHODS.DEFAULT:
-			isCurrentlyInLabel: bool = False
-			currentCoords = [0, 0, 0]
-			for y in range(textboxHeight):
-				pixelValue = greyTextboxImage[y, textboxOffset]
+		if hasCardText is not False:
+			if labelParseMethod == _LABEL_PARSING_METHODS.DEFAULT:
+				isCurrentlyInLabel: bool = False
+				currentCoords = [0, 0, 0]
+				for y in range(textboxHeight):
+					pixelValue = greyTextboxImage[y, textboxOffset]
+					if isCurrentlyInLabel:
+						# Check if the pixel got lighter, indicating we left the label block
+						if pixelValue > 110:
+							isCurrentlyInLabel = False
+							if y - currentCoords[0] < 50:
+								self._logger.debug(f"Skipping possible label starting at y={currentCoords[0]} and ending at {y=}, not high enough to be a label")
+							else:
+								currentCoords[1] = y - 1
+								labelCoords.append(tuple(currentCoords))  # Copy the coordinates list so we can't accidentally change a value anymore
+					# Check if a label started here
+					elif pixelValue < 105:
+						isCurrentlyInLabel = True
+						currentCoords[0] = y
+						yToCheck = min(textboxHeight - 1, y + 1)  # Check a few lines down to prevent weirdness with the edge of the label box
+						# Find the width of the label. Since accented characters can reach the top of the label, we need several light pixels in succession to be sure the label ended
+						successiveLightPixels: int = 0
+						for x in range(textboxOffset, textboxWidth):
+							checkValue = greyTextboxImage[yToCheck, x]
+							if checkValue > 120:
+								successiveLightPixels += 1
+								if successiveLightPixels > 5:
+									if x < 100:
+										self._logger.debug(f"Skipping label at {currentCoords=} and {x=}, not wide enough to be a label")
+										currentCoords[0] = 0
+										currentCoords[1] = 0
+										isCurrentlyInLabel = False
+									else:
+										currentCoords[2] = x - _ABILITY_LABEL_MARGIN - 6
+									break
+							else:
+								successiveLightPixels = 0
+						else:
+							#raise ValueError(f"Unable to find right side of label at {y=} in the cropped image")
+							# 'ability label' is as wide as the image, disqualify it
+							# Don't raise an exception, because this is sometimes hit in Quest cards
+							self._logger.debug(f"Reached right side of image in ability label check at {y=}, assuming it's not a label")
+							currentCoords = [0, 0, 0]
+							isCurrentlyInLabel = False
 				if isCurrentlyInLabel:
-					# Check if the pixel got lighter, indicating we left the label block
-					if pixelValue > 110:
-						isCurrentlyInLabel = False
-						if y - currentCoords[0] < 50:
-							self._logger.debug(f"Skipping possible label starting at y={currentCoords[0]} and ending at {y=}, not high enough to be a label")
-						else:
-							currentCoords[1] = y - 1
-							labelCoords.append(tuple(currentCoords))  # Copy the coordinates list so we can't accidentally change a value anymore
-				# Check if a label started here
-				elif pixelValue < 105:
-					isCurrentlyInLabel = True
-					currentCoords[0] = y
-					yToCheck = min(textboxHeight - 1, y + 1)  # Check a few lines down to prevent weirdness with the edge of the label box
-					# Find the width of the label. Since accented characters can reach the top of the label, we need several light pixels in succession to be sure the label ended
-					successiveLightPixels: int = 0
-					for x in range(textboxOffset, textboxWidth):
-						checkValue = greyTextboxImage[yToCheck, x]
-						if checkValue > 120:
-							successiveLightPixels += 1
-							if successiveLightPixels > 5:
-								if x < 100:
-									self._logger.debug(f"Skipping label at {currentCoords=} and {x=}, not wide enough to be a label")
-									currentCoords[0] = 0
-									currentCoords[1] = 0
-									isCurrentlyInLabel = False
-								else:
-									currentCoords[2] = x - _ABILITY_LABEL_MARGIN - 6
-								break
-						else:
-							successiveLightPixels = 0
-					else:
-						#raise ValueError(f"Unable to find right side of label at {y=} in the cropped image")
-						# 'ability label' is as wide as the image, disqualify it
-						# Don't raise an exception, because this is sometimes hit in Quest cards
-						self._logger.debug(f"Reached right side of image in ability label check at {y=}, assuming it's not a label")
-						currentCoords = [0, 0, 0]
-						isCurrentlyInLabel = False
-			if isCurrentlyInLabel:
-				self._logger.warning(f"Still in label when end of label check reached in card image '{pathToImage}'")
+					self._logger.warning(f"Still in label when end of label check reached in card image '{pathToImage}'")
 		self._logger.debug(f"Finished finding label coords at {time.perf_counter() - startTime} seconds in")
 
 		if isQuest:
