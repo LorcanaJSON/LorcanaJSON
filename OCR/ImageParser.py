@@ -357,7 +357,7 @@ class ImageParser():
 								if nextLabelMatch:
 									labelAndEffectText = effectText[nextLabelMatch.start():]
 									effectText = effectText[:nextLabelMatch.start()].rstrip()
-									self._logger.info("Correcting effect text on new-style Enchanted card to ability label and text")
+									self._logger.debug("Correcting effect text on new-style Enchanted card to ability label and text")
 								else:
 									labelAndEffectText = None
 								result["abilityLabels"].append(ImageAndText(remainingTextImage, labelText))
