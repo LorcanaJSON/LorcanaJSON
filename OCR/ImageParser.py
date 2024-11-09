@@ -1,5 +1,6 @@
 import logging, math, re, time
 from collections import namedtuple
+from enum import StrEnum, auto
 from typing import Dict, List, Union
 
 import cv2, tesserocr
@@ -18,6 +19,12 @@ _OPTIONAL_TEXTBOX_OFFSET: int = 41  # Only used if 'isTextboxOffset' is True, fo
 
 _BLACK = (0, 0, 0)
 _WHITE = (255, 255, 255)
+
+class _LABEL_PARSING_METHODS(StrEnum):
+	DEFAULT = auto()
+	FALLBACK_WHITE_ABILITY_TEXT = auto()
+	FALLBACK_BY_LINES = auto()
+
 
 class ImageParser():
 	def __init__(self, forceGenericModel: bool = False):
@@ -179,12 +186,14 @@ class ImageParser():
 		# Finally get the ability text, since that goes between the labels and the flavor text
 
 		# Quest cards and Enchanted cards from Set 5 use all-white text, use a fallback method instead of trying to find the labels
-		useFallbackLabelFinding = isQuest or (isEnchanted and useNewEnchanted)
+		labelParseMethod: _LABEL_PARSING_METHODS = _LABEL_PARSING_METHODS.DEFAULT
+		if isQuest or (isEnchanted and useNewEnchanted):
+			labelParseMethod = _LABEL_PARSING_METHODS.FALLBACK_WHITE_ABILITY_TEXT
 
 		# Find where the ability name labels are, store them as the top y, bottom y and the right x, so we know where to get the text from
 		# New-style Enchanted cards get parsed differently because this method doesn't find labels on those, it's handled in the 'remainingText' parsing section
 		labelCoords = []
-		if hasCardText is not False and not useFallbackLabelFinding:
+		if hasCardText is not False and labelParseMethod == _LABEL_PARSING_METHODS.DEFAULT:
 			isCurrentlyInLabel: bool = False
 			currentCoords = [0, 0, 0]
 			for y in range(textboxHeight):
@@ -329,7 +338,7 @@ class ImageParser():
 				remainingTextImage = self._convertToThresholdImage(greyTextboxImage[0:previousBlockTopY, textboxOffset:textboxWidth], thresholdTextColor)
 				remainingText = self._imageToString(remainingTextImage)
 				if remainingText:
-					if useFallbackLabelFinding and re.search("[A-Z]{2,}", remainingText):
+					if labelParseMethod == _LABEL_PARSING_METHODS.FALLBACK_WHITE_ABILITY_TEXT and re.search("[A-Z]{2,}", remainingText):
 						# Detecting labels on new-style Enchanted cards is hard, so for those the full card text is 'remainingText'
 						# Try to get the labels and effects out
 						labelMatch = re.search("([AÀI] )?[A-ZÊ]{2}", remainingText)
