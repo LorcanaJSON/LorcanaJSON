@@ -548,7 +548,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 		isEnchanted=outputCard["rarity"] == GlobalConfig.translation.ENCHANTED or inputCard.get("foil_type", None) == "Satin",  # Disney100 cards need Enchanted parsing, foil_type seems best way to determine Disney100
 		isQuest="Q" in inputCard["card_identifier"] if "card_identifier" in inputCard else None,
 		useNewEnchanted=int(inputCard.get("card_identifier", "0")[-1], 10) >= 5,
-		isTextboxOffset="/C" in inputCard.get("card_identifier", "") or "/D23" in inputCard.get("card_identifier", ""),
+		isTextboxOffset=inputCard["culture_invariant_id"] != 1432 and ("/C" in inputCard.get("card_identifier", "") or "/D23" in inputCard.get("card_identifier", "")),
 		useLabelByLinesFallback=(outputCard["rarity"] == GlobalConfig.translation.ENCHANTED or "/D23" in inputCard.get("card_identifier", "")) and int(inputCard.get("card_identifier", "0")[-1], 10) == 6,
  		showImage=shouldShowImage
 	)
