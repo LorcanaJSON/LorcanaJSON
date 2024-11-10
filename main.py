@@ -119,7 +119,7 @@ if __name__ == '__main__':
 		if cardIds:
 			# No sense using more threads than we have images to process
 			GlobalConfig.threadCount = min(GlobalConfig.threadCount, len(cardIds))
-	logger.info(f"Using {GlobalConfig.threadCount:,} threads")
+	logger.info(f"Using {GlobalConfig.threadCount:,} thread{'s' if GlobalConfig.threadCount > 1 else ''}")
 
 	startTime = time.perf_counter()
 	if parsedArguments.action == "check":
