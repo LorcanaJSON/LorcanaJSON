@@ -16,6 +16,7 @@ ImageAndText = namedtuple("ImageAndText", ("image", "text"))
 _ABILITY_LABEL_MARGIN: int = 12
 _FLAVORTEXT_MARGIN: int = 14
 _OPTIONAL_TEXTBOX_OFFSET: int = 41  # Only used if 'isTextboxOffset' is True, for special cards
+_ASSUMED_LABEL_HEIGHT: int = 73
 
 _BLACK = (0, 0, 0)
 _WHITE = (255, 255, 255)
@@ -54,7 +55,7 @@ class ImageParser():
 		self._tesseractApi.SetVariable("crunch_early_convert_bad_unlv_chs", "1")
 
 	def getImageAndTextDataFromImage(self, pathToImage: str, parseFully: bool, includeIdentifier: bool = False, isLocation: bool = None, hasCardText: bool = None, hasFlavorText: bool = None,
-									 isEnchanted: bool = None, isQuest: bool = None, useNewEnchanted: bool = False, isTextboxOffset: bool = False, showImage: bool = False) -> Dict[str, Union[None, ImageAndText, List[ImageAndText]]]:
+									 isEnchanted: bool = None, isQuest: bool = None, useNewEnchanted: bool = False, isTextboxOffset: bool = False, useLabelByLinesFallback: bool = False, showImage: bool = False) -> Dict[str, Union[None, ImageAndText, List[ImageAndText]]]:
 		startTime = time.perf_counter()
 		result: Dict[str, Union[None, ImageAndText, List[ImageAndText]]] = {
 			"flavorText": None,
@@ -187,11 +188,15 @@ class ImageParser():
 
 		# Quest cards and Enchanted cards from Set 5 use all-white text, use a fallback method instead of trying to find the labels
 		labelParseMethod: _LABEL_PARSING_METHODS = _LABEL_PARSING_METHODS.DEFAULT
-		if isQuest or (isEnchanted and useNewEnchanted):
+		if useLabelByLinesFallback:
+			labelParseMethod = _LABEL_PARSING_METHODS.FALLBACK_BY_LINES
+		elif isQuest or (isEnchanted and useNewEnchanted):
 			labelParseMethod = _LABEL_PARSING_METHODS.FALLBACK_WHITE_ABILITY_TEXT
 
 		# Find where the ability name labels are, store them as the top y, bottom y and the right x, so we know where to get the text from
 		# New-style Enchanted cards get parsed differently because this method doesn't find labels on those, it's handled in the 'remainingText' parsing section
+		textboxEdgeDetectedImage: Image.Image = None
+		textboxLinesImage: Image.Image = None
 		labelCoords = []
 		if hasCardText is not False:
 			if labelParseMethod == _LABEL_PARSING_METHODS.DEFAULT:
@@ -239,14 +244,50 @@ class ImageParser():
 							isCurrentlyInLabel = False
 				if isCurrentlyInLabel:
 					self._logger.warning(f"Still in label when end of label check reached in card image '{pathToImage}'")
+			elif labelParseMethod == _LABEL_PARSING_METHODS.FALLBACK_BY_LINES:
+				# Find labels by trying to find their top and/or bottom horizontal edge
+				textboxEdgeDetectedImage = cv2.Canny(greyTextboxImage, 50, 200)
+				lines = cv2.HoughLinesP(textboxEdgeDetectedImage, 1, math.pi / 180, 150, minLineLength=125, maxLineGap=3)
+				if lines is None:
+					self._logger.warning(f"Expected card to have lines but none were found in card image '{pathToImage}'")
+				else:
+					# Sort lines from top to bottom
+					lines = sorted(lines, key=lambda l: l[0][1])
+					self._logger.debug(f"In line fallback method found {len(lines):,} lines")
+					if showImage:
+						textboxLinesImage = greyTextboxImage.copy()
+						for line in lines:
+							cv2.line(textboxLinesImage, (line[0][0], line[0][1]), (line[0][2], line[0][3]), (255, 255, 255), 2, cv2.LINE_AA)
+					lastBottomY = 0
+					for line in lines:
+						# Check if this is a line at the top or bottom of a label
+						lineRightX = line[0][2]
+						lineRightY = line[0][3]
+						# If this line is too close to the previous one, it's probably the bottom line of the previous top line of the same label; skip it
+						if lastBottomY and lineRightY - lastBottomY < 80:
+							continue
+						isTopLine = greyTextboxImage[lineRightY - 1, lineRightX] > greyTextboxImage[lineRightY + 1, lineRightX]  # Images use y,x
+						topY = bottomY = lineRightY
+						# Assume the height of the average label (it can vary based on font size, but accurately determining it is complicated, error-prone, and not really necessary)
+						if isTopLine:
+							bottomY += _ASSUMED_LABEL_HEIGHT
+						else:
+							topY -= _ASSUMED_LABEL_HEIGHT
+							lineRightX += _ABILITY_LABEL_MARGIN
+						labelCoords.append((topY, bottomY, lineRightX))
+						lastBottomY = bottomY
 		self._logger.debug(f"Finished finding label coords at {time.perf_counter() - startTime} seconds in")
 
+		labelTextColor = ImageArea.TEXT_COLOUR_WHITE
+		thresholdTextColor = ImageArea.TEXT_COLOUR_BLACK
+		labelMaskColor = _BLACK if textBoxImageArea.textColour == ImageArea.TEXT_COLOUR_WHITE else _WHITE
 		if isQuest:
 			thresholdTextColor = ImageArea.TEXT_COLOUR_WHITE
-		elif isEnchanted and useNewEnchanted:
+		elif isEnchanted and useNewEnchanted and not useLabelByLinesFallback:
 			thresholdTextColor = ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND
-		else:
-			thresholdTextColor = ImageArea.TEXT_COLOUR_BLACK
+		elif useLabelByLinesFallback:
+			labelTextColor = ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND
+			labelMaskColor = _WHITE
 
 		# Find the line dividing the abilities from the flavor text, if needed
 		flavorTextImage = None
@@ -314,13 +355,12 @@ class ImageParser():
 			labelNumber = len(labelCoords)
 			for labelCoord in labelCoords:
 				# First get the label text itself. It's white on dark, so handle it the opposite way from the actual ability text
-				abilityLabelImage = self._convertToThresholdImage(greyTextboxImage[labelCoord[0]:labelCoord[1], 0:labelCoord[2]], ImageArea.TEXT_COLOUR_WHITE)
+				abilityLabelImage = self._convertToThresholdImage(greyTextboxImage[labelCoord[0]:labelCoord[1], 0:labelCoord[2]], labelTextColor)
 				abilityLabelText = self._imageToString(abilityLabelImage)
 				result["abilityLabels"].append(ImageAndText(abilityLabelImage, abilityLabelText))
 				# Then get the ability text
 				# Put a white rectangle over where the label was, because the thresholding sometimes leaves behind some pixels, which confuses Tesseract, leading to phantom letters
 				abilityTextImage = greyTextboxImage.copy()
-				labelMaskColor = _BLACK if textBoxImageArea.textColour == ImageArea.TEXT_COLOUR_WHITE else _WHITE
 				cv2.rectangle(abilityTextImage, (0, 0), (labelCoord[2] + _ABILITY_LABEL_MARGIN, labelCoord[1]), labelMaskColor, thickness=-1)  # -1 thickness fills the rectangle
 				abilityTextImage = self._convertToThresholdImage(abilityTextImage[labelCoord[0]:previousBlockTopY, 0:textboxWidth], thresholdTextColor)
 				abilityText = self._imageToString(abilityTextImage)
@@ -381,6 +421,9 @@ class ImageParser():
 			cv2.imshow("Textbox crop greyscale", greyTextboxImage)
 			if result.get("identifier", None) is not None:
 				cv2.imshow("Card Identifier", result["identifier"].image)
+			if textboxEdgeDetectedImage is not None and textboxLinesImage is not None:
+				cv2.imshow("Textbox edge detected image", textboxEdgeDetectedImage)
+				cv2.imshow("Textbox with lines", textboxLinesImage)
 			if flavorTextEdgeDetectedImage is not None:
 				cv2.imshow("Flavortext edge detected greyscale image", flavorTextEdgeDetectedImage)
 			if flavorTextGreyscaleImageWithLines is not None:

@@ -549,6 +549,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 		isQuest="Q" in inputCard["card_identifier"] if "card_identifier" in inputCard else None,
 		useNewEnchanted=int(inputCard.get("card_identifier", "0")[-1], 10) >= 5,
 		isTextboxOffset="/C" in inputCard.get("card_identifier", "") or "/D23" in inputCard.get("card_identifier", ""),
+		useLabelByLinesFallback=outputCard["rarity"] == GlobalConfig.translation.ENCHANTED and int(inputCard.get("card_identifier", "0")[-1], 10) == 6,
  		showImage=shouldShowImage
 	)
 
