@@ -688,8 +688,8 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 		for remainingTextLineIndex in range(len(remainingTextLines) - 1, 0, -1):
 			remainingTextLine = remainingTextLines[remainingTextLineIndex]
 			# Sometimes lines get split up into separate list entries when they shouldn't be,
-			# for instance in choice lists, or just accidentally. Fix that
-			if remainingTextLine.startswith("-") or re.match(r"[a-z(]", remainingTextLine) or remainingTextLine.count(")") > remainingTextLine.count("("):
+			# for instance in choice lists, or just accidentally. Fix that. But if the previous line ended with a closing bracket and this with an opening one, don't join them
+			if remainingTextLine.startswith("-") or (re.match(r"[a-z(]", remainingTextLine) and not remainingTextLines[remainingTextLineIndex-1].endswith(")")) or remainingTextLine.count(")") > remainingTextLine.count("("):
 				_logger.info(f"Merging accidentally-split line '{remainingTextLine}' with previous line '{remainingTextLines[remainingTextLineIndex - 1]}'")
 				remainingTextLines[remainingTextLineIndex - 1] += "\n" + remainingTextLines.pop(remainingTextLineIndex)
 
