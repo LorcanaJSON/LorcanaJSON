@@ -80,11 +80,6 @@ if __name__ == '__main__':
 	GlobalConfig.translation = Translations.getForLanguage(GlobalConfig.language)
 	logger.info(f"Using language '{GlobalConfig.language.englishName}'")
 
-	if parsedArguments.threads:
-		GlobalConfig.threadCount = parsedArguments.threads
-		if GlobalConfig.threadCount < 0:
-			GlobalConfig.threadCount = os.cpu_count() + GlobalConfig.threadCount
-
 	cardIds = None
 	if parsedArguments.cardIds:
 		cardIds = []
@@ -113,6 +108,18 @@ if __name__ == '__main__':
 					cardIds.append(int(inputCardId, 10))
 				except ValueError:
 					raise ValueError(f"Invalid value '{inputCardId}' in the '--cardIds' list, should be numeric")
+
+	if parsedArguments.threads:
+		GlobalConfig.threadCount = parsedArguments.threads
+		if GlobalConfig.threadCount < 0:
+			GlobalConfig.threadCount = os.cpu_count() + GlobalConfig.threadCount
+	else:
+		# Only use half the available cores for threads, because we're also IO- and GIL-bound, so more threads would just slow things down
+		GlobalConfig.threadCount = max(1, os.cpu_count() // 2)
+		if cardIds:
+			# No sense using more threads than we have images to process
+			GlobalConfig.threadCount = min(GlobalConfig.threadCount, len(cardIds))
+	logger.info(f"Using {GlobalConfig.threadCount:,} threads")
 
 	startTime = time.perf_counter()
 	if parsedArguments.action == "check":

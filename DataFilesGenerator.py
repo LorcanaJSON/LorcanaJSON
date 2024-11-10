@@ -406,18 +406,10 @@ def createOutputFiles(onlyParseIds: Union[None, List[int]] = None, shouldShowIma
 	def initThread():
 		_threadingLocalStorage.imageParser = ImageParser.ImageParser()
 
-	threadCount = GlobalConfig.threadCount
-	if not threadCount:
-		# Only use half the available cores for threads, because we're also IO- and GIL-bound, so more threads would just slow things down
-		threadCount = max(1, os.cpu_count() // 2)
-	if onlyParseIds:
-		threadCount = min(threadCount, len(onlyParseIds))
-	_logger.debug(f"Using {threadCount:,} threads for parsing the cards")
-
 	# Parse the cards we need to parse
 	languageCodeToCheck = GlobalConfig.language.code.upper()
 	cardToStoryParser = StoryParser()
-	with multiprocessing.pool.ThreadPool(threadCount, initializer=initThread) as pool:
+	with multiprocessing.pool.ThreadPool(GlobalConfig.threadCount, initializer=initThread) as pool:
 		results = []
 		for cardType, inputCardlist in inputData["cards"].items():
 			cardTypeText = cardType[:-1].title()  # 'cardType' is plural ('characters', 'items', etc), make it singular
