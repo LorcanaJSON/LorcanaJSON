@@ -109,7 +109,10 @@ if __name__ == '__main__':
 				except ValueError:
 					raise ValueError(f"Invalid value '{inputCardId}' in the '--cardIds' list, should be numeric")
 
-	if parsedArguments.threads:
+	if parsedArguments.action == "show" or parsedArguments.shouldShowSubimages:
+		# If we need to show images, only use one thread, since with multithreading it freezes, and showing images of multiple cards at the same time would get confusing
+		GlobalConfig.threadCount = 1
+	elif parsedArguments.threads:
 		GlobalConfig.threadCount = parsedArguments.threads
 		if GlobalConfig.threadCount < 0:
 			GlobalConfig.threadCount = os.cpu_count() + GlobalConfig.threadCount
