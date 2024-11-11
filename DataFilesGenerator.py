@@ -822,6 +822,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 	forceAbilityTypeIndexToTriggered = -1
 	forceAbilityTypeIndexToStatic = -1
 	newlineAfterLabelIndex = -1
+	mergeEffectIndexWithPrevious = -1
 	if cardDataCorrections:
 		if cardDataCorrections.pop("_moveKeywordsLast", False):
 			if "abilities" not in outputCard or "effect" not in outputCard["abilities"][-1]:
@@ -841,6 +842,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 		forceAbilityTypeIndexToTriggered = cardDataCorrections.pop("_forceAbilityIndexToTriggered", -1)
 		forceAbilityTypeIndexToStatic = cardDataCorrections.pop("_forceAbilityIndexToStatic", -1)
 		newlineAfterLabelIndex = cardDataCorrections.pop("_newlineAfterLabelIndex", -1)
+		mergeEffectIndexWithPrevious = cardDataCorrections.pop("_mergeEffectIndexWithPrevious", -1)
 		effectAtIndexIsAbility = cardDataCorrections.pop("_effectAtIndexIsAbility", -1)
 		fullTextCorrection = cardDataCorrections.pop("fullText", None)
 		for fieldName, correction in cardDataCorrections.items():
@@ -960,6 +962,9 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 			else:
 				fullTextSections.append(ability["fullText"])
 	if "effects" in outputCard:
+		if mergeEffectIndexWithPrevious > -1:
+			_logger.info(f"Merging effect index {mergeEffectIndexWithPrevious} with previous index for card {_createCardIdentifier(outputCard)}")
+			outputCard["effects"][mergeEffectIndexWithPrevious - 1] += "\n" + outputCard["effects"].pop(mergeEffectIndexWithPrevious)
 		fullTextSections.extend(outputCard["effects"])
 	outputCard["fullText"] = "\n".join(fullTextSections)
 	outputCard["fullTextSections"] = fullTextSections
