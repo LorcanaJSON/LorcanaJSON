@@ -923,6 +923,9 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 				else:
 					ability["type"] = "static"
 				# All parts determined, now reconstruct the full ability text
+				if "name" in ability and not ability["name"]:
+					# Abilities added through corrections may have an empty name, remove that
+					ability.pop("name")
 				if "name" in ability:
 					ability["fullText"] = ability["name"]
 					if newlineAfterLabelIndex == abilityIndex:
