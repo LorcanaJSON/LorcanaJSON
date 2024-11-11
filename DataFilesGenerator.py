@@ -849,6 +849,14 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 					correctCardField(outputCard, fieldName, correction[correctionIndex], correction[correctionIndex+1])
 			else:
 				correctCardField(outputCard, fieldName, correction[0], correction[1])
+		# If newlines got added through a correction, we may need to split the effect in two
+		if "effects" in cardDataCorrections and "effects" in outputCard:
+			for effectIndex in range(len(outputCard["effects"]) - 1, -1, -1):
+				while "\n\n" in outputCard["effects"][effectIndex]:
+					_logger.info(f"Splitting effect at index {effectIndex} in two because it has a double newline, in card {_createCardIdentifier(outputCard)}")
+					firstEffect, secondEffect = outputCard["effects"][effectIndex].rsplit("\n\n", 1)
+					outputCard["effects"][effectIndex] = firstEffect
+					outputCard["effects"].insert(effectIndex + 1, secondEffect)
 		# Do this after the general corrections since one of those might add or split an effect
 		if effectAtIndexIsAbility > -1:
 			if "effects" not in outputCard:
