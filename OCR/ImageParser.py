@@ -266,6 +266,9 @@ class ImageParser():
 						# Check if this is a line at the top or bottom of a label
 						lineRightX = line[0][2]
 						lineRightY = line[0][3]
+						if lineRightY < 10:
+							self._logger.warning(f"Found line at x={lineRightX} y={lineRightY} but that is too close to the top, skipping")
+							continue
 						# If this line is too close to the previous one, it's probably the bottom line of the previous top line of the same label; skip it
 						if lastBottomY and lineRightY - lastBottomY < 80:
 							continue
