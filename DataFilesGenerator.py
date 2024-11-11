@@ -615,7 +615,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 		# This name is inconsistent, sometimes it has a capital 'M', sometimes a lowercase 'm'
 		# Comparing with capitalization of other cards, this should be a lowercase 'm'
 		outputCard["name"] = outputCard["name"].replace("M", "m")
-	elif outputCard["name"].isupper():
+	elif outputCard["name"].isupper() and outputCard["name"] != "B.E.N.":
 		# Some names have capitals in the middle, correct those
 		if cardType == GlobalConfig.translation.Character:
 			if outputCard["name"] == "HEIHEI" and GlobalConfig.language == Language.ENGLISH:
