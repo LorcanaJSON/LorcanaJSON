@@ -427,8 +427,9 @@ class ImageParser():
 			cv2.imshow("Textbox crop greyscale", greyTextboxImage)
 			if result.get("identifier", None) is not None:
 				cv2.imshow("Card Identifier", result["identifier"].image)
-			if textboxEdgeDetectedImage is not None and textboxLinesImage is not None:
+			if textboxEdgeDetectedImage is not None:
 				cv2.imshow("Textbox edge detected image", textboxEdgeDetectedImage)
+			if textboxLinesImage is not None:
 				cv2.imshow("Textbox with lines", textboxLinesImage)
 			if flavorTextEdgeDetectedImage is not None:
 				cv2.imshow("Flavortext edge detected greyscale image", flavorTextEdgeDetectedImage)
