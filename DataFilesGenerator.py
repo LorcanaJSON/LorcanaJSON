@@ -275,6 +275,20 @@ def correctCardField(card: Dict, fieldName: str, regexMatchString: str, correcti
 		else:
 			_logger.info(f"Corrected boolean field '{fieldName}' in card {_createCardIdentifier(card)} from {card[fieldName]} to {correction}")
 			card[fieldName] = correction
+	elif isinstance(card[fieldName], dict):
+		# Go through each key-value pair to try and find a matching entry
+		isStringMatch = isinstance(regexMatchString, str)
+		for key in card[fieldName]:
+			value = card[fieldName][key]
+			if isStringMatch and isinstance(value, str) and re.search(regexMatchString, value, flags=re.DOTALL):
+				card[fieldName][key] = re.sub(regexMatchString, correction, value)
+				if value == card[fieldName][key]:
+					_logger.warning(f"Correcting value for key '{key}' in dictionary field '{fieldName}' of card {_createCardIdentifier(card)} didn't change anything, value is still '{value}'")
+				else:
+					_logger.info(f"Corrected value '{value}' to '{card[fieldName][key]}' in key '{key}' of dictionary field '{fieldName}' in card {_createCardIdentifier(card)}")
+				break
+		else:
+			_logger.error(f"Correction '{regexMatchString}' for dictionary field '{fieldName}' didn't match any of the values")
 	else:
 		raise ValueError(f"Card correction for field '{fieldName}' in card {_createCardIdentifier(card)} is of unsupported type '{type(card[fieldName])}'")
 

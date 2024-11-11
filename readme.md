@@ -55,7 +55,8 @@ The correction entry key is the name of the field to correct, and the value is a
 It's also possible to remove erroneously generated fields by specifying 'null' for both the first matching entry and the correction.  
 Adding fields that weren't generated is done by specifying 'null' for the match, and the value to add as the correction.  
 Adding a value to a list is done by providing 'null' as the matching regex, and the value to add as the correction.  
-Removing a value from a list is done by providing a matching regex as the match, and then 'null' for the correction.  
+Removing a value from a list is done by providing a matching regex as the match, and then 'null' for the correction.
+Changing a value in a dictionary also works, the entry that matches the correction will get changed with the correction.  
 If a correction match can't be found in the card's generated text, a warning will be printed to the log.  
 There are also some special correction entry keys to fix issues not easily matched with a regular expression, prefixed with an underscore so they stand out and don't match existing fields:
 * '_effectAtIndexIsAbility': For some Special cards, the label doesn't get detected properly, so the named ability is stored as an effect. Set this field to the index of the effect, and the effect will be moved to the 'abilities' field, so it can more easily be corrected.  
