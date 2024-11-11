@@ -249,6 +249,9 @@ class ImageParser():
 				textboxEdgeDetectedImage = cv2.Canny(greyTextboxImage, 50, 200)
 				lines = cv2.HoughLinesP(textboxEdgeDetectedImage, 1, math.pi / 180, 150, minLineLength=125, maxLineGap=3)
 				if lines is None:
+					self._logger.debug("Not found any abiltylabel lines, trying a shorter minimum length")
+					lines = cv2.HoughLinesP(textboxEdgeDetectedImage, 1, math.pi / 180, 150, minLineLength=100, maxLineGap=3)
+				if lines is None:
 					self._logger.warning(f"Expected card to have lines but none were found in card image '{pathToImage}'")
 				else:
 					# Sort lines from top to bottom
