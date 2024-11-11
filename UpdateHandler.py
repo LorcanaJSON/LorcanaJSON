@@ -51,7 +51,7 @@ def checkForNewCardData(newCardCatalog: Dict = None, fieldsToIgnore: List[str] =
 							break
 					else:
 						_logger.warning(f"Unable to find properly sized image in downloaded data for card ID {cardId}")
-					for imageData in oldCard["image_urls"]:
+					for imageData in oldCard.get("image_urls", []):
 						if imageData["height"] == 2048:
 							oldImageUrl = imageData["url"]
 							break

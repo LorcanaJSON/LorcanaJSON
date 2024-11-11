@@ -117,6 +117,9 @@ def downloadImages(shouldOverwriteImages: bool = False, pathToCardCatalog: str =
 			if languageCodeToCheck not in card["card_identifier"]:
 				_logger.debug(f"Skipping card with ID {card['culture_invariant_id']} because it's not in the requested language")
 				continue
+			if "image_urls" not in card:
+				_logger.error(f"Card ID {card['culture_invariant_id']} does not have an 'image_urls' key")
+				continue
 			for imageUrlDict in card["image_urls"]:
 				if imageUrlDict["height"] == 2048:
 					imagesFound += 1

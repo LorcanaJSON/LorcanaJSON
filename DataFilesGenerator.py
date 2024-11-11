@@ -658,8 +658,10 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 		}
 		if "foil_mask_url" in inputCard:
 			outputCard["images"]["foilMask"] = _cleanUrl(inputCard["foil_mask_url"])
-	else:
+	elif "imageUrl" in inputCard:
 		outputCard["images"] = {"full": inputCard["imageUrl"]}
+	else:
+		_logger.error(f"Card {_createCardIdentifier(outputCard)} does not contain any image URLs")
 	# If the card is Enchanted or has an Enchanted equivalent, store that
 	if enchantedNonEnchantedId:
 		outputCard["nonEnchantedId" if outputCard["rarity"] == GlobalConfig.translation.ENCHANTED else "enchantedId"] = enchantedNonEnchantedId
