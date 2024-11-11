@@ -448,8 +448,8 @@ class ImageParser():
 				cv2.imshow("Ability text image", abilityTextImage)
 			if remainingTextImage is not None:
 				cv2.imshow("Remaining text image", remainingTextImage)
+			cv2.imshow("Artist", result["artist"].image)
 			if parseFully:
-				cv2.imshow("Artist", result["artist"].image)
 				cv2.imshow("Ink Cost", result["cost"].image)
 				cv2.imshow("Card Name", result["name"].image)
 				if result["moveCost"] is not None:
