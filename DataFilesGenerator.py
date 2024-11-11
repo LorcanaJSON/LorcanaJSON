@@ -824,6 +824,8 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 	newlineAfterLabelIndex = -1
 	if cardDataCorrections:
 		if cardDataCorrections.pop("_moveKeywordsLast", False):
+			if "abilities" not in outputCard or "effect" not in outputCard["abilities"][-1]:
+				raise KeyError(f"Correction to move keywords last is set for card {_createCardIdentifier(outputCard)}, but no 'abilities' field exists or the last ability doesn't have an 'effect'")
 			# Normally keyword abilities come before named abilities, except on some cards (e.g. 'Madam Mim - Fox' (ID 262))
 			# Correct that by removing the keyword ability text from the last named ability text, and adding it as an ability
 			lastAbility: Dict[str, str] = outputCard["abilities"][-1]
