@@ -62,11 +62,11 @@ class ImageParser():
 			"abilityLabels": [],
 			"abilityTexts": [],
 			"remainingText": None,
-			"subtypesText": []
+			"subtypesText": [],
+			"artist": None
 		}
 		if parseFully:
 			result.update({
-				"artist": None,
 				"cost": None,
 				"identifier": None,
 				"moveCost": None,
