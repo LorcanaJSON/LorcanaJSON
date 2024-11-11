@@ -841,14 +841,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 		forceAbilityTypeIndexToTriggered = cardDataCorrections.pop("_forceAbilityIndexToTriggered", -1)
 		forceAbilityTypeIndexToStatic = cardDataCorrections.pop("_forceAbilityIndexToStatic", -1)
 		newlineAfterLabelIndex = cardDataCorrections.pop("_newlineAfterLabelIndex", -1)
-		if "_effectAtIndexIsAbility" in cardDataCorrections:
-			effectIndexToMoveToAbilities = cardDataCorrections.pop("_effectAtIndexIsAbility", -1)
-			_logger.info(f"Moving effect index {effectIndexToMoveToAbilities} to abilities")
-			if "abilities" not in outputCard:
-				outputCard["abilities"] = []
-			outputCard["abilities"].append({"name": "", "effect": outputCard["effects"].pop(effectIndexToMoveToAbilities)})
-			if len(outputCard["effects"]) == 0:
-				del outputCard["effects"]
+		effectAtIndexIsAbility = cardDataCorrections.pop("_effectAtIndexIsAbility", -1)
 		fullTextCorrection = cardDataCorrections.pop("fullText", None)
 		for fieldName, correction in cardDataCorrections.items():
 			if len(correction) > 2:
@@ -856,6 +849,16 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 					correctCardField(outputCard, fieldName, correction[correctionIndex], correction[correctionIndex+1])
 			else:
 				correctCardField(outputCard, fieldName, correction[0], correction[1])
+		# Do this after the general corrections since one of those might add or split an effect
+		if effectAtIndexIsAbility > -1:
+			if "effects" not in outputCard:
+				_logger.error(f"Correction to move effect index {effectAtIndexIsAbility} to abilities, but card {_createCardIdentifier(outputCard)} doesn't have an 'effects' field")
+			_logger.info(f"Moving effect index {effectAtIndexIsAbility} to abilities")
+			if "abilities" not in outputCard:
+				outputCard["abilities"] = []
+			outputCard["abilities"].append({"name": "", "effect": outputCard["effects"].pop(effectAtIndexIsAbility)})
+			if len(outputCard["effects"]) == 0:
+				del outputCard["effects"]
 	# Now we can expand the ability fields with extra info, since it's all been corrected
 	keywordAbilities: List[str] = []
 	if "abilities" in outputCard:
