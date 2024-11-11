@@ -87,9 +87,9 @@ def correctText(cardText: str) -> str:
 				cardLine = cardLine.rstrip(" i")
 			cardLine = cardLine.replace(" ‘em ", " 'em ")
 			# Correct some fancy qoute marks at the end of some plural possessives. This is needed on a case-by-case basis, otherwise too much text is changed
-			cardLine = re.sub(r"teammates’( |$)", r"teammates'\1", cardLine)
-			cardLine = re.sub(r"players’( |$)", r"players'\1", cardLine)
-			cardLine = re.sub(r"opponents’( |$)", r"opponents'\1", cardLine)
+			cardLine = re.sub(r"\bteammates’( |$)", r"teammates'\1", cardLine)
+			cardLine = re.sub(r"\bplayers’( |$)", r"players'\1", cardLine)
+			cardLine = re.sub(r"\bopponents’( |$)", r"opponents'\1", cardLine)
 			## Correct common phrases with symbols ##
 			# Ink payment discounts
 			cardLine, changeCount = re.subn(rf"pay (\d) ?[^{LorcanaSymbols.INK}]{{1,2}}( |$)", f"pay \\1 {LorcanaSymbols.INK}\\2", cardLine)
