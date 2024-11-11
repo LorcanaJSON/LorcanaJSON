@@ -212,7 +212,13 @@ def correctCardField(card: Dict, fieldName: str, regexMatchString: str, correcti
 			_logger.info(f"Removing field '{fieldName}' (value {card[fieldName]!r}) from card {_createCardIdentifier(card)}")
 			del card[fieldName]
 		elif fieldName in card:
-			_logger.warning(f"Trying to add field '{fieldName}' to card {_createCardIdentifier(card)}, but that field already exists (value {card[fieldName]!r}")
+			if isinstance(card[fieldName], list):
+				if isinstance(card[fieldName][0], type(correction)):
+					_logger.info(f"Appending value {correction} to list field {fieldName} in card {_createCardIdentifier(card)}")
+				else:
+					_logger.warning(f"Trying to add value {correction!r} of type {type(correction)} to list of {type(card[fieldName][0])} types in card {_createCardIdentifier(card)}, skipping")
+			else:
+				_logger.warning(f"Trying to add field '{fieldName}' to card {_createCardIdentifier(card)}, but that field already exists (value {card[fieldName]!r})")
 	elif isinstance(card[fieldName], str):
 		preCorrectedText = card[fieldName]
 		card[fieldName] = re.sub(regexMatchString, correction, preCorrectedText, flags=re.DOTALL)

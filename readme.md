@@ -54,6 +54,7 @@ In these corrections files, keys are a card ID (due to a JSON limitation these h
 The correction entry key is the name of the field to correct, and the value is a list with two entries: The first entry is the regular expression that should match the text error, the second entry is the correction. The matched text will get replaced in the card data with the correction.  
 It's also possible to remove erroneously generated fields by specifying 'null' for both the first matching entry and the correction.  
 Adding fields that weren't generated is done by specifying 'null' for the match, and the value to add as the correction.  
+Adding a value to a list is done by providing 'null' as the matching regex, and the value to add as the correction.  
 Removing a value from a list is done by providing a matching regex as the match, and then 'null' for the correction.  
 If a correction match can't be found in the card's generated text, a warning will be printed to the log.  
 There are also some special correction entry keys to fix issues not easily matched with a regular expression, prefixed with an underscore so they stand out and don't match existing fields:
