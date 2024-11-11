@@ -20,7 +20,7 @@
       "it": "Aladdin"
     },
     "matchingNames": ["Abu", "Agrabah", "Aladdin", "Genie", "Iago", "Jafar", "Jasmine", "Magic Carpet", "Rajah", "Razoul", "Treasure Guardian"],
-    "matchingIds": [164, 195, 564, 596, 984, 1015, 1166]
+    "matchingIds": [164, 195, 564, 596, 984, 1015, 1166, 1292, 1328]
   },
   "aliceinwonderland": {
     "displayNames": {
@@ -29,8 +29,8 @@
       "fr": "Alice au pays des merveilles",
       "it": "Alice nel Paese delle Meraviglie"
     },
-    "matchingNames": ["Alice", "Card Soldiers", "Caterpillar", "Cheshire Cat", "King of Hearts", "Mad Hatter", "Queen of Hearts", "White Rabbit"],
-    "matchingIds": [246, 282, 378]
+    "matchingNames": ["Alice", "Card Soldier", "Card Soldiers", "Caterpillar", "Cheshire Cat", "King of Hearts", "Mad Hatter", "March Hare", "Queen of Hearts", "Unbirthday", "White Rabbit"],
+    "matchingIds": [246, 282, 378, 1243, 1245]
   },
   "atlantis": {
     "displayNames": {
@@ -51,6 +51,16 @@
     },
     "matchingNames": ["Beast", "Belle", "Chip the Teacup", "Cogsworth", "Enchantress", "Gaston", "LeFou", "Lumiere", "Maurice", "Mrs. Potts", "The Wardrobe"],
     "matchingIds": [25, 26, 131, 162, 196, 198, 244, 379, 381, 691, 854, 889, 1087, 1118]
+  },
+  "bighero6": {
+    "displayNames": {
+      "de": "Baymax – Riesiges Robowabohu",
+      "en": "Big Hero 6",
+      "fr": "Les Nouveaux Héros",
+      "it": "Big Hero 6"
+    },
+    "matchingNames": ["Alistair Krei", "Aunt Cass", "Baymax", "Fred", "Go Go Tomago", "Hiro Hamada", "Honey Lemon", "Tadashi Hamada", "Wasabi", "Yokai"],
+    "matchingIds": [1277, 1297, 1361, 1364, 1366, 1369, 1418]
   },
   "bravelittletailor": {
     "displayNames": {
@@ -141,7 +151,7 @@
       "it": "Hercules"
     },
     "matchingNames": ["Cerberus", "Hades", "Hercules", "Hermes", "Hydra", "Megara", "Nessus", "Olympus", "Pain", "Panic", "Pegasus", "Philoctetes", "The Fates", "The Muses", "Zeus"],
-    "matchingIds": [167, 248, 345, 531, 725, 888, 895],
+    "matchingIds": [167, 248, 345, 531, 725, 888, 895, 1400],
     "matchingFields": {
       "subtypes": "Titan"
     }
@@ -173,7 +183,8 @@
       "fr": "Lilo et Stitch",
       "it": "Lilo & Stitch"
     },
-    "matchingNames": ["Cobra Bubbles", "Gantu", "Jumba Jookiba", "Lilo", "Nani", "Stitch"]
+    "matchingNames": ["Cobra Bubbles", "Gantu", "Jumba Jookiba", "Lilo", "Nani", "Pleakley", "Stitch"],
+    "matchingIds": [1216, 1295, 1298, 1401, 1403, 1412]
   },
   "lionking": {
     "displayNames": {
@@ -183,7 +194,7 @@
       "it": "Il re lione"
     },
     "matchingNames": ["Banzai", "Hakuna Matata", "Hyena", "Mufasa", "Nala", "Pride Lands", "Pride Rock", "Pumbaa", "Rafiki", "Scar", "Simba", "Shenzi", "Timon", "Zazu"],
-    "matchingIds": [96, 128, 346, 820, 1053, 1084],
+    "matchingIds": [96, 128, 346, 820, 1053, 1084, 1398],
     "matchingFields": {
       "subtypes": "Hyena"
     }
@@ -206,7 +217,7 @@
       "it": "Lorcana"
     },
     "matchingNames": ["Chromicon", "Hexwell", "Venturo"],
-    "matchingIds": [380, 535, 789, 792, 825, 859, 891, 952, 986, 987, 1020, 1055, 1125, 1179],
+    "matchingIds": [380, 535, 789, 792, 825, 859, 891, 952, 986, 987, 1020, 1055, 1125, 1179, 1267, 1300, 1301, 1362, 1399],
     "matchingFields": {
       "card_identifier": " Q1$"
     }
@@ -238,7 +249,7 @@
       "it": "Oceania"
     },
     "matchingNames": ["Chief Tui", "Gramma Tala", "HeiHei", "Kakamora", "Moana", "Motunui", "Maui", "Pua", "Tamatoa", "Te Fiti", "Te Kā"],
-    "matchingIds": [29, 166, 497, 498, 597, 686, 1017, 1052, 1169]
+    "matchingIds": [29, 166, 497, 498, 597, 686, 1017, 1052, 1169, 1329, 1334, 1345, 1415]
   },
   "mulan": {
     "displayNames": {
@@ -250,6 +261,15 @@
     "matchingNames": ["Chi Fu", "Chi-Fu", "Chien-Po", "Cri-Kee", "Li Shang", "Ling", "Mulan", "Khan", "Yao"],
     "matchingIds": [65, 417, 418, 532, 823, 827, 858, 861, 886, 892, 894, 913]
   },
+  "oswald": {
+    "displayNames": {
+      "de": "Oswald der lustige Hase",
+      "en": "Oswald the Lucky Rabbit",
+      "fr": "Oswald le lapin chanceux",
+      "it": "Oswald il coniglio fortunato"
+    },
+    "matchingNames": ["Oswald"]
+  },
   "peterpan": {
     "displayNames": {
       "de": "Peter Pan",
@@ -257,8 +277,8 @@
       "fr": "Peter Pan",
       "it": "Le avventure di Peter Pan"
     },
-    "matchingNames": ["Captain Hook", "Cubby", "Jolly Roger", "Lost Boy", "Mr. Smee", "Nana", "Never Land", "Peter Pan", "Starkey", "Tinker Bell", "Wendy Darling"],
-    "matchingIds": [349, 566, 752, 819, 824, 901, 1083, 1152]
+    "matchingNames": ["Captain Hook", "Cubby", "John Darling", "Jolly Roger", "Lost Boy", "Michael Darling", "Mr. Smee", "Nana", "Never Land", "Peter Pan", "Pixie", "Skull Rock", "Starkey", "Tinker Bell", "Wendy Darling"],
+    "matchingIds": [349, 566, 752, 819, 824, 901, 1083, 1152, 1396, 1397]
   },
   "pinocchio": {
     "displayNames": {
@@ -298,6 +318,15 @@
     },
     "matchingNames": ["Bernard", "Madame Medusa", "Miss Bianca", "Mr. Snoops", "Orville", "Rufus"]
   },
+  "rescuerangers": {
+    "displayNames": {
+      "de": "Chip und Chap – Die Ritter des Rechts",
+      "en": "Chip 'n Dale: Rescue Rangers",
+      "fr": "Tic et Tac, les rangers du risque",
+      "it": "Cip & Ciop agenti speciali"
+    },
+    "matchingNames": ["Chip", "Dale", "Gadget Hackwrench", "Monterey Jack", "Rescue Rangers", "Zipper"]
+  },
   "robinhood": {
     "displayNames": {
       "de": "Robin Hood",
@@ -315,7 +344,7 @@
       "fr": "La Belle au bois dormant",
       "it": "La bella addormentata nel bosco"
     },
-    "matchingNames": ["Aurora", "Diablo", "Dragon Fire", "Fauna", "Flora", "Goons", "Maleficent", "Merryweather", "Prince Phillip"],
+    "matchingNames": ["Aurora", "Diablo", "Dragon Fire", "Fauna", "Flora", "Goons", "King Hubert", "Maleficent", "Merryweather", "Prince Phillip"],
     "matchingIds": [136, 855]
   },
   "snowwhite": {
@@ -336,7 +365,7 @@
       "it": "L'apprendista stregone"
     },
     "matchingNames": ["Magic Broom", "Yen Sid"],
-    "matchingIds": [51, 284, 501, 646, 878, 949]
+    "matchingIds": [51, 284, 501, 646, 878, 949, 1432]
   },
   "swordinthestone": {
     "displayNames": {
@@ -388,8 +417,8 @@
       "fr": "La Planète au Trésor",
       "it": "Il pianeta del tesoro"
     },
-    "matchingNames": ["Billy Bones", "Captain Amelia", "Jim Hawkins", "John Silver", "Morph", "Scroop"],
-    "matchingIds": [572, 632, 652]
+    "matchingNames": ["B.E.N.", "Billy Bones", "Captain Amelia", "Dr. Delbert Doppler", "Jim Hawkins", "John Silver", "Morph", "Mr. Arrow", "Scroop"],
+    "matchingIds": [572, 632, 652, 1331, 1395, 1402, 1421]
   },
   "winniethepooh": {
     "displayNames": {
@@ -398,8 +427,8 @@
       "fr": "Winnie l'Ourson",
       "it": "Winnie the Pooh"
     },
-    "matchingNames": ["Christopher Robin", "Eeyore", "Owl", "Piglet", "Rabbit", "Tigger", "Winnie the Pooh"],
-    "matchingIds": [279]
+    "matchingNames": ["Christopher Robin", "Eeyore", "Gopher", "Hundred Acre", "Kanga", "Owl", "Piglet", "Rabbit", "Roo", "Tigger", "Winnie the Pooh"],
+    "matchingIds": [279, 1229, 1231, 1294]
   },
   "wreckitralph": {
     "displayNames": {
@@ -408,8 +437,8 @@
       "fr": "Les Mondes de Ralph",
       "it": "Ralph Spaccatutto"
     },
-    "matchingNames": ["Bad-Anon", "Felix", "Fix-It Felix, Jr.", "King Candy", "Ralph", "Rancis", "Snowanna", "Taffyta", "Wreck-It Ralph", "Vanellope"],
-    "matchingIds": [416, 1091, 1121]
+    "matchingNames": ["Adorabeezle", "Bad-Anon", "Calhoun", "Felix", "Fix-It Felix, Jr.", "King Candy", "Mr. Litwak", "Ralph", "Rancis", "Snowanna", "Sour Bill", "Sugar Rush Speedway", "Taffyta", "Wreck-It Ralph", "Vanellope"],
+    "matchingIds": [416, 1091, 1121, 1312, 1377]
   },
   "zootopia": {
     "displayNames": {
@@ -418,7 +447,7 @@
       "fr": "Zootopie",
       "it": "Zootropolis"
     },
-    "matchingNames": ["Chief Bogo", "Duke Weaselton", "Judy Hopps", "Nick Wilde"],
-    "matchingIds": [385, 967, 981]
+    "matchingNames": ["Bellwether", "Chief Bogo", "Duke Weaselton", "Judy Hopps", "Nick Wilde"],
+    "matchingIds": [385, 967, 981, 1227, 1287, 1367, 1373]
   }
 }
