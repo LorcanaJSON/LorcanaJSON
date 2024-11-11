@@ -818,8 +818,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 		if subtypes:
 			outputCard["subtypes"] = subtypes
 	# Card-specific corrections
-	#  Since the fullText gets created as the last step, if there is a correction for it, save it for later
-	fullTextCorrection = None
+	fullTextCorrection = None  # Since the fullText gets created as the last step, if there is a correction for it, save it for later
 	forceAbilityTypeIndexToTriggered = -1
 	forceAbilityTypeIndexToStatic = -1
 	newlineAfterLabelIndex = -1
