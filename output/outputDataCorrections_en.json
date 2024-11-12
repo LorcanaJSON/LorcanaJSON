@@ -1083,10 +1083,6 @@
     ]
   },
   "945": {
-    "effects": [
-      null,
-      null
-    ],
     "abilities": [
       "¤",
       "◊"
@@ -1450,44 +1446,234 @@
       975
     ]
   },
+  "1201": {
     "artistsText": [
-      " Will,",
-      "n"
+      "fi",
+      "ń"
     ]
   },
-  "1193": {
-    "_effectAtIndexIsAbility": 0,
-    "abilities": [
-      "^$",
-      "YOU'LL NEVER EVEN MISS IT",
-      "~+",
-      "",
-      "\nW .+$",
-      ""
+  "1212": {
+    "flavorText": [
+      "n\\.",
+      "n'."
     ]
   },
-  "1194": {
-    "_effectAtIndexIsAbility": 0,
+  "1238": {
     "abilities": [
-      "^$",
-      "YOU JUST HAVE TO SEE IT",
-      "TalE rm Of ",
-      "",
-      " ¤",
-      ""
+      "2 O",
+      "2 ¤"
     ]
   },
-  "1195": {
-    "_effectAtIndexIsAbility": 0,
+  "1243": {
     "abilities": [
-      "^$",
-      "I HEREBY DECREE",
-      "~ ",
-      ""
+      "I'L ",
+      "I'LL "
+    ]
+  },
+  "1247": {
+    "abilities": [
+      "1 t",
+      "1 ◊ t"
     ],
-    "nonPromoId": [
-      1162,
-      975
+    "artistsText": [
+      "o",
+      "ó"
+    ]
+  },
+  "1256": {
+    "_newlineAfterLabelIndex": 0
+  },
+  "1262": {
+    "flavorText": [
+      "ll w",
+      "ll, w"
+    ]
+  },
+  "1263": {
+    "_effectAtIndexIsAbility": 0,
+    "effects": [
+      "(?<!\n)\n(?=D)",
+      "\n\n"
+    ]
+  },
+  "1267": {
+    "flavorText": [
+      "^l",
+      "L"
+    ]
+  },
+  "1275": {
+    "flavorText": [
+      "\\. l",
+      ". T"
+    ]
+  },
+  "1276": {
+    "flavorText": [
+      "-",
+      "—"
+    ]
+  },
+  "1307": {
+    "abilities": [
+      "1 \\S\nand \\+1 \\S",
+      "1 ¤\nand +1 ◊"
+    ]
+  },
+  "1310": {
+    "flavorText": [
+      " l",
+      " T"
+    ]
+  },
+  "1314": {
+    "flavorText": [
+      "-",
+      "—"
+    ]
+  },
+  "1339": {
+    "abilities": [
+      "son~\\.”",
+      "s on"
+    ]
+  },
+  "1345": {
+    "fullName": [
+      "hei",
+      "Hei"
+    ],
+    "name": [
+      "hei",
+      "Hei"
+    ]
+  },
+  "1346": {
+    "artistsText": [
+      "u L",
+      "u / L"
+    ]
+  },
+  "1348": {
+    "abilities": [
+      " lts",
+      " Its"
+    ]
+  },
+  "1352": {
+    "abilities": [
+      "B T",
+      "T",
+      "'¥",
+      "⛉"
+    ]
+  },
+  "1370": {
+    "flavorText": [
+      "y r",
+      "y'r"
+    ]
+  },
+  "1374": {
+    "flavorText": [
+      "k d",
+      "k'd"
+    ]
+  },
+  "1386": {
+    "flavorText": [
+      "-",
+      "—"
+    ]
+  },
+  "1404": {
+    "subtypes": [
+      "'”",
+      ""
+    ]
+  },
+  "1405": {
+    "subtypes": [
+      null,
+      [
+        "Storyborn",
+        "Hero",
+        "Princess"
+      ]
+    ]
+  },
+  "1406": {
+    "abilities": [
+      "r$",
+      "rds."
+    ],
+    "artistsText": [
+      "f",
+      "ñ"
+    ]
+  },
+  "1407": {
+    "abilities": [
+      "LA",
+      "L A"
+    ],
+    "subtypes": [
+      null,
+      [
+        "Floodborn",
+        "Mentor",
+        "Sorcerer"
+      ]
+    ]
+  },
+  "1409": {
+    "abilities": [
+      "^' ",
+      ""
+    ]
+  },
+  "1410": {
+    "effects": [
+      null,
+      null
+    ]
+  },
+  "1416": {
+    "abilities": [
+      "on.”",
+      " on"
+    ]
+  },
+  "1417": {
+    "abilities": [
+      "^~",
+      ""
+    ]
+  },
+  "1428": {
+    "abilities": [
+      " lts ",
+      " Its "
+    ]
+  },
+  "1429": {
+    "abilities": [
+      "^\\. Wiv",
+      "Wh",
+      " ca",
+      " da",
+      "nct",
+      "not"
+    ],
+    "effects": [
+      null,
+      null
+    ]
+  },
+  "1432": {
+    "subtypes": [
+      "Ser",
+      "Sor"
     ]
   }
 }
