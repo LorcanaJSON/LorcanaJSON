@@ -9,7 +9,7 @@ from util import Language, LorcanaSymbols
 
 
 _logger = logging.getLogger("LorcanaJSON")
-FORMAT_VERSION = "2.0.0"
+FORMAT_VERSION = "2.0.1"
 _CARD_CODE_LOOKUP = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 _KEYWORD_REGEX = re.compile(r"(?:^|\n)([A-ZÀ][^.]+)(?= \()")
 _PROMO_MATCH_REGEX = re.compile(r"^\d+[a-z]?/[A-Z]\d+")
