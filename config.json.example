@@ -1,4 +1,5 @@
 {
   "loglevel": "warning",
-  "tesseractPath": ""
+  "tesseractPath": "",
+  "cardTraderToken": ""
 }

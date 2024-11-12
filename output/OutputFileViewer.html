@@ -51,6 +51,9 @@
 <pre id="cardJson"></pre>
 <hr>
 <a id="cardImageLink" href="#" target="_blank">Card Image</a> || 
+<a id="cardmarketLink" href="#" target="_blank" style="text-decoration-line: line-through;">Cardmarket</a> || 
+<a id="cardTraderLink" href="#" target="_blank" style="text-decoration-line: line-through;">CardTrader</a> || 
+<a id="tcgPlayerLink" href="#" target="_blank" style="text-decoration-line: line-through;">TcgPlayer</a>
 <script>
 let cardsJson = {"cards": []};
 
@@ -83,6 +86,15 @@ function setDisplayedIndex(newIndex) {
 	document.getElementById("currentIndex").value = currentIndex;
 	document.getElementById("cardId").value = currentCardData["id"];
   document.getElementById("cardImageLink").href = currentCardData["images"]["full"];
+  // Update the external links
+  const cardmarketLink = document.getElementById("cardmarketLink");
+  const cardTraderLink = document.getElementById("cardTraderLink");
+  const tcgPlayerLink = document.getElementById("tcgPlayerLink");
+  if (currentCardData.hasOwnProperty("externalLinks") && currentCardData["externalLinks"]) {
+    updateExternalLink("cardmarketLink", currentCardData["externalLinks"], "cardmarketUrl");
+    updateExternalLink("cardTraderLink", currentCardData["externalLinks"], "cardTraderUrl");
+    updateExternalLink("tcgPlayerLink", currentCardData["externalLinks"], "tcgPlayerUrl");
+  }
   // Some 'fullText' goes off the screen, creating a scrollbar. Pressing left or right both scrolls and changes index. Reset horizontal scroll after changing index so we don't start a new image scrolled
   document.scrollLeft = 0;
   document.getElementById("text").scrollLeft = 0;
@@ -90,6 +102,16 @@ function setDisplayedIndex(newIndex) {
   document.getElementById("currentIndex").blur();
   document.getElementById("cardId").blur();
   document.title = `Output Data Verification Viewer | ${currentCardData["id"]} ${currentCardData["fullName"]}`;
+}
+function updateExternalLink(linkId, externalLinkData, externalLinkName) {
+    const linkElement = document.getElementById(linkId);
+    if (externalLinkData[externalLinkName]) {
+      linkElement.href = externalLinkData[externalLinkName];
+      linkElement.style.removeProperty("text-decoration-line");
+    } else {
+      linkElement.href = "#";
+      linkElement.style.textDecorationLine = "line-through";
+    }
 }
 function changeToRandomIndex() {
   setDisplayedIndex(Math.floor(Math.random() * maxIndex));

@@ -2,6 +2,7 @@ import datetime, hashlib, json, logging, multiprocessing.pool, os, re, threading
 from typing import Dict, List, Optional, Union
 
 import GlobalConfig
+from APIScraping.ExternalLinksHandler import ExternalLinksHandler
 from OCR import ImageParser
 from output.StoryParser import StoryParser
 from util import Language, LorcanaSymbols
@@ -15,7 +16,8 @@ _PROMO_MATCH_REGEX = re.compile(r"^\d+[a-z]?/[A-Z]\d")
 # The card parser is run in threads, and each thread needs to initialize its own ImageParser (otherwise weird errors happen in Tesseract)
 # Store each initialized ImageParser in its own thread storage
 _threadingLocalStorage = threading.local()
-_threadingLocalStorage.imageParser = None
+_threadingLocalStorage.imageParser: ImageParser.ImageParser = None
+_threadingLocalStorage.externalIdsHandler: ExternalLinksHandler = None
 
 def correctText(cardText: str) -> str:
 	"""
@@ -425,6 +427,7 @@ def createOutputFiles(onlyParseIds: Union[None, List[int]] = None, shouldShowIma
 
 	def initThread():
 		_threadingLocalStorage.imageParser = ImageParser.ImageParser()
+		_threadingLocalStorage.externalIdsHandler = ExternalLinksHandler()
 
 	# Parse the cards we need to parse
 	languageCodeToCheck = GlobalConfig.language.code.upper()
@@ -831,6 +834,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 		if subtypes:
 			outputCard["subtypes"] = subtypes
 	# Card-specific corrections
+	externalLinksCorrection: Union[None, List[str]] = None  # externalLinks depends on correct fullIdentifier, which may have a correction, but it also might need a correction itself. So store it for now, and correct it later
 	fullTextCorrection = None  # Since the fullText gets created as the last step, if there is a correction for it, save it for later
 	forceAbilityTypeIndexToTriggered = -1
 	forceAbilityTypeIndexToStatic = -1
@@ -857,6 +861,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 		newlineAfterLabelIndex = cardDataCorrections.pop("_newlineAfterLabelIndex", -1)
 		mergeEffectIndexWithPrevious = cardDataCorrections.pop("_mergeEffectIndexWithPrevious", -1)
 		effectAtIndexIsAbility = cardDataCorrections.pop("_effectAtIndexIsAbility", -1)
+		externalLinksCorrection = cardDataCorrections.pop("externalLinks", None)
 		fullTextCorrection = cardDataCorrections.pop("fullText", None)
 		for fieldName, correction in cardDataCorrections.items():
 			if len(correction) > 2:
@@ -961,6 +966,10 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 	if keywordAbilities:
 		outputCard["keywordAbilities"] = keywordAbilities
 	outputCard["artists"] = outputCard["artistsText"].split(" / ")
+	# Add external links (Do this after corrections so we can use a corrected 'fullIdentifier')
+	outputCard["externalLinks"] = _threadingLocalStorage.externalIdsHandler.getExternalLinksForCard(outputCard["setCode"], outputCard["fullIdentifier"], outputCard["number"], isPromoCard is True, "enchantedId" in outputCard)
+	if externalLinksCorrection:
+		correctCardField(outputCard, "externalLinks", externalLinksCorrection[0], externalLinksCorrection[1])
 	# Reconstruct the full card text. Do that after storing and correcting fields, so any corrections will be taken into account
 	# Remove the newlines in the fields we use while we're at it, because we only needed those to reconstruct the fullText
 	fullTextSections = []
