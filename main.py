@@ -2,6 +2,7 @@ import argparse, datetime, json, logging, logging.handlers, os, re, sys, time
 
 import DataFilesGenerator, GlobalConfig, UpdateHandler
 from APIScraping import RavensburgerApiHandler
+from APIScraping.ExternalLinksHandler import ExternalLinksHandler
 from OCR.ImageParser import ImageParser
 from output import Verifier
 from util import Language, Translations
@@ -9,8 +10,9 @@ from util import Language, Translations
 
 if __name__ == '__main__':
 	argumentParser = argparse.ArgumentParser(description="Handle LorcanaJSON data, depending on the action argument")
-	argumentParser.add_argument("action", choices=("check", "update", "download", "parse", "show", "verify"), help="Specify the action to take. "
+	argumentParser.add_argument("action", choices=("check", "update", "updateExternalLinks", "download", "parse", "show", "verify"), help="Specify the action to take. "
 																										 "'check' checks if new card data is available, 'update' actually updates the local card datafiles. "
+																										 "'updateExternalLinks' updates the datafile with card data as used by other sites"
 																										 "'download' downloads missing images. "
 																										 "'parse' parses the images specified in the 'cardIds' argument. "
 																										 "'show' shows the image(s) specified in the 'cardIds' argument along with subimages used in parsing. "
@@ -155,6 +157,11 @@ if __name__ == '__main__':
 		else:
 			print(f"No new version of the card catalog for language '{GlobalConfig.language.englishName}' found")
 		RavensburgerApiHandler.downloadImages()
+	elif parsedArguments.action == "updateExternalLinks":
+		if not config.get("cardTraderToken", None):
+			print("ERROR: Missing Card Trader API token in config file")
+		else:
+			ExternalLinksHandler.updateCardshopData(config["cardTraderToken"])
 	elif parsedArguments.action == "parse":
 		DataFilesGenerator.createOutputFiles(cardIds, shouldShowImages=parsedArguments.shouldShowSubimages)
 	elif parsedArguments.action == "show":
