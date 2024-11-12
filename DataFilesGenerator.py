@@ -12,7 +12,7 @@ _logger = logging.getLogger("LorcanaJSON")
 FORMAT_VERSION = "2.0.0"
 _CARD_CODE_LOOKUP = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 _KEYWORD_REGEX = re.compile(r"(?:^|\n)([A-ZÀ][^.]+)(?= \()")
-_PROMO_MATCH_REGEX = re.compile(r"^\d+[a-z]?/[A-Z]\d")
+_PROMO_MATCH_REGEX = re.compile(r"^\d+[a-z]?/[A-Z]\d+")
 # The card parser is run in threads, and each thread needs to initialize its own ImageParser (otherwise weird errors happen in Tesseract)
 # Store each initialized ImageParser in its own thread storage
 _threadingLocalStorage = threading.local()
@@ -360,7 +360,15 @@ def createOutputFiles(onlyParseIds: Union[None, List[int]] = None, shouldShowIma
 				promoDeckBuildingIds[card["deck_building_id"]].append(card["culture_invariant_id"])
 			# Some promo cards are listed as Enchanted-rarity, so don't store those promo cards as Enchanted too
 			elif card["rarity"] == "ENCHANTED":
-				enchantedDeckbuildingIds[card["deck_building_id"]] = card["culture_invariant_id"]
+				if card["deck_building_id"] in enchantedDeckbuildingIds:
+					_logger.info(f"Card {_createCardIdentifier(card)} is Enchanted, but its deckbuilding ID already exists in the Enchanteds list, pointing to ID {enchantedDeckbuildingIds[card['deck_building_id']]}, not storing the ID")
+				else:
+					enchantedDeckbuildingIds[card["deck_building_id"]] = card["culture_invariant_id"]
+			elif int(re.match(r"^\d+", card["card_identifier"]).group(0)) > 204:
+				# A card numbered higher than the normal 204 that isn't an Enchanted is also most likely a promo card (F.i. the special Q1 cards like ID 1179
+				if card["deck_building_id"] not in promoDeckBuildingIds:
+					promoDeckBuildingIds[card["deck_building_id"]] = []
+				promoDeckBuildingIds[card["deck_building_id"]].append(card["culture_invariant_id"])
 			if re.match(r"^\d+[a-z]/", card["card_identifier"]):
 				if card["deck_building_id"] not in variantsDeckBuildingIds:
 					variantsDeckBuildingIds[card["deck_building_id"]] = []
@@ -372,17 +380,28 @@ def createOutputFiles(onlyParseIds: Union[None, List[int]] = None, shouldShowIma
 	promoNonPromoIds: Dict[int, Union[int, List[int]]] = {}
 	for cardtype, cardlist in inputData["cards"].items():
 		for card in cardlist:
-			if card["rarity"] not in ("ENCHANTED", "SPECIAL") and card["deck_building_id"] in enchantedDeckbuildingIds:
+			if card["deck_building_id"] in enchantedDeckbuildingIds and card["culture_invariant_id"] != enchantedDeckbuildingIds[card["deck_building_id"]]:
 				nonEnchantedId = card["culture_invariant_id"]
 				enchantedId = enchantedDeckbuildingIds[card["deck_building_id"]]
-				enchantedNonEnchantedIds[nonEnchantedId] = enchantedId
-				enchantedNonEnchantedIds[enchantedId] = nonEnchantedId
-			if _PROMO_MATCH_REGEX.match(card["card_identifier"]) is None and card["deck_building_id"] in promoDeckBuildingIds:
+				if nonEnchantedId in enchantedNonEnchantedIds:
+					_logger.info(f"Non-enchanted ID {nonEnchantedId} is already in the enchanted-nonenchanted list (stored pointing to {enchantedNonEnchantedIds[nonEnchantedId]}), skipping adding it again pointing to {enchantedId}")
+				elif enchantedId in enchantedNonEnchantedIds:
+					_logger.info(f"Enchanted ID {enchantedId} is already in the enchanted-nonenchanted list (stored pointing to {enchantedNonEnchantedIds[enchantedId]}), skipping adding it again pointing to {nonEnchantedId}")
+				else:
+					enchantedNonEnchantedIds[nonEnchantedId] = enchantedId
+					enchantedNonEnchantedIds[enchantedId] = nonEnchantedId
+			if card["deck_building_id"] in promoDeckBuildingIds and card["culture_invariant_id"] not in promoDeckBuildingIds[card["deck_building_id"]]:
 				nonPromoId = card["culture_invariant_id"]
 				promoIds = promoDeckBuildingIds[card["deck_building_id"]]
-				promoNonPromoIds[nonPromoId] = promoIds
+				if nonPromoId in promoNonPromoIds:
+					_logger.info(f"Non-promo ID {nonPromoId} is already in promo-nonPromo list (stored pointing to {promoNonPromoIds[nonPromoId]}), skipping adding it again pointing to {promoIds}")
+				else:
+					promoNonPromoIds[nonPromoId] = promoIds
 				for promoId in promoIds:
-					promoNonPromoIds[promoId] = nonPromoId
+					if promoId in promoNonPromoIds:
+						_logger.info(f"Promo ID {promoId} is already in promo-nonPromo list (stored pointing to {promoNonPromoIds[promoId]}), skipping adding it again pointing to {nonPromoId}")
+					else:
+						promoNonPromoIds[promoId] = nonPromoId
 	del enchantedDeckbuildingIds
 	del promoDeckBuildingIds
 
@@ -691,7 +710,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 	# If the card is a promo card, store the non-promo ID
 	# If the card has promo version, store the promo IDs
 	if promoNonPromoId:
-		outputCard["nonPromoId" if isPromoCard else "promoIds"] = promoNonPromoId
+		outputCard["promoIds" if isinstance(promoNonPromoId, list) else "nonPromoId"] = promoNonPromoId
 	# Store the different parts of the card text, correcting some values if needed
 	if parsedImageAndTextData["flavorText"] is not None:
 		flavorText = correctText(parsedImageAndTextData["flavorText"].text)
