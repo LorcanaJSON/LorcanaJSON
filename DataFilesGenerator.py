@@ -766,7 +766,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 
 	if parsedImageAndTextData["abilityLabels"]:
 		for abilityIndex in range(len(parsedImageAndTextData["abilityLabels"])):
-			abilityName = correctPunctuation(parsedImageAndTextData["abilityLabels"][abilityIndex].text.replace("’", "'").replace("''", "'")).rstrip(":")
+			abilityName = correctPunctuation(parsedImageAndTextData["abilityLabels"][abilityIndex].text.replace("‘", "'").replace("’", "'").replace("''", "'")).rstrip(":")
 			if GlobalConfig.language == Language.FRENCH:
 				abilityName = re.sub("A ?!(?=.{3,})", "AI", abilityName)
 				if "!" in abilityName or "?" in abilityName:
