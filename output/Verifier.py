@@ -170,12 +170,13 @@ def compareInputToOutput(cardIdsToVerify: Union[List[int], None]):
 					print(f"{cardId}: '{fieldname}' differs between {GlobalConfig.language.englishName} '{outputCard[fieldname]}' and English '{englishCard[fieldname]}'")
 			if outputCard["fullText"] or englishCard["fullText"]:
 				for symbol in ("⟳", "⬡", "◊", "¤", "⛉", "◉", "•"):
-					if symbol in outputCard["fullText"] and symbol not in englishCard["fullText"]:
+					expectedCount = englishCard["fullText"].count(symbol)
+					if GlobalConfig.language == Language.FRENCH and symbol == "¤" and "keywordAbilities" in outputCard and "Soutien" in outputCard["keywordAbilities"]:
+						# While most languages use two strength symbols in the Support reminder text, French uses just one. To prevent false positives and negatives, adjust our expectations
+						expectedCount -= 1
+					if outputCard["fullText"].count(symbol) != expectedCount:
 						cardDifferencesCount += 1
-						print(f"{cardId}: Symbol '{symbol}' in {GlobalConfig.language.englishName} fullText but not in English fullText")
-					elif symbol not in outputCard["fullText"] and symbol in englishCard["fullText"]:
-						cardDifferencesCount += 1
-						print(f"{cardId}: Symbol '{symbol}' not in {GlobalConfig.language.englishName} fullText but is in English fullText")
+						print(f"{cardId}: Symbol '{symbol}' occurs {outputCard['fullText'].count(symbol)} times in {GlobalConfig.language.englishName} fullText but {expectedCount} was expected based on English")
 			if "abilities" in outputCard and "abilities" in englishCard:
 				for abilityIndex in range(min(len(outputCard["abilities"]), len(englishCard["abilities"]))):
 					if outputCard["abilities"][abilityIndex]["type"] != englishCard["abilities"][abilityIndex]["type"]:
