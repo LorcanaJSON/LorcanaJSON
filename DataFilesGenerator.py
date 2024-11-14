@@ -159,6 +159,9 @@ def correctText(cardText: str) -> str:
 			cardLine = re.sub(r"(?<=\(Lorsqu'il défie, ce personnage gagne )\+(\d) .\.", fr"+\1 {LorcanaSymbols.STRENGTH}.", cardLine)
 			# Fix second line of 'Challenger'/'Offensif' reminder text
 			cardLine = re.sub(r"^\+(\d) ?[^.]{0,2}\.\)$", fr"+\1 {LorcanaSymbols.STRENGTH}.)", cardLine)
+			# Sometimes a number before 'dommage' gets read as something else, correct that
+			cardLine = re.sub(r"\b[l|] dommage", "1 dommage", cardLine)
+			cardLine = re.sub(r"\bZ dommage", "2 dommage", cardLine)
 			# Misc common mistakes
 			cardLine = cardLine.replace("||", "Il")
 			cardLine = cardLine.replace("Ily", "Il y")
