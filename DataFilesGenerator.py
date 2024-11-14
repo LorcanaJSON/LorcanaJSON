@@ -150,8 +150,8 @@ def correctText(cardText: str) -> str:
 			# Try to recognize it by the first letter afterwards not being capitalized
 			cardLine = re.sub(r"\.+ ([a-z])", r"… \1", cardLine)
 			cardLine = re.sub(r"^‘", "“", cardLine)
-			# "Il" often gets misread as "I!"
-			cardLine = re.sub("(?<![A-Z])[I|/]!", "Il", cardLine)
+			# "Il" often gets misread as "I!" or "[|"
+			cardLine = re.sub(r"(?<![A-Z])[I|/[][!|]", "Il", cardLine)
 			# French always has a space before punctuation marks
 			cardLine = re.sub(r"(\S)!", r"\1 !", cardLine)
 			cardLine = re.sub(r"!(\w)", r"! \1", cardLine)
