@@ -956,7 +956,8 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 					ability["type"] = "triggered"
 				elif GlobalConfig.language == Language.FRENCH and (ability["effect"].startswith("Au début de chacun") or re.match(r"Au début\sde votre tour", ability["effect"]) or ability["effect"].startswith("À la fin d") or
 						re.search(r"(^L|\bl)orsqu(e|'un|'il)\b", ability["effect"]) or re.search(r"(^À c|^C|,\sc)haque\sfois", ability["effect"]) or
-						re.match("Si (?!vous avez|un personnage)", ability["effect"]) or re.search("gagnez .+ pour chaque", ability["effect"])):
+						re.match("Si (?!vous avez|un personnage)", ability["effect"]) or re.search("gagnez .+ pour chaque", ability["effect"]) or
+					    re.search(r"une carte est\splacée", ability["effect"])):
 					ability["type"] = "triggered"
 				else:
 					ability["type"] = "static"
