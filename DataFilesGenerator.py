@@ -58,7 +58,7 @@ def correctText(cardText: str) -> str:
 			cardLine = cardLine[:-2]
 		# The Lore symbol often gets mistaken for a 4, correct hat
 		cardLine = re.sub(r"(\d) 4", fr"\1 {LorcanaSymbols.LORE}", cardLine)
-		if re.match(r"[-+»] \w{2,} \w+", cardLine):
+		if re.match(r"[-+«»] \w{2,} \w+", cardLine):
 			# Assume this is a list, replace the start with the official separator
 			cardLine = LorcanaSymbols.SEPARATOR + cardLine[1:]
 		# A 7 often gets mistaken for a /, correct that
