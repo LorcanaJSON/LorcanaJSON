@@ -173,7 +173,7 @@ def compareInputToOutput(cardIdsToVerify: Union[List[int], None]):
 			if outputCard["fullText"] or englishCard["fullText"]:
 				for symbol in ("⟳", "⬡", "◊", "¤", "⛉", "◉", "•"):
 					expectedCount = englishCard["fullText"].count(symbol)
-					if GlobalConfig.language == Language.FRENCH and symbol == "¤" and "keywordAbilities" in outputCard and "Soutien" in outputCard["keywordAbilities"]:
+					if GlobalConfig.language == Language.FRENCH and symbol == "¤" and "Soutien" in outputCard["fullText"]:
 						# While most languages use two strength symbols in the Support reminder text, French uses just one. To prevent false positives and negatives, adjust our expectations
 						expectedCount -= 1
 					if outputCard["fullText"].count(symbol) != expectedCount:
