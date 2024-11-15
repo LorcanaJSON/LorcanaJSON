@@ -2365,5 +2365,502 @@
         "Madrigal"
       ]
     ]
+  },
+  "1200": {
+    "abilities": [
+      "NV",
+      "N V"
+    ]
+  },
+  "1201": {
+    "artistsText": [
+      "ñ",
+      "ń"
+    ],
+    "flavorText": [
+      "mam",
+      "m'am"
+    ]
+  },
+  "1206": {
+    "abilities": [
+      "ET",
+      "E T"
+    ]
+  },
+  "1208": {
+    "abilities": [
+      "^.+OR\n",
+      ""
+    ]
+  },
+  "1212": {
+    "flavorText": [
+      "IL",
+      "Il ",
+      "j a",
+      "j'a",
+      "e C",
+      "e… C"
+    ]
+  },
+  "1214": {
+    "abilities": [
+      "AIT",
+      "ATT"
+    ]
+  },
+  "1218": {
+    "abilities": [
+      " - ",
+      " — "
+    ]
+  },
+  "1221": {
+    "flavorText": [
+      "c é",
+      "c'é"
+    ]
+  },
+  "1224": {
+    "abilities": [
+      " —$",
+      ""
+    ]
+  },
+  "1225": {
+    "abilities": [
+      "-C",
+      " — C"
+    ]
+  },
+  "1227": {
+    "flavorText": [
+      "^Till",
+      "’Til I",
+      "l'I",
+      "I'l"
+    ]
+  },
+  "1228": {
+    "effects": [
+      "\\S ju",
+      "¤ ju"
+    ]
+  },
+  "1230": {
+    "abilities": [
+      " - ",
+      " — "
+    ]
+  },
+  "1232": {
+    "abilities": [
+      "\\(9",
+      "⟳",
+      " -\n",
+      " —\n"
+    ],
+    "flavorText": [
+      "\\.”",
+      "…”"
+    ]
+  },
+  "1233": {
+    "abilities": [
+      "AV",
+      "A V"
+    ]
+  },
+  "1236": {
+    "abilities": [
+      "\n19",
+      "\n+1 ¤",
+      "Z1M",
+      "ZIM"
+    ]
+  },
+  "1239": {
+    "flavorText": [
+      "\\.”",
+      "…”",
+      "AÂ",
+      "A"
+    ]
+  },
+  "1240": {
+    "abilities": [
+      "RAÎT",
+      "RAIT"
+    ],
+    "flavorText": [
+      "—-",
+      "—"
+    ]
+  },
+  "1243": {
+    "abilities": [
+      "JET",
+      "JE T"
+    ]
+  },
+  "1244": {
+    "flavorText": [
+      "\\? !",
+      "?!"
+    ]
+  },
+  "1246": {
+    "abilities": [
+      "1",
+      "3"
+    ]
+  },
+  "1247": {
+    "artistsText": [
+      "ô",
+      "ó"
+    ]
+  },
+  "1248": {
+    "flavorText": [
+      "oa",
+      "a"
+    ]
+  },
+  "1255": {
+    "abilities": [
+      "\\(9",
+      "⟳"
+    ],
+    "flavorText": [
+      "\\.”",
+      "…”"
+    ]
+  },
+  "1257": {
+    "abilities": [
+      "ETA",
+      "E T'A",
+      "IE",
+      "I E"
+    ]
+  },
+  "1261": {
+    "flavorText": [
+      "—-",
+      "—"
+    ]
+  },
+  "1263": {
+    "_effectAtIndexIsAbility": 0,
+    "effects": [
+      "(?<!\n)\n(?=P)",
+      "\n\n"
+    ]
+  },
+  "1265": {
+    "abilities": [
+      " - ",
+      " — "
+    ]
+  },
+  "1266": {
+    "abilities": [
+      " - ",
+      " — ",
+      "2 %",
+      "2 ¤"
+    ]
+  },
+  "1276": {
+    "flavorText": [
+      "si\\.",
+      "si…"
+    ]
+  },
+  "1291": {
+    "flavorText": [
+      "Ilu",
+      "Illu",
+      "lo\n",
+      "la\n",
+      "\\.$",
+      "…"
+    ]
+  },
+  "1297": {
+    "abilities": [
+      " - ",
+      " — "
+    ]
+  },
+  "1298": {
+    "abilities": [
+      " - ",
+      " — ",
+      "%\\*",
+      "¤"
+    ]
+  },
+  "1309": {
+    "flavorText": [
+      "P \\* 3\n",
+      "J'"
+    ]
+  },
+  "1313": {
+    "flavorText": [
+      "l'",
+      "L'"
+    ]
+  },
+  "1315": {
+    "flavorText": [
+      "IL",
+      "Il "
+    ]
+  },
+  "1320": {
+    "abilities": [
+      "rc",
+      "r c"
+    ]
+  },
+  "1324": {
+    "abilities": [
+      "AV",
+      "A V"
+    ]
+  },
+  "1327": {
+    "effects": [
+      "\\|",
+      "1"
+    ],
+    "flavorText": [
+      "e\\.",
+      "e…"
+    ]
+  },
+  "1331": {
+    "abilities": [
+      " - ",
+      " — "
+    ]
+  },
+  "1332": {
+    "abilities": [
+      ",1",
+      ", 1",
+      " - ",
+      " — "
+    ]
+  },
+  "1337": {
+    "flavorText": [
+      "foim",
+      "faim"
+    ]
+  },
+  "1344": {
+    "abilities": [
+      " - ",
+      " — "
+    ]
+  },
+  "1346": {
+    "abilities": [
+      "2\n",
+      "2 ¤\n"
+    ]
+  },
+  "1352": {
+    "abilities": [
+      "^_ ",
+      ""
+    ]
+  },
+  "1353": {
+    "abilities": [
+      " - ",
+      " — "
+    ]
+  },
+  "1355": {
+    "abilities": [
+      "T'",
+      "T '",
+      "\\*",
+      "'",
+      " - ",
+      " — "
+    ]
+  },
+  "1359": {
+    "abilities": [
+      "©",
+      "¤"
+    ]
+  },
+  "1360": {
+    "abilities": [
+      "NV",
+      "N V"
+    ]
+  },
+  "1364": {
+    "effects": [
+      "\\.\n\n",
+      ".\n"
+    ]
+  },
+  "1365": {
+    "abilities": [
+      " - ",
+      " — "
+    ]
+  },
+  "1367": {
+    "abilities": [
+      "RT",
+      "R T",
+      " - ",
+      " — "
+    ]
+  },
+  "1372": {
+    "abilities": [
+      "©",
+      "¤"
+    ]
+  },
+  "1376": {
+    "flavorText": [
+      ".”",
+      "…”"
+    ]
+  },
+  "1387": {
+    "abilities": [
+      "LY",
+      "L Y",
+      "AD",
+      "A D",
+      " - ",
+      " — "
+    ]
+  },
+  "1397": {
+    "effects": [
+      "&\\*",
+      "¤"
+    ]
+  },
+  "1399": {
+    "abilities": [
+      " - ",
+      " — "
+    ]
+  },
+  "1400": {
+    "abilities": [
+      " - ",
+      " — "
+    ]
+  },
+  "1401": {
+    "abilities": [
+      " - ",
+      " — "
+    ],
+    "flavorText": [
+      "^l",
+      "L"
+    ]
+  },
+  "1405": {
+    "subtypes": [
+      null,
+      [
+        "Storyborn",
+        "Héros",
+        "Princesse"
+      ]
+    ]
+  },
+  "1409": {
+    "abilities": [
+      "\\. \\.",
+      "."
+    ],
+    "artistsText": [
+      " É$",
+      ""
+    ]
+  },
+  "1410": {
+    "artistsText": [
+      "ud",
+      "ug"
+    ],
+    "effects": [
+      null,
+      null
+    ]
+  },
+  "1417": {
+    "abilities": [
+      "F'",
+      "E'",
+      " - ",
+      " — "
+    ]
+  },
+  "1419": {
+    "subtypes": [
+      "m$",
+      "rn"
+    ]
+  },
+  "1420": {
+    "abilities": [
+      "RES",
+      "RÉS"
+    ],
+    "subtypes": [
+      "ê",
+      "é"
+    ]
+  },
+  "1421": {
+    "abilities": [
+      " \\(",
+      " ou"
+    ],
+    "subtypes": [
+      null,
+      null
+    ]
+  },
+  "1425": {
+    "effects": [
+      "\\S ju",
+      "¤ ju"
+    ]
+  },
+  "1429": {
+    "abilities": [
+      "^v",
+      "Lorsque\nv",
+      "ï",
+      "i",
+      "re$",
+      "re\npersonnage au choix."
+    ],
+    "effects": [
+      null,
+      null
+    ]
   }
 }
