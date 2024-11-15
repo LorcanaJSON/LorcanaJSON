@@ -60,6 +60,8 @@ def compareInputToOutput(cardIdsToVerify: Union[List[int], None]):
 				inputRulesText = inputCard["rules_text"].replace("–", "-").replace("\\", "")
 				inputRulesText = re.sub(r"(?<=\w)’(?=\w)", "'", inputRulesText)
 				inputRulesText = inputRulesText.replace("\u00a0", " " if GlobalConfig.language == Language.FRENCH else "").replace("  ", " ")
+				# Sometimes there's no space between the previous ability text and the next label or ability, fix that
+				inputRulesText = re.sub(r"([).])([A-Z])", r"\1 \2", inputRulesText)
 				if GlobalConfig.language == Language.ENGLISH:
 					inputRulesText = inputRulesText.replace("teammates’ ", "teammates' ").replace("players’ ", "players' ")
 				elif GlobalConfig.language == Language.FRENCH:
