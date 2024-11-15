@@ -902,6 +902,11 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 			outputCard["abilities"].append({"name": "", "effect": outputCard["effects"].pop(effectAtIndexIsAbility)})
 			if len(outputCard["effects"]) == 0:
 				del outputCard["effects"]
+	# An effect should never start with a separator; if it does, join it with the previous effect since it should be part of its option list
+	if "effects" in outputCard:
+		for effectIndex in range(len(outputCard["effects"]) - 1, 0, -1):
+			if outputCard["effects"][effectIndex].startswith(LorcanaSymbols.SEPARATOR):
+				outputCard["effects"][effectIndex - 1] += "\n" + outputCard["effects"].pop(effectIndex)
 	# Now we can expand the ability fields with extra info, since it's all been corrected
 	keywordAbilities: List[str] = []
 	if "abilities" in outputCard:
