@@ -66,7 +66,7 @@ _PARSE_SETTINGS_BY_ID: Dict[int, ParseSettings] = {
 	681: _DEFAULT_ENCHANTED_PARSE_SETTINGS,
 	954: _DEFAULT_ENCHANTED_PARSE_SETTINGS,
 	1186: dataclasses.replace(_PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["5"], hasFlavorTextOverride=False),
-	1191: ParseSettings(labelParsingMethod=LABEL_PARSING_METHODS.DEFAULT, textboxOffset=_OPTIONAL_TEXTBOX_OFFSET),
+	1191: ParseSettings(labelParsingMethod=LABEL_PARSING_METHODS.DEFAULT, textboxOffset=_OPTIONAL_TEXTBOX_OFFSET, getIdentifierFromCard=True),
 	1432: ParseSettings(textboxOffset=0, labelParsingMethod=LABEL_PARSING_METHODS.DEFAULT, getIdentifierFromCard=True),
 }
 
