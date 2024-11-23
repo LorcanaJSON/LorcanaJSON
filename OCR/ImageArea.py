@@ -1,4 +1,5 @@
 from collections import namedtuple
+from dataclasses import dataclass
 
 import cv2
 
@@ -15,14 +16,15 @@ TEXT_COLOUR_MIDDLE = TextColour("middle", 127, cv2.THRESH_BINARY)
 
 _Coords = namedtuple("Coords", ("left", "top", "right", "bottom"))
 
+
+@dataclass
 class ImageArea:
-	def __init__(self, keyName: str, description: str, coords: _Coords, textColour: TextColour, isNumeric: bool = False, shouldShowImage: bool = False):
-		self.keyName = keyName
-		self.description = description
-		self.coords = coords
-		self.textColour = textColour
-		self.isNumeric = isNumeric
-		self.shouldShowImage = shouldShowImage
+	keyName: str
+	description: str
+	coords: _Coords
+	textColour: TextColour
+	isNumeric: bool = False
+	shouldShowImage: bool = False
 
 
 # Coordinates are left, top, right, bottom. Based on image size of 1468 x 2048
