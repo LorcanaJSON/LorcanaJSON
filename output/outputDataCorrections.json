@@ -699,6 +699,10 @@
     "nonEnchantedId": [
       946,
       750
+    ],
+    "promoIds": [
+      null,
+      null
     ]
   },
   "907": {
@@ -713,32 +717,10 @@
       "\\1 ⬡"
     ]
   },
-  "945": {
-    "nonPromoId":[
-      null,
-      452
-    ]
-  },
-  "946": {
-    "nonPromoId": [
-      null,
-      750
-    ]
-  },
   "948": {
     "abilities": [
       "3 \\S",
       "3 ¤"
-    ],
-    "nonPromoId": [
-      null,
-      805
-    ]
-  },
-  "949": {
-    "nonPromoId": [
-      null,
-      878
     ]
   },
   "951": {
@@ -749,6 +731,12 @@
     "moveCost": [
       1,
       2
+    ]
+  },
+  "954": {
+    "nonPromoId": [
+      749,
+      899
     ]
   },
   "968": {
@@ -928,19 +916,9 @@
       "+2 ¤.)"
     ]
   },
-  "1179": {
-    "nonPromoId": [
-      null,
-      1021
-    ]
-  },
   "1181": {
     "_moveKeywordsLast": true
   },
-  "1183": {
-    "nonPromoId": [
-      1166,
-      1016
   "1205": {
     "abilities": [
       "1 \\S",

@@ -5,6 +5,7 @@ import requests
 
 import GlobalConfig
 from util import Language
+from util.IdentifierParser import Identifier
 
 
 _LOGGER = logging.getLogger("LorcanaJSON")
@@ -176,28 +177,26 @@ class ExternalLinksHandler:
 		with open(_EXTERNAL_LINKS_FILE_PATH, "w", encoding="utf-8") as externalLinksFile:
 			json.dump(cardsBySet, externalLinksFile, indent=2)
 
-	def getExternalLinksForCard(self, setCode: str, fullIdentifier: str, cardNumber: int, isPromo: bool, hasEnchanted: bool) -> Union[None, Dict[str, str]]:
-		if setCode not in self._externalLinks:
-			raise KeyError(f"Setcode '{setCode}' does not exist in the External IDs data")
-		identifierMatch = _IDENTIFIER_REGEX.search(fullIdentifier)
-		if not identifierMatch:
-			_LOGGER.error(f"Unable to parse full identifier '{fullIdentifier}'")
-			return None
-		identifierNumberString = identifierMatch.group("identifier").lstrip("0")
-		cardNumberString = identifierMatch.group("number")
-		cardExternalLinks: Union[None, Dict[str, str]] = None
-		if isPromo:
-			if identifierNumberString in self._externalLinks["Promos"]:
-				cardExternalLinks = self._externalLinks["Promos"][identifierNumberString]
-			elif cardNumberString in self._externalLinks["Promos"]:
-				cardExternalLinks = self._externalLinks["Promos"][cardNumberString]
+	def getExternalLinksForCard(self, parsedIdentifier: Identifier, hasEnchanted: bool) -> Union[None, Dict[str, str]]:
+		if parsedIdentifier.setCode not in self._externalLinks:
+			raise KeyError(f"Setcode '{parsedIdentifier.setCode}' does not exist in the External IDs data")
+		numberGroupingString = f"{parsedIdentifier.number}/{parsedIdentifier.grouping}"
+		numberString = str(parsedIdentifier.number)
+		if parsedIdentifier.variant:
+			numberString += parsedIdentifier.variant
+		cardExternalLinks = None
+		if parsedIdentifier.isPromo():
+			if numberGroupingString in self._externalLinks["Promos"]:
+				cardExternalLinks = self._externalLinks["Promos"][numberGroupingString]
+			elif numberString in self._externalLinks["Promos"]:
+				cardExternalLinks = self._externalLinks["Promos"][numberString]
 		else:
-			if identifierNumberString in self._externalLinks[setCode]:
-				cardExternalLinks = self._externalLinks[setCode][identifierNumberString]
-			elif cardNumberString in self._externalLinks[setCode]:
-				cardExternalLinks = self._externalLinks[setCode][cardNumberString]
+			if numberGroupingString in self._externalLinks[parsedIdentifier.setCode]:
+				cardExternalLinks = self._externalLinks[parsedIdentifier.setCode][numberGroupingString]
+			elif numberString in self._externalLinks[parsedIdentifier.setCode]:
+				cardExternalLinks = self._externalLinks[parsedIdentifier.setCode][numberString]
 		if not cardExternalLinks:
-			_LOGGER.error(f"Unable to find external ID entry for full identifier '{fullIdentifier}'")
+			_LOGGER.error(f"Unable to find external ID entry for full identifier '{parsedIdentifier}'")
 			return {}
 
 		# Some parts need extra filling in
@@ -205,7 +204,7 @@ class ExternalLinksHandler:
 		cardmarketVersionSuffix = ""
 		if hasEnchanted:
 			cardmarketVersionSuffix = "-V1"
-		elif cardNumber > 204:
+		elif parsedIdentifier.number > 204:
 			cardmarketVersionSuffix = "-V2"
 		cardExternalLinks["cardmarketUrl"] = cardExternalLinks["cardmarketUrl"].format(languageCode=GlobalConfig.language.code, cardmarketLanguageCode=self._cardmarketLanguageCode, cardmarketVersionSuffix=cardmarketVersionSuffix)
 		return cardExternalLinks

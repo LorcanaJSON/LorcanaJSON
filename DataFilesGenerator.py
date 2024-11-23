@@ -5,14 +5,13 @@ import GlobalConfig
 from APIScraping.ExternalLinksHandler import ExternalLinksHandler
 from OCR import ImageParser
 from output.StoryParser import StoryParser
-from util import Language, LorcanaSymbols
+from util import IdentifierParser, Language, LorcanaSymbols
 
 
 _logger = logging.getLogger("LorcanaJSON")
 FORMAT_VERSION = "2.0.1"
 _CARD_CODE_LOOKUP = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 _KEYWORD_REGEX = re.compile(r"(?:^|\n)([A-ZÀ][^.]+)(?= \()")
-_PROMO_MATCH_REGEX = re.compile(r"^\d+[a-z]?/[A-Z]\d+")
 # The card parser is run in threads, and each thread needs to initialize its own ImageParser (otherwise weird errors happen in Tesseract)
 # Store each initialized ImageParser in its own thread storage
 _threadingLocalStorage = threading.local()
@@ -356,8 +355,8 @@ def createOutputFiles(onlyParseIds: Union[None, List[int]] = None, shouldShowIma
 	variantsDeckBuildingIds = {}
 	for cardtype, cardlist in inputData["cards"].items():
 		for card in cardlist:
-			# Promo cards are number x of 'P1', or 'D23' or the like, instead of a number of cards
-			if _PROMO_MATCH_REGEX.match(card["card_identifier"]):
+			parsedIdentifier: IdentifierParser.Identifier = IdentifierParser.parseIdentifier(card["card_identifier"])
+			if parsedIdentifier.isPromo():
 				if card["deck_building_id"] not in promoDeckBuildingIds:
 					promoDeckBuildingIds[card["deck_building_id"]] = []
 				promoDeckBuildingIds[card["deck_building_id"]].append(card["culture_invariant_id"])
@@ -367,12 +366,12 @@ def createOutputFiles(onlyParseIds: Union[None, List[int]] = None, shouldShowIma
 					_logger.info(f"Card {_createCardIdentifier(card)} is Enchanted, but its deckbuilding ID already exists in the Enchanteds list, pointing to ID {enchantedDeckbuildingIds[card['deck_building_id']]}, not storing the ID")
 				else:
 					enchantedDeckbuildingIds[card["deck_building_id"]] = card["culture_invariant_id"]
-			elif int(re.match(r"^\d+", card["card_identifier"]).group(0)) > 204:
+			elif parsedIdentifier.number > 204:
 				# A card numbered higher than the normal 204 that isn't an Enchanted is also most likely a promo card (F.i. the special Q1 cards like ID 1179
 				if card["deck_building_id"] not in promoDeckBuildingIds:
 					promoDeckBuildingIds[card["deck_building_id"]] = []
 				promoDeckBuildingIds[card["deck_building_id"]].append(card["culture_invariant_id"])
-			if re.match(r"^\d+[a-z]/", card["card_identifier"]):
+			if parsedIdentifier.variant is not None:
 				if card["deck_building_id"] not in variantsDeckBuildingIds:
 					variantsDeckBuildingIds[card["deck_building_id"]] = []
 				variantsDeckBuildingIds[card["deck_building_id"]].append(card["culture_invariant_id"])
@@ -521,6 +520,7 @@ def createOutputFiles(onlyParseIds: Union[None, List[int]] = None, shouldShowIma
 				parsedCards["cards"].append(card)
 		with open("parsedCards.json", "w", encoding="utf-8") as parsedCardsFile:
 			json.dump(parsedCards, parsedCardsFile, indent=2)
+
 	# Create separate set files
 	setOutputFolder = os.path.join(outputFolder, "sets")
 	os.makedirs(setOutputFolder, exist_ok=True)
@@ -568,37 +568,30 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 	outputCard["code"] = _CARD_CODE_LOOKUP[cardCodeDigits[0]] + _CARD_CODE_LOOKUP[cardCodeDigits[1]]
 
 	# Get required data by parsing the card image
-	imagePath = os.path.join(imageFolder, f"{outputCard['id']}.jpg")
-	if not os.path.isfile(imagePath):
-		imagePath = os.path.join(imageFolder, f"{outputCard['id']}.png")
-	if not os.path.isfile(imagePath):
-		raise ValueError(f"Unable to find image for card ID {outputCard['id']}")
+	parsedIdentifier: Union[None, IdentifierParser.Identifier] = None
 	isPromoCard: Union[None, bool] = None
 	if "card_identifier" in inputCard:
-		isPromoCard = _PROMO_MATCH_REGEX.match(inputCard["card_identifier"]) is not None
+		parsedIdentifier = IdentifierParser.parseIdentifier(inputCard["card_identifier"])
+		isPromoCard = parsedIdentifier.isPromo()
 	parsedImageAndTextData = _threadingLocalStorage.imageParser.getImageAndTextDataFromImage(
-		imagePath,
+		outputCard["id"],
+		imageFolder,
 		parseFully=isExternalReveal,
-		includeIdentifier=True if isPromoCard is None else isPromoCard,
+		parsedIdentifier=parsedIdentifier,
 		isLocation=cardType == GlobalConfig.translation.Location,
 		hasCardText=inputCard["rules_text"] != "" if "rules_text" in inputCard else None,
 		hasFlavorText=inputCard["flavor_text"] != "" if "flavor_text" in inputCard else None,
 		isEnchanted=outputCard["rarity"] == GlobalConfig.translation.ENCHANTED or inputCard.get("foil_type", None) == "Satin",  # Disney100 cards need Enchanted parsing, foil_type seems best way to determine Disney100
-		isQuest="Q" in inputCard["card_identifier"] if "card_identifier" in inputCard else None,
-		useNewEnchanted=int(inputCard.get("card_identifier", "0")[-1], 10) >= 5,
-		isTextboxOffset=inputCard["culture_invariant_id"] != 1432 and ("/C" in inputCard.get("card_identifier", "") or "/D23" in inputCard.get("card_identifier", "")),
-		useLabelByLinesFallback=(outputCard["rarity"] == GlobalConfig.translation.ENCHANTED and int(inputCard.get("card_identifier", "0")[-1], 10) == 6) or ("/D23" in inputCard.get("card_identifier", "") and inputCard["culture_invariant_id"] not in (1191, 1432)),
  		showImage=shouldShowImage
 	)
 
-	# The card identifier in non-promo cards is mostly correct in the input card,
-	# For promo cards, get the text from the image, since it can differ quite a bit
-	if "card_identifier" in inputCard and isPromoCard is not True:
-		outputCard["fullIdentifier"] = inputCard["card_identifier"].replace(" ", f" {LorcanaSymbols.SEPARATOR} ")
-	else:
+	if parsedImageAndTextData.get("identifier", None) is not None:
 		outputCard["fullIdentifier"] = re.sub(fr" ?\W (?!$)", f" {LorcanaSymbols.SEPARATOR} ", parsedImageAndTextData["identifier"].text)
 		outputCard["fullIdentifier"] = outputCard["fullIdentifier"].replace("I", "/").replace("1P ", "/P ").replace("//", "/").replace(".", "")
 		outputCard["fullIdentifier"] = re.sub(fr" ?[-+] ?", f" {LorcanaSymbols.SEPARATOR} ", outputCard["fullIdentifier"])
+	else:
+		outputCard["fullIdentifier"] = str(parsedIdentifier)
+
 
 	# Get the set and card numbers from the identifier
 	# Use the input card's identifier instead of the output card's, because the former's layout is consistent, while the latter's isn't (mainly in Set 1 promos)
@@ -988,7 +981,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 		outputCard["keywordAbilities"] = keywordAbilities
 	outputCard["artists"] = outputCard["artistsText"].split(" / ")
 	# Add external links (Do this after corrections so we can use a corrected 'fullIdentifier')
-	outputCard["externalLinks"] = _threadingLocalStorage.externalIdsHandler.getExternalLinksForCard(outputCard["setCode"], outputCard["fullIdentifier"], outputCard["number"], isPromoCard is True, "enchantedId" in outputCard)
+	outputCard["externalLinks"] = _threadingLocalStorage.externalIdsHandler.getExternalLinksForCard(parsedIdentifier, "enchantedId" in outputCard)
 	if externalLinksCorrection:
 		correctCardField(outputCard, "externalLinks", externalLinksCorrection[0], externalLinksCorrection[1])
 	# Reconstruct the full card text. Do that after storing and correcting fields, so any corrections will be taken into account

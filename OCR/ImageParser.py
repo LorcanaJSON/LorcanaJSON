@@ -1,36 +1,26 @@
-import logging, math, re, time
+import logging, math, os, re, time
 from collections import namedtuple
-from enum import StrEnum, auto
 from typing import Dict, List, Union
 
 import cv2, tesserocr
 from PIL import Image
 
 import GlobalConfig
-from OCR import ImageArea
-from util import LorcanaSymbols
+from OCR import ImageArea, ParseSettings
+from util import IdentifierParser, LorcanaSymbols
 
 
 ImageAndText = namedtuple("ImageAndText", ("image", "text"))
 
 _ABILITY_LABEL_MARGIN: int = 12
 _FLAVORTEXT_MARGIN: int = 14
-_OPTIONAL_TEXTBOX_OFFSET: int = 41  # Only used if 'isTextboxOffset' is True, for special cards
 _ASSUMED_LABEL_HEIGHT: int = 73
-
-_BLACK = (0, 0, 0)
-_WHITE = (255, 255, 255)
-
-class _LABEL_PARSING_METHODS(StrEnum):
-	DEFAULT = auto()
-	FALLBACK_WHITE_ABILITY_TEXT = auto()
-	FALLBACK_BY_LINES = auto()
 
 
 class ImageParser():
 	def __init__(self, forceGenericModel: bool = False):
 		"""
-		Creae an image parser
+		Create an image parser
 		:param forceGenericModel: If True, force the use of the generic Tesseract model for the language, even if a Lorcana-specific one exists. If False or not provided, uses the Lorcana model if available for the current language. Defaults to False
 		"""
 		self._logger = logging.getLogger("LorcanaJSON")
@@ -54,8 +44,8 @@ class ImageParser():
 		self._tesseractApi.SetVariable("tessedit_fix_hyphens", "0")
 		self._tesseractApi.SetVariable("crunch_early_convert_bad_unlv_chs", "1")
 
-	def getImageAndTextDataFromImage(self, pathToImage: str, parseFully: bool, includeIdentifier: bool = False, isLocation: bool = None, hasCardText: bool = None, hasFlavorText: bool = None,
-									 isEnchanted: bool = None, isQuest: bool = None, useNewEnchanted: bool = False, isTextboxOffset: bool = False, useLabelByLinesFallback: bool = False, showImage: bool = False) -> Dict[str, Union[None, ImageAndText, List[ImageAndText]]]:
+	def getImageAndTextDataFromImage(self, cardId: int, baseImagePath: str, parseFully: bool, parsedIdentifier: IdentifierParser.Identifier = None, isLocation: bool = None, hasCardText: bool = None, hasFlavorText: bool = None,
+									 isEnchanted: bool = None, showImage: bool = False) -> Dict[str, Union[None, ImageAndText, List[ImageAndText]]]:
 		startTime = time.perf_counter()
 		result: Dict[str, Union[None, ImageAndText, List[ImageAndText]]] = {
 			"flavorText": None,
@@ -75,9 +65,14 @@ class ImageParser():
 				"version": None,
 				"willpower": None
 			})
-		cardImage: cv2.Mat = cv2.imread(pathToImage)
+		imagePath = os.path.join(baseImagePath, f"{cardId}.jpg")
+		if not os.path.isfile(imagePath):
+			imagePath = os.path.join(baseImagePath, f"{cardId}.png")
+		if not os.path.isfile(imagePath):
+			raise FileNotFoundError(f"Unable to find image for card ID {cardId}")
+		cardImage: cv2.Mat = cv2.imread(imagePath)
 		if cardImage is None:
-			raise ValueError(f"Card image '{pathToImage}' could not be loaded, possibly because it doesn't exist")
+			raise ValueError(f"Card image '{imagePath}' could not be loaded, possibly because it doesn't exist")
 		cardImageHeight = cardImage.shape[0]
 		cardImageWidth = cardImage.shape[1]
 		if cardImageHeight != ImageArea.IMAGE_HEIGHT or cardImageWidth != ImageArea.IMAGE_WIDTH:
@@ -94,7 +89,7 @@ class ImageParser():
 				# Otherwise, resize it so it matches our image areas
 				self._logger.debug(f"Image is {cardImage.shape}, while it should be {ImageArea.IMAGE_HEIGHT} by {ImageArea.IMAGE_WIDTH}, resizing")
 				cardImage = cv2.resize(cardImage, (ImageArea.IMAGE_WIDTH, ImageArea.IMAGE_HEIGHT), interpolation=cv2.INTER_AREA)
-		self._logger.debug(f"Reading {pathToImage=} finished at {time.perf_counter() - startTime} seconds in")
+		self._logger.debug(f"Reading {imagePath=} finished at {time.perf_counter() - startTime} seconds in")
 
 		# Parse card cost first, since that's always in the top left, regardless of whether the card should later be rotated
 		if parseFully:
@@ -114,13 +109,19 @@ class ImageParser():
 			isEnchanted = not self._isImageBlack(self._getSubImage(cardImage, ImageArea.IS_BORDERLESS_CHECK))
 			#TODO Add way to determine whether this is old- or new-style Enchanted (from set 5 onward the Enchanted design changed)
 
+		# Check if we need to retrieve the identifier
+		if parsedIdentifier is None or parseFully:
+			result["identifier"] = self._getSubImageAndText(greyCardImage, ImageArea.LOCATION_IDENTIFIER if isLocation else ImageArea.CARD_IDENTIFIER)
+			if parsedIdentifier is None:
+				parsedIdentifier = IdentifierParser.parseIdentifier(result["identifier"].text)
+				if not parsedIdentifier:
+					raise ValueError(f"Unable to parse identifier for card ID {cardId}, OCR'ed identifier text is {result['identifier'].text!r}")
+
+		# Now we can determine the parse settings
+		parseSettings = ParseSettings.getParseSettings(cardId, parsedIdentifier, isEnchanted)
+
 		# First determine the card (sub)type
-		if isEnchanted and useNewEnchanted:
-			typesImageArea = ImageArea.NEW_ENCHANTED_LOCATION_TYPE if isLocation else ImageArea.NEW_ENCHANTED_TYPE
-		elif isLocation:
-			typesImageArea = ImageArea.LOCATION_TYPE
-		else:
-			typesImageArea = ImageArea.TYPE
+		typesImageArea = (parseSettings.locationCardLayout if isLocation else parseSettings.cardLayout).types
 		typesImage = self._getSubImage(greyCardImage, typesImageArea)
 		typesImage = self._convertToThresholdImage(typesImage, typesImageArea.textColour)
 		typesImageText = self._imageToString(typesImage).strip("\"'- ")
@@ -136,62 +137,37 @@ class ImageParser():
 			isCharacter = False
 			self._logger.debug(f"Subtype is main type ({typesImageText=}), so not storing as subtypes")
 
-		result["artist"] = self._getSubImageAndText(greyCardImage, ImageArea.LOCATION_ARTIST if isLocation else ImageArea.ARTIST)
-		if parseFully or includeIdentifier or isQuest is None:
-			result["identifier"] = self._getSubImageAndText(greyCardImage, ImageArea.LOCATION_IDENTIFIER if isLocation else ImageArea.CARD_IDENTIFIER)
-			if isQuest is None:
-				lastIdentifierPart = result["identifier"].text.rsplit(" ", 1)[1]
-				isQuest = lastIdentifierPart.startswith("Q") or lastIdentifierPart.startswith("0")  # Also check for '0' because the 'Q' sometimes gets misread
+		if isCharacter:
+			cardLayout = parseSettings.characterCardLayout
+		elif isLocation:
+			cardLayout = parseSettings.locationCardLayout
+		else:
+			cardLayout = parseSettings.cardLayout
+
+		result["artist"] = self._getSubImageAndText(greyCardImage, cardLayout.artist)
 		if parseFully:
 			# Parse from top to bottom
+			result["name"] = self._getSubImageAndText(greyCardImage, cardLayout.name)
 			if isCharacter:
-				result["name"] = self._getSubImageAndText(greyCardImage, ImageArea.CHARACTER_NAME)
-				result["version"] = self._getSubImageAndText(greyCardImage, ImageArea.CHARACTER_VERSION)
-				result["strength"] = self._getSubImageAndText(greyCardImage, ImageArea.STRENGTH)
-				result["willpower"] = self._getSubImageAndText(greyCardImage, ImageArea.WILLPOWER)
+				result["version"] = self._getSubImageAndText(greyCardImage, cardLayout.version)
+				result["strength"] = self._getSubImageAndText(greyCardImage, cardLayout.strength)
+				result["willpower"] = self._getSubImageAndText(greyCardImage, cardLayout.willpower)
 			elif isLocation:
-				result["name"] = self._getSubImageAndText(greyCardImage, ImageArea.LOCATION_NAME)
-				result["version"] = self._getSubImageAndText(greyCardImage, ImageArea.LOCATION_VERSION)
-				result["moveCost"] = self._getSubImageAndText(greyCardImage, ImageArea.LOCATION_MOVE_COST)
-				result["willpower"] = self._getSubImageAndText(greyCardImage, ImageArea.LOCATION_WILLPOWER)
-			else:
-				result["name"] = self._getSubImageAndText(greyCardImage, ImageArea.CARD_NAME)
+				result["version"] = self._getSubImageAndText(greyCardImage, cardLayout.version)
+				result["moveCost"] = self._getSubImageAndText(greyCardImage, cardLayout.moveCost)
+				result["willpower"] = self._getSubImageAndText(greyCardImage, cardLayout.willpower)
 
-		# Determine the textbox area, which is different between characters and non-characters, and between enchanted and non-enchanted characters
-		if isQuest:
-			textBoxImageArea = ImageArea.QUEST_TEXTBOX if isCharacter else ImageArea.QUEST_FULL_WIDTH_TEXT_BOX
-		elif isCharacter:
-			if isEnchanted:
-				textBoxImageArea = ImageArea.NEW_ENCHANTED_CHARACTER_TEXT_BOX if useNewEnchanted else ImageArea.ENCHANTED_CHARACTER_TEXT_BOX
-			else:
-				textBoxImageArea = ImageArea.CHARACTER_TEXT_BOX
-		elif isLocation:
-			if isEnchanted:
-				textBoxImageArea = ImageArea.NEW_ENCHANTED_LOCATION_TEXT_BOX if useNewEnchanted else ImageArea.ENCHANTED_LOCATION_TEXT_BOX
-			else:
-				textBoxImageArea = ImageArea.LOCATION_TEXTBOX
-		else:
-			if isEnchanted:
-				textBoxImageArea = ImageArea.NEW_ENCHANTED_FULL_WIDTH_TEXT_BOX if useNewEnchanted else ImageArea.ENCHANTED_FULL_WIDTH_TEXT_BOX
-			else:
-				textBoxImageArea = ImageArea.FULL_WIDTH_TEXT_BOX
+		if parseSettings.getIdentifierFromCard and result.get("identifier", None) is None:
+			result["identifier"] = self._getSubImageAndText(greyCardImage, cardLayout.identifier)
 
 		# Greyscale images work better, so get one from just the textbox
-		greyTextboxImage = self._getSubImage(greyCardImage, textBoxImageArea)
+		greyTextboxImage = self._getSubImage(greyCardImage, cardLayout.textbox)
 		textboxWidth = greyTextboxImage.shape[1]
 		textboxHeight = greyTextboxImage.shape[0]
-		textboxOffset = _OPTIONAL_TEXTBOX_OFFSET if isTextboxOffset else 0
 
 		# First get the ability label coordinates, so we know where we can find the flavor text separator
 		# Then get the flavor text separator and the flavor text itself
 		# Finally get the ability text, since that goes between the labels and the flavor text
-
-		# Quest cards and Enchanted cards from Set 5 use all-white text, use a fallback method instead of trying to find the labels
-		labelParseMethod: _LABEL_PARSING_METHODS = _LABEL_PARSING_METHODS.DEFAULT
-		if useLabelByLinesFallback:
-			labelParseMethod = _LABEL_PARSING_METHODS.FALLBACK_BY_LINES
-		elif isQuest or (isEnchanted and useNewEnchanted):
-			labelParseMethod = _LABEL_PARSING_METHODS.FALLBACK_WHITE_ABILITY_TEXT
 
 		# Find where the ability name labels are, store them as the top y, bottom y and the right x, so we know where to get the text from
 		# New-style Enchanted cards get parsed differently because this method doesn't find labels on those, it's handled in the 'remainingText' parsing section
@@ -199,11 +175,11 @@ class ImageParser():
 		textboxLinesImage: Image.Image = None
 		labelCoords = []
 		if hasCardText is not False:
-			if labelParseMethod == _LABEL_PARSING_METHODS.DEFAULT:
+			if parseSettings.labelParsingMethod == ParseSettings.LABEL_PARSING_METHODS.DEFAULT:
 				isCurrentlyInLabel: bool = False
 				currentCoords = [0, 0, 0]
 				for y in range(textboxHeight):
-					pixelValue = greyTextboxImage[y, textboxOffset]
+					pixelValue = greyTextboxImage[y, parseSettings.textboxOffset]
 					if isCurrentlyInLabel:
 						# Check if the pixel got lighter, indicating we left the label block
 						if pixelValue > 110:
@@ -220,7 +196,7 @@ class ImageParser():
 						yToCheck = min(textboxHeight - 1, y + 1)  # Check a few lines down to prevent weirdness with the edge of the label box
 						# Find the width of the label. Since accented characters can reach the top of the label, we need several light pixels in succession to be sure the label ended
 						successiveLightPixels: int = 0
-						for x in range(textboxOffset, textboxWidth):
+						for x in range(parseSettings.textboxOffset, textboxWidth):
 							checkValue = greyTextboxImage[yToCheck, x]
 							if checkValue > 120:
 								successiveLightPixels += 1
@@ -243,8 +219,8 @@ class ImageParser():
 							currentCoords = [0, 0, 0]
 							isCurrentlyInLabel = False
 				if isCurrentlyInLabel:
-					self._logger.warning(f"Still in label when end of label check reached in card image '{pathToImage}'")
-			elif labelParseMethod == _LABEL_PARSING_METHODS.FALLBACK_BY_LINES:
+					self._logger.warning(f"Still in label when end of label check reached in card image '{imagePath}'")
+			elif parseSettings.labelParsingMethod == ParseSettings.LABEL_PARSING_METHODS.FALLBACK_BY_LINES:
 				# Find labels by trying to find their top and/or bottom horizontal edge
 				textboxEdgeDetectedImage = cv2.Canny(greyTextboxImage, 50, 200)
 				lines = cv2.HoughLinesP(textboxEdgeDetectedImage, 1, math.pi / 180, 150, minLineLength=125, maxLineGap=3)
@@ -252,7 +228,7 @@ class ImageParser():
 					self._logger.debug("Not found any abiltylabel lines, trying a shorter minimum length")
 					lines = cv2.HoughLinesP(textboxEdgeDetectedImage, 1, math.pi / 180, 150, minLineLength=100, maxLineGap=3)
 				if lines is None:
-					self._logger.warning(f"Expected card to have lines but none were found in card image '{pathToImage}'")
+					self._logger.warning(f"Expected card to have lines but none were found in card image '{imagePath}'")
 				else:
 					# Sort lines from top to bottom
 					lines = sorted(lines, key=lambda l: l[0][1])
@@ -284,24 +260,13 @@ class ImageParser():
 						lastBottomY = bottomY
 		self._logger.debug(f"Finished finding label coords at {time.perf_counter() - startTime} seconds in")
 
-		labelTextColor = ImageArea.TEXT_COLOUR_WHITE
-		thresholdTextColor = ImageArea.TEXT_COLOUR_BLACK
-		labelMaskColor = _BLACK if textBoxImageArea.textColour == ImageArea.TEXT_COLOUR_WHITE else _WHITE
-		if isQuest:
-			thresholdTextColor = ImageArea.TEXT_COLOUR_WHITE
-		elif isEnchanted and useNewEnchanted and not useLabelByLinesFallback:
-			thresholdTextColor = ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND
-		elif useLabelByLinesFallback:
-			labelTextColor = ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND
-			labelMaskColor = _WHITE
-
 		# Find the line dividing the abilities from the flavor text, if needed
 		flavorTextImage = None
 		flavorTextSeparatorY = textboxHeight
 		flavorTextLineDetectionCroppedImage = None
 		flavorTextEdgeDetectedImage = None
 		flavorTextGreyscaleImageWithLines = None
-		if hasFlavorText is not False and (not isEnchanted or not useNewEnchanted):
+		if (parseSettings.hasFlavorTextOverride or (parseSettings.hasFlavorTextOverride is None and hasFlavorText is not False)) and parseSettings.labelParsingMethod != ParseSettings.LABEL_PARSING_METHODS.FALLBACK_BY_LINES:
 			flavorTextImageTop = 0
 			flavorTextLineDetectionCroppedImage = greyTextboxImage
 			if labelCoords:
@@ -344,7 +309,7 @@ class ImageParser():
 						self._logger.warning(f"Flavortext separator Y {flavorTextSeparatorY} plus margin {_FLAVORTEXT_MARGIN} is larger than textbox height {textboxHeight}")
 						hasFlavorText = False
 					else:
-						flavorTextImage = self._convertToThresholdImage(greyTextboxImage[flavorTextSeparatorY + _FLAVORTEXT_MARGIN:textboxHeight, 0:textboxWidth], thresholdTextColor)
+						flavorTextImage = self._convertToThresholdImage(greyTextboxImage[flavorTextSeparatorY + _FLAVORTEXT_MARGIN:textboxHeight, 0:textboxWidth], parseSettings.thresholdTextColor)
 						flavourText = self._imageToString(flavorTextImage)
 						result["flavorText"] = ImageAndText(flavorTextImage, flavourText)
 						self._logger.debug(f"{flavourText=}")
@@ -361,14 +326,14 @@ class ImageParser():
 			labelNumber = len(labelCoords)
 			for labelCoord in labelCoords:
 				# First get the label text itself. It's white on dark, so handle it the opposite way from the actual ability text
-				abilityLabelImage = self._convertToThresholdImage(greyTextboxImage[labelCoord[0]:labelCoord[1], 0:labelCoord[2]], labelTextColor)
+				abilityLabelImage = self._convertToThresholdImage(greyTextboxImage[labelCoord[0]:labelCoord[1], 0:labelCoord[2]], parseSettings.labelTextColor)
 				abilityLabelText = self._imageToString(abilityLabelImage)
 				result["abilityLabels"].append(ImageAndText(abilityLabelImage, abilityLabelText))
 				# Then get the ability text
 				# Put a white rectangle over where the label was, because the thresholding sometimes leaves behind some pixels, which confuses Tesseract, leading to phantom letters
 				abilityTextImage = greyTextboxImage.copy()
-				cv2.rectangle(abilityTextImage, (0, 0), (labelCoord[2] + _ABILITY_LABEL_MARGIN, labelCoord[1]), labelMaskColor, thickness=-1)  # -1 thickness fills the rectangle
-				abilityTextImage = self._convertToThresholdImage(abilityTextImage[labelCoord[0]:previousBlockTopY, 0:textboxWidth], thresholdTextColor)
+				cv2.rectangle(abilityTextImage, (0, 0), (labelCoord[2] + _ABILITY_LABEL_MARGIN, labelCoord[1]), parseSettings.labelMaskColor, thickness=-1)  # -1 thickness fills the rectangle
+				abilityTextImage = self._convertToThresholdImage(abilityTextImage[labelCoord[0]:previousBlockTopY, 0:textboxWidth], parseSettings.thresholdTextColor)
 				abilityText = self._imageToString(abilityTextImage)
 				result["abilityTexts"].append(ImageAndText(abilityTextImage, abilityText))
 				self._logger.debug(f"{abilityLabelText=} ({labelCoord[1] - labelCoord[0]} px high), {abilityText=}")
@@ -382,10 +347,10 @@ class ImageParser():
 
 			# There might be text above the label coordinates too (abilities text), especially if there aren't any labels. Get that text as well
 			if previousBlockTopY > 35:
-				remainingTextImage = self._convertToThresholdImage(greyTextboxImage[0:previousBlockTopY, textboxOffset:textboxWidth], thresholdTextColor)
+				remainingTextImage = self._convertToThresholdImage(greyTextboxImage[0:previousBlockTopY, parseSettings.textboxOffset:textboxWidth], parseSettings.thresholdTextColor)
 				remainingText = self._imageToString(remainingTextImage)
 				if remainingText:
-					if labelParseMethod == _LABEL_PARSING_METHODS.FALLBACK_WHITE_ABILITY_TEXT and re.search("[A-Z]{2,}", remainingText):
+					if parseSettings.labelParsingMethod == ParseSettings.LABEL_PARSING_METHODS.FALLBACK_WHITE_ABILITY_TEXT and re.search("[A-Z]{2,}", remainingText):
 						# Detecting labels on new-style Enchanted cards is hard, so for those the full card text is 'remainingText'
 						# Try to get the labels and effects out
 						labelMatch = re.search("([AÀI] )?[A-ZÊ]{2}", remainingText)
