@@ -42,13 +42,10 @@ class ParseSettings:
 
 _DEFAULT_PARSE_SETTINGS = ParseSettings()
 _DEFAULT_ENCHANTED_PARSE_SETTINGS = ParseSettings(CardLayout.ENCHANTED, CardLayout.ENCHANTED_CHARACTER, CardLayout.ENCHANTED_LOCATION)
+_DEFAULT_NEW_ENCHANTED_PARSE_SETTINGS = ParseSettings(CardLayout.NEW_ENCHANTED, CardLayout.NEW_ENCHANTED_CHARACTER, CardLayout.NEW_ENCHANTED_LOCATION)
 _PARSE_SETTINGS_FOR_ENCHANTED_BY_SET: Dict[str, ParseSettings] = {
-	"1": _DEFAULT_ENCHANTED_PARSE_SETTINGS,
-	"2": _DEFAULT_ENCHANTED_PARSE_SETTINGS,
-	"3": _DEFAULT_ENCHANTED_PARSE_SETTINGS,
-	"4": _DEFAULT_ENCHANTED_PARSE_SETTINGS,
-	"5": ParseSettings(CardLayout.NEW_ENCHANTED, CardLayout.NEW_ENCHANTED_CHARACTER, CardLayout.NEW_ENCHANTED_LOCATION, labelParsingMethod=LABEL_PARSING_METHODS.FALLBACK_WHITE_ABILITY_TEXT, thresholdTextColor=ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND),
-	"6": ParseSettings(CardLayout.NEW_ENCHANTED, CardLayout.NEW_ENCHANTED_CHARACTER, CardLayout.NEW_ENCHANTED_LOCATION, labelParsingMethod=LABEL_PARSING_METHODS.FALLBACK_BY_LINES),
+	"5": dataclasses.replace(_DEFAULT_NEW_ENCHANTED_PARSE_SETTINGS, labelParsingMethod=LABEL_PARSING_METHODS.FALLBACK_WHITE_ABILITY_TEXT, thresholdTextColor=ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND),
+	"6": dataclasses.replace(_DEFAULT_NEW_ENCHANTED_PARSE_SETTINGS, labelParsingMethod=LABEL_PARSING_METHODS.FALLBACK_BY_LINES),
 }
 _PARSE_SETTINGS_BY_SET: Dict[str, ParseSettings] = {
 	"Q1": ParseSettings(labelParsingMethod=LABEL_PARSING_METHODS.FALLBACK_WHITE_ABILITY_TEXT, thresholdTextColor=ImageArea.TEXT_COLOUR_WHITE, labelMaskColor=_BLACK),
@@ -78,6 +75,9 @@ def getParseSettings(cardId: int, identifier: Identifier, isEnchanted: bool) -> 
 		return _PARSE_SETTINGS_BY_GROUPING[identifier.grouping]
 	elif identifier.setCode in _PARSE_SETTINGS_BY_SET:
 		return _PARSE_SETTINGS_BY_SET[identifier.setCode]
-	elif isEnchanted and identifier.setCode in _PARSE_SETTINGS_FOR_ENCHANTED_BY_SET:
-		return _PARSE_SETTINGS_FOR_ENCHANTED_BY_SET[identifier.setCode]
+	elif isEnchanted:
+		if identifier.setCode in _PARSE_SETTINGS_FOR_ENCHANTED_BY_SET:
+			return _PARSE_SETTINGS_FOR_ENCHANTED_BY_SET[identifier.setCode]
+		else:
+			return _DEFAULT_ENCHANTED_PARSE_SETTINGS
 	return _DEFAULT_PARSE_SETTINGS
