@@ -174,6 +174,28 @@ class ExternalLinksHandler:
 					cardExternalLinks = {key: cardExternalLinks[key] for key in sorted(cardExternalLinks)}
 					# and store 'em
 					cardsBySet[cardSetCodeToUse][cardNumber] = cardExternalLinks
+
+		# Downloading and parsing data is done, list differences with the previous file (if it exists)
+		if os.path.isfile(_EXTERNAL_LINKS_FILE_PATH):
+			with open(_EXTERNAL_LINKS_FILE_PATH, "r", encoding="utf-8") as oldExternalLinksFile:
+				oldCardsBySet = json.load(oldExternalLinksFile)
+			for setCode, newSetData in cardsBySet.items():
+				if setCode not in oldCardsBySet:
+					_LOGGER.info(f"Setcode {setCode} exists in the new external-links data but not in the old")
+				else:
+					oldSetData = oldCardsBySet[setCode]
+					for cardId, newCardData in newSetData.items():
+						if cardId not in oldSetData:
+							_LOGGER.info(f"Card ID {cardId} of set {setCode} exists in the new external-links data but not in the old")
+						else:
+							oldCardData = oldSetData[cardId]
+							for externalLinkKey, externalLinkValue in newCardData.items():
+								if externalLinkKey not in oldCardData:
+									_LOGGER.info(f"Key {externalLinkKey} of card {cardId} in set {setCode} exists in the new external-links data but not in the old")
+								elif externalLinkValue != oldCardData[externalLinkKey]:
+									_LOGGER.info(f"Key {externalLinkKey} of card {cardId} in set {setCode} was {oldCardData[externalLinkKey]!r} in the old data but is {externalLinkValue!r} in the new data")
+
+		# Done, save the new data, overwriting the old
 		with open(_EXTERNAL_LINKS_FILE_PATH, "w", encoding="utf-8") as externalLinksFile:
 			json.dump(cardsBySet, externalLinksFile, indent=2)
 
