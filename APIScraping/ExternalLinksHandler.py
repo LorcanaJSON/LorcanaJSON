@@ -196,7 +196,7 @@ class ExternalLinksHandler:
 			elif numberString in self._externalLinks[parsedIdentifier.setCode]:
 				cardExternalLinks = self._externalLinks[parsedIdentifier.setCode][numberString]
 		if not cardExternalLinks:
-			_LOGGER.error(f"Unable to find external ID entry for full identifier '{parsedIdentifier}'")
+			_LOGGER.warning(f"Unable to find external ID entry for full identifier '{parsedIdentifier}'")
 			return {}
 
 		# Some parts need extra filling in
