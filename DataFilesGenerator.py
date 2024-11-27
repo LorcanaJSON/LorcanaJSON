@@ -840,11 +840,11 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 			outputCard["subtypes"] = subtypes
 	# Card-specific corrections
 	externalLinksCorrection: Union[None, List[str]] = None  # externalLinks depends on correct fullIdentifier, which may have a correction, but it also might need a correction itself. So store it for now, and correct it later
-	fullTextCorrection = None  # Since the fullText gets created as the last step, if there is a correction for it, save it for later
-	forceAbilityTypeIndexToTriggered = -1
-	forceAbilityTypeIndexToStatic = -1
-	newlineAfterLabelIndex = -1
-	mergeEffectIndexWithPrevious = -1
+	fullTextCorrection: Union[None, List[str]] = None  # Since the fullText gets created as the last step, if there is a correction for it, save it for later
+	forceAbilityTypeIndexToTriggered: int = -1
+	forceAbilityTypeIndexToStatic: int = -1
+	newlineAfterLabelIndex: int = -1
+	mergeEffectIndexWithPrevious: int = -1
 	if cardDataCorrections:
 		if cardDataCorrections.pop("_moveKeywordsLast", False):
 			if "abilities" not in outputCard or "effect" not in outputCard["abilities"][-1]:
@@ -865,7 +865,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 		forceAbilityTypeIndexToStatic = cardDataCorrections.pop("_forceAbilityIndexToStatic", -1)
 		newlineAfterLabelIndex = cardDataCorrections.pop("_newlineAfterLabelIndex", -1)
 		mergeEffectIndexWithPrevious = cardDataCorrections.pop("_mergeEffectIndexWithPrevious", -1)
-		effectAtIndexIsAbility = cardDataCorrections.pop("_effectAtIndexIsAbility", -1)
+		effectAtIndexIsAbility: int = cardDataCorrections.pop("_effectAtIndexIsAbility", -1)
 		externalLinksCorrection = cardDataCorrections.pop("externalLinks", None)
 		fullTextCorrection = cardDataCorrections.pop("fullText", None)
 		for fieldName, correction in cardDataCorrections.items():
