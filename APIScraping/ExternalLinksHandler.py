@@ -201,7 +201,7 @@ class ExternalLinksHandler:
 
 	def getExternalLinksForCard(self, parsedIdentifier: Identifier, hasEnchanted: bool) -> Union[None, Dict[str, str]]:
 		if parsedIdentifier.setCode not in self._externalLinks:
-			raise KeyError(f"Setcode '{parsedIdentifier.setCode}' does not exist in the External IDs data")
+			_LOGGER.error(f"Setcode '{parsedIdentifier.setCode}' does not exist in the External IDs data")
 		numberGroupingString = f"{parsedIdentifier.number}/{parsedIdentifier.grouping}"
 		numberString = str(parsedIdentifier.number)
 		if parsedIdentifier.variant:
