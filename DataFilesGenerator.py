@@ -590,7 +590,6 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 	else:
 		outputCard["fullIdentifier"] = str(parsedIdentifier)
 
-
 	# Get the set and card numbers from the identifier
 	# Use the input card's identifier instead of the output card's, because the former's layout is consistent, while the latter's isn't (mainly in Set 1 promos)
 	cardIdentifierMatch = re.match(r"^(\d+)([a-z])?/[A-Z]?[0-9]+ .+ (Q?\d+)$", inputCard["card_identifier"])
