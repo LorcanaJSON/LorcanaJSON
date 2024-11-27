@@ -59,9 +59,10 @@ def checkForNewCardData(newCardCatalog: Dict = None, fieldsToIgnore: List[str] =
 						_logger.warning(f"Unable to find properly sized image in old data for card ID {cardId}")
 					if imageUrl != oldImageUrl:
 						possibleImageChanges.append((cardId, cardDescriptor, imageUrl))
-					# Remove the field so it doesn't get checked twice
-					del card["image_urls"]
 				for fieldName, fieldValue in card.items():
+					if fieldName == "image_urls":
+						# Skip the image_urls field since we already checked it
+						continue
 					if fieldsToIgnore and fieldName in fieldsToIgnore:
 						continue
 					if fieldName not in oldCard:
