@@ -1012,8 +1012,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 	if "story" in inputCard:
 		outputCard["story"] = inputCard["story"]
 	else:
-		storyName = storyParser.getStoryNameForCard(outputCard, outputCard["id"])
-		outputCard["story"] = storyName if storyName else "[[unknown]]"
+		outputCard["story"] = storyParser.getStoryNameForCard(outputCard, outputCard["id"])
 	if "foil_type" in inputCard:
 		outputCard["foilTypes"] = ["None"] if inputCard["foil_type"] is None else [inputCard["foil_type"]]
 	elif not isExternalReveal:
