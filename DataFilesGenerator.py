@@ -492,8 +492,8 @@ def createOutputFiles(onlyParseIds: Union[None, List[int]] = None, shouldShowIma
 	if cardDataCorrections:
 		# Some card corrections are left, which shouldn't happen
 		_logger.warning(f"{len(cardDataCorrections):,} card corrections left, which shouldn't happen: {cardDataCorrections}")
-	# Sort the cards by set and cardnumber
-	fullCardList.sort(key=lambda card: card["id"])
+	# Sort the cards by set and card number
+	fullCardList.sort(key=lambda c: c["id"])
 	os.makedirs(outputFolder, exist_ok=True)
 	# Add metadata
 	metaDataDict = {"formatVersion": FORMAT_VERSION, "generatedOn": datetime.datetime.utcnow().isoformat(timespec="seconds"), "language": GlobalConfig.language.code}
