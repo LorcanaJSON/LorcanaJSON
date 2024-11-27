@@ -569,10 +569,8 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 
 	# Get required data by parsing the card image
 	parsedIdentifier: Union[None, IdentifierParser.Identifier] = None
-	isPromoCard: Union[None, bool] = None
 	if "card_identifier" in inputCard:
 		parsedIdentifier = IdentifierParser.parseIdentifier(inputCard["card_identifier"])
-		isPromoCard = parsedIdentifier.isPromo()
 	parsedImageAndTextData = _threadingLocalStorage.imageParser.getImageAndTextDataFromImage(
 		outputCard["id"],
 		imageFolder,
