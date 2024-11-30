@@ -129,13 +129,13 @@ class ExternalLinksHandler:
 				if setCodeToUse in _CORRECTIONS and cardNumber in _CORRECTIONS[setCodeToUse] and card["name"] in _CORRECTIONS[setCodeToUse][cardNumber]:
 					_LOGGER.info(f"Correcting card '{card['name']}', changing setcode '{setCodeToUse}' and cardnumber '{cardNumber}' to {_CORRECTIONS[setCodeToUse][cardNumber][card['name']]}")
 					cardSetCodeToUse, cardNumber = _CORRECTIONS[setCodeToUse][cardNumber][card["name"]]
-				if cardNumber in cardsBySet[cardSetCodeToUse]:
-					# Card with this number already exists
-					otherCard = cardsBySet[cardSetCodeToUse][cardNumber]
-					_LOGGER.error(f"While adding card '{card['name']}' from set '{expansionName}', already found card '{otherCard['name']}' with number {cardNumber} in setcode {cardSetCodeToUse} named '{otherCard['expansion']}'")
 				# Label cards from the first promo series as such, to make constructing URLs easier
 				if cardSetCodeToUse == "Promos" and "/" not in cardNumber:
 					cardNumber += "/P1"
+				if cardNumber in cardsBySet[cardSetCodeToUse]:
+					# Card with this number already exists
+					_LOGGER.error(f"While adding card '{card['name']}' from set '{expansionName}', already found card with number {cardNumber} in setcode {cardSetCodeToUse}")
+					continue
 				# Only add ID fields if they exist
 				cardExternalLinks = {}
 				if card["card_market_ids"]:
