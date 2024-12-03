@@ -1,5 +1,6 @@
 {
   "loglevel": "warning",
   "tesseractPath": "",
-  "cardTraderToken": ""
+  "cardTraderToken": "",
+  "threadCount": 0
 }
