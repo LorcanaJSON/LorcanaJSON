@@ -1,4 +1,16 @@
 {
+  "62": [
+    {
+      "effects": [
+        "Return a character or item with cost 2 or less to their\nplayer's hand."
+      ],
+      "fullText": "Return a character or item with cost 2 or less to their\nplayer's hand.",
+      "fullTextSections": [
+        "Return a character or item with cost 2 or less to their\nplayer's hand."
+      ],
+      "usedUntil": "2023-09-29"
+    }
+  ],
   "289": [
     {
       "abilities": [
@@ -25,6 +37,37 @@
         "Ward"
       ],
       "usedUntil": "2024-08-09"
+    }
+  ],
+  "312": [
+    {
+      "effects": [
+        "Return chosen character of yours to your hand to play another\ncharacter with the same cost or less for free."
+      ],
+      "fullText": "(A character with cost 3 or more can \u27f3 to sing this song for\nfree.)\nReturn chosen character of yours to your hand to play another\ncharacter with the same cost or less for free.",
+      "fullTextSections": [
+        "(A character with cost 3 or more can \u27f3 to sing this song for\nfree.)",
+        "Return chosen character of yours to your hand to play another\ncharacter with the same cost or less for free."
+      ],
+      "usedUntil": "2024-08-23"
+    }
+  ],
+  "323": [
+    {
+      "artists": [
+        "Michael \"Cookie\" Niewiadomy"
+      ],
+      "artistsText": "Michael \"Cookie\" Niewiadomy",
+      "usedUntil": "2024-08-23"
+    }
+  ],
+  "333": [
+    {
+      "artists": [
+        "Michael \"Cookie\" Niewiadomy"
+      ],
+      "artistsText": "Michael \"Cookie\" Niewiadomy",
+      "usedUntil": "2024-08-23"
     }
   ],
   "581": [
@@ -62,6 +105,70 @@
         "Ward"
       ],
       "usedUntil": "2024-08-09"
+    }
+  ],
+  "728": [
+    {
+      "artists": [
+        "Angelina Ricardo"
+      ],
+      "artistsText": "Angelina Ricardo",
+      "usedUntil": "2024-08-23"
+    }
+  ],
+  "770": [
+    {
+        "subtypes": [
+          "Dreamborn",
+          "Ally"
+        ],
+      "usedUntil": "2024-08-23"
+    }
+  ],
+  "800": [
+    {
+        "subtypes": [
+          "Dreamborn",
+          "Ally"
+        ],
+      "usedUntil": "2024-08-23"
+    }
+  ],
+  "828": [
+    {
+        "subtypes": [
+          "Dreamborn",
+          "Ally"
+        ],
+      "usedUntil": "2024-08-23"
+    }
+  ],
+  "859": [
+    {
+      "artists": [
+        "Gregor Krysinski"
+      ],
+      "artistsText": "Gregor Krysinski",
+      "usedUntil": "2024-08-23"
+    }
+  ],
+  "879": [
+    {
+      "artists": [
+        "Cristian Romero"
+      ],
+      "artistsText": "Cristian Romero",
+      "usedUntil": "2024-08-23"
+    }
+  ],
+  "1117": [
+    {
+      "artists": [
+        "Michela Cacciatore",
+        "Giulia Riva"
+      ],
+      "artistsText": "Michela Cacciatore / Giulia Riva",
+      "usedUntil": "2024-08-23"
     }
   ]
 }
