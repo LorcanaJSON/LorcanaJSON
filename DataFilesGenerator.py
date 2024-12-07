@@ -488,6 +488,7 @@ def createOutputFiles(onlyParseIds: Union[None, List[int]] = None, shouldShowIma
 	for result in results:
 		outputCard = result.get()
 		fullCardList.append(outputCard)
+	_logger.info(f"Created card list in {time.perf_counter() - startTime} seconds")
 
 	if cardDataCorrections:
 		# Some card corrections are left, which shouldn't happen
@@ -547,7 +548,7 @@ def createOutputFiles(onlyParseIds: Union[None, List[int]] = None, shouldShowIma
 			setsZipfile.write(setFilePath, os.path.basename(setFilePath))
 	_createMd5ForFile(setsZipfilePath)
 
-	_logger.info(f"Creating the output files took {time.perf_counter() - startTime:.4f} seconds")
+	_logger.info(f"Created the set files in {time.perf_counter() - startTime:.4f} seconds")
 
 def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchantedNonEnchantedId: Union[int, None], promoNonPromoId: Union[int, List[int], None], variantIds: Union[List[int], None],
 					 cardDataCorrections: Dict, storyParser: StoryParser, isExternalReveal: bool, historicData: List[Dict], shouldShowImage: bool = False) -> Dict:
