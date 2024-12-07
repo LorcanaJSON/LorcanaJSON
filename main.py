@@ -183,16 +183,19 @@ if __name__ == '__main__':
 			print("ERROR: Please provide one or more card IDs to show with the '--cardIds' argument")
 			sys.exit(-3)
 		baseImagePath = os.path.join("downloads", "images", GlobalConfig.language.code)
+		baseExternalImagePath = os.path.join(baseImagePath, "external")
 		for cardId in cardIds:
+			baseImagePathForCard = baseImagePath
 			cardPath = os.path.join(baseImagePath, f"{cardId}.jpg")
 			if not os.path.isfile(cardPath):
-				cardPath = os.path.join(baseImagePath, "external", f"{cardId}.png")
+				baseImagePathForCard = baseExternalImagePath
+				cardPath = os.path.join(baseImagePathForCard, f"{cardId}.png")
 			if not os.path.isfile(cardPath):
-				cardPath = os.path.join(baseImagePath, "external", f"{cardId}.jpg")
+				cardPath = os.path.join(baseImagePathForCard, f"{cardId}.jpg")
 			if not os.path.isfile(cardPath):
 				print(f"ERROR: Unable to find local image for card ID {cardId}. Please run the 'download' command first, and make sure you didn't make a typo in the ID")
-				sys.exit(-4)
-			parsedImageAndTextData = ImageParser().getImageAndTextDataFromImage(cardPath, True, showImage=True)
+				continue
+			parsedImageAndTextData = ImageParser().getImageAndTextDataFromImage(cardId, baseImagePathForCard, True, showImage=True)
 			print(f"Card ID {cardId}")
 			for fieldName, fieldResult in parsedImageAndTextData.items():
 				if fieldResult is None:
