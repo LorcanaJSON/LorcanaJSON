@@ -842,6 +842,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 	# Card-specific corrections
 	externalLinksCorrection: Union[None, List[str]] = None  # externalLinks depends on correct fullIdentifier, which may have a correction, but it also might need a correction itself. So store it for now, and correct it later
 	fullTextCorrection: Union[None, List[str]] = None  # Since the fullText gets created as the last step, if there is a correction for it, save it for later
+	forceAbilityTypeIndexToActivated: int = -1
 	forceAbilityTypeIndexToTriggered: int = -1
 	forceAbilityTypeIndexToStatic: int = -1
 	newlineAfterLabelIndex: int = -1
@@ -862,6 +863,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 				outputCard["abilities"].append({"type": "keyword", "fullText": keywordText})
 			else:
 				_logger.error(f"'keywordsLast' set but keyword couldn't be found for card {outputCard['id']}")
+		forceAbilityTypeIndexToActivated = cardDataCorrections.pop("_forceAbilityIndexToActivated", -1)
 		forceAbilityTypeIndexToTriggered = cardDataCorrections.pop("_forceAbilityIndexToTriggered", -1)
 		forceAbilityTypeIndexToStatic = cardDataCorrections.pop("_forceAbilityIndexToStatic", -1)
 		newlineAfterLabelIndex = cardDataCorrections.pop("_newlineAfterLabelIndex", -1)
@@ -925,13 +927,16 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 				keywordAbilities.append(keyword)
 			else:
 				# Non-keyword ability, determine which type it is
+				ability["type"] = "static"
 				activatedAbilityMatch = re.search("[ \n][-–—][ \n]", ability["effect"])
-				if forceAbilityTypeIndexToTriggered == abilityIndex:
+				if forceAbilityTypeIndexToActivated == abilityIndex:
+					_logger.info(f"Forcing ability type at index {abilityIndex} of card ID {outputCard['id']} to 'activated'")
+					ability["type"] = "activated"
+				elif forceAbilityTypeIndexToTriggered == abilityIndex:
 					_logger.info(f"Forcing ability type at index {abilityIndex} of card ID {outputCard['id']} to 'triggered'")
 					ability["type"] = "triggered"
 				elif forceAbilityTypeIndexToStatic == abilityIndex:
 					_logger.info(f"Forcing ability type at index {abilityIndex} of card ID {outputCard['id']} to 'static'")
-					ability["type"] = "static"
 				# Activated abilities require a cost, a dash, and then an effect
 				# Some static abilities give characters such an activated ability, don't trigger on that
 				# Some cards contain their own name (e.g. 'Dalmatian Puppy - Tail Wagger', ID 436), don't trigger on that dash either
@@ -942,16 +947,19 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 					ability["type"] = "activated"
 					ability["costsText"] = ability["effect"][:activatedAbilityMatch.start()]
 					ability["effect"] = ability["effect"][activatedAbilityMatch.end():]
-				elif GlobalConfig.language == Language.ENGLISH and (ability["effect"].startswith("At the start of") or ability["effect"].startswith("At the end of") or
-						re.search(r"(^W|,[ \n]w)hen(ever)?[ \n]", ability["effect"]) or re.search("when (he|she|it|they) enters play", ability["effect"])):
-					ability["type"] = "triggered"
-				elif GlobalConfig.language == Language.FRENCH and (ability["effect"].startswith("Au début de chacun") or re.match(r"Au début\sde votre tour", ability["effect"]) or ability["effect"].startswith("À la fin d") or
+				elif GlobalConfig.language == Language.ENGLISH:
+					if ability["effect"].startswith("Once per turn, you may"):
+						ability["type"] = "activated"
+					elif (ability["effect"].startswith("At the start of") or ability["effect"].startswith("At the end of") or	re.search(r"(^W|,[ \n]w)hen(ever)?[ \n]", ability["effect"])
+							or re.search("when (he|she|it|they) enters play", ability["effect"])):
+						ability["type"] = "triggered"
+				elif GlobalConfig.language == Language.FRENCH:
+					if ability["effect"].startswith("Une fois par tour, vous pouvez"):
+						ability["type"] = "activated"
+					elif (ability["effect"].startswith("Au début de chacun") or re.match(r"Au début\sde votre tour", ability["effect"]) or ability["effect"].startswith("À la fin d") or
 						re.search(r"(^L|\bl)orsqu(e|'un|'il)\b", ability["effect"]) or re.search(r"(^À c|^C|,\sc)haque\sfois", ability["effect"]) or
 						re.match("Si (?!vous avez|un personnage)", ability["effect"]) or re.search("gagnez .+ pour chaque", ability["effect"]) or
 						re.search(r"une carte est\splacée", ability["effect"])):
-					ability["type"] = "triggered"
-				else:
-					ability["type"] = "static"
 				# All parts determined, now reconstruct the full ability text
 				if "name" in ability and not ability["name"]:
 					# Abilities added through corrections may have an empty name, remove that
