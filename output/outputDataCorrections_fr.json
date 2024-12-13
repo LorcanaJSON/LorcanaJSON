@@ -2906,19 +2906,5 @@
       "\\S ju",
       "¤ ju"
     ]
-  },
-  "1429": {
-    "abilities": [
-      "^v",
-      "Lorsque\nv",
-      "ï",
-      "i",
-      "re$",
-      "re\npersonnage au choix."
-    ],
-    "effects": [
-      null,
-      null
-    ]
   }
 }
