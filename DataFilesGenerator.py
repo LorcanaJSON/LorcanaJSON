@@ -729,7 +729,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 			remainingTextLine = correctText(remainingTextLine)
 			# Check if this is a keyword ability
 			if outputCard["type"] == GlobalConfig.translation.Character or outputCard["type"] == GlobalConfig.translation.Action:
-				if remainingTextLine.startswith("("):
+				if remainingTextLine.startswith("(") and ")" in remainingText:
 					# Song cards have reminder text of how Songs work, and for instance 'Flotsam & Jetsam - Entangling Eels' (ID 735) has a bracketed phrase at the bottom
 					# Treat those as static abilities
 					abilities.append({"effect": remainingTextLine})
