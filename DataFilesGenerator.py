@@ -497,7 +497,7 @@ def createOutputFiles(onlyParseIds: Union[None, List[int]] = None, shouldShowIma
 	fullCardList.sort(key=lambda c: c["id"])
 	os.makedirs(outputFolder, exist_ok=True)
 	# Add metadata
-	metaDataDict = {"formatVersion": FORMAT_VERSION, "generatedOn": datetime.datetime.now().isoformat(timespec="seconds"), "language": GlobalConfig.language.code}
+	metaDataDict = {"formatVersion": FORMAT_VERSION, "generatedOn": datetime.datetime.now(datetime.UTC).strftime("%Y-%m-%dT%H:%M:%S"), "language": GlobalConfig.language.code}
 	outputDict = {"metadata": metaDataDict}
 
 	# Add set data
