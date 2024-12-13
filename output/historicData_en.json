@@ -118,19 +118,20 @@
   ],
   "770": [
     {
-        "subtypes": [
-          "Dreamborn",
-          "Ally"
-        ],
+      "subtypes": [
+        "Dreamborn",
+        "Ally"
+      ],
       "usedUntil": "2024-08-23"
     }
   ],
   "800": [
     {
-        "subtypes": [
-          "Dreamborn",
-          "Ally"
-        ],
+      "subtypes": [
+        "Storyborn",
+        "Hero",
+        "Prince"
+      ],
       "usedUntil": "2024-08-23"
     }
   ],
