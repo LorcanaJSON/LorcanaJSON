@@ -1,4 +1,70 @@
 {
+  "193": [
+    {
+      "abilities": [
+        {
+          "fullText": "Alter 4 (Vous pouvez payer 4 \u2b21 pour jouer ce personnage\nsur un autre personnage Clochette)",
+          "keyword": "Alter",
+          "keywordValue": "4",
+          "keywordValueNumber": 4,
+          "reminderText": "Vous pouvez payer 4 \u2b21 pour jouer ce personnage sur un autre personnage Clochette",
+          "type": "keyword"
+        },
+        {
+          "effect": "Lorsque vous jouez ce personnage, infligez 1 dommage \u00e0 chaque personnage adverse.",
+          "fullText": "SECOUE LE BATEAU Lorsque vous jouez ce personnage,\ninfligez 1 dommage \u00e0 chaque personnage adverse.",
+          "name": "SECOUE LE BATEAU",
+          "type": "triggered"
+        },
+        {
+          "effect": "Lorsque ce personnage en bannit un autre via un d\u00e9fi durant votre tour, vous pouvez choisir un personnage adverse et lui infliger 2 dommages.",
+          "fullText": "PETIT PIRATE ! Lorsque ce personnage en bannit un autre\nvia un d\u00e9fi durant votre tour, vous pouvez choisir un\npersonnage adverse et lui infliger 2 dommages.",
+          "name": "PETIT PIRATE !",
+          "type": "triggered"
+        }
+      ],
+      "fullText": "Alter 4 (Vous pouvez payer 4 \u2b21 pour jouer ce personnage\nsur un autre personnage Clochette)\nSECOUE LE BATEAU Lorsque vous jouez ce personnage,\ninfligez 1 dommage \u00e0 chaque personnage adverse.\nPETIT PIRATE ! Lorsque ce personnage en bannit un autre\nvia un d\u00e9fi durant votre tour, vous pouvez choisir un\npersonnage adverse et lui infliger 2 dommages.",
+      "fullTextSections": [
+        "Alter 4 (Vous pouvez payer 4 \u2b21 pour jouer ce personnage\nsur un autre personnage Clochette)",
+        "SECOUE LE BATEAU Lorsque vous jouez ce personnage,\ninfligez 1 dommage \u00e0 chaque personnage adverse.",
+        "PETIT PIRATE ! Lorsque ce personnage en bannit un autre\nvia un d\u00e9fi durant votre tour, vous pouvez choisir un\npersonnage adverse et lui infliger 2 dommages."
+      ],
+      "usedUntil": "2024-08-23"
+    }
+  ],
+  "216": [
+    {
+      "abilities": [
+        {
+          "fullText": "Alter 4 (Vous pouvez payer 4 \u2b21 pour jouer ce personnage\nsur un autre personnage Clochette)",
+          "keyword": "Alter",
+          "keywordValue": "4",
+          "keywordValueNumber": 4,
+          "reminderText": "Vous pouvez payer 4 \u2b21 pour jouer ce personnage sur un autre personnage Clochette",
+          "type": "keyword"
+        },
+        {
+          "effect": "Lorsque vous jouez ce personnage, infligez 1 dommage \u00e0 chaque personnage adverse.",
+          "fullText": "SECOUE LE BATEAU Lorsque vous jouez ce personnage,\ninfligez 1 dommage \u00e0 chaque personnage adverse.",
+          "name": "SECOUE LE BATEAU",
+          "type": "triggered"
+        },
+        {
+          "effect": "Lorsque ce personnage en bannit un autre via un d\u00e9fi durant votre tour, vous pouvez choisir un personnage adverse et lui infliger 2 dommages.",
+          "fullText": "PETIT PIRATE ! Lorsque ce personnage en bannit un autre via\nun d\u00e9fi durant votre tour, vous pouvez choisir un personnage\nadverse et lui infliger 2 dommages.",
+          "name": "PETIT PIRATE !",
+          "type": "triggered"
+        }
+      ],
+      "fullText": "Alter 4 (Vous pouvez payer 4 \u2b21 pour jouer ce personnage\nsur un autre personnage Clochette)\nSECOUE LE BATEAU Lorsque vous jouez ce personnage,\ninfligez 1 dommage \u00e0 chaque personnage adverse.\nPETIT PIRATE ! Lorsque ce personnage en bannit un autre via\nun d\u00e9fi durant votre tour, vous pouvez choisir un personnage\nadverse et lui infliger 2 dommages.",
+      "fullTextSections": [
+        "Alter 4 (Vous pouvez payer 4 \u2b21 pour jouer ce personnage\nsur un autre personnage Clochette)",
+        "SECOUE LE BATEAU Lorsque vous jouez ce personnage,\ninfligez 1 dommage \u00e0 chaque personnage adverse.",
+        "PETIT PIRATE ! Lorsque ce personnage en bannit un autre via\nun d\u00e9fi durant votre tour, vous pouvez choisir un personnage\nadverse et lui infliger 2 dommages."
+      ],
+      "usedUntil": "2024-08-23"
+    }
+  ],
   "289": [
     {
       "abilities": [
@@ -27,6 +93,24 @@
       "usedUntil": "2024-08-09"
     }
   ],
+  "509": [
+    {
+      "abilities": [
+        {
+          "effect": "Lorsque vous jouez ce personnage, l'adversaire ou les adversaires ayant le plus de cartes en main choisissent une carte et la d\u00e9faussent.",
+          "fullText": "IMMONDE COQUIN Lorsque vous jouez ce\npersonnage, l'adversaire ou les adversaires ayant\nle plus de cartes en main choisissent une carte et\nla d\u00e9faussent.",
+          "name": "IMMONDE COQUIN",
+          "type": "triggered"
+        }
+      ],
+      "fullName": "Fr\u00e8re Tuck - Pr\u00eatre de Nottingham",
+      "fullText": "IMMONDE COQUIN Lorsque vous jouez ce\npersonnage, l'adversaire ou les adversaires ayant\nle plus de cartes en main choisissent une carte et\nla d\u00e9faussent.",
+      "fullTextSections": [
+        "IMMONDE COQUIN Lorsque vous jouez ce\npersonnage, l'adversaire ou les adversaires ayant\nle plus de cartes en main choisissent une carte et\nla d\u00e9faussent."
+      ],
+      "usedUntil": "2024-08-23"
+    }
+  ],
   "581": [
     {
         "subtypes": [
@@ -34,6 +118,150 @@
           "Allié"
         ],
       "usedUntil": "2024-11-04"
+    }
+  ],
+  "583": [
+    {
+      "abilities": [
+        {
+          "fullText": "Alter 3 (Vous pouvez payer 3 \u2b21 pour jouer ce\npersonnage sur l'un de vos personnages Kit.)",
+          "keyword": "Alter",
+          "keywordValue": "3",
+          "keywordValueNumber": 3,
+          "reminderText": "Vous pouvez payer 3 \u2b21 pour jouer ce personnage sur l'un de vos personnages Kit.",
+          "type": "keyword"
+        },
+        {
+          "fullText": "Hors d'atteinte (Les adversaires ne peuvent pas\nd\u00e9fier ce personnage, hormis pour un d\u00e9fi.)",
+          "keyword": "Hors d'atteinte",
+          "reminderText": "Les adversaires ne peuvent pas d\u00e9fier ce personnage, hormis pour un d\u00e9fi.",
+          "type": "keyword"
+        }
+      ],
+      "fullText": "Alter 3 (Vous pouvez payer 3 \u2b21 pour jouer ce\npersonnage sur l'un de vos personnages Kit.)\nHors d'atteinte (Les adversaires ne peuvent pas\nd\u00e9fier ce personnage, hormis pour un d\u00e9fi.)",
+      "fullTextSections": [
+        "Alter 3 (Vous pouvez payer 3 \u2b21 pour jouer ce\npersonnage sur l'un de vos personnages Kit.)",
+        "Hors d'atteinte (Les adversaires ne peuvent pas\nd\u00e9fier ce personnage, hormis pour un d\u00e9fi.)"
+      ],
+      "usedUntil": "2024-08-23"
+    }
+  ],
+  "638": [
+    {
+      "abilities": [
+        {
+          "effect": "Les personnages sur ce lieu gagne R\u00e9sistance +1. (Les dommages qui leur sont inflig\u00e9s sont r\u00e9duits de 1.)",
+          "fullText": "ISOL\u00c9 Les personnages sur ce lieu gagne R\u00e9sistance +1. (Les dommages qui\nleur sont inflig\u00e9s sont r\u00e9duits de 1.)",
+          "name": "ISOL\u00c9",
+          "type": "static"
+        }
+      ],
+      "fullText": "ISOL\u00c9 Les personnages sur ce lieu gagne R\u00e9sistance +1. (Les dommages qui\nleur sont inflig\u00e9s sont r\u00e9duits de 1.)",
+      "fullTextSections": [
+        "ISOL\u00c9 Les personnages sur ce lieu gagne R\u00e9sistance +1. (Les dommages qui\nleur sont inflig\u00e9s sont r\u00e9duits de 1.)"
+      ],
+      "usedUntil": "2024-08-23"
+    }
+  ],
+  "728": [
+    {
+      "artists": [
+        "Angelina Ricardo"
+      ],
+      "artistsText": "Angelina Ricardo",
+      "usedUntil": "2024-08-23"
+    }
+  ],
+  "770": [
+    {
+      "subtypes": [
+        "Dreamborn",
+        "Alli\u00e9"
+      ],
+      "usedUntil": "2024-08-23"
+    }
+  ],
+  "800": [
+    {
+      "subtypes": [
+        "Dreamborn",
+        "H\u00e9ros",
+        "Prince"
+      ],
+      "usedUntil": "2024-08-23"
+    }
+  ],
+  "828": [
+    {
+      "subtypes": [
+        "Dreamborn",
+        "H\u00e9ros",
+        "Reine"
+      ],
+      "usedUntil": "2024-08-23"
+    }
+  ],
+  "837": [
+    {
+      "abilities": [
+        {
+          "effect": "Si vous avez un personnage Princesse ou Reine en jeu lorsque vous jouez ce personnage, gagnez 1 \u00e9clat de Lore.",
+          "fullText": "INTRIGUES ROYALES Si vous avez un personnage\nPrincesse ou Reine en jeu lorsque vous jouez ce\npersonnage, gagnez 1 \u00e9clat de Lore.",
+          "name": "INTRIGUES ROYALES",
+          "type": "triggered"
+        }
+      ],
+      "fullName": "Hans - Noble crapule",
+      "fullText": "INTRIGUES ROYALES Si vous avez un personnage\nPrincesse ou Reine en jeu lorsque vous jouez ce\npersonnage, gagnez 1 \u00e9clat de Lore.",
+      "fullTextSections": [
+        "INTRIGUES ROYALES Si vous avez un personnage\nPrincesse ou Reine en jeu lorsque vous jouez ce\npersonnage, gagnez 1 \u00e9clat de Lore."
+      ],
+      "usedUntil": "2024-08-23"
+    }
+  ],
+  "859": [
+    {
+      "artists": [
+        "Gregor Krysinski"
+      ],
+      "artistsText": "Gregor Krysinski",
+      "usedUntil": "2024-08-23"
+    }
+  ],
+  "879": [
+    {
+      "artists": [
+        "Cristian Romero"
+      ],
+      "artistsText": "Cristian Romero",
+      "usedUntil": "2024-08-23"
+    }
+  ],
+  "1030": [
+    {
+      "abilities": [
+        {
+          "effect": "Lorsque vous jouez ce personnage, choisissez un personnage ayant au moins un dommage sur lui et infligez-lui 2 dommages.",
+          "fullText": "VAGUE DE PEUR Lorsque vous jouez ce personnage,\nchoisissez un personnage ayant au moins un\ndommage sur lui et infligez-lui 2 dommages.",
+          "name": "VAGUE DE PEUR",
+          "type": "triggered"
+        }
+      ],
+      "fullText": "VAGUE DE PEUR Lorsque vous jouez ce personnage,\nchoisissez un personnage ayant au moins un\ndommage sur lui et infligez-lui 2 dommages.",
+      "fullTextSections": [
+        "VAGUE DE PEUR Lorsque vous jouez ce personnage,\nchoisissez un personnage ayant au moins un\ndommage sur lui et infligez-lui 2 dommages."
+      ],
+      "usedUntil": "2024-11-27"
+    }
+  ],
+  "1117": [
+    {
+      "artists": [
+        "Michela Cacciatore",
+        "Giulia Riva"
+      ],
+      "artistsText": "Michela Cacciatore / Giulia Riva",
+      "usedUntil": "2024-08-23"
     }
   ]
 }
