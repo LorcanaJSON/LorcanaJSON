@@ -958,6 +958,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 						re.search(r"(^L|\bl)orsqu(e|'un|'il)\b", ability["effect"]) or re.search(r"(^À c|^C|,\sc)haque\sfois", ability["effect"]) or
 						re.match("Si (?!vous avez|un personnage)", ability["effect"]) or re.search("gagnez .+ pour chaque", ability["effect"]) or
 						re.search(r"une carte est\splacée", ability["effect"])):
+						ability["type"] = "triggered"
 				# All parts determined, now reconstruct the full ability text
 				if "name" in ability and not ability["name"]:
 					# Abilities added through corrections may have an empty name, remove that
