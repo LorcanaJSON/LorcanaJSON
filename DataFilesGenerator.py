@@ -588,6 +588,8 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 		outputCard["fullIdentifier"] = re.sub(fr" ?\W (?!$)", f" {LorcanaSymbols.SEPARATOR} ", parsedImageAndTextData["identifier"].text)
 		outputCard["fullIdentifier"] = outputCard["fullIdentifier"].replace("I", "/").replace("1P ", "/P ").replace("//", "/").replace(".", "")
 		outputCard["fullIdentifier"] = re.sub(fr" ?[-+] ?", f" {LorcanaSymbols.SEPARATOR} ", outputCard["fullIdentifier"])
+		if parsedIdentifier is None:
+			parsedIdentifier = IdentifierParser.parseIdentifier(outputCard["fullIdentifier"])
 	else:
 		outputCard["fullIdentifier"] = str(parsedIdentifier)
 
