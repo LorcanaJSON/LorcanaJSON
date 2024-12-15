@@ -77,6 +77,32 @@
     "type": "expansion",
     "number": 6
   },
+  "7": {
+    "names": {
+      "de": "Archazias Insel",
+      "en": "Archazia's Island",
+      "fr": "L'île d'Archazia",
+      "it": "L'Isola di Archazia"
+    },
+    "prereleaseDate": "2025-03-31",
+    "releaseDate": "2025-03-31",
+    "hasAllCards": false,
+    "type": "expansion",
+    "number": 7
+  },
+  "8": {
+    "names": {
+      "de": "Domäne von Dschafar",
+      "en": "The Reign of Jafar",
+      "fr": "Le Règne de Jafar",
+      "it": "Il Regno di Jafar"
+    },
+    "prereleaseDate": "2024-06-30",
+    "releaseDate": "2024-06-30",
+    "hasAllCards": false,
+    "type": "expansion",
+    "number": 8
+  },
   "Q1": {
     "names": {
       "de": "Die Luminari Chroniken: Gefahr aus der Tiefe",
