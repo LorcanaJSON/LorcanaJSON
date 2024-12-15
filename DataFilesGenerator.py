@@ -603,7 +603,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 		outputCard["variant"] = cardIdentifierMatch.group(2)
 		if variantIds:
 			outputCard["variantIds"] = [variantId for variantId in variantIds if variantId != outputCard["id"]]
-	outputCard["setCode"] = cardIdentifierMatch.group(3)
+	outputCard["setCode"] = parsedIdentifier.setCode
 
 	# Always get the artist from the parsed data, since in the input data it often only lists the first artist when there's multiple, so it's not reliable
 	outputCard["artistsText"] = parsedImageAndTextData["artist"].text.replace(" I ", " / ").replace("’", "'")
