@@ -1,4 +1,4 @@
-import json, logging, os, re
+import json, logging, os, re, string
 from typing import Dict, List, Tuple, Union
 
 import requests
@@ -179,21 +179,30 @@ class ExternalLinksHandler:
 		if os.path.isfile(_EXTERNAL_LINKS_FILE_PATH):
 			with open(_EXTERNAL_LINKS_FILE_PATH, "r", encoding="utf-8") as oldExternalLinksFile:
 				oldCardsBySet = json.load(oldExternalLinksFile)
+			wasChangeFound = False
 			for setCode, newSetData in cardsBySet.items():
 				if setCode not in oldCardsBySet:
+					wasChangeFound = True
 					_LOGGER.info(f"Setcode {setCode} exists in the new external-links data but not in the old")
 				else:
 					oldSetData = oldCardsBySet[setCode]
 					for cardId, newCardData in newSetData.items():
 						if cardId not in oldSetData:
+							wasChangeFound = True
 							_LOGGER.info(f"Card ID {cardId} of set {setCode} exists in the new external-links data but not in the old")
 						else:
 							oldCardData = oldSetData[cardId]
 							for externalLinkKey, externalLinkValue in newCardData.items():
 								if externalLinkKey not in oldCardData:
+									wasChangeFound = True
 									_LOGGER.info(f"Key {externalLinkKey} of card {cardId} in set {setCode} exists in the new external-links data but not in the old")
 								elif externalLinkValue != oldCardData[externalLinkKey]:
+									wasChangeFound = True
 									_LOGGER.info(f"Key {externalLinkKey} of card {cardId} in set {setCode} was {oldCardData[externalLinkKey]!r} in the old data but is {externalLinkValue!r} in the new data")
+			if not wasChangeFound:
+				_LOGGER.info("No changes found between old and new externalLinks data")
+		else:
+			_LOGGER.info("No externalLinks file existed yet, so no list of changes can be made")
 
 		# Done, save the new data, overwriting the old
 		with open(_EXTERNAL_LINKS_FILE_PATH, "w", encoding="utf-8") as externalLinksFile:
