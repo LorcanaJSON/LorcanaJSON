@@ -539,8 +539,9 @@ def createOutputFiles(onlyParseIds: Union[None, List[int]] = None, shouldShowIma
 		if len(setData["cards"]) == 0:
 			_logger.warning(f"No cards found for set '{setId}', not creating data file for it")
 			continue
-		setFilePaths.append(os.path.join(setOutputFolder, f"setdata.{setId}.json"))
-		_saveFile(setFilePaths[-1], setData)
+		setFilePath = os.path.join(setOutputFolder, f"setdata.{setId}.json")
+		setFilePaths.append(setFilePath)
+		_saveFile(setFilePath, setData)
 	# Create a zipfile containing all the setfiles
 	setsZipfilePath = os.path.join(setOutputFolder, "allSets.zip")
 	with zipfile.ZipFile(setsZipfilePath, "w", compression=zipfile.ZIP_LZMA, strict_timestamps=False) as setsZipfile:
