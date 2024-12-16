@@ -9,7 +9,7 @@ from util import IdentifierParser, Language, LorcanaSymbols
 
 
 _logger = logging.getLogger("LorcanaJSON")
-FORMAT_VERSION = "2.0.1"
+FORMAT_VERSION = "2.0.2"
 _CARD_CODE_LOOKUP = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 _KEYWORD_REGEX = re.compile(r"(?:^|\n)([A-ZÀ][^.]+)(?= \()")
 # The card parser is run in threads, and each thread needs to initialize its own ImageParser (otherwise weird errors happen in Tesseract)
@@ -592,6 +592,9 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 			parsedIdentifier = IdentifierParser.parseIdentifier(outputCard["fullIdentifier"])
 	else:
 		outputCard["fullIdentifier"] = str(parsedIdentifier)
+	# Set the grouping ('P1', 'D23', etc) for promo cards
+	if parsedIdentifier and parsedIdentifier.isPromo():
+		outputCard["promoGrouping"] = parsedIdentifier.grouping
 
 	# Get the set and card numbers from the identifier
 	outputCard["number"] = parsedIdentifier.number
