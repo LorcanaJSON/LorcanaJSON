@@ -543,12 +543,7 @@ def createOutputFiles(onlyParseIds: Union[None, List[int]] = None, shouldShowIma
 		setFilePaths.append(setFilePath)
 		_saveFile(setFilePath, setData)
 	# Create a zipfile containing all the setfiles
-	setsZipfilePath = os.path.join(setOutputFolder, "allSets.zip")
-	with zipfile.ZipFile(setsZipfilePath, "w", compression=zipfile.ZIP_LZMA, strict_timestamps=False) as setsZipfile:
-		for setFilePath in setFilePaths:
-			setsZipfile.write(setFilePath, os.path.basename(setFilePath))
-	_createMd5ForFile(setsZipfilePath)
-
+	_saveZippedFile(os.path.join(setOutputFolder, "allSets.zip"), setFilePaths)
 	_logger.info(f"Created the set files in {time.perf_counter() - startTime:.4f} seconds")
 
 def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchantedNonEnchantedId: Union[int, None], promoNonPromoId: Union[int, List[int], None], variantIds: Union[List[int], None],
@@ -1049,6 +1044,12 @@ def _createMd5ForFile(filePath: str):
 	with open(filePath, "rb") as fileToHash, open(filePath + ".md5", "w", encoding="utf-8") as md5File:
 		fileHash = hashlib.md5(fileToHash.read()).hexdigest()
 		md5File.write(fileHash)
+
+def _saveZippedFile(outputZipfilePath: str, filePathsToZip: List[str]):
+	with zipfile.ZipFile(outputZipfilePath, "w", compression=zipfile.ZIP_LZMA, strict_timestamps=False) as outputZipfile:
+		for filePathToZip in filePathsToZip:
+			outputZipfile.write(filePathToZip, os.path.basename(filePathToZip))
+	_createMd5ForFile(outputZipfilePath)
 
 def _toTitleCase(s: str) -> str:
 	s = re.sub(r"(?:^| |\n|\(|-| '| d')([a-z])(?!')", lambda m: m.group(0).upper(), s.lower())
