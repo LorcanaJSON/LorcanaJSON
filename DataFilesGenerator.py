@@ -1,3 +1,4 @@
+import copy
 import datetime, hashlib, json, logging, multiprocessing.pool, os, re, threading, time, zipfile
 from typing import Dict, List, Optional, Union
 
@@ -507,6 +508,64 @@ def createOutputFiles(onlyParseIds: Union[None, List[int]] = None, shouldShowIma
 			# Get just the current language's set names
 			setsData[setCode]["name"] = setsData[setCode].pop("names")[GlobalConfig.language.code]
 	outputDict["sets"] = setsData
+
+	# Build deck data
+	decksOutputFolder = os.path.join(outputFolder, "decks")
+	os.makedirs(decksOutputFolder, exist_ok=True)
+	# To make lookups easier, we need an id-to-card dict
+	idToCard = {}
+	for card in fullCardList:
+		idToCard[card["id"]] = card
+	# Get the deck data
+	with open(os.path.join("output", "baseDeckData.json"), "r", encoding="utf-8") as deckFile:
+		decksData = json.load(deckFile)
+	simpleDeckFilePaths = []
+	fullDeckFilePaths = []
+	for deckType, deckTypeData in decksData.items():
+		deckTypeName = GlobalConfig.translation[deckType]
+		for deckGroup, deckGroupData in deckTypeData.items():
+			for deckIndex, deckData in enumerate(deckGroupData["decks"]):
+				if GlobalConfig.language.code not in deckData["names"]:
+					_logger.info(f"Skipping deck index {deckIndex} of deck group {deckGroup}, no name entry for current language")
+					continue
+				deckData["metadata"] = metaDataDict
+				deckData["type"] = deckTypeName
+				deckName = deckData.pop("names")[GlobalConfig.language.code]
+				if deckName:
+					deckData["name"] = deckName
+				deckData["colors"] = sorted([GlobalConfig.translation[color] for color in deckData["colors"]])
+				deckData["deckGroup"] = deckGroup
+				deckData = {key: deckData[key] for key in sorted(deckData)}
+				deckData["cards"] = []
+				# Copy the deck data for the simple list so when we add full card data to the full list, they don't get added to the simple list
+				simpleDeckData = copy.deepcopy(deckData)
+				del simpleDeckData["cardsAndAmounts"]
+				fullDeckData = deckData
+				for cardId, cardAmount in deckData.pop("cardsAndAmounts").items():
+					# JSON doesn't allow numbers as keys, convert it
+					cardId = int(cardId, 10)
+					if cardId not in idToCard:
+						_logger.error(f"Deck index {deckIndex} of {deckGroup} contains card ID {cardId} but that ID doesn't exist in the full card list")
+						continue
+					simpleDeckData["cards"].append({"amount": cardAmount, "id": cardId, "isFoil": cardId in deckData["foilIds"]})
+					# Copy the card data because we're adding fields
+					cardInDeckData = copy.deepcopy(idToCard[cardId])
+					cardInDeckData.update(simpleDeckData["cards"][-1])
+					cardInDeckData = {key: cardInDeckData[key] for key in sorted(cardInDeckData)}
+					fullDeckData["cards"].append(cardInDeckData)
+				deckCode = f"deckdata.{deckGroup}-{deckIndex + 1}"
+				simpleDeckFilePath = os.path.join(decksOutputFolder, f"{deckCode}.json")
+				simpleDeckFilePaths.append(simpleDeckFilePath)
+				with open(simpleDeckFilePath, "w", encoding="utf-8") as simpleDeckFile:
+					json.dump(simpleDeckData, simpleDeckFile, indent=2)
+				fullDeckFilePath = os.path.join(decksOutputFolder, f"{deckCode}.full.json")
+				fullDeckFilePaths.append(fullDeckFilePath)
+				with open(fullDeckFilePath, "w", encoding="utf-8") as fullDeckFile:
+					json.dump(fullDeckData, fullDeckFile, indent=2)
+	# Create a zipfile with all the decks
+	_saveZippedFile(os.path.join(decksOutputFolder, "allDecks.zip"), simpleDeckFilePaths)
+	_saveZippedFile(os.path.join(decksOutputFolder, "allDecks.full.zip"), fullDeckFilePaths)
+	_logger.info(f"Created deck files in {time.perf_counter() - startTime} seconds")
 
 	# Create the output files
 	_saveFile(os.path.join(outputFolder, "metadata.json"), metaDataDict, False)

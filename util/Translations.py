@@ -25,6 +25,10 @@ class Translation:
 	Character: str
 	Item: str
 	Location: str
+	# Product names
+	gateway: str
+	quest: str
+	starter: str
 
 	def __getitem__(self, item) -> str:
 		# This allows the use of item subscription (myTranslation['AMBER'] or myTranslation[card[color]])
@@ -54,7 +58,11 @@ ENGLISH = Translation(
 	Action="Action",
 	Character="Character",
 	Item="Item",
-	Location="Location"
+	Location="Location",
+	# Product names
+	gateway="Gateway",
+	quest="Quest",
+	starter="Starter Deck"
 )
 
 FRENCH = Translation(
@@ -78,7 +86,11 @@ FRENCH = Translation(
 	Action="Action",
 	Character="Personnage",
 	Item="Objet",
-	Location="Lieu"
+	Location="Lieu",
+	# Product names
+	gateway="Prélude",
+	quest="Quête",
+	starter="Deck de Démarrage"
 )
 
 GERMAN = Translation(
@@ -102,7 +114,11 @@ GERMAN = Translation(
 	Action="Aktion",
 	Character="Charakter",
 	Item="Gegenstand",
-	Location="Ort"
+	Location="Ort",
+	# Product names
+	gateway="Der Einstieg",
+	quest="Chroniken",
+	starter="Deck für 1 Person"
 )
 
 ITALIAN = Translation(
@@ -126,7 +142,11 @@ ITALIAN = Translation(
 	Action="Azione",
 	Character="Personaggio",
 	Item="Oggetto",
-	Location="Luogo"
+	Location="Luogo",
+	# Product names
+	gateway="Preludio",
+	quest="Avventura",
+	starter="Mazzi per giocatore singolo"
 )
 
 def getForLanguage(language: Language.Language):
