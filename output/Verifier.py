@@ -129,6 +129,7 @@ def compareInputToOutput(cardIdsToVerify: Union[List[int], None]):
 
 		inputIdentifier = inputCard["card_identifier"].replace(" ", f" {LorcanaSymbols.SEPARATOR} ")
 		outputIdentifier = outputCard["fullIdentifier"].lstrip("0")  # The input identifiers don't have the leading zero, so strip it here too
+		if inputIdentifier != outputIdentifier:
 			cardDifferencesCount += 1
 			_printDifferencesDescription(outputCard, "fullIdentifier", inputIdentifier, outputCard["fullIdentifier"])
 
