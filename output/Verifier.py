@@ -104,8 +104,8 @@ def compareInputToOutput(cardIdsToVerify: Union[List[int], None]):
 			if "flavorText" in outputCard:
 				outputFlavorText = outputCard['flavorText']
 				outputFlavorText = outputFlavorText.replace("“", "").replace("”", "").replace("‘", "'").replace("’", "'")
-				outputFlavorText = outputFlavorText.replace("…", "...").replace(" ..", "..").replace(".. ", "..")
 				outputFlavorText = outputFlavorText.replace("-\n", "-").replace("—\n", "—").replace("\n", " ")
+				outputFlavorText = outputFlavorText.replace("…", "...").replace(" ..", "..").replace(".. ", "..")
 			else:
 				outputFlavorText = ""
 
