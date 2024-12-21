@@ -128,7 +128,7 @@ def compareInputToOutput(cardIdsToVerify: Union[List[int], None]):
 			print(f"{outputCard['fullName']} (ID {outputCard['id']}) should have a non-promo ID field, but it doesn't")
 
 		inputIdentifier = inputCard["card_identifier"].replace(" ", f" {LorcanaSymbols.SEPARATOR} ")
-		if inputIdentifier != outputCard["fullIdentifier"]:
+		outputIdentifier = outputCard["fullIdentifier"].lstrip("0")  # The input identifiers don't have the leading zero, so strip it here too
 			cardDifferencesCount += 1
 			_printDifferencesDescription(outputCard, "fullIdentifier", inputIdentifier, outputCard["fullIdentifier"])
 
