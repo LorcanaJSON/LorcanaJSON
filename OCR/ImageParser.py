@@ -95,6 +95,7 @@ class ImageParser():
 		if parseFully:
 			result["cost"] = self._getSubImageAndText(cardImage, ImageArea.INK_COST)
 
+		parseSettings = ParseSettings.getParseSetingsById(cardId)
 		if parseSettings and parseSettings.isLocationOverride is not None:
 			isLocation = parseSettings.isLocationOverride
 		elif isLocation is None:
@@ -119,8 +120,9 @@ class ImageParser():
 				if not parsedIdentifier:
 					raise ValueError(f"Unable to parse identifier for card ID {cardId}, OCR'ed identifier text is {result['identifier'].text!r}")
 
-		# Now we can determine the parse settings
-		parseSettings = ParseSettings.getParseSettings(cardId, parsedIdentifier, isEnchanted)
+		# Now we can determine the parse settings, if we hadn't found them already
+		if parseSettings is None:
+			parseSettings = ParseSettings.getParseSettings(cardId, parsedIdentifier, isEnchanted)
 
 		# First determine the card (sub)type
 		typesImageArea = (parseSettings.locationCardLayout if isLocation else parseSettings.cardLayout).types

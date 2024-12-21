@@ -74,6 +74,8 @@ _PARSE_SETTINGS_BY_ID: Dict[int, ParseSettings] = {
 	1429: dataclasses.replace(_PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["5"], hasFlavorTextOverride=False),
 }
 
+def getParseSetingsById(cardId: int) -> Union[None, ParseSettings]:
+	return _PARSE_SETTINGS_BY_ID.get(cardId, None)
 
 def getParseSettings(cardId: int, identifier: Identifier, isEnchanted: bool) -> ParseSettings:
 	if cardId in _PARSE_SETTINGS_BY_ID:
