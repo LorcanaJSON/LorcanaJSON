@@ -194,7 +194,7 @@ def compareInputToOutput(cardIdsToVerify: Union[List[int], None]):
 				cardDifferencesCount += 1
 				print(f"{cardId}: {GlobalConfig.language.englishName} rarity is {englishRarities[currentLanguageRarities.index(outputCard['rarity'])]} ({outputCard['rarity']}) but English rarity is {englishCard['rarity']}")
 
-	print(f"Found {cardDifferencesCount:,} difference{'' if cardDifferencesCount == 1 else 's'} between input and output")
+	print(f"----------\nFound {cardDifferencesCount:,} difference{'' if cardDifferencesCount == 1 else 's'} between input and output")
 
 def _printDifferencesDescription(outputCard: Dict, fieldName: str, inputString: str, outputString: str):
 	maxCharIndex = max(len(inputString), len(outputString))
