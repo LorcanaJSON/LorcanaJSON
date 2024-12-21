@@ -28,7 +28,9 @@ class ParseSettings:
 	labelMaskColor: Tuple[int, int, int] = _WHITE
 	parseIdentifier: bool = False
 	getIdentifierFromCard: bool = False
+	# Force some checks that could fail or be wrong on some cards. 'None' means they're not overridden, setting them to 'True' or 'False' uses those values instead of whatever is normally determined
 	hasFlavorTextOverride: Union[None, bool] = None
+	isLocationOverride: Union[None, bool] = None
 
 	def __post_init__(self):
 		# Set layouts to defaults here, because we can't set them on class-level since they can't be mutalbe
@@ -62,8 +64,12 @@ _PARSE_SETTINGS_BY_ID: Dict[int, ParseSettings] = {
 	680: _DEFAULT_ENCHANTED_PARSE_SETTINGS,
 	681: _DEFAULT_ENCHANTED_PARSE_SETTINGS,
 	954: _DEFAULT_ENCHANTED_PARSE_SETTINGS,
+	1172: dataclasses.replace(_PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["5"], isLocationOverride=True),
+	1178: dataclasses.replace(_PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["5"], isLocationOverride=True),
 	1186: dataclasses.replace(_PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["5"], hasFlavorTextOverride=False),
 	1191: ParseSettings(labelParsingMethod=LABEL_PARSING_METHODS.DEFAULT, textboxOffset=_OPTIONAL_TEXTBOX_OFFSET, getIdentifierFromCard=True),
+	1406: dataclasses.replace(_PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["6"], isLocationOverride=True),
+	1421: dataclasses.replace(_PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["6"], isLocationOverride=True),
 	1432: ParseSettings(textboxOffset=0, labelParsingMethod=LABEL_PARSING_METHODS.DEFAULT, getIdentifierFromCard=True),
 	1429: dataclasses.replace(_PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["5"], hasFlavorTextOverride=False),
 }

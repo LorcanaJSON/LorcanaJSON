@@ -95,7 +95,9 @@ class ImageParser():
 		if parseFully:
 			result["cost"] = self._getSubImageAndText(cardImage, ImageArea.INK_COST)
 
-		if isLocation is None:
+		if parseSettings and parseSettings.isLocationOverride is not None:
+			isLocation = parseSettings.isLocationOverride
+		elif isLocation is None:
 			# Figure out whether this is a Location card or not. We need to do this as soon as possible, because Location cards need to be rotated
 			# Location cards, both Enchanted and not Enchanted, have a thick black border at their bottom, so the right side of a non-rotated image, thicker than a non-Enchanted non-Location card. Check for that
 			isLocation = self._isImageBlack(self._getSubImage(cardImage, ImageArea.IS_LOCATION_CHECK))
