@@ -7,6 +7,65 @@ from util import Language, LorcanaSymbols, Translations
 
 _subtypeSeparatorString = f" {LorcanaSymbols.SEPARATOR} "
 
+# Some of the data in the input file is wrong, which leads to false positives. Override these values here, to prevent that
+# It's organised by language, then by card ID, then by inputCard field, where the value is a pair of strings (regex match and correction), or a new number if it's a numeric field
+_INPUT_OVERRIDES = {
+	Language.ENGLISH: {
+		893: {
+			"flavor_text": (" l", " I")
+		},
+		945: {
+			"author": (r"^J.+t$", "Grace Tran")
+		},
+		951: {
+			"move_cost": (1, 2),
+			"quest_value": (2, 1)
+		},
+		971: {
+			"rules_text": ("SAMPLEWASSHIFT", "Shift")
+		},
+		983: {
+			"rules_text": (r"w", "card w")
+		},
+		1057: {
+			"rules_text": (r"(\d Sample )+3", "2")
+		},
+		1099: {
+			"rules_text": ("If", "if")
+		},
+		1117: {
+			"author": ("Riva", "Priori")
+		},
+		1179: {
+			"flavor_text": (r"^.+th", "Th")
+		},
+		1186: {
+			"flavor_text": (r"^.+$", "")
+		},
+		1191: {
+			"flavor_text": (r"through shear", "with sheer")
+		},
+		1192: {
+			"rules_text": (r"\bmay c", "can c")
+		},
+		1193: {
+			"rules_text": ("character", "card")
+		},
+		1256: {
+			"rules_text": (r"^G", "I'VE G")
+		},
+		1357: {
+			"flavor_text": (r"\bwe\b", "you")
+		},
+		1422: {
+			"rules_text": (r"[\[\]]", "")
+		},
+		1429: {
+			"flavor_text": (r"^.+$", "")
+		}
+	}
+}
+
 def compareInputToOutput(cardIdsToVerify: Union[List[int], None]):
 	inputFilePath = os.path.join("downloads", "json", f"carddata.{GlobalConfig.language.code}.json")
 	if not os.path.isfile(inputFilePath):
@@ -42,6 +101,8 @@ def compareInputToOutput(cardIdsToVerify: Union[List[int], None]):
 		for inputCard in cardlist:
 			idToInputCard[inputCard["culture_invariant_id"]] = inputCard
 
+	inputOverrides = _INPUT_OVERRIDES.get(GlobalConfig.language, {})
+
 	cardDifferencesCount = 0
 	for outputCard in outputCardStore["cards"]:
 		if cardIdsToVerify and outputCard["id"] not in cardIdsToVerify:
@@ -52,7 +113,24 @@ def compareInputToOutput(cardIdsToVerify: Union[List[int], None]):
 		if outputCard["id"] not in idToInputCard:
 			print(f"WARNING: '{outputCard['fullName']}' (ID {outputCard['id']}) does not exist in the input file, skipping")
 			continue
-		inputCard = idToInputCard[outputCard["id"]]
+		cardId = outputCard["id"]
+		inputCard = idToInputCard[cardId]
+
+		# Implement overrides
+		if cardId in inputOverrides:
+			for fieldName, correctionsTuple in inputOverrides[cardId].items():
+				for correctionIndex in range(0, len(correctionsTuple), 2):
+					regexMatch = correctionsTuple[correctionIndex]
+					correctionText = correctionsTuple[correctionIndex+1]
+					if isinstance(regexMatch, int):
+						if inputCard[fieldName] == regexMatch:
+							inputCard[fieldName] = correctionText
+						else:
+							print(f"ERROR: Correction override number {regexMatch} does not match actual input card value {inputCard[fieldName]} for field '{fieldName}' in card {cardId}")
+					else:
+						inputCard[fieldName], correctionCount = re.subn(regexMatch, correctionText, inputCard[fieldName])
+						if correctionCount == 0:
+							print(f"ERROR: Invalid correction override {regexMatch!r} for field '{fieldName}' for card ID {cardId}")
 
 		# Compare rules text
 		if inputCard.get("rules_text", None) or outputCard["fullText"]:
