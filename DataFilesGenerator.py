@@ -924,7 +924,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 		forceAbilityTypeIndexToStatic = cardDataCorrections.pop("_forceAbilityIndexToStatic", -1)
 		newlineAfterLabelIndex = cardDataCorrections.pop("_newlineAfterLabelIndex", -1)
 		mergeEffectIndexWithPrevious = cardDataCorrections.pop("_mergeEffectIndexWithPrevious", -1)
-		effectAtIndexIsAbility: int = cardDataCorrections.pop("_effectAtIndexIsAbility", -1)
+		effectAtIndexIsAbility: Union[int, List[int, str]] = cardDataCorrections.pop("_effectAtIndexIsAbility", -1)
 		externalLinksCorrection = cardDataCorrections.pop("externalLinks", None)
 		fullTextCorrection = cardDataCorrections.pop("fullText", None)
 		for fieldName, correction in cardDataCorrections.items():
@@ -942,13 +942,16 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 					outputCard["effects"][effectIndex] = firstEffect
 					outputCard["effects"].insert(effectIndex + 1, secondEffect)
 		# Do this after the general corrections since one of those might add or split an effect
-		if effectAtIndexIsAbility > -1:
+		if effectAtIndexIsAbility != -1:
 			if "effects" not in outputCard:
 				_logger.error(f"Correction to move effect index {effectAtIndexIsAbility} to abilities, but card {_createCardIdentifier(outputCard)} doesn't have an 'effects' field")
-			_logger.info(f"Moving effect index {effectAtIndexIsAbility} to abilities")
 			if "abilities" not in outputCard:
 				outputCard["abilities"] = []
-			outputCard["abilities"].append({"name": "", "effect": outputCard["effects"].pop(effectAtIndexIsAbility)})
+			abilityNameForEffectIsAbility = ""
+			if isinstance(effectAtIndexIsAbility, list):
+				effectAtIndexIsAbility, abilityNameForEffectIsAbility = effectAtIndexIsAbility
+			_logger.info(f"Moving effect index {effectAtIndexIsAbility} to abilities")
+			outputCard["abilities"].append({"name": abilityNameForEffectIsAbility, "effect": outputCard["effects"].pop(effectAtIndexIsAbility)})
 			if len(outputCard["effects"]) == 0:
 				del outputCard["effects"]
 	# An effect should never start with a separator; if it does, join it with the previous effect since it should be part of its option list
