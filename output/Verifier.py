@@ -253,6 +253,7 @@ def compareInputToOutput(cardIdsToVerify: Union[List[int], None]):
 				inputRulesText = inputCard["rules_text"].replace("–", "-").replace("\\", "")
 				inputRulesText = re.sub(r"(?<=\w)’(?=\w)", "'", inputRulesText)
 				inputRulesText = inputRulesText.replace("\u00a0", " " if GlobalConfig.language == Language.FRENCH else "").replace("  ", " ")
+				inputRulesText = inputRulesText.replace(" \"", " “").replace("\" ", "” ")
 				# Sometimes there's no space between the previous ability text and the next label or ability, fix that
 				inputRulesText = re.sub(r"([).])([A-Z])", r"\1 \2", inputRulesText)
 				if GlobalConfig.language == Language.ENGLISH:
@@ -269,7 +270,7 @@ def compareInputToOutput(cardIdsToVerify: Union[List[int], None]):
 				# Remove all the Lorcana symbols:
 				outputRulesText = outputRulesText.replace(f"{LorcanaSymbols.EXERT},", ",")
 				outputRulesText = re.sub(fr" ?[{LorcanaSymbols.EXERT}{LorcanaSymbols.INK}{LorcanaSymbols.LORE}{LorcanaSymbols.STRENGTH}{LorcanaSymbols.WILLPOWER}{LorcanaSymbols.INKWELL}] ?", " ", outputRulesText).lstrip()
-				outputRulesText = outputRulesText.replace("  ", " ").replace(" .", ".").replace("“", "\"").replace("”", "\"")
+				outputRulesText = outputRulesText.replace("  ", " ").replace(" .", ".")
 				if GlobalConfig.language == Language.FRENCH:
 					# 'Alter' ('Shift') with special costs is followed by a colon, but that's missing from the input text, so remove it from the output too, otherwise comparison becomes impossible
 					outputRulesText = outputRulesText.replace("Alter : ", "Alter ")
