@@ -11,6 +11,120 @@ _subtypeSeparatorString = f" {LorcanaSymbols.SEPARATOR} "
 # It's organised by language, then by card ID, then by inputCard field, where the value is a pair of strings (regex match and correction), or a new number if it's a numeric field
 _INPUT_OVERRIDES = {
 	Language.ENGLISH: {
+		59: {
+			"flavor_text": ("STYLE", "style")
+		},
+		82: {
+			"author": (r"^J", "Duyen Nguyen / J")
+		},
+		141: {
+			"author": (r"o$", "o / Pix Smith")
+		},
+		215: {
+			"rules_text": ("While", "When")
+		},
+		217: {
+			"rules_text": ("Oh, Gosh", "OH, GOSH")
+		},
+		222: {
+			"rules_text": ("Odd One Out", "ODD ONE OUT")
+		},
+		226: {
+			"rules_text": ("There's Trouble A-Brewin", "THERE'S TROUBLE A-BREWIN")
+		},
+		238: {
+			"rules_text": ("Ah-choo", "AH-CHOO")
+		},
+		240: {
+			"rules_text": ("How Do You Do", "HOW DO YOU DO")
+		},
+		245: {
+			"flavor_text": (",\u00a0b", ", b")
+		},
+		359: {
+			"rules_text": (r"\"$", "”")
+		},
+		362: {
+			"author": (r"R\.", "Rosa", r"L\.", "Leonardo")
+		},
+		424: {
+			"flavor_text": (r"^.+$", "")
+		},
+		462: {
+			"rules_text": (r"\bplay\b", "sing")
+		},
+		464: {
+			"rules_text": (r"\bplay\b", "sing")
+		},
+		487: {
+			"rules_text": ("d D", "d. D")
+		},
+		497: {
+			"rules_text": (r"\bplay\b", "sing")
+		},
+		499: {
+			"rules_text": (r"\bplay\b", "sing")
+		},
+		506: {
+			"flavor_text": (r"\.{4}", "...")
+		},
+		526: {
+			"flavor_text": (r"^.+$", "")
+		},
+		530: {
+			"rules_text": (r"\bplay\b", "sing")
+		},
+		531: {
+			"rules_text": (r"\bplay\b", "sing")
+		},
+		532: {
+			"rules_text": (r"\bplay\b", "sing")
+		},
+		565: {
+			"rules_text": (r"\bplay\b", "sing")
+		},
+		596: {
+			"rules_text": (r"\bplay\b", "sing")
+		},
+		597: {
+			"rules_text": (r"\bplay\b", "sing")
+		},
+		631: {
+			"rules_text": (r"\bplay\b", "sing")
+		},
+		640: {
+			"rules_text": ("GONNA TAKE YOU THERE", "SHOW ME THE WAY")
+		},
+		660: {
+			"rules_text": ("characters named Stitch", "Stitch characters")
+		},
+		661: {
+			"flavor_text": ("entirely", "unfamiliar")
+		},
+		663: {
+			"rules_text": ("n c", "n opposing c")
+		},
+		664: {
+			"rules_text": ("gains", "has")
+		},
+		665: {
+			"rules_text": ("While", "When")
+		},
+		667: {
+			"rules_text": ("another ", "")
+		},
+		686: {
+			"rules_text": ("play", "sing")
+		},
+		688: {
+		   "flavor_text": (r"^T.+\.$", "")
+		},
+		699: {
+			"rules_text": ("Wait For Me", "WAIT FOR ME")
+		},
+		872: {
+			"flavor_text": (r"^\.$", "")
+		},
 		893: {
 			"flavor_text": (" l", " I")
 		},
@@ -28,6 +142,7 @@ _INPUT_OVERRIDES = {
 			"rules_text": (r"w", "card w")
 		},
 		1057: {
+			"flavor_text": (r"^4$", ""),
 			"rules_text": (r"(\d Sample )+3", "2")
 		},
 		1099: {
