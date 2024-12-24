@@ -32,10 +32,14 @@ def correctText(cardText: str) -> str:
 			continue
 		originalCardLine = cardLine
 		## First simple typos ##
+		# Commas should always be followed by a space
+		cardLine = re.sub(",(?! |’|”|$)", ", ", cardLine)
 		# Simplify quote mark if it's used in a contraction
-		cardLine = re.sub(r"(?<=\w)’(?=\w)", "'", cardLine)
+		cardLine = re.sub(r"(?<=\w)[‘’](?=\w)", "'", cardLine)
+		# The 'Exert' symbol often gets read as a 6
+		cardLine = re.sub(r"^6 ?,", f"{LorcanaSymbols.EXERT},", cardLine)
 		# There's usually an ink symbol between a number and a dash
-		cardLine = re.sub(r"(^| )(\d) ?[0OQ©]?( ?[-—]|,)", fr"\1\2 {LorcanaSymbols.INK}\3", cardLine)
+		cardLine = re.sub(r"(^| )(\d) ?[0OQ©]{,2}( ?[-—]|,)", fr"\1\2 {LorcanaSymbols.INK}\3", cardLine)
 		# For some reason it keeps reading the Strength symbol as the Euro symbol
 		cardLine = re.sub(r"€[^ .)]?", LorcanaSymbols.STRENGTH, cardLine)
 		# Normally a closing quote mark should be preceded by a period, except mid-sentence
@@ -52,20 +56,27 @@ def correctText(cardText: str) -> str:
 		# 'Illuminary' and 'Illumineer(s)' often gets read as starting with three l's, instead of an I and two l's
 		cardLine = cardLine.replace("lllumin", "Illumin")
 		# The 'exert' symbol often gets mistaken for a @ or G, correct that
-		cardLine = re.sub(r"^[(@G©]{1,2}([ ,])", fr"{LorcanaSymbols.EXERT}\1", cardLine)
+		cardLine = re.sub(r"(?<![0-9s])(^|\"|“| )[(@G©€]{1,3}9?([ ,])", fr"\1{LorcanaSymbols.EXERT}\2", cardLine)
+		# Other weird symbols are probably strength symbols
+		cardLine = re.sub(r"[&@©%<>{¥]{1,2}[0-9F+*%]*", LorcanaSymbols.STRENGTH, cardLine)
 		if re.search(r" [‘;]$", cardLine):
 			# Strip erroneously detected characters from the end
 			cardLine = cardLine[:-2]
 		# The Lore symbol often gets mistaken for a 4, correct hat
-		cardLine = re.sub(r"(\d) 4", fr"\1 {LorcanaSymbols.LORE}", cardLine)
-		if re.match(r"[-+«»] \w{2,} \w+", cardLine):
+		cardLine = re.sub(r"(\d) ?4", fr"\1 {LorcanaSymbols.LORE}", cardLine)
+		if re.match(r"[-+«»¢] \w{2,} \w+", cardLine):
 			# Assume this is a list, replace the start with the official separator
 			cardLine = LorcanaSymbols.SEPARATOR + cardLine[1:]
+		# It sometimes misses the strength symbol between a number and the closing bracket
+		cardLine = re.sub(r"^\+(\d)\.\)$", f"+\\1 {LorcanaSymbols.STRENGTH}.)", cardLine)
 		# A 7 often gets mistaken for a /, correct that
 		cardLine = cardLine.replace(" / ", " 7 ")
 		cardLine = re.sub(f"{LorcanaSymbols.INK}([-—])", fr"{LorcanaSymbols.INK} \1", cardLine)
 		# Negative numbers are always followed by a strength symbol, correct that
-		cardLine = re.sub(fr"(?<= )(-\d) [^{LorcanaSymbols.STRENGTH}{LorcanaSymbols.LORE}a-z .]{{1,2}}", fr"\1 {LorcanaSymbols.STRENGTH}", cardLine)
+		cardLine = re.sub(fr"(?<= )(-\d)( [^{LorcanaSymbols.STRENGTH}{LorcanaSymbols.LORE}a-z .]{{1,2}})?( \w)", fr"\1 {LorcanaSymbols.STRENGTH}\3", cardLine)
+		cardLine = re.sub(r" -(\d)$", f" -\\1 {LorcanaSymbols.STRENGTH}", cardLine)
+		# Two numbers in a row never happens, the latter should probably be a Strength symbol
+		cardLine = re.sub(r"(\d) \d", f"\\1 {LorcanaSymbols.STRENGTH}", cardLine)
 		# Letters after a quotemark at the start of a line should be capitalized
 		match = re.match("“[a-z]", cardLine)
 		if match:
@@ -73,62 +84,78 @@ def correctText(cardText: str) -> str:
 			cardLine = cardLine[:lowercasePosition] + cardLine[lowercasePosition].upper() + cardLine[lowercasePosition + 1:]
 
 		if GlobalConfig.language == Language.ENGLISH:
-			if re.match("[‘`']Shift ", cardLine):
-				_logger.info("Removing erroneous character at the start of " + cardLine)
-				cardLine = cardLine[1:]
-			elif cardLine.startswith("‘"):
+			if cardLine.startswith("‘"):
 				cardLine = "“" + cardLine[1:]
+			if cardLine.endswith(" :"):
+				cardLine = cardLine[:-2]
 			cardLine = cardLine.replace("1lore", "1 lore")
 			# Somehow it reads 'Bodyquard' with a 'q' instead of or in addition to a 'g' a lot...
 			cardLine = re.sub("Bodyqg?uard", "Bodyguard", cardLine)
+			# Fix some common typos
 			cardLine = re.sub(r"\bIhe\b", "The", cardLine)
-			cardLine = cardLine.replace("|", "I")
-			cardLine = cardLine.replace("“L ", "“I ")
+			cardLine = cardLine.replace("-|", "-1").replace("|", "I")
+			cardLine = re.sub(r"“[LT\[]([ '])", r"“I\1", cardLine)
+			cardLine = cardLine.replace("—l", "—I")
+			cardLine = re.sub(r"(?<=\w)!(?=,? ?[a-z])", "l", cardLine)  # Replace exclamation mark followed by a lowercase letter by an 'l'
+			cardLine = re.sub(r"^(“)?! ", r"\1I ", cardLine)
+			cardLine = re.sub(r"(^| |\n|“)[lIL!]([dlmM]l?)\b", r"\1I'\2", cardLine)
 			if cardLine.endswith("of i"):
 				# The 'Floodborn' inksplashes sometimes confuse the reader into imagining another 'i' at the end of some reminder text, remove that
 				cardLine = cardLine.rstrip(" i")
-			cardLine = cardLine.replace(" ‘em ", " 'em ")
+			cardLine = re.sub(r" ‘em\b", " 'em", cardLine)
 			# Correct some fancy qoute marks at the end of some plural possessives. This is needed on a case-by-case basis, otherwise too much text is changed
 			cardLine = re.sub(r"\bteammates’( |$)", r"teammates'\1", cardLine)
 			cardLine = re.sub(r"\bplayers’( |$)", r"players'\1", cardLine)
 			cardLine = re.sub(r"\bopponents’( |$)", r"opponents'\1", cardLine)
 			## Correct common phrases with symbols ##
 			# Ink payment discounts
-			cardLine, changeCount = re.subn(rf"pay (\d) ?[^{LorcanaSymbols.INK}]{{1,2}}( |$)", f"pay \\1 {LorcanaSymbols.INK}\\2", cardLine)
-			if changeCount > 0:
-				_logger.info("Correcting ink payment text")
+			cardLine = re.sub(r"\bpay (\d) .?to\b", f"pay \\1 {LorcanaSymbols.INK} to", cardLine)
+			cardLine = re.sub(rf"pay(s?) ?(\d)\.? ?[^{LorcanaSymbols.INK}.]{{1,2}}( |\.|$)", f"pay\\1 \\2 {LorcanaSymbols.INK}\\3", cardLine)
+			cardLine = re.sub(r"\bpay (\d) less\b", f"pay \\1 {LorcanaSymbols.INK} less", cardLine)
 			# Fields with Errata corrections have 'ERRATA' in the text, possibly with a colon. Remove that
 			cardLine = re.sub(" ?ERRATA:? ?", "", cardLine)
+			# It gets a bit confused about exert and payment, correct that
+			cardLine = re.sub(r"^\(20 ", f"{LorcanaSymbols.EXERT}, 2 {LorcanaSymbols.INK} ", cardLine)
+			# The Lore symbol after 'location's' often gets missed
+			cardLine = cardLine.replace("location's .", f"location's {LorcanaSymbols.LORE}.")
 			## Correct reminder text ##
-			# Challenger, second line
+			# Challenger
 			cardLine, changeCount = re.subn(rf"gets \+(\d) [^{LorcanaSymbols.STRENGTH}]{{1,2}}?\.?\)", fr"gets +\1 {LorcanaSymbols.STRENGTH}.)", cardLine)
 			if changeCount > 0:
 				_logger.info("Correcting second line of Challenger reminder text")
+			cardLine = re.sub(r"\(They get \+(\d)$", f"(They get +\\1 {LorcanaSymbols.STRENGTH}", cardLine)
 			#Shift
 			cardLine, changeCount = re.subn(f"pay (\\d+) {LorcanaSymbols.INK} play this", f"pay \\1 {LorcanaSymbols.INK} to play this", cardLine)
 			if changeCount > 0:
 				_logger.info("Correcting Shift reminder text by adding in Ink symbol")
 			# Song
-			cardLine, changeCount = re.subn(f"can [^{LorcanaSymbols.EXERT}]{{1,2}} to sing this", f"can {LorcanaSymbols.EXERT} to sing this", cardLine)
+			cardLine, changeCount = re.subn(f"(can|may)( [^{LorcanaSymbols.EXERT}]{{1,2}})? to sing this", f"\\1 {LorcanaSymbols.EXERT} to sing this", cardLine)
 			if changeCount > 0:
 				_logger.info("Correcting Song reminder text")
 			# Support, full line (not sure why it sometimes doesn't get cut into two lines
-			if re.match("add their .{1,2} to another chosen character['’]s .{1,2} this", cardLine):
-				cardLine, changeCount = re.subn(f"their [^{LorcanaSymbols.STRENGTH}]{{1,2}} to", f"their {LorcanaSymbols.STRENGTH} to", cardLine)
+			if re.search(r"their \S{1,3}\sto another chosen character['’]s", cardLine):
+				cardLine, changeCount = re.subn(f"their [^{LorcanaSymbols.STRENGTH}]{{1,3}} to", f"their {LorcanaSymbols.STRENGTH} to", cardLine)
 				cardLine, changeCount2 = re.subn(f"character's [^{LorcanaSymbols.STRENGTH}]{{1,2}} this", f"character's {LorcanaSymbols.STRENGTH} this", cardLine)
 				if changeCount > 0 or changeCount2 > 0:
 					_logger.info("Correcting Support reminder text (both symobls on one line)")
 			# Support, first line if split
-			cardLine, changeCount = re.subn(f"^their [^{LorcanaSymbols.STRENGTH}]{{1,2}} to", f"their {LorcanaSymbols.STRENGTH} to", cardLine)
-			if changeCount > 0:
-				_logger.info("Correcting first line of Support reminder text")
-			# Support, second line if split (prevent hit on 'of this turn.', which is unrelated to what we're correcting)
-			cardLine, changeCount = re.subn(rf"^[^{LorcanaSymbols.STRENGTH}of]{{1,2}} this turn\.?\)?", f"{LorcanaSymbols.STRENGTH} this turn.)", cardLine)
-			if changeCount > 0:
-				_logger.info("Correcting second line of Support reminder text")
+			cardLine = re.sub(fr"(^|\badd )their [^{LorcanaSymbols.STRENGTH}]{{1,2}} to", f"\\1their {LorcanaSymbols.STRENGTH} to", cardLine)
+			# Support, second line if split (prevent hit on 'of this turn.' or '+2 this turn', which is unrelated to what we're correcting)
+			cardLine = re.sub(rf"^([^{LorcanaSymbols.STRENGTH}of+]{{1,2}} )?this turn\.?\)$", f"{LorcanaSymbols.STRENGTH} this turn.)", cardLine)
+			cardLine = re.sub(f"chosen character's( [^{LorcanaSymbols.LORE}{LorcanaSymbols.STRENGTH}])? this turn", f"chosen character's {LorcanaSymbols.STRENGTH} this turn", cardLine)
+			# Common typos
 			cardLine = cardLine.replace("(Upponents", "(Opponents")
 			cardLine = re.sub(r"reduced by [lI]\.", "reduced by 1.", cardLine)
 			cardLine = cardLine.replace("lorcana", "Lorcana")
+			cardLine = re.sub(r"\bluminary\b", "Illuminary", cardLine)
+			cardLine = re.sub(r"([Dd])rawa ?card", r"\1raw a card", cardLine)
+			cardLine = re.sub(r"\bLt\b", "It", cardLine)
+			cardLine = re.sub(r"\b([Hh])ed\b", r"\1e'd", cardLine)
+			# Somehow 'a's often miss the space after it
+			cardLine = re.sub(r"\bina\b", "in a", cardLine)
+			cardLine = re.sub(r"\bacard\b", "a card", cardLine)
+			# Make sure dash in ability cost and in quote attribution is always long-dash
+			cardLine = re.sub(r"(?<!\w)[-—~]+(?=\D|$)", r"—", cardLine)
 		elif GlobalConfig.language == Language.FRENCH:
 			# Correct payment text
 			cardLine = re.sub(r"\bpayer (\d+) (?:\W|D|O|Ô|Q)", f"payer \\1 {LorcanaSymbols.INK}", cardLine)
@@ -192,6 +219,8 @@ def correctPunctuation(textToCorrect: str) -> str:
 		correctedText = correctedText[:-1] + "."
 	correctedText = correctedText.rstrip(" -_")
 	correctedText = correctedText.replace("““", "“")
+	if correctedText.startswith("\""):
+		correctedText = "“" + correctedText[1:]
 	if correctedText != textToCorrect:
 		_logger.info(f"Corrected punctuation from {textToCorrect!r} to {correctedText!r}")
 	return correctedText
@@ -641,7 +670,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 
 	if parsedImageAndTextData.get("identifier", None) is not None:
 		outputCard["fullIdentifier"] = re.sub(fr" ?\W (?!$)", f" {LorcanaSymbols.SEPARATOR} ", parsedImageAndTextData["identifier"].text)
-		outputCard["fullIdentifier"] = outputCard["fullIdentifier"].replace("I", "/").replace("1P ", "/P ").replace("//", "/").replace(".", "")
+		outputCard["fullIdentifier"] = outputCard["fullIdentifier"].replace("I", "/").replace("1P ", "/P ").replace("//", "/").replace(".", "").replace("1TFC", "1 TFC")
 		outputCard["fullIdentifier"] = re.sub(fr" ?[-+] ?", f" {LorcanaSymbols.SEPARATOR} ", outputCard["fullIdentifier"])
 		if parsedIdentifier is None:
 			parsedIdentifier = IdentifierParser.parseIdentifier(outputCard["fullIdentifier"])
@@ -660,28 +689,31 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 	outputCard["setCode"] = parsedIdentifier.setCode
 
 	# Always get the artist from the parsed data, since in the input data it often only lists the first artist when there's multiple, so it's not reliable
-	outputCard["artistsText"] = parsedImageAndTextData["artist"].text.replace(" I ", " / ").replace("’", "'")
+	outputCard["artistsText"] = parsedImageAndTextData["artist"].text.replace(" I ", " / ").replace("’", "'").replace("|", "l")
 	oldArtistsText = outputCard["artistsText"]
 	if outputCard["artistsText"].startswith("Illus. ") or outputCard["artistsText"].startswith(". "):
 		outputCard["artistsText"] = outputCard["artistsText"].split(" ", 1)[1]
 	if outputCard["artistsText"].startswith("l") or outputCard["artistsText"].startswith("["):
 		outputCard["artistsText"] = "I" + outputCard["artistsText"][1:]
-	while re.search(r" [a-zI|(\\_+”—-]{1,2}$", outputCard["artistsText"]):
+	while re.search(r" [a-z0-9I|(\\_+.”—-]{1,2}$", outputCard["artistsText"]):
 		outputCard["artistsText"] = outputCard["artistsText"].rsplit(" ", 1)[0]
+	outputCard["artistsText"] = outputCard["artistsText"].rstrip(".")
 	if outputCard["artistsText"].startswith("lan "):
 		outputCard["artistsText"] = re.sub("^lan ", "Ian ", outputCard["artistsText"])
 	if "Hadijie" in outputCard["artistsText"]:
 		outputCard["artistsText"] = outputCard["artistsText"].replace("Hadijie", "Hadjie")
-	elif "Higgman-Sund" in outputCard["artistsText"]:
-		outputCard["artistsText"] = outputCard["artistsText"].replace("Higgman-Sund", "Häggman-Sund")
+	elif "Haggman-Sund" in outputCard["artistsText"]:
+		outputCard["artistsText"] = outputCard["artistsText"].replace("Haggman-Sund", "Häggman-Sund")
 	elif re.match("noc[^4]urne", outputCard["artistsText"]):
 		outputCard["artistsText"] = "noc4urne"
 	elif "Nquyen" in outputCard["artistsText"]:
 		outputCard["artistsText"] = outputCard["artistsText"].replace("Nquyen", "Nguyen")
-	elif "Toziim" in outputCard["artistsText"] or "Tôzüm" in outputCard["artistsText"]:
+	elif "Toziim" in outputCard["artistsText"] or "Tôzüm" in outputCard["artistsText"] or "Toztim" in outputCard["artistsText"]:
 		outputCard["artistsText"] = re.sub(r"\bT\w+z\w+m\b", "Tözüm", outputCard["artistsText"])
 	elif re.match(r"Jo[^ã]o\b", outputCard["artistsText"]):
 		outputCard["artistsText"] = re.sub("Jo[^ã]o", "João", outputCard["artistsText"])
+	elif re.search(r"Krysi.{1,2}ski", outputCard["artistsText"]):
+		outputCard["artistsText"] = re.sub(r"Krysi.{1,2}ski", "Krysiński", outputCard["artistsText"])
 	if "“" in outputCard["artistsText"]:
 		# Simplify quotemarks
 		outputCard["artistsText"] = outputCard["artistsText"].replace("“", "\"").replace("”", "\"")
@@ -768,7 +800,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 	abilities: List[Dict[str, str]] = []
 	effects: List[str] = []
 	if parsedImageAndTextData["remainingText"] is not None:
-		remainingText = parsedImageAndTextData["remainingText"].text.lstrip("“‘")
+		remainingText = parsedImageAndTextData["remainingText"].text.lstrip("“‘").rstrip(" \n|")
 		# No effect ends with a colon, it's probably the start of a choice list. Make sure it doesn't get split up
 		remainingText = remainingText.replace(":\n\n", ":\n")
 		# A closing bracket indicates the end of a section, make sure it gets read as such by making sure there's two newlines
@@ -817,7 +849,10 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 	if parsedImageAndTextData["abilityLabels"]:
 		for abilityIndex in range(len(parsedImageAndTextData["abilityLabels"])):
 			abilityName = correctPunctuation(parsedImageAndTextData["abilityLabels"][abilityIndex].text.replace("‘", "'").replace("’", "'").replace("''", "'")).rstrip(":")
-			if GlobalConfig.language == Language.FRENCH:
+			abilityName = re.sub(r"(?<=\w) ?[.7|»”©\"]$", "", abilityName)
+			if GlobalConfig.language == Language.ENGLISH:
+				abilityName = abilityName.replace("|", "I")
+			elif GlobalConfig.language == Language.FRENCH:
 				abilityName = re.sub("A ?!(?=.{3,})", "AI", abilityName)
 				if "!" in abilityName or "?" in abilityName:
 					# French puts a space before an exclamation or question mark, add that in
@@ -867,6 +902,8 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 	# Determine subtypes and their order. Items and Actions have an empty subtypes list, ignore those
 	if parsedImageAndTextData["subtypesText"] and parsedImageAndTextData["subtypesText"].text:
 		subtypes: List[str] = parsedImageAndTextData["subtypesText"].text.split(f" {LorcanaSymbols.SEPARATOR} ")
+		if "ltem" in subtypes:
+			subtypes[subtypes.index("ltem")] = "Item"
 		# Non-character cards have their main type as their (first) subtype, remove those
 		if subtypes[0] == GlobalConfig.translation.Action or subtypes[0] == GlobalConfig.translation.Item or subtypes[0] == GlobalConfig.translation.Location:
 			subtypes.pop(0)
@@ -883,11 +920,10 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 			subtypes[subtypes.index(sevenDwarvesCheckTypes[0])] = " ".join(sevenDwarvesCheckTypes)
 		for subtypeIndex in range(len(subtypes) - 1, -1, -1):
 			subtype = subtypes[subtypeIndex]
-			# Correct 'Floodborn'
-			if GlobalConfig.language in (Language.ENGLISH, Language.FRENCH) and subtype != "Floodborn" and re.match(r"^F[il]o[ao]d[^b]?b?[^b]?[ao]r[an][e-]?$", subtype):
+			if GlobalConfig.language in (Language.ENGLISH, Language.FRENCH) and subtype != "Floodborn" and re.match(r"^F[il]o[ao]d[^b]?b?[^b]?[aeo]r[an][e-]?$", subtype):
 				_logger.debug(f"Correcting '{subtype}' to 'Floodborn'")
 				subtypes[subtypeIndex] = "Floodborn"
-			elif subtype == "Hera":
+			elif GlobalConfig.language == Language.ENGLISH and subtype != "Hero" and re.match(r"e?Her[aeos]", subtype):
 				subtypes[subtypeIndex] = "Hero"
 			# Remove short subtypes, probably erroneous
 			elif len(subtype) < 3:

@@ -17,19 +17,15 @@ _FLAVORTEXT_MARGIN: int = 14
 _ASSUMED_LABEL_HEIGHT: int = 73
 
 
-class ImageParser():
-	def __init__(self, forceGenericModel: bool = False):
+class ImageParser:
+	def __init__(self):
 		"""
 		Create an image parser
 		:param forceGenericModel: If True, force the use of the generic Tesseract model for the language, even if a Lorcana-specific one exists. If False or not provided, uses the Lorcana model if available for the current language. Defaults to False
 		"""
 		self._logger = logging.getLogger("LorcanaJSON")
-		if forceGenericModel or not GlobalConfig.language.hasLorcanaTesseractModel:
-			modelName = GlobalConfig.language.threeLetterCode
-		else:
-			modelName = f"Lorcana_{GlobalConfig.language.code}"
 		self.nonCharacterTypes = (GlobalConfig.translation.Action, GlobalConfig.translation.Item, GlobalConfig.translation.Location)
-		self._tesseractApi = tesserocr.PyTessBaseAPI(lang=modelName, path=GlobalConfig.tesseractPath, psm=tesserocr.PSM.SINGLE_BLOCK)
+		self._tesseractApi = tesserocr.PyTessBaseAPI(lang=GlobalConfig.language.threeLetterCode, path=GlobalConfig.tesseractPath, psm=tesserocr.PSM.SINGLE_BLOCK)
 		self._tesseractApi.SetVariable("textord_tabfind_find_tables", "0")
 		self._tesseractApi.SetVariable("textord_tabfind_vertical_text", "0")
 		self._tesseractApi.SetVariable("textord_disable_pitch_test", "1")
@@ -96,6 +92,7 @@ class ImageParser():
 			result["cost"] = self._getSubImageAndText(cardImage, ImageArea.INK_COST)
 
 		parseSettings = ParseSettings.getParseSetingsById(cardId)
+
 		if parseSettings and parseSettings.isLocationOverride is not None:
 			isLocation = parseSettings.isLocationOverride
 		elif isLocation is None:
@@ -362,16 +359,16 @@ class ImageParser():
 							labelAndEffectText = remainingText[labelMatch.start():]
 							remainingText = remainingText[:labelMatch.start()].rstrip()
 							while labelAndEffectText:
-								effectMatch = re.search(fr"(([A-Z]|À )[a-z]|[0-9{LorcanaSymbols.EXERT}@])", labelAndEffectText, flags=re.DOTALL)
+								effectMatch = re.search(fr"(([A-Z]|À )[a-z]|[0-9{LorcanaSymbols.EXERT}@©])", labelAndEffectText, flags=re.DOTALL)
 								if effectMatch:
 									labelText = labelAndEffectText[:effectMatch.start()]
 									effectText = labelAndEffectText[effectMatch.start():]
 								else:
 									labelText = ""
 									effectText = ""
-								nextLabelMatch = re.search("([AÀI] )?[A-ZÊ]{2}", effectText)
+								nextLabelMatch = re.search("\n([AÀI] )?[A-ZÊ]{2}", effectText)
 								if nextLabelMatch:
-									labelAndEffectText = effectText[nextLabelMatch.start():]
+									labelAndEffectText = effectText[nextLabelMatch.start():].lstrip()
 									effectText = effectText[:nextLabelMatch.start()].rstrip()
 									self._logger.debug("Correcting effect text on new-style Enchanted card to ability label and text")
 								else:

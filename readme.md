@@ -9,9 +9,7 @@ Make sure you have Python 3 installed, either from the [official website](https:
 Verify that Python works by running the command 'python --version' on the commandline.  
 If you get an error that the command can't be found, try 'python3 --version' instead, and replace instances of the 'python' command in subsequent examples with 'python3'.   
 ### Tesseract models
-This project uses a specially generated model for Tesseract, trained on *Lorcana* cards.  
-Download the file 'Lorcana_en.traineddata' from the ['Releases' tab](https://github.com/LorcanaJSON/LorcanaJSON/releases), and place it somewhere easily accessible.  
-For languages other than English, you also need to download the Tesseract model for that language (indicated by its three-letter code) from the official repository [here](https://github.com/tesseract-ocr/tessdata_best/tree/e12c65a915945e4c28e237a9b52bc4a8f39a0cec), and place it in the same place as where you put 'Lorcana_en.traineddata'.    
+For every language you want to generate data for, you need to download the Tesseract model for that language (indicated by its three-letter code) from the official repository [here](https://github.com/tesseract-ocr/tessdata_best/tree/e12c65a915945e4c28e237a9b52bc4a8f39a0cec). Remember where you saved the model(s), because the location needs to be added to the Config file in the 'Configfile' Setup step.  
 ### Libraries
 This project needs some libraries to work. These are listed in the 'requirements.txt' file.  
 To install these libraries, run the command 'python -m pip install -r requirements.txt'.  
@@ -20,7 +18,7 @@ tesserocr doesn't properly install out of the box on Windows. Use one of the lis
 ### Configfile
 The configfile allows you to set some standard values, so they don't need to always be provided through commandline arguments (though those arguments can still override config values).  
 Copy the file 'config.json.example', and rename it to 'config.json'.  
-Open 'config.json' in a text editor, and set the value for 'tesseractPath' to where you placed the *Lorcana* Tesseract model downloaded in a previous Setup step. If neither this field nor the commandline argument (see further down) isn't set, it defaults to the folder where this program is.  
+Open 'config.json' in a text editor, and set the value for 'tesseractPath' to where you placed the *Lorcana* Tesseract model(s) downloaded in the 'Tesseract models' Setup step. If neither this field nor the commandline argument (see further down) isn't set, it defaults to the folder where this program is.  
 You can also change the value for 'loglevel' to one of 'debug', 'info', 'warning', or 'error' to set a default log level.  
 
 ## Running the program

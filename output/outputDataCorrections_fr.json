@@ -82,6 +82,12 @@
       "L"
     ]
   },
+  "44": {
+    "abilities": [
+      "Q",
+      "¤"
+    ]
+  },
   "45": {
     "abilities": [
       "\\d+\\.\\)",
@@ -119,7 +125,9 @@
   "58": {
     "abilities": [
       "Is ",
-      "Ils "
+      "Ils ",
+      "1 \\S ",
+      "1 ¤ "
     ]
   },
   "60": {
@@ -436,7 +444,7 @@
   },
   "217": {
     "abilities": [
-      "H\\.",
+      "H",
       "H…"
     ]
   },
@@ -623,6 +631,12 @@
       "\n-"
     ]
   },
+  "304": {
+    "abilities": [
+      "7¤",
+      "7 ¤"
+    ]
+  },
   "305": {
     "abilities": [
       "JETE",
@@ -737,12 +751,6 @@
       " – "
     ]
   },
-  "353": {
-    "abilities": [
-      "%\\*",
-      "¤"
-    ]
-  },
   "354": {
     "abilities": [
       "ce °°",
@@ -802,8 +810,8 @@
   "383": {
     "_newlineAfterLabelIndex": 0,
     "abilities": [
-      "\\(9 -",
-      "⟳ –"
+      " -",
+      " –"
     ]
   },
   "385": {
@@ -880,6 +888,14 @@
     "abilities": [
       "1 O",
       "1 ⬡"
+    ]
+  },
+  "425": {
+    "abilities": [
+      "2 [^ ¤◊]+",
+      "2 ¤",
+      "7 ?\\S",
+      "7 ¤"
     ]
   },
   "429": {
@@ -1020,6 +1036,12 @@
       "2 ¤\n"
     ]
   },
+  "518": {
+    "abilities": [
+      "4",
+      "◊"
+    ]
+  },
   "519": {
     "flavorText": [
       "lv",
@@ -1086,6 +1108,12 @@
     "flavorText": [
       "outre",
       "autre"
+    ]
+  },
+  "564": {
+    "effects": [
+      "[©⟳]",
+      "¤"
     ]
   },
   "565": {
@@ -1223,19 +1251,7 @@
     "_newlineAfterLabelIndex": 1
   },
   "676": {
-    "effects": [
-      null,
-      null
-    ],
-    "abilities": [
-      null,
-      [
-        {
-          "name": "BIENVENUE DANS MA MAISON",
-          "effect": "Lorsque ce\npersonnage est envoyé à l'aventure, le prochain\npersonnage que vous jouez durant ce tour vous\ncoûte 3 ⬡ de moins."
-        }
-      ]
-    ]
+    "_effectAtIndexIsAbility": [0, "BIENVENUE DANS MA MAISON"]
   },
   "677": {
     "abilities": [
@@ -1275,10 +1291,22 @@
       "À T"
     ]
   },
+  "695": {
+    "abilities": [
+      "1 À",
+      "1 ◊"
+    ]
+  },
   "701": {
     "flavorText": [
       "Q",
       "O"
+    ]
+  },
+  "705": {
+    "abilities": [
+      "10",
+      "1 ⬡"
     ]
   },
   "707": {
@@ -1510,7 +1538,7 @@
       "n",
       "aa",
       "ag",
-      " \\{$",
+      " ¤$",
       ""
     ]
   },
@@ -1562,7 +1590,7 @@
   },
   "840": {
     "abilities": [
-      "[*©]",
+      "[*⟳]",
       "¤"
     ]
   },
@@ -1730,7 +1758,7 @@
   },
   "945": {
     "abilities": [
-      " &",
+      " ¤",
       ""
     ],
     "flavorText": [
@@ -1993,6 +2021,12 @@
     "abilities": [
       "LAL",
       "L'AL"
+    ]
+  },
+  "1048": {
+    "abilities": [
+      "TE",
+      "TE”"
     ]
   },
   "1050": {
@@ -2707,6 +2741,12 @@
       "faim"
     ]
   },
+  "1338": {
+    "abilities": [
+      "1 \\S",
+      "1 ◊"
+    ]
+  },
   "1343": {
     "flavorText": [
       "Gol",
@@ -2728,7 +2768,9 @@
   "1352": {
     "abilities": [
       "^_ ",
-      ""
+      "",
+      "1 \\S et \\+1 \\S+",
+      "1 ¤ et +1 ⛉"
     ]
   },
   "1353": {
@@ -2751,7 +2793,7 @@
   },
   "1359": {
     "abilities": [
-      "©",
+      "⟳",
       "¤"
     ]
   },
@@ -2836,6 +2878,10 @@
     ]
   },
   "1405": {
+    "abilities": [
+      "3 O",
+      "3 ⬡"
+    ],
     "subtypes": [
       null,
       [
@@ -2905,8 +2951,8 @@
     "abilities": [
       "T'A",
       "T 'A",
-      "\"",
-      "'"
+      "ÏE",
+      "ÏE'"
     ]
   },
   "1419": {
