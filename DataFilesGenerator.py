@@ -322,7 +322,7 @@ def correctCardField(card: Dict, fieldName: str, regexMatchString: str, correcti
 					_logger.info(f"Corrected value '{value}' to '{card[fieldName][key]}' in key '{key}' of dictionary field '{fieldName}' in card {_createCardIdentifier(card)}")
 				break
 		else:
-			_logger.error(f"Correction {regexMatchString!r} for dictionary field '{fieldName}' didn't match any of the values")
+			_logger.error(f"Correction {regexMatchString!r} for dictionary field '{fieldName}' in card {_createCardIdentifier(card)} didn't match any of the values")
 	else:
 		raise ValueError(f"Card correction {regexMatchString!r} for field '{fieldName}' in card {_createCardIdentifier(card)} is of unsupported type '{type(card[fieldName])}'")
 
