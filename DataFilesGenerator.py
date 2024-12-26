@@ -256,7 +256,7 @@ def correctCardField(card: Dict, fieldName: str, regexMatchString: str, correcti
 		preCorrectedText = card[fieldName]
 		card[fieldName] = re.sub(regexMatchString, correction, preCorrectedText, flags=re.DOTALL)
 		if card[fieldName] == preCorrectedText:
-			_logger.warning(f"Correcting field '{fieldName}' in card {_createCardIdentifier(card)} didn't change anything, value is still {preCorrectedText!r}")
+			_logger.warning(f"Correcting field '{fieldName}' in card {_createCardIdentifier(card)} with regex '{regexMatchString}' didn't change anything, value is still {preCorrectedText!r}")
 		else:
 			_logger.info(f"Corrected field '{fieldName}' from {preCorrectedText!r} to {card[fieldName]!r} for card {_createCardIdentifier(card)}")
 	elif isinstance(card[fieldName], list):
@@ -273,7 +273,7 @@ def correctCardField(card: Dict, fieldName: str, regexMatchString: str, correcti
 						preCorrectedText = fieldValue
 						fieldEntry[fieldKey] = re.sub(regexMatchString, correction, fieldValue, flags=re.DOTALL)
 						if fieldEntry[fieldKey] == preCorrectedText:
-							_logger.warning(f"Correcting index {fieldIndex} of field '{fieldName}' in card {_createCardIdentifier(card)} didn't change anything, value is still {preCorrectedText!r}")
+							_logger.warning(f"Correcting index {fieldIndex} of field '{fieldName}' in card {_createCardIdentifier(card)} with regex '{regexMatchString}' didn't change anything, value is still {preCorrectedText!r}")
 						else:
 							_logger.info(f"Corrected index {fieldIndex} of field '{fieldName}' from {preCorrectedText!r} to {fieldEntry[fieldKey]!r} for card {_createCardIdentifier(card)}")
 		elif isinstance(card[fieldName][0], str):
@@ -290,7 +290,7 @@ def correctCardField(card: Dict, fieldName: str, regexMatchString: str, correcti
 						preCorrectedText = fieldValue
 						card[fieldName][fieldIndex] = re.sub(regexMatchString, correction, fieldValue, flags=re.DOTALL)
 						if card[fieldName][fieldIndex] == preCorrectedText:
-							_logger.warning(f"Correcting index {fieldIndex} of field '{fieldName}' in card {_createCardIdentifier(card)} didn't change anything")
+							_logger.warning(f"Correcting index {fieldIndex} of field '{fieldName}' in card {_createCardIdentifier(card)} with regex '{regexMatchString}' didn't change anything")
 						else:
 							_logger.info(f"Corrected index {fieldIndex} of field '{fieldName}' from {preCorrectedText!r} to {card[fieldName][fieldIndex]!r} for card {_createCardIdentifier(card)}")
 		else:
@@ -317,7 +317,7 @@ def correctCardField(card: Dict, fieldName: str, regexMatchString: str, correcti
 			if isStringMatch and isinstance(value, str) and re.search(regexMatchString, value, flags=re.DOTALL):
 				card[fieldName][key] = re.sub(regexMatchString, correction, value)
 				if value == card[fieldName][key]:
-					_logger.warning(f"Correcting value for key '{key}' in dictionary field '{fieldName}' of card {_createCardIdentifier(card)} didn't change anything, value is still '{value}'")
+					_logger.warning(f"Correcting value for key '{key}' in dictionary field '{fieldName}' of card {_createCardIdentifier(card)} with regex '{regexMatchString}' didn't change anything, value is still '{value}'")
 				else:
 					_logger.info(f"Corrected value '{value}' to '{card[fieldName][key]}' in key '{key}' of dictionary field '{fieldName}' in card {_createCardIdentifier(card)}")
 				break
