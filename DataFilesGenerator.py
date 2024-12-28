@@ -40,8 +40,6 @@ def correctText(cardText: str) -> str:
 		cardLine = re.sub(r"^6 ?,", f"{LorcanaSymbols.EXERT},", cardLine)
 		# There's usually an ink symbol between a number and a dash
 		cardLine = re.sub(r"(^| )(\d) ?[0OQ©]{,2}( ?[-—]|,)", fr"\1\2 {LorcanaSymbols.INK}\3", cardLine)
-		# For some reason it keeps reading the Strength symbol as the Euro symbol
-		cardLine = re.sub(r"€[^ .)]?", LorcanaSymbols.STRENGTH, cardLine)
 		# Normally a closing quote mark should be preceded by a period, except mid-sentence
 		cardLine = re.sub(r"([^.,'!?’])”(?!,| \w)", "\\1.”", cardLine)
 		# An opening bracket shouldn't have a space after it
@@ -58,7 +56,8 @@ def correctText(cardText: str) -> str:
 		# The 'exert' symbol often gets mistaken for a @ or G, correct that
 		cardLine = re.sub(r"(?<![0-9s])(^|\"|“| )[(@G©€]{1,3}9?([ ,])", fr"\1{LorcanaSymbols.EXERT}\2", cardLine)
 		# Other weird symbols are probably strength symbols
-		cardLine = re.sub(r"[&@©%<>{¥]{1,2}[0-9F+*%]*", LorcanaSymbols.STRENGTH, cardLine)
+		cardLine = re.sub(r"[&@©%$*<>{}€£¥Ÿ]{1,2}[0-9yF+*%]*", LorcanaSymbols.STRENGTH, cardLine)
+		cardLine = re.sub(r"(?<=\d )[CÇD]\b", LorcanaSymbols.STRENGTH, cardLine)
 		if re.search(r" [‘;]$", cardLine):
 			# Strip erroneously detected characters from the end
 			cardLine = cardLine[:-2]
@@ -68,15 +67,16 @@ def correctText(cardText: str) -> str:
 			# Assume this is a list, replace the start with the official separator
 			cardLine = LorcanaSymbols.SEPARATOR + cardLine[1:]
 		# It sometimes misses the strength symbol between a number and the closing bracket
-		cardLine = re.sub(r"^\+(\d)\.\)$", f"+\\1 {LorcanaSymbols.STRENGTH}.)", cardLine)
+		cardLine = re.sub(r"^\+(\d)(\.\)?)$", f"+\\1 {LorcanaSymbols.STRENGTH}\\2", cardLine)
+		cardLine = re.sub(r"^([-+]\d)0(\.\)?)$", fr"\1 {LorcanaSymbols.STRENGTH}\2", cardLine)
 		# A 7 often gets mistaken for a /, correct that
 		cardLine = cardLine.replace(" / ", " 7 ")
 		cardLine = re.sub(f"{LorcanaSymbols.INK}([-—])", fr"{LorcanaSymbols.INK} \1", cardLine)
 		# Negative numbers are always followed by a strength symbol, correct that
 		cardLine = re.sub(fr"(?<= )(-\d)( [^{LorcanaSymbols.STRENGTH}{LorcanaSymbols.LORE}a-z .]{{1,2}})?( \w)", fr"\1 {LorcanaSymbols.STRENGTH}\3", cardLine)
 		cardLine = re.sub(r" -(\d)$", f" -\\1 {LorcanaSymbols.STRENGTH}", cardLine)
-		# Two numbers in a row never happens, the latter should probably be a Strength symbol
-		cardLine = re.sub(r"(\d) \d", f"\\1 {LorcanaSymbols.STRENGTH}", cardLine)
+		# Two numbers in a row never happens, or a digit followed by a loose capital lettter. The latter should probably be a Strength symbol
+		cardLine = re.sub(r"(\d) [0-9DGOQ]\b", f"\\1 {LorcanaSymbols.STRENGTH}", cardLine)
 		# Letters after a quotemark at the start of a line should be capitalized
 		match = re.match("“[a-z]", cardLine)
 		if match:
@@ -158,13 +158,14 @@ def correctText(cardText: str) -> str:
 			cardLine = re.sub(r"(?<!\w)[-—~]+(?=\D|$)", r"—", cardLine)
 		elif GlobalConfig.language == Language.FRENCH:
 			# Correct payment text
-			cardLine = re.sub(r"\bpayer (\d+) (?:\W|D|O|Ô|Q)", f"payer \\1 {LorcanaSymbols.INK}", cardLine)
+			cardLine = re.sub(fr"\bpa(yer|ie) (\d+) (?:\W|D|O|Ô|Q|{LorcanaSymbols.STRENGTH})", f"pa\\1 \\2 {LorcanaSymbols.INK}", cardLine)
+			cardLine = re.sub(fr"^(\d) ?[{LorcanaSymbols.STRENGTH}O0] (pour|de moins)\b", fr"\1 {LorcanaSymbols.INK} \2", cardLine)
 			# Correct support reminder text
 			cardLine = re.sub(r"(?<=ajouter sa )\W+(?= à celle)", LorcanaSymbols.STRENGTH, cardLine)
 			# Correct Challenger/Offensif reminder text
 			cardLine = re.sub(r"gagne \+(\d+) \.\)", fr"gagne +\1 {LorcanaSymbols.STRENGTH}.)", cardLine)
 			# Sometimes '1 INK' gets read as '1O' (a one followed by the letter O), correct that
-			cardLine = cardLine.replace("1O", f"1 {LorcanaSymbols.INK}")
+			cardLine = re.sub("([13])O", f"\\1 {LorcanaSymbols.INK}", cardLine)
 			# Cost discount text
 			cardLine = re.sub(fr"(coûte(?:nt)? )(\d+) [^{LorcanaSymbols.INK} ou]+", fr"\1\2 {LorcanaSymbols.INK}", cardLine)
 			# Song card reminder text
@@ -183,7 +184,7 @@ def correctText(cardText: str) -> str:
 			cardLine = re.sub(r"(\S)!", r"\1 !", cardLine)
 			cardLine = re.sub(r"!(\w)", r"! \1", cardLine)
 			cardLine = cardLine.replace("//", "Il")
-			cardLine = re.sub(r"(?<=\(Lorsqu'il défie, ce personnage gagne )\+(\d) .\.", fr"+\1 {LorcanaSymbols.STRENGTH}.", cardLine)
+			cardLine = re.sub(fr"((?:\bce personnage|\bil) gagne )\+(\d) [^{LorcanaSymbols.LORE}{LorcanaSymbols.STRENGTH}{LorcanaSymbols.WILLPOWER}]?\.", fr"\1+\2 {LorcanaSymbols.STRENGTH}.", cardLine)
 			# Fix second line of 'Challenger'/'Offensif' reminder text
 			cardLine = re.sub(r"^\+(\d) ?[^.]{0,2}\.\)$", fr"+\1 {LorcanaSymbols.STRENGTH}.)", cardLine)
 			# Sometimes a number before 'dommage' gets read as something else, correct that
@@ -695,7 +696,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 		outputCard["artistsText"] = outputCard["artistsText"].split(" ", 1)[1]
 	if outputCard["artistsText"].startswith("l") or outputCard["artistsText"].startswith("["):
 		outputCard["artistsText"] = "I" + outputCard["artistsText"][1:]
-	while re.search(r" [a-z0-9I|(\\_+.”—-]{1,2}$", outputCard["artistsText"]):
+	while re.search(r" [a-z0-9ÿI|(\\_+.”—-]{1,2}$", outputCard["artistsText"]):
 		outputCard["artistsText"] = outputCard["artistsText"].rsplit(" ", 1)[0]
 	outputCard["artistsText"] = outputCard["artistsText"].rstrip(".")
 	if outputCard["artistsText"].startswith("lan "):
