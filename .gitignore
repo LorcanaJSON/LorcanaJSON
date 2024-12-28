@@ -4,7 +4,6 @@ __pycache__/
 
 /downloads/**
 /logs/**
-/OCR/training/
 /output/generated/
 /output/handmade/
 /website/
@@ -13,3 +12,4 @@ __pycache__/
 /parsedCards.json
 /newChangelogEntry.txt
 /*.traineddata
+
