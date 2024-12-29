@@ -117,24 +117,16 @@ def correctText(cardText: str) -> str:
 			cardLine = cardLine.replace("location's .", f"location's {LorcanaSymbols.LORE}.")
 			## Correct reminder text ##
 			# Challenger
-			cardLine, changeCount = re.subn(rf"gets \+(\d) [^{LorcanaSymbols.STRENGTH}]{{1,2}}?\.?\)", fr"gets +\1 {LorcanaSymbols.STRENGTH}.)", cardLine)
-			if changeCount > 0:
-				_logger.info("Correcting second line of Challenger reminder text")
+			cardLine = re.sub(rf"gets \+(\d) [^{LorcanaSymbols.STRENGTH}]{{1,2}}?\.?\)", fr"gets +\1 {LorcanaSymbols.STRENGTH}.)", cardLine)
 			cardLine = re.sub(r"\(They get \+(\d)$", f"(They get +\\1 {LorcanaSymbols.STRENGTH}", cardLine)
 			#Shift
-			cardLine, changeCount = re.subn(f"pay (\\d+) {LorcanaSymbols.INK} play this", f"pay \\1 {LorcanaSymbols.INK} to play this", cardLine)
-			if changeCount > 0:
-				_logger.info("Correcting Shift reminder text by adding in Ink symbol")
+			cardLine = re.sub(f"pay (\\d+) {LorcanaSymbols.INK} play this", f"pay \\1 {LorcanaSymbols.INK} to play this", cardLine)
 			# Song
-			cardLine, changeCount = re.subn(f"(can|may)( [^{LorcanaSymbols.EXERT}]{{1,2}})? to sing this", f"\\1 {LorcanaSymbols.EXERT} to sing this", cardLine)
-			if changeCount > 0:
-				_logger.info("Correcting Song reminder text")
+			cardLine = re.sub(f"(can|may)( [^{LorcanaSymbols.EXERT}]{{1,2}})? to sing this", f"\\1 {LorcanaSymbols.EXERT} to sing this", cardLine)
 			# Support, full line (not sure why it sometimes doesn't get cut into two lines
 			if re.search(r"their \S{1,3}\sto another chosen character['’]s", cardLine):
-				cardLine, changeCount = re.subn(f"their [^{LorcanaSymbols.STRENGTH}]{{1,3}} to", f"their {LorcanaSymbols.STRENGTH} to", cardLine)
-				cardLine, changeCount2 = re.subn(f"character's [^{LorcanaSymbols.STRENGTH}]{{1,2}} this", f"character's {LorcanaSymbols.STRENGTH} this", cardLine)
-				if changeCount > 0 or changeCount2 > 0:
-					_logger.info("Correcting Support reminder text (both symobls on one line)")
+				cardLine = re.sub(f"their [^{LorcanaSymbols.STRENGTH}]{{1,3}} to", f"their {LorcanaSymbols.STRENGTH} to", cardLine)
+				cardLine = re.sub(f"character's [^{LorcanaSymbols.STRENGTH}]{{1,2}} this", f"character's {LorcanaSymbols.STRENGTH} this", cardLine)
 			# Support, first line if split
 			cardLine = re.sub(fr"(^|\badd )their [^{LorcanaSymbols.STRENGTH}]{{1,2}} to", f"\\1their {LorcanaSymbols.STRENGTH} to", cardLine)
 			# Support, second line if split (prevent hit on 'of this turn.' or '+2 this turn', which is unrelated to what we're correcting)
