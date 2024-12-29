@@ -63,9 +63,7 @@ def correctText(cardText: str) -> str:
 			cardLine = cardLine[:-2]
 		# The Lore symbol often gets mistaken for a 4, correct hat
 		cardLine = re.sub(r"(\d) ?4", fr"\1 {LorcanaSymbols.LORE}", cardLine)
-		if re.match(r"[-+«»¢] \w{2,} \w+", cardLine):
-			# Assume this is a list, replace the start with the official separator
-			cardLine = LorcanaSymbols.SEPARATOR + cardLine[1:]
+		cardLine = re.sub(r"^[-+«»¢](?= \w{2,} \w+)", LorcanaSymbols.SEPARATOR, cardLine)
 		# It sometimes misses the strength symbol between a number and the closing bracket
 		cardLine = re.sub(r"^\+(\d)(\.\)?)$", f"+\\1 {LorcanaSymbols.STRENGTH}\\2", cardLine)
 		cardLine = re.sub(r"^([-+]\d)0(\.\)?)$", fr"\1 {LorcanaSymbols.STRENGTH}\2", cardLine)
