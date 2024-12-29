@@ -79,10 +79,8 @@ def correctText(cardText: str) -> str:
 		cardLine = re.sub("^“[a-z]", lambda m: m.group(0).upper(), cardLine)
 
 		if GlobalConfig.language == Language.ENGLISH:
-			if cardLine.startswith("‘"):
-				cardLine = "“" + cardLine[1:]
-			if cardLine.endswith(" :"):
-				cardLine = cardLine[:-2]
+			cardLine = re.sub("^‘", "“", cardLine)
+			cardLine = re.sub(" [:i]$", "", cardLine)
 			cardLine = cardLine.replace("1lore", "1 lore")
 			# Somehow it reads 'Bodyquard' with a 'q' instead of or in addition to a 'g' a lot...
 			cardLine = re.sub("Bodyqg?uard", "Bodyguard", cardLine)
@@ -94,9 +92,6 @@ def correctText(cardText: str) -> str:
 			cardLine = re.sub(r"(?<=\w)!(?=,? ?[a-z])", "l", cardLine)  # Replace exclamation mark followed by a lowercase letter by an 'l'
 			cardLine = re.sub(r"^(“)?! ", r"\1I ", cardLine)
 			cardLine = re.sub(r"(^| |\n|“)[lIL!]([dlmM]l?)\b", r"\1I'\2", cardLine)
-			if cardLine.endswith("of i"):
-				# The 'Floodborn' inksplashes sometimes confuse the reader into imagining another 'i' at the end of some reminder text, remove that
-				cardLine = cardLine.rstrip(" i")
 			cardLine = re.sub(r" ‘em\b", " 'em", cardLine)
 			# Correct some fancy qoute marks at the end of some plural possessives. This is needed on a case-by-case basis, otherwise too much text is changed
 			cardLine = re.sub(r"\bteammates’( |$)", r"teammates'\1", cardLine)
