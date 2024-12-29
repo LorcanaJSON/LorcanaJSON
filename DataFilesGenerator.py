@@ -25,8 +25,6 @@ def correctText(cardText: str) -> str:
 	:param cardText: The text to correct
 	:return: The card text with common problems fixed
 	"""
-
-	# Text-wide corrections
 	originalCardText = cardText
 	cardText = re.sub("\n{2,}", "\n", cardText.strip())
 	## First simple typos ##
