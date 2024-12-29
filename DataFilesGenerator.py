@@ -78,10 +78,7 @@ def correctText(cardText: str) -> str:
 		# Two numbers in a row never happens, or a digit followed by a loose capital lettter. The latter should probably be a Strength symbol
 		cardLine = re.sub(r"(\d) [0-9DGOQ]\b", f"\\1 {LorcanaSymbols.STRENGTH}", cardLine)
 		# Letters after a quotemark at the start of a line should be capitalized
-		match = re.match("“[a-z]", cardLine)
-		if match:
-			lowercasePosition = match.start() + 1
-			cardLine = cardLine[:lowercasePosition] + cardLine[lowercasePosition].upper() + cardLine[lowercasePosition + 1:]
+		cardLine = re.sub("^“[a-z]", lambda m: m.group(0).upper(), cardLine)
 
 		if GlobalConfig.language == Language.ENGLISH:
 			if cardLine.startswith("‘"):
