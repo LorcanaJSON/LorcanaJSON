@@ -107,6 +107,7 @@ if __name__ == '__main__':
 				except ValueError:
 					raise ValueError(f"Invalid value '{inputCardId}' in the '--cardIds' list, should be numeric")
 
+	totalStartTime = time.perf_counter()
 	for language in parsedArguments.language:
 		GlobalConfig.language = Language.getLanguageByCode(language)
 		GlobalConfig.translation = Translations.getForLanguage(GlobalConfig.language)
@@ -215,3 +216,5 @@ if __name__ == '__main__':
 
 		print(f"Action '{parsedArguments.action}' for language '{GlobalConfig.language.englishName}' finished after {time.perf_counter() - startTime:.2f} seconds at {datetime.datetime.now()}")
 		print()
+	if len(parsedArguments.language) > 1:
+		print(f"Finished actions for all specified languages after {time.perf_counter() - totalStartTime:.2f} seconds at {datetime.datetime.now()}")
