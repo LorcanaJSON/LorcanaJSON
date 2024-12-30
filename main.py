@@ -19,7 +19,7 @@ if __name__ == '__main__':
 																										 "'verify' compares the input and the output files and lists differences for important fields")
 	argumentParser.add_argument("--loglevel", dest="loglevel", choices=("debug", "info", "warn", "warning", "error"), default=None, help="Specify the log level. If omitted, defaults to 'warning'")
 	argumentParser.add_argument("--tesseractPath", help="Specify the path to Tesseract. This is needed if Tesseract can't just be called with 'tesseract' from the commandline")
-	argumentParser.add_argument("--language", help="Specify the language to use by its two-letter code. Defaults to 'en'", default="en")
+	argumentParser.add_argument("--language", nargs="*", help="Specify one or more languages to use, by its name or two-letter code. Defaults to 'en'", default="en")
 	argumentParser.add_argument("--cardIds", nargs="*", help="List the card IDs to parse. For the 'show' action, specify one or more card IDs to show. "
 															 "For the 'parse' action, specify one or more card IDs to parse, or omit this argument to parse all cards. "
 															 "For other actions, this field is ignored")
@@ -78,10 +78,6 @@ if __name__ == '__main__':
 	elif config.get("tesseractPath", None):
 		GlobalConfig.tesseractPath = config["tesseractPath"]
 
-	GlobalConfig.language = Language.getLanguageByCode(parsedArguments.language)
-	GlobalConfig.translation = Translations.getForLanguage(GlobalConfig.language)
-	logger.info(f"Using language '{GlobalConfig.language.englishName}'")
-
 	cardIds = None
 	if parsedArguments.cardIds:
 		cardIds = []
@@ -111,105 +107,111 @@ if __name__ == '__main__':
 				except ValueError:
 					raise ValueError(f"Invalid value '{inputCardId}' in the '--cardIds' list, should be numeric")
 
-	if parsedArguments.action in ("parse", "show", "update"):
-		if parsedArguments.action == "show" or parsedArguments.shouldShowSubimages:
-			# If we need to show images, only use one thread, since with multithreading it freezes, and showing images of multiple cards at the same time would get confusing
-			GlobalConfig.threadCount = 1
-			logger.info("Forcing thread count to 1 because that's required to show images")
-		elif config.get("threadCount", 0) or parsedArguments.threads:
-			if parsedArguments.threads:
-				GlobalConfig.threadCount = parsedArguments.threads
-				threadSource = "commandline argument"
-			else:
-				GlobalConfig.threadCount = config["threadCount"]
-				threadSource = "config file"
-			if GlobalConfig.threadCount < 0:
-				GlobalConfig.threadCount = os.cpu_count() + GlobalConfig.threadCount
-			if GlobalConfig.threadCount <= 0:
-				logger.error(f"Invalid thread count {GlobalConfig.threadCount} from {threadSource}, falling back to thread count of 1")
+	for language in parsedArguments.language:
+		GlobalConfig.language = Language.getLanguageByCode(language)
+		GlobalConfig.translation = Translations.getForLanguage(GlobalConfig.language)
+		logger.info(f"Using language '{GlobalConfig.language.englishName}'")
+
+		if parsedArguments.action in ("parse", "show", "update"):
+			if parsedArguments.action == "show" or parsedArguments.shouldShowSubimages:
+				# If we need to show images, only use one thread, since with multithreading it freezes, and showing images of multiple cards at the same time would get confusing
 				GlobalConfig.threadCount = 1
-			else:
-				logger.info(f"Using thread count {GlobalConfig.threadCount} from {threadSource}")
-		else:
-			# Only use half the available cores for threads, because we're also IO- and GIL-bound, so more threads would just slow things down
-			GlobalConfig.threadCount = max(1, os.cpu_count() // 2)
-			if cardIds and len(cardIds) < GlobalConfig.threadCount:
-				# No sense using more threads than we have images to process
-				GlobalConfig.threadCount = len(cardIds)
-				logger.info(f"Using thread count of {GlobalConfig.threadCount} since that's how many cards need to be parsed")
-			else:
-				logger.info(f"Using half the available threads, setting thread count to {GlobalConfig.threadCount:,}")
-
-	startTime = time.perf_counter()
-	if parsedArguments.action == "check":
-		addedCards, cardChanges, possibleImageChanges, unlistedCards = UpdateHandler.checkForNewCardData(fieldsToIgnore=parsedArguments.ignoreFields)
-		print(f"{len(addedCards):,} added cards: {addedCards}")
-		# Count which fields changed
-		fieldsChanged = {}
-		for cardChange in cardChanges:
-			fieldChanged = cardChange[2]
-			if fieldChanged not in fieldsChanged:
-				fieldsChanged[fieldChanged] = 1
-			else:
-				fieldsChanged[fieldChanged] += 1
-		print(f"{len(cardChanges):,} changes {fieldsChanged}:")
-		for cardChange in cardChanges:
-			print(cardChange)
-		print(f"{len(possibleImageChanges):,} possible image changes:")
-		for possibleImageChange in possibleImageChanges:
-			print(possibleImageChange)
-		print(f"{len(unlistedCards)} unlisted cards found: {unlistedCards}")
-	elif parsedArguments.action == "update":
-		UpdateHandler.createOutputIfNeeded(False, cardFieldsToIgnore=parsedArguments.ignoreFields, shouldShowImages=parsedArguments.shouldShowSubimages)
-	elif parsedArguments.action == "download":
-		# Make sure we download from an up-to-date card catalog
-		cardCatalog = RavensburgerApiHandler.retrieveCardCatalog()
-		addedCards, changedCards, possibleImageChanges, unlistedCards = UpdateHandler.checkForNewCardData(cardCatalog, fieldsToIgnore=parsedArguments.ignoreFields)
-		if addedCards or changedCards or possibleImageChanges:
-			print(f"Card catalog for language '{GlobalConfig.language.englishName}' was updated, saving ({len(addedCards):,} added cards, {len(changedCards):,} changed cards, {len(possibleImageChanges):,} possible image changes)")
-			RavensburgerApiHandler.saveCardCatalog(cardCatalog)
-		else:
-			print(f"No new version of the card catalog for language '{GlobalConfig.language.englishName}' found")
-		RavensburgerApiHandler.downloadImages()
-	elif parsedArguments.action == "updateExternalLinks":
-		if not config.get("cardTraderToken", None):
-			print("ERROR: Missing Card Trader API token in config file")
-		else:
-			ExternalLinksHandler.updateCardshopData(config["cardTraderToken"])
-	elif parsedArguments.action == "parse":
-		DataFilesGenerator.createOutputFiles(cardIds, shouldShowImages=parsedArguments.shouldShowSubimages)
-	elif parsedArguments.action == "show":
-		if not cardIds:
-			print("ERROR: Please provide one or more card IDs to show with the '--cardIds' argument")
-			sys.exit(-3)
-		baseImagePath = os.path.join("downloads", "images", GlobalConfig.language.code)
-		baseExternalImagePath = os.path.join(baseImagePath, "external")
-		for cardId in cardIds:
-			baseImagePathForCard = baseImagePath
-			cardPath = os.path.join(baseImagePath, f"{cardId}.jpg")
-			if not os.path.isfile(cardPath):
-				baseImagePathForCard = baseExternalImagePath
-				cardPath = os.path.join(baseImagePathForCard, f"{cardId}.png")
-			if not os.path.isfile(cardPath):
-				cardPath = os.path.join(baseImagePathForCard, f"{cardId}.jpg")
-			if not os.path.isfile(cardPath):
-				print(f"ERROR: Unable to find local image for card ID {cardId}. Please run the 'download' command first, and make sure you didn't make a typo in the ID")
-				continue
-			parsedImageAndTextData = ImageParser().getImageAndTextDataFromImage(cardId, baseImagePathForCard, True, showImage=True)
-			print(f"Card ID {cardId}")
-			for fieldName, fieldResult in parsedImageAndTextData.items():
-				if fieldResult is None:
-					print(f"{fieldName} is empty")
-				elif isinstance(fieldResult, list):
-					for fieldResultIndex, fieldResultItem in enumerate(fieldResult):
-						print(f"{fieldName} index {fieldResultIndex}: {fieldResultItem.text!r}")
+				logger.info("Forcing thread count to 1 because that's required to show images")
+			elif config.get("threadCount", 0) or parsedArguments.threads:
+				if parsedArguments.threads:
+					GlobalConfig.threadCount = parsedArguments.threads
+					threadSource = "commandline argument"
 				else:
-					print(f"{fieldName}: {fieldResult.text!r}")
-			print("")
-	elif parsedArguments.action == "verify":
-		Verifier.compareInputToOutput(cardIds)
-	else:
-		print(f"Unknown action '{parsedArguments.action}', please (re)read the help or the readme")
-		sys.exit(-10)
+					GlobalConfig.threadCount = config["threadCount"]
+					threadSource = "config file"
+				if GlobalConfig.threadCount < 0:
+					GlobalConfig.threadCount = os.cpu_count() + GlobalConfig.threadCount
+				if GlobalConfig.threadCount <= 0:
+					logger.error(f"Invalid thread count {GlobalConfig.threadCount} from {threadSource}, falling back to thread count of 1")
+					GlobalConfig.threadCount = 1
+				else:
+					logger.info(f"Using thread count {GlobalConfig.threadCount} from {threadSource}")
+			else:
+				# Only use half the available cores for threads, because we're also IO- and GIL-bound, so more threads would just slow things down
+				GlobalConfig.threadCount = max(1, os.cpu_count() // 2)
+				if cardIds and len(cardIds) < GlobalConfig.threadCount:
+					# No sense using more threads than we have images to process
+					GlobalConfig.threadCount = len(cardIds)
+					logger.info(f"Using thread count of {GlobalConfig.threadCount} since that's how many cards need to be parsed")
+				else:
+					logger.info(f"Using half the available threads, setting thread count to {GlobalConfig.threadCount:,}")
 
-	print(f"Action '{parsedArguments.action}' for language '{GlobalConfig.language.englishName}' finished after {time.perf_counter() - startTime:.2f} seconds at {datetime.datetime.now()}")
+		startTime = time.perf_counter()
+		if parsedArguments.action == "check":
+			addedCards, cardChanges, possibleImageChanges, unlistedCards = UpdateHandler.checkForNewCardData(fieldsToIgnore=parsedArguments.ignoreFields)
+			print(f"{len(addedCards):,} added cards: {addedCards}")
+			# Count which fields changed
+			fieldsChanged = {}
+			for cardChange in cardChanges:
+				fieldChanged = cardChange[2]
+				if fieldChanged not in fieldsChanged:
+					fieldsChanged[fieldChanged] = 1
+				else:
+					fieldsChanged[fieldChanged] += 1
+			print(f"{len(cardChanges):,} changes {fieldsChanged}:")
+			for cardChange in cardChanges:
+				print(cardChange)
+			print(f"{len(possibleImageChanges):,} possible image changes:")
+			for possibleImageChange in possibleImageChanges:
+				print(possibleImageChange)
+			print(f"{len(unlistedCards)} unlisted cards found: {unlistedCards}")
+		elif parsedArguments.action == "update":
+			UpdateHandler.createOutputIfNeeded(False, cardFieldsToIgnore=parsedArguments.ignoreFields, shouldShowImages=parsedArguments.shouldShowSubimages)
+		elif parsedArguments.action == "download":
+			# Make sure we download from an up-to-date card catalog
+			cardCatalog = RavensburgerApiHandler.retrieveCardCatalog()
+			addedCards, changedCards, possibleImageChanges, unlistedCards = UpdateHandler.checkForNewCardData(cardCatalog, fieldsToIgnore=parsedArguments.ignoreFields)
+			if addedCards or changedCards or possibleImageChanges:
+				print(f"Card catalog for language '{GlobalConfig.language.englishName}' was updated, saving ({len(addedCards):,} added cards, {len(changedCards):,} changed cards, {len(possibleImageChanges):,} possible image changes)")
+				RavensburgerApiHandler.saveCardCatalog(cardCatalog)
+			else:
+				print(f"No new version of the card catalog for language '{GlobalConfig.language.englishName}' found")
+			RavensburgerApiHandler.downloadImages()
+		elif parsedArguments.action == "updateExternalLinks":
+			if not config.get("cardTraderToken", None):
+				print("ERROR: Missing Card Trader API token in config file")
+			else:
+				ExternalLinksHandler.updateCardshopData(config["cardTraderToken"])
+		elif parsedArguments.action == "parse":
+			DataFilesGenerator.createOutputFiles(cardIds, shouldShowImages=parsedArguments.shouldShowSubimages)
+		elif parsedArguments.action == "show":
+			if not cardIds:
+				print("ERROR: Please provide one or more card IDs to show with the '--cardIds' argument")
+				sys.exit(-3)
+			baseImagePath = os.path.join("downloads", "images", GlobalConfig.language.code)
+			baseExternalImagePath = os.path.join(baseImagePath, "external")
+			for cardId in cardIds:
+				baseImagePathForCard = baseImagePath
+				cardPath = os.path.join(baseImagePath, f"{cardId}.jpg")
+				if not os.path.isfile(cardPath):
+					baseImagePathForCard = baseExternalImagePath
+					cardPath = os.path.join(baseImagePathForCard, f"{cardId}.png")
+				if not os.path.isfile(cardPath):
+					cardPath = os.path.join(baseImagePathForCard, f"{cardId}.jpg")
+				if not os.path.isfile(cardPath):
+					print(f"ERROR: Unable to find local image for card ID {cardId}. Please run the 'download' command first, and make sure you didn't make a typo in the ID")
+					continue
+				parsedImageAndTextData = ImageParser().getImageAndTextDataFromImage(cardId, baseImagePathForCard, True, showImage=True)
+				print(f"Card ID {cardId}")
+				for fieldName, fieldResult in parsedImageAndTextData.items():
+					if fieldResult is None:
+						print(f"{fieldName} is empty")
+					elif isinstance(fieldResult, list):
+						for fieldResultIndex, fieldResultItem in enumerate(fieldResult):
+							print(f"{fieldName} index {fieldResultIndex}: {fieldResultItem.text!r}")
+					else:
+						print(f"{fieldName}: {fieldResult.text!r}")
+				print("")
+		elif parsedArguments.action == "verify":
+			Verifier.compareInputToOutput(cardIds)
+		else:
+			print(f"Unknown action '{parsedArguments.action}', please (re)read the help or the readme")
+			sys.exit(-10)
+
+		print(f"Action '{parsedArguments.action}' for language '{GlobalConfig.language.englishName}' finished after {time.perf_counter() - startTime:.2f} seconds at {datetime.datetime.now()}")
+		print()
