@@ -8,6 +8,13 @@ from output import Verifier
 from util import Language, Translations
 
 
+def _infoOrPrint(logger: logging.Logger, message: str):
+	if logger.level <= logging.INFO:
+		logger.info(message)
+	else:
+		print(message)
+
+
 if __name__ == '__main__':
 	argumentParser = argparse.ArgumentParser(description="Handle LorcanaJSON data, depending on the action argument")
 	argumentParser.add_argument("action", choices=("check", "update", "updateExternalLinks", "download", "parse", "show", "verify"), help="Specify the action to take. "
@@ -111,7 +118,7 @@ if __name__ == '__main__':
 	for language in parsedArguments.language:
 		GlobalConfig.language = Language.getLanguageByCode(language)
 		GlobalConfig.translation = Translations.getForLanguage(GlobalConfig.language)
-		logger.info(f"Using language '{GlobalConfig.language.englishName}'")
+		_infoOrPrint(logger, f"Using language '{GlobalConfig.language.englishName}'")
 
 		if parsedArguments.action in ("parse", "show", "update"):
 			if parsedArguments.action == "show" or parsedArguments.shouldShowSubimages:
@@ -214,7 +221,7 @@ if __name__ == '__main__':
 			print(f"Unknown action '{parsedArguments.action}', please (re)read the help or the readme")
 			sys.exit(-10)
 
-		print(f"Action '{parsedArguments.action}' for language '{GlobalConfig.language.englishName}' finished after {time.perf_counter() - startTime:.2f} seconds at {datetime.datetime.now()}")
+		_infoOrPrint(logger, f"Action '{parsedArguments.action}' for language '{GlobalConfig.language.englishName}' finished after {time.perf_counter() - startTime:.2f} seconds at {datetime.datetime.now()}")
 		print()
 	if len(parsedArguments.language) > 1:
-		print(f"Finished actions for all specified languages after {time.perf_counter() - totalStartTime:.2f} seconds at {datetime.datetime.now()}")
+		_infoOrPrint(logger, f"Finished actions for all specified languages after {time.perf_counter() - totalStartTime:.2f} seconds at {datetime.datetime.now()}")
