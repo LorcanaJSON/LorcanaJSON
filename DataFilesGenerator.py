@@ -576,7 +576,7 @@ def createOutputFiles(onlyParseIds: Union[None, List[int]] = None, shouldShowIma
 		setsData[setId]["cards"].append(card)
 	for setId, setData in setsData.items():
 		if len(setData["cards"]) == 0:
-			_logger.warning(f"No cards found for set '{setId}', not creating data file for it")
+			_logger.info(f"No cards found for set '{setId}', not creating data file for it")
 			continue
 		setFilePath = os.path.join(setOutputFolder, f"setdata.{setId}.json")
 		setFilePaths.append(setFilePath)
