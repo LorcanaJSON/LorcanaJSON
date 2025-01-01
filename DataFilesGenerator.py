@@ -834,7 +834,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 				infoEntryClarifications = re.split("\\s*\n+(?=Q:)", infoText)
 				clarifications.extend(infoEntryClarifications)
 			else:
-				_logger.error(f"Unknown 'additional_info' type '{infoEntry['title']}' in card {_createCardIdentifier(outputCard)}")
+				_logger.warning(f"Unknown 'additional_info' type '{infoEntry['title']}' in card {_createCardIdentifier(outputCard)}")
 		if errata:
 			outputCard["errata"] = errata
 		if clarifications:
