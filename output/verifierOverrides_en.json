@@ -1,0 +1,342 @@
+{
+  "59": {
+    "flavor_text": [
+      "STYLE",
+      "style"
+    ]
+  },
+  "82": {
+    "author": [
+      "^J",
+      "Duyen Nguyen / J"
+    ]
+  },
+  "141": {
+    "author": [
+      "o$",
+      "o / Pix Smith"
+    ]
+  },
+  "215": {
+    "rules_text": [
+      "While",
+      "When"
+    ]
+  },
+  "217": {
+    "rules_text": [
+      "Oh, Gosh",
+      "OH, GOSH"
+    ]
+  },
+  "222": {
+    "rules_text": [
+      "Odd One Out",
+      "ODD ONE OUT"
+    ]
+  },
+  "226": {
+    "rules_text": [
+      "There's Trouble A-Brewin",
+      "THERE'S TROUBLE A-BREWIN"
+    ]
+  },
+  "238": {
+    "rules_text": [
+      "Ah-choo",
+      "AH-CHOO"
+    ]
+  },
+  "240": {
+    "rules_text": [
+      "How Do You Do",
+      "HOW DO YOU DO"
+    ]
+  },
+  "245": {
+    "flavor_text": [
+      ",\u00a0b",
+      ", b"
+    ]
+  },
+  "359": {
+    "rules_text": [
+      "\\\"$",
+      "\u201d"
+    ]
+  },
+  "362": {
+    "author": [
+      "R\\.",
+      "Rosa",
+      "L\\.",
+      "Leonardo"
+    ]
+  },
+  "424": {
+    "flavor_text": [
+      "^.+$",
+      ""
+    ]
+  },
+  "462": {
+    "rules_text": [
+      "\\bplay\\b",
+      "sing"
+    ]
+  },
+  "464": {
+    "rules_text": [
+      "\\bplay\\b",
+      "sing"
+    ]
+  },
+  "487": {
+    "rules_text": [
+      "d D",
+      "d. D"
+    ]
+  },
+  "497": {
+    "rules_text": [
+      "\\bplay\\b",
+      "sing"
+    ]
+  },
+  "499": {
+    "rules_text": [
+      "\\bplay\\b",
+      "sing"
+    ]
+  },
+  "506": {
+    "flavor_text": [
+      "\\.{4}",
+      "..."
+    ]
+  },
+  "526": {
+    "flavor_text": [
+      "^.+$",
+      ""
+    ]
+  },
+  "530": {
+    "rules_text": [
+      "\\bplay\\b",
+      "sing"
+    ]
+  },
+  "531": {
+    "rules_text": [
+      "\\bplay\\b",
+      "sing"
+    ]
+  },
+  "532": {
+    "rules_text": [
+      "\\bplay\\b",
+      "sing"
+    ]
+  },
+  "565": {
+    "rules_text": [
+      "\\bplay\\b",
+      "sing"
+    ]
+  },
+  "596": {
+    "rules_text": [
+      "\\bplay\\b",
+      "sing"
+    ]
+  },
+  "597": {
+    "rules_text": [
+      "\\bplay\\b",
+      "sing"
+    ]
+  },
+  "631": {
+    "rules_text": [
+      "\\bplay\\b",
+      "sing"
+    ]
+  },
+  "640": {
+    "rules_text": [
+      "GONNA TAKE YOU THERE",
+      "SHOW ME THE WAY"
+    ]
+  },
+  "660": {
+    "rules_text": [
+      "characters named Stitch",
+      "Stitch characters"
+    ]
+  },
+  "661": {
+    "flavor_text": [
+      "entirely",
+      "unfamiliar"
+    ]
+  },
+  "663": {
+    "rules_text": [
+      "n c",
+      "n opposing c"
+    ]
+  },
+  "664": {
+    "rules_text": [
+      "gains",
+      "has"
+    ]
+  },
+  "665": {
+    "rules_text": [
+      "While",
+      "When"
+    ]
+  },
+  "667": {
+    "rules_text": [
+      "another ",
+      ""
+    ]
+  },
+  "686": {
+    "rules_text": [
+      "play",
+      "sing"
+    ]
+  },
+  "688": {
+    "flavor_text": [
+      "^T.+\\.$",
+      ""
+    ]
+  },
+  "699": {
+    "rules_text": [
+      "Wait For Me",
+      "WAIT FOR ME"
+    ]
+  },
+  "872": {
+    "flavor_text": [
+      "^\\.$",
+      ""
+    ]
+  },
+  "893": {
+    "flavor_text": [
+      " l",
+      " I"
+    ]
+  },
+  "945": {
+    "author": [
+      "^J.+t$",
+      "Grace Tran"
+    ]
+  },
+  "951": {
+    "move_cost": [
+      1,
+      2
+    ],
+    "quest_value": [
+      2,
+      1
+    ]
+  },
+  "971": {
+    "rules_text": [
+      "SAMPLEWASSHIFT",
+      "Shift"
+    ]
+  },
+  "983": {
+    "rules_text": [
+      "w",
+      "card w"
+    ]
+  },
+  "1057": {
+    "flavor_text": [
+      "^4$",
+      ""
+    ],
+    "rules_text": [
+      "(\\d Sample )+3",
+      "2"
+    ]
+  },
+  "1099": {
+    "rules_text": [
+      "If",
+      "if"
+    ]
+  },
+  "1117": {
+    "author": [
+      "Riva",
+      "Priori"
+    ]
+  },
+  "1179": {
+    "flavor_text": [
+      "^.+th",
+      "Th"
+    ]
+  },
+  "1186": {
+    "flavor_text": [
+      "^.+$",
+      ""
+    ]
+  },
+  "1191": {
+    "flavor_text": [
+      "through shear",
+      "with sheer"
+    ]
+  },
+  "1192": {
+    "rules_text": [
+      "\\bmay c",
+      "can c"
+    ]
+  },
+  "1193": {
+    "rules_text": [
+      "character",
+      "card"
+    ]
+  },
+  "1256": {
+    "rules_text": [
+      "^G",
+      "I'VE G"
+    ]
+  },
+  "1357": {
+    "flavor_text": [
+      "\\bwe\\b",
+      "you"
+    ]
+  },
+  "1422": {
+    "rules_text": [
+      "[\\[\\]]",
+      ""
+    ]
+  },
+  "1429": {
+    "flavor_text": [
+      "^.+$",
+      ""
+    ]
+  }
+}

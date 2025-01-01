@@ -6,181 +6,6 @@ from util import Language, LorcanaSymbols, Translations
 
 
 _subtypeSeparatorString = f" {LorcanaSymbols.SEPARATOR} "
-
-# Some of the data in the input file is wrong, which leads to false positives. Override these values here, to prevent that
-# It's organised by language, then by card ID, then by inputCard field, where the value is a pair of strings (regex match and correction), or a new number if it's a numeric field
-_INPUT_OVERRIDES = {
-	Language.ENGLISH: {
-		59: {
-			"flavor_text": ("STYLE", "style")
-		},
-		82: {
-			"author": (r"^J", "Duyen Nguyen / J")
-		},
-		141: {
-			"author": (r"o$", "o / Pix Smith")
-		},
-		215: {
-			"rules_text": ("While", "When")
-		},
-		217: {
-			"rules_text": ("Oh, Gosh", "OH, GOSH")
-		},
-		222: {
-			"rules_text": ("Odd One Out", "ODD ONE OUT")
-		},
-		226: {
-			"rules_text": ("There's Trouble A-Brewin", "THERE'S TROUBLE A-BREWIN")
-		},
-		238: {
-			"rules_text": ("Ah-choo", "AH-CHOO")
-		},
-		240: {
-			"rules_text": ("How Do You Do", "HOW DO YOU DO")
-		},
-		245: {
-			"flavor_text": (",\u00a0b", ", b")
-		},
-		359: {
-			"rules_text": (r"\"$", "”")
-		},
-		362: {
-			"author": (r"R\.", "Rosa", r"L\.", "Leonardo")
-		},
-		424: {
-			"flavor_text": (r"^.+$", "")
-		},
-		462: {
-			"rules_text": (r"\bplay\b", "sing")
-		},
-		464: {
-			"rules_text": (r"\bplay\b", "sing")
-		},
-		487: {
-			"rules_text": ("d D", "d. D")
-		},
-		497: {
-			"rules_text": (r"\bplay\b", "sing")
-		},
-		499: {
-			"rules_text": (r"\bplay\b", "sing")
-		},
-		506: {
-			"flavor_text": (r"\.{4}", "...")
-		},
-		526: {
-			"flavor_text": (r"^.+$", "")
-		},
-		530: {
-			"rules_text": (r"\bplay\b", "sing")
-		},
-		531: {
-			"rules_text": (r"\bplay\b", "sing")
-		},
-		532: {
-			"rules_text": (r"\bplay\b", "sing")
-		},
-		565: {
-			"rules_text": (r"\bplay\b", "sing")
-		},
-		596: {
-			"rules_text": (r"\bplay\b", "sing")
-		},
-		597: {
-			"rules_text": (r"\bplay\b", "sing")
-		},
-		631: {
-			"rules_text": (r"\bplay\b", "sing")
-		},
-		640: {
-			"rules_text": ("GONNA TAKE YOU THERE", "SHOW ME THE WAY")
-		},
-		660: {
-			"rules_text": ("characters named Stitch", "Stitch characters")
-		},
-		661: {
-			"flavor_text": ("entirely", "unfamiliar")
-		},
-		663: {
-			"rules_text": ("n c", "n opposing c")
-		},
-		664: {
-			"rules_text": ("gains", "has")
-		},
-		665: {
-			"rules_text": ("While", "When")
-		},
-		667: {
-			"rules_text": ("another ", "")
-		},
-		686: {
-			"rules_text": ("play", "sing")
-		},
-		688: {
-		   "flavor_text": (r"^T.+\.$", "")
-		},
-		699: {
-			"rules_text": ("Wait For Me", "WAIT FOR ME")
-		},
-		872: {
-			"flavor_text": (r"^\.$", "")
-		},
-		893: {
-			"flavor_text": (" l", " I")
-		},
-		945: {
-			"author": (r"^J.+t$", "Grace Tran")
-		},
-		951: {
-			"move_cost": (1, 2),
-			"quest_value": (2, 1)
-		},
-		971: {
-			"rules_text": ("SAMPLEWASSHIFT", "Shift")
-		},
-		983: {
-			"rules_text": (r"w", "card w")
-		},
-		1057: {
-			"flavor_text": (r"^4$", ""),
-			"rules_text": (r"(\d Sample )+3", "2")
-		},
-		1099: {
-			"rules_text": ("If", "if")
-		},
-		1117: {
-			"author": ("Riva", "Priori")
-		},
-		1179: {
-			"flavor_text": (r"^.+th", "Th")
-		},
-		1186: {
-			"flavor_text": (r"^.+$", "")
-		},
-		1191: {
-			"flavor_text": (r"through shear", "with sheer")
-		},
-		1192: {
-			"rules_text": (r"\bmay c", "can c")
-		},
-		1193: {
-			"rules_text": ("character", "card")
-		},
-		1256: {
-			"rules_text": (r"^G", "I'VE G")
-		},
-		1357: {
-			"flavor_text": (r"\bwe\b", "you")
-		},
-		1422: {
-			"rules_text": (r"[\[\]]", "")
-		},
-		1429: {
-			"flavor_text": (r"^.+$", "")
-		}
-	}
-}
-
 def compareInputToOutput(cardIdsToVerify: Union[List[int], None]):
 	inputFilePath = os.path.join("downloads", "json", f"carddata.{GlobalConfig.language.code}.json")
 	if not os.path.isfile(inputFilePath):
@@ -216,7 +41,18 @@ def compareInputToOutput(cardIdsToVerify: Union[List[int], None]):
 		for inputCard in cardlist:
 			idToInputCard[inputCard["culture_invariant_id"]] = inputCard
 
-	inputOverrides = _INPUT_OVERRIDES.get(GlobalConfig.language, {})
+	# Some of the data in the input file is wrong, which leads to false positives. Get override values here, to prevent that
+	# It's organised by language, then by card ID, then by inputCard field, where the value is a pair of strings (regex match and correction), or a new number if it's a numeric field
+	overridesFilePath = os.path.join("output", f"verifierOverrides_{GlobalConfig.language.code}.json")
+	if os.path.isfile(overridesFilePath):
+		with open(overridesFilePath, "r", encoding="utf-8") as overridesFile:
+			inputOverrides = json.load(overridesFile)
+			# Convert the keys to ints
+			inputOverrides = {int(k, 10): v for k, v in inputOverrides.items()}
+			print(f"Overrides file found, loaded {len(inputOverrides):,} input overrides")
+	else:
+		print("No overrides file found")
+		inputOverrides = {}
 
 	cardDifferencesCount = 0
 	for outputCard in outputCardStore["cards"]:
