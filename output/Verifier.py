@@ -120,7 +120,9 @@ def compareInputToOutput(cardIdsToVerify: Union[List[int], None]):
 		# Compare flavor text
 		if inputCard.get("flavor_text", None) or "flavorText" in outputCard:
 			if "flavor_text" in inputCard and inputCard["flavor_text"] != "ERRATA":
-				inputFlavorText: str = inputCard["flavor_text"].replace("\u00a0", "").replace("‘", "'").replace("’", "'").replace("…", "...").replace(" ..", "..").replace(".. ", "..").replace("<", "").replace(">", "").replace("%", " ").rstrip()
+				inputFlavorText: str = inputCard["flavor_text"].replace("\u00a0", "").replace("‘", "'").replace("’", "'").replace("…", "...").replace(" ..", "..").replace(".. ", "..").replace("<", "").replace(">", "").rstrip()
+				# '%' seems to be a substitute for a newline character
+				inputFlavorText = re.sub(" ?% ?", " ", inputFlavorText)
 				inputFlavorText = inputFlavorText.replace("  ", " ")
 				# The quote attribution dash always has a space after it in the input text, but never on the actual card. Ignore that
 				inputFlavorText = re.sub(" ([—-]) (?=[A-Z])", r" \1", inputFlavorText)
