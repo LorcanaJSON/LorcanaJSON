@@ -118,7 +118,7 @@ if __name__ == '__main__':
 	for language in parsedArguments.language:
 		GlobalConfig.language = Language.getLanguageByCode(language)
 		GlobalConfig.translation = Translations.getForLanguage(GlobalConfig.language)
-		_infoOrPrint(logger, f"Using language '{GlobalConfig.language.englishName}'")
+		_infoOrPrint(logger, f"Starting action '{parsedArguments.action}' for language '{GlobalConfig.language.englishName}' at {datetime.datetime.now()}")
 
 		if parsedArguments.action in ("parse", "show", "update"):
 			if parsedArguments.action == "show" or parsedArguments.shouldShowSubimages:
