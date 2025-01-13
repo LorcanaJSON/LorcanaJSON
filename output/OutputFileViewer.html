@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <title>Output Data Verification Viewer</title>
 <style>
-  pre {
-    font-size: 1.1em;
-    tab-size: 4;
+	pre {
+		font-size: 1.1em;
+		tab-size: 4;
   }
 </style>
 </head>
@@ -34,12 +34,12 @@
 <div id="name"></div>
 <hr>
 <div>
-  <span>
-  <a href="#" onclick="setLanguage('en'); return false;">English</a>
-  <a href="#" onclick="setLanguage('fr'); return false;">French</a>
-  <a href="#" onclick="setLanguage('de'); return false;">German</a>
-  <a href="#" onclick="setLanguage('it'); return false;">Italian</a>
-  </span>
+	<span>
+		<a href="#" onclick="setLanguage('en'); return false;">English</a>
+		<a href="#" onclick="setLanguage('fr'); return false;">French</a>
+		<a href="#" onclick="setLanguage('de'); return false;">German</a>
+		<a href="#" onclick="setLanguage('it'); return false;">Italian</a>
+	</span>
 </div>
 <br />
 <img id="img" src="" style="max-height: 900px" />
@@ -72,49 +72,49 @@ function setDisplayedIndex(newIndex) {
 	currentIndex = newIndex;
 	let currentCardData = cardsJson["cards"][currentIndex];
 	document.getElementById("name").textContent = currentCardData["fullName"];
-  const isExternal = currentCardData.hasOwnProperty("isExternalReveal");
+	const isExternal = currentCardData.hasOwnProperty("isExternalReveal");
 	document.getElementById("img").src = "../downloads/images/" + languageCode + "/" + (isExternal ? "external/" : "") + currentCardData["id"] + ".jpg";
-  if (["Lieu", "Location", "Luogo", "Ort"].includes(currentCardData["type"])) {
-    // Rotate Location cards, since they're horizontal, so verifying the data is easier
-    document.getElementById("img").style.transform = "rotate(0.25turn) translateY(-20%)";
-  } else {
-    document.getElementById("img").style.transform= "none";
-  }
+	if (["Lieu", "Location", "Luogo", "Ort"].includes(currentCardData["type"])) {
+		// Rotate Location cards, since they're horizontal, so verifying the data is easier
+		document.getElementById("img").style.transform = "rotate(0.25turn) translateY(-20%)";
+	} else {
+		document.getElementById("img").style.transform= "none";
+  	}
 	document.getElementById("text").textContent = currentCardData["fullText"];
 	document.getElementById("flavorText").textContent = currentCardData["flavorText"];
 	document.getElementById("cardJson").textContent = JSON.stringify(currentCardData, null, "\t");
 	document.getElementById("currentIndex").value = currentIndex;
 	document.getElementById("cardId").value = currentCardData["id"];
-  document.getElementById("cardImageLink").href = currentCardData["images"]["full"];
-  // Update the external links
-  const cardmarketLink = document.getElementById("cardmarketLink");
-  const cardTraderLink = document.getElementById("cardTraderLink");
-  const tcgPlayerLink = document.getElementById("tcgPlayerLink");
-  if (currentCardData.hasOwnProperty("externalLinks") && currentCardData["externalLinks"]) {
-    updateExternalLink("cardmarketLink", currentCardData["externalLinks"], "cardmarketUrl");
-    updateExternalLink("cardTraderLink", currentCardData["externalLinks"], "cardTraderUrl");
-    updateExternalLink("tcgPlayerLink", currentCardData["externalLinks"], "tcgPlayerUrl");
-  }
-  // Some 'fullText' goes off the screen, creating a scrollbar. Pressing left or right both scrolls and changes index. Reset horizontal scroll after changing index so we don't start a new image scrolled
-  document.scrollLeft = 0;
-  document.getElementById("text").scrollLeft = 0;
-  // Deselect input fields, so typing letters or pressing arrows doesn't (also) affect the input field
-  document.getElementById("currentIndex").blur();
-  document.getElementById("cardId").blur();
-  document.title = `Output Data Verification Viewer | ${currentCardData["id"]} ${currentCardData["fullName"]}`;
+	document.getElementById("cardImageLink").href = currentCardData["images"]["full"];
+	// Update the external links
+	const cardmarketLink = document.getElementById("cardmarketLink");
+	const cardTraderLink = document.getElementById("cardTraderLink");
+	const tcgPlayerLink = document.getElementById("tcgPlayerLink");
+	if (currentCardData.hasOwnProperty("externalLinks") && currentCardData["externalLinks"]) {
+		updateExternalLink("cardmarketLink", currentCardData["externalLinks"], "cardmarketUrl");
+		updateExternalLink("cardTraderLink", currentCardData["externalLinks"], "cardTraderUrl");
+		updateExternalLink("tcgPlayerLink", currentCardData["externalLinks"], "tcgPlayerUrl");
+	}
+	// Some 'fullText' goes off the screen, creating a scrollbar. Pressing left or right both scrolls and changes index. Reset horizontal scroll after changing index so we don't start a new image scrolled
+	document.scrollLeft = 0;
+	document.getElementById("text").scrollLeft = 0;
+	// Deselect input fields, so typing letters or pressing arrows doesn't (also) affect the input field
+	document.getElementById("currentIndex").blur();
+	document.getElementById("cardId").blur();
+	document.title = `Output Data Verification Viewer | ${currentCardData["id"]} ${currentCardData["fullName"]}`;
 }
 function updateExternalLink(linkId, externalLinkData, externalLinkName) {
-    const linkElement = document.getElementById(linkId);
-    if (externalLinkData[externalLinkName]) {
-      linkElement.href = externalLinkData[externalLinkName];
-      linkElement.style.removeProperty("text-decoration-line");
-    } else {
-      linkElement.href = "#";
-      linkElement.style.textDecorationLine = "line-through";
-    }
+	const linkElement = document.getElementById(linkId);
+	if (externalLinkData[externalLinkName]) {
+	  linkElement.href = externalLinkData[externalLinkName];
+	  linkElement.style.removeProperty("text-decoration-line");
+	} else {
+	  linkElement.href = "#";
+	  linkElement.style.textDecorationLine = "line-through";
+	}
 }
 function changeToRandomIndex() {
-  setDisplayedIndex(Math.floor(Math.random() * maxIndex));
+	setDisplayedIndex(Math.floor(Math.random() * maxIndex));
 }
 function handleKeyPress(e) {
 	if (!e.repeat) {
@@ -123,26 +123,26 @@ function handleKeyPress(e) {
 		} else if (e.key === "ArrowRight") {
 			changeDisplayedIndex(1);
 		} else if (e.key === "e") {
-      setLanguage("en");
-    } else if (e.key === "f") {
-      setLanguage("fr");
-    } else if (e.key === "d" || e.key === "g") {
-      setLanguage("de");
-    } else if (e.key === "i") {
-      setLanguage("it");
-    } else if (e.key === "r") {
-      changeToRandomIndex();
-    }
+			setLanguage("en");
+		} else if (e.key === "f") {
+		  setLanguage("fr");
+		} else if (e.key === "d" || e.key === "g") {
+		  setLanguage("de");
+		} else if (e.key === "i") {
+		  setLanguage("it");
+		} else if (e.key === "r") {
+		  changeToRandomIndex();
+		}
 	}
-  if (e.key == "ArrowLeft" || e.key == "ArrowRight") {
-    e.preventDefault();
-  }
+	if (e.key == "ArrowLeft" || e.key == "ArrowRight") {
+		e.preventDefault();
+	}
 }
 
 function setLanguage(newLanguageCode) {
 	languageCode = newLanguageCode;
 	setDisplayedIndex(currentIndex);
-  return false;
+	return false;
 }
 
 document.addEventListener("keydown", handleKeyPress);
@@ -181,9 +181,9 @@ document.getElementById("dropLocation").addEventListener("drop", (event) => {
 	const file = event.dataTransfer.items[0].getAsFile();
 	file.text().then((fileText) => {
 		cardsJson = JSON.parse(fileText);
-    languageCode = cardsJson["metadata"]["language"];
+		languageCode = cardsJson["metadata"]["language"];
 		maxIndex = cardsJson["cards"].length - 1;
-    setDisplayedIndex(Math.min(currentIndex, maxIndex));
+		setDisplayedIndex(Math.min(currentIndex, maxIndex));
 		document.getElementById("maxIndex").textContent = maxIndex;
 		document.getElementById("maxId").textContent = cardsJson["cards"][maxIndex]["id"];
 	}).catch((error) => console.log("An error occurred: %o", error));
