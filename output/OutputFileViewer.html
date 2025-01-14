@@ -134,6 +134,8 @@ function handleKeyPress(e) {
 			setLanguage("it");
 		} else if (e.key === "r") {
 			changeToRandomIndex();
+		} else if (e.key === "Escape" && !isNotInInputField()) {
+			document.activeElement.blur();
 		}
 	}
 }
