@@ -118,10 +118,12 @@ function changeToRandomIndex() {
 }
 function handleKeyPress(e) {
 	if (!e.repeat) {
-		if (e.key === "ArrowLeft") {
+		if (e.key === "ArrowLeft" && isNotInInputField()) {
 			changeDisplayedIndex(-1);
-		} else if (e.key === "ArrowRight") {
+			e.preventDefault();
+		} else if (e.key === "ArrowRight" && isNotInInputField()) {
 			changeDisplayedIndex(1);
+			e.preventDefault();
 		} else if (e.key === "e") {
 			setLanguage("en");
 		} else if (e.key === "f") {
@@ -134,9 +136,9 @@ function handleKeyPress(e) {
 			changeToRandomIndex();
 		}
 	}
-	if (e.key == "ArrowLeft" || e.key == "ArrowRight") {
-		e.preventDefault();
-	}
+}
+function isNotInInputField() {
+	return document.activeElement === null || document.activeElement === document.body;
 }
 
 function setLanguage(newLanguageCode) {
