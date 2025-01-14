@@ -136,6 +136,9 @@ function handleKeyPress(e) {
 			changeToRandomIndex();
 		} else if (e.key === "Escape" && !isNotInInputField()) {
 			document.activeElement.blur();
+		} else if (!isNaN(+e.key)) {
+			// When a number is pressed, focus the 'Card ID' input field, and let the number be typed in there
+			document.getElementById("cardId").focus();
 		}
 	}
 }
