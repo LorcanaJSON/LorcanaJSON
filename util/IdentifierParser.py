@@ -18,11 +18,6 @@ class Identifier:
 	setCode: str
 	variant: str = None
 
-	def __post_init__(self):
-		# 'Q1' setcode sometimes gets read as '01', correct that
-		if self.setCode == "01":
-			self.setCode = "Q1"
-
 	def isPromo(self) -> bool:
 		"""
 		:return: True if this identifier is for a Promo card, False otherwise
@@ -57,4 +52,10 @@ def parseIdentifier(identifierString: str) -> Union[None, Identifier]:
 		_LOGGER.warning(f"Unable to parse identifier {identifierString}")
 		return None
 
-	return Identifier(parsedIdentifier.group("grouping"), parsedIdentifier.group("language"), int(parsedIdentifier.group("number"), 10), parsedIdentifier.group("setCode"), parsedIdentifier.group("variant"))
+
+	# 'Q1' setcode sometimes gets read as '01', correct that
+	setCode = parsedIdentifier.group("setCode")
+	if setCode == "01":
+		setCode = "Q1"
+
+	return Identifier(parsedIdentifier.group("grouping"), parsedIdentifier.group("language"), int(parsedIdentifier.group("number"), 10), setCode, parsedIdentifier.group("variant"))
