@@ -134,6 +134,7 @@ def compareInputToOutput(cardIdsToVerify: Union[List[int], None]):
 			if "flavorText" in outputCard:
 				outputFlavorText = outputCard['flavorText']
 				outputFlavorText = outputFlavorText.replace("“", "").replace("”", "").replace("‘", "'").replace("’", "'")
+				# Newlines are spaces in the input text, except after connecting dashes just before a newline
 				outputFlavorText = outputFlavorText.replace("-\n", "-").replace("—\n", "—").replace("\n", " ")
 			else:
 				outputFlavorText = ""
