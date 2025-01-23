@@ -1010,7 +1010,8 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 				else:
 					ability["fullText"] = ""
 				if "costsText" in ability:
-					ability["fullText"] += ability["costsText"] + activatedAbilityMatch.group(0)  # Since we don't know the exact type of separating dash, get it from the regex
+					# Since we don't know the exact type of separating dash, get it from the regex
+					ability["fullText"] += ability["costsText"] + activatedAbilityMatch.group(0)
 					ability["costsText"] = ability["costsText"].replace("\n", " ")
 					ability["costs"] = ability["costsText"].split(", ")
 				ability["fullText"] += ability["effect"]
