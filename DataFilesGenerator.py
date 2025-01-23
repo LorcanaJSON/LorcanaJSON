@@ -985,7 +985,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 				elif GlobalConfig.language == Language.ENGLISH:
 					if ability["effect"].startswith("Once per turn, you may"):
 						ability["type"] = "activated"
-					elif (ability["effect"].startswith("At the start of") or ability["effect"].startswith("At the end of") or	re.search(r"(^W|,[ \n]w)hen(ever)?[ \n]", ability["effect"])
+					elif (ability["effect"].startswith("At the start of") or ability["effect"].startswith("At the end of") or re.search(r"(^W|,[ \n]w)hen(ever)?[ \n]", ability["effect"])
 							or re.search("when (he|she|it|they) enters play", ability["effect"])):
 						ability["type"] = "triggered"
 				elif GlobalConfig.language == Language.FRENCH:
