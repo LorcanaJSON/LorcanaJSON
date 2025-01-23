@@ -124,8 +124,6 @@ def compareInputToOutput(cardIdsToVerify: Union[List[int], None]):
 				# '%' seems to be a substitute for a newline character
 				inputFlavorText = re.sub(" ?% ?", " ", inputFlavorText)
 				inputFlavorText = inputFlavorText.replace("  ", " ")
-				# The quote attribution dash always has a space after it in the input text, but never on the actual card. Ignore that
-				inputFlavorText = re.sub(" ([—-]) (?=[A-Z])", r" \1", inputFlavorText)
 				if inputFlavorText.endswith(" ERRATA"):
 					inputFlavorText = inputFlavorText.rsplit(" ", 1)[0]
 				if GlobalConfig.language == Language.FRENCH:
