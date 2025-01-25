@@ -4,7 +4,7 @@ from typing import Union
 
 from util import LorcanaSymbols
 
-_IDENTIFIER_REGEX = re.compile(r"^(?P<number>\d+)(?P<variant>[a-z])?[/1](?P<grouping>[A-Z]?\d+)( ?[-+<]{1,2} ?| (. )?)(?P<language>\w+)( ?[-+<]{1,2} ?| (. )?)(?P<setCode>\S+)$")
+_IDENTIFIER_REGEX = re.compile(r"^(?P<number>[0-9V]+)(?P<variant>[a-z])?[/1](?P<grouping>[A-Z]?\d+)( ?[-+<]{1,2} ?| (. )?)(?P<language>\w+)( ?[-+<]{1,2} ?| (. )?)(?P<setCode>\S+)$")
 _LOGGER = logging.getLogger("LorcanaJSON")
 
 @dataclass
@@ -52,10 +52,18 @@ def parseIdentifier(identifierString: str) -> Union[None, Identifier]:
 		_LOGGER.warning(f"Unable to parse identifier {identifierString}")
 		return None
 
+	# Card number sometimes gets read wrong, correct that
+	number = parsedIdentifier.group("number")
+	if number == "V":
+		_LOGGER.info("Correcting number parsed as 'V' to '1'")
+		number = 1
+	else:
+		number = int(number, 10)
 
 	# 'Q1' setcode sometimes gets read as '01', correct that
 	setCode = parsedIdentifier.group("setCode")
 	if setCode == "01":
+		_LOGGER.info("Correcting invalid parsed setCode '01' to 'Q1'")
 		setCode = "Q1"
 
-	return Identifier(parsedIdentifier.group("grouping"), parsedIdentifier.group("language"), int(parsedIdentifier.group("number"), 10), setCode, parsedIdentifier.group("variant"))
+	return Identifier(parsedIdentifier.group("grouping"), parsedIdentifier.group("language"), number, setCode, parsedIdentifier.group("variant"))
