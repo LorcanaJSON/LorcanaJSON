@@ -97,11 +97,24 @@
       "fr": "Le Règne de Jafar",
       "it": "Il Regno di Jafar"
     },
+    "prereleaseDate": "2025-05-30",
+    "releaseDate": "2025-06-06",
+    "hasAllCards": false,
+    "type": "expansion",
+    "number": 8
+  },
+  "9": {
+    "names": {
+      "de": "Mythen",
+      "en": "Fabled",
+      "fr": "Fabuleux",
+      "it": "Leggende"
+    },
     "prereleaseDate": null,
     "releaseDate": null,
     "hasAllCards": false,
     "type": "expansion",
-    "number": 8
+    "number": 9
   },
   "Q1": {
     "names": {
