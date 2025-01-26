@@ -114,17 +114,17 @@ def checkForNewCardData(newCardCatalog: Dict = None, fieldsToIgnore: List[str] =
 	# Check if card images were uploaded to Ravensburger's server but not added to the app yet
 	with open(os.path.join("output", "baseSetData.json"), "r", encoding="utf-8") as baseSetDataFile:
 		baseSetData = json.load(baseSetDataFile)
-	highestIncompleteSetNumber = -1
+	firstIncompleteSetNumber = -1
 	highestSetNumber = -1
 	for setCode, setData in baseSetData.items():
 		if setData["type"] == "expansion":
 			setNumber = setData["number"]
-			if not setData["hasAllCards"]:
-				highestIncompleteSetNumber = setNumber
+			if not setData["hasAllCards"] and firstIncompleteSetNumber == -1:
+				firstIncompleteSetNumber = setNumber
 			if setNumber > highestSetNumber:
 				highestSetNumber = setNumber
-	if highestIncompleteSetNumber > -1:
-		setNumberToCheck = highestIncompleteSetNumber
+	if firstIncompleteSetNumber > -1:
+		setNumberToCheck = firstIncompleteSetNumber
 	else:
 		setNumberToCheck = highestSetNumber + 1
 	unlistedCards = []
