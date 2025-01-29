@@ -187,10 +187,24 @@ document.getElementById("dropLocation").addEventListener("drop", (event) => {
 	event.preventDefault();
 	const file = event.dataTransfer.items[0].getAsFile();
 	file.text().then((fileText) => {
+		let oldId = -1;
+		if (cardsJson["cards"].length > 0) {
+			oldId = cardsJson["cards"][currentIndex]["id"];
+		}
 		cardsJson = JSON.parse(fileText);
 		languageCode = cardsJson["metadata"]["language"];
 		maxIndex = cardsJson["cards"].length - 1;
-		setDisplayedIndex(Math.min(currentIndex, maxIndex));
+		// Try to stay at the same card ID; if that can't be found, stay on the same index
+		let targetIndex = currentIndex;
+		if (oldId > -1) {
+			for (let i = 0; i < cardsJson["cards"].length; ++i) {
+				if (cardsJson["cards"][i]["id"] === oldId) {
+					targetIndex = i;
+					break;
+				}
+			}
+		}
+		setDisplayedIndex(Math.min(targetIndex, maxIndex));
 		document.getElementById("maxIndex").textContent = maxIndex;
 		document.getElementById("maxId").textContent = cardsJson["cards"][maxIndex]["id"];
 	}).catch((error) => console.log("An error occurred: %o", error));
