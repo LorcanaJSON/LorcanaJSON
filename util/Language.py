@@ -1,8 +1,13 @@
-from collections import namedtuple
+from dataclasses import dataclass
 from typing import Tuple
 
+@dataclass(frozen=True)
+class Language:
+	code: str
+	threeLetterCode: str
+	englishName: str
+	nativeName: str
 
-Language = namedtuple("Language", ("code", "threeLetterCode", "englishName", "nativeName"))
 
 ENGLISH = Language("en", "eng", "English", "English")
 FRENCH = Language("fr", "fra", "French", "Français")
