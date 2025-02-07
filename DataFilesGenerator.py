@@ -13,6 +13,7 @@ _logger = logging.getLogger("LorcanaJSON")
 FORMAT_VERSION = "2.1.0"
 _CARD_CODE_LOOKUP = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 _KEYWORD_REGEX = re.compile(r"(?:^|\n)([A-ZÀ][^.]+)(?= \()")
+_ABILITY_TYPE_CORRECTION_FIELD_TO_ABILITY_TYPE: Dict[str, str] = {"_forceAbilityIndexToActivated": "activated", "_forceAbilityIndexToStatic": "static", "_forceAbilityIndexToTriggered": "triggered"}
 # The card parser is run in threads, and each thread needs to initialize its own ImageParser (otherwise weird errors happen in Tesseract)
 # Store each initialized ImageParser in its own thread storage
 _threadingLocalStorage = threading.local()
@@ -876,9 +877,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 	# Card-specific corrections
 	externalLinksCorrection: Union[None, List[str]] = None  # externalLinks depends on correct fullIdentifier, which may have a correction, but it also might need a correction itself. So store it for now, and correct it later
 	fullTextCorrection: Union[None, List[str]] = None  # Since the fullText gets created as the last step, if there is a correction for it, save it for later
-	forceAbilityTypeIndexToActivated: int = -1
-	forceAbilityTypeIndexToTriggered: int = -1
-	forceAbilityTypeIndexToStatic: int = -1
+	forceAbilityTypeAtIndex: Dict[int, str] = {}  # index to ability type
 	newlineAfterLabelIndex: int = -1
 	mergeEffectIndexWithPrevious: int = -1
 	if cardDataCorrections:
@@ -897,9 +896,12 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 				outputCard["abilities"].append({"type": "keyword", "fullText": keywordText})
 			else:
 				_logger.error(f"'keywordsLast' set but keyword couldn't be found for card {outputCard['id']}")
-		forceAbilityTypeIndexToActivated = cardDataCorrections.pop("_forceAbilityIndexToActivated", -1)
-		forceAbilityTypeIndexToTriggered = cardDataCorrections.pop("_forceAbilityIndexToTriggered", -1)
-		forceAbilityTypeIndexToStatic = cardDataCorrections.pop("_forceAbilityIndexToStatic", -1)
+		for correctionAbilityField, abilityTypeCorrection in _ABILITY_TYPE_CORRECTION_FIELD_TO_ABILITY_TYPE.items():
+			if correctionAbilityField in cardDataCorrections:
+				abilityIndexToCorrect = cardDataCorrections.pop(correctionAbilityField)
+				if abilityIndexToCorrect in forceAbilityTypeAtIndex:
+					_logger.error(f"Ability at index {abilityIndexToCorrect} in card {_createCardIdentifier(outputCard)} is being corrected to two types: '{forceAbilityTypeAtIndex[abilityIndexToCorrect]}' and '{abilityTypeCorrection}'")
+				forceAbilityTypeAtIndex[abilityIndexToCorrect] = abilityTypeCorrection
 		newlineAfterLabelIndex = cardDataCorrections.pop("_newlineAfterLabelIndex", -1)
 		mergeEffectIndexWithPrevious = cardDataCorrections.pop("_mergeEffectIndexWithPrevious", -1)
 		effectAtIndexIsAbility: Union[int, List[int, str]] = cardDataCorrections.pop("_effectAtIndexIsAbility", -1)
@@ -966,18 +968,11 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 				# Non-keyword ability, determine which type it is
 				ability["type"] = "static"
 				activatedAbilityMatch = re.search("[ \n][-–—][ \n]", ability["effect"])
-				if forceAbilityTypeIndexToActivated == abilityIndex:
-					_logger.info(f"Forcing ability type at index {abilityIndex} of card ID {outputCard['id']} to 'activated'")
-					ability["type"] = "activated"
-				elif forceAbilityTypeIndexToTriggered == abilityIndex:
-					_logger.info(f"Forcing ability type at index {abilityIndex} of card ID {outputCard['id']} to 'triggered'")
-					ability["type"] = "triggered"
-				elif forceAbilityTypeIndexToStatic == abilityIndex:
-					_logger.info(f"Forcing ability type at index {abilityIndex} of card ID {outputCard['id']} to 'static'")
+
 				# Activated abilities require a cost, a dash, and then an effect
 				# Some static abilities give characters such an activated ability, don't trigger on that
 				# Some cards contain their own name (e.g. 'Dalmatian Puppy - Tail Wagger', ID 436), don't trigger on that dash either
-				elif (activatedAbilityMatch and
+				if (activatedAbilityMatch and
 						("“" not in ability["effect"] or ability["effect"].index("“") > activatedAbilityMatch.start()) and
 						(outputCard["name"] not in ability["effect"] or ability["effect"].index(outputCard["name"]) > activatedAbilityMatch.start())):
 					# Assume there's a payment text in there
@@ -998,6 +993,14 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 						re.match("Si (?!vous avez|un personnage)", ability["effect"]) or re.search("gagnez .+ pour chaque", ability["effect"]) or
 						re.search(r"une carte est\splacée", ability["effect"])):
 						ability["type"] = "triggered"
+
+				if abilityIndex in forceAbilityTypeAtIndex:
+					if forceAbilityTypeAtIndex[abilityIndex] == ability["type"]:
+						_logger.error(f"Ability at index {abilityIndex} should be corrected to '{forceAbilityTypeAtIndex[abilityIndex]}' but it is already that type")
+					else:
+						ability["type"] = forceAbilityTypeAtIndex[abilityIndex]
+						_logger.info(f"Forcing ability type at index {abilityIndex} of card ID {outputCard['id']} to '{ability['type']}'")
+
 				# All parts determined, now reconstruct the full ability text
 				if "name" in ability and not ability["name"]:
 					# Abilities added through corrections may have an empty name, remove that
