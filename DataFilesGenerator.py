@@ -66,7 +66,9 @@ def correctText(cardText: str) -> str:
 	cardText = re.sub(r"(\d) [0-9DGOQ]\b", f"\\1 {LorcanaSymbols.STRENGTH}", cardText)
 	# Letters after a quotemark at the start of a line should be capitalized
 	cardText = re.sub("^“[a-z]", lambda m: m.group(0).upper(), cardText, flags=re.MULTILINE)
-	
+	if re.search(" [^?!.…”“]$", cardText):
+		cardText = cardText[:-2]
+
 	if GlobalConfig.language == Language.ENGLISH:
 		cardText = re.sub("^‘", "“", cardText, flags=re.MULTILINE)
 		cardText = re.sub(" [:i]$", "", cardText, flags=re.MULTILINE)
