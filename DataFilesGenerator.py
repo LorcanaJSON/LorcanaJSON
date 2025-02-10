@@ -167,8 +167,8 @@ def correctPunctuation(textToCorrect: str) -> str:
 	# Ellipses get parsed weird, with spaces between periods where they don't belong. Fix that
 	if correctedText.count(".") > 2:
 		correctedText = re.sub(r"([\xa0 ]?\.[\xa0 ]?){3}", "..." if GlobalConfig.language == Language.ENGLISH else "…", correctedText)
-	if ".…" in correctedText:
-		correctedText = re.sub(r"\.+…", "…", correctedText)
+	if "…" in correctedText:
+		correctedText = re.sub(r"\.*…( \.+)?", "…", correctedText)
 	if correctedText.endswith(","):
 		correctedText = correctedText[:-1] + "."
 	correctedText = correctedText.rstrip(" -_")
