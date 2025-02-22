@@ -1,0 +1,272 @@
+{
+  "4": {
+    "flavor_text": [
+      "^.+$",
+      ""
+    ]
+  },
+  "62": {
+    "rules_text": [
+      "d,",
+      "d deiner Wahl,"
+    ]
+  },
+  "72": {
+    "rules_text": [
+      "durch eine Herausforderung",
+      "herausgefordert und"
+    ]
+  },
+  "82": {
+    "author": [
+      "^J",
+      "Duyen Nguyen / J"
+    ]
+  },
+  "123": {
+    "rules_text": [
+      "SS",
+      "ẞ"
+    ]
+  },
+  "134": {
+    "rules_text": [
+      "SS",
+      "ẞ"
+    ]
+  },
+  "141": {
+    "author": [
+      "o$",
+      "o / Pix Smith"
+    ]
+  },
+  "182": {
+    "flavor_text": [
+      "\\.A",
+      ". A"
+    ]
+  },
+  "188": {
+    "rules_text": [
+      "SS",
+      "ẞ"
+    ]
+  },
+  "190": {
+    "rules_text": [
+      "SS",
+      "ẞ"
+    ]
+  },
+  "202": {
+    "rules_text": [
+      "w",
+      "W",
+      " gegnerischen",
+      ""
+    ]
+  },
+  "205": {
+    "rules_text": [
+      "s C",
+      "s-C"
+    ]
+  },
+  "213": {
+    "rules_text": [
+      "a C",
+      "a-C"
+    ]
+  },
+  "222": {
+    "rules_text": [
+      "Sonderling",
+      "SONDERLING"
+    ]
+  },
+  "248": {
+    "rules_text": [
+      " in diesem Zug",
+      ""
+    ]
+  },
+  "289": {
+    "flavor_text": [
+      "– K",
+      "–K"
+    ]
+  },
+  "334": {
+    "rules_text": [
+      "‘",
+      "'"
+    ]
+  },
+  "362": {
+    "author": [
+      "R\\.",
+      "Rosa",
+      "L\\.",
+      "Leonardo"
+    ]
+  },
+  "526": {
+    "flavor_text": [
+      "^.+$",
+      ""
+    ]
+  },
+  "568": {
+    "rules_text": [
+      "Möglickeit",
+      "Möglichkeit"
+    ]
+  },
+  "581": {
+    "rules_text": [
+      "k-C",
+      "k-Duck-C"
+    ]
+  },
+  "606": {
+    "flavor_text": [
+      "^.+$",
+      ""
+    ]
+  },
+  "688": {
+    "flavor_text": [
+      "^.+$",
+      ""
+    ]
+  },
+  "797": {
+    "_symbolCountChange": {
+        "¤": 1
+    }
+  },
+  "904": {
+    "author": [
+      "[“”]",
+      "\""
+    ]
+  },
+  "917": {
+    "rules_text": [
+      "^(.+) (Beschützen \\(.+)$",
+      "\\2 \\1"
+    ]
+  },
+  "920": {
+    "rules_text": [
+      "^(.+) (Beschützen \\(.+\\)) (.+)$",
+      "\\2 \\1 \\3"
+    ]
+  },
+  "926": {
+    "rules_text": [
+      "^(.+) (Beschützen \\(.+)$",
+      "\\2 \\1"
+    ]
+  },
+  "930": {
+    "_symbolCountChange": {
+      "⬡": -2
+    }
+  },
+  "945": {
+    "author": [
+      "^J.+t$",
+      "Grace Tran"
+    ]
+  },
+  "948": {
+    "rules_text": [
+      "Gestaldwandel",
+      "Gestaltwandel",
+      "g\\+",
+      "g +"
+    ]
+  },
+  "951": {
+    "move_cost": [
+      1,
+      2
+    ],
+    "quest_value": [
+      2,
+      1
+    ]
+  },
+  "982": {
+    "flavor_text": [
+      "— ",
+      "—"
+    ]
+  },
+  "988": {
+    "flavor_text": [
+      "\\.—",
+      ". —"
+    ]
+  },
+  "1014": {
+    "_symbolCountChange": {
+      "◊": -1
+    }
+  },
+  "1089": {
+    "_symbolCountChange": {
+      "¤": 1
+    }
+  },
+  "1117": {
+    "author": [
+      " Riva$",
+      " Priori"
+    ]
+  },
+  "1122": {
+    "flavor_text": [
+      "—%",
+      "%—"
+    ]
+  },
+  "1124": {
+    "flavor_text": [
+      "\\.—",
+      ". —"
+    ]
+  },
+  "1155": {
+    "flavor_text": [
+      "n\\.",
+      "n ."
+    ]
+  },
+  "1186": {
+    "flavor_text": [
+      "^.+$",
+      ""
+    ]
+  },
+  "1278": {
+    "flavor_text": [
+      "n\\.\\.\\.",
+      "n ..."
+    ]
+  },
+  "1365": {
+    "rules_text": [
+      "0\\.0",
+      "0,0"
+    ]
+  },
+  "1429": {
+    "flavor_text": [
+      "^.+$",
+      ""
+    ]
+  }
+}
