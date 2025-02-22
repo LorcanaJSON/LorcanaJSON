@@ -101,6 +101,9 @@ def compareInputToOutput(cardIdsToVerify: Union[List[int], None]):
 					# Exclamation marks etc. should be preceded by a space
 					inputRulesText = re.sub(r"(?<=\w)([?!:])", r" \1", inputRulesText)
 					inputRulesText = re.sub("\\.{2,}", "…", inputRulesText)
+				elif GlobalConfig.language == Language.GERMAN:
+					# Ability dashes are inconsistent, force them to long-dash, since that's what's on the card
+					inputRulesText = re.sub(r" [-–] ", " — ", inputRulesText)
 			else:
 				inputRulesText = ""
 
@@ -109,6 +112,7 @@ def compareInputToOutput(cardIdsToVerify: Union[List[int], None]):
 				# Remove all the Lorcana symbols:
 				outputRulesText = outputRulesText.replace(f"{LorcanaSymbols.EXERT},", ",")
 				outputRulesText = re.sub(fr" ?[{LorcanaSymbols.EXERT}{LorcanaSymbols.INK}{LorcanaSymbols.LORE}{LorcanaSymbols.STRENGTH}{LorcanaSymbols.WILLPOWER}{LorcanaSymbols.INKWELL}] ?", " ", outputRulesText).lstrip()
+				outputRulesText = re.sub(r"(?<=\d) \)", ")", outputRulesText)
 				outputRulesText = outputRulesText.replace("  ", " ").replace(" .", ".")
 			else:
 				outputRulesText = ""
@@ -126,14 +130,25 @@ def compareInputToOutput(cardIdsToVerify: Union[List[int], None]):
 				inputFlavorText = inputFlavorText.replace("  ", " ")
 				if inputFlavorText.endswith(" ERRATA"):
 					inputFlavorText = inputFlavorText.rsplit(" ", 1)[0]
-				if GlobalConfig.language == Language.FRENCH:
+				if GlobalConfig.language == Language.ENGLISH:
+					# Input text always has a space after written-out ellipsis, while the card doesn't, remove it, unless it's just before a quote attribution dash
+					inputFlavorText = re.sub(r"\.\.\. (?!—)", "...", inputFlavorText)
+				elif GlobalConfig.language == Language.FRENCH:
 					inputFlavorText = re.sub(r"(?<=\w)([?!:])", r" \1", inputFlavorText)
+				elif GlobalConfig.language == Language.GERMAN:
+					# Quote attribution uses the wrong dash and doesn't have a space in the input text, but it does on the card. Ignore the difference
+					# The second set use a short n-dash instead of a long m-dash, correct for that
+					inputFlavorText = re.sub(r"(?<=\s)[–—](?=[A-Z])", "–" if 204 < cardId <= 432 else "—", inputFlavorText)
+					# For some cards, they forgot to use the ellipsis character
+					inputFlavorText = inputFlavorText.replace("...", "…")
+					# Ellipsis are always preceded by a space
+					inputFlavorText = re.sub(r"(?<=\w)…", " …", inputFlavorText)
 			else:
 				inputFlavorText = ""
 
 			if "flavorText" in outputCard:
 				outputFlavorText = outputCard['flavorText']
-				outputFlavorText = outputFlavorText.replace("“", "").replace("”", "").replace("‘", "'").replace("’", "'")
+				outputFlavorText = outputFlavorText.replace("“", "").replace("”", "").replace("„", "").replace("‘", "'").replace("’", "'")
 				# Newlines are spaces in the input text, except after connecting dashes just before a newline
 				outputFlavorText = outputFlavorText.replace("-\n", "-").replace("—\n", "—").replace("\n", " ")
 			else:
@@ -213,7 +228,7 @@ def compareInputToOutput(cardIdsToVerify: Union[List[int], None]):
 						cardDifferencesCount += 1
 						print(f"{cardId}: Symbol '{symbol}' occurs {outputCard['fullText'].count(symbol)} times in {GlobalConfig.language.englishName} fullText but {expectedCount} was expected based on English")
 					# Check if the symbols have whitespace around them, since in previous verification steps we've ignored the symbols
-					if re.search(f"[^ \n“]{symbol}", outputCard["fullText"]) or re.search(f"{symbol}[^ \n.,]", outputCard["fullText"]):
+					if re.search(f"[^ \n“„+]{symbol}", outputCard["fullText"]) or re.search(fr"{symbol}[^ \n.,)-—]", outputCard["fullText"]):
 						cardDifferencesCount += 1
 						print(f"{cardId}: Symbol '{symbol}' doesn't have whitespace around it")
 			if "abilities" in outputCard and "abilities" in englishCard:
