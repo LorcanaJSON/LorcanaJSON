@@ -4,15 +4,16 @@ from typing import Tuple
 @dataclass(frozen=True)
 class Language:
 	code: str
+	uppercaseCode: str
 	threeLetterCode: str
 	englishName: str
 	nativeName: str
 
 
-ENGLISH = Language("en", "eng", "English", "English")
-FRENCH = Language("fr", "fra", "French", "Français")
-GERMAN = Language("de", "deu", "German", "Deutsch")
-ITALIAN = Language("it", "ita", "Italian", "Italiano")
+ENGLISH = Language("en", "EN", "eng", "English", "English")
+FRENCH = Language("fr", "FR", "fra", "French", "Français")
+GERMAN = Language("de", "DE", "deu", "German", "Deutsch")
+ITALIAN = Language("it", "IT", "ita", "Italian", "Italiano")
 
 ALL: Tuple[Language, ...] = (ENGLISH, FRENCH, GERMAN, ITALIAN)
 
