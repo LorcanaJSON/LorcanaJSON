@@ -12,7 +12,7 @@ from util import IdentifierParser, Language, LorcanaSymbols
 _logger = logging.getLogger("LorcanaJSON")
 FORMAT_VERSION = "2.1.0"
 _CARD_CODE_LOOKUP = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-_KEYWORD_REGEX = re.compile(r"(?:^|\n)([A-ZÀ][^.]+)(?= \()")
+_KEYWORD_REGEX = re.compile(r"(?:^|\n)([A-ZÀ][^.]+)(?= \([A-Z])")
 _ABILITY_TYPE_CORRECTION_FIELD_TO_ABILITY_TYPE: Dict[str, str] = {"_forceAbilityIndexToActivated": "activated", "_forceAbilityIndexToStatic": "static", "_forceAbilityIndexToTriggered": "triggered"}
 # The card parser is run in threads, and each thread needs to initialize its own ImageParser (otherwise weird errors happen in Tesseract)
 # Store each initialized ImageParser in its own thread storage
@@ -43,18 +43,18 @@ def correctText(cardText: str) -> str:
 	cardText = cardText.replace("( ", "(")
 	# Sometimes an extra character gets added after the closing quote mark or bracket from an inksplotch, remove that
 	cardText = re.sub(r"(?<=[”’)])\s.$", "", cardText, re.MULTILINE)
-	# Make sure there's a period before a closing bracket
-	cardText = re.sub(r"([^.,'!?’])\)", r"\1.)", cardText)
 	# The 'exert' symbol often gets mistaken for a @ or G, correct that
-	cardText = re.sub(r"(?<![0-9s])(^|\"|“| )[(@G©€]{1,3}9?([ ,])", fr"\1{LorcanaSymbols.EXERT}\2", cardText, re.MULTILINE)
+	cardText = re.sub(r"(?<![0-9s])(^|[\"“„ ])[(@G©€]{1,3}9?([ ,])", fr"\1{LorcanaSymbols.EXERT}\2", cardText, re.MULTILINE)
 	# Other weird symbols are probably strength symbols
-	cardText = re.sub(r"[&@©%$*<>{}€£¥Ÿ]{1,2}[0-9yF+*%]*", LorcanaSymbols.STRENGTH, cardText)
+	cardText = re.sub(r"[&@©%$*<>{}€£¥Ÿ]{1,2}[0-9yF+*%“]*", LorcanaSymbols.STRENGTH, cardText)
 	cardText = re.sub(r"(?<=\d )[CÇD]\b", LorcanaSymbols.STRENGTH, cardText)
+	# Make sure there's a period before a closing bracket
+	cardText = re.sub(fr"([^.,'!?’{LorcanaSymbols.STRENGTH}])\)", r"\1.)", cardText)
 	# Strip erroneously detected characters from the end
-	cardText = re.sub(r" [‘;]$", "", cardText, flags=re.MULTILINE)
+	cardText = re.sub(r" [‘‘;]$", "", cardText, flags=re.MULTILINE)
 	# The Lore symbol often gets mistaken for a 4, correct hat
 	cardText = re.sub(r"(\d) ?4", fr"\1 {LorcanaSymbols.LORE}", cardText)
-	cardText = re.sub(r"^[-+«»¢](?= \w{2,} \w+)", LorcanaSymbols.SEPARATOR, cardText, flags=re.MULTILINE)
+	cardText = re.sub(r"^[-+«»¢,‚](?= \w{2,} \w+)", LorcanaSymbols.SEPARATOR, cardText, flags=re.MULTILINE)
 	# It sometimes misses the strength symbol between a number and the closing bracket
 	cardText = re.sub(r"^\+(\d)(\.\)?)$", f"+\\1 {LorcanaSymbols.STRENGTH}\\2", cardText, flags=re.MULTILINE)
 	cardText = re.sub(r"^([-+]\d)0(\.\)?)$", fr"\1 {LorcanaSymbols.STRENGTH}\2", cardText, flags=re.MULTILINE)
@@ -119,8 +119,6 @@ def correctText(cardText: str) -> str:
 		# Somehow 'a's often miss the space after it
 		cardText = re.sub(r"\bina\b", "in a", cardText)
 		cardText = re.sub(r"\bacard\b", "a card", cardText)
-		# Make sure dash in ability cost and in quote attribution is always long-dash
-		cardText = re.sub(r"(?<!\w)[-—~]+(?=\D|$)", r"—", cardText, flags=re.MULTILINE)
 	elif GlobalConfig.language == Language.FRENCH:
 		# Correct payment text
 		cardText = re.sub(fr"\bpa(yer|ie) (\d+) (?:\W|D|O|Ô|Q|{LorcanaSymbols.STRENGTH})", f"pa\\1 \\2 {LorcanaSymbols.INK}", cardText)
@@ -151,7 +149,41 @@ def correctText(cardText: str) -> str:
 		cardText = cardText.replace("Ily", "Il y")
 		cardText = re.sub(r"\bCa\b", "Ça", cardText)
 		cardText = cardText.replace("personhage", "personnage")
+	elif GlobalConfig.language == Language.GERMAN:
+		# It confuses some ink splats for a Strength symbol in Shift reminder text
+		cardText = re.sub(f"diese[nh] ?.\n", "diesen\n", cardText)
+		# Payment text
+		cardText = re.sub(fr"(\d)[ .]?(?:\W|0|O|Ô|Q{LorcanaSymbols.STRENGTH})? (be)?zahl(en|t)\b", f"\\1 {LorcanaSymbols.INK} \\2zahl\\3", cardText)
+		cardText = re.sub(fr"zahlst( du)?(\s)(\d) ?[0{LorcanaSymbols.STRENGTH}]?(?=$| )", f"zahlst\\1\\2\\3 {LorcanaSymbols.INK}", cardText, flags=re.MULTILINE)
+		# 'Challenger' reminder text
+		cardText = re.sub(r"herausfordert, erhält er \+(\d+) \S+\.\)", f"herausfordert, erhält er +\\1 {LorcanaSymbols.STRENGTH}.)", cardText)
+		# 'Support' reminder text
+		cardText = re.sub(r"(seine|ihre)(\s)(?:\S{1,2} )?in diesem Zug zur(\s)\S{1,2}", f"\\1\\2{LorcanaSymbols.STRENGTH} in diesem Zug zur\\3{LorcanaSymbols.STRENGTH}", cardText)
+		# Song reminder text
+		cardText = re.sub(fr"(?<=oder mehr kostet, )[^{LorcanaSymbols.EXERT}](?=, damit)", LorcanaSymbols.EXERT, cardText)
+		# The Lore symbol gets read as a '+', correct that
+		cardText = re.sub(r"(\d+) \+", f"\\1 {LorcanaSymbols.LORE}", cardText)
+		# The 'Exert' symbol at the start sometimes gets read as a 'C' or 'G' followed by another letter, fix that
+		cardText = re.sub("^[CG][A-Z0]?(?= )", LorcanaSymbols.EXERT, cardText)
+		# Strength correction, since 'mehr _ hat' usually needs the strength symbol
+		cardText = re.sub(fr"oder mehr [^{LorcanaSymbols.LORE}{LorcanaSymbols.STRENGTH}{LorcanaSymbols.WILLPOWER}] hat", f"oder mehr {LorcanaSymbols.STRENGTH} hat", cardText)
+		# Correct simple wrong characters
+		cardText = cardText.replace("ı", "i")
+		cardText = re.sub(",$", ".", cardText)
+		# Remove some trailing characters at the very end of the card text
+		cardText = re.sub(r"(?<!\.)\. [.|]$", ".", cardText)
+		# Make sure dash in ability cost and in quote attribution is always long-dash, while a dash in the middle of a line is an n-dash
+		# TODO FIXME From Set 5 and up, they use long-dash for ability costs, in lower sets it's an n-dash; think of a solution
+		cardText = cardText.replace("—-", "—")
+		cardText = re.sub(r"(?<=\s)[-—](?=\s[a-z])", "–", cardText)
+		cardText = re.sub(fr"(?<=\w|{LorcanaSymbols.LORE}|{LorcanaSymbols.STRENGTH})—(?=\w)", "-", cardText)
+		cardText = cardText.replace("(auch du.)", "(auch du)")
+		# Quotemarks sometimes get read double
+		cardText = re.sub("[’‘']{2,}", "'", cardText)
 
+	if GlobalConfig.language != Language.FRENCH:
+		# Make sure dash in ability cost and in quote attribution is always long-dash
+		cardText = re.sub(fr"(?<!\w|{LorcanaSymbols.LORE}|{LorcanaSymbols.STRENGTH})[-—~]+(?=\D|$)", r"—", cardText, flags=re.MULTILINE)
 	if cardText != originalCardText:
 		_logger.info(f"Corrected card text from {originalCardText!r} to {cardText!r}")
 	return cardText
@@ -168,9 +200,19 @@ def correctPunctuation(textToCorrect: str) -> str:
 	if correctedText.count(".") > 2:
 		correctedText = re.sub(r"([\xa0 ]?\.[\xa0 ]?){3}", "..." if GlobalConfig.language == Language.ENGLISH else "…", correctedText)
 	if "…" in correctedText:
-		correctedText = re.sub(r"\.*…( \.+)?", "…", correctedText)
+		correctedText = re.sub(r"\.*…( ?\.+)?", "…", correctedText)
 	if correctedText.endswith(","):
 		correctedText = correctedText[:-1] + "."
+	if GlobalConfig.language == Language.GERMAN:
+		# In German, ellipsis always have a space between words before and after it
+		if "…" in correctedText:
+			correctedText = re.sub(r"(\w)…", r"\1 …", correctedText)
+			correctedText = re.sub(r"…(\w)", r"… \1", correctedText)
+		# Fix closing quote mark
+		correctedText = correctedText.replace("”", "“")
+		# It frequently misses the dash before a quote attribution
+		correctedText = re.sub(r"\n([A-Z]\w+)$", "\n—\\1", correctedText)
+
 	correctedText = correctedText.rstrip(" -_")
 	correctedText = correctedText.replace("““", "“")
 	if correctedText.startswith("\""):
@@ -643,7 +685,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 	outputCard["setCode"] = parsedIdentifier.setCode
 
 	# Always get the artist from the parsed data, since in the input data it often only lists the first artist when there's multiple, so it's not reliable
-	outputCard["artistsText"] = parsedImageAndTextData["artist"].text.lstrip(". ").replace("’", "'").replace("|", "l")
+	outputCard["artistsText"] = parsedImageAndTextData["artist"].text.lstrip(". ").rstrip("/ ").replace("’", "'").replace("|", "l")
 	oldArtistsText = outputCard["artistsText"]
 	outputCard["artistsText"] = re.sub(r"^[l[]", "I", outputCard["artistsText"])
 	while re.search(r" [a-z0-9ÿI|(\\_+.”—-]{1,2}$", outputCard["artistsText"]):
@@ -657,6 +699,19 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 		outputCard["artistsText"] = re.sub("Jo[^ã]o", "João", outputCard["artistsText"])
 	elif re.search(r"Krysi.{1,2}ski", outputCard["artistsText"]):
 		outputCard["artistsText"] = re.sub(r"Krysi.{1,2}ski", "Krysiński", outputCard["artistsText"])
+	elif "Cesar Vergara" in outputCard["artistsText"]:
+		outputCard["artistsText"] = outputCard["artistsText"].replace("Cesar Vergara", "César Vergara")
+	elif "Perez" in outputCard["artistsText"]:
+		outputCard["artistsText"] = re.sub(r"\bPerez\b", "Pérez", outputCard["artistsText"])
+	elif GlobalConfig.language == Language.GERMAN:
+		# For some bizarre reason, the German parser reads some artist names as something completely different
+		if re.match(r"^ICHLER[GS]I?EN$", outputCard["artistsText"]):
+			outputCard["artistsText"] = "Jenna Gray"
+		elif outputCard["artistsText"] == "ES" or outputCard["artistsText"] == "ET":
+			outputCard["artistsText"] = "Lauren Levering"
+		outputCard["artistsText"] = outputCard["artistsText"].replace("Dösiree", "Désirée")
+		outputCard["artistsText"] = re.sub(r"Man[6e]+\b", "Mané", outputCard["artistsText"])
+	outputCard["artistsText"] = re.sub(r"\bAime\b", "Aimé", outputCard["artistsText"])
 	if "“" in outputCard["artistsText"]:
 		# Simplify quotemarks
 		outputCard["artistsText"] = outputCard["artistsText"].replace("“", "\"").replace("”", "\"")
@@ -739,6 +794,10 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 		elif GlobalConfig.language == Language.FRENCH and "-" in flavorText:
 			# French cards use '–' (en dash, \u2013) a lot, for quote attribution and the like, which gets read as '-' (a normal dash) often. Correct that
 			flavorText = flavorText.replace("\n-", "\n–").replace("” -", "” –")
+		elif GlobalConfig.language == Language.GERMAN:
+			if flavorText.endswith(" |"):
+				flavorText = flavorText[:-2]
+			flavorText = flavorText.replace("\nInschrift", "\n—Inschrift")
 		outputCard["flavorText"] = flavorText
 	abilities: List[Dict[str, str]] = []
 	effects: List[str] = []
@@ -805,6 +864,10 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 				abilityName, replacementCount = re.subn(r"\bCA\b", "ÇA", abilityName)
 				if replacementCount > 0:
 					_logger.debug(f"Corrected 'CA' to 'ÇA' in abilty name '{abilityName}'")
+			elif GlobalConfig.language == Language.GERMAN:
+				# It seems to misread a lot of ability names as ending with a period, correct that (unless it's ellipsis)
+				if abilityName.endswith(".") and not abilityName.endswith("..."):
+					abilityName = abilityName.rstrip(".")
 			abilityEffect = correctText(parsedImageAndTextData["abilityTexts"][abilityIndex].text)
 			abilities.append({
 				"name": abilityName,
@@ -827,16 +890,18 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 			infoText = re.sub(r"(\w)- ", r"\1 - ", infoText)
 			# The text uses {I} for ink and {S} for strength, replace those with our symbols
 			infoText = infoText.format(E=LorcanaSymbols.EXERT, I=LorcanaSymbols.INK, L=LorcanaSymbols.LORE, S=LorcanaSymbols.STRENGTH, W=LorcanaSymbols.WILLPOWER)
-			if infoEntry["title"].startswith("Errata"):
+			if infoEntry["title"].startswith("Errata") or infoEntry["title"].startswith("Ergänzung"):
 				if " - " in infoEntry["title"]:
 					# There's a suffix explaining what field the errata is about, prepend it to the text
 					infoText = infoEntry["title"].split(" - ")[1] + "\n" + infoText
 				errata.append(infoText)
 			elif infoEntry["title"].startswith("FAQ") or infoEntry["title"].startswith("Keyword") or infoEntry["title"] == "Good to know":
 				# Sometimes they cram multiple questions and answers into one entry, split those up into separate clarifications
-				infoEntryClarifications = re.split("\\s*\n+(?=Q:)", infoText)
+				infoEntryClarifications = re.split("\\s*\n+(?=[FQ]:)", infoText)
 				clarifications.extend(infoEntryClarifications)
-			else:
+			# Some German cards have an artist correction in their 'additional_info', but that's already correct in the data, so ignore that
+			# For other additional_info types, print an error, since that should be handled
+			elif infoEntry["title"] != "Illustratorin":
 				_logger.warning(f"Unknown 'additional_info' type '{infoEntry['title']}' in card {_createCardIdentifier(outputCard)}")
 		if errata:
 			outputCard["errata"] = errata
@@ -974,6 +1039,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 				# Some cards contain their own name (e.g. 'Dalmatian Puppy - Tail Wagger', ID 436), don't trigger on that dash either
 				if (activatedAbilityMatch and
 						("“" not in ability["effect"] or ability["effect"].index("“") > activatedAbilityMatch.start()) and
+					  	("„" not in ability["effect"] or ability["effect"].index("„") > activatedAbilityMatch.start()) and
 						(outputCard["name"] not in ability["effect"] or ability["effect"].index(outputCard["name"]) > activatedAbilityMatch.start())):
 					# Assume there's a payment text in there
 					ability["type"] = "activated"
@@ -992,6 +1058,15 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 						re.search(r"(^L|\bl)orsqu(e|'un|'il)\b", ability["effect"]) or re.search(r"(^À c|^C|,\sc)haque\sfois", ability["effect"]) or
 						re.match("Si (?!vous avez|un personnage)", ability["effect"]) or re.search("gagnez .+ pour chaque", ability["effect"]) or
 						re.search(r"une carte est\splacée", ability["effect"])):
+						ability["type"] = "triggered"
+				elif GlobalConfig.language == Language.GERMAN:
+					if ability["effect"].startswith("Einmal pro Zug, darfst du"):
+						ability["type"] = "activated"
+					elif (re.match(r"Wenn(\sdu)?\sdiese", ability["effect"]) or re.match(r"Wenn\seiner\sdeiner\sCharaktere", ability["effect"]) or re.search(r"(^J|\bj)edes\sMal\b", ability["effect"]) or
+						  re.match(r"Einmal\swährend\sdeines\sZuges\b", ability["effect"]) or ability["effect"].startswith("Einmal pro Zug, wenn") or
+						  re.search(r"(^Z|\bz)u\sBeginn\sdeines\sZuges\b", ability["effect"]) or re.match(r"Am\sEnde\s(deines|des)\sZuges", ability["effect"]) or
+						  re.match(r"Falls\sdu\sGestaltwandel\sbenutzt\shas",ability["effect"]) or "wenn du eine Karte ziehst" in ability["effect"] or
+						  re.search(r"\bwährend\ser\seinen?(\s|\w)+herausfordert\b", ability["effect"]) or re.search(r"wenn\sdieser\sCharakter\szu\seinem\sOrt\sbewegt", ability["effect"])):
 						ability["type"] = "triggered"
 
 				if abilityIndex in forceAbilityTypeAtIndex:

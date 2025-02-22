@@ -354,7 +354,7 @@ class ImageParser:
 					if parseSettings.labelParsingMethod == ParseSettings.LABEL_PARSING_METHODS.FALLBACK_WHITE_ABILITY_TEXT and re.search("[A-Z]{2,}", remainingText):
 						# Detecting labels on new-style Enchanted cards is hard, so for those the full card text is 'remainingText'
 						# Try to get the labels and effects out
-						labelMatch = re.search("([AÀI] )?[A-ZÊ]{2}", remainingText)
+						labelMatch = re.search("([AÀI] )?[A-ZÊÜ]{2}", remainingText)
 						if labelMatch:
 							labelAndEffectText = remainingText[labelMatch.start():]
 							remainingText = remainingText[:labelMatch.start()].rstrip()
@@ -366,7 +366,7 @@ class ImageParser:
 								else:
 									labelText = ""
 									effectText = ""
-								nextLabelMatch = re.search("\n([AÀI] )?[A-ZÊ]{2}", effectText)
+								nextLabelMatch = re.search("\n([AÀI] )?[A-ZÊÜ]{2}", effectText)
 								if nextLabelMatch:
 									labelAndEffectText = effectText[nextLabelMatch.start():].lstrip()
 									effectText = effectText[:nextLabelMatch.start()].rstrip()
@@ -457,6 +457,8 @@ class ImageParser:
 				result = "0"
 			elif result == "l" or result == "|":
 				result = "1"
+			elif result == "A":
+				result = "4"
 			elif result == "b":
 				result = "6"
 			elif result == "Q":
