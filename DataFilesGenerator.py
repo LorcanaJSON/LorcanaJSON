@@ -667,7 +667,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 
 	if parsedImageAndTextData.get("identifier", None) is not None and (parsedImageAndTextData["identifier"].text.startswith("0") or "TFC" in parsedImageAndTextData["identifier"].text or GlobalConfig.language.uppercaseCode not in parsedImageAndTextData["identifier"].text):
 		outputCard["fullIdentifier"] = re.sub(fr" ?\W (?!$)", f" {LorcanaSymbols.SEPARATOR} ", parsedImageAndTextData["identifier"].text)
-		outputCard["fullIdentifier"] = outputCard["fullIdentifier"].replace("I", "/").replace("1P ", "/P ").replace("//", "/").replace(".", "").replace("1TFC", "1 TFC")
+		outputCard["fullIdentifier"] = outputCard["fullIdentifier"].replace("I", "/").replace("1P ", "/P ").replace("//", "/").replace(".", "").replace("1TFC", "1 TFC").rstrip(" —")
 		outputCard["fullIdentifier"] = re.sub(fr" ?[-+] ?", f" {LorcanaSymbols.SEPARATOR} ", outputCard["fullIdentifier"])
 		if parsedIdentifier is None:
 			parsedIdentifier = IdentifierParser.parseIdentifier(outputCard["fullIdentifier"])
