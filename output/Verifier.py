@@ -69,6 +69,7 @@ def compareInputToOutput(cardIdsToVerify: Union[List[int], None]):
 
 		# Implement overrides
 		if cardId in inputOverrides:
+			symbolCountChange = inputOverrides[cardId].pop("_symbolCountChange", None)
 			for fieldName, correctionsTuple in inputOverrides[cardId].items():
 				for correctionIndex in range(0, len(correctionsTuple), 2):
 					regexMatch = correctionsTuple[correctionIndex]
@@ -82,6 +83,8 @@ def compareInputToOutput(cardIdsToVerify: Union[List[int], None]):
 						inputCard[fieldName], correctionCount = re.subn(regexMatch, correctionText, inputCard[fieldName])
 						if correctionCount == 0:
 							print(f"ERROR: Invalid correction override {regexMatch!r} for field '{fieldName}' for card ID {cardId}")
+		else:
+			symbolCountChange = None
 
 		# Compare rules text
 		if inputCard.get("rules_text", None) or outputCard["fullText"]:
@@ -204,6 +207,8 @@ def compareInputToOutput(cardIdsToVerify: Union[List[int], None]):
 					if GlobalConfig.language == Language.FRENCH and symbol == "¤" and "Soutien" in outputCard["fullText"]:
 						# While most languages use two strength symbols in the Support reminder text, French uses just one. To prevent false positives and negatives, adjust our expectations
 						expectedCount -= 1
+					if symbolCountChange and symbol in symbolCountChange:
+						expectedCount += symbolCountChange[symbol]
 					if outputCard["fullText"].count(symbol) != expectedCount:
 						cardDifferencesCount += 1
 						print(f"{cardId}: Symbol '{symbol}' occurs {outputCard['fullText'].count(symbol)} times in {GlobalConfig.language.englishName} fullText but {expectedCount} was expected based on English")
