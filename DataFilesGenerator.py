@@ -513,7 +513,8 @@ def createOutputFiles(onlyParseIds: Union[None, List[int]] = None, shouldShowIma
 		pool.join()
 	for result in results:
 		outputCard = result.get()
-		fullCardList.append(outputCard)
+		if outputCard:
+			fullCardList.append(outputCard)
 	_logger.info(f"Created card list in {time.perf_counter() - startTime} seconds")
 
 	if cardDataCorrections:
@@ -631,7 +632,7 @@ def createOutputFiles(onlyParseIds: Union[None, List[int]] = None, shouldShowIma
 	_logger.info(f"Created the set files in {time.perf_counter() - startTime:.4f} seconds")
 
 def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchantedNonEnchantedId: Union[int, None], promoNonPromoId: Union[int, List[int], None], variantIds: Union[List[int], None],
-					 cardDataCorrections: Dict, storyParser: StoryParser, isExternalReveal: bool, historicData: List[Dict], shouldShowImage: bool = False) -> Dict:
+					 cardDataCorrections: Dict, storyParser: StoryParser, isExternalReveal: bool, historicData: List[Dict], shouldShowImage: bool = False) -> Union[Dict, None]:
 	# Store some default values
 	outputCard: Dict[str, Union[str, int, List, Dict]] = {
 		"color": GlobalConfig.translation[inputCard["magic_ink_colors"][0]] if inputCard["magic_ink_colors"] else "",
@@ -672,6 +673,9 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 			parsedIdentifier = IdentifierParser.parseIdentifier(outputCard["fullIdentifier"])
 	else:
 		outputCard["fullIdentifier"] = str(parsedIdentifier)
+	if GlobalConfig.language.uppercaseCode not in outputCard["fullIdentifier"]:
+		_logger.warning(f"Card ID {outputCard['id']} ({outputCard['fullIdentifier']}) is not in current language '{GlobalConfig.language.englishName}', skipping")
+		return None
 	# Set the grouping ('P1', 'D23', etc) for promo cards
 	if parsedIdentifier and parsedIdentifier.isPromo():
 		outputCard["promoGrouping"] = parsedIdentifier.grouping
