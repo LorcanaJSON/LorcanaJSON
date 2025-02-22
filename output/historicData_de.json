@@ -1,0 +1,533 @@
+{
+  "4": [
+    {
+      "abilities": [
+        {
+          "fullText": "Besch\u00fctzen (Du darfst diesen Charakter ersch\u00f6pft\nausspielen. Gegnerische Charaktere m\u00fcssen beim\nHerausfordern zuerst deine Charaktere mit Besch\u00fctzen\nw\u00e4hlen, wenn m\u00f6glich.)",
+          "keyword": "Besch\u00fctzen",
+          "reminderText": "Du darfst diesen Charakter ersch\u00f6pft ausspielen. Gegnerische Charaktere m\u00fcssen beim Herausfordern zuerst deine Charaktere mit Besch\u00fctzen w\u00e4hlen, wenn m\u00f6glich.",
+          "type": "keyword"
+        },
+        {
+          "effect": "Wenn du diesen Charakter ausspielst, darfst du bis zu 2 Schaden von jedem deiner Musketiere entfernen.",
+          "fullText": "UND ZWEI IM DUETT! Wenn du diesen Charakter ausspielst,\ndarfst du bis zu 2 Schaden von jedem deiner Musketiere\nentfernen.",
+          "name": "UND ZWEI IM DUETT!",
+          "type": "triggered"
+        }
+      ],
+      "fullText": "Besch\u00fctzen (Du darfst diesen Charakter ersch\u00f6pft\nausspielen. Gegnerische Charaktere m\u00fcssen beim\nHerausfordern zuerst deine Charaktere mit Besch\u00fctzen\nw\u00e4hlen, wenn m\u00f6glich.)\nUND ZWEI IM DUETT! Wenn du diesen Charakter ausspielst,\ndarfst du bis zu 2 Schaden von jedem deiner Musketiere\nentfernen.",
+      "fullTextSections": [
+        "Besch\u00fctzen (Du darfst diesen Charakter ersch\u00f6pft\nausspielen. Gegnerische Charaktere m\u00fcssen beim\nHerausfordern zuerst deine Charaktere mit Besch\u00fctzen\nw\u00e4hlen, wenn m\u00f6glich.)",
+        "UND ZWEI IM DUETT! Wenn du diesen Charakter ausspielst,\ndarfst du bis zu 2 Schaden von jedem deiner Musketiere\nentfernen."
+      ],
+      "usedUntil": "2024-08-23"
+    }
+  ],
+  "10": [
+    {
+      "abilities": [
+        {
+          "fullText": "Besch\u00fctzen (Du darfst diesen Charakter ersch\u00f6pft\nausspielen. Gegnerische Charaktere m\u00fcssen\nbeim Herausfordern zuerst deine Charaktere mit\nBesch\u00fctzen w\u00e4hlen, wenn m\u00f6glich.)",
+          "keyword": "Besch\u00fctzen",
+          "reminderText": "Du darfst diesen Charakter ersch\u00f6pft ausspielen. Gegnerische Charaktere m\u00fcssen beim Herausfordern zuerst deine Charaktere mit Besch\u00fctzen w\u00e4hlen, wenn m\u00f6glich.",
+          "type": "keyword"
+        },
+        {
+          "fullText": "Unterst\u00fctzen (Jedes Mal, wenn dieser Charakter\nerkundet, darfst du seine \u00a4 in diesem Zug zur \u00a4\neines anderen Charakters deiner Wahl addieren.)",
+          "keyword": "Unterst\u00fctzen",
+          "reminderText": "Jedes Mal, wenn dieser Charakter erkundet, darfst du seine \u00a4 in diesem Zug zur \u00a4 eines anderen Charakters deiner Wahl addieren.",
+          "type": "keyword"
+        }
+      ],
+      "fullName": "Maximus - Schloss-Pferd",
+      "fullText": "Besch\u00fctzen (Du darfst diesen Charakter ersch\u00f6pft\nausspielen. Gegnerische Charaktere m\u00fcssen\nbeim Herausfordern zuerst deine Charaktere mit\nBesch\u00fctzen w\u00e4hlen, wenn m\u00f6glich.)\nUnterst\u00fctzen (Jedes Mal, wenn dieser Charakter\nerkundet, darfst du seine \u00a4 in diesem Zug zur \u00a4\neines anderen Charakters deiner Wahl addieren.)",
+      "fullTextSections": [
+        "Besch\u00fctzen (Du darfst diesen Charakter ersch\u00f6pft\nausspielen. Gegnerische Charaktere m\u00fcssen\nbeim Herausfordern zuerst deine Charaktere mit\nBesch\u00fctzen w\u00e4hlen, wenn m\u00f6glich.)",
+        "Unterst\u00fctzen (Jedes Mal, wenn dieser Charakter\nerkundet, darfst du seine \u00a4 in diesem Zug zur \u00a4\neines anderen Charakters deiner Wahl addieren.)"
+      ],
+      "usedUntil": "2024-08-23"
+    }
+  ],
+  "20": [
+    {
+      "abilities": [
+        {
+          "fullText": "Besch\u00fctzen (Du darfst diesen Charakter ersch\u00f6pft\nausspielen. Gegnerische Charaktere m\u00fcssen\nbeim Herausfordern zuerst deine Charaktere mit\nBesch\u00fctzen w\u00e4hlen, wenn m\u00f6glich.)",
+          "keyword": "Besch\u00fctzen",
+          "reminderText": "Du darfst diesen Charakter ersch\u00f6pft ausspielen. Gegnerische Charaktere m\u00fcssen beim Herausfordern zuerst deine Charaktere mit Besch\u00fctzen w\u00e4hlen, wenn m\u00f6glich.",
+          "type": "keyword"
+        }
+      ],
+      "fullText": "Besch\u00fctzen (Du darfst diesen Charakter ersch\u00f6pft\nausspielen. Gegnerische Charaktere m\u00fcssen\nbeim Herausfordern zuerst deine Charaktere mit\nBesch\u00fctzen w\u00e4hlen, wenn m\u00f6glich.)",
+      "fullTextSections": [
+        "Besch\u00fctzen (Du darfst diesen Charakter ersch\u00f6pft\nausspielen. Gegnerische Charaktere m\u00fcssen\nbeim Herausfordern zuerst deine Charaktere mit\nBesch\u00fctzen w\u00e4hlen, wenn m\u00f6glich.)"
+      ],
+      "usedUntil": "2024-08-23"
+    }
+  ],
+  "177": [
+    {
+      "abilities": [
+        {
+          "fullText": "Besch\u00fctzen (Du darfst diesen Charakter ersch\u00f6pft\nausspielen. Gegnerische Charaktere m\u00fcssen\nbeim Herausfordern zuerst deine Charaktere mit\nBesch\u00fctzen w\u00e4hlen, wenn m\u00f6glich.)",
+          "keyword": "Besch\u00fctzen",
+          "reminderText": "Du darfst diesen Charakter ersch\u00f6pft ausspielen. Gegnerische Charaktere m\u00fcssen beim Herausfordern zuerst deine Charaktere mit Besch\u00fctzen w\u00e4hlen, wenn m\u00f6glich.",
+          "type": "keyword"
+        },
+        {
+          "effect": "Deine Musketiere erhalten in deinem Zug Wendig. (Sie k\u00f6nnen Charaktere mit Wendig herausfordern.)",
+          "fullText": "BLEIB AUF DER HUT! Deine Musketiere erhalten in\ndeinem Zug Wendig. (Sie k\u00f6nnen Charaktere mit\nWendig herausfordern.)",
+          "name": "BLEIB AUF DER HUT!",
+          "type": "static"
+        }
+      ],
+      "fullText": "Besch\u00fctzen (Du darfst diesen Charakter ersch\u00f6pft\nausspielen. Gegnerische Charaktere m\u00fcssen\nbeim Herausfordern zuerst deine Charaktere mit\nBesch\u00fctzen w\u00e4hlen, wenn m\u00f6glich.)\nBLEIB AUF DER HUT! Deine Musketiere erhalten in\ndeinem Zug Wendig. (Sie k\u00f6nnen Charaktere mit\nWendig herausfordern.)",
+      "fullTextSections": [
+        "Besch\u00fctzen (Du darfst diesen Charakter ersch\u00f6pft\nausspielen. Gegnerische Charaktere m\u00fcssen\nbeim Herausfordern zuerst deine Charaktere mit\nBesch\u00fctzen w\u00e4hlen, wenn m\u00f6glich.)",
+        "BLEIB AUF DER HUT! Deine Musketiere erhalten in\ndeinem Zug Wendig. (Sie k\u00f6nnen Charaktere mit\nWendig herausfordern.)"
+      ],
+      "usedUntil": "2024-08-23"
+    }
+  ],
+  "181": [
+    {
+      "abilities": [
+        {
+          "fullText": "Besch\u00fctzen (Du darfst diesen Charakter ersch\u00f6pft\nausspielen. Gegnerische Charaktere m\u00fcssen\nbeim Herausfordern zuerst deine Charaktere mit\nBesch\u00fctzen w\u00e4hlen, wenn m\u00f6glich.)",
+          "keyword": "Besch\u00fctzen",
+          "reminderText": "Du darfst diesen Charakter ersch\u00f6pft ausspielen. Gegnerische Charaktere m\u00fcssen beim Herausfordern zuerst deine Charaktere mit Besch\u00fctzen w\u00e4hlen, wenn m\u00f6glich.",
+          "type": "keyword"
+        }
+      ],
+      "fullText": "Besch\u00fctzen (Du darfst diesen Charakter ersch\u00f6pft\nausspielen. Gegnerische Charaktere m\u00fcssen\nbeim Herausfordern zuerst deine Charaktere mit\nBesch\u00fctzen w\u00e4hlen, wenn m\u00f6glich.)",
+      "fullTextSections": [
+        "Besch\u00fctzen (Du darfst diesen Charakter ersch\u00f6pft\nausspielen. Gegnerische Charaktere m\u00fcssen\nbeim Herausfordern zuerst deine Charaktere mit\nBesch\u00fctzen w\u00e4hlen, wenn m\u00f6glich.)"
+      ],
+      "usedUntil": "2024-08-23"
+    }
+  ],
+  "186": [
+    {
+      "abilities": [
+        {
+          "fullText": "Besch\u00fctzen (Du darfst diesen Charakter ersch\u00f6pft\nausspielen. Gegnerische Charaktere m\u00fcssen\nbeim Herausfordern zuerst deine Charaktere mit\nBesch\u00fctzen w\u00e4hlen, wenn m\u00f6glich.)",
+          "keyword": "Besch\u00fctzen",
+          "reminderText": "Du darfst diesen Charakter ersch\u00f6pft ausspielen. Gegnerische Charaktere m\u00fcssen beim Herausfordern zuerst deine Charaktere mit Besch\u00fctzen w\u00e4hlen, wenn m\u00f6glich.",
+          "type": "keyword"
+        },
+        {
+          "effect": "Deine anderen Musketiere erhalten +1 \u00a4.",
+          "fullText": "ALLE F\u00dcR EINEN Deine anderen Musketiere\nerhalten +1 \u00a4.",
+          "name": "ALLE F\u00dcR EINEN",
+          "type": "static"
+        }
+      ],
+      "fullText": "Besch\u00fctzen (Du darfst diesen Charakter ersch\u00f6pft\nausspielen. Gegnerische Charaktere m\u00fcssen\nbeim Herausfordern zuerst deine Charaktere mit\nBesch\u00fctzen w\u00e4hlen, wenn m\u00f6glich.)\nALLE F\u00dcR EINEN Deine anderen Musketiere\nerhalten +1 \u00a4.",
+      "fullTextSections": [
+        "Besch\u00fctzen (Du darfst diesen Charakter ersch\u00f6pft\nausspielen. Gegnerische Charaktere m\u00fcssen\nbeim Herausfordern zuerst deine Charaktere mit\nBesch\u00fctzen w\u00e4hlen, wenn m\u00f6glich.)",
+        "ALLE F\u00dcR EINEN Deine anderen Musketiere\nerhalten +1 \u00a4."
+      ],
+      "usedUntil": "2024-08-23"
+    }
+  ],
+  "242": [
+    {
+      "artists": [
+        "M. Robert Davies",
+        "V. Kushnareva"
+      ],
+      "artistsText": "M. Robert Davies / V. Kushnareva",
+      "usedUntil": "2023-10-06"
+    }
+  ],
+  "248": [
+    {
+      "artists": [
+        "Rob Di Salvo",
+        "Koni"
+      ],
+      "artistsText": "Rob Di Salvo / Koni",
+      "usedUntil": "2023-10-06"
+    }
+  ],
+  "289": [
+    {
+      "abilities": [
+        {
+          "type": "keyword",
+          "keyword": "Beh\u00fctet",
+          "reminderText": "Gegnerische Karten k\u00f6nnen diesen Charakter nicht ausw\u00e4hlen, au\u00dfer um ihn herauszufordern.",
+          "fullText": "Beh\u00fctet (Gegnerische Karten k\u00f6nnen diesen Charakter nicht ausw\u00e4hlen, au\u00dfer um ihn herauszufordern.)"
+        },
+        {
+          "type": "triggered",
+          "name": "QUIEK",
+          "effect": "Jedes Mal, wenn du eine Flutgestalt ausspielst, w\u00e4hlen alle gegnerischen Mitspielenden je 1 Karte aus ihrer Hand und werfen sie ab.",
+          "fullText": "QUIEK Jedes Mal, wenn du eine Flutgestalt ausspielst, w\u00e4hlen alle gegnerischen Mitspielenden je 1 Karte aus ihrer Hand und werfen sie ab."
+        }
+      ],
+      "cost": 2,
+      "fullText": "Beh\u00fctet (Gegnerische Karten k\u00f6nnen diesen Charakter nicht\nausw\u00e4hlen, au\u00dfer um ihn herauszufordern.)\nQUIEK Jedes Mal, wenn du eine Flutgestalt ausspielst,\nw\u00e4hlen alle gegnerischen Mitspielenden je 1 Karte aus ihrer\nHand und werfen sie ab.",
+      "fullTextSections": [
+        "Beh\u00fctet (Gegnerische Karten k\u00f6nnen diesen Charakter nicht\nausw\u00e4hlen, au\u00dfer um ihn herauszufordern.)",
+        "QUIEK Jedes Mal, wenn du eine Flutgestalt ausspielst,\nw\u00e4hlen alle gegnerischen Mitspielenden je 1 Karte aus ihrer\nHand und werfen sie ab."
+      ],
+      "keywordAbilities": [
+        "Beh\u00fctet"
+      ],
+      "usedUntil": "2024-08-09"
+    }
+  ],
+  "393": [
+    {
+      "artists": [
+        "Matthew Robert Davies",
+        "Grace Tran"
+      ],
+      "artistsText": "Matthew Robert Davies / Grace Tran",
+      "usedUntil": "2023-10-06"
+    }
+  ],
+  "405": [
+    {
+      "abilities": [
+        {
+          "fullText": "Besch\u00fctzen (Du darfst diesen Charakter ersch\u00f6pft\nausspielen. Gegnerische Charaktere m\u00fcssen beim\nHerausfordern zuerst deine Charaktere mit Besch\u00fctzen\nw\u00e4hlen, wenn m\u00f6glich.)",
+          "keyword": "Besch\u00fctzen",
+          "reminderText": "Du darfst diesen Charakter ersch\u00f6pft ausspielen. Gegnerische Charaktere m\u00fcssen beim Herausfordern zuerst deine Charaktere mit Besch\u00fctzen w\u00e4hlen, wenn m\u00f6glich.",
+          "type": "keyword"
+        },
+        {
+          "effect": "Dieser Charakter kann bereite Charaktere herausfordern.",
+          "fullText": "DIE KLINGE Dieser Charakter kann bereite Charaktere\nherausfordern.",
+          "name": "DIE KLINGE",
+          "type": "static"
+        }
+      ],
+      "fullText": "Besch\u00fctzen (Du darfst diesen Charakter ersch\u00f6pft\nausspielen. Gegnerische Charaktere m\u00fcssen beim\nHerausfordern zuerst deine Charaktere mit Besch\u00fctzen\nw\u00e4hlen, wenn m\u00f6glich.)\nDIE KLINGE Dieser Charakter kann bereite Charaktere\nherausfordern.",
+      "fullTextSections": [
+        "Besch\u00fctzen (Du darfst diesen Charakter ersch\u00f6pft\nausspielen. Gegnerische Charaktere m\u00fcssen beim\nHerausfordern zuerst deine Charaktere mit Besch\u00fctzen\nw\u00e4hlen, wenn m\u00f6glich.)",
+        "DIE KLINGE Dieser Charakter kann bereite Charaktere\nherausfordern."
+      ],
+      "usedUntil": "2024-08-23"
+    }
+  ],
+  "411": [
+    {
+      "abilities": [
+        {
+          "fullText": "Besch\u00fctzen (Du darfst diesen Charakter ersch\u00f6pft\nausspielen. Gegnerische Charaktere m\u00fcssen beim\nHerausfordern zuerst deine Charaktere mit Besch\u00fctzen\nw\u00e4hlen, wenn m\u00f6glich.)",
+          "keyword": "Besch\u00fctzen",
+          "reminderText": "Du darfst diesen Charakter ersch\u00f6pft ausspielen. Gegnerische Charaktere m\u00fcssen beim Herausfordern zuerst deine Charaktere mit Besch\u00fctzen w\u00e4hlen, wenn m\u00f6glich.",
+          "type": "keyword"
+        },
+        {
+          "fullText": "Robust +1 (Reduziere jeglichen Schaden, der diesem\nCharakter zugef\u00fcgt wird, um 1.)",
+          "keyword": "Robust",
+          "keywordValue": "+1",
+          "keywordValueNumber": 1,
+          "reminderText": "Reduziere jeglichen Schaden, der diesem Charakter zugef\u00fcgt wird, um 1.",
+          "type": "keyword"
+        }
+      ],
+      "fullText": "Besch\u00fctzen (Du darfst diesen Charakter ersch\u00f6pft\nausspielen. Gegnerische Charaktere m\u00fcssen beim\nHerausfordern zuerst deine Charaktere mit Besch\u00fctzen\nw\u00e4hlen, wenn m\u00f6glich.)\nRobust +1 (Reduziere jeglichen Schaden, der diesem\nCharakter zugef\u00fcgt wird, um 1.)",
+      "fullTextSections": [
+        "Besch\u00fctzen (Du darfst diesen Charakter ersch\u00f6pft\nausspielen. Gegnerische Charaktere m\u00fcssen beim\nHerausfordern zuerst deine Charaktere mit Besch\u00fctzen\nw\u00e4hlen, wenn m\u00f6glich.)",
+        "Robust +1 (Reduziere jeglichen Schaden, der diesem\nCharakter zugef\u00fcgt wird, um 1.)"
+      ],
+      "usedUntil": "2024-08-23"
+    }
+  ],
+  "432": [
+    {
+      "abilities": [
+        {
+          "fullText": "Besch\u00fctzen (Du darfst diesen Charakter ersch\u00f6pft\nausspielen. Gegnerische Charaktere m\u00fcssen beim\nHerausfordern deiner Charaktere zuerst deine\nCharaktere mit Besch\u00fctzen w\u00e4hlen, wenn m\u00f6glich.)",
+          "keyword": "Besch\u00fctzen",
+          "reminderText": "Du darfst diesen Charakter ersch\u00f6pft ausspielen. Gegnerische Charaktere m\u00fcssen beim Herausfordern deiner Charaktere zuerst deine Charaktere mit Besch\u00fctzen w\u00e4hlen, wenn m\u00f6glich.",
+          "type": "keyword"
+        },
+        {
+          "effect": "Dieser Charakter kann bereite Charaktere herausfordern.",
+          "fullText": "DIE KLINGE Dieser Charakter kann bereite\nCharaktere herausfordern.",
+          "name": "DIE KLINGE",
+          "type": "static"
+        }
+      ],
+      "fullText": "Besch\u00fctzen (Du darfst diesen Charakter ersch\u00f6pft\nausspielen. Gegnerische Charaktere m\u00fcssen beim\nHerausfordern deiner Charaktere zuerst deine\nCharaktere mit Besch\u00fctzen w\u00e4hlen, wenn m\u00f6glich.)\nDIE KLINGE Dieser Charakter kann bereite\nCharaktere herausfordern.",
+      "fullTextSections": [
+        "Besch\u00fctzen (Du darfst diesen Charakter ersch\u00f6pft\nausspielen. Gegnerische Charaktere m\u00fcssen beim\nHerausfordern deiner Charaktere zuerst deine\nCharaktere mit Besch\u00fctzen w\u00e4hlen, wenn m\u00f6glich.)",
+        "DIE KLINGE Dieser Charakter kann bereite\nCharaktere herausfordern."
+      ],
+      "usedUntil": "2024-08-23"
+    }
+  ],
+  "433": [
+    {
+      "abilities": [
+        {
+          "fullText": "Besch\u00fctzen (Du darfst diesen Charakter ersch\u00f6pft\nausspielen. Gegnerische Charaktere m\u00fcssen beim\nHerausfordern deiner Charaktere zuerst deine\nCharaktere mit Besch\u00fctzen w\u00e4hlen, wenn m\u00f6glich.)",
+          "keyword": "Besch\u00fctzen",
+          "reminderText": "Du darfst diesen Charakter ersch\u00f6pft ausspielen. Gegnerische Charaktere m\u00fcssen beim Herausfordern deiner Charaktere zuerst deine Charaktere mit Besch\u00fctzen w\u00e4hlen, wenn m\u00f6glich.",
+          "type": "keyword"
+        },
+        {
+          "effect": "Wenn dieser Charakter verbannt wird, sammelst du 2 Legenden.",
+          "fullText": "AB DURCH DIE NASSE MITTE Wenn dieser Charakter\nverbannt wird, sammelst du 2 Legenden.",
+          "name": "AB DURCH DIE NASSE MITTE",
+          "type": "triggered"
+        }
+      ],
+      "fullText": "Besch\u00fctzen (Du darfst diesen Charakter ersch\u00f6pft\nausspielen. Gegnerische Charaktere m\u00fcssen beim\nHerausfordern deiner Charaktere zuerst deine\nCharaktere mit Besch\u00fctzen w\u00e4hlen, wenn m\u00f6glich.)\nAB DURCH DIE NASSE MITTE Wenn dieser Charakter\nverbannt wird, sammelst du 2 Legenden.",
+      "fullTextSections": [
+        "Besch\u00fctzen (Du darfst diesen Charakter ersch\u00f6pft\nausspielen. Gegnerische Charaktere m\u00fcssen beim\nHerausfordern deiner Charaktere zuerst deine\nCharaktere mit Besch\u00fctzen w\u00e4hlen, wenn m\u00f6glich.)",
+        "AB DURCH DIE NASSE MITTE Wenn dieser Charakter\nverbannt wird, sammelst du 2 Legenden."
+      ],
+      "usedUntil": "2024-08-23"
+    }
+  ],
+  "441": [
+    {
+      "abilities": [
+        {
+          "fullText": "Besch\u00fctzen (Du darfst diesen Charakter ersch\u00f6pft\nausspielen. Gegnerische Charaktere m\u00fcssen\nbeim Herausfordern zuerst deine Charaktere mit\nBesch\u00fctzen w\u00e4hlen, wenn m\u00f6glich.)",
+          "keyword": "Besch\u00fctzen",
+          "reminderText": "Du darfst diesen Charakter ersch\u00f6pft ausspielen. Gegnerische Charaktere m\u00fcssen beim Herausfordern zuerst deine Charaktere mit Besch\u00fctzen w\u00e4hlen, wenn m\u00f6glich.",
+          "type": "keyword"
+        }
+      ],
+      "fullText": "Besch\u00fctzen (Du darfst diesen Charakter ersch\u00f6pft\nausspielen. Gegnerische Charaktere m\u00fcssen\nbeim Herausfordern zuerst deine Charaktere mit\nBesch\u00fctzen w\u00e4hlen, wenn m\u00f6glich.)",
+      "fullTextSections": [
+        "Besch\u00fctzen (Du darfst diesen Charakter ersch\u00f6pft\nausspielen. Gegnerische Charaktere m\u00fcssen\nbeim Herausfordern zuerst deine Charaktere mit\nBesch\u00fctzen w\u00e4hlen, wenn m\u00f6glich.)"
+      ],
+      "usedUntil": "2024-08-23"
+    }
+  ],
+  "448": [
+    {
+      "abilities": [
+        {
+          "fullText": "Besch\u00fctzen (Du darfst diesen Charakter ersch\u00f6pft\nausspielen. Gegnerische Charaktere m\u00fcssen\nbeim Herausfordern zuerst deine Charaktere mit\nBesch\u00fctzen w\u00e4hlen, wenn m\u00f6glich.)",
+          "keyword": "Besch\u00fctzen",
+          "reminderText": "Du darfst diesen Charakter ersch\u00f6pft ausspielen. Gegnerische Charaktere m\u00fcssen beim Herausfordern zuerst deine Charaktere mit Besch\u00fctzen w\u00e4hlen, wenn m\u00f6glich.",
+          "type": "keyword"
+        }
+      ],
+      "fullText": "Besch\u00fctzen (Du darfst diesen Charakter ersch\u00f6pft\nausspielen. Gegnerische Charaktere m\u00fcssen\nbeim Herausfordern zuerst deine Charaktere mit\nBesch\u00fctzen w\u00e4hlen, wenn m\u00f6glich.)",
+      "fullTextSections": [
+        "Besch\u00fctzen (Du darfst diesen Charakter ersch\u00f6pft\nausspielen. Gegnerische Charaktere m\u00fcssen\nbeim Herausfordern zuerst deine Charaktere mit\nBesch\u00fctzen w\u00e4hlen, wenn m\u00f6glich.)"
+      ],
+      "usedUntil": "2024-08-23"
+    }
+  ],
+  "453": [
+    {
+      "abilities": [
+        {
+          "fullText": "Gestaltwandel 5 (Du kannst 5 \u2b21 zahlen, um diesen\nCharakter auf einen deiner Pluto-Charaktere auszuspielen.)",
+          "keyword": "Gestaltwandel",
+          "keywordValue": "5",
+          "keywordValueNumber": 5,
+          "reminderText": "Du kannst 5 \u2b21 zahlen, um diesen Charakter auf einen deiner Pluto-Charaktere auszuspielen.",
+          "type": "keyword"
+        },
+        {
+          "fullText": "Besch\u00fctzen (Du darfst diesen Charakter ersch\u00f6pft ausspielen.\nGegnerische Charaktere m\u00fcssen beim Herausfordern zuerst\ndeine Charaktere mit Besch\u00fctzen w\u00e4hlen, wenn m\u00f6glich.)",
+          "keyword": "Besch\u00fctzen",
+          "reminderText": "Du darfst diesen Charakter ersch\u00f6pft ausspielen. Gegnerische Charaktere m\u00fcssen beim Herausfordern zuerst deine Charaktere mit Besch\u00fctzen w\u00e4hlen, wenn m\u00f6glich.",
+          "type": "keyword"
+        },
+        {
+          "effect": "Zu Beginn deines Zuges, entferne bis zu 3 Schaden von diesem Charakter.",
+          "fullText": "WACHHUND Zu Beginn deines Zuges, entferne bis zu 3\nSchaden von diesem Charakter.",
+          "name": "WACHHUND",
+          "type": "triggered"
+        }
+      ],
+      "fullText": "Gestaltwandel 5 (Du kannst 5 \u2b21 zahlen, um diesen\nCharakter auf einen deiner Pluto-Charaktere auszuspielen.)\nBesch\u00fctzen (Du darfst diesen Charakter ersch\u00f6pft ausspielen.\nGegnerische Charaktere m\u00fcssen beim Herausfordern zuerst\ndeine Charaktere mit Besch\u00fctzen w\u00e4hlen, wenn m\u00f6glich.)\nWACHHUND Zu Beginn deines Zuges, entferne bis zu 3\nSchaden von diesem Charakter.",
+      "fullTextSections": [
+        "Gestaltwandel 5 (Du kannst 5 \u2b21 zahlen, um diesen\nCharakter auf einen deiner Pluto-Charaktere auszuspielen.)",
+        "Besch\u00fctzen (Du darfst diesen Charakter ersch\u00f6pft ausspielen.\nGegnerische Charaktere m\u00fcssen beim Herausfordern zuerst\ndeine Charaktere mit Besch\u00fctzen w\u00e4hlen, wenn m\u00f6glich.)",
+        "WACHHUND Zu Beginn deines Zuges, entferne bis zu 3\nSchaden von diesem Charakter."
+      ],
+      "usedUntil": "2024-08-23"
+    }
+  ],
+  "455": [
+    {
+      "abilities": [
+        {
+          "effect": "Einmal pro Zug, darfst du 2 \u2b21 bezahlen, um die oberste Karte deines Decks aufdecken. Falls sie eine Charakterkarte ist, nimm sie auf deine Hand. Falls nicht, lege sie unter dein Deck.",
+          "fullText": "D\u00c4MMERUNGSBELLEN Einmal pro Zug, darfst du\n2 \u2b21 bezahlen, um die oberste Karte deines Decks\naufdecken. Falls sie eine Charakterkarte ist, nimm sie\nauf deine Hand. Falls nicht, lege sie unter dein Deck.",
+          "name": "D\u00c4MMERUNGSBELLEN",
+          "type": "activated"
+        }
+      ],
+      "fullText": "D\u00c4MMERUNGSBELLEN Einmal pro Zug, darfst du\n2 \u2b21 bezahlen, um die oberste Karte deines Decks\naufdecken. Falls sie eine Charakterkarte ist, nimm sie\nauf deine Hand. Falls nicht, lege sie unter dein Deck.",
+      "fullTextSections": [
+        "D\u00c4MMERUNGSBELLEN Einmal pro Zug, darfst du\n2 \u2b21 bezahlen, um die oberste Karte deines Decks\naufdecken. Falls sie eine Charakterkarte ist, nimm sie\nauf deine Hand. Falls nicht, lege sie unter dein Deck."
+      ],
+      "usedUntil": "2024-08-23"
+    }
+  ],
+  "568": [
+    {
+      "abilities": [
+        {
+          "effect": "Wenn du einen Maui-Charakter im Spiel hast, darfst du die Formwandler-F\u00e4higkeit dieses Gegenstands kostenlos einsetzen.",
+          "fullText": "JETZT IST MAUI ZEIT! Wenn du einen Maui-Charakter im Spiel\nhast, darfst du die Formwandler-F\u00e4higkeit dieses Gegenstands\nkostenlos einsetzen.",
+          "name": "JETZT IST MAUI ZEIT!",
+          "type": "static"
+        },
+        {
+          "costs": [
+            "\u27f3",
+            "2 \u2b21"
+          ],
+          "costsText": "\u27f3, 2 \u2b21",
+          "effect": "W\u00e4hle eine M\u00f6glickeit aus: \u2022 Gib einem Charakter deiner Wahl in diesem Zug +3 \u00a4. \u2022 Ein Charakter deiner Wahl erh\u00e4lt bis zu Beginn deines n\u00e4chsten Zuges Wendig. (Nur Charaktere mit Wendig k\u00f6nnen den Charakter herausfordern.)",
+          "fullText": "FORMWANDLER \u27f3, 2 \u2b21 \u2014 W\u00e4hle eine M\u00f6glickeit aus:\n\u2022 Gib einem Charakter deiner Wahl in diesem Zug +3 \u00a4.\n\u2022 Ein Charakter deiner Wahl erh\u00e4lt bis zu Beginn deines n\u00e4chsten\nZuges Wendig. (Nur Charaktere mit Wendig k\u00f6nnen den Charakter\nherausfordern.)",
+          "name": "FORMWANDLER",
+          "type": "activated"
+        }
+      ],
+      "fullText": "JETZT IST MAUI ZEIT! Wenn du einen Maui-Charakter im Spiel\nhast, darfst du die Formwandler-F\u00e4higkeit dieses Gegenstands\nkostenlos einsetzen.\nFORMWANDLER \u27f3, 2 \u2b21 \u2014 W\u00e4hle eine M\u00f6glickeit aus:\n\u2022 Gib einem Charakter deiner Wahl in diesem Zug +3 \u00a4.\n\u2022 Ein Charakter deiner Wahl erh\u00e4lt bis zu Beginn deines n\u00e4chsten\nZuges Wendig. (Nur Charaktere mit Wendig k\u00f6nnen den Charakter\nherausfordern.)",
+      "fullTextSections": [
+        "JETZT IST MAUI ZEIT! Wenn du einen Maui-Charakter im Spiel\nhast, darfst du die Formwandler-F\u00e4higkeit dieses Gegenstands\nkostenlos einsetzen.",
+        "FORMWANDLER \u27f3, 2 \u2b21 \u2014 W\u00e4hle eine M\u00f6glickeit aus:\n\u2022 Gib einem Charakter deiner Wahl in diesem Zug +3 \u00a4.\n\u2022 Ein Charakter deiner Wahl erh\u00e4lt bis zu Beginn deines n\u00e4chsten\nZuges Wendig. (Nur Charaktere mit Wendig k\u00f6nnen den Charakter\nherausfordern.)"
+      ],
+      "usedUntil": "2024-08-23"
+    }
+  ],
+  "581": [
+    {
+      "abilities": [
+        {
+          "fullText": "Unterst\u00fctzen (Jedes Mal, wenn dieser Charakter erkundet,\ndarfst du seine \u00a4 in diesem Zug zur \u00a4 eines anderen\nCharakters deiner Wahl addieren.)",
+          "keyword": "Unterst\u00fctzen",
+          "reminderText": "Jedes Mal, wenn dieser Charakter erkundet, darfst du seine \u00a4 in diesem Zug zur \u00a4 eines anderen Charakters deiner Wahl addieren.",
+          "type": "keyword"
+        },
+        {
+          "effect": "Jedes Mal, wenn dieser Charakter erkundet und du einen Trick-Charakter und einen Track- Charakter im Spiel hast, darfst du 3 Karten ziehen.",
+          "fullText": "DIE DREI NEFFEN Jedes Mal, wenn dieser Charakter\nerkundet und du einen Trick-Charakter und einen Track-\nCharakter im Spiel hast, darfst du 3 Karten ziehen.",
+          "name": "DIE DREI NEFFEN",
+          "type": "triggered"
+        }
+      ],
+      "fullText": "Unterst\u00fctzen (Jedes Mal, wenn dieser Charakter erkundet,\ndarfst du seine \u00a4 in diesem Zug zur \u00a4 eines anderen\nCharakters deiner Wahl addieren.)\nDIE DREI NEFFEN Jedes Mal, wenn dieser Charakter\nerkundet und du einen Trick-Charakter und einen Track-\nCharakter im Spiel hast, darfst du 3 Karten ziehen.",
+      "fullTextSections": [
+        "Unterst\u00fctzen (Jedes Mal, wenn dieser Charakter erkundet,\ndarfst du seine \u00a4 in diesem Zug zur \u00a4 eines anderen\nCharakters deiner Wahl addieren.)",
+        "DIE DREI NEFFEN Jedes Mal, wenn dieser Charakter\nerkundet und du einen Trick-Charakter und einen Track-\nCharakter im Spiel hast, darfst du 3 Karten ziehen."
+      ],
+      "usedUntil": "2024-08-23"
+    },
+    {
+      "subtypes": [
+        "Sagengestalt",
+        "Verb\u00fcndeter"
+      ],
+      "usedUntil": "2024-11-04"
+    }
+  ],
+  "613": [
+    {
+      "abilities": [
+        {
+          "fullText": "Besch\u00fctzen (Du darfst diesen Charakter ersch\u00f6pft\nausspielen. Gegnerische Charaktere m\u00fcssen\nbeim Herausfordern zuerst deine Charaktere mit\nBesch\u00fctzen w\u00e4hlen, wenn m\u00f6glich.)",
+          "keyword": "Besch\u00fctzen",
+          "reminderText": "Du darfst diesen Charakter ersch\u00f6pft ausspielen. Gegnerische Charaktere m\u00fcssen beim Herausfordern zuerst deine Charaktere mit Besch\u00fctzen w\u00e4hlen, wenn m\u00f6glich.",
+          "type": "keyword"
+        }
+      ],
+      "fullText": "Besch\u00fctzen (Du darfst diesen Charakter ersch\u00f6pft\nausspielen. Gegnerische Charaktere m\u00fcssen\nbeim Herausfordern zuerst deine Charaktere mit\nBesch\u00fctzen w\u00e4hlen, wenn m\u00f6glich.)",
+      "fullTextSections": [
+        "Besch\u00fctzen (Du darfst diesen Charakter ersch\u00f6pft\nausspielen. Gegnerische Charaktere m\u00fcssen\nbeim Herausfordern zuerst deine Charaktere mit\nBesch\u00fctzen w\u00e4hlen, wenn m\u00f6glich.)"
+      ],
+      "usedUntil": "2024-08-23"
+    }
+  ],
+  "728": [
+    {
+      "artists": [
+        "Angelina Ricardo"
+      ],
+      "artistsText": "Angelina Ricardo",
+      "usedUntil": "2024-08-23"
+    }
+  ],
+  "770": [
+    {
+      "subtypes": [
+        "Traumgestalt",
+        "Verb\u00fcndete"
+      ],
+      "usedUntil": "2024-08-23"
+    }
+  ],
+  "800": [
+    {
+      "subtypes": [
+        "Traumgestalt",
+        "Held",
+        "Prinz"
+      ],
+      "usedUntil": "2024-08-23"
+    }
+  ],
+  "812": [
+    {
+      "abilities": [
+        {
+          "effect": "Jedes Mal, wenn dieser Charakter einen anderen Charakter herausfordert, sammlest du 1 Legende f\u00fcr jeden deiner anderen Charaktere, der besch\u00e4digt ist.",
+          "fullText": "KOMM MIR NICHT IN DIE QUERE Jedes Mal,\nwenn dieser Charakter einen anderen Charakter\nherausfordert, sammlest du 1 Legende f\u00fcr jeden\ndeiner anderen Charaktere, der besch\u00e4digt ist.",
+          "name": "KOMM MIR NICHT IN DIE QUERE",
+          "type": "triggered"
+        }
+      ],
+      "fullText": "KOMM MIR NICHT IN DIE QUERE Jedes Mal,\nwenn dieser Charakter einen anderen Charakter\nherausfordert, sammlest du 1 Legende f\u00fcr jeden\ndeiner anderen Charaktere, der besch\u00e4digt ist.",
+      "fullTextSections": [
+        "KOMM MIR NICHT IN DIE QUERE Jedes Mal,\nwenn dieser Charakter einen anderen Charakter\nherausfordert, sammlest du 1 Legende f\u00fcr jeden\ndeiner anderen Charaktere, der besch\u00e4digt ist."
+      ],
+      "usedUntil": "2024-08-23"
+    }
+  ],
+  "828": [
+    {
+      "subtypes": [
+        "Traumgestalt",
+        "Heldin",
+        "K\u00f6nigin"
+      ],
+      "usedUntil": "2024-08-23"
+    }
+  ],
+  "859": [
+    {
+      "artists": [
+        "Gregor Krysinski"
+      ],
+      "artistsText": "Gregor Krysinski",
+      "usedUntil": "2024-08-23"
+    }
+  ],
+  "879": [
+    {
+      "artists": [
+        "Cristian Romero"
+      ],
+      "artistsText": "Cristian Romero",
+      "usedUntil": "2024-08-23"
+    }
+  ],
+  "1117": [
+    {
+      "artists": [
+        "Michela Cacciatore",
+        "Giulia Riva"
+      ],
+      "artistsText": "Michela Cacciatore / Giulia Riva",
+      "usedUntil": "2024-08-23"
+    }
+  ]
+}
