@@ -46,7 +46,7 @@ def correctText(cardText: str) -> str:
 	# The 'exert' symbol often gets mistaken for a @ or G, correct that
 	cardText = re.sub(r"(?<![0-9s])(^|[\"“„ ])[(@G©€]{1,3}9?([ ,])", fr"\1{LorcanaSymbols.EXERT}\2", cardText, re.MULTILINE)
 	# Other weird symbols are probably strength symbols
-	cardText = re.sub(r"[&@©%$*<>{}€£¥Ÿ]{1,2}[0-9yF+*%“]*", LorcanaSymbols.STRENGTH, cardText)
+	cardText = re.sub(r"(?<!\d)[&@©%$*<>{}€£¥Ÿ]{1,2}[0-9yF+*%“]*", LorcanaSymbols.STRENGTH, cardText)
 	cardText = re.sub(r"(?<=\d )[CÇD]\b", LorcanaSymbols.STRENGTH, cardText)
 	# Make sure there's a period before a closing bracket
 	cardText = re.sub(fr"([^.,'!?’{LorcanaSymbols.STRENGTH}])\)", r"\1.)", cardText)
