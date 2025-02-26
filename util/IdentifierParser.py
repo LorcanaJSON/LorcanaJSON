@@ -47,6 +47,12 @@ def parseIdentifier(identifierString: str) -> Union[None, Identifier]:
 	:param identifierString: The identifier string to parse
 	:return: A parsed Identifier instance, or None if the identifier string couldn't be parsed
 	"""
+	if identifierString.startswith("1TFC "):
+		# Special case for the original cards
+		# There the idenifier is in the format 1TFC EN n/P1
+		parsedIdentifier = re.match(r"^1TFC (?P<language>[A-Z]+) (?P<number>\d+)/P1", identifierString)
+		return Identifier("P1", parsedIdentifier.group("language"), int(parsedIdentifier.group("number"), 10), "1")
+
 	parsedIdentifier = _IDENTIFIER_REGEX.match(identifierString)
 	if not parsedIdentifier:
 		_LOGGER.warning(f"Unable to parse identifier {identifierString}")
