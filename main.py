@@ -26,7 +26,7 @@ if __name__ == '__main__':
 																										 "'verify' compares the input and the output files and lists differences for important fields")
 	argumentParser.add_argument("--loglevel", dest="loglevel", choices=("debug", "info", "warn", "warning", "error"), default=None, help="Specify the log level. If omitted, defaults to 'warning'")
 	argumentParser.add_argument("--tesseractPath", help="Specify the path to Tesseract. This is needed if Tesseract can't just be called with 'tesseract' from the commandline")
-	argumentParser.add_argument("--language", nargs="*", help="Specify one or more languages to use, by its name or two-letter code. Defaults to 'en'", default="en")
+	argumentParser.add_argument("--language", nargs="*", help="Specify one or more languages to use, by its name or two-letter code. Defaults to 'en'", default=["en"])
 	argumentParser.add_argument("--cardIds", nargs="*", help="List the card IDs to parse. For the 'show' action, specify one or more card IDs to show. "
 															 "For the 'parse' action, specify one or more card IDs to parse, or omit this argument to parse all cards. "
 															 "For other actions, this field is ignored")
