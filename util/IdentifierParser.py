@@ -55,7 +55,7 @@ def parseIdentifier(identifierString: str) -> Union[None, Identifier]:
 
 	parsedIdentifier = _IDENTIFIER_REGEX.match(identifierString)
 	if not parsedIdentifier:
-		_LOGGER.warning(f"Unable to parse identifier {identifierString}")
+		_LOGGER.warning(f"Unable to parse identifier {identifierString!r}")
 		return None
 
 	# Card number sometimes gets read wrong, correct that
