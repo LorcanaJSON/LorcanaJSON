@@ -4,7 +4,7 @@ from typing import Union
 
 from util import LorcanaSymbols
 
-_IDENTIFIER_REGEX = re.compile(r"^(?P<number>[0-9V]+)(?P<variant>[a-z])?[/1](?P<grouping>[A-Z]?\d+)( ?[-+<.]{1,2} ?| (. )?)(?P<language>\w+)( ?[-+<.]{1,2} ?| (. )?)(?P<setCode>\S+)$")
+_IDENTIFIER_REGEX = re.compile(r"^(?P<number>[0-9V]+)(?P<variant>[A-Za-z])?[/1](?P<grouping>[A-Z]?\d+)( ?[-+<.]{1,2} ?| (. )?)(?P<language>\w+)( ?[-+<.]{1,2} ?| (. )?)(?P<setCode>\S+)$")
 _LOGGER = logging.getLogger("LorcanaJSON")
 
 @dataclass
