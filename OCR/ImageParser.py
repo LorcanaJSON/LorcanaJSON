@@ -125,7 +125,10 @@ class ImageParser:
 		typesImageArea = (parseSettings.locationCardLayout if isLocation else parseSettings.cardLayout).types
 		typesImage = self._getSubImage(greyCardImage, typesImageArea)
 		typesImage = self._convertToThresholdImage(typesImage, typesImageArea.textColour)
-		typesImageText = self._imageToString(typesImage).strip("\"'- ")
+		typesImageText = self._imageToString(typesImage).strip("\"'‘-1|{} ")
+		if "\n" in typesImageText:
+			self._logger.debug(f"Removing part before newline character from types image text {typesImageText!r}")
+			typesImageText = typesImageText.rsplit("\n", 1)[1]
 		self._logger.debug(f"Parsing types image finished at {time.perf_counter() - startTime} seconds in")
 		if typesImageText not in self.nonCharacterTypes:
 			# The type separator character is always the same, but often gets interpreted wrong; fix that
