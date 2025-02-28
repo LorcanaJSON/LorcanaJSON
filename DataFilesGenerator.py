@@ -737,6 +737,11 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 		# This name is inconsistent, sometimes it has a capital 'M', sometimes a lowercase 'm'
 		# Comparing with capitalization of other cards, this should be a lowercase 'm'
 		outputCard["name"] = outputCard["name"].replace("M", "m")
+	elif outputCard["name"] == "Heihei":
+		# They're inconsistent about the spelling of 'HeiHei': Up to Set 6 they wrote it 'HeiHei' with the second 'H' capitalized,
+		# but starting from Set 7, they started writing it 'Heihei', with the second 'h' lowercase
+		# Searching around on non-Lorcana sources, the spelling isn't too consistent either, with sometimes 'Heihei' and sometimes 'Hei Hei'
+		outputCard["name"] = "HeiHei"
 	elif outputCard["name"].isupper() and outputCard["name"] != "B.E.N.":
 		# Some names have capitals in the middle, correct those
 		if cardType == GlobalConfig.translation.Character:
