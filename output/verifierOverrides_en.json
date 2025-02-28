@@ -330,12 +330,58 @@
   "1422": {
     "rules_text": [
       "[\\[\\]]",
-      ""
+      "",
+      ", reveal",
+      ", you may reveal",
+      "card you",
+      "card, you",
+      "play it for free,",
+      "play that item for free and they enter play "
     ]
   },
   "1429": {
     "flavor_text": [
       "^.+$",
+      ""
+    ]
+  },
+  "1492": {
+    "author": [
+      " C.+$",
+      "sonArt"
+    ]
+  },
+  "1536": {
+    "flavor_text": [
+      "edee",
+      "e Dee"
+    ]
+  },
+  "1556": {
+    "flavor_text": [
+      "mother",
+      "ma"
+    ]
+  },
+  "1585": {
+    "flavor_text": [
+      ",\u00a0f",
+      ", f"
+    ]
+  },
+  "1606": {
+    "author": [
+      "Victor ",
+      "",
+      " Covarrubias",
+      ""
+    ]
+  },
+  "1630": {
+    "author": [
+      "Victor ",
+      "",
+      " Covarrubias",
       ""
     ]
   }
