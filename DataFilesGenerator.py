@@ -638,7 +638,6 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 					 cardDataCorrections: Dict, storyParser: StoryParser, isExternalReveal: bool, historicData: List[Dict], shouldShowImage: bool = False) -> Union[Dict, None]:
 	# Store some default values
 	outputCard: Dict[str, Union[str, int, List, Dict]] = {
-		"color": GlobalConfig.translation[inputCard["magic_ink_colors"][0]] if inputCard["magic_ink_colors"] else "",
 		"id": inputCard["culture_invariant_id"],
 		"inkwell": inputCard["ink_convertible"],
 		"rarity": GlobalConfig.translation[inputCard["rarity"]],
