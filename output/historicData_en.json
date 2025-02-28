@@ -171,5 +171,14 @@
       "artistsText": "Michela Cacciatore / Giulia Riva",
       "usedUntil": "2024-08-23"
     }
+  ],
+  "1244": [
+    {
+      "subtypes": [
+        "Dreamborn",
+        "Ally"
+      ],
+      "usedUntil": "2024-02-26"
+    }
   ]
 }
