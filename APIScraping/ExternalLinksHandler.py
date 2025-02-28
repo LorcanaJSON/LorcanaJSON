@@ -189,7 +189,7 @@ class ExternalLinksHandler:
 					for cardId, newCardData in newSetData.items():
 						if cardId not in oldSetData:
 							wasChangeFound = True
-							_LOGGER.info(f"Card ID {cardId} of set {setCode} exists in the new external-links data but not in the old")
+							_LOGGER.info(f"Card {cardId} of set {setCode} exists in the new external-links data but not in the old")
 						else:
 							oldCardData = oldSetData[cardId]
 							for externalLinkKey, externalLinkValue in newCardData.items():
