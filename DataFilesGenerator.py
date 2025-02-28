@@ -13,7 +13,8 @@ _logger = logging.getLogger("LorcanaJSON")
 FORMAT_VERSION = "2.1.1"
 _CARD_CODE_LOOKUP = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 _KEYWORD_REGEX = re.compile(r"(?:^|\n)([A-ZÀ][^.]+)(?= \([A-Z])")
-_ABILITY_TYPE_CORRECTION_FIELD_TO_ABILITY_TYPE: Dict[str, str] = {"_forceAbilityIndexToActivated": "activated", "_forceAbilityIndexToStatic": "static", "_forceAbilityIndexToTriggered": "triggered"}
+_KEYWORD_REGEX_WITHOUT_REMINDER = re.compile(r"^[A-Z]\w+( \d)?$")
+_ABILITY_TYPE_CORRECTION_FIELD_TO_ABILITY_TYPE: Dict[str, str] = {"_forceAbilityIndexToActivated": "activated", "_forceAbilityIndexToKeyword": "keyword", "_forceAbilityIndexToStatic": "static", "_forceAbilityIndexToTriggered": "triggered"}
 # The card parser is run in threads, and each thread needs to initialize its own ImageParser (otherwise weird errors happen in Tesseract)
 # Store each initialized ImageParser in its own thread storage
 _threadingLocalStorage = threading.local()
@@ -1022,7 +1023,16 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 	if "abilities" in outputCard:
 		for abilityIndex in range(len(outputCard["abilities"])):
 			ability: Dict = outputCard["abilities"][abilityIndex]
-			if ability.get("type", None) == "keyword":
+			if ability.get("type", None) == "keyword" or ("type" not in ability and not ability.get("name", None) and (_KEYWORD_REGEX.match(ability.get("fullText", ability["effect"])) or  _KEYWORD_REGEX_WITHOUT_REMINDER.match(ability.get("fullText", ability["effect"])))):
+				# Clean up some mistakes from if an effect got corrected into a keyword ability
+				if "fullText" not in ability:
+					ability["fullText"] = ability["effect"]
+				if "name" in ability:
+					del ability["name"]
+				if "effect" in ability:
+					del ability["effect"]
+
+				ability["type"] = "keyword"
 				keyword = ability["fullText"]
 				reminderText = None
 				if "(" in keyword:
