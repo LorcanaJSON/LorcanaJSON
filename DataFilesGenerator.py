@@ -10,7 +10,7 @@ from util import IdentifierParser, Language, LorcanaSymbols
 
 
 _logger = logging.getLogger("LorcanaJSON")
-FORMAT_VERSION = "2.1.0"
+FORMAT_VERSION = "2.1.1"
 _CARD_CODE_LOOKUP = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 _KEYWORD_REGEX = re.compile(r"(?:^|\n)([A-ZÀ][^.]+)(?= \([A-Z])")
 _ABILITY_TYPE_CORRECTION_FIELD_TO_ABILITY_TYPE: Dict[str, str] = {"_forceAbilityIndexToActivated": "activated", "_forceAbilityIndexToStatic": "static", "_forceAbilityIndexToTriggered": "triggered"}
@@ -643,6 +643,14 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 	}
 	if isExternalReveal:
 		outputCard["isExternalReveal"] = True
+	if not inputCard["magic_ink_colors"]:
+		outputCard["color"] = ""
+	elif len(inputCard["magic_ink_colors"]) == 1:
+		outputCard["color"] = GlobalConfig.translation[inputCard["magic_ink_colors"][0]]
+	else:
+		# Multi-colored card
+		outputCard["colors"] = [GlobalConfig.translation[color] for color in inputCard["magic_ink_colors"]]
+		outputCard["color"] = "-".join(outputCard["colors"])
 
 	# When building a deck in the official app, it gets saves as a string. This string starts with a '2', and then each card gets a two-character code based on the card's ID
 	# This card code is the card ID in base 62, using 0-9, a-z, and then A-Z for individual digits
