@@ -969,6 +969,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 	forceAbilityTypeAtIndex: Dict[int, str] = {}  # index to ability type
 	newlineAfterLabelIndex: int = -1
 	mergeEffectIndexWithPrevious: int = -1
+	moveAbilityAtIndexToIndex: Union[List[int, int], None] = None
 	if cardDataCorrections:
 		if cardDataCorrections.pop("_moveKeywordsLast", False):
 			if "abilities" not in outputCard or "effect" not in outputCard["abilities"][-1]:
@@ -996,6 +997,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 		effectAtIndexIsAbility: Union[int, List[int, str]] = cardDataCorrections.pop("_effectAtIndexIsAbility", -1)
 		externalLinksCorrection = cardDataCorrections.pop("externalLinks", None)
 		fullTextCorrection = cardDataCorrections.pop("fullText", None)
+		moveAbilityAtIndexToIndex = cardDataCorrections.pop("_moveAbilityAtIndexToIndex", None)
 		for fieldName, correction in cardDataCorrections.items():
 			if len(correction) > 2:
 				for correctionIndex in range(0, len(correction), 2):
@@ -1140,6 +1142,9 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 	outputCard["externalLinks"] = _threadingLocalStorage.externalIdsHandler.getExternalLinksForCard(parsedIdentifier, "enchantedId" in outputCard)
 	if externalLinksCorrection:
 		correctCardField(outputCard, "externalLinks", externalLinksCorrection[0], externalLinksCorrection[1])
+	if moveAbilityAtIndexToIndex:
+		_logger.info(f"Moving ability at index {moveAbilityAtIndexToIndex[0]} to index {moveAbilityAtIndexToIndex[1]}")
+		outputCard["abilities"].insert(moveAbilityAtIndexToIndex[1], outputCard["abilities"].pop(moveAbilityAtIndexToIndex[0]))
 	# Reconstruct the full card text. Do that after storing and correcting fields, so any corrections will be taken into account
 	# Remove the newlines in the fields we use while we're at it, because we only needed those to reconstruct the fullText
 	fullTextSections = []
