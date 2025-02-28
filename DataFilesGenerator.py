@@ -1004,7 +1004,17 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 					correctCardField(outputCard, fieldName, correction[correctionIndex], correction[correctionIndex+1])
 			else:
 				correctCardField(outputCard, fieldName, correction[0], correction[1])
-		# If newlines got added through a correction, we may need to split the effect in two
+		# If newlines got added through a correction, we may need to split the ability or effect in two
+		if "abilities" in cardDataCorrections and "abilities" in outputCard:
+			for abilityIndex in range(len(outputCard["abilities"]) - 1, -1, -1):
+				ability = outputCard["abilities"][abilityIndex]
+				abilityTextFieldName = "fullText" if "fullText" in ability else "effect"
+				while "\n\n" in ability[abilityTextFieldName]:
+					# We need to split this ability in two
+					_logger.info(f"Splitting ability at index {abilityIndex} in two because it has a double newline, in card {_createCardIdentifier(outputCard)}")
+					firstAbilityTextPart, secondAbilityTextPart = ability[abilityTextFieldName].rsplit("\n\n", 1)
+					ability[abilityTextFieldName] = firstAbilityTextPart
+					outputCard["abilities"].insert(abilityIndex + 1, {"effect": secondAbilityTextPart})
 		if "effects" in cardDataCorrections and "effects" in outputCard:
 			for effectIndex in range(len(outputCard["effects"]) - 1, -1, -1):
 				while "\n\n" in outputCard["effects"][effectIndex]:
