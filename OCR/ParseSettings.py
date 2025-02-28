@@ -72,13 +72,18 @@ _PARSE_SETTINGS_BY_ID: Dict[int, ParseSettings] = {
 	1186: dataclasses.replace(_PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["5"], hasFlavorTextOverride=False),
 	1187: dataclasses.replace(_PARSE_SETTINGS_BY_GROUPING["C1"], labelParsingMethod=LABEL_PARSING_METHODS.NONE),
 	1191: ParseSettings(labelParsingMethod=LABEL_PARSING_METHODS.DEFAULT, textboxOffset=_OPTIONAL_TEXTBOX_OFFSET, getIdentifierFromCard=True),
+	1197: dataclasses.replace(_PARSE_SETTINGS_BY_GROUPING["C1"], textboxOffset=39),
 	1406: dataclasses.replace(_PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["6"], isLocationOverride=True),
 	1412: dataclasses.replace(_PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["6"], labelParsingMethod=LABEL_PARSING_METHODS.NONE),
 	1415: dataclasses.replace(_PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["6"], labelParsingMethod=LABEL_PARSING_METHODS.NONE),
 	1418: dataclasses.replace(_PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["6"], labelParsingMethod=LABEL_PARSING_METHODS.NONE),
 	1421: dataclasses.replace(_PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["6"], isLocationOverride=True),
+	1430: dataclasses.replace(_DEFAULT_PARSE_SETTINGS, textboxOffset=24),
+	1431: dataclasses.replace(_DEFAULT_PARSE_SETTINGS, textboxOffset=24),
 	1432: ParseSettings(textboxOffset=0, labelParsingMethod=LABEL_PARSING_METHODS.DEFAULT, getIdentifierFromCard=True),
 	1429: dataclasses.replace(_PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["5"], hasFlavorTextOverride=False),
+	1662: _PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["7"],
+	1664: dataclasses.replace(_PARSE_SETTINGS_BY_GROUPING["C1"], labelParsingMethod=LABEL_PARSING_METHODS.FALLBACK_BY_LINES)
 }
 
 def getParseSetingsById(cardId: int) -> Union[None, ParseSettings]:
