@@ -133,7 +133,13 @@ class ImageParser:
 		if typesImageText not in self.nonCharacterTypes:
 			# The type separator character is always the same, but often gets interpreted wrong; fix that
 			if " " in typesImageText:
-				typesImageText = re.sub(r" (\S )?", f" {LorcanaSymbols.SEPARATOR} ", typesImageText)
+				typesImageTextParts = typesImageText.split(" ")
+				for typesPartIndex in range(len(typesImageTextParts) - 1, -1, -1):
+					typesPart = typesImageTextParts[typesPartIndex]
+					if len(typesPart) < 4:
+						self._logger.info(f"Removing type '{typesPart}' from types text, because it's too short")
+						del typesImageTextParts[typesPartIndex]
+				typesImageText = f" {LorcanaSymbols.SEPARATOR} ".join(typesImageTextParts)
 			result["subtypesText"] = ImageAndText(typesImage, typesImageText)
 			self._logger.debug(f"{typesImageText=}")
 			isCharacter = not isLocation and typesImageText not in self.nonCharacterTypes and typesImageText.split(" ", 1)[0] not in self.nonCharacterTypes
