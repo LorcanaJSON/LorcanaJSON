@@ -856,6 +856,9 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 					else:
 						# Sentence is single-word comma-separated parts, assume it's a list of keyword abilities
 						keywordLines.extend(remainingTextLineParts)
+				elif _KEYWORD_REGEX_WITHOUT_REMINDER.match(remainingTextLine):
+					# Single words, possibly followed by a number, but not followed by a period, are assumed to be keywords
+					keywordLines.append(remainingTextLine)
 				if keywordLines:
 					for keywordLine in keywordLines:
 						abilities.append({"type": "keyword", "fullText": keywordLine})
