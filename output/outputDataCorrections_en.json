@@ -1298,6 +1298,24 @@
       ""
     ]
   },
+  "1196": {
+    "artistsText": [
+      "^$",
+      "Taraneh"
+    ]
+  },
+  "1197": {
+    "abilities": [
+      "^1 ",
+      ""
+    ]
+  },
+  "1198": {
+    "abilities": [
+      "\n\\.\\) ",
+      "\n"
+    ]
+  },
   "1200": {
     "flavorText": [
       "-",
@@ -1656,9 +1674,347 @@
       "2"
     ]
   },
+  "1430": {
+    "abilities": [
+      "^_ ",
+      "",
+      "2 a",
+      "2 ¤ a"
+    ],
+    "artistsText": [
+      " .+$",
+      ""
+    ]
+  },
+  "1431": {
+    "abilities": [
+      "^I ",
+      ""
+    ]
+  },
+  "1434": {
+    "abilities": [
+      "¤",
+      "⛉"
+    ]
+  },
+  "1439": {
+    "artistsText": [
+      "é",
+      "ễ"
+    ]
+  },
+  "1440": {
+    "abilities": [
+      "lf",
+      "If"
+    ]
+  },
   "1432": {
     "artistsText": [
       " \\}$",
+      ""
+    ]
+  },
+  "1443": {
+    "abilities": [
+      "\\? I",
+      "?"
+    ]
+  },
+  "1445": {
+    "abilities": [
+      "LN",
+      "L N"
+    ]
+  },
+  "1464": {
+    "abilities": [
+      "1 t",
+      "1 ◊ t",
+      "\\+ ",
+      "◊ "
+    ]
+  },
+  "1467": {
+    "flavorText": [
+      "How ",
+      "How'd ",
+      "h\\. ",
+      "h.’ "
+    ]
+  },
+  "1469": {
+    "abilities": [
+      "LA",
+      "L A"
+    ],
+    "flavorText": [
+      "-",
+      "—"
+    ]
+  },
+  "1475": {
+    "abilities": [
+      "I l",
+      "1 l"
+    ]
+  },
+  "1476": {
+    "abilities": [
+      "EA",
+      "E A",
+      "• ",
+      "",
+      "¤",
+      "⛉"
+    ]
+  },
+  "1478": {
+    "abilities": [
+      "AW",
+      "A W"
+    ]
+  },
+  "1485": {
+    "abilities": [
+      "TAL",
+      "T A L"
+    ],
+    "flavorText": [
+      "\\. Y",
+      "..Y"
+    ]
+  },
+  "1492": {
+    "abilities": [
+      "IW",
+      "I W"
+    ]
+  },
+  "1493": {
+    "abilities": [
+      "op",
+      "OP"
+    ]
+  },
+  "1501": {
+    "abilities": [
+      "^.+\nSh",
+      "Sh"
+    ]
+  },
+  "1515": {
+    "flavorText": [
+      "-",
+      "—"
+    ]
+  },
+  "1525": {
+    "abilities": [
+      "TA",
+      "T A"
+    ]
+  },
+  "1528": {
+    "abilities": [
+      "\\]",
+      " I"
+    ]
+  },
+  "1533": {
+    "abilities": [
+      "AD",
+      "A D",
+      "1 \\.",
+      "1 ◊."
+    ]
+  },
+  "1534": {
+    "abilities": [
+      "!",
+      " I"
+    ]
+  },
+  "1535": {
+    "abilities": [
+      "2 \\.",
+      "2 ◊."
+    ]
+  },
+  "1536": {
+    "fullName": [
+      "edee",
+      "e Dee",
+      "edum",
+      "e Dum"
+    ],
+    "name": [
+      "edee",
+      "e Dee",
+      "edum",
+      "e Dum"
+    ],
+    "simpleName": [
+      "edee",
+      "e dee",
+      "edum",
+      "e dum"
+    ]
+  },
+  "1540": {
+    "abilities": [
+      "PT",
+      "P T"
+    ],
+    "flavorText": [
+      "-",
+      "–"
+    ]
+  },
+  "1542": {
+    "abilities": [
+      "Re",
+      "\nRe"
+    ]
+  },
+  "1543": {
+    "abilities": [
+      "1\n",
+      "1 ¤\n"
+    ]
+  },
+  "1559": {
+    "_effectAtIndexIsAbility": 0,
+    "_moveAbilityAtIndexToIndex": [2, 0],
+    "effects": [
+      "^.+\nSh",
+      "Sh"
+    ]
+  },
+  "1571": {
+    "abilities": [
+      "2 o",
+      "2 ¤ o"
+    ]
+  },
+  "1573": {
+    "flavorText": [
+      "-",
+      "—"
+    ]
+  },
+  "1574": {
+    "abilities": [
+      "^.+\nSh",
+      "Sh"
+    ]
+  },
+  "1590": {
+    "abilities": [
+      "^l'",
+      "I'"
+    ]
+  },
+  "1596": {
+    "abilities": [
+      "^.+\nSh",
+      "Sh"
+    ]
+  },
+  "1599": {
+    "abilities": [
+      "^'",
+      "I'"
+    ]
+  },
+  "1603": {
+    "flavorText": [
+      " 7$",
+      ""
+    ]
+  },
+  "1607": {
+    "abilities": [
+      "TY",
+      "T Y"
+    ]
+  },
+  "1619": {
+    "abilities": [
+      "AG",
+      "A G"
+    ]
+  },
+  "1626": {
+    "abilities": [
+      "OI",
+      "O I"
+    ]
+  },
+  "1630": {
+    "abilities": [
+      "TI",
+      "T I"
+    ]
+  },
+  "1632": {
+    "abilities": [
+      "TA",
+      "T A"
+    ]
+  },
+  "1638": {
+    "subtypes": [
+      null,
+      null,
+      null,
+      [
+        "Storyborn",
+        "Hero",
+        "Princess"
+      ]
+    ]
+  },
+  "1639": {
+    "abilities": [
+      "LG",
+      "L G"
+    ]
+  },
+  "1640": {
+    "abilities": [
+      "LTS",
+      "LT S"
+    ]
+  },
+  "1643": {
+    "abilities": [
+      "SN",
+      "S N",
+      "TD",
+      "T D",
+      "EY",
+      "E Y"
+    ],
+    "subtypes": [
+      "«",
+      "",
+      "\\?™,",
+      "r"
+    ]
+  },
+  "1650": {
+    "subtypes": [
+      "«",
+      ""
+    ]
+  },
+  "1664": {
+    "abilities": [
+      "¥",
+      "WORKING",
+      "—\\.\\. ",
       ""
     ]
   }
