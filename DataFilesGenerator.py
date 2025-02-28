@@ -934,9 +934,6 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 		subtypes: List[str] = parsedImageAndTextData["subtypesText"].text.split(f" {LorcanaSymbols.SEPARATOR} ")
 		if "ltem" in subtypes:
 			subtypes[subtypes.index("ltem")] = "Item"
-		# Non-character cards have their main type as their (first) subtype, remove those
-		if subtypes[0] == GlobalConfig.translation.Action or subtypes[0] == GlobalConfig.translation.Item or subtypes[0] == GlobalConfig.translation.Location:
-			subtypes.pop(0)
 		# 'Seven Dwarves' is a subtype, but it might get split up into two types. Turn it back into one subtype
 		sevenDwarvesCheckTypes = None
 		if GlobalConfig.language == Language.ENGLISH:
@@ -959,6 +956,9 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 			elif len(subtype) < 3:
 				_logger.debug(f"Removing subtype '{subtype}', too short")
 				subtypes.pop(subtypeIndex)
+		# Non-character cards have their main type as their (first) subtype, remove those
+		if subtypes[0] == GlobalConfig.translation.Action or subtypes[0] == GlobalConfig.translation.Item or subtypes[0] == GlobalConfig.translation.Location:
+			subtypes.pop(0)
 		if subtypes:
 			outputCard["subtypes"] = subtypes
 	# Card-specific corrections
