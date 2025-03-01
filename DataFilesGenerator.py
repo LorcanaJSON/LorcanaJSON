@@ -955,7 +955,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 			elif subtype == "IHlusion":
 				subtypes[subtypeIndex] = "Illusion"
 			# Remove short subtypes, probably erroneous
-			elif len(subtype) < 3:
+			elif len(subtype) < (4 if GlobalConfig.language == Language.ENGLISH else 3):
 				_logger.debug(f"Removing subtype '{subtype}', too short")
 				subtypes.pop(subtypeIndex)
 		# Non-character cards have their main type as their (first) subtype, remove those

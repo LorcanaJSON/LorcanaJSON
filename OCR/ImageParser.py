@@ -136,7 +136,7 @@ class ImageParser:
 				typesImageTextParts = typesImageText.split(" ")
 				for typesPartIndex in range(len(typesImageTextParts) - 1, -1, -1):
 					typesPart = typesImageTextParts[typesPartIndex]
-					if len(typesPart) < 4:
+					if len(typesPart) < 3:
 						self._logger.info(f"Removing type '{typesPart}' from types text, because it's too short")
 						del typesImageTextParts[typesPartIndex]
 				typesImageText = f" {LorcanaSymbols.SEPARATOR} ".join(typesImageTextParts)
