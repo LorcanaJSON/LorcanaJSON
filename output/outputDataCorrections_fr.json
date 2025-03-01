@@ -2703,5 +2703,453 @@
       "\\S ju",
       "¤ ju"
     ]
+  },
+  "1431": {
+    "abilities": [
+      "^\\| ",
+      ""
+    ]
+  },
+  "1434": {
+    "abilities": [
+      "__ ",
+      "",
+      "W",
+      "⛉"
+    ]
+  },
+  "1435": {
+    "abilities": [
+      "^A ",
+      "À ",
+      "ILET",
+      "I LE T"
+    ]
+  },
+  "1437": {
+    "abilities": [
+      "^.+Alter",
+      "Alter",
+      " - ",
+      " — "
+    ]
+  },
+  "1439": {
+    "artistsText": [
+      "ê",
+      "ễ"
+    ]
+  },
+  "1440": {
+    "abilities": [
+      " - ",
+      " — "
+    ]
+  },
+  "1441": {
+    "flavorText": [
+      "zio",
+      "zia"
+    ]
+  },
+  "1442": {
+    "abilities": [
+      "\\bsil\\b",
+      "s'il"
+    ]
+  },
+  "1446": {
+    "flavorText": [
+      "\\.”",
+      "…”"
+    ]
+  },
+  "1449": {
+    "abilities": [
+      "ETEV",
+      "E TE V"
+    ]
+  },
+  "1456": {
+    "abilities": [
+      "^.+Alter",
+      "Alter"
+    ]
+  },
+  "1460": {
+    "abilities": [
+      "1 p",
+      "1 ◊ p"
+    ],
+    "flavorText": [
+      "tl",
+      "t l"
+    ]
+  },
+  "1462": {
+    "flavorText": [
+      "â",
+      "û"
+    ]
+  },
+  "1463": {
+    "abilities": [
+      "LA",
+      "L A"
+    ]
+  },
+  "1464": {
+    "abilities": [
+      "⟳",
+      "¤",
+      "À",
+      "◊"
+    ]
+  },
+  "1467": {
+    "flavorText": [
+      "\\?”",
+      "?’",
+      ", E",
+      ".’ E",
+      "\\.”",
+      "…”"
+    ]
+  },
+  "1471": {
+    "effects": [
+      "ille",
+      "il le"
+    ]
+  },
+  "1475": {
+    "abilities": [
+      " - ",
+      " — "
+    ]
+  },
+  "1476": {
+    "abilities": [
+      "W",
+      "⛉"
+    ]
+  },
+  "1477": {
+    "abilities": [
+      " - ",
+      " — "
+    ]
+  },
+  "1491": {
+    "flavorText": [
+      "oau",
+      "au"
+    ]
+  },
+  "1496": {
+    "_forceAbilityIndexToStatic": 1
+  },
+  "1501": {
+    "abilities": [
+      "^.+Alter",
+      "Alter"
+    ]
+  },
+  "1502": {
+    "abilities": [
+      "^.+Alter",
+      "Alter"
+    ]
+  },
+  "1507": {
+    "abilities": [
+      " - ",
+      " — "
+    ]
+  },
+  "1511": {
+    "abilities": [
+      "ET",
+      "E T"
+    ]
+  },
+  "1512": {
+    "abilities": [
+      "^.+Alter",
+      "Alter"
+    ]
+  },
+  "1515": {
+    "flavorText": [
+      "O",
+      "Ô"
+    ]
+  },
+  "1516": {
+    "effects": [
+      "^E",
+      "É"
+    ]
+  },
+  "1522": {
+    "flavorText": [
+      "'r",
+      "'l'"
+    ]
+  },
+  "1529": {
+    "abilities": [
+      "^.+Alter",
+      "Alter"
+    ]
+  },
+  "1533": {
+    "flavorText": [
+      "^“E",
+      "“Ê"
+    ]
+  },
+  "1534": {
+    "abilities": [
+      "0",
+      "O"
+    ],
+    "flavorText": [
+      "\\.",
+      "…"
+    ]
+  },
+  "1536": {
+    "flavorText": [
+      "\\[",
+      "T"
+    ]
+  },
+  "1542": {
+    "abilities": [
+      "Ré",
+      "\nRé"
+    ]
+  },
+  "1548": {
+    "abilities": [
+      " - ",
+      " — "
+    ]
+  },
+  "1555": {
+    "flavorText": [
+      "Ilu",
+      "Illu"
+    ]
+  },
+  "1559": {
+    "_effectAtIndexIsAbility": 0,
+    "_moveAbilityAtIndexToIndex": [2, 0],
+    "effects": [
+      "^.+Alter",
+      "Alter"
+    ]
+  },
+  "1561": {
+    "abilities": [
+      "\\|",
+      "1"
+    ]
+  },
+  "1564": {
+    "flavorText": [
+      "’",
+      "“"
+    ]
+  },
+  "1569": {
+    "abilities": [
+      "NAIA",
+      "N AI A",
+      " - ",
+      " — "
+    ]
+  },
+  "1571": {
+    "abilities": [
+      "⟳",
+      "¤"
+    ]
+  },
+  "1574": {
+    "abilities": [
+      "^.+Alter",
+      "Alter",
+      "\\+ q y\n",
+      ""
+    ]
+  },
+  "1577": {
+    "flavorText": [
+      "F.\" IH",
+      "ff.” Il l"
+    ]
+  },
+  "1582": {
+    "flavorText": [
+      "off",
+      "aff"
+    ]
+  },
+  "1585": {
+    "abilities": [
+      " - ",
+      " — "
+    ]
+  },
+  "1586": {
+    "abilities": [
+      "coop",
+      "COOP"
+    ]
+  },
+  "1590": {
+    "abilities": [
+      "Un",
+      "un"
+    ]
+  },
+  "1596": {
+    "abilities": [
+      "^.+Alter",
+      "Alter"
+    ]
+  },
+  "1597": {
+    "abilities": [
+      " - ",
+      " — "
+    ]
+  },
+  "1600": {
+    "abilities": [
+      "ÂT",
+      "À T"
+    ]
+  },
+  "1604": {
+    "abilities": [
+      "À",
+      "A"
+    ]
+  },
+  "1613": {
+    "abilities": [
+      "Foo",
+      "Floo"
+    ]
+  },
+  "1614": {
+    "abilities": [
+      " na ",
+      " n'a "
+    ]
+  },
+  "1616": {
+    "abilities": [
+      "1",
+      "3"
+    ]
+  },
+  "1617": {
+    "abilities": [
+      " na ",
+      " n'a "
+    ],
+    "flavorText": [
+      "\\.$",
+      ".”"
+    ]
+  },
+  "1625": {
+    "abilities": [
+      "◊",
+      "¤"
+    ],
+    "flavorText": [
+      "r m",
+      "r… m"
+    ]
+  },
+  "1632": {
+    "abilities": [
+      "LT",
+      "L T"
+    ]
+  },
+  "1637": {
+    "abilities": [
+      " - ",
+      " — "
+    ]
+  },
+  "1638": {
+    "subtypes": [
+      null,
+      [
+        "Storyborn",
+        "Héros",
+        "Princesse"
+      ]
+    ]
+  },
+  "1640": {
+    "abilities": [
+      " \\($",
+      "",
+      " - ",
+      " — "
+    ]
+  },
+  "1641": {
+    "abilities": [
+      "que\n",
+      "que 2\n",
+      " - ",
+      " — "
+    ]
+  },
+  "1646": {
+    "subtypes": [
+      "BE\\)",
+      null
+    ]
+  },
+  "1651": {
+    "abilities": [
+      " - ",
+      " — "
+    ]
+  },
+  "1654": {
+    "artistsText": [
+      "l",
+      "ll"
+    ],
+    "subtypes": [ 
+      "vas",
+      null
+    ]
+  },
+  "1657": {
+    "_forceAbilityIndexToStatic": 1
+  },
+  "1659": {
+    "abilities": [
+      "#",
+      "+"
+    ]
+  },
+  "1661": {
+    "abilities": [
+      "^.+Alter",
+      "Alter"
+    ]
   }
 }
