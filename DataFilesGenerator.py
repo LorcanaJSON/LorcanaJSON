@@ -702,7 +702,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 	outputCard["artistsText"] = parsedImageAndTextData["artist"].text.lstrip(". ").rstrip("/ ").replace("’", "'").replace("|", "l")
 	oldArtistsText = outputCard["artistsText"]
 	outputCard["artistsText"] = re.sub(r"^[l[]", "I", outputCard["artistsText"])
-	while re.search(r" [a-z0-9ÿI|(\\_+.,”—-]{1,2}$", outputCard["artistsText"]):
+	while re.search(r" [a-z0-9ÿI|(\\_+.,;”—-]{1,2}$", outputCard["artistsText"]):
 		outputCard["artistsText"] = outputCard["artistsText"].rsplit(" ", 1)[0]
 	outputCard["artistsText"] = outputCard["artistsText"].rstrip(".")
 	if "Haggman-Sund" in outputCard["artistsText"]:
