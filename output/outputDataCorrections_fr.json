@@ -2146,10 +2146,6 @@
       "^E",
       "C'E"
     ],
-    "effects": [
-      null,
-      null
-    ],
     "subtypes": [
       null,
       [
@@ -2672,12 +2668,6 @@
         "Héros",
         "Princesse"
       ]
-    ]
-  },
-  "1408": {
-    "effects": [
-      null,
-      null
     ]
   },
   "1409": {

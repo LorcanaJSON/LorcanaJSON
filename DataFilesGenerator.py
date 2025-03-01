@@ -863,9 +863,11 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 					for keywordLine in keywordLines:
 						abilities.append({"type": "keyword", "fullText": keywordLine})
 						# These entries will get more fleshed out after the corrections (if any) are applied, to prevent having to correct multiple fields
-				else:
+				elif len(remainingTextLine) > 5:
 					# Since this isn't a named or keyword ability, assume it's a one-off effect
 					effects.append(remainingTextLine)
+				else:
+					_logger.debug(f"Remaining textline is {remainingTextLine!r}, too short to parse, discarding")
 			elif outputCard["type"] == GlobalConfig.translation.Item:
 				# Some items ("Peter Pan's Dagger", ID 351; "Sword in the Stone", ID 352) have an ability without an ability name label. Store these as abilities too
 				abilities.append({"effect": remainingTextLine})
