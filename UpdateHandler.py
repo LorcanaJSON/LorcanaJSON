@@ -131,7 +131,7 @@ def checkForNewCardData(newCardCatalog: Dict = None, fieldsToIgnore: List[str] =
 	if setNumberToCheck > -1:
 		for cardNumberToCheck in random.sample(range(1, 205), 3):
 			hashedCardNumberToCheck = hashlib.sha1(bytes(str(cardNumberToCheck), encoding="utf-8")).hexdigest()
-			urlToCheck = f"https://api.lorcana.ravensburger.com/images/en/expansions/{setNumberToCheck}/cards/1468x2048/{hashedCardNumberToCheck}.jpg"
+			urlToCheck = f"https://api.lorcana.ravensburger.com/images/en/set{setNumberToCheck}/cards/1468x2048/{hashedCardNumberToCheck}.jpg"
 			try:
 				DownloadUtil.retrieveFromUrl(urlToCheck, maxAttempts=3)
 			except DownloadUtil.DownloadException:
