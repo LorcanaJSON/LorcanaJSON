@@ -1,0 +1,53 @@
+{
+  "1186": {
+    "flavor_text": [
+      "^.+$",
+      ""
+    ]
+  },
+  "1200": {
+    "flavor_text": [
+      "\u00a0",
+      " "
+    ]
+  },
+  "1371": {
+    "rules_text": [
+      "e,v",
+      "e, v"
+    ]
+  },
+  "1429": {
+    "flavor_text": [
+      "^.+$",
+      ""
+    ]
+  },
+  "1451": {
+    "flavor_text": [
+      "\u00a0",
+      " "
+    ]
+  },
+  "1492": {
+    "author": [
+      " C.+$",
+      "sonArt"
+    ]
+  },
+  "1606": {
+    "author": [
+      "Victor ",
+      "",
+      " Covarrubias",
+      ""
+    ]
+  },
+  "1630": {
+    "author": [
+      "Victor ",
+      "",
+      " Covarrubias",
+      ""
+    ]
+  }}
