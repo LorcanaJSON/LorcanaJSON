@@ -142,7 +142,9 @@ class ImageParser:
 				typesImageText = f" {LorcanaSymbols.SEPARATOR} ".join(typesImageTextParts)
 			result["subtypesText"] = ImageAndText(typesImage, typesImageText)
 			self._logger.debug(f"{typesImageText=}")
-			isCharacter = not isLocation and typesImageText not in self.nonCharacterTypes and typesImageText.split(" ", 1)[0] not in self.nonCharacterTypes
+			if parseSettings.isItemOverride:
+				isCharacter = False
+			else:
 		else:
 			isCharacter = False
 			self._logger.debug(f"Subtype is main type ({typesImageText=}), so not storing as subtypes")

@@ -32,6 +32,7 @@ class ParseSettings:
 	# Force some checks that could fail or be wrong on some cards. 'None' means they're not overridden, setting them to 'True' or 'False' uses those values instead of whatever is normally determined
 	hasFlavorTextOverride: Union[None, bool] = None
 	isLocationOverride: Union[None, bool] = None
+	isItemOverride: Union[None, bool] = None
 
 	def __post_init__(self):
 		# Set layouts to defaults here, because we can't set them on class-level since they can't be mutalbe
