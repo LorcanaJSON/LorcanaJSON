@@ -935,7 +935,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 			outputCard["clarifications"] = clarifications
 	# Determine subtypes and their order. Items and Actions have an empty subtypes list, ignore those
 	if parsedImageAndTextData["subtypesText"] and parsedImageAndTextData["subtypesText"].text:
-		subtypes: List[str] = parsedImageAndTextData["subtypesText"].text.split(f" {LorcanaSymbols.SEPARATOR} ")
+		subtypes: List[str] = re.sub(fr"[^A-Za-zäèéöü{LorcanaSymbols.SEPARATOR} ]", "", parsedImageAndTextData["subtypesText"].text).split(f" {LorcanaSymbols.SEPARATOR} ")
 		if "ltem" in subtypes:
 			subtypes[subtypes.index("ltem")] = "Item"
 		# 'Seven Dwarves' is a subtype, but it might get split up into two types. Turn it back into one subtype
