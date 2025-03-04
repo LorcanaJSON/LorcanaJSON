@@ -153,6 +153,8 @@ def correctText(cardText: str) -> str:
 		cardText = re.sub(r"\bCa\b", "Ça", cardText)
 		cardText = cardText.replace("personhage", "personnage")
 	elif GlobalConfig.language == Language.GERMAN:
+		# The Exert symbol sometimes gets missed at the start
+		cardText = re.sub(r"^ ?[-–—]+", f"{LorcanaSymbols.EXERT} —", cardText)
 		# It confuses some ink splats for a Strength symbol in Shift reminder text
 		cardText = re.sub(f"diese[nh] ?.\n", "diesen\n", cardText)
 		# Payment text
