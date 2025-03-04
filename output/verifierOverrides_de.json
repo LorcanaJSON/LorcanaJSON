@@ -175,18 +175,10 @@
       "⬡": -2
     }
   },
-  "945": {
-    "author": [
-      "^J.+t$",
-      "Grace Tran"
-    ]
-  },
   "948": {
     "rules_text": [
-      "Gestaldwandel",
-      "Gestaltwandel",
-      "g\\+",
-      "g +"
+      "2 anderen C",
+      "2 C"
     ]
   },
   "951": {
@@ -266,6 +258,46 @@
   "1429": {
     "flavor_text": [
       "^.+$",
+      ""
+    ]
+  },
+  "1467": {
+    "flavor_text": [
+      ",(?=[A-Z])",
+      "‚"
+    ]
+  },
+  "1492": {
+    "author": [
+      " C.+$",
+      "sonArt"
+    ]
+  },
+  "1511": {
+    "rules_text": [
+      "’",
+      "'"
+    ]
+  },
+  "1569": {
+    "rules_text": [
+      "’",
+      "'"
+    ]
+  },
+  "1606": {
+    "author": [
+      "Victor ",
+      "",
+      " Covarrubias",
+      ""
+    ]
+  },
+  "1630": {
+    "author": [
+      "Victor ",
+      "",
+      " Covarrubias",
       ""
     ]
   }
