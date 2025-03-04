@@ -985,7 +985,9 @@
       "LE",
       "L E",
       "\ncan't lose lore\\. (.+)$",
-      "\\1\ncan't lose lore."
+      "\\1\ncan't lose lore.",
+      "⟳",
+      "g"
     ],
     "flavorText": [
       "¤",
@@ -1556,14 +1558,6 @@
     "abilities": [
       "TT",
       "T T"
-    ],
-    "fullName": [
-      "hei",
-      "Hei"
-    ],
-    "name": [
-      "hei",
-      "Hei"
     ]
   },
   "1352": {
@@ -1660,12 +1654,6 @@
     "artistsText": [
       " Lo$",
       ""
-    ]
-  },
-  "1410": {
-    "effects": [
-      null,
-      null
     ]
   },
   "1417": {
@@ -1993,9 +1981,7 @@
       "\\bZ\\b",
       "2",
       "Ih",
-      "Th",
-      "\\bvo",
-      "yo"
+      "Th"
     ]
   },
   "1643": {
@@ -2010,12 +1996,6 @@
     "subtypes": [
       "e$",
       "er"
-    ]
-  },
-  "1650": {
-    "subtypes": [
-      "«",
-      ""
     ]
   },
   "1664": {
