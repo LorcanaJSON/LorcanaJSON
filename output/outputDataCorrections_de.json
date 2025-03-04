@@ -1636,10 +1636,325 @@
     "abilities": [
       "^H",
       "ZÄH"
+    ]
+  },
+  "1431": {
+    "abilities": [
+      "^\\| ",
+      ""
+    ]
+  },
+  "1434": {
+    "abilities": [
+      "^N ",
+      "",
+      "¤",
+      "⛉"
+    ],
+    "flavorText": [
+      "AR",
+      "ÄR"
+    ]
+  },
+  "1435": {
+    "artistsText": [
+      "Ce",
+      "Cé"
+    ]
+  },
+  "1439": {
+    "artistsText": [
+      "&",
+      "ễ"
+    ]
+  },
+  "1441": {
+    "flavorText": [
+      "‘;",
+      "“,"
+    ]
+  },
+  "1442": {
+    "abilities": [
+      "¤",
+      "◊"
+    ]
+  },
+  "1446": {
+    "flavorText": [
+      "\\.\\.",
+      "…"
+    ]
+  },
+  "1449": {
+    "abilities": [
+      "¤",
+      "◊"
+    ]
+  },
+  "1450": {
+    "abilities": [
+      "TA",
+      "T A"
+    ]
+  },
+  "1459": {
+    "abilities": [
+      "^.+Gestalt",
+      "Gestalt"
+    ]
+  },
+  "1460": {
+    "abilities": [
+      "¤",
+      "◊"
+    ]
+  },
+  "1462": {
+    "artistsText": [
+      "Ce",
+      "Cé"
+    ]
+  },
+  "1464": {
+    "abilities": [
+      "¤",
+      "◊",
+      "⟳",
+      "¤"
+    ]
+  },
+  "1468": {
+    "abilities": [
+      "^.+Gestalt",
+      "Gestalt"
+    ]
+  },
+  "1476": {
+    "abilities": [
+      "^N ",
+      "",
+      "¤",
+      "⛉"
+    ]
+  },
+  "1485": {
+    "flavorText": [
+      "\\. ",
+      "… "
+    ]
+  },
+  "1501": {
+    "abilities": [
+      "^.+Gestalt",
+      "Gestalt"
+    ]
+  },
+  "1523": {
+    "_forceAbilityIndexToTriggered": 0
+  },
+  "1529": {
+    "abilities": [
+      "^.+Gestalt",
+      "Gestalt"
+    ]
+  },
+  "1533": {
+    "abilities": [
+      "¤",
+      "◊"
+    ]
+  },
+  "1534": {
+    "flavorText": [
+      "…$",
+      "…“"
+    ]
+  },
+  "1535": {
+    "abilities": [
+      "¤",
+      "◊"
+    ]
+  },
+  "1537": {
+    "abilities": [
+      "^.+Univ",
+      "Univ"
+    ]
+  },
+  "1542": {
+    "abilities": [
+      "Ro",
+      "\nRo"
+    ]
+  },
+  "1547": {
+    "abilities": [
+      "^.+Gestalt",
+      "Gestalt"
+    ]
+  },
+  "1549": {
+    "flavorText": [
+      "\nA",
+      "\n—A"
+    ]
+  },
+  "1559": {
+    "_effectAtIndexIsAbility": 0,
+    "_moveAbilityAtIndexToIndex": [2, 0],
+    "abilities": [
+      "¤",
+      "⬡"
     ],
     "effects": [
+      "^.+Gestalt",
+      "Gestalt"
+    ]
+  },
+  "1560": {
+    "flavorText": [
+      "\\bnem\\b",
+      "'nem",
+      "\nS",
+      "\n—S"
+    ]
+  },
+  "1563": {
+    "flavorText": [
+      "Ö",
+      "O"
+    ]
+  },
+  "1566": {
+    "abilities": [
+      "LV",
+      "L V"
+    ]
+  },
+  "1571": {
+    "abilities": [
+      "⟳",
+      "¤"
+    ]
+  },
+  "1572": {
+    "abilities": [
+      "¤",
+      "◊"
+    ]
+  },
+  "1574": {
+    "abilities": [
+      "^.+Gestalt",
+      "Gestalt"
+    ]
+  },
+  "1577": {
+    "flavorText": [
+      "\\.\\.“$",
+      "…“"
+    ]
+  },
+  "1623": {
+    "abilities": [
+      "TE",
+      "T E"
+    ]
+  },
+  "1626": {
+    "abilities": [
+      "ANS",
+      "AN S"
+    ]
+  },
+  "1630": {
+    "abilities": [
+      "4",
+      "1"
+    ]
+  },
+  "1637": {
+    "flavorText": [
+      "\nL",
+      "\n—L"
+    ]
+  },
+  "1638": {
+    "abilities": [
+      "ET",
+      "E T"
+    ],
+    "subtypes": [
       null,
-      null
+      [
+        "Sagengestalt",
+        "Held",
+        "Prinzessin"
+      ]
+    ]
+  },
+  "1640": {
+    "abilities": [
+      "TL",
+      "T L",
+      "^V",
+      "⟳ - V"
+    ]
+  },
+  "1641": {
+    "abilities": [
+      ":$",
+      "."
+    ]
+  },
+  "1643": {
+    "subtypes": [
+      null,
+      [
+        "Traumgestalt",
+        "Schurke",
+        "Magier"
+      ]
+    ]
+  },
+  "1650": {
+    "abilities": [
+      "10",
+      "1 ⬡"
+    ]
+  },
+  "1651": {
+    "abilities": [
+      " GG$",
+      "",
+      "^F",
+      "⟳ - F"
+    ]
+  },
+  "1653": {
+    "artistsText": [
+      "\\.",
+      " "
+    ]
+  },
+  "1658": {
+    "artistsText": [
+      "^Ce",
+      "Cé"
+    ]
+  },
+  "1661": {
+    "abilities": [
+      "^.+Gestalt",
+      "Gestalt"
+    ]
+  },
+  "1662": {
+    "artistsText": [
+      " A$",
+      ""
     ]
   }
 }
