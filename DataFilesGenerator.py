@@ -70,7 +70,7 @@ def correctText(cardText: str) -> str:
 	cardText = re.sub("^“[a-z]", lambda m: m.group(0).upper(), cardText, flags=re.MULTILINE)
 	if re.search(" [^?!.…”“0-9]$", cardText):
 		cardText = cardText[:-2]
-	cardText = re.sub(r"\bTe Ka\b", "Te Kā", cardText)
+	cardText = re.sub(r"(?<=\bTe[ -]K)a\b", "ā", cardText)
 
 	if GlobalConfig.language == Language.ENGLISH:
 		cardText = re.sub("^‘", "“", cardText, flags=re.MULTILINE)
