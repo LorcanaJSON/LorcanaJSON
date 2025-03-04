@@ -54,6 +54,8 @@ def compareInputToOutput(cardIdsToVerify: Union[List[int], None]):
 		print("No overrides file found")
 		inputOverrides = {}
 
+	openQuotemark = "„" if GlobalConfig.language == Language.GERMAN else "“"
+	closeQuotemark = "“" if GlobalConfig.language == Language.GERMAN else "”"
 	cardDifferencesCount = 0
 	for outputCard in outputCardStore["cards"]:
 		if cardIdsToVerify and outputCard["id"] not in cardIdsToVerify:
@@ -149,6 +151,9 @@ def compareInputToOutput(cardIdsToVerify: Union[List[int], None]):
 
 			if "flavorText" in outputCard:
 				outputFlavorText = outputCard['flavorText']
+				if outputFlavorText.count(openQuotemark) != outputFlavorText.count(closeQuotemark):
+					cardDifferencesCount += 1
+					print(f"{outputCard['fullName']} (ID {cardId}, {outputCard['fullIdentifier']}): Mismatched count of open and close quotemarks in flavor text {outputFlavorText!r}")
 				outputFlavorText = outputFlavorText.replace("“", "").replace("”", "").replace("„", "").replace("‘", "'").replace("’", "'")
 				# Newlines are spaces in the input text, except after connecting dashes just before a newline
 				outputFlavorText = outputFlavorText.replace("-\n", "-").replace("—\n", "—").replace("\n", " ")
