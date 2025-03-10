@@ -480,9 +480,7 @@ class ImageParser:
 				return "-1"
 			else:
 				self._logger.info(f"Corrected non-numeric result '{originalResult}' to '{result}' for image area '{imageAreaName}'")
-				return result
-		else:
-			return result
+		return result
 
 	def _getSubImageAndText(self, cardImage: cv2.Mat, imageArea: ImageArea) -> ImageAndText:
 		subImage = self._getSubImage(cardImage, imageArea)
