@@ -145,6 +145,7 @@ class ImageParser:
 			if parseSettings.isItemOverride:
 				isCharacter = False
 			else:
+				isCharacter = not isLocation and typesImageText not in self.nonCharacterTypes and typesImageText.split(" ", 1)[0] not in self.nonCharacterTypes
 		else:
 			isCharacter = False
 			self._logger.debug(f"Subtype is main type ({typesImageText=}), so not storing as subtypes")
