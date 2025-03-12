@@ -238,7 +238,7 @@ class ExternalLinksHandler:
 		elif parsedIdentifier.number > 204:
 			cardmarketVersionSuffix = "-V2"
 		elif parsedIdentifier.variant:
-			variantVersion = string.ascii_lowercase.index(parsedIdentifier.variant) + 1
+			variantVersion = string.ascii_lowercase.index(parsedIdentifier.variant.lower()) + 1
 			cardmarketVersionSuffix = f"-V{variantVersion}"
 		cardExternalLinks["cardmarketUrl"] = cardExternalLinks["cardmarketUrl"].format(languageCode=GlobalConfig.language.code, cardmarketLanguageCode=self._cardmarketLanguageCode, cardmarketVersionSuffix=cardmarketVersionSuffix)
 		return cardExternalLinks
