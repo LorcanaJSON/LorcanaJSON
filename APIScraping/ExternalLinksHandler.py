@@ -164,7 +164,7 @@ class ExternalLinksHandler:
 						cardmarketCategoryName = _CARD_MARKET_CARD_GROUP_TO_NAME[cardCategory]
 					else:
 						cardmarketCategoryName = _convertStringToUrlValue(expansionName)
-					cardmarketCardName = _convertStringToUrlValue(card["name"], cardSetCodeToUse == "5")  # For some reason, they remove mid-word dashes (like in 'mid-word') only in cardnames from Set 5, correct for that
+					cardmarketCardName = _convertStringToUrlValue(card["name"], cardSetCodeToUse in ("5", "7"))  # For some reason, they remove mid-word dashes (like in 'mid-word') only in cardnames from Set 5, correct for that
 					cardExternalLinks["cardmarketUrl"] = f"https://www.cardmarket.com/{{languageCode}}/Lorcana/Products/Singles/{cardmarketCategoryName}/{cardmarketCardName}{{cardmarketVersionSuffix}}?language={{cardmarketLanguageCode}}"
 
 					if cardExternalLinks.get("tcgPlayerId", None):
