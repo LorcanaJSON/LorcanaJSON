@@ -1117,6 +1117,13 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 						  re.match(r"Falls\sdu\sGestaltwandel\sbenutzt\shas",ability["effect"]) or "wenn du eine Karte ziehst" in ability["effect"] or
 						  re.search(r"\bwährend\ser\seinen?(\s|\w)+herausfordert\b", ability["effect"]) or re.search(r"wenn\sdieser\sCharakter\szu\seinem\sOrt\sbewegt", ability["effect"])):
 						ability["type"] = "triggered"
+				elif GlobalConfig.language == Language.ITALIAN:
+					if re.match(r"Una\svolta\sper\sturno,\spuoi", ability["effect"]):
+						ability["type"] = "activated"
+					elif (re.match(r"Quando\sgiochi", ability["effect"]) or re.search(r"(^Q|\sq)uando\s(questo|sposti)", ability["effect"]) or re.search(r"(^O|\so)gni\svolta\sche", ability["effect"]) or
+						  re.match(r"All'inizio\sdel\stuo\sturno", ability["effect"]) or re.match(r"Alla\sfine\sdel(\stuo)?\sturno", ability["effect"]) or
+						  re.search(r"quando\saggiungi\suna\scarta\sal\stuo\scalamaio", ability["effect"])):
+						ability["type"] = "triggered"
 
 				if abilityIndex in forceAbilityTypeAtIndex:
 					if forceAbilityTypeAtIndex[abilityIndex] == ability["type"]:
