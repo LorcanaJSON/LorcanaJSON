@@ -135,15 +135,15 @@ def compareInputToOutput(cardIdsToVerify: Union[List[int], None]):
 				if GlobalConfig.language == Language.ENGLISH:
 					# Input text always has a space after written-out ellipsis, while the card doesn't, remove it, unless it's just before a quote attribution dash
 					inputFlavorText = re.sub(r"\.\.\. (?!—)", "...", inputFlavorText)
-				elif GlobalConfig.language == Language.FRENCH:
-					inputFlavorText = re.sub(r"(?<=\w)([?!:])", r" \1", inputFlavorText)
+				else:
+					# Use the ellipsis character instead of three separate periods
 					inputFlavorText = inputFlavorText.replace("...", "…")
+				if GlobalConfig.language == Language.FRENCH:
+					inputFlavorText = re.sub(r"(?<=\w)([?!:])", r" \1", inputFlavorText)
 				elif GlobalConfig.language == Language.GERMAN:
 					# Quote attribution uses the wrong dash and doesn't have a space in the input text, but it does on the card. Ignore the difference
 					# The second set use a short n-dash instead of a long m-dash, correct for that
 					inputFlavorText = re.sub(r"(?<=\s)[–—](?=[A-Z])", "–" if 204 < cardId <= 432 else "—", inputFlavorText)
-					# For some cards, they forgot to use the ellipsis character
-					inputFlavorText = inputFlavorText.replace("...", "…")
 					# Ellipsis are always preceded by a space
 					inputFlavorText = re.sub(r"(?<=\w)…", " …", inputFlavorText)
 			else:
