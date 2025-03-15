@@ -1,4 +1,4 @@
-import argparse, datetime, json, logging, logging.handlers, os, re, sys, time
+import argparse, dataclasses, datetime, json, logging, logging.handlers, os, re, sys, time
 
 import DataFilesGenerator, GlobalConfig, UpdateHandler
 from APIScraping import RavensburgerApiHandler
@@ -216,16 +216,16 @@ if __name__ == '__main__':
 				if not os.path.isfile(cardPath):
 					print(f"ERROR: Unable to find local image for card ID {cardId}. Please run the 'download' command first, and make sure you didn't make a typo in the ID")
 					continue
-				parsedImageAndTextData = ImageParser().getImageAndTextDataFromImage(cardId, baseImagePathForCard, True, showImage=True)
+				ocrResult = ImageParser().getImageAndTextDataFromImage(cardId, baseImagePathForCard, True, showImage=True)
 				print(f"Card ID {cardId}")
-				for fieldName, fieldResult in parsedImageAndTextData.items():
+				for fieldName, fieldResult in dataclasses.asdict(ocrResult).items():
 					if fieldResult is None:
 						print(f"{fieldName} is empty")
 					elif isinstance(fieldResult, list):
 						for fieldResultIndex, fieldResultItem in enumerate(fieldResult):
-							print(f"{fieldName} index {fieldResultIndex}: {fieldResultItem.text!r}")
+							print(f"{fieldName} index {fieldResultIndex}: {fieldResultItem!r}")
 					else:
-						print(f"{fieldName}: {fieldResult.text!r}")
+						print(f"{fieldName}: {fieldResult!r}")
 				print("")
 		elif parsedArguments.action == "verify":
 			Verifier.compareInputToOutput(cardIds)
