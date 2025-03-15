@@ -6,6 +6,7 @@ __pycache__/
 /logs/**
 /output/generated/
 /output/handmade/
+/output/oldVersions/
 /website/
 
 /config.json
