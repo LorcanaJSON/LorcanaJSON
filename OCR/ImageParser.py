@@ -40,7 +40,7 @@ class ImageParser:
 		self._tesseractApi.SetVariable("tessedit_fix_hyphens", "0")
 		self._tesseractApi.SetVariable("crunch_early_convert_bad_unlv_chs", "1")
 
-	def getImageAndTextDataFromImage(self, cardId: int, baseImagePath: str, parseFully: bool, parsedIdentifier: IdentifierParser.Identifier = None, isLocation: bool = None, hasCardText: bool = None, hasFlavorText: bool = None,
+	def getImageAndTextDataFromImage(self, cardId: int, baseImagePath: str, parseFully: bool, parsedIdentifier: IdentifierParser.Identifier = None, cardType: str = None, hasCardText: bool = None, hasFlavorText: bool = None,
 									 isEnchanted: bool = None, showImage: bool = False) -> Dict[str, Union[None, ImageAndText, List[ImageAndText]]]:
 		startTime = time.perf_counter()
 		result: Dict[str, Union[None, ImageAndText, List[ImageAndText]]] = {
@@ -95,10 +95,12 @@ class ImageParser:
 
 		if parseSettings and parseSettings.isLocationOverride is not None:
 			isLocation = parseSettings.isLocationOverride
-		elif isLocation is None:
+		elif cardType is None:
 			# Figure out whether this is a Location card or not. We need to do this as soon as possible, because Location cards need to be rotated
 			# Location cards, both Enchanted and not Enchanted, have a thick black border at their bottom, so the right side of a non-rotated image, thicker than a non-Enchanted non-Location card. Check for that
 			isLocation = self._isImageBlack(self._getSubImage(cardImage, ImageArea.IS_LOCATION_CHECK))
+		else:
+			isLocation = cardType == GlobalConfig.translation.Location
 
 		if isLocation:
 			# Location cards are horizontal, so the image should be rotated for proper OCR
@@ -121,6 +123,9 @@ class ImageParser:
 		if parseSettings is None:
 			parseSettings = ParseSettings.getParseSettings(cardId, parsedIdentifier, isEnchanted)
 
+		isCharacter = None
+		if cardType:
+			isCharacter = cardType == GlobalConfig.translation.Character
 		# First determine the card (sub)type
 		typesImageArea = (parseSettings.locationCardLayout if isLocation else parseSettings.cardLayout).types
 		typesImage = self._getSubImage(greyCardImage, typesImageArea)
@@ -144,10 +149,11 @@ class ImageParser:
 			self._logger.debug(f"{typesImageText=}")
 			if parseSettings.isItemOverride:
 				isCharacter = False
-			else:
+			elif isCharacter is None:
 				isCharacter = not isLocation and typesImageText not in self.nonCharacterTypes and typesImageText.split(" ", 1)[0] not in self.nonCharacterTypes
 		else:
-			isCharacter = False
+			if isCharacter is None:
+				isCharacter = False
 			self._logger.debug(f"Subtype is main type ({typesImageText=}), so not storing as subtypes")
 
 		if isCharacter:
