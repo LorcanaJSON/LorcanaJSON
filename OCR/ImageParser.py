@@ -7,6 +7,7 @@ from PIL import Image
 
 import GlobalConfig
 from OCR import ImageArea, ParseSettings
+from OCR.OcrResult import OcrResult
 from util import IdentifierParser, LorcanaSymbols
 
 
@@ -41,14 +42,14 @@ class ImageParser:
 		self._tesseractApi.SetVariable("crunch_early_convert_bad_unlv_chs", "1")
 
 	def getImageAndTextDataFromImage(self, cardId: int, baseImagePath: str, parseFully: bool, parsedIdentifier: IdentifierParser.Identifier = None, cardType: str = None, hasCardText: bool = None, hasFlavorText: bool = None,
-									 isEnchanted: bool = None, showImage: bool = False) -> Dict[str, Union[None, ImageAndText, List[ImageAndText]]]:
+									 isEnchanted: bool = None, showImage: bool = False) -> OcrResult:
 		startTime = time.perf_counter()
 		result: Dict[str, Union[None, ImageAndText, List[ImageAndText]]] = {
 			"flavorText": None,
 			"abilityLabels": [],
 			"abilityTexts": [],
 			"remainingText": None,
-			"subtypesText": [],
+			"subtypesText": None,
 			"artist": None
 		}
 		if parseFully:
@@ -441,8 +442,20 @@ class ImageParser:
 					cv2.imshow("Card Willpower", result["willpower"].image)
 			cv2.waitKey(0)
 			cv2.destroyAllWindows()
-		# Done!
-		return result
+		# Done with parsing, build result object
+		ocrResult = OcrResult([iat.text for iat in result["abilityLabels"]], [iat.text for iat in result["abilityTexts"]], result["artist"].text, result["flavorText"].text if result.get("flavorText", None) else None,
+							  result["remainingText"].text if result.get("remainingText", None) else None, result["subtypesText"].text if result["subtypesText"] else None)
+		# Identifier might be set by 'parseFully' or by a specific boolean
+		if result.get("identifier", None):
+			ocrResult.identifier = result["identifier"].text
+		if parseFully:
+			ocrResult.cost = result["cost"].text
+			ocrResult.moveCost = result["moveCost"].text if result["moveCost"] else None
+			ocrResult.name = result["name"].text
+			ocrResult.strenght = result["strength"].text if result["strength"] else None
+			ocrResult.version = result["version"].text
+			ocrResult.willpower = result["willpower"].text if result["willpower"] else None
+		return ocrResult
 
 	@staticmethod
 	def _getSubImage(image, imageArea: ImageArea.ImageArea):

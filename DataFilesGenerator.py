@@ -5,6 +5,7 @@ from typing import Dict, List, Optional, Union
 import GlobalConfig
 from APIScraping.ExternalLinksHandler import ExternalLinksHandler
 from OCR import ImageParser
+from OCR.OcrResult import OcrResult
 from output.StoryParser import StoryParser
 from util import IdentifierParser, Language, LorcanaSymbols
 
@@ -665,7 +666,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 	parsedIdentifier: Union[None, IdentifierParser.Identifier] = None
 	if "card_identifier" in inputCard:
 		parsedIdentifier = IdentifierParser.parseIdentifier(inputCard["card_identifier"])
-	parsedImageAndTextData = _threadingLocalStorage.imageParser.getImageAndTextDataFromImage(
+	ocrResult: OcrResult = _threadingLocalStorage.imageParser.getImageAndTextDataFromImage(
 		outputCard["id"],
 		imageFolder,
 		parseFully=isExternalReveal,
@@ -677,8 +678,8 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
  		showImage=shouldShowImage
 	)
 
-	if parsedImageAndTextData.get("identifier", None) is not None and (parsedImageAndTextData["identifier"].text.startswith("0") or "TFC" in parsedImageAndTextData["identifier"].text or GlobalConfig.language.uppercaseCode not in parsedImageAndTextData["identifier"].text):
-		outputCard["fullIdentifier"] = re.sub(fr" ?\W (?!$)", f" {LorcanaSymbols.SEPARATOR} ", parsedImageAndTextData["identifier"].text)
+	if ocrResult.identifier and (ocrResult.identifier.startswith("0") or "TFC" in ocrResult.identifier or GlobalConfig.language.uppercaseCode not in ocrResult.identifier):
+		outputCard["fullIdentifier"] = re.sub(fr" ?\W (?!$)", f" {LorcanaSymbols.SEPARATOR} ", ocrResult.identifier)
 		outputCard["fullIdentifier"] = outputCard["fullIdentifier"].replace("I", "/").replace("1P ", "/P ").replace("//", "/").replace(".", "").replace("1TFC", "1 TFC").rstrip(" —")
 		outputCard["fullIdentifier"] = re.sub(fr" ?[-+] ?", f" {LorcanaSymbols.SEPARATOR} ", outputCard["fullIdentifier"])
 		if parsedIdentifier is None:
@@ -701,7 +702,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 	outputCard["setCode"] = parsedIdentifier.setCode
 
 	# Always get the artist from the parsed data, since in the input data it often only lists the first artist when there's multiple, so it's not reliable
-	outputCard["artistsText"] = parsedImageAndTextData["artist"].text.lstrip(". ").rstrip("/ ").replace("’", "'").replace("|", "l")
+	outputCard["artistsText"] = ocrResult.artistsText.lstrip(". ").rstrip("/ ").replace("’", "'").replace("|", "l")
 	oldArtistsText = outputCard["artistsText"]
 	outputCard["artistsText"] = re.sub(r"^[l[]", "I", outputCard["artistsText"])
 	while re.search(r" [a-z0-9ÿI|(\\_+.,;”—-]{1,2}$", outputCard["artistsText"]):
@@ -734,7 +735,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 	if oldArtistsText != outputCard["artistsText"]:
 		_logger.info(f"Corrected artist name from '{oldArtistsText}' to '{outputCard['artistsText']}' in card {_createCardIdentifier(inputCard)}")
 
-	outputCard["name"] = correctPunctuation(inputCard["name"].strip() if "name" in inputCard else parsedImageAndTextData["name"].text).replace("’", "'").replace("‘", "'").replace("''", "'")
+	outputCard["name"] = correctPunctuation(inputCard["name"].strip() if "name" in inputCard else ocrResult.name).replace("’", "'").replace("‘", "'").replace("''", "'")
 	if outputCard["name"] == "Balais Magiques":
 		# This name is inconsistent, sometimes it has a capital 'M', sometimes a lowercase 'm'
 		# Comparing with capitalization of other cards, this should be a lowercase 'm'
@@ -760,8 +761,8 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 			outputCard["name"] = _toTitleCase(outputCard["name"])
 	outputCard["fullName"] = outputCard["name"]
 	outputCard["simpleName"] = outputCard["fullName"]
-	if "subtitle" in inputCard or parsedImageAndTextData.get("version", None) is not None:
-		outputCard["version"] = (inputCard["subtitle"].strip() if "subtitle" in inputCard else parsedImageAndTextData["version"].text).replace("’", "'")
+	if "subtitle" in inputCard or ocrResult.version:
+		outputCard["version"] = (inputCard["subtitle"].strip() if "subtitle" in inputCard else ocrResult.version).replace("’", "'")
 		outputCard["fullName"] += " - " + outputCard["version"]
 		outputCard["simpleName"] += " " + outputCard["version"]
 	# simpleName is the full name with special characters and the base-subtitle dash removed, for easier lookup. So remove the special characters
@@ -771,20 +772,20 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 	_logger.debug(f"Current card name is '{outputCard['fullName']}', ID {outputCard['id']}")
 
 	try:
-		outputCard["cost"] = inputCard["ink_cost"] if "ink_cost" in inputCard else int(parsedImageAndTextData["cost"].text)
+		outputCard["cost"] = inputCard["ink_cost"] if "ink_cost" in inputCard else int(ocrResult.cost)
 	except Exception as e:
-		_logger.error(f"Unable to parse {parsedImageAndTextData['cost'].text!r} as card cost in card ID {outputCard['id']}; Exception {type(e).__name__}: {e}")
+		_logger.error(f"Unable to parse {ocrResult.cost!r} as card cost in card ID {outputCard['id']}; Exception {type(e).__name__}: {e}")
 		outputCard["cost"] = -1
 	if "quest_value" in inputCard:
 		outputCard["lore"] = inputCard["quest_value"]
 	for inputFieldName, outputFieldName in (("move_cost", "moveCost"), ("strength", "strength"), ("willpower", "willpower")):
 		if inputFieldName in inputCard:
 			outputCard[outputFieldName] = inputCard[inputFieldName]
-		elif parsedImageAndTextData.get(outputFieldName, None) is not None:
+		elif ocrResult[outputFieldName]:
 			try:
-				outputCard[outputFieldName] = int(parsedImageAndTextData[outputFieldName].text, 10)
+				outputCard[outputFieldName] = int(ocrResult[outputFieldName], 10)
 			except ValueError:
-				_logger.error(f"Unable to parse {parsedImageAndTextData[outputFieldName].text!r} as {outputFieldName} in card ID {outputCard['id']}")
+				_logger.error(f"Unable to parse {ocrResult[outputFieldName]!r} as {outputFieldName} in card ID {outputCard['id']}")
 				outputCard[outputFieldName] = -1
 	# Image URLs end with a checksum parameter, we don't need that
 	if "image_urls" in inputCard:
@@ -806,8 +807,8 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 	if promoNonPromoId:
 		outputCard["promoIds" if isinstance(promoNonPromoId, list) else "nonPromoId"] = promoNonPromoId
 	# Store the different parts of the card text, correcting some values if needed
-	if parsedImageAndTextData["flavorText"] is not None:
-		flavorText = correctText(parsedImageAndTextData["flavorText"].text)
+	if ocrResult.flavorText:
+		flavorText = correctText(ocrResult.flavorText)
 		flavorText = correctPunctuation(flavorText)
 		# Tesseract often sees the italic 'T' as an 'I', especially at the start of a word. Fix that
 		if GlobalConfig.language == Language.ENGLISH and "I" in flavorText:
@@ -822,8 +823,8 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 		outputCard["flavorText"] = flavorText
 	abilities: List[Dict[str, str]] = []
 	effects: List[str] = []
-	if parsedImageAndTextData["remainingText"] is not None:
-		remainingText = parsedImageAndTextData["remainingText"].text.lstrip("“‘").rstrip(" \n|")
+	if ocrResult.remainingText:
+		remainingText = ocrResult.remainingText.lstrip("“‘").rstrip(" \n|")
 		# No effect ends with a colon, it's probably the start of a choice list. Make sure it doesn't get split up
 		remainingText = remainingText.replace(":\n\n", ":\n")
 		# A closing bracket indicates the end of a section, make sure it gets read as such by making sure there's two newlines
@@ -874,9 +875,9 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 				# Some items ("Peter Pan's Dagger", ID 351; "Sword in the Stone", ID 352) have an ability without an ability name label. Store these as abilities too
 				abilities.append({"effect": remainingTextLine})
 
-	if parsedImageAndTextData["abilityLabels"]:
-		for abilityIndex in range(len(parsedImageAndTextData["abilityLabels"])):
-			abilityName = correctPunctuation(parsedImageAndTextData["abilityLabels"][abilityIndex].text.replace("‘", "'").replace("’", "'").replace("''", "'")).rstrip(":")
+	if ocrResult.abilityLabels:
+		for abilityIndex in range(len(ocrResult.abilityLabels)):
+			abilityName = correctPunctuation(ocrResult.abilityLabels[abilityIndex].replace("‘", "'").replace("’", "'").replace("''", "'")).rstrip(":")
 			abilityName = re.sub(r"(?<=\w) ?[.7|»”©\"]$", "", abilityName)
 			if GlobalConfig.language == Language.ENGLISH:
 				abilityName = abilityName.replace("|", "I")
@@ -894,7 +895,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 				# It seems to misread a lot of ability names as ending with a period, correct that (unless it's ellipsis)
 				if abilityName.endswith(".") and not abilityName.endswith("..."):
 					abilityName = abilityName.rstrip(".")
-			abilityEffect = correctText(parsedImageAndTextData["abilityTexts"][abilityIndex].text)
+			abilityEffect = correctText(ocrResult.abilityTexts[abilityIndex])
 			abilities.append({
 				"name": abilityName,
 				"effect": abilityEffect
@@ -934,8 +935,8 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 		if clarifications:
 			outputCard["clarifications"] = clarifications
 	# Determine subtypes and their order. Items and Actions have an empty subtypes list, ignore those
-	if parsedImageAndTextData["subtypesText"] and parsedImageAndTextData["subtypesText"].text:
-		subtypes: List[str] = re.sub(fr"[^A-Za-zäèéöü{LorcanaSymbols.SEPARATOR} ]", "", parsedImageAndTextData["subtypesText"].text).split(f" {LorcanaSymbols.SEPARATOR} ")
+	if ocrResult.subtypesText:
+		subtypes: List[str] = re.sub(fr"[^A-Za-zäèéöü{LorcanaSymbols.SEPARATOR} ]", "", ocrResult.subtypesText).split(f" {LorcanaSymbols.SEPARATOR} ")
 		if "ltem" in subtypes:
 			subtypes[subtypes.index("ltem")] = "Item"
 		# 'Seven Dwarves' is a subtype, but it might get split up into two types. Turn it back into one subtype
