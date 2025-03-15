@@ -2,5 +2,7 @@
   "loglevel": "warning",
   "tesseractPath": "",
   "cardTraderToken": "",
-  "threadCount": 0
+  "threadCount": 0,
+  "skipCachingOcr": false,
+  "useCachedOcr": false
 }

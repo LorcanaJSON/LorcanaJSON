@@ -34,6 +34,8 @@ if __name__ == '__main__':
 	argumentParser.add_argument("--show", action="store_true", dest="shouldShowSubimages", help="If added, the program shows all the subimages used during parsing. It stops processing until the displayed images are closed, so this is a slow option")
 	argumentParser.add_argument("--threads", type=int, help="Specify how many threads should be used when executing multithreaded tasks. Specify a negative amount to use the maximum number of threads available minus the provided amount. "
 															"Leave empty to have the amount be determined automatically")
+	argumentParser.add_argument("--useCachedOcr", action="store_true", dest="useCachedOcr", help="If added, use cached OCR results, instead of parsing the card images, if cached results are available")
+	argumentParser.add_argument("--skipCachingOcr", action="store_true", dest="skipCachingOcr", help="If added, no OCR caching files will be created")
 	parsedArguments = argumentParser.parse_args()
 
 	config = {}
@@ -113,6 +115,16 @@ if __name__ == '__main__':
 					cardIds.append(int(inputCardId, 10))
 				except ValueError:
 					raise ValueError(f"Invalid value '{inputCardId}' in the '--cardIds' list, should be numeric")
+
+	if parsedArguments.useCachedOcr:
+		GlobalConfig.useCachedOcr = True
+	elif config.get("useCachedOcr", False):
+		GlobalConfig.useCachedOcr = True
+
+	if parsedArguments.skipCachingOcr:
+		GlobalConfig.skipCachingOcr = True
+	elif config.get("skipCachingOcr", False):
+		GlobalConfig.skipCachingOcr = True
 
 	totalStartTime = time.perf_counter()
 	for language in parsedArguments.language:

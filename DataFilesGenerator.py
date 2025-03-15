@@ -1,5 +1,6 @@
 import copy
 import datetime, hashlib, json, logging, multiprocessing.pool, os, re, threading, time, zipfile
+import pickle
 from typing import Dict, List, Optional, Union
 
 import GlobalConfig
@@ -666,17 +667,37 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 	parsedIdentifier: Union[None, IdentifierParser.Identifier] = None
 	if "card_identifier" in inputCard:
 		parsedIdentifier = IdentifierParser.parseIdentifier(inputCard["card_identifier"])
-	ocrResult: OcrResult = _threadingLocalStorage.imageParser.getImageAndTextDataFromImage(
-		outputCard["id"],
-		imageFolder,
-		parseFully=isExternalReveal,
-		parsedIdentifier=parsedIdentifier,
-		cardType=cardType,
-		hasCardText=inputCard["rules_text"] != "" if "rules_text" in inputCard else None,
-		hasFlavorText=inputCard["flavor_text"] != "" if "flavor_text" in inputCard else None,
-		isEnchanted=outputCard["rarity"] == GlobalConfig.translation.ENCHANTED or inputCard.get("foil_type", None) == "Satin",  # Disney100 cards need Enchanted parsing, foil_type seems best way to determine Disney100
- 		showImage=shouldShowImage
-	)
+
+	ocrResult: OcrResult = None
+	cachedCardOcrPath = os.path.join("output", "generated", "cachedOcr", GlobalConfig.language.code, f"{outputCard['id']}.cachedOcr")
+	if GlobalConfig.useCachedOcr:
+		if os.path.isfile(cachedCardOcrPath):
+			try:
+				with open(cachedCardOcrPath, "rb") as cachedCardOcrFile:
+					ocrResult = pickle.load(cachedCardOcrFile)
+			except Exception as e:
+				_logger.error(f"Unable to load cached OCR result for card {_createCardIdentifier(inputCard)}, recreating it")
+			else:
+				_logger.debug(f"Loaded cached OCR result for card {_createCardIdentifier(inputCard)}")
+		else:
+			_logger.info(f"Cached OCR result doesn't exist for card {_createCardIdentifier(inputCard)}, creating it")
+
+	if ocrResult is None:
+		ocrResult = _threadingLocalStorage.imageParser.getImageAndTextDataFromImage(
+			outputCard["id"],
+			imageFolder,
+			parseFully=isExternalReveal,
+			parsedIdentifier=parsedIdentifier,
+			cardType=cardType,
+			hasCardText=inputCard["rules_text"] != "" if "rules_text" in inputCard else None,
+			hasFlavorText=inputCard["flavor_text"] != "" if "flavor_text" in inputCard else None,
+			isEnchanted=outputCard["rarity"] == GlobalConfig.translation.ENCHANTED or inputCard.get("foil_type", None) == "Satin",  # Disney100 cards need Enchanted parsing, foil_type seems best way to determine Disney100
+			showImage=shouldShowImage
+		)
+		if not GlobalConfig.skipCachingOcr:
+			os.makedirs(os.path.dirname(cachedCardOcrPath), exist_ok=True)
+			with open(cachedCardOcrPath, "wb") as cachedCardOcrFile:
+				pickle.dump(ocrResult, cachedCardOcrFile)
 
 	if ocrResult.identifier and (ocrResult.identifier.startswith("0") or "TFC" in ocrResult.identifier or GlobalConfig.language.uppercaseCode not in ocrResult.identifier):
 		outputCard["fullIdentifier"] = re.sub(fr" ?\W (?!$)", f" {LorcanaSymbols.SEPARATOR} ", ocrResult.identifier)
