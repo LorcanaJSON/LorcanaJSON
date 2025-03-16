@@ -34,9 +34,9 @@ if __name__ == '__main__':
 	argumentParser.add_argument("--show", action="store_true", dest="shouldShowSubimages", help="If added, the program shows all the subimages used during parsing. It stops processing until the displayed images are closed, so this is a slow option")
 	argumentParser.add_argument("--threads", type=int, help="Specify how many threads should be used when executing multithreaded tasks. Specify a negative amount to use the maximum number of threads available minus the provided amount. "
 															"Leave empty to have the amount be determined automatically")
-	argumentParser.add_argument("--useCachedOcr", action="store_true", dest="useCachedOcr", help="If added, use cached OCR results, instead of parsing the card images, if cached results are available")
-	argumentParser.add_argument("--skipCachingOcr", action="store_true", dest="skipCachingOcr", help="If added, no OCR caching files will be created")
-	argumentParser.add_argument("--rebuildOcrCache", action="store_true", dest="rebuildOcrCache", help="Forces the OCR cache to be rebuilt. This overrides 'useCachedOcr' and 'skipCachingOcr'")
+	argumentParser.add_argument("--useCachedOcr", action="store_true", help="If added, use cached OCR results, instead of parsing the card images, if cached results are available")
+	argumentParser.add_argument("--skipCachingOcr", action="store_true", help="If added, no OCR caching files will be created")
+	argumentParser.add_argument("--rebuildOcrCache", action="store_true", help="Forces the OCR cache to be rebuilt. This overrides 'useCachedOcr' and 'skipCachingOcr'")
 	parsedArguments = argumentParser.parse_args()
 
 	config = {}
