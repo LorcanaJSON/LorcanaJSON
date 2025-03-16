@@ -36,6 +36,7 @@ if __name__ == '__main__':
 															"Leave empty to have the amount be determined automatically")
 	argumentParser.add_argument("--useCachedOcr", action="store_true", dest="useCachedOcr", help="If added, use cached OCR results, instead of parsing the card images, if cached results are available")
 	argumentParser.add_argument("--skipCachingOcr", action="store_true", dest="skipCachingOcr", help="If added, no OCR caching files will be created")
+	argumentParser.add_argument("--rebuildOcrCache", action="store_true", dest="rebuildOcrCache", help="Forces the OCR cache to be rebuilt. This overrides 'useCachedOcr' and 'skipCachingOcr'")
 	parsedArguments = argumentParser.parse_args()
 
 	config = {}
@@ -116,11 +117,14 @@ if __name__ == '__main__':
 				except ValueError:
 					raise ValueError(f"Invalid value '{inputCardId}' in the '--cardIds' list, should be numeric")
 
-	if parsedArguments.useCachedOcr or config.get("useCachedOcr", False):
-		GlobalConfig.useCachedOcr = True
-
-	if parsedArguments.skipCachingOcr or config.get("skipCachingOcr", False):
-		GlobalConfig.skipCachingOcr = True
+	if parsedArguments.rebuildOcrCache:
+		GlobalConfig.useCachedOcr = False
+		GlobalConfig.skipCachingOcr = False
+	else:
+		if parsedArguments.useCachedOcr or config.get("useCachedOcr", False):
+			GlobalConfig.useCachedOcr = True
+		if parsedArguments.skipCachingOcr or config.get("skipCachingOcr", False):
+			GlobalConfig.skipCachingOcr = True
 
 	totalStartTime = time.perf_counter()
 	for language in parsedArguments.language:
