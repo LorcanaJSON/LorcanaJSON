@@ -453,7 +453,7 @@ class ImageParser:
 			ocrResult.moveCost = result["moveCost"].text if result["moveCost"] else None
 			ocrResult.name = result["name"].text
 			ocrResult.strength = result["strength"].text if result["strength"] else None
-			ocrResult.version = result["version"].text
+			ocrResult.version = result["version"].text if result["version"] else None
 			ocrResult.willpower = result["willpower"].text if result["willpower"] else None
 		return ocrResult
 
