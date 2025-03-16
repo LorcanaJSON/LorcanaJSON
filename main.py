@@ -116,14 +116,10 @@ if __name__ == '__main__':
 				except ValueError:
 					raise ValueError(f"Invalid value '{inputCardId}' in the '--cardIds' list, should be numeric")
 
-	if parsedArguments.useCachedOcr:
-		GlobalConfig.useCachedOcr = True
-	elif config.get("useCachedOcr", False):
+	if parsedArguments.useCachedOcr or config.get("useCachedOcr", False):
 		GlobalConfig.useCachedOcr = True
 
-	if parsedArguments.skipCachingOcr:
-		GlobalConfig.skipCachingOcr = True
-	elif config.get("skipCachingOcr", False):
+	if parsedArguments.skipCachingOcr or config.get("skipCachingOcr", False):
 		GlobalConfig.skipCachingOcr = True
 
 	totalStartTime = time.perf_counter()
