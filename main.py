@@ -118,12 +118,15 @@ if __name__ == '__main__':
 					raise ValueError(f"Invalid value '{inputCardId}' in the '--cardIds' list, should be numeric")
 
 	if parsedArguments.rebuildOcrCache:
+		logger.info("Setting OCR cache to be rebuilt")
 		GlobalConfig.useCachedOcr = False
 		GlobalConfig.skipCachingOcr = False
 	else:
 		if parsedArguments.useCachedOcr or config.get("useCachedOcr", False):
+			logger.info("Using OCR cache")
 			GlobalConfig.useCachedOcr = True
 		if parsedArguments.skipCachingOcr or config.get("skipCachingOcr", False):
+			logger.info("Skipping creating OCR cache")
 			GlobalConfig.skipCachingOcr = True
 
 	totalStartTime = time.perf_counter()
