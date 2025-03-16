@@ -542,6 +542,20 @@ def createOutputFiles(onlyParseIds: Union[None, List[int]] = None, shouldShowIma
 			setsData[setCode]["name"] = setsData[setCode].pop("names")[GlobalConfig.language.code]
 	outputDict["sets"] = setsData
 
+	# Create the output files
+	_saveFile(os.path.join(outputFolder, "metadata.json"), metaDataDict, False)
+	outputDict["cards"] = fullCardList
+	_saveFile(os.path.join(outputFolder, "allCards.json"), outputDict)
+	_logger.info(f"Created main card file in {time.perf_counter() - startTime} seconds")
+	# If we only parsed some specific cards, make a separate file with those, so checking them is a lot easier
+	if onlyParseIds:
+		parsedCards = {"metadata": metaDataDict, "cards": []}
+		for card in outputDict["cards"]:
+			if card["id"] in onlyParseIds:
+				parsedCards["cards"].append(card)
+		with open("parsedCards.json", "w", encoding="utf-8") as parsedCardsFile:
+			json.dump(parsedCards, parsedCardsFile, indent=2)
+
 	# Build deck data
 	decksOutputFolder = os.path.join(outputFolder, "decks")
 	os.makedirs(decksOutputFolder, exist_ok=True)
@@ -600,19 +614,6 @@ def createOutputFiles(onlyParseIds: Union[None, List[int]] = None, shouldShowIma
 	_saveZippedFile(os.path.join(decksOutputFolder, "allDecks.full.zip"), fullDeckFilePaths)
 	_logger.info(f"Created deck files in {time.perf_counter() - startTime} seconds")
 
-	# Create the output files
-	_saveFile(os.path.join(outputFolder, "metadata.json"), metaDataDict, False)
-	outputDict["cards"] = fullCardList
-	_saveFile(os.path.join(outputFolder, "allCards.json"), outputDict)
-	_logger.info(f"Created main card file in {time.perf_counter() - startTime} seconds")
-	# If we only parsed some specific cards, make a separate file with those, so checking them is a lot easier
-	if onlyParseIds:
-		parsedCards = {"metadata": metaDataDict, "cards": []}
-		for card in outputDict["cards"]:
-			if card["id"] in onlyParseIds:
-				parsedCards["cards"].append(card)
-		with open("parsedCards.json", "w", encoding="utf-8") as parsedCardsFile:
-			json.dump(parsedCards, parsedCardsFile, indent=2)
 
 	# Create separate set files
 	setOutputFolder = os.path.join(outputFolder, "sets")
