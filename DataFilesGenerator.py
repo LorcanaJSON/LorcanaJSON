@@ -555,6 +555,9 @@ def createOutputFiles(onlyParseIds: Union[None, List[int]] = None, shouldShowIma
 				parsedCards["cards"].append(card)
 		with open("parsedCards.json", "w", encoding="utf-8") as parsedCardsFile:
 			json.dump(parsedCards, parsedCardsFile, indent=2)
+	if GlobalConfig.limitedBuild:
+		_logger.info("Limited build, not creating extra files")
+		return
 
 	# Build deck data
 	decksOutputFolder = os.path.join(outputFolder, "decks")

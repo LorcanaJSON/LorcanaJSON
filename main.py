@@ -34,6 +34,7 @@ if __name__ == '__main__':
 	argumentParser.add_argument("--show", action="store_true", dest="shouldShowSubimages", help="If added, the program shows all the subimages used during parsing. It stops processing until the displayed images are closed, so this is a slow option")
 	argumentParser.add_argument("--threads", type=int, help="Specify how many threads should be used when executing multithreaded tasks. Specify a negative amount to use the maximum number of threads available minus the provided amount. "
 															"Leave empty to have the amount be determined automatically")
+	argumentParser.add_argument("--limitedBuild", action="store_true", help="If added, only the 'allCards.json' file will be generated. No deckfiles, setfiles, etc will be created. This leads to a slightly faster build")
 	argumentParser.add_argument("--useCachedOcr", action="store_true", help="If added, use cached OCR results, instead of parsing the card images, if cached results are available")
 	argumentParser.add_argument("--skipCachingOcr", action="store_true", help="If added, no OCR caching files will be created")
 	argumentParser.add_argument("--rebuildOcrCache", action="store_true", help="Forces the OCR cache to be rebuilt. This overrides 'useCachedOcr' and 'skipCachingOcr'")
@@ -128,6 +129,10 @@ if __name__ == '__main__':
 		if parsedArguments.skipCachingOcr or config.get("skipCachingOcr", False):
 			logger.info("Skipping creating OCR cache")
 			GlobalConfig.skipCachingOcr = True
+
+	if parsedArguments.limitedBuild:
+		logger.info("Running a limited build. Setfiles, deckfiles etc won't be generated")
+		GlobalConfig.limitedBuild = True
 
 	totalStartTime = time.perf_counter()
 	for language in parsedArguments.language:

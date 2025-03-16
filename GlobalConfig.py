@@ -6,3 +6,4 @@ tesseractPath: str = None
 threadCount: int = 1
 skipCachingOcr: bool = False
 useCachedOcr: bool = False
+limitedBuild: bool = False
