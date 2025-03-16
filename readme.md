@@ -47,7 +47,7 @@ These arguments work with most or all of the actions described above. All of the
 * **--useCachedOcr**: Instead of always doing OCR on each card image, which takes a lot of time, if this argument is provided, during parsing cached OCR results are used, leading to roughly 10x faster parsing. If this isn't provided, or if no cached data exists, normal OCR parsing will be done. See also the 'OCR caching' section below
 
 ### OCR caching
-The OCR part (getting text from the card images) takes by far the most time during parsing. Since the OCR-related code and therefore the OCR result doesn't change very often, the result of this OCR can be cached to speed the parsing up by a lot.  
+The OCR part (getting text from the card images) takes by far the most time during parsing. Since the OCR-related code and therefore the OCR result doesn't change very often, the result of this OCR can be cached to speed the parsing up by roughly 10 times.  
 By default the caching files get created during parsing. This can be disabled by setting the 'skipCachingOcr' config option to 'true', or by providing the '--skipCachingOcr' commandline argument.  
 To use the cache, set the 'useCachedOcr' config option to 'true', or add the '--useCachedOcr' commandline argument. This is disabled by default, because if the OCR-related code does change, it can lead to wrong an/dor confusing results.  
 If the OCR-related code does change, the cache can be forced to be rebuilt by adding the '--rebuildOcrCache' commandline argument. This overrides the 'useCachedOcr' setting to 'false' and the 'skipCachingOcr' setting to 'false'.  
