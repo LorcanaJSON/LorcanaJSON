@@ -21,6 +21,7 @@ The configfile allows you to set some standard values, so they don't need to alw
 Copy the file 'config.json.example', and rename it to 'config.json'.  
 Open 'config.json' in a text editor, and set the value for 'tesseractPath' to where you placed the *Lorcana* Tesseract model(s) downloaded in the 'Tesseract models' Setup step. If neither this field nor the commandline argument (see further down) isn't set, it defaults to the folder where this program is.  
 You can also change the value for 'loglevel' to one of 'debug', 'info', 'warning', or 'error' to set a default log level.  
+See also the 'OCR caching' section under 'Running the program' for caching-related config options
 
 ## Running the program
 Run the program by calling the command 'python -m main [action] (arguments)'. Providing an action is mandatory,  arguments are optional. The possible actions and arguments are described below.  
@@ -39,10 +40,15 @@ These arguments work with most or all of the actions described above. All of the
 * **--language**: Specify one or more languages to check or parse, either by the name or the two-letter code. Has to be one of 'en'/'English', 'fr'/'French', 'de'/'German', or 'it'/'Italian'. To specify multiple languages, separate them with a space. Only English and French are currently fully supported and verified. English is the default value when this argument is omitted
 * **--loglevel**: Specify which loglevel to use. Has to be one of 'debug', 'info', 'warning', or 'error'. Specifying this commandline argument overrides the value specified in the config file (described above). If omitted, and no configfile value is set, this defaults to 'warning'
 * **--show**: Adding this argument displays all the sub-images used during image parsing. This only works with the 'parse' and 'update' actions. This slows down parsing a lot, because the program freezes when the sub-images are shown, until they are closed with a keypress, but it can be useful during debugging
-* **--skipCachingOcr**: Normally, during OCR parsing, cache files are created that can be used with the '--useCachedOcr' argument for far faster parsing. If '--skipCachingOcr' is provided, these cache files won't be created. Existing cache files won't be deleted
+* **--skipCachingOcr**: Normally, during OCR parsing, cache files are created that can be used with the '--useCachedOcr' argument for far faster parsing. If '--skipCachingOcr' is provided, these cache files won't be created. Existing cache files won't be deleted. See also the 'OCR caching' section below
 * **--tesseractPath**: Specify where the *Lorcana* Tesseract model file is. Can also be specified in the config file, but specifying a path commandline argument overrides the config file value. If neither this argument nor the config file field isn't set, it defaults to the folder where this program is
 * **--threads**: Specify how many threads should be used when executing multithreaded tasks. Specify a negative amount to use the maximum number of threads available minus the provided amount. If omitted, the optimal amount of threads is determined automatically
-* **--useCachedOcr**: Instead of always doing OCR on each card image, which takes a lot of time, if this argument is provided, during parsing cached OCR results are used, leading to roughly 10x faster parsing. If this isn't provided, or if no cached data exists, normal OCR parsing will be done 
+* **--useCachedOcr**: Instead of always doing OCR on each card image, which takes a lot of time, if this argument is provided, during parsing cached OCR results are used, leading to roughly 10x faster parsing. If this isn't provided, or if no cached data exists, normal OCR parsing will be done. See also the 'OCR caching' section below
+
+### OCR caching
+The OCR part (getting text from the card images) takes by far the most time during parsing. Since the OCR-related code and therefore the OCR result doesn't change very often, the result of this OCR can be cached to speed the parsing up by a lot.  
+By default the caching files get created during parsing. This can be disabled by setting the 'skipCachingOcr' config option to 'true', or by providing the '--skipCachingOcr' commandline argument.  
+To use the cache, set the 'useCachedOcr' config option to 'true', or add the '--useCachedOcr' commandline argument. This is disabled by default, because if the OCR-related code does change, it can lead to wrong an/dor confusing results.  
 
 ## Verifying the result
 Because OCR isn't perfect, a manual check of the resulting datafiles is still necessary.  
