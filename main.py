@@ -134,40 +134,40 @@ if __name__ == '__main__':
 		logger.info("Running a limited build. Setfiles, deckfiles etc won't be generated")
 		GlobalConfig.limitedBuild = True
 
+	if parsedArguments.action in ("parse", "show", "update"):
+		if parsedArguments.action == "show" or parsedArguments.shouldShowSubimages:
+			# If we need to show images, only use one thread, since with multithreading it freezes, and showing images of multiple cards at the same time would get confusing
+			GlobalConfig.threadCount = 1
+			logger.info("Forcing thread count to 1 because that's required to show images")
+		elif config.get("threadCount", 0) or parsedArguments.threads:
+			if parsedArguments.threads:
+				GlobalConfig.threadCount = parsedArguments.threads
+				threadSource = "commandline argument"
+			else:
+				GlobalConfig.threadCount = config["threadCount"]
+				threadSource = "config file"
+			if GlobalConfig.threadCount < 0:
+				GlobalConfig.threadCount = os.cpu_count() + GlobalConfig.threadCount
+			if GlobalConfig.threadCount <= 0:
+				logger.error(f"Invalid thread count {GlobalConfig.threadCount} from {threadSource}, falling back to thread count of 1")
+				GlobalConfig.threadCount = 1
+			else:
+				logger.info(f"Using thread count {GlobalConfig.threadCount} from {threadSource}")
+		else:
+			# Only use half the available cores for threads, because we're also IO- and GIL-bound, so more threads would just slow things down
+			GlobalConfig.threadCount = max(1, os.cpu_count() // 2)
+			if cardIds and len(cardIds) < GlobalConfig.threadCount:
+				# No sense using more threads than we have images to process
+				GlobalConfig.threadCount = len(cardIds)
+				logger.info(f"Using thread count of {GlobalConfig.threadCount} since that's how many cards need to be parsed")
+			else:
+				logger.info(f"Using half the available threads, setting thread count to {GlobalConfig.threadCount:,}")
+
 	totalStartTime = time.perf_counter()
 	for language in parsedArguments.language:
 		GlobalConfig.language = Language.getLanguageByCode(language)
 		GlobalConfig.translation = Translations.getForLanguage(GlobalConfig.language)
 		_infoOrPrint(logger, f"Starting action '{parsedArguments.action}' for language '{GlobalConfig.language.englishName}' at {datetime.datetime.now()}")
-
-		if parsedArguments.action in ("parse", "show", "update"):
-			if parsedArguments.action == "show" or parsedArguments.shouldShowSubimages:
-				# If we need to show images, only use one thread, since with multithreading it freezes, and showing images of multiple cards at the same time would get confusing
-				GlobalConfig.threadCount = 1
-				logger.info("Forcing thread count to 1 because that's required to show images")
-			elif config.get("threadCount", 0) or parsedArguments.threads:
-				if parsedArguments.threads:
-					GlobalConfig.threadCount = parsedArguments.threads
-					threadSource = "commandline argument"
-				else:
-					GlobalConfig.threadCount = config["threadCount"]
-					threadSource = "config file"
-				if GlobalConfig.threadCount < 0:
-					GlobalConfig.threadCount = os.cpu_count() + GlobalConfig.threadCount
-				if GlobalConfig.threadCount <= 0:
-					logger.error(f"Invalid thread count {GlobalConfig.threadCount} from {threadSource}, falling back to thread count of 1")
-					GlobalConfig.threadCount = 1
-				else:
-					logger.info(f"Using thread count {GlobalConfig.threadCount} from {threadSource}")
-			else:
-				# Only use half the available cores for threads, because we're also IO- and GIL-bound, so more threads would just slow things down
-				GlobalConfig.threadCount = max(1, os.cpu_count() // 2)
-				if cardIds and len(cardIds) < GlobalConfig.threadCount:
-					# No sense using more threads than we have images to process
-					GlobalConfig.threadCount = len(cardIds)
-					logger.info(f"Using thread count of {GlobalConfig.threadCount} since that's how many cards need to be parsed")
-				else:
-					logger.info(f"Using half the available threads, setting thread count to {GlobalConfig.threadCount:,}")
 
 		startTime = time.perf_counter()
 		if parsedArguments.action == "check":
