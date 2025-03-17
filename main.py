@@ -147,6 +147,7 @@ if __name__ == '__main__':
 				GlobalConfig.threadCount = config["threadCount"]
 				threadSource = "config file"
 			if GlobalConfig.threadCount < 0:
+				logger.info(f"Negative threadcount provided, leaving {GlobalConfig.threadCount} threads unused")
 				GlobalConfig.threadCount = os.cpu_count() - GlobalConfig.threadCount
 			if GlobalConfig.threadCount <= 0:
 				logger.error(f"Invalid thread count {GlobalConfig.threadCount} from {threadSource}, falling back to thread count of 1")
