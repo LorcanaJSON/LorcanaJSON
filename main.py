@@ -118,22 +118,6 @@ if __name__ == '__main__':
 				except ValueError:
 					raise ValueError(f"Invalid value '{inputCardId}' in the '--cardIds' list, should be numeric")
 
-	if parsedArguments.rebuildOcrCache:
-		logger.info("Setting OCR cache to be rebuilt")
-		GlobalConfig.useCachedOcr = False
-		GlobalConfig.skipCachingOcr = False
-	else:
-		if parsedArguments.useCachedOcr or config.get("useCachedOcr", False):
-			logger.info("Using OCR cache")
-			GlobalConfig.useCachedOcr = True
-		if parsedArguments.skipCachingOcr or config.get("skipCachingOcr", False):
-			logger.info("Skipping creating OCR cache")
-			GlobalConfig.skipCachingOcr = True
-
-	if parsedArguments.limitedBuild:
-		logger.info("Running a limited build. Setfiles, deckfiles etc won't be generated")
-		GlobalConfig.limitedBuild = True
-
 	if parsedArguments.action in ("parse", "show", "update"):
 		if parsedArguments.action == "show" or parsedArguments.shouldShowSubimages:
 			# If we need to show images, only use one thread, since with multithreading it freezes, and showing images of multiple cards at the same time would get confusing
@@ -163,6 +147,23 @@ if __name__ == '__main__':
 				logger.info(f"Using thread count of {GlobalConfig.threadCount} since that's how many cards need to be parsed")
 			else:
 				logger.info(f"Using half the available threads, setting thread count to {GlobalConfig.threadCount:,}")
+		
+		# Cache settings only matter when parsing
+		if parsedArguments.rebuildOcrCache:
+			logger.info("Setting OCR cache to be rebuilt")
+			GlobalConfig.useCachedOcr = False
+			GlobalConfig.skipCachingOcr = False
+		else:
+			if parsedArguments.useCachedOcr or config.get("useCachedOcr", False):
+				logger.info("Using OCR cache")
+				GlobalConfig.useCachedOcr = True
+			if parsedArguments.skipCachingOcr or config.get("skipCachingOcr", False):
+				logger.info("Skipping creating OCR cache")
+				GlobalConfig.skipCachingOcr = True
+		# Only set 'limitedBuild' if we're actually building
+		if parsedArguments.limitedBuild:
+			logger.info("Running a limited build. Setfiles, deckfiles etc won't be generated")
+			GlobalConfig.limitedBuild = True
 
 	totalStartTime = time.perf_counter()
 	for language in parsedArguments.language:
