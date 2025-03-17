@@ -66,6 +66,7 @@ def correctText(cardText: str) -> str:
 	# A 7 often gets mistaken for a /, correct that
 	cardText = cardText.replace(" / ", " 7 ")
 	cardText = re.sub(f"{LorcanaSymbols.INK}([-—])", fr"{LorcanaSymbols.INK} \1", cardText)
+	cardText = re.sub(r"^ ?[-—](?= [A-Z])", f"{LorcanaSymbols.INK} —", cardText)
 	# Negative numbers are always followed by a strength symbol, correct that
 	cardText = re.sub(fr"(?<= )(-\d)( [^{LorcanaSymbols.STRENGTH}{LorcanaSymbols.LORE}a-z .]{{1,2}})?( \w|$)", fr"\1 {LorcanaSymbols.STRENGTH}\3", cardText, flags=re.MULTILINE)
 	# Two numbers in a row never happens, or a digit followed by a loose capital lettter. The latter should probably be a Strength symbol
