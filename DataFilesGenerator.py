@@ -1033,6 +1033,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 		externalLinksCorrection = cardDataCorrections.pop("externalLinks", None)
 		fullTextCorrection = cardDataCorrections.pop("fullText", None)
 		moveAbilityAtIndexToIndex = cardDataCorrections.pop("_moveAbilityAtIndexToIndex", None)
+		splitAbilityNameAtIndex = cardDataCorrections.pop("_splitAbilityNameAtIndex", None)
 		for fieldName, correction in cardDataCorrections.items():
 			if len(correction) > 2:
 				for correctionIndex in range(0, len(correction), 2):
@@ -1057,6 +1058,11 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 					firstEffect, secondEffect = outputCard["effects"][effectIndex].rsplit("\n\n", 1)
 					outputCard["effects"][effectIndex] = firstEffect
 					outputCard["effects"].insert(effectIndex + 1, secondEffect)
+		# Sometimes the ability name doesn't get recognised properly during fallback parsing, so there's a manual correction for it
+		if splitAbilityNameAtIndex:
+			ability = outputCard["abilities"][splitAbilityNameAtIndex[0]]
+			ability["name"], ability["effect"] = re.split(splitAbilityNameAtIndex[1], ability["effect"], maxSplit=1)
+			_logger.info(f"Split ability name and effect at index {splitAbilityNameAtIndex[0]} into name {ability['name']!r} and effect {ability['effect']!r}")
 		# Do this after the general corrections since one of those might add or split an effect
 		if effectAtIndexIsAbility != -1:
 			if "effects" not in outputCard:
