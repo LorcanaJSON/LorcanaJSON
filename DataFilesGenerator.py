@@ -975,6 +975,8 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 			sevenDwarvesCheckTypes = ("Sept", "Nains")
 		elif GlobalConfig.language == Language.GERMAN:
 			sevenDwarvesCheckTypes = ("Sieben", "Zwerge")
+		elif GlobalConfig.language == Language.ITALIAN:
+			sevenDwarvesCheckTypes = ("Sette", "Nani")
 		if sevenDwarvesCheckTypes and sevenDwarvesCheckTypes[0] in subtypes and sevenDwarvesCheckTypes[1] in subtypes:
 			subtypes.remove(sevenDwarvesCheckTypes[1])
 			subtypes[subtypes.index(sevenDwarvesCheckTypes[0])] = " ".join(sevenDwarvesCheckTypes)
