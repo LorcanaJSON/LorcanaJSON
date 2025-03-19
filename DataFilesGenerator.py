@@ -715,7 +715,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 	else:
 		outputCard["fullIdentifier"] = str(parsedIdentifier)
 	if GlobalConfig.language.uppercaseCode not in outputCard["fullIdentifier"]:
-		_logger.warning(f"Card ID {outputCard['id']} ({outputCard['fullIdentifier']}) is not in current language '{GlobalConfig.language.englishName}', skipping")
+		_logger.info(f"Card ID {outputCard['id']} ({outputCard['fullIdentifier']}) is not in current language '{GlobalConfig.language.englishName}', skipping")
 		return None
 	# Set the grouping ('P1', 'D23', etc) for promo cards
 	if parsedIdentifier and parsedIdentifier.isPromo():
