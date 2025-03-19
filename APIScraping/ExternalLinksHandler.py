@@ -232,6 +232,7 @@ class ExternalLinksHandler:
 		numberGroupingString = f"{parsedIdentifier.number}/{parsedIdentifier.grouping}"
 		numberString = str(parsedIdentifier.number)
 		if parsedIdentifier.variant:
+			numberGroupingString = numberGroupingString.replace("/", parsedIdentifier.variant + "/")
 			numberString += parsedIdentifier.variant
 		cardExternalLinks = None
 		if parsedIdentifier.isPromo():
