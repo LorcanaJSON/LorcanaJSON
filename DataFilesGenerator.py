@@ -993,6 +993,9 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 			elif len(subtype) < (4 if GlobalConfig.language == Language.ENGLISH else 3):
 				_logger.debug(f"Removing subtype '{subtype}', too short")
 				subtypes.pop(subtypeIndex)
+			elif not re.search("[aeiouAEIOU]", subtype):
+				_logger.debug(f"Removing subtype '{subtype}', no vowels so it's probably invalid")
+				subtypes.pop(subtypeIndex)
 		# Non-character cards have their main type as their (first) subtype, remove those
 		if subtypes and (subtypes[0] == GlobalConfig.translation.Action or subtypes[0] == GlobalConfig.translation.Item or subtypes[0] == GlobalConfig.translation.Location):
 			subtypes.pop(0)
