@@ -54,6 +54,9 @@ _CORRECTIONS = {
 		},
 		"9": {
 			"Baymax - Armored Companion": ("Promos", "9/C1")
+		},
+		"24/P2": {
+			"Hiro Hamada - Armor Designer": ("Promos", "24A/P2")
 		}
 	},
 	"Q1": {
