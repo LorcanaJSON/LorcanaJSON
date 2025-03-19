@@ -154,7 +154,10 @@ if __name__ == '__main__':
 			GlobalConfig.useCachedOcr = False
 			GlobalConfig.skipCachingOcr = False
 		else:
-			if parsedArguments.useCachedOcr or config.get("useCachedOcr", False):
+			if parsedArguments.action == "show" or parsedArguments.shouldShowSubimages:
+				logger.info("Not using OCR cache, because we need to show the card images")
+				GlobalConfig.useCachedOcr = False
+			elif parsedArguments.useCachedOcr or config.get("useCachedOcr", False):
 				logger.info("Using OCR cache")
 				GlobalConfig.useCachedOcr = True
 			if parsedArguments.skipCachingOcr or config.get("skipCachingOcr", False):
