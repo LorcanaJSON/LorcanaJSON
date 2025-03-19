@@ -39,6 +39,21 @@ _CORRECTIONS = {
 		},
 		"4": {
 			"Rapunzel - Gifted with Healing": ("Promos", "4/C1")
+		},
+		"5": {
+			"Mickey Mouse - Brave Little Tailor": ("Promos", "5/C1")
+		},
+		"6": {
+			"Invited to the Ball": ("Promos", "6/C1")
+		},
+		"7": {
+			"Elsa's Ice Palace - Place of Solitude": ("Promos", "7/C1")
+		},
+		"8": {
+			"Kuzco - Temperamental Emperor": ("Promos", "8/C1")
+		},
+		"9": {
+			"Baymax - Armored Companion": ("Promos", "9/C1")
 		}
 	},
 	"Q1": {
