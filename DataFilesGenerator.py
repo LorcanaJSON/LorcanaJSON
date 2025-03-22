@@ -206,6 +206,8 @@ def correctPunctuation(textToCorrect: str) -> str:
 	:return: The fixed text, or the original text if there was nothing to fix
 	"""
 	correctedText = textToCorrect
+	# It frequently misses the dash before a quote attribution
+	correctedText = re.sub(r"\n([A-Z]\w+)$", "\n—\\1", correctedText)
 	# Ellipses get parsed weird, with spaces between periods where they don't belong. Fix that
 	if correctedText.count(".") > 2:
 		correctedText = re.sub(r"([\xa0 ]?\.[\xa0 ]?){3}", "..." if GlobalConfig.language == Language.ENGLISH else "…", correctedText)
@@ -220,8 +222,6 @@ def correctPunctuation(textToCorrect: str) -> str:
 			correctedText = re.sub(r"…(\w)", r"… \1", correctedText)
 		# Fix closing quote mark
 		correctedText = correctedText.replace("”", "“")
-		# It frequently misses the dash before a quote attribution
-		correctedText = re.sub(r"\n([A-Z]\w+)$", "\n—\\1", correctedText)
 
 	correctedText = correctedText.rstrip(" -_")
 	correctedText = correctedText.replace("““", "“")
