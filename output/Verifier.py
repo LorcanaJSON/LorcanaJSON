@@ -128,6 +128,7 @@ def compareInputToOutput(cardIdsToVerify: Union[List[int], None]):
 			if "flavor_text" in inputCard and inputCard["flavor_text"] != "ERRATA":
 				inputFlavorText: str = inputCard["flavor_text"].replace("\u00a0", "").replace("‘", "'").replace("’", "'").replace("<", "").replace(">", "").rstrip()
 				# '%' seems to be a substitute for a newline character
+				inputFlavorText = inputFlavorText.replace("—%", "—")
 				inputFlavorText = re.sub(r"(?<!\d) ?% ?", " ", inputFlavorText)
 				inputFlavorText = inputFlavorText.replace("  ", " ")
 				if inputFlavorText.endswith(" ERRATA"):
