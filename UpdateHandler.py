@@ -155,6 +155,9 @@ def createOutputIfNeeded(onlyCreateOnNewCards: bool, cardFieldsToIgnore: List[st
 	# Not all possible image changes are actual changes, update only the changed images
 	actualImageChanges = RavensburgerApiHandler.downloadImagesIfUpdated(possibleImageChanges)
 	_logger.info(f"{len(actualImageChanges):,} actual image changes")
+	if actualImageChanges:
+		GlobalConfig.useCachedOcr = False
+		_logger.info("Image(s) changed, skipping using OCR cache")
 	idsToParse.extend(actualImageChanges)
 	RavensburgerApiHandler.saveCardCatalog(cardCatalog)
 	RavensburgerApiHandler.downloadImages()
