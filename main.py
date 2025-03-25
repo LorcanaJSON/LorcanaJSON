@@ -3,7 +3,7 @@ import argparse, dataclasses, datetime, json, logging, logging.handlers, os, re,
 import DataFilesGenerator, GlobalConfig, UpdateHandler
 from APIScraping import RavensburgerApiHandler
 from APIScraping.ExternalLinksHandler import ExternalLinksHandler
-from OCR.ImageParser import ImageParser
+from OCR import ImageParser, OcrCacheHandler
 from output import Verifier
 from util import Language, Translations
 
@@ -147,12 +147,12 @@ if __name__ == '__main__':
 				logger.info(f"Using thread count of {GlobalConfig.threadCount} since that's how many cards need to be parsed")
 			else:
 				logger.info(f"Using half the available threads, setting thread count to {GlobalConfig.threadCount:,}")
-		
-		# Cache settings only matter when parsing
+
 		if parsedArguments.rebuildOcrCache:
-			logger.info("Setting OCR cache to be rebuilt")
+			_infoOrPrint("Setting OCR cache to be rebuilt")
 			GlobalConfig.useCachedOcr = False
 			GlobalConfig.skipCachingOcr = False
+			OcrCacheHandler.clearOcrCache()
 		else:
 			if parsedArguments.action == "show" or parsedArguments.shouldShowSubimages:
 				logger.info("Not using OCR cache, because we need to show the card images")
@@ -160,6 +160,7 @@ if __name__ == '__main__':
 			elif parsedArguments.useCachedOcr or config.get("useCachedOcr", False):
 				logger.info("Using OCR cache")
 				GlobalConfig.useCachedOcr = True
+				OcrCacheHandler.validateOcrCache()
 			if parsedArguments.skipCachingOcr or config.get("skipCachingOcr", False):
 				logger.info("Skipping creating OCR cache")
 				GlobalConfig.skipCachingOcr = True
@@ -229,7 +230,7 @@ if __name__ == '__main__':
 				if not os.path.isfile(cardPath):
 					print(f"ERROR: Unable to find local image for card ID {cardId}. Please run the 'download' command first, and make sure you didn't make a typo in the ID")
 					continue
-				ocrResult = ImageParser().getImageAndTextDataFromImage(cardId, baseImagePathForCard, True, showImage=True)
+				ocrResult = ImageParser.ImageParser().getImageAndTextDataFromImage(cardId, baseImagePathForCard, True, showImage=True)
 				print(f"Card ID {cardId}")
 				for fieldName, fieldResult in dataclasses.asdict(ocrResult).items():
 					if fieldResult is None:
