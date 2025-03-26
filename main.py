@@ -149,7 +149,7 @@ if __name__ == '__main__':
 				logger.info(f"Using half the available threads, setting thread count to {GlobalConfig.threadCount:,}")
 
 		if parsedArguments.rebuildOcrCache:
-			_infoOrPrint("Setting OCR cache to be rebuilt")
+			_infoOrPrint(logger, "Setting OCR cache to be rebuilt")
 			GlobalConfig.useCachedOcr = False
 			GlobalConfig.skipCachingOcr = False
 			OcrCacheHandler.clearOcrCache()
