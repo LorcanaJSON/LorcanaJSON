@@ -97,5 +97,7 @@ def getCachedOcrResult(cardId: int) -> Union[OcrResult, None]:
 	return None
 
 def storeOcrResult(cardId: int, ocrResult: OcrResult):
-	with open(_buildCachedOcrResultPath(cardId), "wb") as cachedOcrResultFile:
+	cachedOcrResultPath = _buildCachedOcrResultPath(cardId)
+	os.makedirs(os.path.dirname(cachedOcrResultPath), exist_ok=True)
+	with open(cachedOcrResultPath, "wb") as cachedOcrResultFile:
 		pickle.dump(ocrResult, cachedOcrResultFile)
