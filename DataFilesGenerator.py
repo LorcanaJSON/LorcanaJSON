@@ -675,18 +675,8 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 		parsedIdentifier = IdentifierParser.parseIdentifier(inputCard["card_identifier"])
 
 	ocrResult: OcrResult = None
-	cachedCardOcrPath = os.path.join("output", "generated", "cachedOcr", GlobalConfig.language.code, f"{outputCard['id']}.cachedOcr")
 	if GlobalConfig.useCachedOcr:
-		if os.path.isfile(cachedCardOcrPath):
-			try:
-				with open(cachedCardOcrPath, "rb") as cachedCardOcrFile:
-					ocrResult = pickle.load(cachedCardOcrFile)
-			except Exception as e:
-				_logger.error(f"Unable to load cached OCR result for card {_createCardIdentifier(inputCard)}, recreating it")
-			else:
-				_logger.debug(f"Loaded cached OCR result for card {_createCardIdentifier(inputCard)}")
-		else:
-			_logger.info(f"Cached OCR result doesn't exist for card {_createCardIdentifier(inputCard)}, creating it")
+		ocrResult = OcrCacheHandler.getCachedOcrResult(outputCard["id"])
 
 	if ocrResult is None:
 		ocrResult = _threadingLocalStorage.imageParser.getImageAndTextDataFromImage(
@@ -701,9 +691,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 			showImage=shouldShowImage
 		)
 		if not GlobalConfig.skipCachingOcr:
-			os.makedirs(os.path.dirname(cachedCardOcrPath), exist_ok=True)
-			with open(cachedCardOcrPath, "wb") as cachedCardOcrFile:
-				pickle.dump(ocrResult, cachedCardOcrFile)
+			OcrCacheHandler.storeOcrResult(outputCard["id"], ocrResult)
 
 	if ocrResult.identifier and (ocrResult.identifier.startswith("0") or "TFC" in ocrResult.identifier or GlobalConfig.language.uppercaseCode not in ocrResult.identifier):
 		outputCard["fullIdentifier"] = re.sub(fr" ?\W (?!$)", f" {LorcanaSymbols.SEPARATOR} ", ocrResult.identifier)
