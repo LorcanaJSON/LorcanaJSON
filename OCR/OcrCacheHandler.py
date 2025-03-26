@@ -68,12 +68,15 @@ def clearOcrCache(fileHashes: Union[None, Dict[str, str]] = None):
 	"""
 	if fileHashes is None:
 		fileHashes = _buildFileHashes()
-	with os.scandir(_cachePath) as cacheFolderIterator:
-		for ocrCacheEntry in cacheFolderIterator:
-			if ocrCacheEntry.is_dir():
-				shutil.rmtree(ocrCacheEntry.path)
-			else:
-				os.remove(ocrCacheEntry.path)
+	if os.path.isdir(_cachePath):
+		with os.scandir(_cachePath) as cacheFolderIterator:
+			for ocrCacheEntry in cacheFolderIterator:
+				if ocrCacheEntry.is_dir():
+					shutil.rmtree(ocrCacheEntry.path)
+				else:
+					os.remove(ocrCacheEntry.path)
+	else:
+		os.makedirs(_cachePath, exist_ok=True)
 	# Create the hash file, so subsequent runs don't keep clearing the cache
 	with open(_cacheHashesFilePath, "w", encoding="utf-8") as cacheHashesFile:
 		json.dump(fileHashes, cacheHashesFile)
