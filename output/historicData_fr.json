@@ -113,10 +113,11 @@
   ],
   "581": [
     {
-        "subtypes": [
-          "Storyborn",
-          "Allié"
-        ],
+      "subtypes": [
+        "Storyborn",
+        "Alli\u00e9"
+      ],
+      "subtypesText": "Storyborn \u2022 Alli\u00e9",
       "usedUntil": "2024-11-04"
     }
   ],
@@ -178,6 +179,7 @@
         "Dreamborn",
         "Alli\u00e9"
       ],
+      "subtypesText": "Dreamborn \u2022 Alli\u00e9",
       "usedUntil": "2024-08-23"
     }
   ],
@@ -188,6 +190,7 @@
         "H\u00e9ros",
         "Prince"
       ],
+      "subtypesText": "Dreamborn \u2022 H\u00e9ros \u2022 Prince",
       "usedUntil": "2024-08-23"
     }
   ],
@@ -198,6 +201,7 @@
         "H\u00e9ros",
         "Reine"
       ],
+      "subtypesText": "Dreamborn \u2022 H\u00e9ros \u2022 Reine",
       "usedUntil": "2024-08-23"
     }
   ],
@@ -270,6 +274,7 @@
         "Dreamborn",
         "Alli\u00e9"
       ],
+      "subtypesText": "Dreamborn \u2022 Alli\u00e9",
       "usedUntil": "2025-02-26"
     }
   ]

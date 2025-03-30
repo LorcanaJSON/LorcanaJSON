@@ -427,6 +427,7 @@
         "Sagengestalt",
         "Verb\u00fcndeter"
       ],
+      "subtypesText": "Sagengestalt \u2022 Verb\u00fcndeter",
       "usedUntil": "2024-11-04"
     }
   ],
@@ -462,6 +463,7 @@
         "Traumgestalt",
         "Verb\u00fcndete"
       ],
+      "subtypesText": "Traumgestalt \u2022 Verb\u00fcndete",
       "usedUntil": "2024-08-23"
     }
   ],
@@ -472,6 +474,7 @@
         "Held",
         "Prinz"
       ],
+      "subtypesText": "Traumgestalt \u2022 Held \u2022 Prinz",
       "usedUntil": "2024-08-23"
     }
   ],
@@ -499,6 +502,7 @@
         "Heldin",
         "K\u00f6nigin"
       ],
+      "subtypesText": "Traumgestalt \u2022 Heldin \u2022 K\u00f6nigin",
       "usedUntil": "2024-08-23"
     }
   ],
@@ -536,6 +540,7 @@
         "Traumgestalt",
         "Verb\u00fcndeter"
       ],
+      "subtypesText": "Traumgestalt \u2022 Verb\u00fcndeter",
       "usedUntil": "2025-02-26"
     }
   ]

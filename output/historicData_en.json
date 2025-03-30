@@ -76,7 +76,8 @@
           "Storyborn",
           "Ally"
         ],
-      "usedUntil": "2024-11-04"
+        "subtypesText": "Storyborn \u2022 Ally",
+        "usedUntil": "2024-11-04"
     }
   ],
   "673": [
@@ -122,6 +123,7 @@
         "Dreamborn",
         "Ally"
       ],
+      "subtypesText": "Dreamborn \u2022 Ally",
       "usedUntil": "2024-08-23"
     }
   ],
@@ -132,15 +134,17 @@
         "Hero",
         "Prince"
       ],
+      "subtypesText": "Storyborn \u2022 Hero \u2022 Prince",
       "usedUntil": "2024-08-23"
     }
   ],
   "828": [
     {
-        "subtypes": [
-          "Dreamborn",
-          "Ally"
-        ],
+      "subtypes": [
+        "Dreamborn",
+        "Ally"
+      ],
+      "subtypesText": "Dreamborn \u2022 Ally",
       "usedUntil": "2024-08-23"
     }
   ],
@@ -178,6 +182,7 @@
         "Dreamborn",
         "Ally"
       ],
+      "subtypesText": "Dreamborn \u2022 Ally",
       "usedUntil": "2025-02-26"
     }
   ]
