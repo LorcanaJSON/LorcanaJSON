@@ -207,6 +207,10 @@ def compareInputToOutput(cardIdsToVerify: Union[List[int], None]):
 			if re.search(f"[^ \n“„+]{symbol}", outputCard["fullText"]) or re.search(fr"{symbol}[^ \n.,)—-]", outputCard["fullText"]):
 				cardDifferencesCount += 1
 				print(f"{cardId}: Symbol '{symbol}' doesn't have whitespace around it")
+		if re.search(r"\s{2,}", outputCard["fullText"]):
+			cardDifferencesCount += 1
+			print(f"{cardId}: Fulltext has two or more whitespace characters in a row")
+
 		# If this isn't English, compare with the English results
 		# English is easier to manually verify, so this is done to prevent mistakes or oddities, like ability type mismatches between languages
 		if idToEnglishOutputCard:
