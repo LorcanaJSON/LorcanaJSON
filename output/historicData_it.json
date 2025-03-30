@@ -1,0 +1,97 @@
+{
+  "581": [
+    {
+      "subtypes": [
+        "Classico",
+        "Alleato"
+      ],
+      "subtypesText": "Classico \u2022 Alleato",
+      "usedUntil": "2024-11-04"
+    }
+  ],
+  "728": [
+    {
+      "artists": [
+        "Angelina Ricardo"
+      ],
+      "artistsText": "Angelina Ricardo",
+      "usedUntil": "2024-08-23"
+    }
+  ],
+  "770": [
+    {
+      "subtypes": [
+        "Immaginato",
+        "Alleato"
+      ],
+      "subtypesText": "Immaginato \u2022 Alleato",
+      "usedUntil": "2024-08-23"
+    }
+  ],
+  "800": [
+    {
+      "subtypes": [
+        "Immaginato",
+        "Eroe",
+        "Principe"
+      ],
+      "subtypesText": "Immaginato \u2022 Eroe \u2022 Principe",
+      "usedUntil": "2024-08-23"
+    }
+  ],
+  "828": [
+    {
+      "subtypes": [
+        "Immaginato",
+        "Eroe",
+        "Regina"
+      ],
+      "subtypesText": "Immaginato \u2022 Eroe \u2022 Regina",
+      "usedUntil": "2024-08-23"
+    }
+  ],
+  "859": [
+    {
+      "artists": [
+        "Gregor Krysinski"
+      ],
+      "artistsText": "Gregor Krysinski",
+      "usedUntil": "2024-08-23"
+    }
+  ],
+  "879": [
+    {
+      "artists": [
+        "Cristian Romero"
+      ],
+      "artistsText": "Cristian Romero",
+      "usedUntil": "2024-08-23"
+    }
+  ],
+  "1117": [
+    {
+      "artists": [
+        "Michela Cacciatore",
+        "Giulia Riva"
+      ],
+      "artistsText": "Michela Cacciatore / Giulia Riva",
+      "usedUntil": "2024-08-23"
+    }
+  ],
+  "1179": [
+    {
+      "type": "Ogetto",
+      "usedUntil": "2024-08-23"
+    }
+  ],
+  "1244": [
+    {
+      "subtypes": [
+        "Immaginato",
+        "Alleato"
+      ],
+      "subtypesText": "Immaginato \u2022 Alleato",
+      "usedUntil": "2025-02-26"
+    }
+  ]
+}

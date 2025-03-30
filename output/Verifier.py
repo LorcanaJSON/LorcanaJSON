@@ -106,6 +106,8 @@ def compareInputToOutput(cardIdsToVerify: Union[List[int], None]):
 				elif GlobalConfig.language == Language.GERMAN:
 					# Ability dashes are inconsistent, force them to long-dash, since that's what's on the card
 					inputRulesText = re.sub(r" [-–] ", " — ", inputRulesText)
+				elif GlobalConfig.language == Language.ITALIAN:
+					inputRulesText = inputRulesText.replace("...", "…")
 			else:
 				inputRulesText = ""
 

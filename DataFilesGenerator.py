@@ -224,6 +224,13 @@ def correctPunctuation(textToCorrect: str) -> str:
 			correctedText = re.sub(r"…(\w)", r"… \1", correctedText)
 		# Fix closing quote mark
 		correctedText = correctedText.replace("”", "“")
+	elif GlobalConfig.language == Language.ITALIAN:
+		# Make sure there's a space after ellipses
+		correctedText = re.sub(r"…(?=\w)", r"… ", correctedText)
+		# There shouldn't be a space between a quote attribution dash and the name
+		correctedText = re.sub(r"(?<=”\s—) (?=[A-Z])", "", correctedText)
+		# It has some trouble recognising exclamation marks
+		correctedText = re.sub(r" ?\.””", "!”", correctedText)
 
 	correctedText = correctedText.rstrip(" -_")
 	correctedText = correctedText.replace("““", "“")
@@ -915,6 +922,10 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 				# It seems to misread a lot of ability names as ending with a period, correct that (unless it's ellipsis)
 				if abilityName.endswith(".") and not abilityName.endswith("..."):
 					abilityName = abilityName.rstrip(".")
+			elif GlobalConfig.language == Language.ITALIAN:
+				abilityName = abilityName.replace("|", "I")
+				# It keeps reading 'IO' wrong
+				abilityName = re.sub("[1I]0", "IO", abilityName)
 			abilityEffect = correctText(ocrResult.abilityTexts[abilityIndex])
 			abilities.append({
 				"name": abilityName,
@@ -981,8 +992,10 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 				subtypes[subtypeIndex] = "Hero"
 			elif subtype == "IHlusion":
 				subtypes[subtypeIndex] = "Illusion"
+			elif GlobalConfig.language == Language.ITALIAN and subtype == "lena":
+				subtypes[subtypeIndex] = "Iena"
 			# Remove short subtypes, probably erroneous
-			elif len(subtype) < (4 if GlobalConfig.language == Language.ENGLISH else 3):
+			elif len(subtype) < (4 if GlobalConfig.language == Language.ENGLISH else 3) and subtype != "Re":  # 'Re' is Italian for 'King', so it's a valid subtype
 				_logger.debug(f"Removing subtype '{subtype}', too short")
 				subtypes.pop(subtypeIndex)
 			elif not re.search("[aeiouAEIOU]", subtype):
