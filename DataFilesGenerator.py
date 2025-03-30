@@ -12,7 +12,7 @@ from util import IdentifierParser, Language, LorcanaSymbols
 
 
 _logger = logging.getLogger("LorcanaJSON")
-FORMAT_VERSION = "2.1.1"
+FORMAT_VERSION = "2.1.2"
 _CARD_CODE_LOOKUP = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 _KEYWORD_REGEX = re.compile(r"(?:^|\n)([A-ZÀ][^.]+)(?=\s\([A-Z])")
 _KEYWORD_REGEX_WITHOUT_REMINDER = re.compile(r"^[A-Z][a-z]{2,}( \d)?$")
@@ -666,6 +666,9 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 		outputCard["colors"] = [GlobalConfig.translation[color] for color in inputCard["magic_ink_colors"]]
 		outputCard["color"] = "-".join(outputCard["colors"])
 
+	if "deck_building_limit" in inputCard:
+		outputCard["maxCopiesInDeck"] = inputCard["deck_building_limit"]
+
 	# When building a deck in the official app, it gets saves as a string. This string starts with a '2', and then each card gets a two-character code based on the card's ID
 	# This card code is the card ID in base 62, using 0-9, a-z, and then A-Z for individual digits
 	cardCodeDigits = divmod(outputCard["id"], 62)
@@ -1188,6 +1191,8 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 	if keywordAbilities:
 		outputCard["keywordAbilities"] = keywordAbilities
 	outputCard["artists"] = outputCard["artistsText"].split(" / ")
+	if "subtypes" in outputCard:
+		outputCard["subtypesText"] = f" {LorcanaSymbols.SEPARATOR} ".join(outputCard["subtypes"])
 	# Add external links (Do this after corrections so we can use a corrected 'fullIdentifier')
 	outputCard["externalLinks"] = _threadingLocalStorage.externalIdsHandler.getExternalLinksForCard(parsedIdentifier, "enchantedId" in outputCard)
 	if externalLinksCorrection:
