@@ -37,9 +37,9 @@ def correctText(cardText: str) -> str:
 	# Simplify quote mark if it's used in a contraction
 	cardText = re.sub(r"(?<=\w)[‘’](?=\w)", "'", cardText)
 	# The 'Exert' symbol often gets read as a 6
-	cardText = re.sub(r"^6 ?,", f"{LorcanaSymbols.EXERT},", cardText, flags=re.MULTILINE)
+	cardText = re.sub(r"^(6|fà)? ?,", f"{LorcanaSymbols.EXERT},", cardText)
 	# There's usually an ink symbol between a number and a dash
-	cardText = re.sub(r"(^| )(\d) ?[0OQ©]{,2}( ?[-—]|,)", fr"\1\2 {LorcanaSymbols.INK}\3", cardText, re.MULTILINE)
+	cardText = re.sub(r"(^| )(\d) ?[0OÒQ©]{,2}( ?[-—]|,)", fr"\1\2 {LorcanaSymbols.INK}\3", cardText, re.MULTILINE)
 	# Normally a closing quote mark should be preceded by a period, except mid-sentence
 	cardText = re.sub(r"([^.,'!?’])”(?!,| \w)", "\\1.”", cardText)
 	# An opening bracket shouldn't have a space after it
@@ -48,18 +48,18 @@ def correctText(cardText: str) -> str:
 	cardText = re.sub(r"(?<=[”’)])\s.$", "", cardText, re.MULTILINE)
 	# The 'exert' symbol often gets mistaken for a @ or G, correct that
 	cardText = re.sub(r"(?<![0-9s])(^|[\"“„ ])[(@Gg©€]{1,3}9?([ ,])", fr"\1{LorcanaSymbols.EXERT}\2", cardText, re.MULTILINE)
-	cardText = re.sub(r"^([(&f]+À?)? ?[-—] ", f"{LorcanaSymbols.EXERT} — ", cardText)
+	cardText = re.sub(r"^([(&f]+À?|fà)? ?[-—] ", f"{LorcanaSymbols.EXERT} — ", cardText)
 	# Some cards have a bulleted list, replace the start character with the separator symbol
 	cardText = re.sub(r"^[-+*«»¢,‚](?= \w{2,} \w+)", LorcanaSymbols.SEPARATOR, cardText, flags=re.MULTILINE)
 	# Other weird symbols are probably strength symbols
-	cardText = re.sub(r"(?<!\d)[&@©%$*<>{}€£¥Ÿ]{1,2}[0-9yF+*%“]*", LorcanaSymbols.STRENGTH, cardText)
-	cardText = re.sub(r"(?<=\d )[CÇD]\b", LorcanaSymbols.STRENGTH, cardText)
+	cardText = re.sub(r"(?<!\d)X?[&@©%$*<>{}€£¥Ÿ]{1,2}[0-9yFX+*%#“»]*", LorcanaSymbols.STRENGTH, cardText)
+	cardText = re.sub(r"(?<=\d )[CÇDIQX]{1,2}\b", LorcanaSymbols.STRENGTH, cardText)
 	# Make sure there's a period before a closing bracket
 	cardText = re.sub(fr"([^.,'!?’{LorcanaSymbols.STRENGTH}])\)", r"\1.)", cardText)
 	# Strip erroneously detected characters from the end
 	cardText = re.sub(r" [‘‘;]$", "", cardText, flags=re.MULTILINE)
-	# The Lore symbol often gets mistaken for a 4, correct hat
-	cardText = re.sub(r"(\d) ?4", fr"\1 {LorcanaSymbols.LORE}", cardText)
+	# The Lore symbol often gets mistaken for a 4 or è, correct hat
+	cardText = re.sub(r"(\d) ?[4è](?=[ \n.])", fr"\1 {LorcanaSymbols.LORE}", cardText)
 	# It sometimes misses the strength symbol between a number and the closing bracket
 	cardText = re.sub(r"^\+(\d)(\.\)?)$", f"+\\1 {LorcanaSymbols.STRENGTH}\\2", cardText, flags=re.MULTILINE)
 	cardText = re.sub(r"^([-+]\d)0(\.\)?)$", fr"\1 {LorcanaSymbols.STRENGTH}\2", cardText, flags=re.MULTILINE)
@@ -70,7 +70,7 @@ def correctText(cardText: str) -> str:
 	# Negative numbers are always followed by a strength symbol, correct that
 	cardText = re.sub(fr"(?<= )(-\d)( [^{LorcanaSymbols.STRENGTH}{LorcanaSymbols.LORE}a-z .]{{1,2}})?( \w|$)", fr"\1 {LorcanaSymbols.STRENGTH}\3", cardText, flags=re.MULTILINE)
 	# Two numbers in a row never happens, or a digit followed by a loose capital lettter. The latter should probably be a Strength symbol
-	cardText = re.sub(r"(\d) [0-9DGOQ]\b", f"\\1 {LorcanaSymbols.STRENGTH}", cardText)
+	cardText = re.sub(r"(\d) [0-9DGOQ]{1,2}[%{}]?(?=\W)", f"\\1 {LorcanaSymbols.STRENGTH}", cardText)
 	# Letters after a quotemark at the start of a line should be capitalized
 	cardText = re.sub("^“[a-z]", lambda m: m.group(0).upper(), cardText, flags=re.MULTILINE)
 	if re.search(" [^?!.…”“0-9]$", cardText):

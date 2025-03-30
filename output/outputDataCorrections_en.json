@@ -726,12 +726,6 @@
       "◉"
     ]
   },
-  "790": {
-    "artistsText": [
-      "Pe[^ñ]+a$",
-      "Peña"
-    ]
-  },
   "791": {
     "flavorText": [
       "Ti",
@@ -916,22 +910,12 @@
       "—"
     ]
   },
-  "943": {
-    "abilities": [
-      "sl",
-      "sh"
-    ]
-  },
   "944": {
     "abilities": [
       "YP",
       "Y P",
       "RN",
       "R N"
-    ],
-    "flavorText": [
-      "s\n",
-      "sea\n"
     ]
   },
   "945": {
@@ -1624,10 +1608,6 @@
     "abilities": [
       "t$",
       "rds."
-    ],
-    "artistsText": [
-      "fi",
-      "ñ"
     ]
   },
   "1407": {
