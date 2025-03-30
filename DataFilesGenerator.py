@@ -897,7 +897,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 					for keywordLine in keywordLines:
 						abilities.append({"type": "keyword", "fullText": keywordLine})
 						# These entries will get more fleshed out after the corrections (if any) are applied, to prevent having to correct multiple fields
-				elif len(remainingTextLine) > 5:
+				elif len(remainingTextLine) > 10:
 					# Since this isn't a named or keyword ability, assume it's a one-off effect
 					effects.append(remainingTextLine)
 				else:
@@ -971,7 +971,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 			outputCard["clarifications"] = clarifications
 	# Determine subtypes and their order. Items and Actions have an empty subtypes list, ignore those
 	if ocrResult.subtypesText:
-		subtypes: List[str] = re.sub(fr"[^A-Za-zäèéöü{LorcanaSymbols.SEPARATOR} ]", "", ocrResult.subtypesText).split(f" {LorcanaSymbols.SEPARATOR} ")
+		subtypes: List[str] = re.sub(fr"[^A-Za-zàäèéöü{LorcanaSymbols.SEPARATOR} ]", "", ocrResult.subtypesText).split(f" {LorcanaSymbols.SEPARATOR} ")
 		if "ltem" in subtypes:
 			subtypes[subtypes.index("ltem")] = "Item"
 		# 'Seven Dwarves' is a subtype, but it might get split up into two types. Turn it back into one subtype
@@ -1112,7 +1112,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 				reminderText = None
 				if "(" in keyword:
 					# This includes reminder text, extract that
-					keyword, reminderText = keyword.rstrip(")").split(" (", 1)
+					keyword, reminderText = re.split(r"\s\(", keyword.rstrip(")"), 1)
 					reminderText = reminderText.replace("\n", " ")
 				keywordValue: Optional[str] = None
 				if keyword[-1].isnumeric():
