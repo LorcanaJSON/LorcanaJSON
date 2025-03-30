@@ -732,12 +732,13 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 	outputCard["artistsText"] = ocrResult.artistsText.lstrip(". ").replace("’", "'").replace("|", "l").replace("NM", "M")
 	oldArtistsText = outputCard["artistsText"]
 	outputCard["artistsText"] = re.sub(r"^[l[]", "I", outputCard["artistsText"])
-	while re.search(r" [a-z0-9ÿI|(\\/_+.,;”—-]{1,2}$", outputCard["artistsText"]):
+	while re.search(r" [a-z0-9ÿI|(\\/_+.,;”#—-]{1,2}$", outputCard["artistsText"]):
 		outputCard["artistsText"] = outputCard["artistsText"].rsplit(" ", 1)[0]
 	outputCard["artistsText"] = outputCard["artistsText"].rstrip(".")
 	if "ggman-Sund" in outputCard["artistsText"]:
 		outputCard["artistsText"] = re.sub("H[^ä]ggman-Sund", "Häggman-Sund", outputCard["artistsText"])
-	elif "Toziim" in outputCard["artistsText"] or "Tôzüm" in outputCard["artistsText"] or "Toztim" in outputCard["artistsText"]:
+	# elif "Toziim" in outputCard["artistsText"] or "Tôzüm" in outputCard["artistsText"] or "Toztim" in outputCard["artistsText"] or "Tézim" in outputCard["artistsText"]:
+	elif re.search(r"T[eéoô]z[iüt]{1,2}m\b", outputCard["artistsText"]):
 		outputCard["artistsText"] = re.sub(r"\bT\w+z\w+m\b", "Tözüm", outputCard["artistsText"])
 	elif re.match(r"Jo[^ã]o\b", outputCard["artistsText"]):
 		outputCard["artistsText"] = re.sub("Jo[^ã]o", "João", outputCard["artistsText"])
@@ -747,6 +748,8 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 		outputCard["artistsText"] = outputCard["artistsText"].replace("Cesar Vergara", "César Vergara")
 	elif "Perez" in outputCard["artistsText"]:
 		outputCard["artistsText"] = re.sub(r"\bPerez\b", "Pérez", outputCard["artistsText"])
+	elif outputCard["artistsText"].startswith("Niss "):
+		outputCard["artistsText"] = "M" + outputCard["artistsText"][1:]
 	elif GlobalConfig.language == Language.GERMAN:
 		# For some bizarre reason, the German parser reads some artist names as something completely different
 		if re.match(r"^ICHLER[GS]I?EN$", outputCard["artistsText"]):
@@ -756,6 +759,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 		outputCard["artistsText"] = outputCard["artistsText"].replace("Dösiree", "Désirée")
 		outputCard["artistsText"] = re.sub(r"Man[6e]+\b", "Mané", outputCard["artistsText"])
 	outputCard["artistsText"] = re.sub(r"\bAime\b", "Aimé", outputCard["artistsText"])
+	outputCard["artistsText"] = re.sub(r"\bPe[^ñ]+a\b", "Peña", outputCard["artistsText"])
 	if "“" in outputCard["artistsText"]:
 		# Simplify quotemarks
 		outputCard["artistsText"] = outputCard["artistsText"].replace("“", "\"").replace("”", "\"")
