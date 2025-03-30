@@ -5,7 +5,7 @@ from typing import Dict, List, Optional, Union
 
 import GlobalConfig
 from APIScraping.ExternalLinksHandler import ExternalLinksHandler
-from OCR import ImageParser
+from OCR import ImageParser, OcrCacheHandler
 from OCR.OcrResult import OcrResult
 from output.StoryParser import StoryParser
 from util import IdentifierParser, Language, LorcanaSymbols
