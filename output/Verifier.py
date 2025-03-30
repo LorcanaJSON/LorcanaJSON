@@ -235,7 +235,7 @@ def compareInputToOutput(cardIdsToVerify: Union[List[int], None]):
 						cardDifferencesCount += 1
 						print(f"{cardId}: Symbol '{symbol}' occurs {outputCard['fullText'].count(symbol)} times in {GlobalConfig.language.englishName} fullText but {expectedCount} was expected based on English")
 					# Check if the symbols have whitespace around them, since in previous verification steps we've ignored the symbols
-					if re.search(f"[^ \n“„+]{symbol}", outputCard["fullText"]) or re.search(fr"{symbol}[^ \n.,)-—]", outputCard["fullText"]):
+					if re.search(f"[^ \n“„+]{symbol}", outputCard["fullText"]) or re.search(fr"{symbol}[^ \n.,)—-]", outputCard["fullText"]):
 						cardDifferencesCount += 1
 						print(f"{cardId}: Symbol '{symbol}' doesn't have whitespace around it")
 			if "abilities" in outputCard and "abilities" in englishCard:
