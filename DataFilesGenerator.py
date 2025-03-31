@@ -190,6 +190,51 @@ def correctText(cardText: str) -> str:
 		cardText = cardText.replace("(auch du.)", "(auch du)")
 		# Quotemarks sometimes get read double
 		cardText = re.sub("[’‘']{2,}", "'", cardText)
+	elif GlobalConfig.language == Language.ITALIAN:
+		# Correct pipe characters
+		cardText = cardText.replace("|", "I")
+		# Correct payment text
+		cardText = re.sub(fr"(\b[Pp]ag(a(?:re)?|hi)\s\d )[^{LorcanaSymbols.INK} .]*", fr"\1{LorcanaSymbols.INK}", cardText)
+		cardText = re.sub(r"(\b[Pp]aga(?:re)?\s\d)[0Q]", f"\\1 {LorcanaSymbols.INK}", cardText)
+		# Correct Challenger reminder text
+		cardText = re.sub(r"(?<=questo\spersonaggio\sriceve\s\+\d )13(?=\.\))", LorcanaSymbols.STRENGTH, cardText)
+		# Correct Support reminder text
+		cardText = re.sub(r"(?<=aggiungere\sla\ssua\s)(?:\S+)(\salla\s)(?:\S+)(?=\sdi\sun)", f"{LorcanaSymbols.STRENGTH}\\1{LorcanaSymbols.STRENGTH}", cardText)
+		cardText = re.sub(fr"(?<=puoi aggiungere la sua )(?:. )?alla(?=\n[^{LorcanaSymbols.STRENGTH}])", f"{LorcanaSymbols.STRENGTH} alla {LorcanaSymbols.STRENGTH}", cardText)
+		# In Song reminder text, it reads 'con costo 1 o' as 'con costo 10'
+		cardText = re.sub(r"(?<=con costo \d)0(?= [^o])", " o", cardText)
+		# Fix Song reminder Exert symbol
+		cardText = re.sub(r"(?<=\d o superiore può ).(?= per\scantare questa canzone gratis)", LorcanaSymbols.EXERT, cardText)
+		# It misses the Strength symbol if it's at the end of a line
+		cardText = re.sub(r"(?<=Riceve \+\d)\n", f" {LorcanaSymbols.STRENGTH}\n", cardText)
+		# It frequently reads the Strength symbol as 'XX or a percentage sign' or leaves a closing bracket
+		cardText = cardText.replace("XX", LorcanaSymbols.STRENGTH)
+		cardText = re.sub(r"\d?%", f" {LorcanaSymbols.STRENGTH}", cardText)
+		cardText = cardText.replace(f"{LorcanaSymbols.STRENGTH})", LorcanaSymbols.STRENGTH)
+		# It sometimes reads the Exert symbol as a bracket
+		cardText = cardText.replace("(uno", f"{LorcanaSymbols.EXERT} uno")
+		# It reads 'Iena' (Italian for 'Hyena'), as 'lena'
+		cardText = re.sub(r"\blena", "Iena", cardText)
+		# It sometimes read 'volta' on a new line as starting with a capital V
+		cardText = re.sub("(?<=ogni\n)V(?=olta)", "v", cardText)
+		cardText = re.sub(r"(?<=\suna\s)0(?=\spiù\s)", "o", cardText)
+		# Fix misreadings of 'Il'
+		cardText = re.sub(r"[1!][!/l]", "Il", cardText)
+		# Fix misreading of 'lì'
+		cardText = cardText.replace("Îì", "lì")
+		# 'cè' should always have a quote inbetween
+		cardText = re.sub(r"\bcè\b", "c'è", cardText)
+		# For some reason it adds an extra 't' to 'sfidarli'
+		cardText = re.sub(r"\bsfidatr?li\b", "sfidarli", cardText)
+		# It sometimes imagines an extra 'i' at the start sometimes
+		cardText = re.sub(r"^i I", "I", cardText)
+		# 'l' at the start should be capitalized, either to an 'L' or an 'I'
+		cardText = re.sub("^l'", "L'", cardText)
+		cardText = re.sub("(^|\\. )lo", "\\1Io", cardText)
+		# Instead of '1 o' it often reads '10'
+		cardText = re.sub(r"(?<=costo \d)0(?=\sinferiore)", " o", cardText)
+		# Misread of 'Illuminatore'
+		cardText = cardText.replace("Ilumi", "Illumi")
 
 	if GlobalConfig.language != Language.FRENCH:
 		# Make sure dash in ability cost and in quote attribution is always long-dash
