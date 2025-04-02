@@ -1,4 +1,4 @@
-import hashlib, json, logging, os, pickle, shutil
+import hashlib, json, logging, os, pickle, shutil, time
 from typing import Dict, Union
 
 import GlobalConfig
@@ -66,6 +66,7 @@ def clearOcrCache(fileHashes: Union[None, Dict[str, str]] = None):
 	Clear the OCR cache
 	:param fileHashes: The MD5 hashes of relevant files. If this is None, it will be generated
 	"""
+	startTime = time.perf_counter()
 	if fileHashes is None:
 		fileHashes = _buildFileHashes()
 	if os.path.isdir(_cachePath):
@@ -80,6 +81,7 @@ def clearOcrCache(fileHashes: Union[None, Dict[str, str]] = None):
 	# Create the hash file, so subsequent runs don't keep clearing the cache
 	with open(_cacheHashesFilePath, "w", encoding="utf-8") as cacheHashesFile:
 		json.dump(fileHashes, cacheHashesFile)
+	_logger.info(f"Clearing OCR cache took {time.perf_counter() - startTime:.4f} seconds")
 
 def getCachedOcrResult(cardId: int) -> Union[OcrResult, None]:
 	"""
