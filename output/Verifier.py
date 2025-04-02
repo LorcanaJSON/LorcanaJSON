@@ -218,8 +218,8 @@ def compareInputToOutput(cardIdsToVerify: Union[List[int], None]):
 		if idToEnglishOutputCard:
 			englishCard = idToEnglishOutputCard[outputCard["id"]]
 			cardId = outputCard["id"]
-			for fieldname in ('abilities', 'artistsText', 'enchantedId', 'cost', 'effects', 'fullTextSections', 'inkwell', 'keywordAbilities',
-							  'lore', 'moveCost', 'nonEnchantedId', 'nonPromoId', 'number', 'strength', 'subtypes', 'variant', 'variandIds', 'willPower'):
+			for fieldname in ('abilities', 'artistsText', 'enchantedId', 'cost', 'effects', 'fullTextSections', 'inkwell', 'keywordAbilities', 'lore',
+							  'maxCardsInDeck', 'moveCost', 'nonEnchantedId', 'nonPromoId', 'number', 'strength', 'subtypes', 'variant', 'variandIds', 'willPower'):
 				if fieldname not in outputCard and fieldname not in englishCard:
 					continue
 				if fieldname in outputCard and fieldname not in englishCard:
