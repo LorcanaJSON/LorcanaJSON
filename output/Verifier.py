@@ -236,7 +236,7 @@ def compareInputToOutput(cardIdsToVerify: Union[List[int], None]):
 					cardDifferencesCount += 1
 					print(f"{cardId}: '{fieldname}' differs between {GlobalConfig.language.englishName} '{outputCard[fieldname]}' and English '{englishCard[fieldname]}'")
 			if outputCard["fullText"] or englishCard["fullText"]:
-				for symbol in ("⟳", "⬡", "◊", "¤", "⛉", "◉", "•"):
+				for symbol in LorcanaSymbols.ALL_SYMBOLS:
 					expectedCount = englishCard["fullText"].count(symbol)
 					if GlobalConfig.language == Language.FRENCH and symbol == "¤" and "Soutien" in outputCard["fullText"]:
 						# While most languages use two strength symbols in the Support reminder text, French uses just one. To prevent false positives and negatives, adjust our expectations
