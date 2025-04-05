@@ -66,7 +66,6 @@ def correctText(cardText: str) -> str:
 	# A 7 often gets mistaken for a /, correct that
 	cardText = cardText.replace(" / ", " 7 ")
 	cardText = re.sub(f"{LorcanaSymbols.INK}([-—])", fr"{LorcanaSymbols.INK} \1", cardText)
-	cardText = re.sub(r"^ ?[-—](?= [A-Z])", f"{LorcanaSymbols.INK} —", cardText)
 	# Negative numbers are always followed by a strength symbol, correct that
 	cardText = re.sub(fr"(?<= )(-\d)( [^{LorcanaSymbols.STRENGTH}{LorcanaSymbols.LORE}a-z .]{{1,2}})?( \w|$)", fr"\1 {LorcanaSymbols.STRENGTH}\3", cardText, flags=re.MULTILINE)
 	# Two numbers in a row never happens, or a digit followed by a loose capital lettter. The latter should probably be a Strength symbol
@@ -79,7 +78,6 @@ def correctText(cardText: str) -> str:
 
 	if GlobalConfig.language == Language.ENGLISH:
 		cardText = re.sub("^‘", "“", cardText, flags=re.MULTILINE)
-		cardText = re.sub(" [:i]$", "", cardText, flags=re.MULTILINE)
 		# Somehow it reads 'Bodyquard' with a 'q' instead of or in addition to a 'g' a lot...
 		cardText = re.sub("Bodyqg?uard", "Bodyguard", cardText)
 		# Fix some common typos
@@ -186,7 +184,6 @@ def correctText(cardText: str) -> str:
 		# TODO FIXME From Set 5 and up, they use long-dash for ability costs, in lower sets it's an n-dash; think of a solution
 		cardText = cardText.replace("—-", "—")
 		cardText = re.sub(r"(?<=\s)[-—](?=\s[a-z])", "–", cardText)
-		cardText = re.sub(fr"(?<=\w|{LorcanaSymbols.LORE}|{LorcanaSymbols.STRENGTH})—(?=\w)", "-", cardText)
 		cardText = cardText.replace("(auch du.)", "(auch du)")
 		# Quotemarks sometimes get read double
 		cardText = re.sub("[’‘']{2,}", "'", cardText)
@@ -196,8 +193,6 @@ def correctText(cardText: str) -> str:
 		# Correct payment text
 		cardText = re.sub(fr"(\b[Pp]ag(a(?:re)?|hi)\s\d )[^{LorcanaSymbols.INK} .]*", fr"\1{LorcanaSymbols.INK}", cardText)
 		cardText = re.sub(r"(\b[Pp]aga(?:re)?\s\d)[0Q]", f"\\1 {LorcanaSymbols.INK}", cardText)
-		# Correct Challenger reminder text
-		cardText = re.sub(r"(?<=questo\spersonaggio\sriceve\s\+\d )13(?=\.\))", LorcanaSymbols.STRENGTH, cardText)
 		# Correct Support reminder text
 		cardText = re.sub(r"(?<=aggiungere\sla\ssua\s)(?:\S+)(\salla\s)(?:\S+)(?=\sdi\sun)", f"{LorcanaSymbols.STRENGTH}\\1{LorcanaSymbols.STRENGTH}", cardText)
 		cardText = re.sub(fr"(?<=puoi aggiungere la sua )(?:. )?alla(?=\n[^{LorcanaSymbols.STRENGTH}])", f"{LorcanaSymbols.STRENGTH} alla {LorcanaSymbols.STRENGTH}", cardText)
