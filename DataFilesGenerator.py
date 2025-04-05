@@ -1,6 +1,5 @@
 import copy
 import datetime, hashlib, json, logging, multiprocessing.pool, os, re, threading, time, zipfile
-import pickle
 from typing import Dict, List, Optional, Union
 
 import GlobalConfig
