@@ -1,5 +1,4 @@
-import copy
-import datetime, hashlib, json, logging, multiprocessing.pool, os, re, threading, time, zipfile
+import copy, datetime, hashlib, json, logging, multiprocessing.pool, os, re, threading, time, zipfile
 from typing import Dict, List, Optional, Union
 
 import GlobalConfig
