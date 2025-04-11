@@ -6,7 +6,7 @@ from APIScraping.ExternalLinksHandler import ExternalLinksHandler
 from OCR import ImageParser, OcrCacheHandler
 from OCR.OcrResult import OcrResult
 from output.StoryParser import StoryParser
-from util import IdentifierParser, Language, LorcanaSymbols
+from util import IdentifierParser, JsonUtil, Language, LorcanaSymbols
 
 
 _logger = logging.getLogger("LorcanaJSON")
@@ -410,23 +410,19 @@ def createOutputFiles(onlyParseIds: Union[None, List[int]] = None, shouldShowIma
 	with open(cardCatalogPath, "r", encoding="utf-8") as inputFile:
 		inputData = json.load(inputFile)
 
-	with open(os.path.join("output", "outputDataCorrections.json"), "r", encoding="utf-8") as correctionsFile:
-		cardDataCorrections: Dict[int, Dict[str, List[str, str]]] = {int(k, 10): v for k, v in json.load(correctionsFile).items()}
+	cardDataCorrections: Dict[int, Dict[str, List[str, str]]] = JsonUtil.loadJsonWithNumberKeys(os.path.join("output", "outputDataCorrections.json"))
 	correctionsFilePath = os.path.join("output", f"outputDataCorrections_{GlobalConfig.language.code}.json")
 	if os.path.isfile(correctionsFilePath):
-		with open(correctionsFilePath, "r", encoding="utf-8") as correctionsFile:
-			# Convert all the ID keys to numbers as we load
-			for cardId, corrections in json.load(correctionsFile).items():
-				cardId = int(cardId, 10)
-				if cardId in cardDataCorrections:
-					# Merge the language-specific corrections with the global corrections
-					for fieldCorrectionName, fieldCorrection in corrections.items():
-						if fieldCorrectionName in cardDataCorrections[cardId]:
-							cardDataCorrections[cardId][fieldCorrectionName].extend(fieldCorrection)
-						else:
-							cardDataCorrections[cardId][fieldCorrectionName] = fieldCorrection
-				else:
-					cardDataCorrections[cardId] = corrections
+		for cardId, corrections in JsonUtil.loadJsonWithNumberKeys(correctionsFilePath).items():
+			if cardId in cardDataCorrections:
+				# Merge the language-specific corrections with the global corrections
+				for fieldCorrectionName, fieldCorrection in corrections.items():
+					if fieldCorrectionName in cardDataCorrections[cardId]:
+						cardDataCorrections[cardId][fieldCorrectionName].extend(fieldCorrection)
+					else:
+						cardDataCorrections[cardId][fieldCorrectionName] = fieldCorrection
+			else:
+				cardDataCorrections[cardId] = corrections
 	else:
 		_logger.warning(f"No corrections file exists for language '{GlobalConfig.language.code}', so no language-specific corrections will be done. This doesn't break anything, but results might not be perfect")
 
@@ -492,8 +488,7 @@ def createOutputFiles(onlyParseIds: Union[None, List[int]] = None, shouldShowIma
 
 	historicDataFilePath = os.path.join("output", f"historicData_{GlobalConfig.language.code}.json")
 	if os.path.isfile(historicDataFilePath):
-		with open(historicDataFilePath, "r", encoding="utf-8") as historicDataFile:
-			historicData = {int(k, 10): v for k, v in json.load(historicDataFile).items()}
+		historicData = JsonUtil.loadJsonWithNumberKeys(historicDataFilePath)
 	else:
 		historicData = {}
 
