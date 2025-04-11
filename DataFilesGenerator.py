@@ -492,6 +492,8 @@ def createOutputFiles(onlyParseIds: Union[None, List[int]] = None, shouldShowIma
 	else:
 		historicData = {}
 
+	cardBans = JsonUtil.loadJsonWithNumberKeys(os.path.join("output", "CardBans.json"))
+
 	# Get the cards we don't have to parse (if any) from the previous generated file
 	fullCardList = []
 	cardIdsStored = []
@@ -541,7 +543,7 @@ def createOutputFiles(onlyParseIds: Union[None, List[int]] = None, shouldShowIma
 					continue
 				try:
 					results.append(pool.apply_async(_parseSingleCard, (inputCard, cardTypeText, imageFolder, enchantedNonEnchantedIds.get(cardId, None), promoNonPromoIds.get(cardId, None), variantsDeckBuildingIds.get(inputCard["deck_building_id"]),
-												  cardDataCorrections.pop(cardId, None), cardToStoryParser, False, historicData.get(cardId, None), shouldShowImages)))
+												  cardDataCorrections.pop(cardId, None), cardToStoryParser, False, historicData.get(cardId, None), cardBans.pop(cardId, None), shouldShowImages)))
 					cardIdsStored.append(cardId)
 				except Exception as e:
 					_logger.error(f"Exception {type(e)} occured while parsing card ID {inputCard['culture_invariant_id']}")
@@ -559,7 +561,7 @@ def createOutputFiles(onlyParseIds: Union[None, List[int]] = None, shouldShowIma
 				_logger.debug(f"Card ID {cardId} is defined in the official file and in the external file, skipping the external data")
 				continue
 			results.append(pool.apply_async(_parseSingleCard, (externalCard, externalCard["type"], imageFolder, enchantedNonEnchantedIds.get(cardId, None), promoNonPromoIds.get(cardId, None), variantsDeckBuildingIds,
-															   cardDataCorrections.pop(cardId, None), cardToStoryParser, True, historicData.get(cardId, None), shouldShowImages)))
+															   cardDataCorrections.pop(cardId, None), cardToStoryParser, True, historicData.get(cardId, None), cardBans.pop(cardId, None), shouldShowImages)))
 		pool.close()
 		pool.join()
 	for result in results:
@@ -690,7 +692,7 @@ def createOutputFiles(onlyParseIds: Union[None, List[int]] = None, shouldShowIma
 	_logger.info(f"Created the set files in {time.perf_counter() - startTime:.4f} seconds")
 
 def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchantedNonEnchantedId: Union[int, None], promoNonPromoId: Union[int, List[int], None], variantIds: Union[List[int], None],
-					 cardDataCorrections: Dict, storyParser: StoryParser, isExternalReveal: bool, historicData: List[Dict], shouldShowImage: bool = False) -> Union[Dict, None]:
+					 cardDataCorrections: Dict, storyParser: StoryParser, isExternalReveal: bool, historicData: Union[None, List[Dict]], bannedSince: Union[None, str] = None, shouldShowImage: bool = False) -> Union[Dict, None]:
 	# Store some default values
 	outputCard: Dict[str, Union[str, int, List, Dict]] = {
 		"id": inputCard["culture_invariant_id"],
@@ -998,8 +1000,9 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 				infoEntryClarifications = re.split("\\s*\n+(?=[FQ]:)", infoText)
 				clarifications.extend(infoEntryClarifications)
 			# Some German cards have an artist correction in their 'additional_info', but that's already correct in the data, so ignore that
+			# Bans are listed as additional info, but we handle that separately, so ignore those
 			# For other additional_info types, print an error, since that should be handled
-			elif infoEntry["title"] != "Illustratorin":
+			elif infoEntry["title"] != "Illustratorin" and infoEntry["title"] != "Ban":
 				_logger.warning(f"Unknown 'additional_info' type '{infoEntry['title']}' in card {_createCardIdentifier(outputCard)}")
 		if errata:
 			outputCard["errata"] = errata
@@ -1290,6 +1293,8 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 		outputCard["foilTypes"] = ["None", "Cold"]
 	if historicData:
 		outputCard["historicData"] = historicData
+	if bannedSince:
+		outputCard["bannedSince"] = bannedSince
 	# Sort the dictionary by key
 	outputCard = {key: outputCard[key] for key in sorted(outputCard)}
 	return outputCard
