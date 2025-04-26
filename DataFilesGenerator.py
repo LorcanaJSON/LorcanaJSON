@@ -1305,10 +1305,13 @@ def _saveFile(outputFilePath: str, dictToSave: Dict, createZip: bool = True):
 	_createMd5ForFile(outputFilePath)
 	# Create a zipped version of the same file
 	if createZip:
-		outputZipFilePath = outputFilePath + ".zip"
-		with zipfile.ZipFile(outputZipFilePath, "w", compression=zipfile.ZIP_LZMA, strict_timestamps=False) as outputZipfile:
-			outputZipfile.write(outputFilePath, os.path.basename(outputFilePath))
-		_createMd5ForFile(outputZipFilePath)
+		_zipFile(outputFilePath)
+
+def _zipFile(outputFilePath: str):
+	outputZipFilePath = outputFilePath + ".zip"
+	with zipfile.ZipFile(outputZipFilePath, "w", compression=zipfile.ZIP_LZMA, strict_timestamps=False) as outputZipfile:
+		outputZipfile.write(outputFilePath, os.path.basename(outputFilePath))
+	_createMd5ForFile(outputZipFilePath)
 
 def _createMd5ForFile(filePath: str):
 	with open(filePath, "rb") as fileToHash, open(filePath + ".md5", "w", encoding="utf-8") as md5File:
