@@ -1,4 +1,5 @@
 import copy, datetime, hashlib, json, logging, multiprocessing.pool, os, re, threading, time, zipfile
+import xml.etree.ElementTree as xmlElementTree
 from typing import Dict, List, Optional, Union
 
 import GlobalConfig
@@ -666,6 +667,54 @@ def createOutputFiles(onlyParseIds: Union[None, List[int]] = None, shouldShowIma
 	_saveZippedFile(os.path.join(decksOutputFolder, "allDecks.full.zip"), fullDeckFilePaths)
 	_logger.info(f"Created deck files in {time.perf_counter() - startTime} seconds")
 
+	# Create an XML file that Cockatrice can load
+	rootElement = xmlElementTree.Element("cockatrice_carddatabase", {"version": "4"})
+	setsElement = xmlElementTree.SubElement(rootElement, "sets")
+	for setId, setData in setsData.items():
+		setElement = xmlElementTree.SubElement(setsElement, "set")
+		xmlElementTree.SubElement(setElement, "settype").text = "Disney Lorcana TCG"
+		xmlElementTree.SubElement(setElement, "name").text = setId
+		xmlElementTree.SubElement(setElement, "longname").text = setData["name"]
+		xmlElementTree.SubElement(setElement, "releasedate").text = setData["releaseDate"]
+	cardsElement = xmlElementTree.SubElement(rootElement, "cards")
+	for card in outputDict["cards"]:
+		if "images" not in card or "full" not in card["images"]:
+			_logger.error(f"Card {_createCardIdentifier(card)} does not have an image stored, not adding it to the Cockatrice XML")
+			continue
+		cardElement = xmlElementTree.SubElement(cardsElement, "card")
+		xmlElementTree.SubElement(cardElement, "name").text = card["fullName"]
+		xmlElementTree.SubElement(cardElement, "text").text = card["fullText"]
+		if card["type"] == GlobalConfig.translation.Location:
+			# Location files should be shown in landscape
+			xmlElementTree.SubElement(cardElement, "cipt").text = "1"
+		tableRowNumber = "2"
+		if card["type"] == GlobalConfig.translation.Action:
+			tableRowNumber = "3"
+		elif card["type"] != GlobalConfig.translation.Character:
+			tableRowNumber = "1"
+		xmlElementTree.SubElement(cardElement, "tablerow").text = tableRowNumber
+		xmlElementTree.SubElement(cardElement, "set", attrib={"rarity": card["rarity"], "uuid": str(card["id"]), "num": str(card["number"]), "picurl": card["images"]["full"]}).text = card["setCode"]
+		cardPropertyElement = xmlElementTree.SubElement(cardElement, "prop")
+		xmlElementTree.SubElement(cardPropertyElement, "layout").text = "normal"
+		xmlElementTree.SubElement(cardPropertyElement, "maintype").text = card["type"]
+		fullType = card["type"]
+		if "subtypesText" in card:
+			fullType += " | " + card["subtypesText"]
+		xmlElementTree.SubElement(cardPropertyElement, "type").text = fullType
+		xmlElementTree.SubElement(cardPropertyElement, "cmc").text = str(card["cost"])
+		if card.get("color", None):
+			xmlElementTree.SubElement(cardPropertyElement, "colors").text = card["color"]
+			xmlElementTree.SubElement(cardPropertyElement, "coloridentity").text = card["color"]
+		if "willpower" in card:
+			xmlElementTree.SubElement(cardPropertyElement, "pt").text = f"{card.get('strength', '-')}/{card['willpower']}"
+		if "lore" in card:
+			xmlElementTree.SubElement(cardPropertyElement, "loyalty").text = str(card["lore"])
+	xmlElementTree.indent(rootElement)
+	cockatriceXmlFilePath = os.path.join(outputFolder, "lorcana.cockatrice.xml")
+	xmlElementTree.ElementTree(rootElement).write(cockatriceXmlFilePath, encoding="utf-8", xml_declaration=True)
+	_createMd5ForFile(cockatriceXmlFilePath)
+	_zipFile(cockatriceXmlFilePath)
+	_logger.info(f"Created Cockatrice XML file in {time.perf_counter() - startTime:.4f} seconds")
 
 	# Create separate set files
 	setOutputFolder = os.path.join(outputFolder, "sets")
