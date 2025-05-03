@@ -1,7 +1,8 @@
 import datetime, hashlib, json, logging, os, random
 from typing import Any, Dict, List, Tuple
 
-import DataFilesGenerator, GlobalConfig
+import GlobalConfig
+from OutputGeneration import DataFilesGenerator
 from APIScraping import RavensburgerApiHandler
 from util import DownloadUtil
 
