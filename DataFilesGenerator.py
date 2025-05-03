@@ -1161,7 +1161,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 		# Sometimes the ability name doesn't get recognised properly during fallback parsing, so there's a manual correction for it
 		if splitAbilityNameAtIndex:
 			ability = outputCard["abilities"][splitAbilityNameAtIndex[0]]
-			ability["name"], ability["effect"] = re.split(splitAbilityNameAtIndex[1], ability["effect"], maxSplit=1)
+			ability["name"], ability["effect"] = re.split(splitAbilityNameAtIndex[1], ability["effect"], maxsplit=1)
 			_logger.info(f"Split ability name and effect at index {splitAbilityNameAtIndex[0]} into name {ability['name']!r} and effect {ability['effect']!r}")
 		# Do this after the general corrections since one of those might add or split an effect
 		if effectAtIndexIsAbility != -1:
