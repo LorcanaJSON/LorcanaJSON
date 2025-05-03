@@ -38,15 +38,15 @@ def correctText(cardText: str) -> str:
 	# The 'Exert' symbol often gets read as a 6
 	cardText = re.sub(r"^(6|fà)? ?,", f"{LorcanaSymbols.EXERT},", cardText)
 	# There's usually an ink symbol between a number and a dash
-	cardText = re.sub(r"(^| )(\d) ?[0OÒQ©]{,2}( ?[-—]|,)", fr"\1\2 {LorcanaSymbols.INK}\3", cardText, re.MULTILINE)
+	cardText = re.sub(r"(^| )(\d) ?[0OÒQ©]{,2}( ?[-—]|,)", fr"\1\2 {LorcanaSymbols.INK}\3", cardText, flags=re.MULTILINE)
 	# Normally a closing quote mark should be preceded by a period, except mid-sentence
 	cardText = re.sub(r"([^.,'!?’])”(?!,| \w)", "\\1.”", cardText)
 	# An opening bracket shouldn't have a space after it
 	cardText = cardText.replace("( ", "(")
 	# Sometimes an extra character gets added after the closing quote mark or bracket from an inksplotch, remove that
-	cardText = re.sub(r"(?<=[”’)])\s.$", "", cardText, re.MULTILINE)
+	cardText = re.sub(r"(?<=[”’)])\s.$", "", cardText, flags=re.MULTILINE)
 	# The 'exert' symbol often gets mistaken for a @ or G, correct that
-	cardText = re.sub(r"(?<![0-9s])(^|[\"“„ ])[(@Gg©€]{1,3}9?([ ,])", fr"\1{LorcanaSymbols.EXERT}\2", cardText, re.MULTILINE)
+	cardText = re.sub(r"(?<![0-9s])(^|[\"“„ ])[(@Gg©€]{1,3}9?([ ,])", fr"\1{LorcanaSymbols.EXERT}\2", cardText, flags=re.MULTILINE)
 	cardText = re.sub(r"^([(&f]+À?|fà)? ?[-—] ", f"{LorcanaSymbols.EXERT} — ", cardText)
 	# Some cards have a bulleted list, replace the start character with the separator symbol
 	cardText = re.sub(r"^[-+*«»¢,‚](?= \w{2,} \w+)", LorcanaSymbols.SEPARATOR, cardText, flags=re.MULTILINE)
