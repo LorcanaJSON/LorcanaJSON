@@ -53,12 +53,6 @@
       "yễn"
     ]
   },
-  "788": {
-    "enchantedId": [
-      null,
-      904
-    ]
-  },
   "792": {
     "abilities": [
       "1 \\S+ ([^ ]+) \\+1 \\S",
@@ -81,12 +75,6 @@
     "promoIds": [
       null,
       null
-    ]
-  },
-  "904": {
-    "nonEnchantedId": [
-      null,
-      788
     ]
   },
   "951": {

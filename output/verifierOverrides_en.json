@@ -23,12 +23,6 @@
       "When"
     ]
   },
-  "217": {
-    "rules_text": [
-      "Oh, Gosh",
-      "OH, GOSH"
-    ]
-  },
   "222": {
     "rules_text": [
       "Odd One Out",
@@ -245,34 +239,16 @@
       1
     ]
   },
-  "971": {
-    "rules_text": [
-      "SAMPLEWASSHIFT",
-      "Shift"
-    ]
-  },
   "983": {
     "rules_text": [
       "w",
       "card w"
     ]
   },
-  "1057": {
-    "rules_text": [
-      "(\\d Sample )+3",
-      "2"
-    ]
-  },
   "1099": {
     "rules_text": [
       "If",
       "if"
-    ]
-  },
-  "1117": {
-    "author": [
-      "Riva",
-      "Priori"
     ]
   },
   "1179": {
