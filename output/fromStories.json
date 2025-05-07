@@ -51,6 +51,16 @@
     "matchingNames": ["Atlantis", "Audrey Ramirez", "Gaetan Moliere", "Helga Sinclair", "Jebidiah Farnsworth", "Joshua Sweet", "Kashekim", "Kida", "Lyle Tiberius Rourke", "Milo Thatch"],
     "matchingIds": [598]
   },
+  "bambi": {
+    "displayNames": {
+      "de": "Bambi",
+      "en": "Bambi",
+      "fr": "Bambi",
+      "it": "Bambi"
+    },
+    "matchingNames": ["Bambi", "Friend Owl", "Thumper"],
+    "matchingIds": [1740, 1741]
+  },
   "beautybeast": {
     "displayNames": {
       "de": "Die Schöne und das Biest",
