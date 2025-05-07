@@ -20,7 +20,7 @@
       "it": "Aladdin"
     },
     "matchingNames": ["Abu", "Agrabah", "Aladdin", "Genie", "Iago", "Jafar", "Jasmine", "Magic Carpet", "Rajah", "Razoul", "Treasure Guardian"],
-    "matchingIds": [164, 195, 564, 596, 984, 1015, 1166, 1292, 1328, 1490]
+    "matchingIds": [164, 195, 564, 596, 984, 1015, 1166, 1199, 1292, 1328, 1490]
   },
   "aliceinwonderland": {
     "displayNames": {
@@ -29,7 +29,7 @@
       "fr": "Alice au pays des merveilles",
       "it": "Alice nel Paese delle Meraviglie"
     },
-    "matchingNames": ["Alice", "Card Soldier", "Card Soldiers", "Caterpillar", "Cheshire Cat", "King of Hearts", "Mad Hatter", "March Hare", "Queen of Hearts", "Tweedle Dee", "Tweedle Dum", "Tweedledee", "Tweedledum", "Unbirthday", "White Rabbit"],
+    "matchingNames": ["Alice", "Card Soldier", "Card Soldiers", "Caterpillar", "Cheshire Cat", "Dormouse", "King of Hearts", "Mad Hatter", "March Hare", "Queen of Hearts", "Tweedle Dee", "Tweedle Dum", "Tweedledee", "Tweedledum", "Unbirthday", "White Rabbit"],
     "matchingIds": [246, 282, 378, 1243, 1245]
   },
   "aristocats": {
@@ -160,7 +160,7 @@
       "it": "Frozen - Il regno di ghiaccio"
     },
     "matchingNames": ["Anna", "Arendelle", "Bruni", "Duke of Weselton", "Elsa", "Grand Pabbie", "Hans", "Honeymaren", "Iduna", "Kristoff", "Marshmellow", "Olaf", "Sven", "The Nokk"],
-    "matchingIds": [63, 163, 200, 415, 720, 857, 997, 998, 1085, 1188, 1610, 1611, 1653]
+    "matchingIds": [63, 163, 200, 415, 720, 857, 997, 998, 1085, 1188, 1610, 1611, 1653, 1748]
   },
   "greatmousedetective": {
     "displayNames": {
@@ -203,7 +203,7 @@
       "it": "Le follie dell'imperatore"
     },
     "matchingNames": ["Bucky", "Chaca", "Chicha", "Kronk", "Kuzco", "Pacha", "Tipo", "Yzma"],
-    "matchingIds": [199, 1058, 1120, 1130, 1131]
+    "matchingIds": [199, 1058, 1120, 1130, 1131, 1744]
   },
   "ladyandthetramp": {
     "displayNames": {
