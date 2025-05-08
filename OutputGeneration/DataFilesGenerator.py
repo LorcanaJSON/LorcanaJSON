@@ -11,7 +11,7 @@ from util import IdentifierParser, JsonUtil, Language, LorcanaSymbols
 
 
 _logger = logging.getLogger("LorcanaJSON")
-FORMAT_VERSION = "2.1.3"
+FORMAT_VERSION = "2.1.4"
 _CARD_CODE_LOOKUP = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 _KEYWORD_REGEX = re.compile(r"(?:^|\n)([A-ZÀ][^.]+)(?=\s\([A-Z])")
 _KEYWORD_REGEX_WITHOUT_REMINDER = re.compile(r"^[A-Z][a-z]{2,}( \d)?$")
@@ -913,6 +913,8 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 		}
 		if "foil_mask_url" in inputCard:
 			outputCard["images"]["foilMask"] = _cleanUrl(inputCard["foil_mask_url"])
+		if "varnish_mask_url" in inputCard:
+			outputCard["images"]["varnishMask"] = _cleanUrl(inputCard["varnish_mask_url"])
 	elif "imageUrl" in inputCard:
 		outputCard["images"] = {"full": inputCard["imageUrl"]}
 	else:
@@ -1187,6 +1189,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 				outputCard["flavorText"] = outputCard["effects"].pop(effectAtIndexIsFlavorText)
 				if len(outputCard["effects"]) == 0:
 					del outputCard["effects"]
+
 	# An effect should never start with a separator; if it does, join it with the previous effect since it should be part of its option list
 	if "effects" in outputCard:
 		for effectIndex in range(len(outputCard["effects"]) - 1, 0, -1):
@@ -1351,6 +1354,8 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 		# We can't know the foil type(s) of externally revealed cards, so not having the data at all is better than adding possibly wrong data
 		# 'Normal' (so non-promo non-Enchanted) cards exist in unfoiled and cold-foiled types, so just default to that if no explicit foil type is provided
 		outputCard["foilTypes"] = ["None", "Cold"]
+	if "varnish_type" in inputCard:
+		outputCard["varnishType"] = inputCard["varnish_type"]
 	if historicData:
 		outputCard["historicData"] = historicData
 	if bannedSince:
