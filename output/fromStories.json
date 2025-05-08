@@ -48,8 +48,8 @@
       "fr": "Atlantide, l'empire perdu",
       "it": "Atlantis - L'impero perduto"
     },
-    "matchingNames": ["Atlantis", "Audrey Ramirez", "Gaetan Moliere", "Helga Sinclair", "Jebidiah Farnsworth", "Joshua Sweet", "Kashekim", "Kida", "Lyle Tiberius Rourke", "Milo Thatch"],
-    "matchingIds": [598]
+    "matchingNames": ["Atlantis", "Audrey Ramirez", "Gaetan Moliere", "Helga Sinclair", "Jebidiah Farnsworth", "Joshua Sweet", "Kashekim", "Kida", "Lyle Tiberius Rourke", "Milo Thatch", "Vincenzo Santorini"],
+    "matchingIds": [598, 1781]
   },
   "bambi": {
     "displayNames": {
@@ -58,7 +58,7 @@
       "fr": "Bambi",
       "it": "Bambi"
     },
-    "matchingNames": ["Bambi", "Friend Owl", "Thumper"],
+    "matchingNames": ["Bambi", "Faline", "Friend Owl", "Thumper"],
     "matchingIds": [1740, 1741]
   },
   "beautybeast": {
@@ -127,7 +127,7 @@
       "fr": "La Bande à Picsou",
       "it": "DuckTales"
     },
-    "matchingNames": ["Beagle Boys", "Della Duck", "Dewey", "Flintheart Glomgold", "Gizmoduck", "Gyro Gearloose", "Huey", "Lena Sabrewing", "Louie", "Lucky Dime", "Magica De Spell", "Scrooge", "Scrooge McDuck", "Webby Vanderquack"],
+    "matchingNames": ["Beagle Boys", "Della Duck", "Dewey", "Flintheart Glomgold", "Gizmoduck", "Gyro Gearloose", "Huey", "Lena Sabrewing", "Louie", "Lucky Dime", "Magica De Spell", "Poe De Spell", "Scrooge", "Scrooge McDuck", "Webby Vanderquack"],
     "matchingIds": [636]
   },
   "encanto": {
@@ -159,7 +159,7 @@
       "fr": "La Reine des neiges",
       "it": "Frozen - Il regno di ghiaccio"
     },
-    "matchingNames": ["Anna", "Arendelle", "Bruni", "Duke of Weselton", "Elsa", "Grand Pabbie", "Hans", "Honeymaren", "Iduna", "Kristoff", "Marshmellow", "Olaf", "Sven", "The Nokk"],
+    "matchingNames": ["Anna", "Arendelle", "Bruni", "Duke of Weselton", "Elsa", "Grand Pabbie", "Hans", "Honeymaren", "Iduna", "Kristoff", "Marshmellow", "Olaf", "Ryder", "Sven", "The Nokk", "Yelana"],
     "matchingIds": [63, 163, 200, 415, 720, 857, 997, 998, 1085, 1188, 1610, 1611, 1653, 1748]
   },
   "greatmousedetective": {
@@ -203,7 +203,7 @@
       "it": "Le follie dell'imperatore"
     },
     "matchingNames": ["Bucky", "Chaca", "Chicha", "Kronk", "Kuzco", "Pacha", "Tipo", "Yzma"],
-    "matchingIds": [199, 1058, 1120, 1130, 1131, 1744]
+    "matchingIds": [199, 1058, 1120, 1130, 1131, 1744, 1891]
   },
   "ladyandthetramp": {
     "displayNames": {
@@ -212,7 +212,7 @@
       "fr": "La Belle et le Clochard",
       "it": "Lilli e il vagabondo"
     },
-    "matchingNames": ["Lady", "Tramp", "Trusty"],
+    "matchingNames": ["Jock", "Lady", "Tramp", "Trusty"],
     "matchingIds": [1440]
   },
   "liloandstitch": {
@@ -223,7 +223,7 @@
       "it": "Lilo & Stitch"
     },
     "matchingNames": ["Cobra Bubbles", "Gantu", "Jumba Jookiba", "Lilo", "Nani", "Pleakley", "Stitch"],
-    "matchingIds": [1216, 1295, 1298, 1401, 1403, 1412]
+    "matchingIds": [1216, 1295, 1298, 1401, 1403, 1412, 1867]
   },
   "lionking": {
     "displayNames": {
@@ -336,7 +336,7 @@
       "it": "La principessa e il ranocchio"
     },
     "matchingNames": ["Dr. Facilier", "Eli La Bouff", "Eudora", "Friends on the Other Side", "James", "Lawrence", "Mama Odie", "Prince Naveen", "Ray", "Tiana"],
-    "matchingIds": [640, 853]
+    "matchingIds": [640, 853, 1707]
   },
   "raya": {
     "displayNames": {
@@ -355,7 +355,7 @@
       "fr": "Les Aventures de Bernard et Bianca",
       "it": "Le avventure di Bianca e Bernie"
     },
-    "matchingNames": ["Bernard", "Madame Medusa", "Miss Bianca", "Mr. Snoops", "Orville", "Rufus"],
+    "matchingNames": ["Bernard", "Brutus", "Madame Medusa", "Miss Bianca", "Mr. Snoops", "Nero", "Orville", "Rufus"],
     "matchingIds": [1651]
   },
   "rescuerangers": {

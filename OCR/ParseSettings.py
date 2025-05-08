@@ -51,6 +51,7 @@ _PARSE_SETTINGS_FOR_ENCHANTED_BY_SET: Dict[str, ParseSettings] = {
 	"5": dataclasses.replace(_DEFAULT_NEW_ENCHANTED_PARSE_SETTINGS, labelParsingMethod=LABEL_PARSING_METHODS.FALLBACK_WHITE_ABILITY_TEXT, thresholdTextColor=ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND, labelTextColor=ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND),
 	"6": dataclasses.replace(_DEFAULT_NEW_ENCHANTED_PARSE_SETTINGS, labelParsingMethod=LABEL_PARSING_METHODS.FALLBACK_BY_LINES, labelTextColor=ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND),
 	"7": dataclasses.replace(_DEFAULT_NEW_ENCHANTED_PARSE_SETTINGS, labelParsingMethod=LABEL_PARSING_METHODS.FALLBACK_WHITE_ABILITY_TEXT, thresholdTextColor=ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND, labelTextColor=ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND),
+	"8": dataclasses.replace(_DEFAULT_NEW_ENCHANTED_PARSE_SETTINGS, labelParsingMethod=LABEL_PARSING_METHODS.FALLBACK_WHITE_ABILITY_TEXT, thresholdTextColor=ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND, labelTextColor=ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND)
 }
 _PARSE_SETTINGS_BY_SET: Dict[str, ParseSettings] = {
 	"Q1": ParseSettings(labelParsingMethod=LABEL_PARSING_METHODS.FALLBACK_WHITE_ABILITY_TEXT, thresholdTextColor=ImageArea.TEXT_COLOUR_WHITE, labelMaskColor=_BLACK),
@@ -86,7 +87,8 @@ _PARSE_SETTINGS_BY_ID: Dict[int, ParseSettings] = {
 	1429: dataclasses.replace(_PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["5"], hasFlavorTextOverride=False),
 	1641: dataclasses.replace(_PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["7"], isItemOverride=True),
 	1662: _PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["7"],
-	1664: dataclasses.replace(_PARSE_SETTINGS_BY_GROUPING["C1"], labelParsingMethod=LABEL_PARSING_METHODS.FALLBACK_BY_LINES)
+	1664: dataclasses.replace(_PARSE_SETTINGS_BY_GROUPING["C1"], labelParsingMethod=LABEL_PARSING_METHODS.FALLBACK_BY_LINES),
+	1895: dataclasses.replace(_PARSE_SETTINGS_BY_GROUPING["D23"], textboxOffset=15)
 }
 
 def getParseSetingsById(cardId: int) -> Union[None, ParseSettings]:

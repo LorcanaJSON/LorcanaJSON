@@ -197,6 +197,12 @@
       "”"
     ]
   },
+  "195": {
+    "promoIds": [
+      null,
+      [1199]
+    ]
+  },
   "200": {
     "flavorText": [
       "^“\n",
@@ -1296,6 +1302,16 @@
       "\n"
     ]
   },
+  "1199": {
+    "artistsText": [
+      "^J",
+      "I"
+    ],
+    "nonPromoId": [
+      null,
+      195
+    ]
+  },
   "1200": {
     "flavorText": [
       "-",
@@ -1979,5 +1995,59 @@
       "—\\.\\. ",
       ""
     ]
+  },
+  "1678": {
+    "abilities": [
+      "y\\.",
+      "y"
+    ]
+  },
+  "1687": {
+    "abilities": [
+      "^AN",
+      "A N"
+    ]
+  },
+  "1701": {
+    "abilities": [
+      "’",
+      "'"
+    ]
+  },
+  "1714": {
+    "abilities": [
+      "4",
+      "◊"
+    ]
+  },
+  "1781": {
+    "artistsText": [
+      "é",
+      "è"
+    ]
+  },
+  "1798": {
+    "abilities": [
+      "3\n",
+      "3 ¤\n"
+    ]
+  },
+  "1864": {
+    "abilities": [
+      "^1",
+      "I"
+    ]
+  },
+  "1893": {
+    "subtypes": [
+      "Soregrer",
+      "Sorcerer",
+      "some",
+      null
+    ]
+  },
+  "1895": {
+    "_effectAtIndexIsAbility": [0, "SELF-PRESERVATION"],
+    "_effectAtIndexIsFlavorText": 0
   }
 }
