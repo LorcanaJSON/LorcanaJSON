@@ -177,8 +177,10 @@ def compareInputToOutput(cardIdsToVerify: Union[List[int], None]):
 
 		# Cards beyond the 'normal' numbering are either Enchanted or otherwise Special, check if that's stored properly
 		if outputCard["rarity"] == GlobalConfig.translation.ENCHANTED and "nonEnchantedId" not in outputCard and "nonPromoId" not in outputCard:
+			cardDifferencesCount += 1
 			print(f"{outputCard['fullName']} (ID {outputCard['id']}) should have a non-enchanted ID or non-promo ID field, but it doesn't")
 		elif "Q" not in outputCard["setCode"] and outputCard["rarity"] == GlobalConfig.translation.SPECIAL and "nonPromoId" not in outputCard:
+			cardDifferencesCount += 1
 			print(f"{outputCard['fullName']} (ID {outputCard['id']}) should have a non-promo ID field, but it doesn't")
 
 		inputIdentifier = inputCard["card_identifier"].replace(" ", f" {LorcanaSymbols.SEPARATOR} ")
