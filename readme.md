@@ -42,16 +42,16 @@ These arguments work with most or all of the actions described above. All of the
 * **--loglevel**: Specify which loglevel to use. Has to be one of 'debug', 'info', 'warning', or 'error'. Specifying this commandline argument overrides the value specified in the config file (described above). If omitted, and no configfile value is set, this defaults to 'warning'
 * **--rebuildOcrCache**: Forces the OCR cache to be rebuilt. See the 'OCR caching' section below for more details
 * **--show**: Adding this argument displays all the sub-images used during image parsing. This only works with the 'parse' and 'update' actions. This slows down parsing a lot, because the program freezes when the sub-images are shown, until they are closed with a keypress, but it can be useful during debugging
-* **--skipCachingOcr**: Normally, during OCR parsing, cache files are created that can be used with the '--useCachedOcr' argument for far faster parsing. If '--skipCachingOcr' is provided, these cache files won't be created. Existing cache files won't be deleted. See also the 'OCR caching' section below
+* **--skipOcrCache**: Normally, during OCR parsing, cache files are created that can be used with the '--useCachedOcr' argument for far faster parsing. If '--skipOcrCache' is provided, these cache files won't be used or created. Existing cache files won't be deleted. See also the 'OCR caching' section below
 * **--tesseractPath**: Specify where the *Lorcana* Tesseract model file is. Can also be specified in the config file, but specifying a path commandline argument overrides the config file value. If neither this argument nor the config file field isn't set, it defaults to the folder where this program is
 * **--threads**: Specify how many threads should be used when executing multithreaded tasks. Specify a negative amount to use the maximum number of threads available minus the provided amount. If omitted, the optimal amount of threads is determined automatically
 * **--useCachedOcr**: Instead of always doing OCR on each card image, which takes a lot of time, if this argument is provided, during parsing cached OCR results are used, leading to roughly 10x faster parsing. If this isn't provided, or if no cached data exists, normal OCR parsing will be done. See also the 'OCR caching' section below
 
 ### OCR caching
 The OCR part (getting text from the card images) takes by far the most time during parsing. Since the OCR-related code and therefore the OCR result doesn't change very often, the result of this OCR can be cached to speed the parsing up by roughly 10 times.  
-By default the caching files get created during parsing. This can be disabled by setting the 'skipCachingOcr' config option to 'true', or by providing the '--skipCachingOcr' commandline argument.  
-To use the cache, set the 'useCachedOcr' config option to 'true', or add the '--useCachedOcr' commandline argument. This is disabled by default, because if the OCR-related code does change, it can lead to wrong an/dor confusing results.  
-If the OCR-related code does change, the cache can be forced to be rebuilt by adding the '--rebuildOcrCache' commandline argument. This overrides the 'useCachedOcr' setting to 'false' and the 'skipCachingOcr' setting to 'false'.  
+By default the caching files get created during parsing. This can be disabled by setting the 'skipOcrCache' config option to 'true', or by providing the '--skipOcrCache' commandline argument.  
+To use the cache, set the 'useCachedOcr' config option to 'true', or add the '--useCachedOcr' commandline argument. This is disabled by default, because if the OCR-related code does change, it can lead to wrong and/or confusing results.  
+If the OCR-related code does change, the cache can be forced to be rebuilt by adding the '--rebuildOcrCache' commandline argument. This overrides the 'useCachedOcr' setting to 'false' and the 'skipOcrCache' setting to 'false'.  
 
 ## Verifying the result
 Because OCR isn't perfect, a manual check of the resulting datafiles is still necessary.  
