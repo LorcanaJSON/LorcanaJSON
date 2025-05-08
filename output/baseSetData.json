@@ -110,11 +110,24 @@
       "fr": "Fabuleux",
       "it": "Leggende"
     },
+    "prereleaseDate": "2025-08-29",
+    "releaseDate": "2025-09-05",
+    "hasAllCards": false,
+    "type": "expansion",
+    "number": 9
+  },
+  "10": {
+    "names": {
+      "de": "Geflüster aus der Tiefe",
+      "en": "Whispers in the Well",
+      "fr": "Lueurs dans le Profondeurs",
+      "it": "Sussurri nel Pozzo"
+    },
     "prereleaseDate": null,
     "releaseDate": null,
     "hasAllCards": false,
     "type": "expansion",
-    "number": 9
+    "number": 10
   },
   "Q1": {
     "names": {
