@@ -1176,6 +1176,16 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 			outputCard["abilities"].append({"name": abilityNameForEffectIsAbility, "effect": outputCard["effects"].pop(effectAtIndexIsAbility)})
 			if len(outputCard["effects"]) == 0:
 				del outputCard["effects"]
+		if effectAtIndexIsFlavorText != -1:
+			if "effects" not in outputCard:
+				_logger.error(f"Correction to move effect index {effectAtIndexIsAbility} to flavor text, but card {_createCardIdentifier(outputCard)} doesn't have an 'effects' field")
+			elif "flavorText" in outputCard:
+				_logger.error(f"Correction to move effect index {effectAtIndexIsAbility} to flavor text, but card {_createCardIdentifier(outputCard)} already has a 'flavorText' field")
+			else:
+				_logger.info(f"Moving effect index {effectAtIndexIsFlavorText} to flavor text")
+				outputCard["flavorText"] = outputCard["effects"].pop(effectAtIndexIsFlavorText)
+				if len(outputCard["effects"]) == 0:
+					del outputCard["effects"]
 	# An effect should never start with a separator; if it does, join it with the previous effect since it should be part of its option list
 	if "effects" in outputCard:
 		for effectIndex in range(len(outputCard["effects"]) - 1, 0, -1):
