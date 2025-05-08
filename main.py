@@ -37,8 +37,8 @@ if __name__ == '__main__':
 															"Leave empty to have the amount be determined automatically")
 	argumentParser.add_argument("--limitedBuild", action="store_true", help="If added, only the 'allCards.json' file will be generated. No deckfiles, setfiles, etc will be created. This leads to a slightly faster build")
 	argumentParser.add_argument("--useCachedOcr", action="store_true", help="If added, use cached OCR results, instead of parsing the card images, if cached results are available")
-	argumentParser.add_argument("--skipCachingOcr", action="store_true", help="If added, no OCR caching files will be created")
-	argumentParser.add_argument("--rebuildOcrCache", action="store_true", help="Forces the OCR cache to be rebuilt. This overrides 'useCachedOcr' and 'skipCachingOcr'")
+	argumentParser.add_argument("--skipOcrCache", action="store_true", help="If added, no OCR caching files will be used or created")
+	argumentParser.add_argument("--rebuildOcrCache", action="store_true", help="Forces the OCR cache to be rebuilt. This overrides 'useCachedOcr' and 'skipOcrCache'")
 	parsedArguments = argumentParser.parse_args()
 
 	config = {}
@@ -152,7 +152,7 @@ if __name__ == '__main__':
 		if parsedArguments.rebuildOcrCache:
 			_infoOrPrint(logger, "Setting OCR cache to be rebuilt")
 			GlobalConfig.useCachedOcr = False
-			GlobalConfig.skipCachingOcr = False
+			GlobalConfig.skipOcrCache = False
 			OcrCacheHandler.clearOcrCache()
 		else:
 			if parsedArguments.action == "show" or parsedArguments.shouldShowSubimages:
@@ -162,9 +162,9 @@ if __name__ == '__main__':
 				logger.info("Using OCR cache")
 				GlobalConfig.useCachedOcr = True
 				OcrCacheHandler.validateOcrCache()
-			if parsedArguments.skipCachingOcr or config.get("skipCachingOcr", False):
+			if parsedArguments.skipOcrCache or config.get("skipOcrCache", False):
 				logger.info("Skipping creating OCR cache")
-				GlobalConfig.skipCachingOcr = True
+				GlobalConfig.skipOcrCache = True
 		# Only set 'limitedBuild' if we're actually building
 		if parsedArguments.limitedBuild:
 			logger.info("Running a limited build. Setfiles, deckfiles etc won't be generated")

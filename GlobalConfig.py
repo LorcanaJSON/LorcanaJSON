@@ -4,6 +4,6 @@ language: Language.Language = None
 translation: Translations.Translation = None
 tesseractPath: str = None
 threadCount: int = 1
-skipCachingOcr: bool = False
+skipOcrCache: bool = False
 useCachedOcr: bool = False
 limitedBuild: bool = False

@@ -774,7 +774,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 		parsedIdentifier = IdentifierParser.parseIdentifier(inputCard["card_identifier"])
 
 	ocrResult: OcrResult = None
-	if GlobalConfig.useCachedOcr:
+	if GlobalConfig.useCachedOcr and not GlobalConfig.skipOcrCache:
 		ocrResult = OcrCacheHandler.getCachedOcrResult(outputCard["id"])
 
 	if ocrResult is None:
@@ -789,7 +789,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 			isEnchanted=outputCard["rarity"] == GlobalConfig.translation.ENCHANTED or inputCard.get("foil_type", None) == "Satin",  # Disney100 cards need Enchanted parsing, foil_type seems best way to determine Disney100
 			showImage=shouldShowImage
 		)
-		if not GlobalConfig.skipCachingOcr:
+		if not GlobalConfig.skipOcrCache:
 			OcrCacheHandler.storeOcrResult(outputCard["id"], ocrResult)
 
 	if ocrResult.identifier and (ocrResult.identifier.startswith("0") or "TFC" in ocrResult.identifier or GlobalConfig.language.uppercaseCode not in ocrResult.identifier):
