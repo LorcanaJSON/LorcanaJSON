@@ -62,11 +62,18 @@ let currentIndex = 0;
 let maxIndex = 0;
 
 function changeDisplayedIndex(indexChange) {
-	setDisplayedIndex(currentIndex + indexChange);
+	setDisplayedIndex(currentIndex + indexChange, false);
 }
-function setDisplayedIndex(newIndex) {
+function setDisplayedIndex(newIndex, showErrorMessage=true) {
 	if (newIndex < 0 || newIndex > maxIndex) {
-		console.log("Index should be between 0 and %d", maxIndex);
+		if (showErrorMessage) {
+			if (newIndex < 0) {
+				console.error("newIndex %d is smaller than 0, which is invalid", newIndex);
+			} else {
+				console.error("newIndex %d is larger than maxIndex %d, which is invalid", newIndex, maxIndex);
+			}
+			alert("Invalid new index " + newIndex);
+		}
 		return;
 	}
 	currentIndex = newIndex;
