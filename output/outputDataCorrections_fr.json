@@ -2489,7 +2489,9 @@
   "1309": {
     "flavorText": [
       "P ¤ 3\n",
-      "J'"
+      "J'",
+      "!$",
+      "!”"
     ]
   },
   "1313": {
@@ -3144,6 +3146,197 @@
     "abilities": [
       "^.+Alter",
       "Alter"
+    ]
+  },
+  "1665": {
+    "abilities": [
+      " 1",
+      " -1"
+    ]
+  },
+  "1670": {
+    "abilities": [
+      "1\n",
+      "1 ¤\n"
+    ]
+  },
+  "1678": {
+    "abilities": [
+      "1$",
+      "1 ⛉."
+    ],
+    "flavorText": [
+      "…",
+      ".",
+      "ll",
+      "Il",
+      "–",
+      "—"
+    ]
+  },
+  "1697": {
+    "abilities": [
+      "à",
+      "a"
+    ]
+  },
+  "1701": {
+    "abilities": [
+      "-",
+      "—"
+    ]
+  },
+  "1703": {
+    "effects": [
+      "5 p",
+      "5 ¤ p"
+    ]
+  },
+  "1708": {
+    "abilities": [
+      " - ",
+      " — "
+    ]
+  },
+  "1714": {
+    "abilities": [
+      "4",
+      "◊"
+    ]
+  },
+  "1718": {
+    "flavorText": [
+      "e\\.",
+      "e…"
+    ]
+  },
+  "1719": {
+    "_newlineAfterLabelIndex": 0
+  },
+  "1729": {
+    "abilities": [
+      " - ",
+      " — "
+    ]
+  },
+  "1744": {
+    "effects": [
+      "\n P",
+      "\n• P"
+    ]
+  },
+  "1747": {
+    "abilities": [
+      " - ",
+      " — "
+    ],
+    "flavorText": [
+      "Î",
+      "l"
+    ]
+  },
+  "1748": {
+    "abilities": [
+      " - ",
+      " — "
+    ]
+  },
+  "1767": {
+    "abilities": [
+      "RES",
+      "RÈS"
+    ]
+  },
+  "1770": {
+    "_newlineAfterLabelIndex": 0,
+    "abilities": [
+      " - ",
+      " — "
+    ]
+  },
+  "1772": {
+    "abilities": [
+      "\\bUne\\b",
+      "une"
+    ]
+  },
+  "1773": {
+    "abilities": [
+      "^.+Alter",
+      "Alter"
+    ]
+  },
+  "1776": {
+    "flavorText": [
+      "Ilu",
+      "Illu",
+      "\\.",
+      "…"
+    ]
+  },
+  "1781": {
+    "artistsText": [
+      "î",
+      "i"
+    ]
+  },
+  "1798": {
+    "abilities": [
+      "-",
+      "—"
+    ]
+  },
+  "1812": {
+    "flavorText": [
+      "\\bla\\b",
+      "La"
+    ]
+  },
+  "1833": {
+    "_newlineAfterLabelIndex": 0,
+    "abilities": [
+      "Un",
+      "un"
+    ]
+  },
+  "1835": {
+    "abilities": [
+      "^.+Alter",
+      "Alter"
+    ]
+  },
+  "1847": {
+    "abilities": [
+      "\nl",
+      "\nIll"
+    ],
+    "subtypes": [
+      "H",
+      "ll"
+    ]
+  },
+  "1864": {
+    "abilities": [
+      "IG",
+      "I G"
+    ]
+  },
+  "1891": {
+    "effects": [
+      "\n P",
+      "\n• P"
+    ]
+  },
+  "1893": {
+    "abilities": [
+      "\\[",
+      "Il"
+    ]
+  },
+  "1894": {
+    "abilities": [
+      "1\n",
+      "1 ¤\n"
     ]
   }
 }
