@@ -252,6 +252,9 @@ def correctPunctuation(textToCorrect: str) -> str:
 		correctedText = re.sub(r"([\xa0 ]?\.[\xa0 ]?){3}", "..." if GlobalConfig.language == Language.ENGLISH else "…", correctedText)
 	if "…" in correctedText:
 		correctedText = re.sub(r"\.*…( ?\.+)?", "…", correctedText)
+	# Replace non-breaking spaces with normal spaces, for consistency
+	if "\xa0" in correctedText:
+		correctedText = correctedText.replace("\xa0", " ")
 	if correctedText.startswith("‘"):
 		correctedText = "“" + correctedText[1:]
 	if correctedText.endswith(","):
