@@ -1829,6 +1829,18 @@
     "flavorText": [
       "\\.\\.“$",
       "…“"
+    ],
+    "fullName": [
+      "^Sir ",
+      ""
+    ],
+    "name": [
+      "^Sir ",
+      ""
+    ],
+    "simpleName": [
+      "^sir ",
+      ""
     ]
   },
   "1623": {
@@ -1919,10 +1931,132 @@
       "Gestalt"
     ]
   },
-  "1662": {
+  "1673": {
+    "abilities": [
+      "10",
+      "-1 ¤"
+    ]
+  },
+  "1678": {
+    "abilities": [
+      "¤",
+      "⛉"
+    ]
+  },
+  "1689": {
+    "abilities": [
+      "¤",
+      "◊"
+    ]
+  },
+  "1693": {
+    "_newlineAfterLabelIndex": 0
+  },
+  "1697": {
+    "abilities": [
+      "4",
+      "+1"
+    ]
+  },
+  "1701": {
+    "abilities": [
+      "—",
+      "–"
+    ]
+  },
+  "1714": {
+    "abilities": [
+      "¤",
+      "◊"
+    ]
+  },
+  "1719": {
+    "abilities": [
+      "\\+2©\\.",
+      " +2 ¤"
+    ]
+  },
+  "1729": {
+    "abilities": [
+      "—",
+      "–"
+    ]
+  },
+  "1747": {
+    "abilities": [
+      "—",
+      "–"
+    ]
+  },
+  "1748": {
+    "abilities": [
+      "—",
+      "–"
+    ]
+  },
+  "1770": {
+    "abilities": [
+      "—",
+      "–"
+    ]
+  },
+  "1773": {
+    "abilities": [
+      "^.+Gestalt",
+      "Gestalt"
+    ]
+  },
+  "1781": {
     "artistsText": [
-      " A$",
-      ""
+      "é",
+      "è"
+    ]
+  },
+  "1798": {
+    "abilities": [
+      "—",
+      "–"
+    ]
+  },
+  "1835": {
+    "abilities": [
+      "^.+Gestalt",
+      "Gestalt"
+    ]
+  },
+  "1864": {
+    "flavorText": [
+      "\nJ",
+      "\n—J"
+    ]
+  },
+  "1885": {
+    "abilities": [
+      "SA",
+      "S A"
+    ]
+  },
+  "1888": {
+    "abilities": [
+      "\\+ ",
+      "+1 "
+    ]
+  },
+  "1890": {
+    "abilities": [
+      "¤",
+      "◊"
+    ]
+  },
+  "1893": {
+    "subtypes": [
+      null,
+      [
+        "Traumgestalt",
+        "Schurke",
+        "König",
+        "Magier"
+      ]
     ]
   }
 }
