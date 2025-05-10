@@ -1534,5 +1534,117 @@
       "^.+Trasform",
       "Trasform"
     ]
+  },
+  "1665": {
+    "abilities": [
+      " 3",
+      ""
+    ]
+  },
+  "1667": {
+    "flavorText": [
+      "\\.”",
+      "!”"
+    ]
+  },
+  "1670": {
+    "abilities": [
+      "1\n",
+      "1 ¤\n"
+    ]
+  },
+  "1673": {
+    "abilities": [
+      "◊",
+      "¤"
+    ]
+  },
+  "1675": {
+    "flavorText": [
+      "^E",
+      "È"
+    ]
+  },
+  "1678": {
+    "abilities": [
+      "¤",
+      "⛉"
+    ]
+  },
+  "1684": {
+    "abilities": [
+      "^.+Trasform",
+      "Trasform"
+    ],
+    "subtypes": [
+      "^i",
+      "I"
+    ]
+  },
+  "1689": {
+    "abilities": [
+      "¤",
+      "◊"
+    ]
+  },
+  "1698": {
+    "flavorText": [
+      "\\.",
+      ""
+    ]
+  },
+  "1714": {
+    "abilities": [
+      "¤",
+      "◊"
+    ]
+  },
+  "1741": {
+    "effects": [
+      "2\n",
+      "2 ¤\n"
+    ]
+  },
+  "1773": {
+    "abilities": [
+      "^.+Trasform",
+      "Trasform"
+    ]
+  },
+  "1789": {
+    "flavorText": [
+      "^E",
+      "È"
+    ]
+  },
+  "1833": {
+    "flavorText": [
+      "\\.",
+      "!"
+    ]
+  },
+  "1835": {
+    "abilities": [
+      "^.+Trasform",
+      "Trasform"
+    ]
+  },
+  "1847": {
+    "abilities": [
+      "^S¤",
+      "S"
+    ]
+  },
+  "1893": {
+    "subtypes": [
+      "^lri",
+      "In"
+    ]
+  },
+  "1894": {
+    "abilities": [
+      "1\n",
+      "1 ¤\n"
+    ]
   }
 }
