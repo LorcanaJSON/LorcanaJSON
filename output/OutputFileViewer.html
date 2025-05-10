@@ -31,7 +31,7 @@
 </div>
 <a href="#" onclick="changeDisplayedIndex(1); return false;">Next</a>
 <hr>
-<div id="name"></div>
+<span id="name"></span> <span style="color: lightgrey">from</span> <span id="story"></span>
 <hr>
 <div>
 	<span>
@@ -47,6 +47,8 @@
 <pre id="text"></pre>
 <hr>
 <pre id="flavorText"></pre>
+<hr>
+Cost: <span id="cost-value"></span> | Inkwell: <span id="inkwell-value"></span> | Movecost: <span id="moveCost-value"></span> | Strength: <span id="strength-value"></span> | Willpower: <span id="willpower-value"></span> | Lore: <span id="lore-value"></span>
 <hr>
 <pre id="cardJson"></pre>
 <hr>
@@ -93,6 +95,10 @@ function setDisplayedIndex(newIndex, showErrorMessage=true) {
 	document.getElementById("currentIndex").value = currentIndex;
 	document.getElementById("cardId").value = currentCardData["id"];
 	document.getElementById("cardImageLink").href = currentCardData["images"]["full"];
+	document.getElementById("story").textContent = currentCardData["story"];
+	for (const fieldname of ["cost", "inkwell", "moveCost", "strength", "willpower", "lore"]) {
+		document.getElementById(fieldname + "-value").textContent = currentCardData[fieldname] === undefined ? "-" : currentCardData[fieldname];
+	}
 	// Update the external links
 	const cardmarketLink = document.getElementById("cardmarketLink");
 	const cardTraderLink = document.getElementById("cardTraderLink");
