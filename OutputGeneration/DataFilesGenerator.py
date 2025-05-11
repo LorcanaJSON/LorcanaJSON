@@ -133,6 +133,7 @@ def correctText(cardText: str) -> str:
 		# Correct Challenger/Offensif reminder text
 		cardText = re.sub(r"gagne \+(\d+) \.\)", fr"gagne +\1 {LorcanaSymbols.STRENGTH}.)", cardText)
 		# Cost discount text
+		cardText = re.sub(r"coûte (\d)0 de moins", f"coûte \\1 {LorcanaSymbols.INK} de moins", cardText)
 		cardText = re.sub(fr"(coûte(?:nt)? )(\d+) [^{LorcanaSymbols.INK} \nou]+", fr"\1\2 {LorcanaSymbols.INK}", cardText)
 		# Fix punctuation by turning multiple periods into an ellipsis character, and correct ellipsis preceded or followed by periods
 		cardText = re.sub(r"…?\.{2,}…?", "…", cardText)
