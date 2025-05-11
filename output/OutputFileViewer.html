@@ -95,7 +95,7 @@ function setDisplayedIndex(newIndex, showErrorMessage=true) {
 	document.getElementById("currentIndex").value = currentIndex;
 	document.getElementById("cardId").value = currentCardData["id"];
 	document.getElementById("cardImageLink").href = currentCardData["images"]["full"];
-	document.getElementById("story").textContent = currentCardData["story"];
+	document.getElementById("story").textContent = currentCardData["story"] ? currentCardData["story"] : "???";
 	for (const fieldname of ["cost", "inkwell", "moveCost", "strength", "willpower", "lore"]) {
 		document.getElementById(fieldname + "-value").textContent = currentCardData[fieldname] === undefined ? "-" : currentCardData[fieldname];
 	}
