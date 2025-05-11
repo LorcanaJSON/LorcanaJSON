@@ -6,7 +6,7 @@
       "fr": "Les 101 Dalmatiens",
       "it": "La carica dei 101"
     },
-    "matchingNames": ["Cruella De Vil", "Dalmatian Puppy", "Horace", "Jasper", "Patch", "Perdita", "Pongo", "Roger", "Rolly", "Sergeant Tibbs", "Thunderbolt"],
+    "matchingNames": ["Cruella De Vil", "Dalmatian Puppy", "Horace", "Jasper", "Patch", "Perdita", "Pongo", "Roger", "Rolly", "Sergeant Tibbs", "The Colonel", "Thunderbolt"],
     "matchingIds": [106, 536, 1476],
     "matchingFields": {
       "subtypes": "Puppy"
@@ -30,7 +30,7 @@
       "it": "Alice nel Paese delle Meraviglie"
     },
     "matchingNames": ["Alice", "Card Soldier", "Card Soldiers", "Caterpillar", "Cheshire Cat", "Dormouse", "King of Hearts", "Mad Hatter", "March Hare", "Queen of Hearts", "Tweedle Dee", "Tweedle Dum", "Tweedledee", "Tweedledum", "Unbirthday", "White Rabbit"],
-    "matchingIds": [246, 282, 378, 1243, 1245]
+    "matchingIds": [246, 282, 378, 1243, 1245, 1815]
   },
   "aristocats": {
     "displayNames": {
@@ -59,7 +59,7 @@
       "it": "Bambi"
     },
     "matchingNames": ["Bambi", "Faline", "Friend Owl", "Thumper"],
-    "matchingIds": [1740, 1741]
+    "matchingIds": [1740, 1741, 1814]
   },
   "beautybeast": {
     "displayNames": {
@@ -108,7 +108,8 @@
       "fr": "Frère des ours",
       "it": "Koda, fratello orso"
     },
-    "matchingNames": ["Denahi", "Kenai", "Koda", "Rutt", "Tanana", "Tuke"]
+    "matchingNames": ["Denahi", "Kenai", "Koda", "Rutt", "Tanana", "Tuke"],
+    "matchingIds": [1811]
   },
   "cinderella": {
     "displayNames": {
@@ -169,7 +170,7 @@
       "fr": "Basil, détective privé",
       "it": "Basil l'investigatopo"
     },
-    "matchingNames": ["Basil", "Dawson", "Felicia", "Fidget", "Hiram Flaversham", "Mrs. Judson", "Ratigan", "Toby"],
+    "matchingNames": ["Basil", "Dawson", "Felicia", "Fidget", "Hiram Flaversham", "The Mouse Queen", "Mrs. Judson", "Ratigan", "Toby"],
     "matchingIds": [247, 347, 350, 419, 1050]
   },
   "hercules": {
@@ -212,7 +213,7 @@
       "fr": "La Belle et le Clochard",
       "it": "Lilli e il vagabondo"
     },
-    "matchingNames": ["Jock", "Lady", "Tramp", "Trusty"],
+    "matchingNames": ["Jim Dear", "Jock", "Lady", "Tramp", "Trusty"],
     "matchingIds": [1440]
   },
   "liloandstitch": {
@@ -297,7 +298,7 @@
       "fr": "Mulan",
       "it": "Mulan"
     },
-    "matchingNames": ["Chi Fu", "Chi-Fu", "Chien-Po", "Cri-Kee", "Fa Zhou", "Grandma Fa", "Grandmother Fa", "Li Shang", "Ling", "Mulan", "Mushu", "Khan", "The Matchmaker", "Yao"],
+    "matchingNames": ["Chi Fu", "Chi-Fu", "Chien-Po", "Cri-Kee", "Fa Zhou", "General Li", "Grandma Fa", "Grandmother Fa", "Li Shang", "Ling", "Mulan", "Mushu", "Khan", "The Matchmaker", "Yao"],
     "matchingIds": [65, 417, 418, 532, 823, 827, 858, 861, 886, 892, 894, 913]
   },
   "oswald": {
@@ -356,7 +357,7 @@
       "it": "Le avventure di Bianca e Bernie"
     },
     "matchingNames": ["Bernard", "Brutus", "Madame Medusa", "Miss Bianca", "Mr. Snoops", "Nero", "Orville", "Rufus"],
-    "matchingIds": [1651]
+    "matchingIds": [1651, 1839]
   },
   "rescuerangers": {
     "displayNames": {
