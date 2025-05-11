@@ -1010,7 +1010,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 				abilityName = re.sub("A ?!(?=.{3,})", "AI", abilityName)
 				if "!" in abilityName or "?" in abilityName:
 					# French puts a space before an exclamation or question mark, add that in
-					abilityName, replacementCount = re.subn(r"(\S)([!?])", r"\1 \2", abilityName)
+					abilityName, replacementCount = re.subn(r"(?<![?! ])([!?])", r" \1", abilityName)
 					if replacementCount > 0:
 						_logger.debug(f"Added a space before the exclamation or question mark in ability name '{abilityName}'")
 				abilityName, replacementCount = re.subn(r"\bCA\b", "ÇA", abilityName)
