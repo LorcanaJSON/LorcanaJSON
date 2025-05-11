@@ -107,7 +107,7 @@ def correctText(cardText: str) -> str:
 		# Shift
 		cardText = re.sub(f"pay (\\d+) {LorcanaSymbols.INK} play this", f"pay \\1 {LorcanaSymbols.INK} to play this", cardText)
 		# Song
-		cardText = re.sub(f"(can|may)( [^{LorcanaSymbols.EXERT}]{{1,2}})? to sing this", f"\\1 {LorcanaSymbols.EXERT} to sing this", cardText)
+		cardText = re.sub(fr"(can|may)( [^{LorcanaSymbols.EXERT}]{{1,2}})?(?=\sto sing this)", f"\\1 {LorcanaSymbols.EXERT}", cardText)
 		# Support, full line (not sure why it sometimes doesn't get cut into two lines
 		if re.search(r"their \S{1,3}\sto another chosen character['’]s", cardText):
 			cardText = re.sub(f"their [^{LorcanaSymbols.STRENGTH}]{{1,3}} to", f"their {LorcanaSymbols.STRENGTH} to", cardText)
