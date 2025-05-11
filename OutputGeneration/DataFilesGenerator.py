@@ -143,7 +143,7 @@ def correctText(cardText: str) -> str:
 		# "Il" often gets misread as "I!" or "[|"
 		cardText = re.sub(r"(?<![A-Z])[I|/[][!|]", "Il", cardText)
 		# French always has a space before punctuation marks
-		cardText = re.sub(r"(\S)!", r"\1 !", cardText)
+		cardText = re.sub(r"([^? ])!", r"\1 !", cardText)
 		cardText = re.sub(r"!(\w)", r"! \1", cardText)
 		cardText = cardText.replace("//", "Il")
 		cardText = re.sub(fr"((?:\bce personnage|\bil) gagne )\+(\d) [^{LorcanaSymbols.LORE}{LorcanaSymbols.STRENGTH}{LorcanaSymbols.WILLPOWER}]?\.", fr"\1+\2 {LorcanaSymbols.STRENGTH}.", cardText)
