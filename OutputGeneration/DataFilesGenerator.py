@@ -191,7 +191,7 @@ def correctText(cardText: str) -> str:
 		# Correct pipe characters
 		cardText = cardText.replace("|", "I")
 		# Correct payment text
-		cardText = re.sub(r"pagare (\d) per", fr"pagare \1 {LorcanaSymbols.INK} per", cardText)
+		cardText = re.sub(r"(paga(?:re)? \d) (in|per)", fr"\1 {LorcanaSymbols.INK} \2", cardText)
 		cardText = re.sub(fr"(\b[Pp]ag(a(?:re)?|hi)\s\d )[^{LorcanaSymbols.INK} .]+", fr"\1{LorcanaSymbols.INK}", cardText)
 		cardText = re.sub(r"(\b[Pp]aga(?:re)?\s\d)[0Q]", f"\\1 {LorcanaSymbols.INK}", cardText)
 		# Correct Support reminder text
