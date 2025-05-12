@@ -87,7 +87,7 @@ def compareInputToOutput(cardIdsToVerify: Union[List[int], None]):
 		# Compare rules text
 		if inputCard.get("rules_text", None) or outputCard["fullText"]:
 			if inputCard.get("rules_text", None):
-				inputRulesText = inputCard["rules_text"].replace("–", "-").replace("\\", "")
+				inputRulesText = inputCard["rules_text"].replace("\\", "")
 				inputRulesText = re.sub(r"(?<=\w)’(?=\w)", "'", inputRulesText)
 				inputRulesText = inputRulesText.replace("\u00a0", " " if GlobalConfig.language == Language.FRENCH else "").replace("  ", " ")
 				inputRulesText = inputRulesText.replace(" \"", " “").replace("\" ", "” ")
@@ -99,9 +99,6 @@ def compareInputToOutput(cardIdsToVerify: Union[List[int], None]):
 					# Exclamation marks etc. should be preceded by a space
 					inputRulesText = re.sub(r"(?<=\w)([?!:])", r" \1", inputRulesText)
 					inputRulesText = re.sub("\\.{2,}", "…", inputRulesText)
-				elif GlobalConfig.language == Language.GERMAN:
-					# Ability dashes are inconsistent, force them to long-dash, since that's what's on the card
-					inputRulesText = re.sub(r" [-–] ", " — ", inputRulesText)
 				elif GlobalConfig.language == Language.ITALIAN:
 					inputRulesText = inputRulesText.replace("...", "…")
 			else:
