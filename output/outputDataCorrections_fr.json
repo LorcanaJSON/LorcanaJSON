@@ -3180,6 +3180,12 @@
       "◊"
     ]
   },
+  "1715": {
+    "abilities": [
+      "IÉ",
+      "IÈ"
+    ]
+  },
   "1718": {
     "flavorText": [
       "e\\.",
@@ -3188,6 +3194,12 @@
   },
   "1719": {
     "_newlineAfterLabelIndex": 0
+  },
+  "1727": {
+    "abilities": [
+      "UT",
+      "U T"
+    ]
   },
   "1729": {
     "abilities": [
@@ -3215,6 +3227,20 @@
     "abilities": [
       " - ",
       " — "
+    ]
+  },
+  "1758": {
+    "flavorText": [
+      "lic",
+      "Tic"
+    ]
+  },
+  "1761": {
+    "abilities": [
+      "EM",
+      "E M",
+      "NO",
+      "N O"
     ]
   },
   "1767": {
@@ -3262,10 +3288,28 @@
       "—"
     ]
   },
+  "1802": {
+    "abilities": [
+      "-",
+      "—"
+    ]
+  },
   "1812": {
     "flavorText": [
       "\\bla\\b",
       "La"
+    ]
+  },
+  "1817": {
+    "flavorText": [
+      "for",
+      "far"
+    ]
+  },
+  "1824": {
+    "abilities": [
+      "-",
+      "—"
     ]
   },
   "1833": {
@@ -3290,6 +3334,9 @@
       "H",
       "ll"
     ]
+  },
+  "1861": {
+    "_newlineAfterLabelIndex": 0
   },
   "1864": {
     "abilities": [
