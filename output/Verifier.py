@@ -67,6 +67,7 @@ def compareInputToOutput(cardIdsToVerify: Union[List[int], None]):
 		inputCard = idToInputCard[cardId]
 
 		# Implement overrides
+		symbolCountChange = None
 		if cardId in inputOverrides:
 			symbolCountChange = inputOverrides[cardId].pop("_symbolCountChange", None)
 			for fieldName, correctionsTuple in inputOverrides[cardId].items():
@@ -82,8 +83,6 @@ def compareInputToOutput(cardIdsToVerify: Union[List[int], None]):
 						inputCard[fieldName], correctionCount = re.subn(regexMatch, correctionText, inputCard[fieldName])
 						if correctionCount == 0:
 							print(f"ERROR: Invalid correction override {regexMatch!r} for field '{fieldName}' for card ID {cardId}")
-		else:
-			symbolCountChange = None
 
 		# Compare rules text
 		if inputCard.get("rules_text", None) or outputCard["fullText"]:
