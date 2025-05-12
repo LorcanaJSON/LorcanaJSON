@@ -2,7 +2,7 @@ import json, os, re
 from typing import Dict, List, Union
 
 import GlobalConfig
-from util import Language, LorcanaSymbols, Translations
+from util import JsonUtil, Language, LorcanaSymbols, Translations
 
 
 _subtypeSeparatorString = f" {LorcanaSymbols.SEPARATOR} "
@@ -45,11 +45,8 @@ def compareInputToOutput(cardIdsToVerify: Union[List[int], None]):
 	# It's organised by language, then by card ID, then by inputCard field, where the value is a pair of strings (regex match and correction), or a new number if it's a numeric field
 	overridesFilePath = os.path.join("output", f"verifierOverrides_{GlobalConfig.language.code}.json")
 	if os.path.isfile(overridesFilePath):
-		with open(overridesFilePath, "r", encoding="utf-8") as overridesFile:
-			inputOverrides = json.load(overridesFile)
-			# Convert the keys to ints
-			inputOverrides = {int(k, 10): v for k, v in inputOverrides.items()}
-			print(f"Overrides file found, loaded {len(inputOverrides):,} input overrides")
+		inputOverrides = JsonUtil.loadJsonWithNumberKeys(overridesFilePath)
+		print(f"Overrides file found, loaded {len(inputOverrides):,} input overrides")
 	else:
 		print("No overrides file found")
 		inputOverrides = {}
