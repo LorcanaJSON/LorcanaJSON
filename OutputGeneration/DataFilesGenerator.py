@@ -1280,7 +1280,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 						ability["type"] = "activated"
 					elif (re.match(r"Quando\sgiochi", ability["effect"]) or re.search(r"(^Q|\sq)uando\s(questo|sposti)", ability["effect"]) or re.search(r"(^O|\so)gni\svolta\sche", ability["effect"]) or
 						  re.match(r"All'inizio\sdel\stuo\sturno", ability["effect"]) or re.match(r"Alla\sfine\sdel(\stuo)?\sturno", ability["effect"]) or
-						  re.search(r"quando\saggiungi\suna\scarta\sal\stuo\scalamaio", ability["effect"])):
+						  re.search(r"quando\saggiungi\suna\scarta\sal\stuo\scalamaio", ability["effect"]) or re.match(r"Quando\sun\savversario", ability["effect"])):
 						ability["type"] = "triggered"
 
 				if abilityIndex in forceAbilityTypeAtIndex:
