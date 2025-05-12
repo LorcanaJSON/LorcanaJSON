@@ -197,6 +197,8 @@ def correctText(cardText: str) -> str:
 		# Correct Support reminder text
 		cardText = re.sub(r"(?<=aggiungere\sla\ssua\s)(?:\S+)(\salla\s)(?:\S+)(?=\sdi\sun)", f"{LorcanaSymbols.STRENGTH}\\1{LorcanaSymbols.STRENGTH}", cardText)
 		cardText = re.sub(fr"(?<=puoi aggiungere la sua )(?:. )?alla(?=\n[^{LorcanaSymbols.STRENGTH}])", f"{LorcanaSymbols.STRENGTH} alla {LorcanaSymbols.STRENGTH}", cardText)
+		# Correct 'Evasive', it sometimes imagines a character between the 'S' and the 'f'
+		cardText = re.sub(r"^S.fuggente\b", "Sfuggente", cardText)
 		# In Song reminder text, it reads 'con costo 1 o' as 'con costo 10'
 		cardText = re.sub(r"(?<=con costo \d)0(?= [^o])", " o", cardText)
 		# Fix Song reminder Exert symbol
