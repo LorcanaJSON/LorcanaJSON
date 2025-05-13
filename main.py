@@ -62,7 +62,7 @@ if __name__ == '__main__':
 	elif loglevelName == "error":
 		loglevel = logging.ERROR
 	else:
-		_infoOrPrint(logger, f"ERROR: Invalid loglevel '{loglevelName}' provided")
+		logger.error(f"Invalid loglevel '{loglevelName}' provided")
 		sys.exit(-1)
 	logger.setLevel(loglevel)
 
