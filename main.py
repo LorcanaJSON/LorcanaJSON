@@ -62,7 +62,7 @@ if __name__ == '__main__':
 	elif loglevelName == "error":
 		loglevel = logging.ERROR
 	else:
-		print(f"ERROR: Invalid loglevel '{loglevelName}' provided")
+		_infoOrPrint(logger, f"ERROR: Invalid loglevel '{loglevelName}' provided")
 		sys.exit(-1)
 	logger.setLevel(loglevel)
 
@@ -179,7 +179,7 @@ if __name__ == '__main__':
 		startTime = time.perf_counter()
 		if parsedArguments.action == "check":
 			addedCards, cardChanges, possibleImageChanges, unlistedCards = UpdateHandler.checkForNewCardData(fieldsToIgnore=parsedArguments.ignoreFields)
-			print(f"{len(addedCards):,} added cards: {addedCards}")
+			_infoOrPrint(logger, f"{len(addedCards):,} added cards: {addedCards}")
 			# Count which fields changed
 			fieldsChanged = {}
 			for cardChange in cardChanges:
@@ -188,13 +188,13 @@ if __name__ == '__main__':
 					fieldsChanged[fieldChanged] = 1
 				else:
 					fieldsChanged[fieldChanged] += 1
-			print(f"{len(cardChanges):,} changes {fieldsChanged}:")
+			_infoOrPrint(logger, f"{len(cardChanges):,} changes {fieldsChanged}:")
 			for cardChange in cardChanges:
-				print(cardChange)
-			print(f"{len(possibleImageChanges):,} possible image changes:")
+				_infoOrPrint(logger, cardChange)
+			_infoOrPrint(logger, f"{len(possibleImageChanges):,} possible image changes:")
 			for possibleImageChange in possibleImageChanges:
-				print(possibleImageChange)
-			print(f"{len(unlistedCards)} unlisted cards found: {unlistedCards}")
+				_infoOrPrint(logger, possibleImageChange)
+			_infoOrPrint(logger, f"{len(unlistedCards)} unlisted cards found: {unlistedCards}")
 		elif parsedArguments.action == "update":
 			UpdateHandler.createOutputIfNeeded(False, cardFieldsToIgnore=parsedArguments.ignoreFields, shouldShowImages=parsedArguments.shouldShowSubimages)
 		elif parsedArguments.action == "download":
@@ -202,21 +202,21 @@ if __name__ == '__main__':
 			cardCatalog = RavensburgerApiHandler.retrieveCardCatalog()
 			addedCards, changedCards, possibleImageChanges, unlistedCards = UpdateHandler.checkForNewCardData(cardCatalog, fieldsToIgnore=parsedArguments.ignoreFields)
 			if addedCards or changedCards or possibleImageChanges:
-				print(f"Card catalog for language '{GlobalConfig.language.englishName}' was updated, saving ({len(addedCards):,} added cards, {len(changedCards):,} changed cards, {len(possibleImageChanges):,} possible image changes)")
+				_infoOrPrint(logger, f"Card catalog for language '{GlobalConfig.language.englishName}' was updated, saving ({len(addedCards):,} added cards, {len(changedCards):,} changed cards, {len(possibleImageChanges):,} possible image changes)")
 				RavensburgerApiHandler.saveCardCatalog(cardCatalog)
 			else:
-				print(f"No new version of the card catalog for language '{GlobalConfig.language.englishName}' found")
+				_infoOrPrint(logger, f"No new version of the card catalog for language '{GlobalConfig.language.englishName}' found")
 			RavensburgerApiHandler.downloadImages()
 		elif parsedArguments.action == "updateExternalLinks":
 			if not config.get("cardTraderToken", None):
-				print("ERROR: Missing Card Trader API token in config file")
+				logger.error("Missing Card Trader API token in config file")
 			else:
 				ExternalLinksHandler.updateCardshopData(config["cardTraderToken"])
 		elif parsedArguments.action == "parse":
 			DataFilesGenerator.createOutputFiles(cardIds, shouldShowImages=parsedArguments.shouldShowSubimages)
 		elif parsedArguments.action == "show":
 			if not cardIds:
-				print("ERROR: Please provide one or more card IDs to show with the '--cardIds' argument")
+				logger.error("Please provide one or more card IDs to show with the '--cardIds' argument")
 				sys.exit(-3)
 			baseImagePath = os.path.join("downloads", "images", GlobalConfig.language.code)
 			baseExternalImagePath = os.path.join(baseImagePath, "external")
@@ -229,23 +229,23 @@ if __name__ == '__main__':
 				if not os.path.isfile(cardPath):
 					cardPath = os.path.join(baseImagePathForCard, f"{cardId}.jpg")
 				if not os.path.isfile(cardPath):
-					print(f"ERROR: Unable to find local image for card ID {cardId}. Please run the 'download' command first, and make sure you didn't make a typo in the ID")
+					logger.error(f"Unable to find local image for card ID {cardId}. Please run the 'download' command first, and make sure you didn't make a typo in the ID")
 					continue
 				ocrResult = ImageParser.ImageParser().getImageAndTextDataFromImage(cardId, baseImagePathForCard, True, showImage=True)
-				print(f"Card ID {cardId}")
+				_infoOrPrint(logger, f"Card ID {cardId}")
 				for fieldName, fieldResult in dataclasses.asdict(ocrResult).items():
 					if fieldResult is None:
-						print(f"{fieldName} is empty")
+						_infoOrPrint(logger, f"{fieldName} is empty")
 					elif isinstance(fieldResult, list):
 						for fieldResultIndex, fieldResultItem in enumerate(fieldResult):
-							print(f"{fieldName} index {fieldResultIndex}: {fieldResultItem!r}")
+							_infoOrPrint(logger, f"{fieldName} index {fieldResultIndex}: {fieldResultItem!r}")
 					else:
-						print(f"{fieldName}: {fieldResult!r}")
+						_infoOrPrint(logger, f"{fieldName}: {fieldResult!r}")
 				print("")
 		elif parsedArguments.action == "verify":
 			Verifier.compareInputToOutput(cardIds)
 		else:
-			print(f"Unknown action '{parsedArguments.action}', please (re)read the help or the readme")
+			logger.error(f"Unknown action '{parsedArguments.action}', please (re)read the help or the readme")
 			sys.exit(-10)
 
 		_infoOrPrint(logger, f"Action '{parsedArguments.action}' for language '{GlobalConfig.language.englishName}' finished after {time.perf_counter() - startTime:.2f} seconds at {datetime.datetime.now()}")
@@ -253,6 +253,6 @@ if __name__ == '__main__':
 	if len(parsedArguments.language) > 1:
 		_infoOrPrint(logger, f"Finished actions for all specified languages after {time.perf_counter() - totalStartTime:.2f} seconds at {datetime.datetime.now()}")
 	if RegexCounter.hasCounts():
-		print(f"Regex counters: {json.dumps(RegexCounter.REGEX_COUNTS)}")
+		_infoOrPrint(logger, f"Regex counters: {json.dumps(RegexCounter.REGEX_COUNTS)}")
 	if StringReplaceCounter.COUNTS:
-		print(f"StringReplacement counters: {json.dumps(StringReplaceCounter.COUNTS)}")
+		_infoOrPrint(logger, f"StringReplacement counters: {json.dumps(StringReplaceCounter.COUNTS)}")
