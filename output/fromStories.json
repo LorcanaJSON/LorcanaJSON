@@ -19,7 +19,7 @@
       "fr": "Aladdin",
       "it": "Aladdin"
     },
-    "matchingNames": ["Abu", "Agrabah", "Aladdin", "Genie", "Iago", "Jafar", "Jasmine", "Magic Carpet", "Rajah", "Razoul", "Treasure Guardian"],
+    "matchingNames": ["Abu", "Agrabah", "Aladdin", "Genie", "Iago", "Jafar", "Jasmine", "Magic Carpet", "Prince Achmed", "Rajah", "Razoul", "The Sultan", "Treasure Guardian"],
     "matchingIds": [164, 195, 564, 596, 984, 1015, 1166, 1199, 1292, 1328, 1490]
   },
   "aliceinwonderland": {
@@ -29,7 +29,7 @@
       "fr": "Alice au pays des merveilles",
       "it": "Alice nel Paese delle Meraviglie"
     },
-    "matchingNames": ["Alice", "Card Soldier", "Card Soldiers", "Caterpillar", "Cheshire Cat", "Dormouse", "King of Hearts", "Mad Hatter", "March Hare", "Queen of Hearts", "Tweedle Dee", "Tweedle Dum", "Tweedledee", "Tweedledum", "Unbirthday", "White Rabbit"],
+    "matchingNames": ["Alice", "Card Soldier", "Card Soldiers", "Caterpillar", "Cheshire Cat", "Dormouse", "King of Hearts", "Mad Hatter", "March Hare", "Queen of Hearts", "The Dodo", "Tweedle Dee", "Tweedle Dum", "Tweedledee", "Tweedledum", "Unbirthday", "White Rabbit"],
     "matchingIds": [246, 282, 378, 1243, 1245, 1815]
   },
   "aristocats": {
@@ -39,7 +39,8 @@
       "fr": "Les Aristochats",
       "it": "Gli Aristogatti"
     },
-    "matchingNames": ["Adelaide Bonfamille", "Berlioz", "Duchess", "Edgar Balthazar", "Marie", "Thomas O'Malley", "Toulouse"]
+    "matchingNames": ["Adelaide Bonfamille", "Berlioz", "Duchess", "Edgar Balthazar", "Lafayette", "Marie", "Roquefort", "Thomas O'Malley", "Toulouse"],
+    "matchingIds": [1784]
   },
   "atlantis": {
     "displayNames": {
@@ -48,7 +49,7 @@
       "fr": "Atlantide, l'empire perdu",
       "it": "Atlantis - L'impero perduto"
     },
-    "matchingNames": ["Atlantis", "Audrey Ramirez", "Gaetan Moliere", "Helga Sinclair", "Jebidiah Farnsworth", "Joshua Sweet", "Kashekim", "Kida", "Lyle Tiberius Rourke", "Milo Thatch", "Vincenzo Santorini"],
+    "matchingNames": ["Atlantean", "Atlantis", "Audrey Ramirez", "Gaetan Moliere", "Helga Sinclair", "Jebidiah Farnsworth", "Joshua Sweet", "Kashekim", "Kida", "Lyle Tiberius Rourke", "Milo Thatch", "Vincenzo Santorini", "Wilhelmina Packard"],
     "matchingIds": [598, 1781]
   },
   "bambi": {
@@ -88,8 +89,8 @@
       "fr": "Volt, star malgré lui",
       "it": "Bolt - Un eroe a quattro zampe"
     },
-    "matchingNames": ["Bolt", "Dr. Calico", "Mittens", "Rhino"],
-    "matchingIds": [1471]
+    "matchingNames": ["Bobby", "Bolt", "Dr. Calico", "Joey", "Mittens", "Rhino", "Vinnie"],
+    "matchingIds": [1471, 1704, 1868]
   },
   "bravelittletailor": {
     "displayNames": {
@@ -139,7 +140,7 @@
       "it": "Encanto"
     },
     "matchingNames": ["Bruno", "Camilo", "Luisa", "Mariano Guzmán", "Mirabel", "Pico"],
-    "matchingIds": [719, 722, 753, 887, 898, 1514],
+    "matchingIds": [719, 722, 753, 887, 898, 1514, 1743],
     "matchingFields": {
       "subtypes": "Madrigal"
     }
@@ -161,7 +162,7 @@
       "it": "Frozen - Il regno di ghiaccio"
     },
     "matchingNames": ["Anna", "Arendelle", "Bruni", "Duke of Weselton", "Elsa", "Grand Pabbie", "Hans", "Honeymaren", "Iduna", "Kristoff", "Marshmellow", "Olaf", "Ryder", "Sven", "The Nokk", "Yelana"],
-    "matchingIds": [63, 163, 200, 415, 720, 857, 997, 998, 1085, 1188, 1610, 1611, 1653, 1748]
+    "matchingIds": [63, 163, 200, 415, 720, 857, 997, 998, 1085, 1188, 1610, 1611, 1653, 1745, 1748]
   },
   "greatmousedetective": {
     "displayNames": {
@@ -181,7 +182,7 @@
       "it": "Hercules"
     },
     "matchingNames": ["Cerberus", "Hades", "Hercules", "Hermes", "Hydra", "Megara", "Nessus", "Olympus", "Pain", "Panic", "Pegasus", "Philoctetes", "The Fates", "The Muses", "Zeus"],
-    "matchingIds": [167, 248, 345, 531, 725, 888, 895, 1400],
+    "matchingIds": [167, 248, 345, 531, 725, 888, 895, 1400, 1746, 1779],
     "matchingFields": {
       "subtypes": "Titan"
     }
@@ -193,7 +194,7 @@
       "fr": "Le Livre de la jungle",
       "it": "Il libro della giungla"
     },
-    "matchingNames": ["Akela", "Bagheera", "Shere Khan"],
+    "matchingNames": ["Akela", "Bagheera", "Kaa", "Shere Khan"],
     "matchingIds": [228, 314, 319, 464, 1575]
   },
   "kuzco": {
@@ -204,7 +205,7 @@
       "it": "Le follie dell'imperatore"
     },
     "matchingNames": ["Bucky", "Chaca", "Chicha", "Kronk", "Kuzco", "Pacha", "Tipo", "Yzma"],
-    "matchingIds": [199, 1058, 1120, 1130, 1131, 1744, 1891]
+    "matchingIds": [199, 1058, 1120, 1130, 1131, 1716, 1744, 1780, 1891]
   },
   "ladyandthetramp": {
     "displayNames": {
@@ -213,7 +214,7 @@
       "fr": "La Belle et le Clochard",
       "it": "Lilli e il vagabondo"
     },
-    "matchingNames": ["Jim Dear", "Jock", "Lady", "Tramp", "Trusty"],
+    "matchingNames": ["Darling Dear", "Jim Dear", "Jock", "Lady", "Tramp", "Trusty"],
     "matchingIds": [1440]
   },
   "liloandstitch": {
@@ -224,7 +225,7 @@
       "it": "Lilo & Stitch"
     },
     "matchingNames": ["Cobra Bubbles", "Gantu", "Jumba Jookiba", "Lilo", "Nani", "Pleakley", "Stitch"],
-    "matchingIds": [1216, 1295, 1298, 1401, 1403, 1412, 1867]
+    "matchingIds": [1216, 1295, 1298, 1401, 1403, 1412, 1866, 1867]
   },
   "lionking": {
     "displayNames": {
@@ -234,7 +235,7 @@
       "it": "Il re lione"
     },
     "matchingNames": ["Banzai", "Hakuna Matata", "Hyena", "Mufasa", "Nala", "Pride Lands", "Pride Rock", "Pumbaa", "Rafiki", "Scar", "Simba", "Shenzi", "Timon", "Zazu"],
-    "matchingIds": [96, 128, 346, 820, 1053, 1084, 1398],
+    "matchingIds": [96, 128, 346, 820, 1053, 1084, 1398, 1706],
     "matchingFields": {
       "subtypes": "Hyena"
     }
@@ -298,8 +299,8 @@
       "fr": "Mulan",
       "it": "Mulan"
     },
-    "matchingNames": ["Chi Fu", "Chi-Fu", "Chien-Po", "Cri-Kee", "Fa Zhou", "General Li", "Grandma Fa", "Grandmother Fa", "Li Shang", "Ling", "Mulan", "Mushu", "Khan", "The Matchmaker", "Yao"],
-    "matchingIds": [65, 417, 418, 532, 823, 827, 858, 861, 886, 892, 894, 913]
+    "matchingNames": ["Chi Fu", "Chi-Fu", "Chien-Po", "Cri-Kee", "Fa Zhou", "General Li", "Grandma Fa", "Grandmother Fa", "Khan", "Li Shang", "Ling", "Mulan", "Mushu", "Shan Yu", "Shan-Yu", "The Matchmaker", "Yao"],
+    "matchingIds": [65, 417, 418, 532, 823, 827, 858, 861, 886, 892, 894, 913, 1813]
   },
   "oswald": {
     "displayNames": {
@@ -318,7 +319,7 @@
       "it": "Le avventure di Peter Pan"
     },
     "matchingNames": ["Captain Hook", "Cubby", "John Darling", "Jolly Roger", "Lost Boy", "Michael Darling", "Mr. Smee", "Nana", "Never Land", "Peter Pan", "Pixie", "Skull Rock", "Starkey", "Tinker Bell", "Wendy Darling"],
-    "matchingIds": [349, 566, 752, 819, 824, 901, 1083, 1152, 1396, 1397]
+    "matchingIds": [349, 566, 752, 819, 824, 901, 1083, 1152, 1396, 1397, 1782]
   },
   "pinocchio": {
     "displayNames": {
@@ -327,7 +328,7 @@
       "fr": "Pinocchio",
       "it": "Pinocchio"
     },
-    "matchingNames": ["Blue Fairy", "Honest John", "Jiminy Cricket", "Monstro", "Pinocchio"]
+    "matchingNames": ["Blue Fairy", "Figaro", "Geppetto", "Honest John", "Jiminy Cricket", "Monstro", "Pinocchio", "The Coachman"]
   },
   "princessandthefrog": {
     "displayNames": {
@@ -336,8 +337,8 @@
       "fr": "La Princesse et la Grenouille",
       "it": "La principessa e il ranocchio"
     },
-    "matchingNames": ["Dr. Facilier", "Eli La Bouff", "Eudora", "Friends on the Other Side", "James", "Lawrence", "Mama Odie", "Prince Naveen", "Ray", "Tiana"],
-    "matchingIds": [640, 853, 1707]
+    "matchingNames": ["Charlotte La Bouff", "Dr. Facilier", "Eli La Bouff", "Eudora", "Friends on the Other Side", "James", "Lawrence", "Louis", "Mama Odie", "Prince Naveen", "Ray", "Tiana"],
+    "matchingIds": [640, 853, 1707, 1841]
   },
   "raya": {
     "displayNames": {
@@ -346,7 +347,7 @@
       "fr": "Raya et le Dernier Dragon",
       "it": "Raya e l'ultimo drago"
     },
-    "matchingNames": ["Benja", "Boun", "Dang Hu", "Namaari", "Noi", "Raya", "Sisu", "Tong", "Tuk Tuk", "Virana"],
+    "matchingNames": ["Atitaya", "Benja", "Boun", "Dang Hu", "Namaari", "Noi", "Raya", "Sisu", "Tong", "Tuk Tuk", "Virana"],
     "matchingIds": [249, 382, 414, 465, 537]
   },
   "rescuers": {
@@ -375,7 +376,7 @@
       "fr": "Robin des Bois",
       "it": "Robin Hood"
     },
-    "matchingNames": ["Alan-a-Dale", "Friar Tuck", "Lady Kluck", "Little John", "Maid Marian", "Nutsy", "Prince John", "Robin Hood", "Sheriff of Nottingham", "Sherwood", "Sir Hiss", "Skippy", "Trigger"],
+    "matchingNames": ["Alan-a-Dale", "Friar Tuck", "Lady Kluck", "Little John", "Maid Marian", "Nutsy", "Prince John", "Robin Hood", "Sheriff of Nottingham", "Sherwood", "Sir Hiss", "Skippy", "Toby Turtle", "Trigger"],
     "matchingIds": [1117, 1175]
   },
   "sleepingbeauty": {
@@ -415,7 +416,7 @@
       "fr": "Merlin l'Enchanteur",
       "it": "La spada nella roccia"
     },
-    "matchingNames": ["Archimedes", "Arthur", "Madam Mim", "Merlin", "Sir Ector", "Sir Kay"],
+    "matchingNames": ["Archimedes", "Arthur", "Madam Mim", "Merlin", "Sir Ector", "Sir Kay", "Sir Pellinore"],
     "matchingIds": [62, 278, 280, 352, 1018, 1089, 1116, 1157]
   },
   "talespin": {
@@ -425,8 +426,8 @@
       "fr": "Super Baloo",
       "it": "TaleSpin"
     },
-    "matchingNames": ["Don Karnage", "Kit Cloudkicker", "Sea Duck", "Thaddeus E. Klang", "Wildcat"],
-    "matchingIds": [433, 463, 582]
+    "matchingNames": ["Don Karnage", "Dumptruck", "Kit Cloudkicker", "Mad Dog", "Sea Duck", "Thaddeus E. Klang", "Wildcat"],
+    "matchingIds": [433, 463, 582, 1778]
   },
   "tangled": {
     "displayNames": {
@@ -435,7 +436,7 @@
       "fr": "Raiponce",
       "it": "Rapunzel - L'intreccio della torre"
     },
-    "matchingNames": ["Flynn Rider", "Gunther", "Maximus", "Mother Gothel", "Mother Knows Best", "Pascal", "Rapunzel", "Snuggly Duckling", "Stabbington Brother", "Tor", "Ulf"],
+    "matchingNames": ["Arianna", "Flynn Rider", "Gunther", "Maximus", "Mother Gothel", "Mother Knows Best", "Pascal", "Rapunzel", "Snuggly Duckling", "Stabbington Brother", "Tor", "Ulf"],
     "matchingIds": [33, 202, 462, 565, 983, 1153, 1163]
   },
   "threemusketeers": {
@@ -458,7 +459,7 @@
       "fr": "La Planète au Trésor",
       "it": "Il pianeta del tesoro"
     },
-    "matchingNames": ["B.E.N.", "Billy Bones", "Captain Amelia", "Dr. Delbert Doppler", "Grewnge", "Jim Hawkins", "John Silver", "Morph", "Mr. Arrow", "Scroop"],
+    "matchingNames": ["B.E.N.", "Billy Bones", "Captain Amelia", "Dr. Delbert Doppler", "Grewnge", "Jim Hawkins", "John Silver", "Morph", "Mr. Arrow", "Nathaniel Flint", "Scroop"],
     "matchingIds": [572, 632, 652, 1331, 1395, 1402, 1421]
   },
   "winniethepooh": {
@@ -478,7 +479,7 @@
       "fr": "Les Mondes de Ralph",
       "it": "Ralph Spaccatutto"
     },
-    "matchingNames": ["Adorabeezle", "Bad-Anon", "Calhoun", "Candlehead", "Felix", "Fix-It Felix, Jr.", "King Candy", "Mr. Litwak", "Ralph", "Rancis", "Snowanna", "Sour Bill", "Sugar Rush Speedway", "Taffyta", "Wreck-It Ralph", "Vanellope"],
+    "matchingNames": ["Adorabeezle", "Bad-Anon", "Calhoun", "Candlehead", "Felix", "Fix-It Felix, Jr.", "Gene", "Gloyd Orangeboar", "King Candy", "Mr. Litwak", "Ralph", "Rancis", "Snowanna", "Sour Bill", "Sugar Rush Speedway", "Taffyta", "Wreck-It Ralph", "Vanellope"],
     "matchingIds": [416, 1091, 1121, 1312, 1377, 1581]
   },
   "zootopia": {
@@ -488,7 +489,7 @@
       "fr": "Zootopie",
       "it": "Zootropolis"
     },
-    "matchingNames": ["Bellwether", "Chief Bogo", "Duke Weaselton", "Judy Hopps", "Nick Wilde"],
+    "matchingNames": ["Bellwether", "Chief Bogo", "Clawhauser", "Duke Weaselton", "Judy Hopps", "Nick Wilde"],
     "matchingIds": [385, 967, 981, 1227, 1287, 1367, 1373]
   }
 }
