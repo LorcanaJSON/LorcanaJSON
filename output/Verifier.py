@@ -151,6 +151,8 @@ def compareInputToOutput(cardIdsToVerify: Union[List[int], None]):
 					cardDifferencesCount += 1
 					print(f"{outputCard['fullName']} (ID {cardId}, {outputCard['fullIdentifier']}): Mismatched count of open and close quotemarks in flavor text {outputFlavorText!r}")
 				outputFlavorText = outputFlavorText.replace("“", "").replace("”", "").replace("„", "").replace("‘", "'").replace("’", "'")
+				# Don't put a space between ellipses and the next word if there's a newline after the ellipsis
+				outputFlavorText = re.sub(r"(?<=\.\.\.)\n(?=\w)", "", outputFlavorText)
 				# Newlines are spaces in the input text, except after connecting dashes just before a newline
 				outputFlavorText = outputFlavorText.replace("-\n", "-").replace("—\n", "—").replace("\n", " ")
 			else:
