@@ -86,6 +86,7 @@ def correctText(cardText: str) -> str:
 		cardText = re.sub(r"(?<=\w)!(?=,? ?[a-z])", "l", cardText)  # Replace exclamation mark followed by a lowercase letter by an 'l'
 		cardText = re.sub(r"^(“)?! ", r"\1I ", cardText)
 		cardText = re.sub(r"(^| |\n|“)[lIL!]([dlmM]l?)\b", r"\1I'\2", cardText, flags=re.MULTILINE)
+		cardText = re.sub("^l", "I", cardText)
 		cardText = re.sub(r" ‘em\b", " 'em", cardText)
 		# Correct some fancy qoute marks at the end of some plural possessives. This is needed on a case-by-case basis, otherwise too much text is changed
 		cardText = re.sub(r"\bteammates’( |$)", r"teammates'\1", cardText, flags=re.MULTILINE)
@@ -1011,6 +1012,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 			abilityName = re.sub(r"(?<=\w) ?[.7|»”©\"]$", "", abilityName)
 			if GlobalConfig.language == Language.ENGLISH:
 				abilityName = abilityName.replace("|", "I")
+				abilityName = re.sub("^l", "I", abilityName)
 			elif GlobalConfig.language == Language.FRENCH:
 				abilityName = re.sub("A ?!(?=.{3,})", "AI", abilityName)
 				if "!" in abilityName or "?" in abilityName:
