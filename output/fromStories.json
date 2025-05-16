@@ -140,7 +140,7 @@
       "it": "Encanto"
     },
     "matchingNames": ["Bruno", "Camilo", "Luisa", "Mariano Guzmán", "Mirabel", "Pico"],
-    "matchingIds": [719, 722, 753, 887, 898, 1514, 1743],
+    "matchingIds": [719, 722, 753, 887, 898, 1514, 1743, 1876],
     "matchingFields": {
       "subtypes": "Madrigal"
     }
@@ -205,7 +205,7 @@
       "it": "Le follie dell'imperatore"
     },
     "matchingNames": ["Bucky", "Chaca", "Chicha", "Kronk", "Kuzco", "Pacha", "Tipo", "Yzma"],
-    "matchingIds": [199, 1058, 1120, 1130, 1131, 1716, 1744, 1780, 1891]
+    "matchingIds": [199, 1058, 1120, 1130, 1131, 1716, 1744, 1780, 1880, 1891]
   },
   "ladyandthetramp": {
     "displayNames": {
@@ -235,7 +235,7 @@
       "it": "Il re lione"
     },
     "matchingNames": ["Banzai", "Hakuna Matata", "Hyena", "Mufasa", "Nala", "Pride Lands", "Pride Rock", "Pumbaa", "Rafiki", "Scar", "Simba", "Shenzi", "Timon", "Zazu"],
-    "matchingIds": [96, 128, 346, 820, 1053, 1084, 1398, 1706],
+    "matchingIds": [96, 128, 346, 820, 1053, 1084, 1398, 1706, 1872],
     "matchingFields": {
       "subtypes": "Hyena"
     }
@@ -348,7 +348,7 @@
       "it": "Raya e l'ultimo drago"
     },
     "matchingNames": ["Atitaya", "Benja", "Boun", "Dang Hu", "Namaari", "Noi", "Raya", "Sisu", "Tong", "Tuk Tuk", "Virana"],
-    "matchingIds": [249, 382, 414, 465, 537]
+    "matchingIds": [249, 382, 414, 465, 537, 1886]
   },
   "rescuers": {
     "displayNames": {
