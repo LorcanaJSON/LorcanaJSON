@@ -1241,6 +1241,8 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 				if reminderText is not None:
 					ability["reminderText"] = reminderText
 				keywordAbilities.append(keyword)
+				if newlineAfterLabelIndex == abilityIndex:
+					_logger.error(f"Ability at index {newlineAfterLabelIndex} is set to get a newline after its ability name, but it is a keyword ability and doesn't have a name")
 			else:
 				# Non-keyword ability, determine which type it is
 				ability["type"] = "static"
@@ -1308,6 +1310,8 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 						ability["fullText"] += " "
 				else:
 					ability["fullText"] = ""
+					if newlineAfterLabelIndex == abilityIndex:
+						_logger.error(f"Ability at index {newlineAfterLabelIndex} is set to get a newline after its ability name, but it doesn't have a name")
 				if "costsText" in ability:
 					# Since we don't know the exact type of separating dash, get it from the regex
 					ability["fullText"] += ability["costsText"] + activatedAbilityMatch.group(0)
