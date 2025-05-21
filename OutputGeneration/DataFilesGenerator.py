@@ -1091,7 +1091,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 			subtypes[subtypes.index(sevenDwarvesCheckTypes[0])] = " ".join(sevenDwarvesCheckTypes)
 		for subtypeIndex in range(len(subtypes) - 1, -1, -1):
 			subtype = subtypes[subtypeIndex]
-			if GlobalConfig.language in (Language.ENGLISH, Language.FRENCH) and subtype != "Floodborn" and re.match(r"^[EF][il][ao][aeo]d[^b]?b?[^b]?[aeo]r[an][e+-]?$", subtype):
+			if GlobalConfig.language in (Language.ENGLISH, Language.FRENCH) and subtype != "Floodborn" and re.match(r"^[EF][il][ao][aeo]d[^b]?b?[^b]?[aeo]r[an][es+-]?$", subtype):
 				_logger.debug(f"Correcting '{subtype}' to 'Floodborn'")
 				subtypes[subtypeIndex] = "Floodborn"
 			elif GlobalConfig.language == Language.ENGLISH and subtype != "Hero" and re.match(r"e?H[eo]r[aeos]", subtype):
