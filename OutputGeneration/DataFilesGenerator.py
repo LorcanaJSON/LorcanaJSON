@@ -110,8 +110,8 @@ def correctText(cardText: str) -> str:
 		# Song
 		cardText = re.sub(fr"(can|may)( [^{LorcanaSymbols.EXERT}]{{1,2}})?(?=\sto sing this)", f"\\1 {LorcanaSymbols.EXERT}", cardText)
 		# Support, full line (not sure why it sometimes doesn't get cut into two lines
-		if re.search(r"their \S{1,3}\sto another chosen character['’]s", cardText):
-			cardText = re.sub(f"their [^{LorcanaSymbols.STRENGTH}]{{1,3}} to", f"their {LorcanaSymbols.STRENGTH} to", cardText)
+		if re.search(r"their\s\S{1,3}\sto another chosen character['’]s", cardText):
+			cardText = re.sub(fr"(?<=their\s)[^{LorcanaSymbols.STRENGTH}]{{1,3}}(?=\sto)", LorcanaSymbols.STRENGTH, cardText)
 		# Support, first line if split
 		cardText = re.sub(fr"(^|\badd )their [^{LorcanaSymbols.STRENGTH}]{{1,2}} to", f"\\1their {LorcanaSymbols.STRENGTH} to", cardText, flags=re.MULTILINE)
 		# Support, second line if split (prevent hit on 'of this turn.' or '+2 this turn', which is unrelated to what we're correcting)
