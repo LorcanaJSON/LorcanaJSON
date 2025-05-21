@@ -1,8 +1,8 @@
 import json, logging, os, re, time
-from typing import Dict, Optional
+from typing import Dict, List, Optional, Union
 
 import GlobalConfig
-
+from util import Language
 
 _logger = logging.getLogger("LorcanaJSON")
 
@@ -21,6 +21,7 @@ class StoryParser:
 		self._cardNameToStoryName: Dict[str, str] = {}
 		self._subtypeToStoryName: Dict[str, str] = {}
 		self._fieldMatchers: Dict[str, Dict[str, str]] = {}  # A dictionary with for each fieldname a dict of matchers and their matching story name
+		self._lookupNameToStoryName: Dict[str, str] = {}  # This should help with mapping English 'searchable_keywords' from input cards with our story names
 		for storyId, storyData in fromStories.items():
 			storyName = storyData["displayNames"][GlobalConfig.language.code]
 			if "matchingIds" in storyData:
@@ -39,6 +40,14 @@ class StoryParser:
 						elif fieldMatch in self._fieldMatchers[fieldName]:
 							raise ValueError(f"Duplicate field matcher '{fieldMatch}' in '{self._fieldMatchers[fieldName][fieldMatch]}' and '{storyName}'")
 						self._fieldMatchers[fieldName][fieldMatch] = storyName
+			lookupName: str = storyData["displayNames"][Language.ENGLISH.code].replace("'", "")
+			self._lookupNameToStoryName[lookupName] = storyName
+			# Lookup names don't have 'The' in front while our English names do, store it without 'The' too
+			if lookupName.startswith("The "):
+				self._lookupNameToStoryName[lookupName.split(" ", 1)[1]] = storyName
+			# '&' is sometimes used as 'and', include that too
+			if "&" in lookupName:
+				self._lookupNameToStoryName[lookupName.replace("&", "and")] = storyName
 		# Now we can go through every card and try to match each to a story
 		# Use the English cardstore regardless of the set language, since that's what the stories file is based on
 		cardStorePath = os.path.join("downloads", "json", "carddata.en.json")
@@ -50,12 +59,12 @@ class StoryParser:
 			for card in cardlist:
 				cardId = card["culture_invariant_id"]
 				if cardId not in self._cardIdToStoryName:
-					storyName = self.getStoryNameForCard(card, cardId)
+					storyName = self.getStoryNameForCard(card, cardId, card.get("searchable_keywords", None))
 					if storyName:
 						self._cardIdToStoryName[cardId] = storyName
 		_logger.debug(f"Reorganized story data after {time.perf_counter() - startTime:.4f} seconds")
 
-	def getStoryNameForCard(self, card, cardId: int) -> Optional[str]:
+	def getStoryNameForCard(self, card, cardId: int, extaSearchTerms: Union[None, List[str]]) -> Optional[str]:
 		if cardId in self._cardIdToStoryName:
 			# Card is already stored, by directly referencing its ID in the 'fromStories' file, so we don't need to do anything anymore
 			return self._cardIdToStoryName[cardId]
@@ -77,6 +86,13 @@ class StoryParser:
 						return storyName
 				elif fieldMatch in card[fieldName] or re.search(fieldMatch, card[fieldName]):
 					return storyName
+		# Check if the extra search terms are useful
+		if extaSearchTerms:
+			for extaSearchTerm in extaSearchTerms:
+				if extaSearchTerm in self._lookupNameToStoryName:
+					return self._lookupNameToStoryName[extaSearchTerm]
+				elif extaSearchTerm in self._cardNameToStoryName:
+					return self._cardNameToStoryName[extaSearchTerm]
 		# No match, try to see if any of the names occurs in some of the card's fields
 		for name, storyName in self._cardNameToStoryName.items():
 			nameRegex = re.compile(rf"\b{name}\b")

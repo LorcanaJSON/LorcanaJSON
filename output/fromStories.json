@@ -128,7 +128,7 @@
       "fr": "La Bande à Picsou",
       "it": "DuckTales"
     },
-    "matchingNames": ["Beagle Boys", "Della Duck", "Dewey", "Flintheart Glomgold", "Gizmoduck", "Gyro Gearloose", "Huey", "Lena Sabrewing", "Louie", "Lucky Dime", "Magica De Spell", "Poe De Spell", "Scrooge", "Scrooge McDuck", "Webby Vanderquack"],
+    "matchingNames": ["Beagle Boys", "Della Duck", "Dewey", "Ducktales", "Flintheart Glomgold", "Gizmoduck", "Gyro Gearloose", "Huey", "Lena Sabrewing", "Louie", "Lucky Dime", "Magica De Spell", "Poe De Spell", "Scrooge", "Scrooge McDuck", "Webby Vanderquack"],
     "matchingIds": [636]
   },
   "encanto": {
@@ -181,7 +181,7 @@
       "it": "Hercules"
     },
     "matchingNames": ["Cerberus", "Hades", "Hercules", "Hermes", "Hydra", "Megara", "Nessus", "Olympus", "Pain", "Panic", "Pegasus", "Philoctetes", "The Fates", "The Muses", "Zeus"],
-    "matchingIds": [167, 248, 345, 531, 725, 888, 895, 1400, 1746, 1779],
+    "matchingIds": [167, 248, 345, 531, 725, 888, 895, 1086, 1400, 1746, 1779],
     "matchingFields": {
       "subtypes": "Titan"
     }
@@ -257,7 +257,7 @@
       "it": "Lorcana"
     },
     "matchingNames": ["Chromicon", "Hexwell", "Martin", "Shanzay", "Venturo"],
-    "matchingIds": [380, 535, 789, 792, 825, 859, 891, 952, 986, 987, 1020, 1055, 1125, 1179, 1267, 1300, 1301, 1362, 1399, 1552, 1784],
+    "matchingIds": [380, 535, 789, 792, 825, 859, 891, 952, 986, 987, 1020, 1055, 1125, 1179, 1267, 1300, 1301, 1362, 1399, 1516, 1552, 1784],
     "matchingFields": {
       "card_identifier": " Q1$"
     }
@@ -406,7 +406,7 @@
       "it": "L'apprendista stregone"
     },
     "matchingNames": ["Magic Broom", "Yen Sid"],
-    "matchingIds": [51, 284, 501, 646, 878, 949, 1432]
+    "matchingIds": [51, 284, 501, 504, 646, 878, 949, 1432]
   },
   "swordinthestone": {
     "displayNames": {
@@ -425,7 +425,7 @@
       "fr": "Super Baloo",
       "it": "TaleSpin"
     },
-    "matchingNames": ["Don Karnage", "Dumptruck", "Kit Cloudkicker", "Mad Dog", "Sea Duck", "Thaddeus E. Klang", "Wildcat"],
+    "matchingNames": ["Don Karnage", "Dumptruck", "Kit Cloudkicker", "Mad Dog", "Sea Duck", "Talespin", "Thaddeus E. Klang", "Wildcat"],
     "matchingIds": [433, 463, 582, 1778]
   },
   "tangled": {
@@ -478,7 +478,7 @@
       "fr": "Les Mondes de Ralph",
       "it": "Ralph Spaccatutto"
     },
-    "matchingNames": ["Adorabeezle", "Bad-Anon", "Calhoun", "Candlehead", "Felix", "Fix-It Felix, Jr.", "Gene", "Gloyd Orangeboar", "King Candy", "Mr. Litwak", "Ralph", "Rancis", "Snowanna", "Sour Bill", "Sugar Rush Speedway", "Taffyta", "Wreck-It Ralph", "Vanellope"],
+    "matchingNames": ["Adorabeezle", "Bad-Anon", "Calhoun", "Candlehead", "Felix", "Fix-It Felix, Jr.", "Gene", "Gloyd Orangeboar", "King Candy", "Mr. Litwak", "Ralph", "Rancis", "Snowanna", "Sour Bill", "Sugar Rush Speedway", "Taffyta", "Wreck-It Ralph", "Wreck It Ralph", "Vanellope"],
     "matchingIds": [416, 1091, 1121, 1312, 1377, 1581]
   },
   "zootopia": {
@@ -488,7 +488,7 @@
       "fr": "Zootopie",
       "it": "Zootropolis"
     },
-    "matchingNames": ["Bellwether", "Chief Bogo", "Clawhauser", "Duke Weaselton", "Judy Hopps", "Nick Wilde"],
+    "matchingNames": ["Bellwether", "Chief Bogo", "Clawhauser", "Duke Weaselton", "Judy Hopps", "Nick Wilde", "Zootropolis"],
     "matchingIds": [385, 967, 981, 1227, 1287, 1367, 1373]
   }
 }
