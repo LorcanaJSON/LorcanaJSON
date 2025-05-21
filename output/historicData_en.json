@@ -70,6 +70,23 @@
       "usedUntil": "2024-08-23"
     }
   ],
+  "527": [
+    {
+      "abilities": [
+        {
+          "effect": "Whenever this character sings a song, you may play that song again from your discard for free, then put it on the bottom of your deck.",
+          "fullText": "WHAT A DEAL Whenever this character sings a song,\nyou may play that song again from your discard for\nfree, then put it on the bottom of your deck.",
+          "name": "WHAT A DEAL",
+          "type": "triggered"
+        }
+      ],
+      "fullText": "WHAT A DEAL Whenever this character sings a song,\nyou may play that song again from your discard for\nfree, then put it on the bottom of your deck.",
+      "fullTextSections": [
+        "WHAT A DEAL Whenever this character sings a song,\nyou may play that song again from your discard for\nfree, then put it on the bottom of your deck."
+      ],
+      "usedUntil": "2025-05-15"
+    }
+  ],
   "581": [
     {
         "subtypes": [
@@ -78,6 +95,23 @@
         ],
         "subtypesText": "Storyborn \u2022 Ally",
         "usedUntil": "2024-11-04"
+    }
+  ],
+  "648": [
+    {
+      "abilities": [
+        {
+          "effect": "Whenever this character sings a song, you may play that song again from your discard for free, then put it on the bottom of your deck.",
+          "fullText": "WHAT A DEAL Whenever this character sings a song,\nyou may play that song again from your discard for\nfree, then put it on the bottom of your deck.",
+          "name": "WHAT A DEAL",
+          "type": "triggered"
+        }
+      ],
+      "fullText": "WHAT A DEAL Whenever this character sings a song,\nyou may play that song again from your discard for\nfree, then put it on the bottom of your deck.",
+      "fullTextSections": [
+        "WHAT A DEAL Whenever this character sings a song,\nyou may play that song again from your discard for\nfree, then put it on the bottom of your deck."
+      ],
+      "usedUntil": "2025-05-15"
     }
   ],
   "673": [
