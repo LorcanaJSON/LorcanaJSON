@@ -351,6 +351,12 @@
       ""
     ]
   },
+  "1702": {
+    "rules_text": [
+      "–",
+      "-"
+    ]
+  },
   "1773": {
     "rules_text": [
       "’",
@@ -361,6 +367,12 @@
     "author": [
       "Andrew Theophilopoulos",
       "Theonidas"
+    ]
+  },
+  "1879": {
+    "rules_text": [
+      "’",
+      "'"
     ]
   }
 }
