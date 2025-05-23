@@ -280,7 +280,7 @@ class ImageParser:
 		# Find the line dividing the abilities from the flavor text, if needed
 		flavorTextImage = None
 		flavorTextSeparatorY = textboxHeight
-		flavorTextLineDetectionCroppedImage = None
+		flavorTextLineDetectionCroppedImage: Union[None, cv2.Mat] = None
 		flavorTextEdgeDetectedImage = None
 		flavorTextGreyscaleImageWithLines = None
 		if (parseSettings.hasFlavorTextOverride or (parseSettings.hasFlavorTextOverride is None and hasFlavorText is not False)) and parseSettings.labelParsingMethod != ParseSettings.LABEL_PARSING_METHODS.FALLBACK_BY_LINES:
@@ -461,16 +461,16 @@ class ImageParser:
 		return ocrResult
 
 	@staticmethod
-	def _getSubImage(image, imageArea: ImageArea.ImageArea):
+	def _getSubImage(image, imageArea: ImageArea.ImageArea) -> cv2.Mat:
 		return image[imageArea.coords.top:imageArea.coords.bottom, imageArea.coords.left:imageArea.coords.right]
 
 	@staticmethod
-	def _convertToThresholdImage(greyscaleImage, textColour: ImageArea.TextColour):
+	def _convertToThresholdImage(greyscaleImage, textColour: ImageArea.TextColour) -> cv2.Mat:
 		threshold, thresholdImage = cv2.threshold(greyscaleImage, textColour.thresholdValue, 255, textColour.thresholdType)
 		return thresholdImage
 
 	@staticmethod
-	def _cv2ImageToPillowImage(cv2Image) -> Image.Image:
+	def _cv2ImageToPillowImage(cv2Image: cv2.Mat) -> Image.Image:
 		return Image.fromarray(cv2.cvtColor(cv2Image, cv2.COLOR_BGR2RGB))
 
 	def _imageToString(self, image: cv2.Mat, isNumeric: bool = False, imageAreaName: str = None) -> str:
