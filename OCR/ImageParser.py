@@ -323,7 +323,7 @@ class ImageParser:
 					hasFlavorText = True
 					flavorTextSeparatorY += flavorTextImageTop
 					if flavorTextSeparatorY + _FLAVORTEXT_MARGIN >= textboxHeight:
-						self._logger.warning(f"Flavortext separator Y {flavorTextSeparatorY} plus margin {_FLAVORTEXT_MARGIN} is larger than textbox height {textboxHeight}")
+						self._logger.warning(f"Flavortext separator Y {flavorTextSeparatorY} plus margin {_FLAVORTEXT_MARGIN} is larger than textbox height {textboxHeight} in card {cardId}")
 						hasFlavorText = False
 					else:
 						flavorTextImage = self._convertToThresholdImage(greyTextboxImage[flavorTextSeparatorY + _FLAVORTEXT_MARGIN:textboxHeight, 0:textboxWidth], parseSettings.thresholdTextColor)
