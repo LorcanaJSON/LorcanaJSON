@@ -210,7 +210,7 @@ class ImageParser:
 						yToCheck = min(textboxHeight - 1, y + 1)  # Check a few lines down to prevent weirdness with the edge of the label box
 						# Find the width of the label. Since accented characters can reach the top of the label, we need several light pixels in succession to be sure the label ended
 						successiveLightPixels: int = 0
-						for x in range(parseSettings.textboxOffset, textboxWidth):
+						for x in range(parseSettings.textboxOffset, textboxWidth - parseSettings.textboxRightOffset):
 							checkValue = greyTextboxImage[yToCheck, x]
 							if checkValue > 120:
 								successiveLightPixels += 1
@@ -289,8 +289,8 @@ class ImageParser:
 			if labelCoords:
 				flavorTextImageTop = labelCoords[-1][1] + 5
 				flavorTextLineDetectionCroppedImage = greyTextboxImage[flavorTextImageTop:textboxHeight, 0:textboxWidth]
-			if parseSettings.textboxOffset:
-				flavorTextLineDetectionCroppedImage = flavorTextLineDetectionCroppedImage[0:flavorTextLineDetectionCroppedImage.shape[0], parseSettings.textboxOffset:flavorTextLineDetectionCroppedImage.shape[1]]
+			if parseSettings.textboxOffset or parseSettings.textboxRightOffset:
+				flavorTextLineDetectionCroppedImage = flavorTextLineDetectionCroppedImage[0:flavorTextLineDetectionCroppedImage.shape[0], parseSettings.textboxOffset:flavorTextLineDetectionCroppedImage.shape[1] - parseSettings.textboxRightOffset]
 			flavorTextEdgeDetectedImage = cv2.Canny(flavorTextLineDetectionCroppedImage, 50, 200)
 			lines = cv2.HoughLinesP(flavorTextEdgeDetectedImage, 1, math.pi / 180, 150, minLineLength=70)
 			if lines is None and hasFlavorText is True:
@@ -328,7 +328,7 @@ class ImageParser:
 						self._logger.warning(f"Flavortext separator Y {flavorTextSeparatorY} plus margin {_FLAVORTEXT_MARGIN} is larger than textbox height {textboxHeight} in card {cardId}")
 						hasFlavorText = False
 					else:
-						flavorTextImage = self._convertToThresholdImage(greyTextboxImage[flavorTextSeparatorY + _FLAVORTEXT_MARGIN:textboxHeight, parseSettings.textboxOffset:textboxWidth], parseSettings.thresholdTextColor)
+						flavorTextImage = self._convertToThresholdImage(greyTextboxImage[flavorTextSeparatorY + _FLAVORTEXT_MARGIN:textboxHeight, parseSettings.textboxOffset:textboxWidth - parseSettings.textboxRightOffset], parseSettings.thresholdTextColor)
 						flavourText = self._imageToString(flavorTextImage)
 						result["flavorText"] = ImageAndText(flavorTextImage, flavourText)
 						self._logger.debug(f"{flavourText=}")
@@ -366,7 +366,7 @@ class ImageParser:
 
 			# There might be text above the label coordinates too (abilities text), especially if there aren't any labels. Get that text as well
 			if previousBlockTopY > 35:
-				remainingTextImage = self._convertToThresholdImage(greyTextboxImage[0:previousBlockTopY, parseSettings.textboxOffset:textboxWidth], parseSettings.thresholdTextColor)
+				remainingTextImage = self._convertToThresholdImage(greyTextboxImage[0:previousBlockTopY, parseSettings.textboxOffset:textboxWidth - parseSettings.textboxRightOffset], parseSettings.thresholdTextColor)
 				remainingText = self._imageToString(remainingTextImage)
 				if remainingText:
 					if parseSettings.labelParsingMethod == ParseSettings.LABEL_PARSING_METHODS.FALLBACK_WHITE_ABILITY_TEXT and re.search("[A-Z]{2,}", remainingText):

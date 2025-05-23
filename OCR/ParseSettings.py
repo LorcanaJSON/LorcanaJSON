@@ -23,6 +23,7 @@ class ParseSettings:
 	characterCardLayout: CardLayout.CardLayout = None
 	locationCardLayout: CardLayout.CardLayout = None
 	textboxOffset: int = 0
+	textboxRightOffset: int = 0
 	labelParsingMethod: LABEL_PARSING_METHODS = LABEL_PARSING_METHODS.DEFAULT
 	thresholdTextColor: ImageArea.TextColour = ImageArea.TEXT_COLOUR_BLACK
 	labelTextColor: ImageArea.TextColour = ImageArea.TEXT_COLOUR_WHITE
@@ -55,7 +56,7 @@ _PARSE_SETTINGS_FOR_ENCHANTED_BY_SET: Dict[str, ParseSettings] = {
 }
 _PARSE_SETTINGS_BY_SET: Dict[str, ParseSettings] = {
 	"Q1": ParseSettings(labelParsingMethod=LABEL_PARSING_METHODS.FALLBACK_WHITE_ABILITY_TEXT, thresholdTextColor=ImageArea.TEXT_COLOUR_WHITE, labelMaskColor=_BLACK),
-	"Q2": ParseSettings(labelParsingMethod=LABEL_PARSING_METHODS.FALLBACK_WHITE_ABILITY_TEXT, thresholdTextColor=ImageArea.TEXT_COLOUR_WHITE, labelMaskColor=_BLACK, textboxOffset=25)
+	"Q2": ParseSettings(labelParsingMethod=LABEL_PARSING_METHODS.FALLBACK_WHITE_ABILITY_TEXT, thresholdTextColor=ImageArea.TEXT_COLOUR_WHITE, labelMaskColor=_BLACK, textboxOffset=26, textboxRightOffset=24)
 }
 _PARSE_SETTINGS_BY_GROUPING: Dict[str, ParseSettings] = {
 	"C1": ParseSettings(textboxOffset=_OPTIONAL_TEXTBOX_OFFSET),
