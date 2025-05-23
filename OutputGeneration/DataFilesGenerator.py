@@ -1198,7 +1198,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 				_logger.error(f"Correction to move effect index {effectAtIndexIsAbility} to flavor text, but card {_createCardIdentifier(outputCard)} already has a 'flavorText' field")
 			else:
 				_logger.info(f"Moving effect index {effectAtIndexIsFlavorText} to flavor text")
-				outputCard["flavorText"] = outputCard["effects"].pop(effectAtIndexIsFlavorText)
+				outputCard["flavorText"] = correctPunctuation(outputCard["effects"].pop(effectAtIndexIsFlavorText))
 				if len(outputCard["effects"]) == 0:
 					del outputCard["effects"]
 
