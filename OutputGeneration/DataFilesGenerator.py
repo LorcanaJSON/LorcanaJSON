@@ -1147,6 +1147,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 		effectAtIndexIsFlavorText: int = cardDataCorrections.pop("_effectAtIndexIsFlavorText", -1)
 		externalLinksCorrection = cardDataCorrections.pop("externalLinks", None)
 		fullTextCorrection = cardDataCorrections.pop("fullText", None)
+		addNameToAbilityAtIndex: Union[None, List[int, str]] = cardDataCorrections.pop("_addNameToAbilityAtIndex", None)
 		moveAbilityAtIndexToIndex = cardDataCorrections.pop("_moveAbilityAtIndexToIndex", None)
 		splitAbilityNameAtIndex = cardDataCorrections.pop("_splitAbilityNameAtIndex", None)
 		for fieldName, correction in cardDataCorrections.items():
@@ -1178,6 +1179,16 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 			ability = outputCard["abilities"][splitAbilityNameAtIndex[0]]
 			ability["name"], ability["effect"] = re.split(splitAbilityNameAtIndex[1], ability["effect"], maxsplit=1)
 			_logger.info(f"Split ability name and effect at index {splitAbilityNameAtIndex[0]} into name {ability['name']!r} and effect {ability['effect']!r}")
+		# Sometimes ability names get missed, apply the correction to fix this
+		if addNameToAbilityAtIndex:
+			if addNameToAbilityAtIndex[0] >= len(outputCard["abilities"]):
+				_logger.error(f"Supplied name '{addNameToAbilityAtIndex[1]}' to add to ability at index {addNameToAbilityAtIndex[0]} of card {_createCardIdentifier(outputCard)}, but maximum ability index is {len(outputCard['abilities'])}")
+			elif outputCard["abilities"][addNameToAbilityAtIndex[0]].get("name", None):
+				_logger.error(f"Supplied name '{addNameToAbilityAtIndex[1]}' to add to ability at index {addNameToAbilityAtIndex[0]} of card {_createCardIdentifier(outputCard)}, but ability already has name '{outputCard['abilities'][addNameToAbilityAtIndex[0]]['name']}'")
+			else:
+				_logger.info(f"Adding ability name '{addNameToAbilityAtIndex[1]}' to ability index {addNameToAbilityAtIndex[0]} for card {_createCardIdentifier(outputCard)}")
+				outputCard["abilities"][addNameToAbilityAtIndex[0]]["name"] = addNameToAbilityAtIndex[1]
+
 		# Do this after the general corrections since one of those might add or split an effect
 		if effectAtIndexIsAbility != -1:
 			if "effects" not in outputCard:
