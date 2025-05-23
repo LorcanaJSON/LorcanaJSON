@@ -92,6 +92,7 @@ def correctText(cardText: str) -> str:
 		cardText = re.sub(r"\bteammates’( |$)", r"teammates'\1", cardText, flags=re.MULTILINE)
 		cardText = re.sub(r"\bplayers’( |$)", r"players'\1", cardText, flags=re.MULTILINE)
 		cardText = re.sub(r"\bopponents’( |$)", r"opponents'\1", cardText, flags=re.MULTILINE)
+		cardText = re.sub(r"\bIllumineers’( |$)", r"Illumineers'\1", cardText, flags=re.MULTILINE)
 		## Correct common phrases with symbols ##
 		# Ink payment discounts
 		cardText = re.sub(r"\bpay (\d) .?to\b", f"pay \\1 {LorcanaSymbols.INK} to", cardText)
