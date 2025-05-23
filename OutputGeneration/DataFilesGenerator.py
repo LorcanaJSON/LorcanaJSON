@@ -119,6 +119,7 @@ def correctText(cardText: str) -> str:
 		cardText = re.sub(f"chosen character's( [^{LorcanaSymbols.LORE}{LorcanaSymbols.STRENGTH}])? this turn", f"chosen character's {LorcanaSymbols.STRENGTH} this turn", cardText)
 		# Common typos
 		cardText = re.sub(r"\bluminary\b", "Illuminary", cardText)
+		cardText = cardText.replace("I/lu", "Illu")
 		cardText = re.sub(r"([Dd])rawa ?card", r"\1raw a card", cardText)
 		cardText = re.sub(r"\bLt\b", "It", cardText)
 		cardText = re.sub(r"\b([Hh])ed\b", r"\1e'd", cardText)
