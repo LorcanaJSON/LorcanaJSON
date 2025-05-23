@@ -266,7 +266,7 @@ def correctPunctuation(textToCorrect: str) -> str:
 	if correctedText.endswith(","):
 		correctedText = correctedText[:-1] + "."
 	if GlobalConfig.language == Language.ENGLISH:
-		correctedText = correctedText.replace("youre", "you're").replace("theyre", "they're")
+		correctedText = re.sub(r"\b([Tt]hey|[Yy]ou)re\b", r"\1're", correctedText)
 	elif GlobalConfig.language == Language.GERMAN:
 		# In German, ellipsis always have a space between words before and after it
 		if "…" in correctedText:
