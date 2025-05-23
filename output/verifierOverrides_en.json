@@ -374,5 +374,23 @@
       "’",
       "'"
     ]
+  },
+  "1904": {
+    "flavor_text": [
+      "you must admit, ",
+      ""
+    ]
+  },
+  "1906": {
+    "rules_text": [
+      "the",
+      "The"
+    ]
+  },
+  "1919": {
+    "rules_text": [
+      "Ilu",
+      "Illu"
+    ]
   }
 }

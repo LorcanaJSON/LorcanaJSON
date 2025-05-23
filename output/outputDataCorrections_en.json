@@ -2301,5 +2301,142 @@
   "1895": {
     "_effectAtIndexIsAbility": [0, "SELF-PRESERVATION"],
     "_effectAtIndexIsFlavorText": 0
+  },
+  "1897": {
+    "abilities": [
+      "GITTOM",
+      "G IT TO M"
+    ]
+  },
+  "1900": {
+    "abilities": [
+      " _",
+      "",
+      "Ilu",
+      "Illu"
+    ],
+    "subtypes": [
+      "H",
+      "Il"
+    ]
+  },
+  "1901": {
+    "artistsText": [
+      "é",
+      "è"
+    ]
+  },
+  "1902": {
+    "abilities": [
+      "TT",
+      "T T"
+    ]
+  },
+  "1903": {
+    "abilities": [
+      "lll",
+      "Ill"
+    ]
+  },
+  "1907": {
+    "fullName": [
+      "Beetle",
+      "Scarab"
+    ],
+    "name": [
+      "Beetle",
+      "Scarab"
+    ],
+    "simpleName": [
+      "beetle",
+      "scarab"
+    ]
+  },    
+  "1909": {
+    "abilities": [
+      "LS",
+      "L S"
+    ]
+  },
+  "1910": {
+    "flavorText": [
+      "!",
+      "I"
+    ]
+  },
+  "1912": {
+    "artistsText": [
+      "é",
+      "e"
+    ]
+  },
+  "1914": {
+    "effects": [
+      "n\\.",
+      "n.\n"
+    ]
+  },
+  "1918": {
+    "effects": [
+      "s\n",
+      "s,\n"
+    ]
+  },
+  "1919": {
+    "effects": [
+      "llu",
+      "Illu",
+      "’",
+      "'"
+    ]
+  },
+  "1922": {
+    "abilities": [
+      "GS",
+      "G S"
+    ]
+  },
+  "1927": {
+    "abilities": [
+      "lll",
+      "Ill"
+    ]
+  },
+  "1931": {
+    "_addNameToAbilityAtIndex": [1, "MARK OF POWER"],
+    "abilities": [
+      "^-",
+      "",
+      "TS",
+      "T S",
+      "\\(3",
+      "⟳"
+    ]
+  },
+  "1932": {
+    "abilities": [
+      "^ER",
+      "WINTER"
+    ]
+  },
+  "1933": {
+    "_effectAtIndexIsAbility": [0, "PLENTY TO GO AROUND"],
+    "_effectAtIndexIsFlavorText": 0,
+    "effects": [
+      " d ",
+      " à "
+    ],
+    "subtypes": [
+      "^t",
+      "St"
+    ]
+  },
+  "1934": {
+    "abilities": [
+      "^OT",
+      "GOT",
+      "10",
+      "TO"
+    ]
   }
 }
