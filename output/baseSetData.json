@@ -151,7 +151,7 @@
     },
     "prereleaseDate": "2025-05-30",
     "releaseDate": "2025-06-06",
-    "hasAllCards": false,
+    "hasAllCards": true,
     "type": "quest",
     "number": 2
   }
