@@ -19,8 +19,8 @@
       "fr": "Aladdin",
       "it": "Aladdin"
     },
-    "matchingNames": ["Abu", "Agrabah", "Aladdin", "Genie", "Iago", "Jafar", "Jasmine", "Magic Carpet", "Prince Achmed", "Rajah", "Razoul", "The Sultan", "Treasure Guardian"],
-    "matchingIds": [164, 195, 564, 596, 984, 1015, 1166, 1199, 1292, 1328, 1490]
+    "matchingNames": ["Abu", "Agrabah", "Aladdin", "Gazeem", "Genie", "Iago", "Jafar", "Jasmine", "Magic Carpet", "Prince Achmed", "Rajah", "Razoul", "The Sultan", "Treasure Guardian"],
+    "matchingIds": [164, 195, 564, 596, 984, 1015, 1166, 1199, 1292, 1328, 1490, 1897]
   },
   "aliceinwonderland": {
     "displayNames": {
@@ -259,7 +259,7 @@
     "matchingNames": ["Chromicon", "Hexwell", "Martin", "Shanzay", "Venturo"],
     "matchingIds": [380, 535, 789, 792, 825, 859, 891, 952, 986, 987, 1020, 1055, 1125, 1179, 1267, 1300, 1301, 1362, 1399, 1516, 1552, 1784],
     "matchingFields": {
-      "card_identifier": " Q1$"
+      "card_identifier": " Q\\d$"
     }
   },
   "mickey": {
