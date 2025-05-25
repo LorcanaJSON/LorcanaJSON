@@ -1286,7 +1286,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 				elif GlobalConfig.language == Language.FRENCH:
 					if ability["effect"].startswith("Une fois par tour, vous pouvez"):
 						ability["type"] = "activated"
-					elif (ability["effect"].startswith("Au début de chacun") or re.match(r"Au\sdébut\sde\svotre\stour\b", ability["effect"]) or ability["effect"].startswith("À la fin d") or
+					elif (ability["effect"].startswith("Au début de chacun") or re.match(r"Au\sdébut\sd[eu](\svotre)?\stour\b", ability["effect"]) or ability["effect"].startswith("À la fin d") or
 						re.search(r"(^L|\bl)orsqu(e|'une?|'il)\b", ability["effect"]) or re.search(r"(^À c|^C|,\sc)haque\sfois", ability["effect"]) or
 						re.match("Si (?!vous avez|un personnage)", ability["effect"]) or re.search("gagnez .+ pour chaque", ability["effect"]) or
 						re.search(r"une carte est\splacée", ability["effect"])):
