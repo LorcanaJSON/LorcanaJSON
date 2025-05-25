@@ -1015,6 +1015,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 	if ocrResult.abilityLabels:
 		for abilityIndex in range(len(ocrResult.abilityLabels)):
 			abilityName = correctPunctuation(ocrResult.abilityLabels[abilityIndex].replace("‘", "'").replace("’", "'").replace("''", "'")).rstrip(":")
+			originalAbilityName = abilityName
 			abilityName = re.sub(r"(?<=\w) ?[.7|»”©\"]$", "", abilityName)
 			if GlobalConfig.language == Language.ENGLISH:
 				abilityName = abilityName.replace("|", "I")
@@ -1034,6 +1035,8 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 				abilityName = abilityName.replace("|", "I")
 				# It keeps reading 'IO' wrong
 				abilityName = re.sub("[1I]0", "IO", abilityName)
+			if abilityName != originalAbilityName:
+				_logger.info(f"Corrected ability name from {originalAbilityName!r} to {abilityName!r}")
 			abilityEffect = correctText(ocrResult.abilityTexts[abilityIndex])
 			abilities.append({
 				"name": abilityName,
