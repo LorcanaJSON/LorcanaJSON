@@ -973,6 +973,9 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 
 		for remainingTextLine in remainingTextLines:
 			remainingTextLine = correctText(remainingTextLine)
+			if len(remainingTextLine) < 4:
+				_logger.info(f"Remaining text for card {_createCardIdentifier(outputCard)} {remainingTextLine!r} is too short, discarding")
+				continue
 			# Check if this is a keyword ability
 			if outputCard["type"] == GlobalConfig.translation.Character or outputCard["type"] == GlobalConfig.translation.Action or (parsedIdentifier.setCode == "Q2" and outputCard["type"] == GlobalConfig.translation.Location):
 				if remainingTextLine.startswith("(") and ")" in remainingText:
