@@ -51,6 +51,12 @@
       ""
     ]
   },
+  "1702": {
+    "rules_text": [
+      " – ",
+      " - "
+    ]
+  },
   "1714": {
     "rules_text": [
       "chaque",
@@ -61,6 +67,12 @@
     "author": [
       "Andrew Theophilopoulos",
       "Theonidas"
+    ]
+  },
+  "1901": {
+    "flavor_text": [
+      "%—Jafar",
+      ""
     ]
   }
 }
