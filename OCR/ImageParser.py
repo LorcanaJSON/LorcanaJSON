@@ -261,8 +261,8 @@ class ImageParser:
 							continue
 						# If this line is too close to the previous one, it's probably the bottom line of the previous top line of the same label; skip it
 						if lastBottomY and lineRightY - lastBottomY < 80:
-							if hasFlavorText and lineRightY - lastBottomY < 10:
-								# It confused the flavor text separator for the start of a ability name label, remove the last added label
+							if hasFlavorText and labelCoords and lineRightY - lastBottomY < 10:
+								# It confused the flavor text separator for the start of an ability name label, remove the last added label
 								del labelCoords[-1]
 							continue
 						isTopLine = greyTextboxImage[lineRightY - 1, lineRightX] > greyTextboxImage[lineRightY + 1, lineRightX]  # Images use y,x
