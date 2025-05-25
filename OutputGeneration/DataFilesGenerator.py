@@ -1029,6 +1029,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 				abilityName, replacementCount = re.subn(r"\bCA\b", "ÇA", abilityName)
 				if replacementCount > 0:
 					_logger.debug(f"Corrected 'CA' to 'ÇA' in abilty name '{abilityName}'")
+				abilityName = re.sub(r"\bTRES\b", "TRÈS", abilityName)
 			elif GlobalConfig.language == Language.GERMAN:
 				# It seems to misread a lot of ability names as ending with a period, correct that (unless it's ellipsis)
 				if abilityName.endswith(".") and not abilityName.endswith("..."):
