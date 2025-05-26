@@ -510,8 +510,8 @@ def createOutputFiles(onlyParseIds: Union[None, List[int]] = None, shouldShowIma
 	cardBans = JsonUtil.loadJsonWithNumberKeys(os.path.join("output", "CardBans.json"))
 
 	# Get the cards we don't have to parse (if any) from the previous generated file
-	fullCardList = []
-	cardIdsStored = []
+	fullCardList: List[Dict] = []
+	cardIdsStored: List[int] = []
 	outputFolder = os.path.join("output", "generated", GlobalConfig.language.code)
 	if onlyParseIds:
 		# Load the previous generated file to get the card data for cards that didn't change, instead of generating all cards
