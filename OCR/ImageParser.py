@@ -377,7 +377,7 @@ class ImageParser:
 							labelAndEffectText = remainingText[labelMatch.start():]
 							remainingText = remainingText[:labelMatch.start()].rstrip()
 							while labelAndEffectText:
-								effectMatch = re.search(fr"(([A-Z]|[ÀI|] )[a-z]|[0-9{LorcanaSymbols.EXERT}@©&]|G,)", labelAndEffectText, flags=re.DOTALL)
+								effectMatch = re.search(fr"(([A-Z]|[ÀI|] )[a-z]|[0-9{LorcanaSymbols.EXERT}@©&]|G ?[,—–-])", labelAndEffectText, flags=re.DOTALL)
 								if effectMatch:
 									labelText = labelAndEffectText[:effectMatch.start()]
 									effectText = labelAndEffectText[effectMatch.start():]
