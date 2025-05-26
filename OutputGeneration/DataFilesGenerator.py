@@ -1310,7 +1310,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 
 				if abilityIndex in forceAbilityTypeAtIndex:
 					if forceAbilityTypeAtIndex[abilityIndex] == ability["type"]:
-						_logger.error(f"Ability at index {abilityIndex} should be corrected to '{forceAbilityTypeAtIndex[abilityIndex]}' but it is already that type")
+						_logger.error(f"Ability at index {abilityIndex} of {_createCardIdentifier(outputCard)} should be corrected to '{forceAbilityTypeAtIndex[abilityIndex]}' but it is already that type")
 					else:
 						ability["type"] = forceAbilityTypeAtIndex[abilityIndex]
 						_logger.info(f"Forcing ability type at index {abilityIndex} of card ID {outputCard['id']} to '{ability['type']}'")
