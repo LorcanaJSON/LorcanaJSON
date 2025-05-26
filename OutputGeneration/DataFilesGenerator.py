@@ -599,7 +599,7 @@ def createOutputFiles(onlyParseIds: Union[None, List[int]] = None, shouldShowIma
 	with open(os.path.join("output", f"baseSetData.json"), "r", encoding="utf-8") as baseSetDataFile:
 		setsData = json.load(baseSetDataFile)
 		for setCode in list(setsData.keys()):
-			if setsData[setCode]["names"][GlobalConfig.language.code]:
+			if setsData[setCode]["names"].get(GlobalConfig.language.code, None):
 				setsData[setCode]["name"] = setsData[setCode].pop("names")[GlobalConfig.language.code]
 			else:
 				_logger.warning(f"Name for set {setCode} is empty or doesn't exist for language code '{GlobalConfig.language.code}', not adding the set to the output files")
