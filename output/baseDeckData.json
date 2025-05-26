@@ -1262,10 +1262,10 @@
       "decks": [
         {
           "names": {
-            "de": "",
+            "de": "Ein Harmomisches Team",
             "en": "A Harmonious Team",
-            "fr": "",
-            "it": ""
+            "fr": "Une Équipe Harmonieuse",
+            "it": "Un Team Armonioso"
           },
           "colors": [
             "AMBER",
@@ -1309,10 +1309,10 @@
         },
         {
           "names": {
-            "de": "",
+            "de": "Tapfer und Dreist",
             "en": "Brave and Brazen",
-            "fr": "",
-            "it": ""
+            "fr": "Courageux et Effrontés",
+            "it": "Coraggiosi e Sfacciati"
           },
           "colors": [
             "RUBY",
