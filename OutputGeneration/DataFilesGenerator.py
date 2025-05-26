@@ -847,7 +847,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 		outputCard["artistsText"] = re.sub(r"Krysi.{1,2}ski", "Krysiński", outputCard["artistsText"])
 	elif "Cesar Vergara" in outputCard["artistsText"]:
 		outputCard["artistsText"] = outputCard["artistsText"].replace("Cesar Vergara", "César Vergara")
-	elif "Perez" in outputCard["artistsText"]:
+	elif "Roger Perez" in outputCard["artistsText"]:
 		outputCard["artistsText"] = re.sub(r"\bPerez\b", "Pérez", outputCard["artistsText"])
 	elif outputCard["artistsText"].startswith("Niss ") or outputCard["artistsText"].startswith("Nilica "):
 		outputCard["artistsText"] = "M" + outputCard["artistsText"][1:]
