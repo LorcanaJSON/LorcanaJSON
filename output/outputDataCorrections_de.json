@@ -1959,16 +1959,40 @@
       "Gestalt"
     ]
   },
+  "1668": {
+    "flavorText": [
+      " ä",
+      " à"
+    ]
+  },
   "1673": {
     "abilities": [
       "10",
       "-1 ¤"
     ]
   },
+  "1677": {
+    "flavorText": [
+      "l,",
+      "l."
+    ]
+  },
   "1678": {
     "abilities": [
       "¤",
       "⛉"
+    ]
+  },
+  "1680": {
+    "abilities": [
+      "¤",
+      "◊"
+    ]
+  },
+  "1681": {
+    "abilities": [
+      "¤\\.",
+      "◊."
     ]
   },
   "1689": {
@@ -2004,6 +2028,12 @@
       "–"
     ]
   },
+  "1713": {
+    "abilities": [
+      "—",
+      "–"
+    ]
+  },
   "1714": {
     "abilities": [
       "¤",
@@ -2022,16 +2052,50 @@
       " +2 ¤"
     ]
   },
+  "1724": {
+    "abilities": [
+      "—",
+      "–"
+    ]
+  },
+  "1728": {
+    "abilities": [
+      "—",
+      "–"
+    ]
+  },
   "1729": {
     "abilities": [
       "—",
       "–"
     ]
   },
+  "1731": {
+    "abilities": [
+      "^A\n",
+      ""
+    ]
+  },
+  "1732": {
+    "abilities": [
+      "—",
+      "-"
+    ]
+  },
   "1733": {
     "abilities": [
       "^.+Gestalt",
       "Gestalt"
+    ]
+  },
+  "1736": {
+    "abilities": [
+      "^.+Gestalt",
+      "Gestalt"
+    ],
+    "artistsText": [
+      "é",
+      "è"
     ]
   },
   "1747": {
@@ -2046,10 +2110,34 @@
       "–"
     ]
   },
+  "1749": {
+    "artistsText": [
+      "ä",
+      "é"
+    ]
+  },
+  "1754": {
+    "flavorText": [
+      "\nW",
+      "\n—W"
+    ]
+  },
+  "1764": {
+    "abilities": [
+      "2O",
+      "2 ⬡"
+    ]
+  },
   "1770": {
     "abilities": [
       "—",
       "–"
+    ]
+  },
+  "1771": {
+    "abilities": [
+      "^A\n",
+      ""
     ]
   },
   "1773": {
@@ -2064,10 +2152,34 @@
       "• "
     ]
   },
+  "1778": {
+    "effects": [
+      ",",
+      "."
+    ]
+  },
+  "1779": {
+    "effects": [
+      "⟳",
+      "¤"
+    ]
+  },
+  "1780": {
+    "effects": [
+      "—",
+      "-"
+    ]
+  },
   "1781": {
     "artistsText": [
       "é",
       "è"
+    ]
+  },
+  "1782": {
+    "effects": [
+      "—",
+      "–"
     ]
   },
   "1783": {
@@ -2076,16 +2188,56 @@
       "\n—H"
     ]
   },
+  "1790": {
+    "abilities": [
+      "4",
+      "+1"
+    ]
+  },
+  "1794": {
+    "abilities": [
+      "—",
+      "–"
+    ]
+  },
+  "1795": {
+    "abilities": [
+      "¤",
+      "◊"
+    ]
+  },
   "1798": {
     "abilities": [
       "—",
       "–"
     ]
   },
+  "1800": {
+    "abilities": [
+      "TA",
+      "T A",
+      "⟳",
+      "¤"
+    ]
+  },
   "1802": {
     "abilities": [
       "—",
       "–"
+    ]
+  },
+  "1803": {
+    "abilities": [
+      "^.+Gestalt",
+      "Gestalt",
+      "Lumiere",
+      "Lumière"
+    ]
+  },
+  "1806": {
+    "abilities": [
+      "^.+Gestalt",
+      "Gestalt"
     ]
   },
   "1809": {
@@ -2096,10 +2248,42 @@
       "2 ◊"
     ]
   },
+  "1816": {
+    "abilities": [
+      "⟳",
+      "⟳, ⟳",
+      "—",
+      "–"
+    ]
+  },
+  "1820": {
+    "flavorText": [
+      "/",
+      ""
+    ]
+  },
   "1824": {
     "abilities": [
       "—",
       "–"
+    ]
+  },
+  "1825": {
+    "abilities": [
+      "—",
+      "–"
+    ]
+  },
+  "1829": {
+    "abilities": [
+      "—",
+      "–"
+    ]
+  },
+  "1830": {
+    "abilities": [
+      "¤",
+      "◉"
     ]
   },
   "1835": {
@@ -2114,10 +2298,124 @@
       "g -3"
     ]
   },
+  "1842": {
+    "abilities": [
+      "—",
+      "–"
+    ]
+  },
+  "1843": {
+    "abilities": [
+      "—",
+      "–"
+    ]
+  },
+  "1844": {
+    "abilities": [
+      "—",
+      "–"
+    ]
+  },
+  "1849": {
+    "abilities": [
+      "LR",
+      "L R"
+    ]
+  },
   "1864": {
     "flavorText": [
       "\nJ",
       "\n—J"
+    ]
+  },
+  "1865": {
+    "flavorText": [
+      ",",
+      "."
+    ]
+  },
+  "1868": {
+    "abilities": [
+      "—",
+      "–"
+    ]
+  },
+  "1869": {
+    "artistsText": [
+      "ö",
+      "ó"
+    ],
+    "subtypes": [
+      null,
+      [
+        "Sagengestalt",
+        "Held"
+      ]
+    ]
+  },
+  "1870": {
+    "abilities": [
+      "FK",
+      "F K"
+    ]
+  },
+  "1872": {
+    "_effectAtIndexIsAbility": 0,
+    "effects": [
+      "^b",
+      "G",
+      "lns",
+      "ns",
+      "7",
+      "9",
+      "Dele",
+      "belie"
+    ],
+    "subtypes": [
+      null,
+      [
+        "Lied"
+      ]
+    ]
+  },
+  "1875": {
+    "abilities": [
+      "NH",
+      "N H"
+    ]
+  },
+  "1879": {
+    "subtypes": [
+      "it$",
+      "itän"
+    ]
+  },
+  "1880": {
+    "effects": [
+      "—",
+      "-"
+    ]
+  },
+  "1882": {
+    "abilities": [
+      ", E",
+      ". E"
+    ]
+  },
+  "1883": {
+    "abilities": [
+      "—",
+      "–"
+    ],
+    "artistsText": [
+      "ee",
+      "ée"
+    ]
+  },
+  "1884": {
+    "abilities": [
+      "¤",
+      "◉"
     ]
   },
   "1885": {
@@ -2147,6 +2445,89 @@
         "König",
         "Magier"
       ]
+    ]
+  },
+  "1901": {
+    "artistsText": [
+      "é",
+      "è"
+    ]
+  },
+  "1914": {
+    "effects": [
+      "er\n",
+      "en\n",
+      "\nD",
+      "\n\nD"
+    ]
+  },
+  "1920": {
+    "abilities": [
+      "—",
+      "–"
+    ]
+  },
+  "1921": {
+    "artistsText": [
+      "Ill",
+      "Il"
+    ],
+    "flavorText": [
+      ", ",
+      "."
+    ]
+  },
+  "1922": {
+    "abilities": [
+      "—",
+      "–"
+    ]
+  },
+  "1929": {
+    "abilities": [
+      "n\\.$",
+      "n.)",
+      "her\n",
+      "hen\n"
+    ]
+  },
+  "1931": {
+    "_addNameToAbilityAtIndex": [2, "BOLT-LASERBLICK"],
+    "abilities": [
+      "^IC",
+      "DAS ZEIC",
+      "RSK",
+      "R K",
+      "I$",
+      "FT",
+      "—",
+      "–"
+    ]
+  },
+  "1932": {
+    "abilities": [
+      "en$",
+      "en\nCharakter auf einen deiner Elsa-Charaktere auszuspielen.)",
+      "ULNdFOKLET",
+      "WINTERLICHE MAUER",
+      ".+\\.\\)\\s+",
+      ""
+    ]
+  },
+  "1933": {
+    "_effectAtIndexIsAbility": [0, "JEDE MENGE ZU TUN"],
+    "_effectAtIndexIsFlavorText": 0,
+    "effects": [
+      " ä",
+      " à"
+    ]
+  },
+  "1934": {
+    "abilities": [
+      "BEH",
+      "ICH",
+      "“",
+      ""
     ]
   }
 }
