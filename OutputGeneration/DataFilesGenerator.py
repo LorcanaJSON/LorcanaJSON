@@ -207,7 +207,7 @@ def correctText(cardText: str) -> str:
 		# In Song reminder text, it reads 'con costo 1 o' as 'con costo 10'
 		cardText = re.sub(r"(?<=con costo \d)0(?= [^o])", " o", cardText)
 		# Fix Song reminder Exert symbol
-		cardText = re.sub(r"(?<=\d o superiore può ).(?= per\scantare questa canzone gratis)", LorcanaSymbols.EXERT, cardText)
+		cardText = re.sub(r"(?<=\d\so superiore può ).(?= per\scantare questa canzone gratis)", LorcanaSymbols.EXERT, cardText)
 		# It misses the Strength symbol if it's at the end of a line
 		cardText = re.sub(r"(?<=Riceve \+\d)\n", f" {LorcanaSymbols.STRENGTH}\n", cardText)
 		# It frequently reads the Strength symbol as 'XX or a percentage sign' or leaves a closing bracket
