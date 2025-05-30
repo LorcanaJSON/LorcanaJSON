@@ -1538,6 +1538,12 @@
       "!”"
     ]
   },
+  "1668": {
+    "abilities": [
+      "°",
+      "'"
+    ]
+  },
   "1670": {
     "abilities": [
       "1\n",
@@ -1548,6 +1554,12 @@
     "abilities": [
       "◊",
       "¤"
+    ]
+  },
+  "1674": {
+    "flavorText": [
+      "A",
+      "—A"
     ]
   },
   "1675": {
@@ -1572,6 +1584,12 @@
       "I"
     ]
   },
+  "1688": {
+    "abilities": [
+      "^.+Trasform",
+      "Trasform"
+    ]
+  },
   "1689": {
     "abilities": [
       "¤",
@@ -1579,6 +1597,12 @@
     ]
   },
   "1691": {
+    "abilities": [
+      "^.+Trasform",
+      "Trasform"
+    ]
+  },
+  "1694": {
     "abilities": [
       "^.+Trasform",
       "Trasform"
@@ -1608,10 +1632,38 @@
       "A T"
     ]
   },
+  "1731": {
+    "abilities": [
+      "^.+Trasform",
+      "Trasform"
+    ]
+  },
   "1734": {
     "abilities": [
       "\\.”",
       "”"
+    ]
+  },
+  "1735": {
+    "abilities": [
+      "a\n",
+      "a ¤\n"
+    ]
+  },
+  "1736": {
+    "abilities": [
+      "^.+Trasform",
+      "Trasform"
+    ]
+  },
+  "1737": {
+    "abilities": [
+      "¤",
+      ""
+    ],
+    "subtypes": [
+      "Ilu",
+      "Illu"
     ]
   },
   "1741": {
@@ -1620,16 +1672,81 @@
       "2 ¤\n"
     ]
   },
+  "1742": {
+    "flavorText": [
+      "I",
+      "—I"
+    ]
+  },
+  "1753": {
+    "flavorText": [
+      "^“E",
+      "“È"
+    ]
+  },
+  "1754": {
+    "flavorText": [
+      "i \\.”\n",
+      "",
+      "!\n",
+      "!”\n"
+    ]
+  },
+  "1757": {
+    "_newlineAfterLabelIndex": 0
+  },
+  "1762": {
+    "abilities": [
+      "^.+Trasform",
+      "Trasform"
+    ]
+  },
+  "1771": {
+    "abilities": [
+      "^.+Trasformazione(?= \\d)",
+      "Trasformazione"
+    ]
+  },
   "1773": {
     "abilities": [
       "^.+Trasform",
       "Trasform"
     ]
   },
+  "1782": {
+    "effects": [
+      "f¤",
+      "⟳"
+    ]
+  },
   "1789": {
     "flavorText": [
       "^E",
       "È"
+    ]
+  },
+  "1801": {
+    "abilities": [
+      "0",
+      "O"
+    ]
+  },
+  "1804": {
+    "abilities": [
+      "2\n",
+      "2 ¤\n"
+    ]
+  },
+  "1806": {
+    "abilities": [
+      "^.+Trasform",
+      "Trasform"
+    ]
+  },
+  "1820": {
+    "flavorText": [
+      "^“E",
+      "“È"
     ]
   },
   "1822": {
@@ -1644,6 +1761,24 @@
       "È"
     ]
   },
+  "1829": {
+    "abilities": [
+      "AAT",
+      "A A T"
+    ]
+  },
+  "1830": {
+    "abilities": [
+      "⟳",
+      "◉"
+    ]
+  },
+  "1832": {
+    "abilities": [
+      "1",
+      "I"
+    ]
+  },
   "1833": {
     "flavorText": [
       "\\.",
@@ -1656,10 +1791,91 @@
       "Trasform"
     ]
   },
+  "1840": {
+    "flavorText": [
+      "\\.",
+      "!"
+    ]
+  },
   "1847": {
     "abilities": [
       "^S¤",
       "S"
+    ]
+  },
+  "1849": {
+    "abilities": [
+      "AM",
+      "A M"
+    ]
+  },
+  "1859": {
+    "flavorText": [
+      "\\.",
+      "!"
+    ]
+  },
+  "1865": {
+    "flavorText": [
+      "^“E",
+      "“È"
+    ]
+  },
+  "1868": {
+    "abilities": [
+      "^1",
+      "⟳, 1"
+    ]
+  },
+  "1869": {
+    "abilities": [
+      "tX",
+      "¤"
+    ],
+    "artistsText": [
+      "ò",
+      "ó"
+    ],
+    "subtypes": [
+      null,
+      [
+        "Classico",
+        "Eroe"
+      ]
+    ]
+  },
+  "1872": {
+    "subtypes": [
+      null,
+      [
+        "Canzone"
+      ]
+    ]
+  },
+  "1873": {
+    "abilities": [
+      "'T",
+      "' T"
+    ]
+  },
+  "1874": {
+    "subtypes": [
+      "oe",
+      "o"
+    ]
+  },
+  "1879": {
+    "abilities": [
+      "◊",
+      "¤"
+    ]
+  },
+  "1884": {
+    "abilities": [
+      " o\n",
+      "\n",
+      "⟳",
+      "◉"
     ]
   },
   "1893": {
