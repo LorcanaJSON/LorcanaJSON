@@ -1016,7 +1016,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 		for abilityIndex in range(len(ocrResult.abilityLabels)):
 			abilityName = correctPunctuation(ocrResult.abilityLabels[abilityIndex].replace("‘", "'").replace("’", "'").replace("''", "'")).rstrip(":")
 			originalAbilityName = abilityName
-			abilityName = re.sub(r"(?<=\w) ?[.7|»”©\"]$", "", abilityName)
+			abilityName = re.sub(r"(?<=\w) ?[.7|»”©(\"]$", "", abilityName)
 			if GlobalConfig.language == Language.ENGLISH:
 				abilityName = abilityName.replace("|", "I")
 				abilityName = re.sub("^l", "I", abilityName)
