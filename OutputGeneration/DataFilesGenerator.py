@@ -1325,7 +1325,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 				if "name" in ability:
 					ability["fullText"] = ability["name"]
 					if newlineAfterLabelIndex == abilityIndex:
-						_logger.info(f"Adding newline after abilty label index {abilityIndex}")
+						_logger.info(f"Adding newline after ability label index {abilityIndex}")
 						ability["fullText"] += "\n"
 					else:
 						ability["fullText"] += " "
