@@ -107,8 +107,12 @@ class ExternalLinksHandler:
 		setNameToCode = {}
 		setCodeToName = {}
 		for setCode, setData in setsData.items():
-			setNameToCode[setData["names"]["en"]] = setCode
-			setCodeToName[setCode] = setData["names"]["en"]
+			setName = setData["names"]["en"]
+			setNameToCode[setName] = setCode
+			setCodeToName[setCode] = setName
+			# CardTrader doesn't always keep the 'The' at the start, so store the name without that too
+			if setName.startswith("The "):
+				setNameToCode[setName.split(" ", 1)[1]] = setCode
 
 		# Get data from CardTrader, it includes Cardmarket and TCGplayer card IDs
 		headers = {"Authorization": "Bearer " + cardTraderToken}
