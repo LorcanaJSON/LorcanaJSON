@@ -83,6 +83,11 @@ _CORRECTIONS = {
 			"Elsa - Ice Maker": ("7", "224/204"),
 			"Pinocchio - Strings Attached": ("8", "224/204")
 		}
+	},
+	"8": {
+		"154": {
+			"Olaf - Recapping the Story": ("8", "156/204")
+		}
 	}
 }
 
