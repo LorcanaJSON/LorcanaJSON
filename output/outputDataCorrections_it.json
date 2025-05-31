@@ -882,12 +882,6 @@
       "◊"
     ]
   },
-  "1208": {
-    "abilities": [
-      "^.+Trasform",
-      "Trasform"
-    ]
-  },
   "1209": {
     "flavorText": [
       "E",
@@ -1031,12 +1025,6 @@
     "flavorText": [
       "\\.",
       "!"
-    ]
-  },
-  "1283": {
-    "abilities": [
-      "^[A-Z ]+\nTrasform",
-      "Trasform"
     ]
   },
   "1295": {
@@ -1210,12 +1198,6 @@
       "⛉"
     ]
   },
-  "1437": {
-    "abilities": [
-      "^.+Trasform",
-      "Trasform"
-    ]
-  },
   "1439": {
     "artistsText": [
       "é",
@@ -1240,34 +1222,16 @@
       "!"
     ]
   },
-  "1456": {
-    "abilities": [
-      "^.+Trasform",
-      "Trasform"
-    ]
-  },
   "1458": {
     "flavorText": [
       "’”",
       "’.”"
     ]
   },
-  "1459": {
-    "abilities": [
-      "^.+Trasform",
-      "Trasform"
-    ]
-  },
   "1460": {
     "abilities": [
       "¤",
       "◊"
-    ]
-  },
-  "1461": {
-    "abilities": [
-      "^.+Trasform",
-      "Trasform"
     ]
   },
   "1464": {
@@ -1336,34 +1300,10 @@
       "?”"
     ]
   },
-  "1501": {
-    "abilities": [
-      "^.+Trasform",
-      "Trasform"
-    ]
-  },
-  "1502": {
-    "abilities": [
-      "^.+Trasform",
-      "Trasform"
-    ]
-  },
   "1515": {
     "flavorText": [
       "\\.",
       "!"
-    ]
-  },
-  "1529": {
-    "abilities": [
-      "^.+Trasform",
-      "Trasform"
-    ]
-  },
-  "1537": {
-    "abilities": [
-      "^[JAO. \n]+Trasform",
-      "Trasform"
     ]
   },
   "1542": {
@@ -1380,24 +1320,10 @@
       "?”"
     ]
   },
-  "1547": {
-    "abilities": [
-      "^.+Trasform",
-      "Trasform"
-    ]
-  },
   "1554": {
     "abilities": [
       "2\n",
       "2 ¤\n"
-    ]
-  },
-  "1559": {
-    "_effectAtIndexIsAbility": 0,
-    "_moveAbilityAtIndexToIndex": [2, 0],
-    "effects": [
-      "^.+\nTras",
-      "Tras"
     ]
   },
   "1560": {
@@ -1412,12 +1338,6 @@
       "⟳, 2"
     ]
   },
-  "1574": {
-    "abilities": [
-      "^.+Trasform",
-      "Trasform"
-    ]
-  },
   "1591": {
     "flavorText": [
       "Il'",
@@ -1428,12 +1348,6 @@
     "abilities": [
       "AV",
       "A V"
-    ]
-  },
-  "1596": {
-    "abilities": [
-      "^.+Trasform",
-      "Trasform"
     ]
   },
   "1599": {
@@ -1520,12 +1434,6 @@
       null
     ]
   },
-  "1661": {
-    "abilities": [
-      "^.+Trasform",
-      "Trasform"
-    ]
-  },
   "1665": {
     "abilities": [
       " 3",
@@ -1575,37 +1483,15 @@
     ]
   },
   "1684": {
-    "abilities": [
-      "^.+Trasform",
-      "Trasform"
-    ],
     "subtypes": [
       "^i",
       "I"
-    ]
-  },
-  "1688": {
-    "abilities": [
-      "^.+Trasform",
-      "Trasform"
     ]
   },
   "1689": {
     "abilities": [
       "¤",
       "◊"
-    ]
-  },
-  "1691": {
-    "abilities": [
-      "^.+Trasform",
-      "Trasform"
-    ]
-  },
-  "1694": {
-    "abilities": [
-      "^.+Trasform",
-      "Trasform"
     ]
   },
   "1698": {
@@ -1632,12 +1518,6 @@
       "A T"
     ]
   },
-  "1731": {
-    "abilities": [
-      "^.+Trasform",
-      "Trasform"
-    ]
-  },
   "1734": {
     "abilities": [
       "\\.”",
@@ -1648,12 +1528,6 @@
     "abilities": [
       "a\n",
       "a ¤\n"
-    ]
-  },
-  "1736": {
-    "abilities": [
-      "^.+Trasform",
-      "Trasform"
     ]
   },
   "1737": {
@@ -1695,24 +1569,6 @@
   "1757": {
     "_newlineAfterLabelIndex": 0
   },
-  "1762": {
-    "abilities": [
-      "^.+Trasform",
-      "Trasform"
-    ]
-  },
-  "1771": {
-    "abilities": [
-      "^.+Trasformazione(?= \\d)",
-      "Trasformazione"
-    ]
-  },
-  "1773": {
-    "abilities": [
-      "^.+Trasform",
-      "Trasform"
-    ]
-  },
   "1782": {
     "effects": [
       "f¤",
@@ -1735,12 +1591,6 @@
     "abilities": [
       "2\n",
       "2 ¤\n"
-    ]
-  },
-  "1806": {
-    "abilities": [
-      "^.+Trasform",
-      "Trasform"
     ]
   },
   "1820": {
@@ -1783,12 +1633,6 @@
     "flavorText": [
       "\\.",
       "!"
-    ]
-  },
-  "1835": {
-    "abilities": [
-      "^.+Trasform",
-      "Trasform"
     ]
   },
   "1840": {

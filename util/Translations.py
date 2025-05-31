@@ -29,6 +29,8 @@ class Translation:
 	gateway: str
 	quest: str
 	starter: str
+	# Misc useful translations
+	shift: str  # Needed to correct junk characters parsed in front of Shift, because of the Floodborn ink treatment of the subtypes bar
 
 	def __getitem__(self, item) -> str:
 		# This allows the use of item subscription (myTranslation['AMBER'] or myTranslation[card[color]])
@@ -62,7 +64,9 @@ ENGLISH = Translation(
 	# Product names
 	gateway="Gateway",
 	quest="Quest",
-	starter="Starter Deck"
+	starter="Starter Deck",
+	# Misc useful translations
+	shift="Shift",
 )
 
 FRENCH = Translation(
@@ -90,7 +94,9 @@ FRENCH = Translation(
 	# Product names
 	gateway="Prélude",
 	quest="Quête",
-	starter="Deck de Démarrage"
+	starter="Deck de Démarrage",
+	# Misc useful translations
+	shift="Alter",
 )
 
 GERMAN = Translation(
@@ -118,7 +124,9 @@ GERMAN = Translation(
 	# Product names
 	gateway="Der Einstieg",
 	quest="Chroniken",
-	starter="Deck für 1 Person"
+	starter="Deck für 1 Person",
+	# Misc useful translations
+	shift="Gestaltwandel",
 )
 
 ITALIAN = Translation(
@@ -146,7 +154,9 @@ ITALIAN = Translation(
 	# Product names
 	gateway="Preludio",
 	quest="Avventura",
-	starter="Mazzi per giocatore singolo"
+	starter="Mazzi per giocatore singolo",
+	# Misc useful translations
+	shift="Trasformazione",
 )
 
 def getForLanguage(language: Language.Language):

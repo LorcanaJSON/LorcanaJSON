@@ -665,12 +665,6 @@
       "s'em"
     ]
   },
-  "330": {
-    "abilities": [
-      "^.+Alter",
-      "Alter"
-    ]
-  },
   "332": {
     "abilities": [
       "\\* ",
@@ -1333,12 +1327,6 @@
   },
   "771": {
     "_newlineAfterLabelIndex": 1
-  },
-  "774": {
-    "abilities": [
-      "^.+\nAlter",
-      "Alter"
-    ]
   },
   "775": {
     "flavorText": [
@@ -2253,12 +2241,6 @@
       "E T"
     ]
   },
-  "1208": {
-    "abilities": [
-      "^.+\nAlter",
-      "Alter"
-    ]
-  },
   "1212": {
     "flavorText": [
       "IL",
@@ -2704,8 +2686,6 @@
   },
   "1437": {
     "abilities": [
-      "^.+Alter",
-      "Alter",
       " - ",
       " — "
     ]
@@ -2744,12 +2724,6 @@
     "abilities": [
       "ETEV",
       "E TE V"
-    ]
-  },
-  "1456": {
-    "abilities": [
-      "^.+Alter",
-      "Alter"
     ]
   },
   "1460": {
@@ -2825,18 +2799,6 @@
   "1496": {
     "_forceAbilityIndexToStatic": 1
   },
-  "1501": {
-    "abilities": [
-      "^.+Alter",
-      "Alter"
-    ]
-  },
-  "1502": {
-    "abilities": [
-      "^.+Alter",
-      "Alter"
-    ]
-  },
   "1507": {
     "abilities": [
       " - ",
@@ -2847,12 +2809,6 @@
     "abilities": [
       "ET",
       "E T"
-    ]
-  },
-  "1512": {
-    "abilities": [
-      "^.+Alter",
-      "Alter"
     ]
   },
   "1515": {
@@ -2871,12 +2827,6 @@
     "flavorText": [
       "'r",
       "'l'"
-    ]
-  },
-  "1529": {
-    "abilities": [
-      "^.+Alter",
-      "Alter"
     ]
   },
   "1533": {
@@ -2913,14 +2863,6 @@
       " — "
     ]
   },
-  "1559": {
-    "_effectAtIndexIsAbility": 0,
-    "_moveAbilityAtIndexToIndex": [2, 0],
-    "effects": [
-      "^.+Alter",
-      "Alter"
-    ]
-  },
   "1561": {
     "abilities": [
       "\\|",
@@ -2949,8 +2891,6 @@
   },
   "1574": {
     "abilities": [
-      "^.+Alter",
-      "Alter",
       "\\+ q y\n",
       ""
     ]
@@ -2983,12 +2923,6 @@
     "abilities": [
       "Un",
       "un"
-    ]
-  },
-  "1596": {
-    "abilities": [
-      "^.+Alter",
-      "Alter"
     ]
   },
   "1597": {
@@ -3113,12 +3047,6 @@
       "+"
     ]
   },
-  "1661": {
-    "abilities": [
-      "^.+Alter",
-      "Alter"
-    ]
-  },
   "1665": {
     "abilities": [
       " 1",
@@ -3163,12 +3091,6 @@
     "flavorText": [
       "mol",
       "mal"
-    ]
-  },
-  "1688": {
-    "abilities": [
-      "^.+Alter",
-      "Alter"
     ]
   },
   "1697": {
@@ -3270,10 +3192,6 @@
     "_newlineAfterLabelIndex": 0
   },
   "1736": {
-    "abilities": [
-      "^.+Alter",
-      "Alter"
-    ],
     "artistsText": [
       "î",
       "i"
@@ -3330,12 +3248,6 @@
       "N O"
     ]
   },
-  "1762": {
-    "abilities": [
-      "^.+Alter",
-      "Alter"
-    ]
-  },
   "1770": {
     "_newlineAfterLabelIndex": 0,
     "abilities": [
@@ -3343,22 +3255,10 @@
       " — "
     ]
   },
-  "1771": {
-    "abilities": [
-      "^.+Alter 4",
-      "Alter 4"
-    ]
-  },
   "1772": {
     "abilities": [
       "\\bUne\\b",
       "une"
-    ]
-  },
-  "1773": {
-    "abilities": [
-      "^.+Alter",
-      "Alter"
     ]
   },
   "1776": {
@@ -3415,16 +3315,12 @@
   },
   "1803": {
     "abilities": [
-      "^.+Alter",
-      "Alter",
       "U$",
       "U !"
     ]
   },
   "1806": {
     "abilities": [
-      "^.+Alter",
-      "Alter",
       "Ê",
       "È"
     ]
@@ -3488,12 +3384,6 @@
     "abilities": [
       "Un",
       "un"
-    ]
-  },
-  "1835": {
-    "abilities": [
-      "^.+Alter",
-      "Alter"
     ]
   },
   "1840": {

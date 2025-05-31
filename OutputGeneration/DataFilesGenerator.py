@@ -74,6 +74,8 @@ def correctText(cardText: str) -> str:
 	if re.search(" [^?!.…”“0-9]$", cardText):
 		cardText = cardText[:-2]
 	cardText = re.sub(r"(?<=\bTe[ -]K)a\b", "ā", cardText)
+	# Floodborn characters have Shift, and a subtypes bar that drips ink, leading to erroneous character detection. Fix that
+	cardText = re.sub(fr"^[^\n]{{,15}}\n(?=(?:[A-Z]\w+ )?{GlobalConfig.translation.shift})", "", cardText)
 
 	if GlobalConfig.language == Language.ENGLISH:
 		cardText = re.sub("^‘", "“", cardText, flags=re.MULTILINE)

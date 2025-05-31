@@ -1756,12 +1756,6 @@
       "OP"
     ]
   },
-  "1501": {
-    "abilities": [
-      "^.+\nSh",
-      "Sh"
-    ]
-  },
   "1515": {
     "flavorText": [
       "-",
@@ -1842,14 +1836,6 @@
       "1 ¤\n"
     ]
   },
-  "1559": {
-    "_effectAtIndexIsAbility": 0,
-    "_moveAbilityAtIndexToIndex": [2, 0],
-    "effects": [
-      "^.+\nSh",
-      "Sh"
-    ]
-  },
   "1571": {
     "abilities": [
       "2 o",
@@ -1860,18 +1846,6 @@
     "flavorText": [
       "-",
       "—"
-    ]
-  },
-  "1574": {
-    "abilities": [
-      "^.+\nSh",
-      "Sh"
-    ]
-  },
-  "1596": {
-    "abilities": [
-      "^.+\nSh",
-      "Sh"
     ]
   },
   "1599": {
@@ -2032,12 +2006,6 @@
       "◊"
     ]
   },
-  "1731": {
-    "abilities": [
-      "^.+Shift",
-      "Shift"
-    ]
-  },
   "1732": {
     "abilities": [
       "rl",
@@ -2051,10 +2019,6 @@
     ]
   },
   "1736": {
-    "abilities": [
-      "^.+Shift",
-      "Shift"
-    ],
     "artistsText": [
       "é",
       "è"
@@ -2098,12 +2062,6 @@
     "flavorText": [
       "!",
       "I"
-    ]
-  },
-  "1771": {
-    "abilities": [
-      "^hee ag\n",
-      ""
     ]
   },
   "1780": {
