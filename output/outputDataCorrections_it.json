@@ -326,9 +326,6 @@
       "⟳"
     ]
   },
-  "589": {
-    "_newlineAfterLabelIndex": 0
-  },
   "601": {
     "abilities": [
       "4",
@@ -352,9 +349,6 @@
       "\\.”",
       "!”"
     ]
-  },
-  "642": {
-    "_newlineAfterLabelIndex": 1
   },
   "684": {
     "flavorText": [
@@ -748,9 +742,6 @@
       "2 ¤"
     ]
   },
-  "1069": {
-    "_newlineAfterLabelIndex": 0
-  },
   "1077": {
     "flavorText": [
       "a\\.",
@@ -774,9 +765,6 @@
       "2 p",
       "2 ¤ p"
     ]
-  },
-  "1112": {
-    "_newlineAfterLabelIndex": 0
   },
   "1117": {
     "flavorText": [
@@ -1565,9 +1553,6 @@
       "!\n",
       "!”\n"
     ]
-  },
-  "1757": {
-    "_newlineAfterLabelIndex": 0
   },
   "1782": {
     "effects": [

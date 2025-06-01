@@ -586,9 +586,6 @@
       "1 ◊"
     ]
   },
-  "299": {
-    "_newlineAfterLabelIndex": 0
-  },
   "302": {
     "flavorText": [
       "\n–",
@@ -762,7 +759,6 @@
     ]
   },
   "383": {
-    "_newlineAfterLabelIndex": 0,
     "abilities": [
       " -",
       " –"
@@ -1062,9 +1058,6 @@
       "É"
     ]
   },
-  "580": {
-    "_newlineAfterLabelIndex": 0
-  },
   "581": {
     "abilities": [
       "ou\n",
@@ -1088,9 +1081,6 @@
       "fout",
       "faut"
     ]
-  },
-  "589": {
-    "_newlineAfterLabelIndex": 0
   },
   "593": {
     "abilities": [
@@ -1157,14 +1147,10 @@
     ]
   },
   "642": {
-    "_newlineAfterLabelIndex": 1,
     "abilities": [
       "¤¤",
       "¤"
     ]
-  },
-  "654": {
-    "_newlineAfterLabelIndex": 1
   },
   "676": {
     "_effectAtIndexIsAbility": [0, "BIENVENUE DANS MA MAISON"]
@@ -1324,9 +1310,6 @@
       "^l",
       "L"
     ]
-  },
-  "771": {
-    "_newlineAfterLabelIndex": 1
   },
   "775": {
     "flavorText": [
@@ -2943,9 +2926,6 @@
       "A"
     ]
   },
-  "1607": {
-    "_newlineAfterLabelIndex": 1
-  },
   "1613": {
     "abilities": [
       "Foo",
@@ -3153,9 +3133,6 @@
       "e…"
     ]
   },
-  "1719": {
-    "_newlineAfterLabelIndex": 0
-  },
   "1723": {
     "flavorText": [
       "\\.",
@@ -3187,9 +3164,6 @@
       " - ",
       " — "
     ]
-  },
-  "1732": {
-    "_newlineAfterLabelIndex": 0
   },
   "1736": {
     "artistsText": [
@@ -3225,9 +3199,6 @@
       "J'C"
     ]
   },
-  "1757": {
-    "_newlineAfterLabelIndex": 0
-  },
   "1758": {
     "flavorText": [
       "lic",
@@ -3249,7 +3220,6 @@
     ]
   },
   "1770": {
-    "_newlineAfterLabelIndex": 0,
     "abilities": [
       " - ",
       " — "
@@ -3380,7 +3350,6 @@
     ]
   },
   "1833": {
-    "_newlineAfterLabelIndex": 0,
     "abilities": [
       "Un",
       "un"
@@ -3425,9 +3394,6 @@
       "—l",
       "—L"
     ]
-  },
-  "1861": {
-    "_newlineAfterLabelIndex": 0
   },
   "1862": {
     "abilities": [

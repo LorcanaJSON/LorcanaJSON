@@ -1343,6 +1343,10 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 				if ability["effect"].startswith("("):
 					# Song reminder text has brackets around it. Keep it in the 'fullText', but remove it from the 'effect'
 					ability["effect"] = ability["effect"].strip("()")
+				# If the first line of the fullText is too long, the ability label is probably the full width of the card, so we need to add a newline after it (But not for Locations, those have longer lines)
+				if outputCard["type"] != GlobalConfig.translation.Location and "name" in ability and (ability["fullText"].index("\n") if "\n" in ability["fullText"] else len(ability["fullText"])) >= 70:
+					_logger.info(f"Adding newline after ability label index {abilityIndex}")
+					ability["fullText"] = ability["fullText"][:len(ability["name"])] + "\n" + ability["fullText"][len(ability["name"]) + 1:]
 			outputCard["abilities"][abilityIndex] = {abilityKey: ability[abilityKey] for abilityKey in sorted(ability)}
 	if keywordAbilities:
 		outputCard["keywordAbilities"] = keywordAbilities
