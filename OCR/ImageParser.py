@@ -139,7 +139,7 @@ class ImageParser:
 		if typesImageText not in self.nonCharacterTypes:
 			# The type separator character is always the same, but often gets interpreted wrong; fix that
 			if " " in typesImageText:
-				typesImageText = re.sub(r" (\S )?", f" {LorcanaSymbols.SEPARATOR} ", typesImageText)
+				typesImageText = re.sub(r" (\S )?", LorcanaSymbols.SEPARATOR_STRING, typesImageText)
 			result["subtypesText"] = ImageAndText(typesImage, typesImageText)
 			self._logger.debug(f"{typesImageText=}")
 			if parseSettings.isItemOverride:

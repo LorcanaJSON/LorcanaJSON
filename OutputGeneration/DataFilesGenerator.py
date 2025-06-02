@@ -809,9 +809,9 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 			OcrCacheHandler.storeOcrResult(outputCard["id"], ocrResult)
 
 	if ocrResult.identifier and (ocrResult.identifier.startswith("0") or "TFC" in ocrResult.identifier or GlobalConfig.language.uppercaseCode not in ocrResult.identifier):
-		outputCard["fullIdentifier"] = re.sub(fr" ?\W (?!$)", f" {LorcanaSymbols.SEPARATOR} ", ocrResult.identifier)
+		outputCard["fullIdentifier"] = re.sub(fr" ?\W (?!$)", LorcanaSymbols.SEPARATOR_STRING, ocrResult.identifier)
 		outputCard["fullIdentifier"] = outputCard["fullIdentifier"].replace("I", "/").replace("1P ", "/P ").replace("//", "/").replace(".", "").replace("1TFC", "1 TFC").rstrip(" —")
-		outputCard["fullIdentifier"] = re.sub(fr" ?[-+] ?", f" {LorcanaSymbols.SEPARATOR} ", outputCard["fullIdentifier"])
+		outputCard["fullIdentifier"] = re.sub(fr" ?[-+] ?", LorcanaSymbols.SEPARATOR_STRING, outputCard["fullIdentifier"])
 		if parsedIdentifier is None:
 			parsedIdentifier = IdentifierParser.parseIdentifier(outputCard["fullIdentifier"])
 	else:
@@ -1081,7 +1081,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 			outputCard["clarifications"] = clarifications
 	# Determine subtypes and their order. Items and Actions have an empty subtypes list, ignore those
 	if ocrResult.subtypesText:
-		subtypes: List[str] = re.sub(fr"[^A-Za-zàäèéöü{LorcanaSymbols.SEPARATOR} ]", "", ocrResult.subtypesText).split(f" {LorcanaSymbols.SEPARATOR} ")
+		subtypes: List[str] = re.sub(fr"[^A-Za-zàäèéöü{LorcanaSymbols.SEPARATOR} ]", "", ocrResult.subtypesText).split(LorcanaSymbols.SEPARATOR_STRING)
 		if "ltem" in subtypes:
 			subtypes[subtypes.index("ltem")] = "Item"
 		# 'Seven Dwarves' is a subtype, but it might get split up into two types. Turn it back into one subtype
@@ -1352,7 +1352,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 		outputCard["keywordAbilities"] = keywordAbilities
 	outputCard["artists"] = outputCard["artistsText"].split(" / ")
 	if "subtypes" in outputCard:
-		outputCard["subtypesText"] = f" {LorcanaSymbols.SEPARATOR} ".join(outputCard["subtypes"])
+		outputCard["subtypesText"] = LorcanaSymbols.SEPARATOR_STRING.join(outputCard["subtypes"])
 	# Add external links (Do this after corrections so we can use a corrected 'fullIdentifier')
 	outputCard["externalLinks"] = _threadingLocalStorage.externalIdsHandler.getExternalLinksForCard(parsedIdentifier, "enchantedId" in outputCard)
 	if externalLinksCorrection:

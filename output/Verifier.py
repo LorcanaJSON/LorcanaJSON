@@ -5,7 +5,6 @@ import GlobalConfig
 from util import JsonUtil, Language, LorcanaSymbols, Translations
 
 
-_subtypeSeparatorString = f" {LorcanaSymbols.SEPARATOR} "
 def compareInputToOutput(cardIdsToVerify: Union[List[int], None]):
 	inputFilePath = os.path.join("downloads", "json", f"carddata.{GlobalConfig.language.code}.json")
 	if not os.path.isfile(inputFilePath):
@@ -164,8 +163,8 @@ def compareInputToOutput(cardIdsToVerify: Union[List[int], None]):
 
 		# Compare subtypes
 		if inputCard["subtypes"] or "subtypes" in outputCard:
-			inputSubtypesText = _subtypeSeparatorString.join(inputCard["subtypes"])
-			outputSubtypesText = _subtypeSeparatorString.join(outputCard.get("subtypes", []))
+			inputSubtypesText = LorcanaSymbols.SEPARATOR_STRING.join(inputCard["subtypes"])
+			outputSubtypesText = LorcanaSymbols.SEPARATOR_STRING.join(outputCard.get("subtypes", []))
 			if inputSubtypesText != outputSubtypesText:
 				cardDifferencesCount += 1
 				_printDifferencesDescription(outputCard, "subtypes", inputSubtypesText, outputSubtypesText)
@@ -178,7 +177,7 @@ def compareInputToOutput(cardIdsToVerify: Union[List[int], None]):
 			cardDifferencesCount += 1
 			print(f"{outputCard['fullName']} (ID {outputCard['id']}) should have a non-promo ID field, but it doesn't")
 
-		inputIdentifier = inputCard["card_identifier"].replace(" ", f" {LorcanaSymbols.SEPARATOR} ")
+		inputIdentifier = inputCard["card_identifier"].replace(" ", LorcanaSymbols.SEPARATOR_STRING)
 		outputIdentifier = outputCard["fullIdentifier"].lstrip("0")  # The input identifiers don't have the leading zero, so strip it here too
 		if inputIdentifier != outputIdentifier:
 			cardDifferencesCount += 1
