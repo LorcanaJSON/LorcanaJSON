@@ -95,7 +95,7 @@ def compareInputToOutput(cardIdsToVerify: Union[List[int], None]):
 				# Some cards have an m-dash instead of normal 'minus' dash in front of numbers
 				inputRulesText = re.sub(r"[–—](?=\d)", "-", inputRulesText)
 				if GlobalConfig.language == Language.ENGLISH:
-					inputRulesText = inputRulesText.replace("teammates’ ", "teammates' ").replace("players’ ", "players' ")
+					inputRulesText = inputRulesText.replace("teammates’ ", "teammates' ").replace("players’ ", "players' ").replace("Illumineers’ ", "Illumineers' ")
 				elif GlobalConfig.language == Language.FRENCH:
 					# Exclamation marks etc. should be preceded by a space
 					inputRulesText = re.sub(r"(?<=\w)([?!:])", r" \1", inputRulesText)
