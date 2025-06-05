@@ -17,6 +17,12 @@
       "o / Pix Smith"
     ]
   },
+  "164": {
+    "flavor_text": [
+      "— T",
+      "—T"
+    ]
+  },
   "215": {
     "rules_text": [
       "While",
@@ -53,6 +59,24 @@
       ", b"
     ]
   },
+  "251": {
+    "flavor_text": [
+      "m\\.",
+      "m ."
+    ]
+  },
+  "323": {
+    "author": [
+      "^.+\"([^\"]+)\".+$",
+      "\\1"
+    ]
+  },
+  "333": {
+    "author": [
+      "^.+\"([^\"]+)\".+$",
+      "\\1"
+    ]
+  },
   "359": {
     "rules_text": [
       "\\\"$",
@@ -71,6 +95,36 @@
     "flavor_text": [
       "^.+$",
       ""
+    ]
+  },
+  "436": {
+    "rules_text": [
+      "–",
+      "-"
+    ]
+  },
+  "437": {
+    "rules_text": [
+      "–",
+      "-"
+    ]
+  },
+  "438": {
+    "rules_text": [
+      "–",
+      "-"
+    ]
+  },
+  "439": {
+    "rules_text": [
+      "–",
+      "-"
+    ]
+  },
+  "440": {
+    "rules_text": [
+      "–",
+      "-"
     ]
   },
   "462": {
@@ -166,7 +220,9 @@
   "660": {
     "rules_text": [
       "characters named Stitch",
-      "Stitch characters"
+      "Stitch characters",
+      "\\bthem\\b",
+      "it"
     ]
   },
   "661": {
@@ -197,6 +253,12 @@
     "rules_text": [
       "another ",
       ""
+    ]
+  },
+  "673": {
+    "rules_text": [
+      ", e",
+      ", if you used Shift to play them, e"
     ]
   },
   "686": {
@@ -315,6 +377,12 @@
     "author": [
       " C.+$",
       "sonArt"
+    ]
+  },
+  "1515": {
+    "flavor_text": [
+      "— ",
+      "—"
     ]
   },
   "1536": {
