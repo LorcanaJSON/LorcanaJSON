@@ -197,7 +197,7 @@ class ExternalLinksHandler:
 					elif cardSetCodeToUse != setCodeToUse:
 						cardmarketCategoryName = _convertStringToUrlValue(setCodeToName[cardSetCodeToUse])
 					elif re.search("/[A-Z]", card["fixed_properties"]["collector_number"]):
-						cardCategory = card["fixed_properties"]["collector_number"].split("/", 1)[1]
+						cardCategory = card["fixed_properties"]["collector_number"].split("/", 1)[1].strip()
 						cardmarketCategoryName = _CARD_MARKET_CARD_GROUP_TO_NAME[cardCategory]
 					else:
 						cardmarketCategoryName = _convertStringToUrlValue(expansionName)
