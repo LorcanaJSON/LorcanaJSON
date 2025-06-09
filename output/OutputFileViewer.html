@@ -13,23 +13,27 @@
 
 <body>
 <div id="dropLocation" style="background-color: lightgreen; width: 100%; height: 100px;"><b style="text-align: center;">Drag JSON here</b><br /><span id="metadataDisplay" /></div>
-<a href="#" onclick="changeDisplayedIndex(-1); return false;">Previous</a>
-<form id="indexForm" name="indexForm">
-	<span>Index: </span>
-	<input id="currentIndex" type="number" placeholder="0" min="0" style="max-width: 5em;" />
-</form>
-<a href="#" onclick="changeToRandomIndex(); return false;">Random</a>
-<form id="cardIdForm" name="cardIdForm">
-	<span>ID: </span>
-	<input id="cardId" type="number" placeholder="1" min="1" style="max-width: 5em;" />
-</form>
-<div>
-	<span>Max index: </span>
-	<span id="maxIndex">0</span>
-	<span>Max ID: </span>
-	<span id="maxId">0</span>
+
+<div style="display: flex; gap: 1em; align-items: center;">
+	<a href="#" onclick="changeDisplayedIndex(-1); return false;">Previous</a>
+	<form id="indexForm" name="indexForm">
+		<span>Index: </span>
+		<input id="currentIndex" type="number" placeholder="0" min="0" style="max-width: 5em;" />
+	</form>
+	<a href="#" onclick="changeToRandomIndex(); return false;">Random</a>
+	<form id="cardIdForm" name="cardIdForm">
+		<span>ID: </span>
+		<input id="cardId" type="number" placeholder="1" min="1" style="max-width: 5em;" />
+	</form>
+	<div>
+		<span>Max index: </span>
+		<span id="maxIndex">0</span>
+		<span>Max ID: </span>
+		<span id="maxId">0</span>
+	</div>
+	<a href="#" onclick="changeDisplayedIndex(1); return false;">Next</a>
 </div>
-<a href="#" onclick="changeDisplayedIndex(1); return false;">Next</a>
+
 <hr>
 <span id="name"></span> <span style="color: lightgrey">from</span> <span id="story"></span>
 <hr>
