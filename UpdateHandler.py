@@ -9,7 +9,8 @@ from util import DownloadUtil
 
 _logger = logging.getLogger("LorcanaJSON")
 
-def checkForNewCardData(newCardCatalog: Dict = None, fieldsToIgnore: List[str] = None, includeCardChanges: bool = True, ignoreOrderChanges: bool = True) -> Tuple[List, List, List, List]:
+def checkForNewCardData(newCardCatalog: Dict = None, fieldsToIgnore: List[str] = None, includeCardChanges: bool = True, ignoreOrderChanges: bool = True)\
+		-> Tuple[List[Tuple[int, str]], List[Tuple[int, str, str, Any, Any]], List[Tuple[int, str, str]], List[Tuple[int, int, str]]]:
 	# We need to find the old cards by ID, so set up a dict
 	oldCards = {}
 	pathToCardCatalog = os.path.join("downloads", "json", f"carddata.{GlobalConfig.language.code}.json")
@@ -128,7 +129,7 @@ def checkForNewCardData(newCardCatalog: Dict = None, fieldsToIgnore: List[str] =
 		setNumberToCheck = firstIncompleteSetNumber
 	else:
 		setNumberToCheck = highestSetNumber + 1
-	unlistedCards = []
+	unlistedCards: List[Tuple[int, int, str]] = []
 	if setNumberToCheck > -1:
 		for cardNumberToCheck in random.sample(range(1, 205), 3):
 			hashedCardNumberToCheck = hashlib.sha1(bytes(str(cardNumberToCheck), encoding="utf-8")).hexdigest()
