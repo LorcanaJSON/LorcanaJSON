@@ -155,12 +155,13 @@ def createOutputIfNeeded(onlyCreateOnNewCards: bool, cardFieldsToIgnore: List[st
 	idsToParse = [entry[0] for entry in addedCards]
 	idsToParse.extend([entry[0] for entry in cardChanges])
 	# Not all possible image changes are actual changes, update only the changed images
-	actualImageChanges = RavensburgerApiHandler.downloadImagesIfUpdated(possibleImageChanges)
-	_logger.info(f"{len(actualImageChanges):,} actual image changes")
-	if actualImageChanges:
-		GlobalConfig.useCachedOcr = False
-		_logger.info("Image(s) changed, skipping using OCR cache")
-	idsToParse.extend(actualImageChanges)
+	if possibleImageChanges:
+		actualImageChanges = RavensburgerApiHandler.downloadImagesIfUpdated(cardCatalog, [c[0] for c in possibleImageChanges])
+		_logger.info(f"{len(actualImageChanges):,} actual image changes: {actualImageChanges}")
+		if actualImageChanges:
+			GlobalConfig.useCachedOcr = False
+			_logger.info("Image(s) changed, skipping using OCR cache")
+		idsToParse.extend(actualImageChanges)
 	RavensburgerApiHandler.saveCardCatalog(cardCatalog)
 	RavensburgerApiHandler.downloadImages()
 	DataFilesGenerator.createOutputFiles(idsToParse, shouldShowImages=shouldShowImages)

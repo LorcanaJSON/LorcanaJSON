@@ -63,9 +63,7 @@ def downloadImage(imageUrl: str, savePath: str, shouldOverwriteImage: bool = Fal
 	_logger.info(f"Successfully downloaded '{savePath}'")
 	return True
 
-def downloadImagesIfUpdated(cardIdsToCheck: List[int]) -> List[int]:
-	with open(os.path.join("downloads", "json", f"carddata.{GlobalConfig.language.code}.json"), "r", encoding="utf-8") as cardCatalogFile:
-		cardCatalog = json.load(cardCatalogFile)
+def downloadImagesIfUpdated(cardCatalog: Dict, cardIdsToCheck: List[int]) -> List[int]:
 	cardIdsWithUpdatedImage: List[int] = []
 	imageBackupFolderPath = os.path.join("downloads", "images", GlobalConfig.language.code, "backups")
 	if not os.path.isdir(imageBackupFolderPath):
