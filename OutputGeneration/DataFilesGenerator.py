@@ -11,7 +11,7 @@ from util import IdentifierParser, JsonUtil, Language, LorcanaSymbols
 
 
 _logger = logging.getLogger("LorcanaJSON")
-FORMAT_VERSION = "2.1.4"
+FORMAT_VERSION = "2.1.5"
 _CARD_CODE_LOOKUP = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 _KEYWORD_REGEX = re.compile(r"(?:^|\n)([A-ZÀ][^.]+)(?=\s\([A-Z])")
 _KEYWORD_REGEX_WITHOUT_REMINDER = re.compile(r"^[A-Z][a-z]{2,}( \d)?$")
@@ -927,6 +927,8 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 			"full": _cleanUrl(inputCard["image_urls"][0]["url"]),
 			"thumbnail": _cleanUrl(inputCard["image_urls"][1]["url"]),
 		}
+		if "foil_detail_url" in inputCard:
+			outputCard["images"]["fullFoil"] = _cleanUrl(inputCard["foil_detail_url"])
 		if "foil_mask_url" in inputCard:
 			outputCard["images"]["foilMask"] = _cleanUrl(inputCard["foil_mask_url"])
 		if "varnish_mask_url" in inputCard:
