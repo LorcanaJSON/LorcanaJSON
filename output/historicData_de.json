@@ -543,5 +543,22 @@
       "subtypesText": "Traumgestalt \u2022 Verb\u00fcndeter",
       "usedUntil": "2025-02-26"
     }
+  ],
+  "1804": [
+    {
+      "abilities": [
+        {
+          "effect": "Solange 2 oder mehr deiner Charaktere ersch\u00f6pft sind, erh\u00e4lt dieser Charakter +1 \u00a4 und Wendig. (Nur Charaktere mit Wendig k\u00f6nnen diesen Charakter herausfordern.)",
+          "fullText": "WILDER RITT Solange 2 oder mehr deiner\nCharaktere ersch\u00f6pft sind, erh\u00e4lt dieser\nCharakter +1 \u00a4 und Wendig. (Nur Charaktere mit\nWendig k\u00f6nnen diesen Charakter herausfordern.)",
+          "name": "WILDER RITT",
+          "type": "static"
+        }
+      ],
+      "fullText": "WILDER RITT Solange 2 oder mehr deiner\nCharaktere ersch\u00f6pft sind, erh\u00e4lt dieser\nCharakter +1 \u00a4 und Wendig. (Nur Charaktere mit\nWendig k\u00f6nnen diesen Charakter herausfordern.)",
+      "fullTextSections": [
+        "WILDER RITT Solange 2 oder mehr deiner\nCharaktere ersch\u00f6pft sind, erh\u00e4lt dieser\nCharakter +1 \u00a4 und Wendig. (Nur Charaktere mit\nWendig k\u00f6nnen diesen Charakter herausfordern.)"
+      ],
+      "usedUntil": "2025-06-12"
+    }
   ]
 }
