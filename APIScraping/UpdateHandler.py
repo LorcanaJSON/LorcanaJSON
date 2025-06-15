@@ -113,36 +113,6 @@ def checkForNewCardData(newCardCatalog: Dict = None, fieldsToIgnore: List[str] =
 				if card["culture_invariant_id"] not in existingIds:
 					addedCards.append((card["culture_invariant_id"], "[external]"))
 
-	# Check if card images were uploaded to Ravensburger's server but not added to the app yet
-	with open(os.path.join("output", "baseSetData.json"), "r", encoding="utf-8") as baseSetDataFile:
-		baseSetData = json.load(baseSetDataFile)
-	firstIncompleteSetNumber = -1
-	highestSetNumber = -1
-	for setCode, setData in baseSetData.items():
-		if setData["type"] == "expansion":
-			setNumber = setData["number"]
-			if not setData["hasAllCards"] and firstIncompleteSetNumber == -1:
-				firstIncompleteSetNumber = setNumber
-			if setNumber > highestSetNumber:
-				highestSetNumber = setNumber
-	if firstIncompleteSetNumber > -1:
-		setNumberToCheck = firstIncompleteSetNumber
-	else:
-		setNumberToCheck = highestSetNumber + 1
-	unlistedCards: List[Tuple[int, int, str]] = []
-	if setNumberToCheck > -1:
-		for cardNumberToCheck in random.sample(range(1, 205), 3):
-			hashedCardNumberToCheck = hashlib.sha1(bytes(str(cardNumberToCheck), encoding="utf-8")).hexdigest()
-			urlToCheck = f"https://api.lorcana.ravensburger.com/images/en/set{setNumberToCheck}/cards/1468x2048/{hashedCardNumberToCheck}.jpg"
-			try:
-				DownloadUtil.retrieveFromUrl(urlToCheck, maxAttempts=3)
-			except DownloadUtil.DownloadException:
-				# Download failed, image doesn't exist
-				pass
-			else:
-				# Download succeeded, store it
-				unlistedCards.append((setNumberToCheck, cardNumberToCheck, urlToCheck))
-
 	return (addedCards, cardChanges, possibleImageChanges, unlistedCards)
 
 def createOutputIfNeeded(onlyCreateOnNewCards: bool, cardFieldsToIgnore: List[str] = None, shouldShowImages: bool = False):
