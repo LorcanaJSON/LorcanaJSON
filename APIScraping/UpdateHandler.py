@@ -1,16 +1,15 @@
-import datetime, hashlib, json, logging, os, random
-from typing import Any, Dict, List, Tuple
+import datetime, json, logging, os
+from typing import Dict, List
 
 import GlobalConfig
-from OutputGeneration import DataFilesGenerator
 from APIScraping import RavensburgerApiHandler
-from util import DownloadUtil
+from APIScraping.UpdateCheckResult import ChangeType, UpdateCheckResult
+from OutputGeneration import DataFilesGenerator
 
 
 _logger = logging.getLogger("LorcanaJSON")
 
-def checkForNewCardData(newCardCatalog: Dict = None, fieldsToIgnore: List[str] = None, includeCardChanges: bool = True, ignoreOrderChanges: bool = True)\
-		-> Tuple[List[Tuple[int, str]], List[Tuple[int, str, str, Any, Any]], List[Tuple[int, str, str]], List[Tuple[int, int, str]]]:
+def checkForNewCardData(newCardCatalog: Dict = None, fieldsToIgnore: List[str] = None, includeCardChanges: bool = True, ignoreOrderChanges: bool = True) -> UpdateCheckResult:
 	# We need to find the old cards by ID, so set up a dict
 	oldCards = {}
 	pathToCardCatalog = os.path.join("downloads", "json", f"carddata.{GlobalConfig.language.code}.json")
@@ -30,17 +29,12 @@ def checkForNewCardData(newCardCatalog: Dict = None, fieldsToIgnore: List[str] =
 		newCardCatalog = RavensburgerApiHandler.retrieveCardCatalog()
 
 	# Now go through all the new cards and see if the card exists in the old list, and if so, if the values are the same
-	addedCards: List[Tuple[int, str]] = []  # A list of tuples, with the first tuple entry being the new card's ID and the second tuple entry the card's name
-	cardChanges: List[Tuple[int, str, str, Any, Any]] = []  # A list of tuples, with each tuple consisting of the changed card's ID, its name, the name of the changed field, the old field value, and the new field value
-	possibleImageChanges: List[Tuple[int, str, str]] = []  # A list of tuples where the image checksum might have changed, with each tuple being the card ID, the card name, and the image URL
+	updateCheckResult: UpdateCheckResult = UpdateCheckResult()
 	for cardType, cardList in newCardCatalog["cards"].items():
 		for card in cardList:
 			cardId = card["culture_invariant_id"]
-			cardDescriptor = card["name"]
-			if "subtitle" in card:
-				cardDescriptor += " - " + card["subtitle"]
 			if cardId not in oldCards:
-				addedCards.append((cardId, cardDescriptor))
+				updateCheckResult.addNewCard(card)
 			elif includeCardChanges:
 				oldCard = oldCards[cardId]
 				if not fieldsToIgnore or "image_urls" not in fieldsToIgnore:
@@ -60,7 +54,7 @@ def checkForNewCardData(newCardCatalog: Dict = None, fieldsToIgnore: List[str] =
 					else:
 						_logger.warning(f"Unable to find properly sized image in old data for card ID {cardId}")
 					if imageUrl != oldImageUrl:
-						possibleImageChanges.append((cardId, cardDescriptor, imageUrl))
+						updateCheckResult.addPossibleImageChange(card, oldImageUrl, imageUrl)
 				for fieldName, fieldValue in card.items():
 					if fieldName == "image_urls":
 						# Skip the image_urls field since we already checked it
@@ -68,10 +62,10 @@ def checkForNewCardData(newCardCatalog: Dict = None, fieldsToIgnore: List[str] =
 					if fieldsToIgnore and fieldName in fieldsToIgnore:
 						continue
 					if fieldName not in oldCard:
-						cardChanges.append((cardId, cardDescriptor, fieldName, None, fieldValue))
+						updateCheckResult.addCardChange(card, ChangeType.NEW_FIELD, fieldName, None, fieldValue)
 					elif isinstance(fieldValue, list):
 						if len(fieldValue) != len(oldCard[fieldName]):
-							cardChanges.append((cardId, cardDescriptor, fieldName, oldCard[fieldName], fieldValue))
+							updateCheckResult.addCardChange(card, ChangeType.UPDATED_FIELD, fieldName, oldCard[fieldName], fieldValue)
 						else:
 							for listValueIndex in range(len(fieldValue)):
 								oldListEntry = oldCard[fieldName][listValueIndex]
@@ -79,23 +73,23 @@ def checkForNewCardData(newCardCatalog: Dict = None, fieldsToIgnore: List[str] =
 								if isinstance(newListEntry, str) or isinstance(newListEntry, int):
 									if ignoreOrderChanges:
 										if newListEntry not in oldCard[fieldName]:
-											cardChanges.append((cardId, cardDescriptor, fieldName, None, newListEntry))
+											updateCheckResult.addCardChange(card, ChangeType.NEW_ENTRY, fieldName, None, newListEntry)
 									elif newListEntry != oldListEntry:
-										cardChanges.append((cardId, cardDescriptor, fieldName, oldListEntry, newListEntry))
+										updateCheckResult.addCardChange(card, ChangeType.UPDATED_ENTRY, fieldName, oldListEntry, newListEntry)
 								elif isinstance(newListEntry, dict):
 									if len(oldListEntry) != len(newListEntry):
-										cardChanges.append((cardId, cardDescriptor, fieldName, oldListEntry, newListEntry))
+										updateCheckResult.addCardChange(card, ChangeType.UPDATED_ENTRY, fieldName, oldListEntry, newListEntry)
 									else:
 										for listEntryKey, listEntryValue in newListEntry.items():
 											if listEntryKey not in oldListEntry:
-												cardChanges.append((cardId, cardDescriptor, fieldName, None, listEntryKey))
+												updateCheckResult.addCardChange(card, ChangeType.NEW_ENTRY, fieldName, None, listEntryKey)
 											else:
 												if listEntryValue != oldListEntry[listEntryKey]:
-													cardChanges.append((cardId, cardDescriptor, fieldName, oldListEntry[listEntryKey], listEntryValue))
+													updateCheckResult.addCardChange(card, ChangeType.UPDATED_ENTRY, fieldName, oldListEntry[listEntryKey], listEntryValue)
 								else:
 									raise ValueError(f"Unsupported list entry type '{type(newListEntry)}'")
 					elif fieldValue != oldCard[fieldName]:
-						cardChanges.append((cardId, cardDescriptor, fieldName, oldCard[fieldName], fieldValue))
+						updateCheckResult.addCardChange(card, ChangeType.UPDATED_FIELD, fieldName, oldCard[fieldName], fieldValue)
 
 	# Check if new cards have been added to the external reveals file
 	externalRevealsFileName = f"externalCardReveals.{GlobalConfig.language.code}.json"
@@ -111,22 +105,22 @@ def checkForNewCardData(newCardCatalog: Dict = None, fieldsToIgnore: List[str] =
 			externalReveals = json.load(externalRevealsFile)
 			for card in externalReveals:
 				if card["culture_invariant_id"] not in existingIds:
-					addedCards.append((card["culture_invariant_id"], "[external]"))
+					updateCheckResult.addNewCard(card, "[external]")
 
-	return (addedCards, cardChanges, possibleImageChanges, unlistedCards)
+	return updateCheckResult
 
 def createOutputIfNeeded(onlyCreateOnNewCards: bool, cardFieldsToIgnore: List[str] = None, shouldShowImages: bool = False):
 	cardCatalog = RavensburgerApiHandler.retrieveCardCatalog()
-	addedCards, cardChanges, possibleImageChanges, unlistedCards = checkForNewCardData(cardCatalog, cardFieldsToIgnore, includeCardChanges=not onlyCreateOnNewCards)
-	if not addedCards and not cardChanges and not possibleImageChanges:
-		_logger.info(f"No catalog updates, not running output generator, {len(unlistedCards):,} unlisted cards found")
+	updateCheckResult: UpdateCheckResult = checkForNewCardData(cardCatalog, cardFieldsToIgnore, includeCardChanges=not onlyCreateOnNewCards)
+	if not updateCheckResult.hasChanges():
+		_logger.info(f"No catalog updates, not running output generator")
 		return
-	_logger.info(f"Found {len(addedCards):,} new cards, {len(cardChanges):,} changed cards, and {len(possibleImageChanges):,} possible image changes")
-	idsToParse = [entry[0] for entry in addedCards]
-	idsToParse.extend([entry[0] for entry in cardChanges])
+	_logger.info(f"Found {updateCheckResult.listChangeCounts()}")
+	idsToParse = [card.id for card in updateCheckResult.newCards]
+	idsToParse.extend([card.id for card in updateCheckResult.changedCards])
 	# Not all possible image changes are actual changes, update only the changed images
-	if possibleImageChanges:
-		actualImageChanges = RavensburgerApiHandler.downloadImagesIfUpdated(cardCatalog, [c[0] for c in possibleImageChanges])
+	if updateCheckResult.possibleChangedImages:
+		actualImageChanges = RavensburgerApiHandler.downloadImagesIfUpdated(cardCatalog, [card.id for card in updateCheckResult.possibleChangedImages])
 		_logger.info(f"{len(actualImageChanges):,} actual image changes: {actualImageChanges}")
 		if actualImageChanges:
 			GlobalConfig.useCachedOcr = False
@@ -135,14 +129,11 @@ def createOutputIfNeeded(onlyCreateOnNewCards: bool, cardFieldsToIgnore: List[st
 	RavensburgerApiHandler.saveCardCatalog(cardCatalog)
 	RavensburgerApiHandler.downloadImages()
 	DataFilesGenerator.createOutputFiles(idsToParse, shouldShowImages=shouldShowImages)
-	createChangelog(addedCards, cardChanges)
+	createChangelog(updateCheckResult)
 
-def createChangelog(addedCards: List[Tuple[int, str]], cardChanges, subVersion: str = "1"):
-	if not addedCards and not cardChanges:
+def createChangelog(updateCheckResult: UpdateCheckResult, subVersion: str = "1"):
+	if not updateCheckResult.newCards and not updateCheckResult.changedCards:
 		return
-
-	def createCardDescriptor(addedOrChangedCard) -> str:
-		return f"{addedOrChangedCard[1]} (ID {addedOrChangedCard[0]})"
 
 	currentDateString = datetime.datetime.now().strftime("%Y-%m-%d")
 	indent = " " * 4
@@ -152,23 +143,22 @@ def createChangelog(addedCards: List[Tuple[int, str]], cardChanges, subVersion: 
 	with open("newChangelogEntry.txt", "w", encoding="utf-8") as newChangelogEntryFile:
 		newChangelogEntryFile.write(f"<h4 id=\"{changelogEntryDescriptor}\">{currentDateString} - format version {DataFilesGenerator.FORMAT_VERSION}</h4>\n")
 		newChangelogEntryFile.write("<ul>\n")
-		if addedCards:
-			addedCards.sort(key=lambda c: c[0])
-			newChangelogEntryFile.write(f"{indent}<li>Added {len(addedCards):,} cards:\n")
+		if updateCheckResult.newCards:
+			updateCheckResult.newCards.sort(key=lambda c: c[0])
+			newChangelogEntryFile.write(f"{indent}<li>Added {len(updateCheckResult.newCards):,} cards:\n")
 			newChangelogEntryFile.write(f"{doubleIndent}<ul>\n")
-			for addedCard in addedCards:
-				newChangelogEntryFile.write(f"{tripleIndent}<li>{createCardDescriptor(addedCard)}</li>\n")
+			for addedCard in updateCheckResult.newCards:
+				newChangelogEntryFile.write(f"{tripleIndent}<li>{addedCard}</li>\n")
 			newChangelogEntryFile.write(f"{doubleIndent}</ul>\n")
 			newChangelogEntryFile.write(f"{indent}</li>\n")
-		if cardChanges:
+		if updateCheckResult.changedCards:
 			# Aggregate field changes
 			fieldNameToCardDescriptors = {}
-			for cardChange in cardChanges:
-				fieldName = cardChange[2]
-				if fieldName not in fieldNameToCardDescriptors:
-					fieldNameToCardDescriptors[fieldName] = [createCardDescriptor(cardChange)]
+			for changedCard in updateCheckResult.changedCards:
+				if changedCard.fieldName not in fieldNameToCardDescriptors:
+					fieldNameToCardDescriptors[changedCard.fieldName] = [changedCard.getCardDescriptor()]
 				else:
-					fieldNameToCardDescriptors[fieldName].append(createCardDescriptor(cardChange))
+					fieldNameToCardDescriptors[changedCard.fieldName].append(changedCard.getCardDescriptor())
 			# Add a list to the changelog for each updated field
 			for fieldName, cardDescriptors in fieldNameToCardDescriptors.items():
 				newChangelogEntryFile.write(f"{indent}<li>Updated '{fieldName}' in {len(cardDescriptors):,} cards:\n")

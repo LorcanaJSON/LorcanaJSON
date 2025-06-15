@@ -4,6 +4,7 @@ import GlobalConfig
 from OutputGeneration import DataFilesGenerator
 from APIScraping import RavensburgerApiHandler, UpdateHandler
 from APIScraping.ExternalLinksHandler import ExternalLinksHandler
+from APIScraping.UpdateCheckResult import UpdateCheckResult
 from OCR import ImageParser, OcrCacheHandler
 from output import Verifier
 from util import Language, Translations, RegexCounter, StringReplaceCounter
@@ -178,31 +179,29 @@ if __name__ == '__main__':
 
 		startTime = time.perf_counter()
 		if parsedArguments.action == "check":
-			addedCards, cardChanges, possibleImageChanges, unlistedCards = UpdateHandler.checkForNewCardData(fieldsToIgnore=parsedArguments.ignoreFields)
-			_infoOrPrint(logger, f"{len(addedCards):,} added cards: {addedCards}")
+			updateCheckResult: UpdateCheckResult = UpdateHandler.checkForNewCardData(fieldsToIgnore=parsedArguments.ignoreFields)
+			_infoOrPrint(logger, f"{len(updateCheckResult.newCards):,} added cards: {', '.join([str(card) for card in updateCheckResult.newCards])}")
 			# Count which fields changed
 			fieldsChanged = {}
-			for cardChange in cardChanges:
-				fieldChanged = cardChange[2]
-				if fieldChanged not in fieldsChanged:
-					fieldsChanged[fieldChanged] = 1
+			for cardChange in updateCheckResult.changedCards:
+				if cardChange.fieldName not in fieldsChanged:
+					fieldsChanged[cardChange.fieldName] = 1
 				else:
-					fieldsChanged[fieldChanged] += 1
-			_infoOrPrint(logger, f"{len(cardChanges):,} changes {fieldsChanged}:")
-			for cardChange in cardChanges:
-				_infoOrPrint(logger, cardChange)
-			_infoOrPrint(logger, f"{len(possibleImageChanges):,} possible image changes:")
-			for possibleImageChange in possibleImageChanges:
-				_infoOrPrint(logger, possibleImageChange)
-			_infoOrPrint(logger, f"{len(unlistedCards)} unlisted cards found: {unlistedCards}")
+					fieldsChanged[cardChange.fieldName] += 1
+			_infoOrPrint(logger, f"{len(updateCheckResult.changedCards):,} changes {fieldsChanged}:")
+			for cardChange in updateCheckResult.changedCards:
+				_infoOrPrint(logger, cardChange.toString())
+			_infoOrPrint(logger, f"{len(updateCheckResult.possibleChangedImages):,} possible image changes:")
+			for possibleImageChange in updateCheckResult.possibleChangedImages:
+				_infoOrPrint(logger, f"{possibleImageChange.name} (ID {possibleImageChange.id}) has changed image url from '{possibleImageChange.oldValue}' to '{possibleImageChange.newValue}'")
 		elif parsedArguments.action == "update":
 			UpdateHandler.createOutputIfNeeded(False, cardFieldsToIgnore=parsedArguments.ignoreFields, shouldShowImages=parsedArguments.shouldShowSubimages)
 		elif parsedArguments.action == "download":
 			# Make sure we download from an up-to-date card catalog
 			cardCatalog = RavensburgerApiHandler.retrieveCardCatalog()
-			addedCards, changedCards, possibleImageChanges, unlistedCards = UpdateHandler.checkForNewCardData(cardCatalog, fieldsToIgnore=parsedArguments.ignoreFields)
-			if addedCards or changedCards or possibleImageChanges:
-				_infoOrPrint(logger, f"Card catalog for language '{GlobalConfig.language.englishName}' was updated, saving ({len(addedCards):,} added cards, {len(changedCards):,} changed cards, {len(possibleImageChanges):,} possible image changes)")
+			updateCheckResult: UpdateCheckResult = UpdateHandler.checkForNewCardData(cardCatalog, fieldsToIgnore=parsedArguments.ignoreFields)
+			if updateCheckResult.hasChanges():
+				_infoOrPrint(logger, f"Card catalog for language '{GlobalConfig.language.englishName}' was updated, saving ({updateCheckResult.listChangeCounts()})")
 				RavensburgerApiHandler.saveCardCatalog(cardCatalog)
 			else:
 				_infoOrPrint(logger, f"No new version of the card catalog for language '{GlobalConfig.language.englishName}' found")
