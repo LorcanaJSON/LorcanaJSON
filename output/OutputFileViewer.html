@@ -197,7 +197,10 @@ function handleKeyPress(e) {
 	}
 }
 function isNotInInputField() {
-	return document.activeElement === null || document.activeElement === document.body;
+	if (document.activeElement === null || document.activeElement === document.body) {
+		return true;
+	}
+	return document.activeElement !== document.getElementById("currentIndex") && document.activeElement !== document.getElementById("cardId");
 }
 
 function setLanguage(newLanguageCode) {
