@@ -1,8 +1,8 @@
 import argparse, dataclasses, datetime, json, logging, logging.handlers, os, re, sys, time
 
-import GlobalConfig, UpdateHandler
+import GlobalConfig
 from OutputGeneration import DataFilesGenerator
-from APIScraping import RavensburgerApiHandler
+from APIScraping import RavensburgerApiHandler, UpdateHandler
 from APIScraping.ExternalLinksHandler import ExternalLinksHandler
 from OCR import ImageParser, OcrCacheHandler
 from output import Verifier
