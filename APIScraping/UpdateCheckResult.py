@@ -30,7 +30,7 @@ class UpdateCheckResult:
 		self.possibleChangedImages.append(ChangedCard(card, ChangeType.UPDATED_FIELD, "image_urls", oldImageUrl, newImageUrl))
 
 	def hasChanges(self) -> bool:
-		if self.newCards or self.changedCards or self.possibleChangedImages:
+		if self.newCards or self.changedCards or self.removedCards or self.possibleChangedImages:
 			return True
 		return False
 
