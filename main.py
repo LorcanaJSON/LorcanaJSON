@@ -191,6 +191,7 @@ if __name__ == '__main__':
 			_infoOrPrint(logger, f"{len(updateCheckResult.changedCards):,} changes {fieldsChanged}:")
 			for cardChange in updateCheckResult.changedCards:
 				_infoOrPrint(logger, cardChange.toString())
+			_infoOrPrint(logger, f"{len(updateCheckResult.removedCards):,} removed cards: {updateCheckResult.removedCards}")
 			_infoOrPrint(logger, f"{len(updateCheckResult.newCardFields):,} new card fields: {updateCheckResult.newCardFields}")
 			_infoOrPrint(logger, f"{len(updateCheckResult.possibleChangedImages):,} possible image changes:")
 			for possibleImageChange in updateCheckResult.possibleChangedImages:
