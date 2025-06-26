@@ -14,7 +14,7 @@ class DownloadException(BaseException):
 def retrieveFromUrl(url: str, maxAttempts: int = 5, additionalHeaderFields: Dict[str, str] = None) -> requests.api.request:
 	"""
 	Since downloading from the Ravensburger API and CDN can sometimes take a few attempts, this helper method exists.
-	It downloads the provided URL, tries a few times if it somehow fails, and if if succeeds, it returns the request
+	It downloads the provided URL, tries a few times if it somehow fails, and if it succeeds, it returns the request
 	:param url: The URL to retrieve
 	:param maxAttempts: How many times to try to download the file
 	:param additionalHeaderFields: Optional extra header fieldss to pass along with the call, on top of the default header fields
