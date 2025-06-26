@@ -12,6 +12,8 @@ _logger = logging.getLogger("LorcanaJSON")
 def checkForNewCardData(newCardCatalog: Dict = None, fieldsToIgnore: List[str] = None, includeCardChanges: bool = True, ignoreOrderChanges: bool = True) -> UpdateCheckResult:
 	# We need to find the old cards by ID, so set up a dict
 	oldCards = {}
+	# Keep track of known card fields, so we can notice if new cards add new fields
+	knownCardFieldNames: List[str] = []
 	pathToCardCatalog = os.path.join("downloads", "json", f"carddata.{GlobalConfig.language.code}.json")
 	if os.path.isfile(pathToCardCatalog):
 		with open(pathToCardCatalog, "r") as cardCatalogFile:
@@ -21,6 +23,9 @@ def checkForNewCardData(newCardCatalog: Dict = None, fieldsToIgnore: List[str] =
 				card = cardlist.pop()
 				cardId = card["culture_invariant_id"]
 				oldCards[cardId] = card
+				for fieldName in card:
+					if fieldName not in knownCardFieldNames:
+						knownCardFieldNames.append(fieldName)
 	else:
 		_logger.info("No card catalog stored, so full update is needed")
 
@@ -35,6 +40,11 @@ def checkForNewCardData(newCardCatalog: Dict = None, fieldsToIgnore: List[str] =
 			cardId = card["culture_invariant_id"]
 			if cardId not in oldCards:
 				updateCheckResult.addNewCard(card)
+				# Check if this new card has fields we don't know about
+				for fieldName in card:
+					if fieldName not in knownCardFieldNames:
+						updateCheckResult.newCardFields.append(fieldName)
+						knownCardFieldNames.append(fieldName)
 			elif includeCardChanges:
 				oldCard = oldCards[cardId]
 				if not fieldsToIgnore or "image_urls" not in fieldsToIgnore:

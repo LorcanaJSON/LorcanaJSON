@@ -13,6 +13,7 @@ class UpdateCheckResult:
 	def __init__(self):
 		self.newCards: List[BasicCard] = []
 		self.changedCards: List[ChangedCard] = []
+		self.newCardFields: List[str] = []
 		self.possibleChangedImages: List[ChangedCard] = []
 
 	def addNewCard(self, newCard: Dict, nameOverride: Union[None, str] = None):
