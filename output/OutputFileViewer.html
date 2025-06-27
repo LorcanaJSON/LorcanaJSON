@@ -190,7 +190,7 @@ function handleKeyPress(e) {
 			changeToRandomIndex();
 		} else if (e.key === "Escape" && !isNotInInputField()) {
 			document.activeElement.blur();
-		} else if (e.key === "Backspace" || !isNaN(+e.key) && isNotInInputField()) {
+		} else if ((e.key === "Backspace" || !isNaN(+e.key)) && isNotInInputField()) {
 			// When a number or Backspace is pressed, focus the 'Card ID' input field, and let the key be typed in there
 			document.getElementById("cardId").focus();
 		}
