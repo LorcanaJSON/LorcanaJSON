@@ -11,7 +11,7 @@ def _createCardIdentifier(card, cardId):
 	return f"'{name}' (ID {cardId})"
 
 class StoryParser:
-	def __init__(self):
+	def __init__(self, onlyParseIds: List[int]):
 		startTime = time.perf_counter()
 		with open(os.path.join("output", "fromStories.json"), "r", encoding="utf-8") as fromStoriesFile:
 			fromStories = json.load(fromStoriesFile)
@@ -58,6 +58,8 @@ class StoryParser:
 		for cardtype, cardlist in cardstore["cards"].items():
 			for card in cardlist:
 				cardId = card["culture_invariant_id"]
+				if onlyParseIds and cardId not in onlyParseIds:
+					continue
 				if cardId not in self._cardIdToStoryName:
 					storyName = self.getStoryNameForCard(card, cardId, card.get("searchable_keywords", None))
 					if storyName:

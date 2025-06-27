@@ -541,7 +541,7 @@ def createOutputFiles(onlyParseIds: Union[None, List[int]] = None, shouldShowIma
 		_threadingLocalStorage.externalIdsHandler = ExternalLinksHandler()
 
 	# Parse the cards we need to parse
-	cardToStoryParser = StoryParser()
+	cardToStoryParser = StoryParser(onlyParseIds)
 	with multiprocessing.pool.ThreadPool(GlobalConfig.threadCount, initializer=initThread) as pool:
 		results = []
 		for cardType, inputCardlist in inputData["cards"].items():
