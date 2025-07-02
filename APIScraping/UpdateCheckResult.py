@@ -53,6 +53,7 @@ class UpdateCheckResult:
 class BasicCard:
 	def __init__(self, card: Dict, nameOverride: Union[None, str] = None):
 		self.id: int = card["culture_invariant_id"]
+		self.identifier = card["card_identifier"]
 		if nameOverride:
 			self.name = nameOverride
 		else:
@@ -61,7 +62,7 @@ class BasicCard:
 				self.name += " - " + card["subtitle"]
 
 	def toString(self) -> str:
-		return f"{self.name} (ID {self.id})"
+		return f"{self.name} ({self.identifier}, ID {self.id})"
 
 	def __str__(self) -> str:
 		return self.toString()
