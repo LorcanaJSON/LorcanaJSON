@@ -1337,7 +1337,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 						_logger.error(f"Ability at index {newlineAfterLabelIndex} is set to get a newline after its ability name, but it doesn't have a name")
 				if "costsText" in ability:
 					# Usually we want to get the specific type of cost separator dash from the input data, but sometimes that's wrong
-					costSeparatorDash: str = None
+					costSeparatorDash = None
 					if GlobalConfig.language == Language.GERMAN:
 						if parsedIdentifier.setCode == "1":
 							costSeparatorDash = LorcanaSymbols.EN_DASH
