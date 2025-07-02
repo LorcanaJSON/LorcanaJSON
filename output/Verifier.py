@@ -238,7 +238,7 @@ def compareInputToOutput(cardIdsToVerify: Union[List[int], None]):
 			if outputCard["fullText"] or englishCard["fullText"]:
 				for symbol in LorcanaSymbols.ALL_SYMBOLS:
 					expectedCount = englishCard["fullText"].count(symbol)
-					if GlobalConfig.language == Language.FRENCH and symbol == "¤" and "Soutien" in outputCard["fullText"]:
+					if GlobalConfig.language == Language.FRENCH and symbol == "¤" and re.search(r"Soutien.+\(", outputCard["fullText"], flags=re.DOTALL):
 						# While most languages use two strength symbols in the Support reminder text, French uses just one. To prevent false positives and negatives, adjust our expectations
 						expectedCount -= 1
 					if symbolCountChange and symbol in symbolCountChange:
