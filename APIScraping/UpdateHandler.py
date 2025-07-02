@@ -133,8 +133,8 @@ def checkForNewCardData(newCardCatalog: Dict = None, fieldsToIgnore: List[str] =
 def createOutputIfNeeded(onlyCreateOnNewCards: bool, cardFieldsToIgnore: List[str] = None, shouldShowImages: bool = False):
 	cardCatalog = RavensburgerApiHandler.retrieveCardCatalog()
 	updateCheckResult: UpdateCheckResult = checkForNewCardData(cardCatalog, cardFieldsToIgnore, includeCardChanges=not onlyCreateOnNewCards)
-	if not updateCheckResult.hasChanges():
-		_logger.info(f"No catalog updates, not running output generator")
+	if not updateCheckResult.hasCardChanges():
+		_logger.info(f"No card updates, not running output generator")
 		return
 	_logger.info(f"Found {updateCheckResult.listChangeCounts()}")
 	idsToParse = [card.id for card in updateCheckResult.newCards]
