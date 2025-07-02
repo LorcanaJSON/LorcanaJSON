@@ -1340,9 +1340,9 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 					costSeparatorDash = None
 					if GlobalConfig.language == Language.GERMAN:
 						if parsedIdentifier.setCode == "1":
-							costSeparatorDash = LorcanaSymbols.EN_DASH
+							costSeparatorDash = "–"  # en-dash, \u2013
 						elif parsedIdentifier.setCode == "5":
-							costSeparatorDash = LorcanaSymbols.EM_DASH
+							costSeparatorDash = "—"  # em-dash, \u2014
 					if not costSeparatorDash:
 						if "rules_text" in inputCard:
 							costSeparatorDash = re.search(r"\s([-–—])\s", inputCard["rules_text"]).group(1)
