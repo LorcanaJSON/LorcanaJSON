@@ -1268,7 +1268,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 			else:
 				# Non-keyword ability, determine which type it is
 				ability["type"] = "static"
-				activatedAbilityMatch = re.search("[ \n][-–—][ \n]", ability["effect"])
+				activatedAbilityMatch = re.search(r"(\s)([-–—])(\s)", ability["effect"])
 
 				# Activated abilities require a cost, a dash, and then an effect
 				# Some static abilities give characters such an activated ability, don't trigger on that
@@ -1336,8 +1336,19 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 					if newlineAfterLabelIndex == abilityIndex:
 						_logger.error(f"Ability at index {newlineAfterLabelIndex} is set to get a newline after its ability name, but it doesn't have a name")
 				if "costsText" in ability:
-					# Since we don't know the exact type of separating dash, get it from the regex
-					ability["fullText"] += ability["costsText"] + activatedAbilityMatch.group(0)
+					# Usually we want to get the specific type of cost separator dash from the input data, but sometimes that's wrong
+					costSeparatorDash: str = None
+					if GlobalConfig.language == Language.GERMAN:
+						if parsedIdentifier.setCode == "1":
+							costSeparatorDash = LorcanaSymbols.EN_DASH
+						elif parsedIdentifier.setCode == "5":
+							costSeparatorDash = LorcanaSymbols.EM_DASH
+					if not costSeparatorDash:
+						if "rules_text" in inputCard:
+							costSeparatorDash = re.search(r"\s([-–—])\s", inputCard["rules_text"]).group(1)
+						else:
+							costSeparatorDash = activatedAbilityMatch.group(2)
+					ability["fullText"] += ability["costsText"] + activatedAbilityMatch.group(1) + costSeparatorDash + activatedAbilityMatch.group(3)
 					ability["costsText"] = ability["costsText"].replace("\n", " ")
 					ability["costs"] = ability["costsText"].split(", ")
 				ability["fullText"] += ability["effect"]
