@@ -16,6 +16,7 @@ class UpdateCheckResult:
 		self.removedCards: List[BasicCard] = []
 		self.newCardFields: List[str] = []
 		self.possibleChangedImages: List[ChangedCard] = []
+		self.newSets: List[str] = []
 
 	def addNewCard(self, newCard: Dict, nameOverride: Union[None, str] = None):
 		self.newCards.append(BasicCard(newCard, nameOverride))
@@ -29,8 +30,19 @@ class UpdateCheckResult:
 	def addPossibleImageChange(self, card, oldImageUrl, newImageUrl):
 		self.possibleChangedImages.append(ChangedCard(card, ChangeType.UPDATED_FIELD, "image_urls", oldImageUrl, newImageUrl))
 
-	def hasChanges(self) -> bool:
+	def hasCardChanges(self) -> bool:
+		"""
+		:return: True if there are any changes to cards specfically, False otherwise
+		"""
 		if self.newCards or self.changedCards or self.removedCards or self.possibleChangedImages:
+			return True
+		return False
+
+	def hasChanges(self) -> bool:
+		"""
+		:return: True if there are any updates, False otherwise
+		"""
+		if self.newSets or self.hasCardChanges():
 			return True
 		return False
 

@@ -202,6 +202,8 @@ if __name__ == '__main__':
 					_infoOrPrint(logger, f"{len(updateCheckResult.possibleChangedImages):,} possible image changes:")
 					for possibleImageChange in updateCheckResult.possibleChangedImages:
 						_infoOrPrint(logger, f"{possibleImageChange.name} (ID {possibleImageChange.id}) has changed image url from '{possibleImageChange.oldValue}' to '{possibleImageChange.newValue}'")
+				if updateCheckResult.newSets:
+					_infoOrPrint(logger, f"{len(updateCheckResult.newSets)} new sets: {updateCheckResult.newSets}")
 			else:
 				_infoOrPrint(logger, "No changes found")
 		elif parsedArguments.action == "update":
