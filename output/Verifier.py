@@ -137,7 +137,7 @@ def compareInputToOutput(cardIdsToVerify: Union[List[int], None]):
 					# Use the ellipsis character instead of three separate periods
 					inputFlavorText = inputFlavorText.replace("...", "…")
 				if GlobalConfig.language == Language.FRENCH:
-					inputFlavorText = re.sub(r"(?<=\w)([?!:])", r" \1", inputFlavorText)
+					inputFlavorText = re.sub(r"(?<=\w|’|')([?!:])", r" \1", inputFlavorText)
 				elif GlobalConfig.language == Language.GERMAN:
 					# Quote attribution uses the wrong dash and doesn't have a space in the input text, but it does on the card. Ignore the difference
 					# The second set use a short n-dash instead of a long m-dash, correct for that
