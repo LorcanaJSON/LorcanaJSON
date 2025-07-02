@@ -1,4 +1,72 @@
 {
+  "933": {
+    "flavor_text": [
+      " –",
+      ", "
+    ]
+  },
+  "946": {
+    "rules_text": [
+      "L([^,]+, )s(i[^,]+), ",
+      "S\\2 l\\1",
+      "mag",
+      "Mag",
+      "z 2",
+      "z au moins 2",
+      "ou plus ",
+      ""
+    ]
+  },
+  "948": {
+    "rules_text": [
+      "TIR ",
+      "COUP "
+    ]
+  },
+  "951": {
+    "move_cost": [
+      1,
+      2
+    ],
+    "quest_value": [
+      2,
+      1
+    ]
+  },
+  "961": {
+    "flavor_text": [
+      "Ke",
+      "Ki"
+    ]
+  },
+  "971": {
+    "rules_text": [
+      "sur le ",
+      ""
+    ]
+  },
+  "1123": {
+    "flavor_text": [
+      "-",
+      "—"
+    ]
+  },
+  "1179": {
+    "flavor_text": [
+      "^Cette",
+      "La"
+    ]
+  },
+  "1183": {
+    "flavor_text": [
+      "^S.+e\\.$",
+      "Trois vœux, et que ça saute ! —Iago"
+    ],
+    "rules_text": [
+      "une.+$",
+      "3 cartes."
+    ]
+  },
   "1186": {
     "flavor_text": [
       "^.+$",
@@ -9,6 +77,14 @@
     "flavor_text": [
       "\u00a0",
       " "
+    ]
+  },
+  "1302": {
+    "rules_text": [
+      "«\u00a0",
+      "“",
+      "\u00a0»",
+      "”"
     ]
   },
   "1371": {
@@ -41,6 +117,12 @@
       "",
       " Covarrubias",
       ""
+    ]
+  },
+  "1613": {
+    "flavor_text": [
+      "!—",
+      "! —"
     ]
   },
   "1630": {
