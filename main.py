@@ -181,22 +181,27 @@ if __name__ == '__main__':
 		if parsedArguments.action == "check":
 			updateCheckResult: UpdateCheckResult = UpdateHandler.checkForNewCardData(fieldsToIgnore=parsedArguments.ignoreFields)
 			if updateCheckResult.hasChanges():
-				_infoOrPrint(logger, f"{len(updateCheckResult.newCards):,} added cards: {', '.join([str(card) for card in updateCheckResult.newCards])}")
-				# Count which fields changed
-				fieldsChanged = {}
-				for cardChange in updateCheckResult.changedCards:
-					if cardChange.fieldName not in fieldsChanged:
-						fieldsChanged[cardChange.fieldName] = 1
-					else:
-						fieldsChanged[cardChange.fieldName] += 1
-				_infoOrPrint(logger, f"{len(updateCheckResult.changedCards):,} changes {fieldsChanged}:")
-				for cardChange in updateCheckResult.changedCards:
-					_infoOrPrint(logger, cardChange.toString())
-				_infoOrPrint(logger, f"{len(updateCheckResult.removedCards):,} removed cards: {updateCheckResult.removedCards}")
-				_infoOrPrint(logger, f"{len(updateCheckResult.newCardFields):,} new card fields: {updateCheckResult.newCardFields}")
-				_infoOrPrint(logger, f"{len(updateCheckResult.possibleChangedImages):,} possible image changes:")
-				for possibleImageChange in updateCheckResult.possibleChangedImages:
-					_infoOrPrint(logger, f"{possibleImageChange.name} (ID {possibleImageChange.id}) has changed image url from '{possibleImageChange.oldValue}' to '{possibleImageChange.newValue}'")
+				if updateCheckResult.newCards:
+					_infoOrPrint(logger, f"{len(updateCheckResult.newCards):,} added cards: {', '.join([str(card) for card in updateCheckResult.newCards])}")
+				if updateCheckResult.changedCards:
+					# Count which fields changed
+					fieldsChanged = {}
+					for cardChange in updateCheckResult.changedCards:
+						if cardChange.fieldName not in fieldsChanged:
+							fieldsChanged[cardChange.fieldName] = 1
+						else:
+							fieldsChanged[cardChange.fieldName] += 1
+					_infoOrPrint(logger, f"{len(updateCheckResult.changedCards):,} changes {fieldsChanged}:")
+					for cardChange in updateCheckResult.changedCards:
+						_infoOrPrint(logger, cardChange.toString())
+				if updateCheckResult.removedCards:
+					_infoOrPrint(logger, f"{len(updateCheckResult.removedCards):,} removed cards: {updateCheckResult.removedCards}")
+				if updateCheckResult.newCardFields:
+					_infoOrPrint(logger, f"{len(updateCheckResult.newCardFields):,} new card fields: {updateCheckResult.newCardFields}")
+				if updateCheckResult.possibleChangedImages:
+					_infoOrPrint(logger, f"{len(updateCheckResult.possibleChangedImages):,} possible image changes:")
+					for possibleImageChange in updateCheckResult.possibleChangedImages:
+						_infoOrPrint(logger, f"{possibleImageChange.name} (ID {possibleImageChange.id}) has changed image url from '{possibleImageChange.oldValue}' to '{possibleImageChange.newValue}'")
 			else:
 				_infoOrPrint(logger, "No changes found")
 		elif parsedArguments.action == "update":
