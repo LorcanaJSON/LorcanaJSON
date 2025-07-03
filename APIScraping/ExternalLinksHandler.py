@@ -18,7 +18,7 @@ _CARD_MARKET_LANGUAGE_TO_CODE = {
 	Language.ITALIAN: 5
 }
 _CARD_MARKET_CARD_GROUP_TO_NAME = {
-	"C1": "D23-Expo-2024-Collectors-Set",
+	"C1": "Disney-Lorcana-Challenge-Promos",
 	"D23": "D23-Expo-2024-Collectors-Set",
 	"P1": "Promos",
 	"P2": "Promos-Year-2"
