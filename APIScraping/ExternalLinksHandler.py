@@ -99,7 +99,7 @@ def _convertStringToUrlValue(inputString: str, shouldRemoveMidwordDashes: bool =
 	outputString = inputString
 	if shouldRemoveMidwordDashes:
 		outputString = re.sub(r"(?<=\S)-(?=\S)", "", outputString)
-	outputString = re.sub(" - ?", "-", outputString)
+	outputString = re.sub(" [-–] ?", "-", outputString)
 	outputString = outputString.replace("é", "e")
 	outputString = re.sub("[:!.,'’ā]+", "", outputString)
 	outputString = outputString.replace(" & ", " ").replace("\"", " ")
