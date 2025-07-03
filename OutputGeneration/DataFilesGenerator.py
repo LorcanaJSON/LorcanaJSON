@@ -595,7 +595,7 @@ def createOutputFiles(onlyParseIds: Union[None, List[int]] = None, shouldShowIma
 	os.makedirs(outputFolder, exist_ok=True)
 	# Add metadata
 	metaDataDict = {"formatVersion": FORMAT_VERSION, "generatedOn": datetime.datetime.now(datetime.UTC).strftime("%Y-%m-%dT%H:%M:%S"), "language": GlobalConfig.language.code}
-	outputDict = {"metadata": metaDataDict}
+	outputDict: Dict[str, Union[Dict, List]] = {"metadata": metaDataDict}
 
 	# Add set data
 	with open(os.path.join("output", f"baseSetData.json"), "r", encoding="utf-8") as baseSetDataFile:
