@@ -178,44 +178,42 @@ class ExternalLinksHandler:
 					# Card with this number already exists
 					_LOGGER.error(f"While adding card '{card['name']}' from set '{expansionName}', already found card with number {cardNumber} in setcode {cardSetCodeToUse}")
 					continue
-				# Only add ID fields if they exist
-				cardExternalLinks = {}
+				# Card Trader IDs always exist
+				cardExternalLinks = {"cardTraderId": card["id"], "cardTraderUrl": f"https://www.cardtrader.com/cards/{card['id']}"}
+
 				if card["card_market_ids"]:
 					if len(card["card_market_ids"]) > 1:
 						_LOGGER.warning(f"Found {len(card['card_market_ids']):,} Cardmarket IDs for card '{card['name']}' (CardTrader ID {card['id']}) in expansion {expansionName} (ID {expansion['id']}), using first one")
 					cardExternalLinks["cardmarketId"] = card["card_market_ids"][0]
-				if card["tcg_player_id"]:
-					cardExternalLinks["tcgPlayerId"] = card["tcg_player_id"]
-				# Only create an entry if we have IDs
-				if cardExternalLinks:
-					cardExternalLinks["cardTraderId"] = card["id"]
-					# Create URLs
-					cardExternalLinks["cardTraderUrl"] = f"https://www.cardtrader.com/cards/{cardExternalLinks['cardTraderId']}"
-
-					cardmarketCategoryName: str = None
-					if cardSetCodeToUse == "Promos" and "/P2" in card["fixed_properties"]["collector_number"]:
-						cardmarketCategoryName = "Promos-Year-2"
-					elif cardSetCodeToUse == "Q1":
-						cardmarketCategoryName = "Ursulas-Deck"
-					elif expansionName == "Lorcana Challenge Promos":
-						cardmarketCategoryName = "Disney-Lorcana-Challenge-Promos"
-					elif cardSetCodeToUse != setCodeToUse:
-						cardmarketCategoryName = _convertStringToUrlValue(setCodeToName[cardSetCodeToUse])
-					elif re.search("/[A-Z]", card["fixed_properties"]["collector_number"]):
-						cardCategory = card["fixed_properties"]["collector_number"].split("/", 1)[1].strip()
+				cardmarketCategoryName: str = ""
+				if cardSetCodeToUse == "Promos" and "/P2" in card["fixed_properties"]["collector_number"]:
+					cardmarketCategoryName = "Promos-Year-2"
+				elif cardSetCodeToUse == "Q1":
+					cardmarketCategoryName = "Ursulas-Deck"
+				elif expansionName == "Lorcana Challenge Promos":
+					cardmarketCategoryName = "Disney-Lorcana-Challenge-Promos"
+				elif cardSetCodeToUse != setCodeToUse:
+					cardmarketCategoryName = _convertStringToUrlValue(setCodeToName[cardSetCodeToUse])
+				elif re.search("/[A-Z]", card["fixed_properties"]["collector_number"]):
+					cardCategory = card["fixed_properties"]["collector_number"].split("/", 1)[1].strip()
+					if cardCategory in _CARD_MARKET_CARD_GROUP_TO_NAME:
 						cardmarketCategoryName = _CARD_MARKET_CARD_GROUP_TO_NAME[cardCategory]
 					else:
-						cardmarketCategoryName = _convertStringToUrlValue(expansionName)
-					cardmarketCardName = _convertStringToUrlValue(card["name"], cardSetCodeToUse in ("5", "7"))  # For some reason, they remove mid-word dashes (like in 'mid-word') only in cardnames from Set 5, correct for that
+						_LOGGER.error(f"Unknown CardMarket Group {cardCategory!r} for card {cardNumber} {card['name']!r}")
+				else:
+					cardmarketCategoryName = _convertStringToUrlValue(expansionName)
+				if cardmarketCategoryName:
+					cardmarketCardName = _convertStringToUrlValue(card["name"], cardSetCodeToUse in ("5", "7"))  # For some reason, they remove mid-word dashes (like in 'mid-word') only in cardnames from some sets, correct for that
 					cardExternalLinks["cardmarketUrl"] = f"https://www.cardmarket.com/{{languageCode}}/Lorcana/Products/Singles/{cardmarketCategoryName}/{cardmarketCardName}{{cardmarketVersionSuffix}}?language={{cardmarketLanguageCode}}"
 
-					if cardExternalLinks.get("tcgPlayerId", None):
-						cardExternalLinks["tcgPlayerUrl"] = f"https://www.tcgplayer.com/product/{cardExternalLinks['tcgPlayerId']}"
+				if card["tcg_player_id"]:
+					cardExternalLinks["tcgPlayerId"] = card["tcg_player_id"]
+					cardExternalLinks["tcgPlayerUrl"] = f"https://www.tcgplayer.com/product/{cardExternalLinks['tcgPlayerId']}"
 
-					# Sort the entries
-					cardExternalLinks = {key: cardExternalLinks[key] for key in sorted(cardExternalLinks)}
-					# and store 'em
-					cardsBySet[cardSetCodeToUse][cardNumber] = cardExternalLinks
+				# Sort the entries
+				cardExternalLinks = {key: cardExternalLinks[key] for key in sorted(cardExternalLinks)}
+				# and store 'em
+				cardsBySet[cardSetCodeToUse][cardNumber] = cardExternalLinks
 
 		# Downloading and parsing data is done, list differences with the previous file (if it exists)
 		if os.path.isfile(_EXTERNAL_LINKS_FILE_PATH):
@@ -275,13 +273,14 @@ class ExternalLinksHandler:
 
 		# Some parts need extra filling in
 		# Cardmarket lists Enchanted cards with '-V2' at the end, and the non-Enchanted version with '-V1'. Promo versions are either '-V1' or '-V2'
-		cardmarketVersionSuffix = ""
-		if hasEnchanted:
-			cardmarketVersionSuffix = "-V1"
-		elif parsedIdentifier.number > 204:
-			cardmarketVersionSuffix = "-V2"
-		elif parsedIdentifier.variant:
-			variantVersion = string.ascii_lowercase.index(parsedIdentifier.variant.lower()) + 1
-			cardmarketVersionSuffix = f"-V{variantVersion}"
-		cardExternalLinks["cardmarketUrl"] = cardExternalLinks["cardmarketUrl"].format(languageCode=GlobalConfig.language.code, cardmarketLanguageCode=self._cardmarketLanguageCode, cardmarketVersionSuffix=cardmarketVersionSuffix)
+		if "cardmarketUrl" in cardExternalLinks:
+			cardmarketVersionSuffix = ""
+			if hasEnchanted:
+				cardmarketVersionSuffix = "-V1"
+			elif parsedIdentifier.number > 204:
+				cardmarketVersionSuffix = "-V2"
+			elif parsedIdentifier.variant:
+				variantVersion = string.ascii_lowercase.index(parsedIdentifier.variant.lower()) + 1
+				cardmarketVersionSuffix = f"-V{variantVersion}"
+			cardExternalLinks["cardmarketUrl"] = cardExternalLinks["cardmarketUrl"].format(languageCode=GlobalConfig.language.code, cardmarketLanguageCode=self._cardmarketLanguageCode, cardmarketVersionSuffix=cardmarketVersionSuffix)
 		return cardExternalLinks
