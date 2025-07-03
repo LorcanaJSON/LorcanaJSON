@@ -11,6 +11,7 @@ from util.IdentifierParser import Identifier
 _LOGGER = logging.getLogger("LorcanaJSON")
 _EXTERNAL_LINKS_FILE_PATH = os.path.join("output", "generated", "externalLinks.json")
 _CARD_TRADER_LORCANA_ID = 18
+_CARD_TRADER_SINGLES_CATEGORY_ID = 214  # CardTrader also sells inserts, puzzle cards, etc; This is the ID of actual cards, skip anything else
 _CARD_MARKET_LANGUAGE_TO_CODE = {
 	Language.ENGLISH: 1,
 	Language.FRENCH: 2,
@@ -159,7 +160,8 @@ class ExternalLinksHandler:
 			expansionCardsRequest = requests.get("https://api.cardtrader.com/api/v2/blueprints/export", params={"expansion_id": expansion["id"]}, headers=headers, timeout=10)
 			for card in expansionCardsRequest.json():
 				# The data also includes boosters, pins, marketing cards, and other non-card items, skip those
-				if not card["fixed_properties"] or not card["fixed_properties"]["collector_number"] or card["version"] == "Oversized" or card["fixed_properties"].get("lorcana_rarity", None) == "Oversized":
+				if (not card["fixed_properties"] or not card["fixed_properties"]["collector_number"] or card["version"] in ("Cinese Exclusive", "Chinese Exclusive", "Oversized",) or
+						card["fixed_properties"].get("lorcana_rarity", None) == "Oversized" or card["category_id"] != _CARD_TRADER_SINGLES_CATEGORY_ID):
 					continue
 				cardNumber: str = card["fixed_properties"]["collector_number"].lstrip("0")
 				# Some Enchanted cards are listed with an 'a' at the end for some reason. Remove that, being careful not to remove it from cards that do need it (Like 'Dalmatian Puppy - Tail Wagger' ID 436)
