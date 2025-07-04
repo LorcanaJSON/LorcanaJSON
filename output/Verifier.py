@@ -89,7 +89,8 @@ def compareInputToOutput(cardIdsToVerify: Union[List[int], None]):
 				inputRulesText = inputCard["rules_text"].replace("\\", "")
 				inputRulesText = re.sub(r"(?<=\w)’(?=\w)", "'", inputRulesText)
 				inputRulesText = inputRulesText.replace("\u00a0", " " if GlobalConfig.language == Language.FRENCH else "").replace("  ", " ")
-				inputRulesText = inputRulesText.replace(" \"", " “").replace("\" ", "” ")
+				inputRulesText = inputRulesText.replace(" \"", " “")
+				inputRulesText = re.sub("\"( |$)", "”\\1", inputRulesText)
 				# Sometimes there's no space between the previous ability text and the next label or ability, fix that
 				inputRulesText = re.sub(r"([).])([A-Z])", r"\1 \2", inputRulesText)
 				# Some cards have an m-dash instead of normal 'minus' dash in front of numbers
