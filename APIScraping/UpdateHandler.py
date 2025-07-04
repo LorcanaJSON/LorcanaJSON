@@ -153,7 +153,7 @@ def createOutputIfNeeded(onlyCreateOnNewCards: bool, cardFieldsToIgnore: List[st
 	createChangelog(updateCheckResult)
 
 def createChangelog(updateCheckResult: UpdateCheckResult, subVersion: str = "1"):
-	if not updateCheckResult.newCards and not updateCheckResult.changedCards:
+	if not updateCheckResult.hasCardChanges():
 		return
 
 	currentDateString = datetime.datetime.now().strftime("%Y-%m-%d")
@@ -165,7 +165,7 @@ def createChangelog(updateCheckResult: UpdateCheckResult, subVersion: str = "1")
 		newChangelogEntryFile.write(f"<h4 id=\"{changelogEntryDescriptor}\">{currentDateString} - format version {DataFilesGenerator.FORMAT_VERSION}</h4>\n")
 		newChangelogEntryFile.write("<ul>\n")
 		if updateCheckResult.newCards:
-			updateCheckResult.newCards.sort(key=lambda c: c[0])
+			updateCheckResult.newCards.sort(key=lambda c: c.id)
 			newChangelogEntryFile.write(f"{indent}<li>Added {len(updateCheckResult.newCards):,} cards:\n")
 			newChangelogEntryFile.write(f"{doubleIndent}<ul>\n")
 			for addedCard in updateCheckResult.newCards:
