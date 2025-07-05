@@ -257,6 +257,10 @@ def compareInputToOutput(cardIdsToVerify: Union[List[int], None]):
 			if currentLanguageRarities.index(outputCard["rarity"]) != englishRarities.index(englishCard["rarity"]):
 				cardDifferencesCount += 1
 				print(f"{cardId}: {GlobalConfig.language.englishName} rarity is {englishRarities[currentLanguageRarities.index(outputCard['rarity'])]} ({outputCard['rarity']}) but English rarity is {englishCard['rarity']}")
+			# Compare Card Market URLs, except for the language code (Other external links are always the same, since they're based on IDs)
+			if "cardmarketUrl" in outputCard["externalLinks"] and outputCard["externalLinks"]["cardmarketUrl"][:-1].replace(f"/{GlobalConfig.language.code}/", "/en/") != englishCard["externalLinks"]["cardmarketUrl"][:-1]:
+				cardDifferencesCount += 1
+				print(f"{cardId}: Cardmarket URL differs; {GlobalConfig.language.englishName} is {outputCard['externalLinks']['cardmarketUrl']}, English is {englishCard['externalLinks']['cardmarketUrl']}")
 
 	print(f"----------\nFound {cardDifferencesCount:,} difference{'' if cardDifferencesCount == 1 else 's'} between input and output")
 
