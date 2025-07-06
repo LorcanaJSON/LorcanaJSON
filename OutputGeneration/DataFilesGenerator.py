@@ -984,7 +984,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 				remainingTextLines[remainingTextLineIndex - 1] += "\n" + remainingTextLines.pop(remainingTextLineIndex)
 
 		for remainingTextLine in remainingTextLines:
-			remainingTextLine = correctText(remainingTextLine)
+			remainingTextLine = correctText(correctPunctuation(remainingTextLine))
 			if len(remainingTextLine) < 4:
 				_logger.info(f"Remaining text for card {_createCardIdentifier(outputCard)} {remainingTextLine!r} is too short, discarding")
 				continue
@@ -1055,7 +1055,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 				abilityName = abilityName.replace("’", "'")
 			if abilityName != originalAbilityName:
 				_logger.info(f"Corrected ability name from {originalAbilityName!r} to {abilityName!r}")
-			abilityEffect = correctText(ocrResult.abilityTexts[abilityIndex])
+			abilityEffect = correctText(correctPunctuation(ocrResult.abilityTexts[abilityIndex]))
 			abilities.append({
 				"name": abilityName,
 				"effect": abilityEffect
