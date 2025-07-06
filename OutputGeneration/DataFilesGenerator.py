@@ -81,7 +81,7 @@ def correctText(cardText: str) -> str:
 		cardText = re.sub("Bodyqg?uard", "Bodyguard", cardText)
 		# Fix some common typos
 		cardText = cardText.replace("-|", "-1").replace("|", "I")
-		cardText = re.sub(r"“[LT\[]([ '])", r"“I\1", cardText)
+		cardText = re.sub(r"“[LT\[]([ '’])", r"“I\1", cardText)
 		cardText = cardText.replace("—l", "—I")
 		cardText = re.sub(r"(?<=\w)!(?=,? ?[a-z])", "l", cardText)  # Replace exclamation mark followed by a lowercase letter by an 'l'
 		cardText = re.sub(r"^(“)?! ", r"\1I ", cardText)
