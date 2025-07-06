@@ -87,7 +87,6 @@ def correctText(cardText: str) -> str:
 		cardText = re.sub(r"^(“)?! ", r"\1I ", cardText)
 		cardText = re.sub(r"(^| |\n|“)[lIL!]([dlmM]l?)\b", r"\1I'\2", cardText, flags=re.MULTILINE)
 		cardText = re.sub("^l", "I", cardText)
-		cardText = re.sub(r" ‘em\b", " 'em", cardText)
 		# Correct some fancy qoute marks at the end of some plural possessives. This is needed on a case-by-case basis, otherwise too much text is changed
 		cardText = re.sub(r"\bteammates’(\s|$)", r"teammates'\1", cardText, flags=re.MULTILINE)
 		cardText = re.sub(r"\bplayers’(\s|$)", r"players'\1", cardText, flags=re.MULTILINE)
@@ -254,6 +253,8 @@ def correctPunctuation(textToCorrect: str) -> str:
 	:return: The fixed text, or the original text if there was nothing to fix
 	"""
 	correctedText = textToCorrect
+	# Simplify quote mark if it's used in a contraction
+	correctedText = re.sub(r"(?<=\w)['‘’]+(?=\w)", "'", correctedText)
 	# It frequently misses the dash before a quote attribution
 	correctedText = re.sub(r"\n([A-Z]\w+)$", "\n—\\1", correctedText)
 	# Ellipses get parsed weird, with spaces between periods where they don't belong. Fix that
@@ -270,6 +271,10 @@ def correctPunctuation(textToCorrect: str) -> str:
 		correctedText = correctedText[:-1] + "."
 	if GlobalConfig.language == Language.ENGLISH:
 		correctedText = re.sub(r"\b([Tt]hey|[Yy]ou)re\b", r"\1're", correctedText)
+		# Correct fancy quotemarks when they're used in shortenings (f.i. "'em", "comin'", etc.)
+		correctedText = re.sub(r"(?<=\s)[‘’](?=(cause|em|til)([,.?!]|\s|$))", "'", correctedText, flags=re.IGNORECASE)
+		correctedText = re.sub(r"(?<=\win)[‘’](?=[,.?!]|\s|$)", "'", correctedText, flags=re.IGNORECASE)
+		correctedText = re.sub(r"(?<=\sol)[‘’](?=\s|$)", "'", correctedText, flags=re.IGNORECASE)
 	elif GlobalConfig.language == Language.GERMAN:
 		# In German, ellipsis always have a space between words before and after it
 		if "…" in correctedText:
@@ -277,6 +282,9 @@ def correctPunctuation(textToCorrect: str) -> str:
 			correctedText = re.sub(r"…(\w)", r"… \1", correctedText)
 		# Fix closing quote mark
 		correctedText = correctedText.replace("”", "“")
+		# Quotemarks used as letter replacements should be simple quotemarks
+		correctedText = re.sub(r"((?:^|\s)h(?:ab|ätt|ör))[‘’](?=\s|$)", "\\1'", correctedText, flags=re.IGNORECASE)
+		correctedText = re.sub(r"(?<=\s)[‘’](?=ne[nm]?\s)", "'", correctedText)
 	elif GlobalConfig.language == Language.ITALIAN:
 		# Make sure there's a space after ellipses
 		correctedText = re.sub(r"…(?=\w)", r"… ", correctedText)
@@ -1018,12 +1026,14 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 
 	if ocrResult.abilityLabels:
 		for abilityIndex in range(len(ocrResult.abilityLabels)):
-			abilityName = correctPunctuation(ocrResult.abilityLabels[abilityIndex].replace("‘", "'").replace("’", "'").replace("''", "'")).rstrip(":")
+			abilityName = correctPunctuation(ocrResult.abilityLabels[abilityIndex].replace("''", "'")).rstrip(":")
 			originalAbilityName = abilityName
 			abilityName = re.sub(r"(?<=\w) ?[.7|»”©(\"]$", "", abilityName)
 			if GlobalConfig.language == Language.ENGLISH:
 				abilityName = abilityName.replace("|", "I")
 				abilityName = re.sub("^l", "I", abilityName)
+				# Use simple quotemark for plural possesive
+				abilityName = re.sub(r"(?<=[A-Z]S)’(?=\s)", "'", abilityName)
 			elif GlobalConfig.language == Language.FRENCH:
 				abilityName = re.sub("A ?!(?=.{3,})", "AI", abilityName)
 				if "!" in abilityName or "?" in abilityName:
@@ -1035,10 +1045,14 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 				# It seems to misread a lot of ability names as ending with a period, correct that (unless it's ellipsis)
 				if abilityName.endswith(".") and not abilityName.endswith("..."):
 					abilityName = abilityName.rstrip(".")
+				# German doesn't use fancy single-quotes in ability names, so replace all of the with simple ones
+				abilityName = abilityName.replace("’", "'")
 			elif GlobalConfig.language == Language.ITALIAN:
 				abilityName = abilityName.replace("|", "I")
 				# It keeps reading 'IO' wrong
 				abilityName = re.sub("[1I]0", "IO", abilityName)
+				# Italian doesn't use fancy single-quotes in ability names, so replace all of the with simple ones
+				abilityName = abilityName.replace("’", "'")
 			if abilityName != originalAbilityName:
 				_logger.info(f"Corrected ability name from {originalAbilityName!r} to {abilityName!r}")
 			abilityEffect = correctText(ocrResult.abilityTexts[abilityIndex])
