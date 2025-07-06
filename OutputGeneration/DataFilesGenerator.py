@@ -33,8 +33,6 @@ def correctText(cardText: str) -> str:
 	## First simple typos ##
 	# Commas should always be followed by a space
 	cardText = re.sub(",(?! |’|”|$)", ", ", cardText, flags=re.MULTILINE)
-	# Simplify quote mark if it's used in a contraction
-	cardText = re.sub(r"(?<=\w)[‘’](?=\w)", "'", cardText)
 	# The 'Exert' symbol often gets read as a 6
 	cardText = re.sub(r"^(6|fà)? ?,", f"{LorcanaSymbols.EXERT},", cardText)
 	# There's usually an ink symbol between a number and a dash
@@ -286,6 +284,8 @@ def correctPunctuation(textToCorrect: str) -> str:
 		correctedText = re.sub(r"(?<=”\s—) (?=[A-Z])", "", correctedText)
 		# It has some trouble recognising exclamation marks
 		correctedText = re.sub(r" ?\.””", "!”", correctedText)
+		# Quotemarks used as letter replacements should be simple quotemarks
+		correctedText = re.sub(r"(?<=\spo)’(?=\.|\s)", "'", correctedText)
 
 	correctedText = correctedText.rstrip(" -_")
 	correctedText = correctedText.replace("““", "“")
