@@ -7,7 +7,7 @@ from APIScraping.ExternalLinksHandler import ExternalLinksHandler
 from OCR import ImageParser, OcrCacheHandler
 from OCR.OcrResult import OcrResult
 from output.StoryParser import StoryParser
-from util import IdentifierParser, JsonUtil, Language, LorcanaSymbols
+from util import CardUtil, IdentifierParser, JsonUtil, Language, LorcanaSymbols
 
 
 _logger = logging.getLogger("LorcanaJSON")
@@ -313,30 +313,30 @@ def correctCardField(card: Dict, fieldName: str, regexMatchString: str, correcti
 	"""
 	if fieldName not in card:
 		if regexMatchString is not None:
-			_logger.warning(f"Trying to correct field '{fieldName}' in card {_createCardIdentifier(card)} from {regexMatchString!r} to {correction!r} but the field does not exist. Set the match string to 'null' if you want to add a field")
+			_logger.warning(f"Trying to correct field '{fieldName}' in card {CardUtil.createCardIdentifier(card)} from {regexMatchString!r} to {correction!r} but the field does not exist. Set the match string to 'null' if you want to add a field")
 		elif correction is None:
-			_logger.warning(f"Trying to remove field '{fieldName}' but it already doesn't exist in card {_createCardIdentifier(card)}")
+			_logger.warning(f"Trying to remove field '{fieldName}' but it already doesn't exist in card {CardUtil.createCardIdentifier(card)}")
 		else:
 			card[fieldName] = correction
 	elif regexMatchString is None:
 		if correction is None:
-			_logger.info(f"Removing field '{fieldName}' (value {card[fieldName]!r}) from card {_createCardIdentifier(card)}")
+			_logger.info(f"Removing field '{fieldName}' (value {card[fieldName]!r}) from card {CardUtil.createCardIdentifier(card)}")
 			del card[fieldName]
 		elif fieldName in card:
 			if isinstance(card[fieldName], list):
 				if isinstance(card[fieldName][0], type(correction)):
-					_logger.info(f"Appending value {correction} to list field {fieldName} in card {_createCardIdentifier(card)}")
+					_logger.info(f"Appending value {correction} to list field {fieldName} in card {CardUtil.createCardIdentifier(card)}")
 				else:
-					_logger.warning(f"Trying to add value {correction!r} of type {type(correction)} to list of {type(card[fieldName][0])} types in card {_createCardIdentifier(card)}, skipping")
+					_logger.warning(f"Trying to add value {correction!r} of type {type(correction)} to list of {type(card[fieldName][0])} types in card {CardUtil.createCardIdentifier(card)}, skipping")
 			else:
-				_logger.warning(f"Trying to add field '{fieldName}' to card {_createCardIdentifier(card)}, but that field already exists (value {card[fieldName]!r})")
+				_logger.warning(f"Trying to add field '{fieldName}' to card {CardUtil.createCardIdentifier(card)}, but that field already exists (value {card[fieldName]!r})")
 	elif isinstance(card[fieldName], str):
 		preCorrectedText = card[fieldName]
 		card[fieldName] = re.sub(regexMatchString, correction, preCorrectedText, flags=re.DOTALL)
 		if card[fieldName] == preCorrectedText:
-			_logger.warning(f"Correcting field '{fieldName}' in card {_createCardIdentifier(card)} with regex {regexMatchString!r} didn't change anything, value is still {preCorrectedText!r}")
+			_logger.warning(f"Correcting field '{fieldName}' in card {CardUtil.createCardIdentifier(card)} with regex {regexMatchString!r} didn't change anything, value is still {preCorrectedText!r}")
 		else:
-			_logger.info(f"Corrected field '{fieldName}' from {preCorrectedText!r} to {card[fieldName]!r} for card {_createCardIdentifier(card)}")
+			_logger.info(f"Corrected field '{fieldName}' from {preCorrectedText!r} to {card[fieldName]!r} for card {CardUtil.createCardIdentifier(card)}")
 	elif isinstance(card[fieldName], list):
 		matchFound = False
 		if isinstance(card[fieldName][0], dict):
@@ -351,9 +351,9 @@ def correctCardField(card: Dict, fieldName: str, regexMatchString: str, correcti
 						preCorrectedText = fieldValue
 						fieldEntry[fieldKey] = re.sub(regexMatchString, correction, fieldValue, flags=re.DOTALL)
 						if fieldEntry[fieldKey] == preCorrectedText:
-							_logger.warning(f"Correcting index {fieldIndex} of field '{fieldName}' in card {_createCardIdentifier(card)} with regex {regexMatchString!r} didn't change anything, value is still {preCorrectedText!r}")
+							_logger.warning(f"Correcting index {fieldIndex} of field '{fieldName}' in card {CardUtil.createCardIdentifier(card)} with regex {regexMatchString!r} didn't change anything, value is still {preCorrectedText!r}")
 						else:
-							_logger.info(f"Corrected index {fieldIndex} of field '{fieldName}' from {preCorrectedText!r} to {fieldEntry[fieldKey]!r} for card {_createCardIdentifier(card)}")
+							_logger.info(f"Corrected index {fieldIndex} of field '{fieldName}' from {preCorrectedText!r} to {fieldEntry[fieldKey]!r} for card {CardUtil.createCardIdentifier(card)}")
 		elif isinstance(card[fieldName][0], str):
 			for fieldIndex in range(len(card[fieldName]) - 1, -1, -1):
 				fieldValue = card[fieldName][fieldIndex]
@@ -362,30 +362,30 @@ def correctCardField(card: Dict, fieldName: str, regexMatchString: str, correcti
 					matchFound = True
 					if correction is None:
 						# Delete the value
-						_logger.info(f"Removing index {fieldIndex} value {fieldValue!r} from field '{fieldName}' in card {_createCardIdentifier(card)}")
+						_logger.info(f"Removing index {fieldIndex} value {fieldValue!r} from field '{fieldName}' in card {CardUtil.createCardIdentifier(card)}")
 						card[fieldName].pop(fieldIndex)
 					else:
 						preCorrectedText = fieldValue
 						card[fieldName][fieldIndex] = re.sub(regexMatchString, correction, fieldValue, flags=re.DOTALL)
 						if card[fieldName][fieldIndex] == preCorrectedText:
-							_logger.warning(f"Correcting index {fieldIndex} of field '{fieldName}' in card {_createCardIdentifier(card)} with regex {regexMatchString!r} didn't change anything")
+							_logger.warning(f"Correcting index {fieldIndex} of field '{fieldName}' in card {CardUtil.createCardIdentifier(card)} with regex {regexMatchString!r} didn't change anything")
 						else:
-							_logger.info(f"Corrected index {fieldIndex} of field '{fieldName}' from {preCorrectedText!r} to {card[fieldName][fieldIndex]!r} for card {_createCardIdentifier(card)}")
+							_logger.info(f"Corrected index {fieldIndex} of field '{fieldName}' from {preCorrectedText!r} to {card[fieldName][fieldIndex]!r} for card {CardUtil.createCardIdentifier(card)}")
 		else:
-			_logger.error(f"Unhandled type of list entries ({type(card[fieldName][0])}) in card {_createCardIdentifier(card)}")
+			_logger.error(f"Unhandled type of list entries ({type(card[fieldName][0])}) in card {CardUtil.createCardIdentifier(card)}")
 		if not matchFound:
-			_logger.warning(f"Correction regex {regexMatchString!r} for field '{fieldName}' in card {_createCardIdentifier(card)} didn't match any of the entries in that field")
+			_logger.warning(f"Correction regex {regexMatchString!r} for field '{fieldName}' in card {CardUtil.createCardIdentifier(card)} didn't match any of the entries in that field")
 	elif isinstance(card[fieldName], int):
 		if card[fieldName] != regexMatchString:
-			_logger.warning(f"Expected value of field '{fieldName}' in card {_createCardIdentifier(card)} is {regexMatchString!r}, but actual value is {card[fieldName]!r}, skipping correction")
+			_logger.warning(f"Expected value of field '{fieldName}' in card {CardUtil.createCardIdentifier(card)} is {regexMatchString!r}, but actual value is {card[fieldName]!r}, skipping correction")
 		else:
-			_logger.info(f"Corrected numerical value of field '{fieldName}' in card {_createCardIdentifier(card)} from {card[fieldName]} to {correction}")
+			_logger.info(f"Corrected numerical value of field '{fieldName}' in card {CardUtil.createCardIdentifier(card)} from {card[fieldName]} to {correction}")
 			card[fieldName] = correction
 	elif isinstance(card[fieldName], bool):
 		if card[fieldName] == correction:
-			_logger.warning(f"Corrected value for boolean field '{fieldName}' is the same as the existing value '{card[fieldName]}' for card {_createCardIdentifier(card)}")
+			_logger.warning(f"Corrected value for boolean field '{fieldName}' is the same as the existing value '{card[fieldName]}' for card {CardUtil.createCardIdentifier(card)}")
 		else:
-			_logger.info(f"Corrected boolean field '{fieldName}' in card {_createCardIdentifier(card)} from {card[fieldName]} to {correction}")
+			_logger.info(f"Corrected boolean field '{fieldName}' in card {CardUtil.createCardIdentifier(card)} from {card[fieldName]} to {correction}")
 			card[fieldName] = correction
 	elif isinstance(card[fieldName], dict):
 		# Go through each key-value pair to try and find a matching entry
@@ -395,14 +395,14 @@ def correctCardField(card: Dict, fieldName: str, regexMatchString: str, correcti
 			if isStringMatch and isinstance(value, str) and re.search(regexMatchString, value, flags=re.DOTALL):
 				card[fieldName][key] = re.sub(regexMatchString, correction, value)
 				if value == card[fieldName][key]:
-					_logger.warning(f"Correcting value for key '{key}' in dictionary field '{fieldName}' of card {_createCardIdentifier(card)} with regex {regexMatchString!r} didn't change anything, value is still '{value}'")
+					_logger.warning(f"Correcting value for key '{key}' in dictionary field '{fieldName}' of card {CardUtil.createCardIdentifier(card)} with regex {regexMatchString!r} didn't change anything, value is still '{value}'")
 				else:
-					_logger.info(f"Corrected value '{value}' to '{card[fieldName][key]}' in key '{key}' of dictionary field '{fieldName}' in card {_createCardIdentifier(card)}")
+					_logger.info(f"Corrected value '{value}' to '{card[fieldName][key]}' in key '{key}' of dictionary field '{fieldName}' in card {CardUtil.createCardIdentifier(card)}")
 				break
 		else:
-			_logger.warning(f"Correction {regexMatchString!r} for dictionary field '{fieldName}' in card {_createCardIdentifier(card)} didn't match any of the values")
+			_logger.warning(f"Correction {regexMatchString!r} for dictionary field '{fieldName}' in card {CardUtil.createCardIdentifier(card)} didn't match any of the values")
 	else:
-		raise ValueError(f"Card correction {regexMatchString!r} for field '{fieldName}' in card {_createCardIdentifier(card)} is of unsupported type '{type(card[fieldName])}'")
+		raise ValueError(f"Card correction {regexMatchString!r} for field '{fieldName}' in card {CardUtil.createCardIdentifier(card)} is of unsupported type '{type(card[fieldName])}'")
 
 def _cleanUrl(url: str) -> str:
 	"""
@@ -411,18 +411,6 @@ def _cleanUrl(url: str) -> str:
 	:return: The cleaned-up URL
 	"""
 	return url.split('?', 1)[0]
-
-def _createCardIdentifier(card: Dict) -> str:
-	"""
-	Create an identifier string for an input or output card, consisting of the full name and the ID
-	:param card: The card dictionary
-	:return: A string with the full card name and the card ID
-	"""
-	if "id" in card:
-		# Output card
-		return f"'{card['fullName']}' (ID {card['id']})"
-	# Input card
-	return f"'{card['name']} - {card.get('subtitle', None)}' (ID {card['culture_invariant_id']})"
 
 def createOutputFiles(onlyParseIds: Union[None, List[int]] = None, shouldShowImages: bool = False) -> None:
 	startTime = time.perf_counter()
@@ -467,7 +455,7 @@ def createOutputFiles(onlyParseIds: Union[None, List[int]] = None, shouldShowIma
 			# Some promo cards are listed as Enchanted-rarity, so don't store those promo cards as Enchanted too
 			elif card["rarity"] == "ENCHANTED":
 				if card["deck_building_id"] in enchantedDeckbuildingIds:
-					_logger.info(f"Card {_createCardIdentifier(card)} is Enchanted, but its deckbuilding ID already exists in the Enchanteds list, pointing to ID {enchantedDeckbuildingIds[card['deck_building_id']]}, not storing the ID")
+					_logger.info(f"Card {CardUtil.createCardIdentifier(card)} is Enchanted, but its deckbuilding ID already exists in the Enchanteds list, pointing to ID {enchantedDeckbuildingIds[card['deck_building_id']]}, not storing the ID")
 				else:
 					enchantedDeckbuildingIds[card["deck_building_id"]] = card["culture_invariant_id"]
 			elif parsedIdentifier.number > 204:
@@ -703,7 +691,7 @@ def createOutputFiles(onlyParseIds: Union[None, List[int]] = None, shouldShowIma
 	cardsElement = xmlElementTree.SubElement(rootElement, "cards")
 	for card in outputDict["cards"]:
 		if "images" not in card or "full" not in card["images"]:
-			_logger.error(f"Card {_createCardIdentifier(card)} does not have an image stored, not adding it to the Cockatrice XML")
+			_logger.error(f"Card {CardUtil.createCardIdentifier(card)} does not have an image stored, not adding it to the Cockatrice XML")
 			continue
 		cardElement = xmlElementTree.SubElement(cardsElement, "card")
 		xmlElementTree.SubElement(cardElement, "name").text = card["fullName"]
@@ -875,7 +863,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 		# Simplify quotemarks
 		outputCard["artistsText"] = outputCard["artistsText"].replace("“", "\"").replace("”", "\"")
 	if oldArtistsText != outputCard["artistsText"]:
-		_logger.info(f"Corrected artist name from '{oldArtistsText}' to '{outputCard['artistsText']}' in card {_createCardIdentifier(inputCard)}")
+		_logger.info(f"Corrected artist name from '{oldArtistsText}' to '{outputCard['artistsText']}' in card {CardUtil.createCardIdentifier(inputCard)}")
 
 	outputCard["name"] = correctPunctuation(inputCard["name"].strip() if "name" in inputCard else ocrResult.name).replace("’", "'").replace("‘", "'").replace("''", "'")
 	if outputCard["name"] == "Balais Magiques":
@@ -944,7 +932,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 	elif "imageUrl" in inputCard:
 		outputCard["images"] = {"full": inputCard["imageUrl"]}
 	else:
-		_logger.error(f"Card {_createCardIdentifier(outputCard)} does not contain any image URLs")
+		_logger.error(f"Card {CardUtil.createCardIdentifier(outputCard)} does not contain any image URLs")
 	# If the card is Enchanted or has an Enchanted equivalent, store that
 	if enchantedNonEnchantedId:
 		outputCard["nonEnchantedId" if outputCard["rarity"] == GlobalConfig.translation.ENCHANTED else "enchantedId"] = enchantedNonEnchantedId
@@ -986,7 +974,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 		for remainingTextLine in remainingTextLines:
 			remainingTextLine = correctText(correctPunctuation(remainingTextLine))
 			if len(remainingTextLine) < 4:
-				_logger.info(f"Remaining text for card {_createCardIdentifier(outputCard)} {remainingTextLine!r} is too short, discarding")
+				_logger.info(f"Remaining text for card {CardUtil.createCardIdentifier(outputCard)} {remainingTextLine!r} is too short, discarding")
 				continue
 			# Check if this is a keyword ability
 			if outputCard["type"] == GlobalConfig.translation.Character or outputCard["type"] == GlobalConfig.translation.Action or (parsedIdentifier.setCode == "Q2" and outputCard["type"] == GlobalConfig.translation.Location):
@@ -1090,7 +1078,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 			# Bans are listed as additional info, but we handle that separately, so ignore those
 			# For other additional_info types, print an error, since that should be handled
 			elif infoEntry["title"] != "Illustratorin" and infoEntry["title"] != "Ban":
-				_logger.warning(f"Unknown 'additional_info' type '{infoEntry['title']}' in card {_createCardIdentifier(outputCard)}")
+				_logger.warning(f"Unknown 'additional_info' type '{infoEntry['title']}' in card {CardUtil.createCardIdentifier(outputCard)}")
 		if errata:
 			outputCard["errata"] = errata
 		if clarifications:
@@ -1146,7 +1134,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 	if cardDataCorrections:
 		if cardDataCorrections.pop("_moveKeywordsLast", False):
 			if "abilities" not in outputCard or "effect" not in outputCard["abilities"][-1]:
-				raise KeyError(f"Correction to move keywords last is set for card {_createCardIdentifier(outputCard)}, but no 'abilities' field exists or the last ability doesn't have an 'effect'")
+				raise KeyError(f"Correction to move keywords last is set for card {CardUtil.createCardIdentifier(outputCard)}, but no 'abilities' field exists or the last ability doesn't have an 'effect'")
 			# Normally keyword abilities come before named abilities, except on some cards (e.g. 'Madam Mim - Fox' (ID 262))
 			# Correct that by removing the keyword ability text from the last named ability text, and adding it as an ability
 			lastAbility: Dict[str, str] = outputCard["abilities"][-1]
@@ -1163,7 +1151,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 			if correctionAbilityField in cardDataCorrections:
 				abilityIndexToCorrect = cardDataCorrections.pop(correctionAbilityField)
 				if abilityIndexToCorrect in forceAbilityTypeAtIndex:
-					_logger.error(f"Ability at index {abilityIndexToCorrect} in card {_createCardIdentifier(outputCard)} is being corrected to two types: '{forceAbilityTypeAtIndex[abilityIndexToCorrect]}' and '{abilityTypeCorrection}'")
+					_logger.error(f"Ability at index {abilityIndexToCorrect} in card {CardUtil.createCardIdentifier(outputCard)} is being corrected to two types: '{forceAbilityTypeAtIndex[abilityIndexToCorrect]}' and '{abilityTypeCorrection}'")
 				forceAbilityTypeAtIndex[abilityIndexToCorrect] = abilityTypeCorrection
 		newlineAfterLabelIndex = cardDataCorrections.pop("_newlineAfterLabelIndex", -1)
 		mergeEffectIndexWithPrevious = cardDataCorrections.pop("_mergeEffectIndexWithPrevious", -1)
@@ -1187,14 +1175,14 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 				abilityTextFieldName = "fullText" if "fullText" in ability else "effect"
 				while "\n\n" in ability[abilityTextFieldName]:
 					# We need to split this ability in two
-					_logger.info(f"Splitting ability at index {abilityIndex} in two because it has a double newline, in card {_createCardIdentifier(outputCard)}")
+					_logger.info(f"Splitting ability at index {abilityIndex} in two because it has a double newline, in card {CardUtil.createCardIdentifier(outputCard)}")
 					firstAbilityTextPart, secondAbilityTextPart = ability[abilityTextFieldName].rsplit("\n\n", 1)
 					ability[abilityTextFieldName] = firstAbilityTextPart
 					outputCard["abilities"].insert(abilityIndex + 1, {"effect": secondAbilityTextPart})
 		if "effects" in cardDataCorrections and "effects" in outputCard:
 			for effectIndex in range(len(outputCard["effects"]) - 1, -1, -1):
 				while "\n\n" in outputCard["effects"][effectIndex]:
-					_logger.info(f"Splitting effect at index {effectIndex} in two because it has a double newline, in card {_createCardIdentifier(outputCard)}")
+					_logger.info(f"Splitting effect at index {effectIndex} in two because it has a double newline, in card {CardUtil.createCardIdentifier(outputCard)}")
 					firstEffect, secondEffect = outputCard["effects"][effectIndex].rsplit("\n\n", 1)
 					outputCard["effects"][effectIndex] = firstEffect
 					outputCard["effects"].insert(effectIndex + 1, secondEffect)
@@ -1206,17 +1194,17 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 		# Sometimes ability names get missed, apply the correction to fix this
 		if addNameToAbilityAtIndex:
 			if addNameToAbilityAtIndex[0] >= len(outputCard["abilities"]):
-				_logger.error(f"Supplied name '{addNameToAbilityAtIndex[1]}' to add to ability at index {addNameToAbilityAtIndex[0]} of card {_createCardIdentifier(outputCard)}, but maximum ability index is {len(outputCard['abilities'])}")
+				_logger.error(f"Supplied name '{addNameToAbilityAtIndex[1]}' to add to ability at index {addNameToAbilityAtIndex[0]} of card {CardUtil.createCardIdentifier(outputCard)}, but maximum ability index is {len(outputCard['abilities'])}")
 			elif outputCard["abilities"][addNameToAbilityAtIndex[0]].get("name", None):
-				_logger.error(f"Supplied name '{addNameToAbilityAtIndex[1]}' to add to ability at index {addNameToAbilityAtIndex[0]} of card {_createCardIdentifier(outputCard)}, but ability already has name '{outputCard['abilities'][addNameToAbilityAtIndex[0]]['name']}'")
+				_logger.error(f"Supplied name '{addNameToAbilityAtIndex[1]}' to add to ability at index {addNameToAbilityAtIndex[0]} of card {CardUtil.createCardIdentifier(outputCard)}, but ability already has name '{outputCard['abilities'][addNameToAbilityAtIndex[0]]['name']}'")
 			else:
-				_logger.info(f"Adding ability name '{addNameToAbilityAtIndex[1]}' to ability index {addNameToAbilityAtIndex[0]} for card {_createCardIdentifier(outputCard)}")
+				_logger.info(f"Adding ability name '{addNameToAbilityAtIndex[1]}' to ability index {addNameToAbilityAtIndex[0]} for card {CardUtil.createCardIdentifier(outputCard)}")
 				outputCard["abilities"][addNameToAbilityAtIndex[0]]["name"] = addNameToAbilityAtIndex[1]
 
 		# Do this after the general corrections since one of those might add or split an effect
 		if effectAtIndexIsAbility != -1:
 			if "effects" not in outputCard:
-				_logger.error(f"Correction to move effect index {effectAtIndexIsAbility} to abilities, but card {_createCardIdentifier(outputCard)} doesn't have an 'effects' field")
+				_logger.error(f"Correction to move effect index {effectAtIndexIsAbility} to abilities, but card {CardUtil.createCardIdentifier(outputCard)} doesn't have an 'effects' field")
 			else:
 				if "abilities" not in outputCard:
 					outputCard["abilities"] = []
@@ -1229,9 +1217,9 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 					del outputCard["effects"]
 		if effectAtIndexIsFlavorText != -1:
 			if "effects" not in outputCard:
-				_logger.error(f"Correction to move effect index {effectAtIndexIsAbility} to flavor text, but card {_createCardIdentifier(outputCard)} doesn't have an 'effects' field")
+				_logger.error(f"Correction to move effect index {effectAtIndexIsAbility} to flavor text, but card {CardUtil.createCardIdentifier(outputCard)} doesn't have an 'effects' field")
 			elif "flavorText" in outputCard:
-				_logger.error(f"Correction to move effect index {effectAtIndexIsAbility} to flavor text, but card {_createCardIdentifier(outputCard)} already has a 'flavorText' field")
+				_logger.error(f"Correction to move effect index {effectAtIndexIsAbility} to flavor text, but card {CardUtil.createCardIdentifier(outputCard)} already has a 'flavorText' field")
 			else:
 				_logger.info(f"Moving effect index {effectAtIndexIsFlavorText} to flavor text")
 				outputCard["flavorText"] = correctPunctuation(outputCard["effects"].pop(effectAtIndexIsFlavorText))
@@ -1329,7 +1317,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 
 				if abilityIndex in forceAbilityTypeAtIndex:
 					if forceAbilityTypeAtIndex[abilityIndex] == ability["type"]:
-						_logger.error(f"Ability at index {abilityIndex} of {_createCardIdentifier(outputCard)} should be corrected to '{forceAbilityTypeAtIndex[abilityIndex]}' but it is already that type")
+						_logger.error(f"Ability at index {abilityIndex} of {CardUtil.createCardIdentifier(outputCard)} should be corrected to '{forceAbilityTypeAtIndex[abilityIndex]}' but it is already that type")
 					else:
 						ability["type"] = forceAbilityTypeAtIndex[abilityIndex]
 						_logger.info(f"Forcing ability type at index {abilityIndex} of card ID {outputCard['id']} to '{ability['type']}'")
@@ -1405,7 +1393,7 @@ def _parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, enchanted
 				fullTextSections.append(ability["fullText"])
 	if "effects" in outputCard:
 		if mergeEffectIndexWithPrevious > -1:
-			_logger.info(f"Merging effect index {mergeEffectIndexWithPrevious} with previous index for card {_createCardIdentifier(outputCard)}")
+			_logger.info(f"Merging effect index {mergeEffectIndexWithPrevious} with previous index for card {CardUtil.createCardIdentifier(outputCard)}")
 			outputCard["effects"][mergeEffectIndexWithPrevious - 1] += "\n" + outputCard["effects"].pop(mergeEffectIndexWithPrevious)
 		fullTextSections.extend(outputCard["effects"])
 	outputCard["fullText"] = "\n".join(fullTextSections)
