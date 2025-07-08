@@ -2,13 +2,10 @@ import json, logging, os, re, time
 from typing import Dict, List, Optional, Union
 
 import GlobalConfig
-from util import Language
+from util import CardUtil, Language
 
 _logger = logging.getLogger("LorcanaJSON")
 
-def _createCardIdentifier(card, cardId):
-	name = card.get("name", card.get("baseName", "[[unknown]]"))
-	return f"'{name}' (ID {cardId})"
 
 class StoryParser:
 	def __init__(self, onlyParseIds: List[int]):
@@ -100,14 +97,14 @@ class StoryParser:
 			nameRegex = re.compile(rf"\b{name}\b")
 			for fieldName in ("flavor_text", "flavorText", "rules_text", "fullText", "name", "baseName", "subtitle"):
 				if fieldName in card and nameRegex.search(card[fieldName]):
-					_logger.debug(f"Assuming {_createCardIdentifier(card, cardId)} is in story '{storyName}' based on '{name}' in the field '{fieldName}': {card[fieldName]!r}")
+					_logger.debug(f"Assuming {CardUtil.createCardIdentifier(card)} is in story '{storyName}' based on '{name}' in the field '{fieldName}': {card[fieldName]!r}")
 					return storyName
 		# As a last resort, check if one of the subtypes is listed somewhere in the card
 		for subtype, storyName in self._subtypeToStoryName.items():
 			subtypeRegex = re.compile(rf"\b{subtype}\b")
 			for fieldName in ("flavor_text", "flavorText", "rules_text", "fullText", "name", "baseName", "subtitle"):
 				if fieldName in card and subtypeRegex.search(card[fieldName]):
-					_logger.debug(f"Assuming {_createCardIdentifier(card, cardId)} is in story '{storyName}' based on subtype '{subtype}' in the field '{fieldName}': {card[fieldName]!r}")
+					_logger.debug(f"Assuming {CardUtil.createCardIdentifier(card)} is in story '{storyName}' based on subtype '{subtype}' in the field '{fieldName}': {card[fieldName]!r}")
 					return storyName
-		_logger.error(f"Unable to determine story ID of card {_createCardIdentifier(card, cardId)}")
+		_logger.error(f"Unable to determine story ID of card {CardUtil.createCardIdentifier(card)}")
 		return None
