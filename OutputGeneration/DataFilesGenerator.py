@@ -6,9 +6,9 @@ import GlobalConfig
 from APIScraping.ExternalLinksHandler import ExternalLinksHandler
 from OCR import ImageParser
 from OutputGeneration import SingeCardDataGenerator
-from output.StoryParser import StoryParser
 from util import CardUtil, IdentifierParser, JsonUtil, Language, LorcanaSymbols
 
+from OutputGeneration.StoryParser import StoryParser
 
 _logger = logging.getLogger("LorcanaJSON")
 FORMAT_VERSION = "2.1.5"
