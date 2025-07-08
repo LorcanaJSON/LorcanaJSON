@@ -1,14 +1,13 @@
 import copy, datetime, hashlib, json, logging, multiprocessing.pool, os, re, threading, time, zipfile
 import xml.etree.ElementTree as xmlElementTree
-from typing import Dict, List, Optional, Union
+from typing import Dict, List, Union
 
 import GlobalConfig
 from APIScraping.ExternalLinksHandler import ExternalLinksHandler
 from OCR import ImageParser
 from OutputGeneration import SingeCardDataGenerator
-from util import CardUtil, IdentifierParser, JsonUtil, Language, LorcanaSymbols
-
 from OutputGeneration.StoryParser import StoryParser
+from util import CardUtil, JsonUtil
 
 _logger = logging.getLogger("LorcanaJSON")
 FORMAT_VERSION = "2.1.5"
