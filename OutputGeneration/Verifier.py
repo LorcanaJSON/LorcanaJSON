@@ -42,7 +42,7 @@ def compareInputToOutput(cardIdsToVerify: Union[List[int], None]):
 
 	# Some of the data in the input file is wrong, which leads to false positives. Get override values here, to prevent that
 	# It's organised by language, then by card ID, then by inputCard field, where the value is a pair of strings (regex match and correction), or a new number if it's a numeric field
-	overridesFilePath = os.path.join("output", f"verifierOverrides_{GlobalConfig.language.code}.json")
+	overridesFilePath = os.path.join("OutputGeneration", "data", "verifier", f"verifierOverrides_{GlobalConfig.language.code}.json")
 	if os.path.isfile(overridesFilePath):
 		inputOverrides = JsonUtil.loadJsonWithNumberKeys(overridesFilePath)
 		print(f"Overrides file found, loaded {len(inputOverrides):,} input overrides")
