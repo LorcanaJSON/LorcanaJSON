@@ -110,7 +110,7 @@ def createOutputFiles(onlyParseIds: Union[None, List[int]] = None, shouldShowIma
 	del enchantedDeckbuildingIds
 	del promoDeckBuildingIds
 
-	historicDataFilePath = os.path.join("output", f"historicData_{GlobalConfig.language.code}.json")
+	historicDataFilePath = os.path.join("OutputGeneration", "data", "historicData", f"historicData_{GlobalConfig.language.code}.json")
 	if os.path.isfile(historicDataFilePath):
 		historicData = JsonUtil.loadJsonWithNumberKeys(historicDataFilePath)
 	else:
