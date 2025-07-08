@@ -10,7 +10,7 @@ _logger = logging.getLogger("LorcanaJSON")
 class StoryParser:
 	def __init__(self, onlyParseIds: List[int]):
 		startTime = time.perf_counter()
-		with open(os.path.join("output", "fromStories.json"), "r", encoding="utf-8") as fromStoriesFile:
+		with open(os.path.join("OutputGeneration", "data", "fromStories.json"), "r", encoding="utf-8") as fromStoriesFile:
 			fromStories = json.load(fromStoriesFile)
 		# The fromStories file is organised by story to make it easy to write and maintain
 		# Reformat it so matching individual cards to a story is easier
