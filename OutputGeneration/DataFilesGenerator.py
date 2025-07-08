@@ -34,8 +34,8 @@ def createOutputFiles(onlyParseIds: Union[None, List[int]] = None, shouldShowIma
 	with open(cardCatalogPath, "r", encoding="utf-8") as inputFile:
 		inputData = json.load(inputFile)
 
-	cardDataCorrections: Dict[int, Dict[str, List[str, str]]] = JsonUtil.loadJsonWithNumberKeys(os.path.join("output", "outputDataCorrections.json"))
-	correctionsFilePath = os.path.join("output", f"outputDataCorrections_{GlobalConfig.language.code}.json")
+	cardDataCorrections: Dict[int, Dict[str, List[str, str]]] = JsonUtil.loadJsonWithNumberKeys(os.path.join("OutputGeneration", "data", "outputDataCorrections", "outputDataCorrections.json"))
+	correctionsFilePath = os.path.join("OutputGeneration", "data", "outputDataCorrections", f"outputDataCorrections_{GlobalConfig.language.code}.json")
 	if os.path.isfile(correctionsFilePath):
 		for cardId, corrections in JsonUtil.loadJsonWithNumberKeys(correctionsFilePath).items():
 			if cardId in cardDataCorrections:
