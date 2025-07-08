@@ -116,7 +116,7 @@ def createOutputFiles(onlyParseIds: Union[None, List[int]] = None, shouldShowIma
 	else:
 		historicData = {}
 
-	cardBans = JsonUtil.loadJsonWithNumberKeys(os.path.join("output", "CardBans.json"))
+	cardBans = JsonUtil.loadJsonWithNumberKeys(os.path.join("OutputGeneration", "data", "CardBans.json"))
 
 	# Get the cards we don't have to parse (if any) from the previous generated file
 	fullCardList: List[Dict] = []
@@ -205,7 +205,7 @@ def createOutputFiles(onlyParseIds: Union[None, List[int]] = None, shouldShowIma
 	outputDict: Dict[str, Union[Dict, List]] = {"metadata": metaDataDict}
 
 	# Add set data
-	with open(os.path.join("output", f"baseSetData.json"), "r", encoding="utf-8") as baseSetDataFile:
+	with open(os.path.join("OutputGeneration", "data", "baseSetData.json"), "r", encoding="utf-8") as baseSetDataFile:
 		setsData = json.load(baseSetDataFile)
 		for setCode in list(setsData.keys()):
 			if setsData[setCode]["names"].get(GlobalConfig.language.code, None):
@@ -240,7 +240,7 @@ def createOutputFiles(onlyParseIds: Union[None, List[int]] = None, shouldShowIma
 	for card in fullCardList:
 		idToCard[card["id"]] = card
 	# Get the deck data
-	with open(os.path.join("output", "baseDeckData.json"), "r", encoding="utf-8") as deckFile:
+	with open(os.path.join("OutputGeneration", "data", "baseDeckData.json"), "r", encoding="utf-8") as deckFile:
 		decksData = json.load(deckFile)
 	simpleDeckFilePaths = []
 	fullDeckFilePaths = []

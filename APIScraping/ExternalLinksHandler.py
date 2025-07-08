@@ -121,7 +121,7 @@ class ExternalLinksHandler:
 	def updateCardshopData(cardTraderToken):
 		# CardTrader data is split into the sets by name, so we need to map from English name to set code
 		# For URL construction, we also need the reverse
-		with open(os.path.join("output", "baseSetData.json"), "r", encoding="utf-8") as setDataFile:
+		with open(os.path.join("OutputGeneration", "data", "baseSetData.json"), "r", encoding="utf-8") as setDataFile:
 			setsData = json.load(setDataFile)
 		setNameToCode = {}
 		setCodeToName = {}
