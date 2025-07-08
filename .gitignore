@@ -4,9 +4,8 @@ __pycache__/
 
 /downloads/**
 /logs/**
-/output/generated/
-/output/handmade/
-/output/oldVersions/
+/oldVersions/
+/output/
 /website/
 
 /config.json

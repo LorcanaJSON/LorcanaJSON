@@ -9,7 +9,7 @@ from util.IdentifierParser import Identifier
 
 
 _LOGGER = logging.getLogger("LorcanaJSON")
-_EXTERNAL_LINKS_FILE_PATH = os.path.join("output", "generated", "externalLinks.json")
+_EXTERNAL_LINKS_FILE_PATH = os.path.join("output", "externalLinks.json")
 _CARD_TRADER_LORCANA_ID = 18
 _CARD_TRADER_SINGLES_CATEGORY_ID = 214  # CardTrader also sells inserts, puzzle cards, etc; This is the ID of actual cards, skip anything else
 _CARD_MARKET_LANGUAGE_TO_CODE = {

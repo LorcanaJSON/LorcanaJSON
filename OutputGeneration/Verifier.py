@@ -10,7 +10,7 @@ def compareInputToOutput(cardIdsToVerify: Union[List[int], None]):
 	if not os.path.isfile(inputFilePath):
 		print("Input file does not exist. Please run the 'download' action for the specified language first")
 		return
-	outputFilePath = os.path.join("output", "generated", GlobalConfig.language.code, "allCards.json")
+	outputFilePath = os.path.join("output", GlobalConfig.language.code, "allCards.json")
 	if not os.path.isfile(outputFilePath):
 		print("Output file does not exist. Please run the 'parse' action for the specified language first")
 		return
@@ -23,7 +23,7 @@ def compareInputToOutput(cardIdsToVerify: Union[List[int], None]):
 	englishRarities = ()
 	currentLanguageRarities = ()
 	if GlobalConfig.language != Language.ENGLISH:
-		englishOutputFilePath = os.path.join("output", "generated", Language.ENGLISH.code, "allCards.json")
+		englishOutputFilePath = os.path.join("output", Language.ENGLISH.code, "allCards.json")
 		if os.path.isfile(englishOutputFilePath):
 			with open(englishOutputFilePath, "r", encoding="utf-8") as englishOutputFile:
 				englishOutputCardStore = json.load(englishOutputFile)

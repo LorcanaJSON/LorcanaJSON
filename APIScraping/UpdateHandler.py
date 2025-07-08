@@ -108,7 +108,7 @@ def checkForNewCardData(newCardCatalog: Dict = None, fieldsToIgnore: List[str] =
 	# Check if new cards have been added to the external reveals file
 	externalRevealsFileName = f"externalCardReveals.{GlobalConfig.language.code}.json"
 	if os.path.isfile(externalRevealsFileName):
-		allCardsFilePath = os.path.join("output", "generated", GlobalConfig.language.code, "allCards.json")
+		allCardsFilePath = os.path.join("output", GlobalConfig.language.code, "allCards.json")
 		existingIds = set()
 		if os.path.isfile(allCardsFilePath):
 			with open(allCardsFilePath, "r", encoding="utf-8") as allCardsFile:
