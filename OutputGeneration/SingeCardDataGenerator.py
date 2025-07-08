@@ -4,8 +4,7 @@ from typing import Dict, List, Optional, Union
 import GlobalConfig
 from OCR import OcrCacheHandler
 from OCR.OcrResult import OcrResult
-from OutputGeneration import TextCorrection
-from output import StoryParser
+from OutputGeneration import TextCorrection, StoryParser
 from util import CardUtil, IdentifierParser, Language, LorcanaSymbols
 
 _logger = logging.getLogger("LorcanaJSON")
