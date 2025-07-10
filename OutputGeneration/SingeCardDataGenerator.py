@@ -5,6 +5,7 @@ import GlobalConfig
 from OCR import OcrCacheHandler
 from OCR.OcrResult import OcrResult
 from OutputGeneration import TextCorrection, StoryParser
+from OutputGeneration.RelatedCardsCollator import RelatedCards
 from util import CardUtil, IdentifierParser, Language, LorcanaSymbols
 
 _logger = logging.getLogger("LorcanaJSON")
@@ -14,8 +15,7 @@ _KEYWORD_REGEX_WITHOUT_REMINDER = re.compile(r"^[A-Z][a-z]{2,}( \d)?$")
 _ABILITY_TYPE_CORRECTION_FIELD_TO_ABILITY_TYPE: Dict[str, str] = {"_forceAbilityIndexToActivated": "activated", "_forceAbilityIndexToKeyword": "keyword", "_forceAbilityIndexToStatic": "static", "_forceAbilityIndexToTriggered": "triggered"}
 
 
-def parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, threadLocalStorage, enchantedNonEnchantedId: Union[int, None], promoNonPromoId: Union[int, List[int], None],
-					variantIds: Union[List[int], None], cardDataCorrections: Dict, storyParser: StoryParser, isExternalReveal: bool, historicData: Union[None, List[Dict]],
+def parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, threadLocalStorage, relatedCards: RelatedCards, cardDataCorrections: Dict, storyParser: StoryParser, isExternalReveal: bool, historicData: Union[None, List[Dict]],
 					bannedSince: Union[None, str] = None, shouldShowImage: bool = False) -> Union[Dict, None]:
 	# Store some default values
 	outputCard: Dict[str, Union[str, int, List, Dict]] = {
@@ -84,10 +84,6 @@ def parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, threadLoca
 
 	# Get the set and card numbers from the identifier
 	outputCard["number"] = parsedIdentifier.number
-	if parsedIdentifier.variant:
-		outputCard["variant"] = parsedIdentifier.variant
-		if variantIds:
-			outputCard["variantIds"] = [variantId for variantId in variantIds if variantId != outputCard["id"]]
 	outputCard["setCode"] = parsedIdentifier.setCode
 
 	# Always get the artist from the parsed data, since in the input data it often only lists the first artist when there's multiple, so it's not reliable
@@ -196,13 +192,21 @@ def parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, threadLoca
 		outputCard["images"] = {"full": inputCard["imageUrl"]}
 	else:
 		_logger.error(f"Card {CardUtil.createCardIdentifier(outputCard)} does not contain any image URLs")
-	# If the card is Enchanted or has an Enchanted equivalent, store that
-	if enchantedNonEnchantedId:
-		outputCard["nonEnchantedId" if outputCard["rarity"] == GlobalConfig.translation.ENCHANTED else "enchantedId"] = enchantedNonEnchantedId
-	# If the card is a promo card, store the non-promo ID
-	# If the card has promo version, store the promo IDs
-	if promoNonPromoId:
-		outputCard["promoIds" if isinstance(promoNonPromoId, list) else "nonPromoId"] = promoNonPromoId
+
+	# Store relations to other cards, like (non-)Enchanted and (non-)Promo cards
+	otherRelatedCards = relatedCards.getOtherRelatedCards(outputCard["id"])
+	if otherRelatedCards.enchantedId:
+		outputCard["enchantedId"] = otherRelatedCards.enchantedId
+	elif otherRelatedCards.nonEnchantedId:
+		outputCard["nonEnchantedId"] = otherRelatedCards.nonEnchantedId
+	if otherRelatedCards.nonPromoId:
+		outputCard["nonPromoId"] = otherRelatedCards.nonPromoId
+	elif otherRelatedCards.promoIds:
+		outputCard["promoIds"] = otherRelatedCards.promoIds
+	if otherRelatedCards.otherVariantIds:
+		outputCard["variantIds"] = otherRelatedCards.otherVariantIds
+		outputCard["variant"] = parsedIdentifier.variant
+
 	# Store the different parts of the card text, correcting some values if needed
 	if ocrResult.flavorText:
 		flavorText = TextCorrection.correctText(ocrResult.flavorText)

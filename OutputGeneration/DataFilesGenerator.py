@@ -6,6 +6,7 @@ import GlobalConfig
 from APIScraping.ExternalLinksHandler import ExternalLinksHandler
 from OCR import ImageParser
 from OutputGeneration import SingeCardDataGenerator
+from OutputGeneration.RelatedCardsCollator import RelatedCardCollator
 from OutputGeneration.StoryParser import StoryParser
 from util import CardUtil, JsonUtil
 
@@ -49,66 +50,6 @@ def createOutputFiles(onlyParseIds: Union[None, List[int]] = None, shouldShowIma
 	else:
 		_logger.warning(f"No corrections file exists for language '{GlobalConfig.language.code}', so no language-specific corrections will be done. This doesn't break anything, but results might not be perfect")
 
-	# Enchanted-rarity and promo cards are special versions of existing cards. Store their shared ID so we can add a linking field to both versions
-	# We do this before parse-id-checks and other parsing, so we can add these IDs to cards that have variant versions, even if they're not being parsed
-	# Also, some cards have identical-rarity variants ("Dalmation Puppy', ID 436-440), store those so each can reference the others
-	enchantedDeckbuildingIds = {}
-	promoDeckBuildingIds = {}
-	variantsDeckBuildingIds = {}
-	for cardtype, cardlist in inputData["cards"].items():
-		for card in cardlist:
-			parsedIdentifier: IdentifierParser.Identifier = IdentifierParser.parseIdentifier(card["card_identifier"])
-			if parsedIdentifier.isPromo():
-				if card["deck_building_id"] not in promoDeckBuildingIds:
-					promoDeckBuildingIds[card["deck_building_id"]] = []
-				promoDeckBuildingIds[card["deck_building_id"]].append(card["culture_invariant_id"])
-			# Some promo cards are listed as Enchanted-rarity, so don't store those promo cards as Enchanted too
-			elif card["rarity"] == "ENCHANTED":
-				if card["deck_building_id"] in enchantedDeckbuildingIds:
-					_logger.info(f"Card {CardUtil.createCardIdentifier(card)} is Enchanted, but its deckbuilding ID already exists in the Enchanteds list, pointing to ID {enchantedDeckbuildingIds[card['deck_building_id']]}, not storing the ID")
-				else:
-					enchantedDeckbuildingIds[card["deck_building_id"]] = card["culture_invariant_id"]
-			elif parsedIdentifier.number > 204:
-				# A card numbered higher than the normal 204 that isn't an Enchanted is also most likely a promo card (F.i. the special Q1 cards like ID 1179
-				if card["deck_building_id"] not in promoDeckBuildingIds:
-					promoDeckBuildingIds[card["deck_building_id"]] = []
-				promoDeckBuildingIds[card["deck_building_id"]].append(card["culture_invariant_id"])
-			if parsedIdentifier.variant is not None:
-				if card["deck_building_id"] not in variantsDeckBuildingIds:
-					variantsDeckBuildingIds[card["deck_building_id"]] = []
-				variantsDeckBuildingIds[card["deck_building_id"]].append(card["culture_invariant_id"])
-	# Now find their matching 'normal' cards, and store IDs with links to each other
-	# Enchanted to non-Enchanted is a one-on-one relation
-	# One normal card can have multiple promos, so normal cards store a list of promo IDs, while promo IDs store just one normal ID
-	enchantedNonEnchantedIds = {}
-	promoNonPromoIds: Dict[int, Union[int, List[int]]] = {}
-	for cardtype, cardlist in inputData["cards"].items():
-		for card in cardlist:
-			if card["deck_building_id"] in enchantedDeckbuildingIds and card["culture_invariant_id"] != enchantedDeckbuildingIds[card["deck_building_id"]]:
-				nonEnchantedId = card["culture_invariant_id"]
-				enchantedId = enchantedDeckbuildingIds[card["deck_building_id"]]
-				if nonEnchantedId in enchantedNonEnchantedIds:
-					_logger.info(f"Non-enchanted ID {nonEnchantedId} is already in the enchanted-nonenchanted list (stored pointing to {enchantedNonEnchantedIds[nonEnchantedId]}), skipping adding it again pointing to {enchantedId}")
-				elif enchantedId in enchantedNonEnchantedIds:
-					_logger.info(f"Enchanted ID {enchantedId} is already in the enchanted-nonenchanted list (stored pointing to {enchantedNonEnchantedIds[enchantedId]}), skipping adding it again pointing to {nonEnchantedId}")
-				else:
-					enchantedNonEnchantedIds[nonEnchantedId] = enchantedId
-					enchantedNonEnchantedIds[enchantedId] = nonEnchantedId
-			if card["deck_building_id"] in promoDeckBuildingIds and card["culture_invariant_id"] not in promoDeckBuildingIds[card["deck_building_id"]]:
-				nonPromoId = card["culture_invariant_id"]
-				promoIds = promoDeckBuildingIds[card["deck_building_id"]]
-				if nonPromoId in promoNonPromoIds:
-					_logger.info(f"Non-promo ID {nonPromoId} is already in promo-nonPromo list (stored pointing to {promoNonPromoIds[nonPromoId]}), skipping adding it again pointing to {promoIds}")
-				else:
-					promoNonPromoIds[nonPromoId] = promoIds
-				for promoId in promoIds:
-					if promoId in promoNonPromoIds:
-						_logger.info(f"Promo ID {promoId} is already in promo-nonPromo list (stored pointing to {promoNonPromoIds[promoId]}), skipping adding it again pointing to {nonPromoId}")
-					else:
-						promoNonPromoIds[promoId] = nonPromoId
-	del enchantedDeckbuildingIds
-	del promoDeckBuildingIds
-
 	historicDataFilePath = os.path.join("OutputGeneration", "data", "historicData", f"historicData_{GlobalConfig.language.code}.json")
 	if os.path.isfile(historicDataFilePath):
 		historicData = JsonUtil.loadJsonWithNumberKeys(historicDataFilePath)
@@ -148,6 +89,7 @@ def createOutputFiles(onlyParseIds: Union[None, List[int]] = None, shouldShowIma
 
 	# Parse the cards we need to parse
 	cardToStoryParser = StoryParser(onlyParseIds)
+	relatedCardCollator = RelatedCardCollator(inputData)
 	with multiprocessing.pool.ThreadPool(GlobalConfig.threadCount, initializer=initThread) as pool:
 		results = []
 		for cardType, inputCardlist in inputData["cards"].items():
@@ -165,7 +107,7 @@ def createOutputFiles(onlyParseIds: Union[None, List[int]] = None, shouldShowIma
 					_logger.error(f"Card ID {cardId} is not in the ID parse list, but it's also not in the previous dataset. Skipping parsing for now, but this results in incomplete datafiles, so it's strongly recommended to rerun with this card ID included")
 					continue
 				try:
-					results.append(pool.apply_async(SingeCardDataGenerator.parseSingleCard, (inputCard, cardTypeText, imageFolder, _threadingLocalStorage, enchantedNonEnchantedIds.get(cardId, None), promoNonPromoIds.get(cardId, None), variantsDeckBuildingIds.get(inputCard["deck_building_id"]),
+					results.append(pool.apply_async(SingeCardDataGenerator.parseSingleCard, (inputCard, cardTypeText, imageFolder, _threadingLocalStorage, relatedCardCollator.getRelatedCards(inputCard),
 												  cardDataCorrections.pop(cardId, None), cardToStoryParser, False, historicData.get(cardId, None), cardBans.pop(cardId, None), shouldShowImages)))
 					cardIdsStored.append(cardId)
 				except Exception as e:
@@ -183,7 +125,7 @@ def createOutputFiles(onlyParseIds: Union[None, List[int]] = None, shouldShowIma
 			if cardId in cardIdsStored:
 				_logger.debug(f"Card ID {cardId} is defined in the official file and in the external file, skipping the external data")
 				continue
-			results.append(pool.apply_async(SingeCardDataGenerator.parseSingleCard, (externalCard, externalCard["type"], imageFolder, _threadingLocalStorage, enchantedNonEnchantedIds.get(cardId, None), promoNonPromoIds.get(cardId, None), variantsDeckBuildingIds,
+			results.append(pool.apply_async(SingeCardDataGenerator.parseSingleCard, (externalCard, externalCard["type"], imageFolder, _threadingLocalStorage, relatedCardCollator.getRelatedCards(externalCard),
 															   cardDataCorrections.pop(cardId, None), cardToStoryParser, True, historicData.get(cardId, None), cardBans.pop(cardId, None), shouldShowImages)))
 		pool.close()
 		pool.join()
