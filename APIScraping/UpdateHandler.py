@@ -128,6 +128,10 @@ def checkForNewCardData(newCardCatalog: Dict = None, fieldsToIgnore: List[str] =
 			if newSetData["name"] not in oldNames:
 				updateCheckResult.newSets.append(newSetData["name"])
 
+	# The cardstore stores the latest version of the official app, compare that too
+	if oldCardCatalog["application_shared_properties"]["current_app_version"] != newCardCatalog["application_shared_properties"]["current_app_version"]:
+		updateCheckResult.appVersionChange = (oldCardCatalog["application_shared_properties"]["current_app_version"], newCardCatalog["application_shared_properties"]["current_app_version"])
+
 	return updateCheckResult
 
 def createOutputIfNeeded(onlyCreateOnNewCards: bool, cardFieldsToIgnore: List[str] = None, shouldShowImages: bool = False):

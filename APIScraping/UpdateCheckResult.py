@@ -1,5 +1,5 @@
 from enum import Enum
-from typing import Any, Dict, List, Union
+from typing import Any, Dict, List, Tuple, Union
 
 
 class ChangeType(Enum):
@@ -17,6 +17,7 @@ class UpdateCheckResult:
 		self.newCardFields: List[str] = []
 		self.possibleChangedImages: List[ChangedCard] = []
 		self.newSets: List[str] = []
+		self.appVersionChange: Union[None, Tuple[str, str]] = None  # First Tuple entry is old app version number string, second entry is new
 
 	def addNewCard(self, newCard: Dict, nameOverride: Union[None, str] = None):
 		self.newCards.append(BasicCard(newCard, nameOverride))
@@ -42,7 +43,7 @@ class UpdateCheckResult:
 		"""
 		:return: True if there are any updates, False otherwise
 		"""
-		if self.newSets or self.hasCardChanges():
+		if self.newSets or self.appVersionChange or self.hasCardChanges():
 			return True
 		return False
 
