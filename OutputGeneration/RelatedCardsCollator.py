@@ -43,7 +43,7 @@ class RelatedCards:
 			self.promoCardIds.append(cardId)
 		elif card["rarity"] == "ENCHANTED":
 			if self.enchantedCardId != 0:
-				_logger.info(f"Card {CardUtil.createCardIdentifier(card)} is Enchanted, but its deckbuilding ID already exists in the Enchanteds list, pointing to ID {self.enchantedCardId}, not storing the ID")
+				_logger.warning(f"Card {CardUtil.createCardIdentifier(card)} is Enchanted, but its deckbuilding ID already exists in the Enchanteds list, pointing to ID {self.enchantedCardId}, not storing the ID")
 			else:
 				self.enchantedCardId = cardId
 		elif parsedIdentifier.number > 204:
