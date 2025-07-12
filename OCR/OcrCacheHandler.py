@@ -95,7 +95,7 @@ def getCachedOcrResult(cardId: int) -> Optional[OcrResult]:
 			with open(cachedOcrResultPath, "rb") as cachedCardOcrFile:
 				return pickle.load(cachedCardOcrFile)
 		except Exception as e:
-			_logger.error(f"Unable to load cached OCR result for card ID {cardId}")
+			_logger.error(f"Unable to load cached OCR result for card ID {cardId}: {e}")
 	return None
 
 def storeOcrResult(cardId: int, ocrResult: OcrResult):
