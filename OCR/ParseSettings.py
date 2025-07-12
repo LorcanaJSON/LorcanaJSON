@@ -1,6 +1,6 @@
 import dataclasses
 from enum import auto, StrEnum
-from typing import Dict, Tuple, Union
+from typing import Dict, Optional, Tuple
 
 from OCR import CardLayout, ImageArea
 from util.IdentifierParser import Identifier
@@ -31,9 +31,9 @@ class ParseSettings:
 	parseIdentifier: bool = False
 	getIdentifierFromCard: bool = False
 	# Force some checks that could fail or be wrong on some cards. 'None' means they're not overridden, setting them to 'True' or 'False' uses those values instead of whatever is normally determined
-	hasFlavorTextOverride: Union[None, bool] = None
-	isLocationOverride: Union[None, bool] = None
-	isItemOverride: Union[None, bool] = None
+	hasFlavorTextOverride: Optional[bool] = None
+	isLocationOverride: Optional[bool] = None
+	isItemOverride: Optional[bool] = None
 
 	def __post_init__(self):
 		# Set layouts to defaults here, because we can't set them on class-level since they can't be mutalbe
@@ -98,7 +98,7 @@ _PARSE_SETTINGS_BY_ID: Dict[int, ParseSettings] = {
 	1935: dataclasses.replace(_DEFAULT_PARSE_SETTINGS, labelParsingMethod=LABEL_PARSING_METHODS.FALLBACK_BY_LINES),
 }
 
-def getParseSetingsById(cardId: int) -> Union[None, ParseSettings]:
+def getParseSetingsById(cardId: int) -> Optional[ParseSettings]:
 	return _PARSE_SETTINGS_BY_ID.get(cardId, None)
 
 def getParseSettings(cardId: int, identifier: Identifier, isEnchanted: bool) -> ParseSettings:

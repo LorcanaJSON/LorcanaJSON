@@ -6,7 +6,7 @@ It supports the StringReplaceCounter string wrapper
 
 import re
 from re import DOTALL, MULTILINE  # Needed because some calling code uses the 're' flags
-from typing import List, Tuple, Union
+from typing import List, Optional, Tuple, Union
 
 from util.StringReplaceCounter import StringReplaceCounter
 
@@ -45,14 +45,14 @@ def subn(pattern: str, replacement: str, inputString: Union[str, StringReplaceCo
 def sub(pattern: str, replacement: str, inputString: Union[str, StringReplaceCounter], flags=0) -> Union[str, StringReplaceCounter]:
 	return subn(pattern, replacement, inputString, flags=flags)[0]
 
-def match(pattern: str, inputString: Union[str, StringReplaceCounter], flags=0) -> Union[None, re.Match[str]]:
+def match(pattern: str, inputString: Union[str, StringReplaceCounter], flags=0) -> Optional[re.Match[str]]:
 	if isinstance(inputString, StringReplaceCounter):
 		inputString = str(inputString)
 	m = re.match(pattern, inputString, flags=flags)
 	_addCount(pattern, _TYPE_SEARCH, 1 if m else 0)
 	return m
 
-def search(pattern: str, inputString: Union[str, StringReplaceCounter], flags=0) -> Union[None, re.Match[str]]:
+def search(pattern: str, inputString: Union[str, StringReplaceCounter], flags=0) -> Optional[re.Match[str]]:
 	if isinstance(inputString, StringReplaceCounter):
 		inputString = str(inputString)
 	m = re.search(pattern, inputString, flags=flags)

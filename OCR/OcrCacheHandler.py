@@ -1,5 +1,5 @@
 import hashlib, json, logging, os, pickle, shutil, time
-from typing import Dict, Union
+from typing import Dict, Optional
 
 import GlobalConfig
 from OCR.OcrResult import OcrResult
@@ -61,7 +61,7 @@ def validateOcrCache() -> bool:
 		clearOcrCache(currentHashes)
 	return not shouldClearCache
 
-def clearOcrCache(fileHashes: Union[None, Dict[str, str]] = None):
+def clearOcrCache(fileHashes: Optional[Dict[str, str]] = None):
 	"""
 	Clear the OCR cache
 	:param fileHashes: The MD5 hashes of relevant files. If this is None, it will be generated
@@ -83,7 +83,7 @@ def clearOcrCache(fileHashes: Union[None, Dict[str, str]] = None):
 		json.dump(fileHashes, cacheHashesFile)
 	_logger.info(f"Clearing OCR cache took {time.perf_counter() - startTime:.4f} seconds")
 
-def getCachedOcrResult(cardId: int) -> Union[OcrResult, None]:
+def getCachedOcrResult(cardId: int) -> Optional[OcrResult]:
 	"""
 	Retrieve the OCR result for the provided card ID from the OCR cache, if it exists
 	:param cardId: The ID of the card to get the cached OCR result for

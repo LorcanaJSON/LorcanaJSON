@@ -1,11 +1,11 @@
 import json, os, re
-from typing import Dict, List, Union
+from typing import Dict, List, Optional
 
 import GlobalConfig
 from util import JsonUtil, Language, LorcanaSymbols, Translations
 
 
-def compareInputToOutput(cardIdsToVerify: Union[List[int], None]):
+def compareInputToOutput(cardIdsToVerify: Optional[List[int]]):
 	inputFilePath = os.path.join("downloads", "json", f"carddata.{GlobalConfig.language.code}.json")
 	if not os.path.isfile(inputFilePath):
 		print("Input file does not exist. Please run the 'download' action for the specified language first")

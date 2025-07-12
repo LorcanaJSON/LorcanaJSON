@@ -1,5 +1,5 @@
 import json, logging, os, re, string
-from typing import Dict, List, Tuple, Union
+from typing import Dict, Optional
 
 import requests
 
@@ -248,7 +248,7 @@ class ExternalLinksHandler:
 		with open(_EXTERNAL_LINKS_FILE_PATH, "w", encoding="utf-8") as externalLinksFile:
 			json.dump(cardsBySet, externalLinksFile, indent=2)
 
-	def getExternalLinksForCard(self, parsedIdentifier: Identifier, hasEnchanted: bool) -> Union[None, Dict[str, str]]:
+	def getExternalLinksForCard(self, parsedIdentifier: Identifier, hasEnchanted: bool) -> Optional[Dict[str, str]]:
 		if parsedIdentifier.setCode not in self._externalLinks:
 			_LOGGER.error(f"Setcode '{parsedIdentifier.setCode}' does not exist in the External IDs data")
 		numberGroupingString = f"{parsedIdentifier.number}/{parsedIdentifier.grouping}"

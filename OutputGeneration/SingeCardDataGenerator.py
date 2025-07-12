@@ -15,8 +15,8 @@ _KEYWORD_REGEX_WITHOUT_REMINDER = re.compile(r"^[A-Z][a-z]{2,}( \d)?$")
 _ABILITY_TYPE_CORRECTION_FIELD_TO_ABILITY_TYPE: Dict[str, str] = {"_forceAbilityIndexToActivated": "activated", "_forceAbilityIndexToKeyword": "keyword", "_forceAbilityIndexToStatic": "static", "_forceAbilityIndexToTriggered": "triggered"}
 
 
-def parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, threadLocalStorage, relatedCards: RelatedCards, cardDataCorrections: Dict, storyParser: StoryParser, isExternalReveal: bool, historicData: Union[None, List[Dict]],
-					bannedSince: Union[None, str] = None, shouldShowImage: bool = False) -> Union[Dict, None]:
+def parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, threadLocalStorage, relatedCards: RelatedCards, cardDataCorrections: Dict, storyParser: StoryParser, isExternalReveal: bool, historicData: Optional[List[Dict]],
+					bannedSince: Optional[str] = None, shouldShowImage: bool = False) -> Optional[Dict]:
 	# Store some default values
 	outputCard: Dict[str, Union[str, int, List, Dict]] = {
 		"id": inputCard["culture_invariant_id"],
@@ -44,11 +44,11 @@ def parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, threadLoca
 	outputCard["code"] = _CARD_CODE_LOOKUP[cardCodeDigits[0]] + _CARD_CODE_LOOKUP[cardCodeDigits[1]]
 
 	# Get required data by parsing the card image
-	parsedIdentifier: Union[None, IdentifierParser.Identifier] = None
+	parsedIdentifier: Optional[IdentifierParser.Identifier] = None
 	if "card_identifier" in inputCard:
 		parsedIdentifier = IdentifierParser.parseIdentifier(inputCard["card_identifier"])
 
-	ocrResult: OcrResult = None
+	ocrResult: Optional[OcrResult] = None
 	if GlobalConfig.useCachedOcr and not GlobalConfig.skipOcrCache:
 		ocrResult = OcrCacheHandler.getCachedOcrResult(outputCard["id"])
 
@@ -392,12 +392,12 @@ def parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, threadLoca
 		if subtypes:
 			outputCard["subtypes"] = subtypes
 	# Card-specific corrections
-	externalLinksCorrection: Union[None, List[str]] = None  # externalLinks depends on correct fullIdentifier, which may have a correction, but it also might need a correction itself. So store it for now, and correct it later
-	fullTextCorrection: Union[None, List[str]] = None  # Since the fullText gets created as the last step, if there is a correction for it, save it for later
+	externalLinksCorrection: Optional[List[str]] = None  # externalLinks depends on correct fullIdentifier, which may have a correction, but it also might need a correction itself. So store it for now, and correct it later
+	fullTextCorrection: Optional[List[str]] = None  # Since the fullText gets created as the last step, if there is a correction for it, save it for later
 	forceAbilityTypeAtIndex: Dict[int, str] = {}  # index to ability type
 	newlineAfterLabelIndex: int = -1
 	mergeEffectIndexWithPrevious: int = -1
-	moveAbilityAtIndexToIndex: Union[List[int, int], None] = None
+	moveAbilityAtIndexToIndex: Optional[List[int, int]] = None
 	if cardDataCorrections:
 		if cardDataCorrections.pop("_moveKeywordsLast", False):
 			if "abilities" not in outputCard or "effect" not in outputCard["abilities"][-1]:
@@ -426,7 +426,7 @@ def parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, threadLoca
 		effectAtIndexIsFlavorText: int = cardDataCorrections.pop("_effectAtIndexIsFlavorText", -1)
 		externalLinksCorrection = cardDataCorrections.pop("externalLinks", None)
 		fullTextCorrection = cardDataCorrections.pop("fullText", None)
-		addNameToAbilityAtIndex: Union[None, List[int, str]] = cardDataCorrections.pop("_addNameToAbilityAtIndex", None)
+		addNameToAbilityAtIndex: Optional[List[int, str]] = cardDataCorrections.pop("_addNameToAbilityAtIndex", None)
 		moveAbilityAtIndexToIndex = cardDataCorrections.pop("_moveAbilityAtIndexToIndex", None)
 		splitAbilityNameAtIndex = cardDataCorrections.pop("_splitAbilityNameAtIndex", None)
 		for fieldName, correction in cardDataCorrections.items():

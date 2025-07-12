@@ -1,5 +1,5 @@
 from enum import Enum
-from typing import Any, Dict, List, Tuple, Union
+from typing import Any, Dict, List, Optional, Tuple
 
 
 class ChangeType(Enum):
@@ -17,9 +17,9 @@ class UpdateCheckResult:
 		self.newCardFields: List[str] = []
 		self.possibleChangedImages: List[ChangedCard] = []
 		self.newSets: List[str] = []
-		self.appVersionChange: Union[None, Tuple[str, str]] = None  # First Tuple entry is old app version number string, second entry is new
+		self.appVersionChange: Optional[Tuple[str, str]] = None  # First Tuple entry is old app version number string, second entry is new
 
-	def addNewCard(self, newCard: Dict, nameOverride: Union[None, str] = None):
+	def addNewCard(self, newCard: Dict, nameOverride: Optional[str] = None):
 		self.newCards.append(BasicCard(newCard, nameOverride))
 
 	def addCardChange(self, changedCard: Dict, changeType: ChangeType, fieldName: str, oldFieldValue: Any, newFieldValue: Any):
@@ -52,7 +52,7 @@ class UpdateCheckResult:
 
 
 class BasicCard:
-	def __init__(self, card: Dict, nameOverride: Union[None, str] = None):
+	def __init__(self, card: Dict, nameOverride: Optional[str] = None):
 		self.id: int = card["culture_invariant_id"]
 		self.identifier = card["card_identifier"]
 		if nameOverride:

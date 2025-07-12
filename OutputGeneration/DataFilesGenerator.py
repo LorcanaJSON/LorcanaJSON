@@ -1,6 +1,6 @@
 import copy, datetime, hashlib, json, logging, multiprocessing.pool, os, re, threading, time, zipfile
 import xml.etree.ElementTree as xmlElementTree
-from typing import Dict, List, Union
+from typing import Dict, List, Optional, Union
 
 import GlobalConfig
 from APIScraping.ExternalLinksHandler import ExternalLinksHandler
@@ -23,7 +23,7 @@ _threadingLocalStorage.imageParser: ImageParser.ImageParser = None
 _threadingLocalStorage.externalIdsHandler: ExternalLinksHandler = None
 
 
-def createOutputFiles(onlyParseIds: Union[None, List[int]] = None, shouldShowImages: bool = False) -> None:
+def createOutputFiles(onlyParseIds: Optional[List[int]] = None, shouldShowImages: bool = False) -> None:
 	startTime = time.perf_counter()
 	imageFolder = os.path.join("downloads", "images", GlobalConfig.language.code)
 	if not os.path.isdir(imageFolder):

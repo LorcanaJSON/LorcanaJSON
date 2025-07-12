@@ -1,6 +1,6 @@
 import logging, math, os, re, time
 from collections import namedtuple
-from typing import Dict, List, Union
+from typing import Dict, List, Optional
 
 import cv2, tesserocr
 from PIL import Image
@@ -44,7 +44,7 @@ class ImageParser:
 	def getImageAndTextDataFromImage(self, cardId: int, baseImagePath: str, parseFully: bool, parsedIdentifier: IdentifierParser.Identifier = None, cardType: str = None, hasCardText: bool = None, hasFlavorText: bool = None,
 									 isEnchanted: bool = None, showImage: bool = False) -> OcrResult:
 		startTime = time.perf_counter()
-		result: Dict[str, Union[None, ImageAndText, List[ImageAndText]]] = {
+		result: Dict[str, Optional[ImageAndText, List[ImageAndText]]] = {
 			"flavorText": None,
 			"abilityLabels": [],
 			"abilityTexts": [],
@@ -280,7 +280,7 @@ class ImageParser:
 		# Find the line dividing the abilities from the flavor text, if needed
 		flavorTextImage = None
 		flavorTextSeparatorY = textboxHeight
-		flavorTextLineDetectionCroppedImage: Union[None, cv2.Mat] = None
+		flavorTextLineDetectionCroppedImage: Optional[cv2.Mat] = None
 		flavorTextEdgeDetectedImage = None
 		flavorTextGreyscaleImageWithLines = None
 		if (parseSettings.hasFlavorTextOverride or (parseSettings.hasFlavorTextOverride is None and hasFlavorText is not False)) and parseSettings.labelParsingMethod != ParseSettings.LABEL_PARSING_METHODS.FALLBACK_BY_LINES:

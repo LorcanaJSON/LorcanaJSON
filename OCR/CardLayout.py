@@ -1,5 +1,5 @@
 import dataclasses
-from typing import Union
+from typing import Optional
 
 from OCR import ImageArea as IA
 
@@ -13,11 +13,11 @@ class CardLayout:
 	types: IA.ImageArea
 	textbox: IA.ImageArea
 	# Character only
-	version: Union[IA.ImageArea, None] = None  # The subtitle of a card, only used for Characters and Locations
-	strength: Union[IA.ImageArea, None] = None
-	willpower: Union[IA.ImageArea, None] = None
+	version: Optional[IA.ImageArea] = None  # The subtitle of a card, only used for Characters and Locations
+	strength: Optional[IA.ImageArea] = None
+	willpower: Optional[IA.ImageArea] = None
 	# Location only
-	moveCost: Union[IA.ImageArea, None] = None
+	moveCost: Optional[IA.ImageArea] = None
 	# At the bottom so we can set a default, since it's the same for almost every card
 	# Actually set this in __post_innit__ instead of just setting it here because dataclass field defaults can't be mutable
 	ink: IA.ImageArea = None

@@ -1,5 +1,5 @@
 import json, logging, os, re, time
-from typing import Dict, List, Optional, Union
+from typing import Dict, List, Optional
 
 import GlobalConfig
 from util import CardUtil, Language
@@ -63,7 +63,7 @@ class StoryParser:
 						self._cardIdToStoryName[cardId] = storyName
 		_logger.debug(f"Reorganized story data after {time.perf_counter() - startTime:.4f} seconds")
 
-	def getStoryNameForCard(self, card, cardId: int, extaSearchTerms: Union[None, List[str]]) -> Optional[str]:
+	def getStoryNameForCard(self, card, cardId: int, extaSearchTerms: Optional[List[str]]) -> Optional[str]:
 		if cardId in self._cardIdToStoryName:
 			# Card is already stored, by directly referencing its ID in the 'fromStories' file, so we don't need to do anything anymore
 			return self._cardIdToStoryName[cardId]
