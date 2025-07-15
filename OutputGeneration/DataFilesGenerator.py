@@ -11,7 +11,7 @@ from OutputGeneration.StoryParser import StoryParser
 from util import CardUtil, JsonUtil
 
 _logger = logging.getLogger("LorcanaJSON")
-FORMAT_VERSION = "2.1.5"
+FORMAT_VERSION = "2.1.6"
 _CARD_CODE_LOOKUP = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 _KEYWORD_REGEX = re.compile(r"(?:^|\n)([A-ZÀ][^.]+)(?=\s\([A-Z])")
 _KEYWORD_REGEX_WITHOUT_REMINDER = re.compile(r"^[A-Z][a-z]{2,}( \d)?$")

@@ -194,7 +194,7 @@ def parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, threadLoca
 		_logger.error(f"Card {CardUtil.createCardIdentifier(outputCard)} does not contain any image URLs")
 
 	# Store relations to other cards, like (non-)Enchanted and (non-)Promo cards
-	otherRelatedCards = relatedCards.getOtherRelatedCards(outputCard["id"])
+	otherRelatedCards = relatedCards.getOtherRelatedCards(outputCard["setCode"], outputCard["id"])
 	if otherRelatedCards.enchantedId:
 		outputCard["enchantedId"] = otherRelatedCards.enchantedId
 	elif otherRelatedCards.nonEnchantedId:
@@ -206,6 +206,10 @@ def parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, threadLoca
 	if otherRelatedCards.otherVariantIds:
 		outputCard["variantIds"] = otherRelatedCards.otherVariantIds
 		outputCard["variant"] = parsedIdentifier.variant
+	if otherRelatedCards.reprintedAsIds:
+		outputCard["reprintedAsIds"] = otherRelatedCards.reprintedAsIds
+	elif otherRelatedCards.reprintOfId:
+		outputCard["reprintOfId"] = otherRelatedCards.reprintOfId
 
 	# Store the different parts of the card text, correcting some values if needed
 	if ocrResult.flavorText:
