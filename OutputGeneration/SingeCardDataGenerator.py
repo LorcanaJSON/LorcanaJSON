@@ -574,7 +574,7 @@ def parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, threadLoca
 					elif (re.match(r"Wenn(\sdu)?\sdiese", ability["effect"]) or re.match(r"Wenn\seiner\sdeiner\sCharaktere", ability["effect"]) or re.search(r"(^J|\bj)edes\sMal\b", ability["effect"]) or
 						  re.match(r"Einmal\swährend\sdeines\sZuges\b", ability["effect"]) or ability["effect"].startswith("Einmal pro Zug, wenn") or
 						  re.search(r"(^Z|\bz)u\sBeginn\s(deines|von\s\w+)\sZug", ability["effect"]) or re.match(r"Am\sEnde\s(deines|des)\sZuges", ability["effect"]) or
-						  re.match(r"Falls\sdu\sGestaltwandel\sbenutzt\shas",ability["effect"]) or "wenn du eine Karte ziehst" in ability["effect"] or
+						  re.match(r"Falls\sdu\sGestaltwandel\sbenutzt\shas", ability["effect"]) or "wenn du eine Karte ziehst" in ability["effect"] or
 						  re.search(r"\bwährend\ser\seinen?(\s|\w)+herausfordert\b", ability["effect"]) or re.search(r"wenn\sdieser\sCharakter\szu\seinem\sOrt\sbewegt", ability["effect"]) or
 						  re.match(r"Wenn\s\w+\sdiese[nrs]\s\w+\sausspielt", ability["effect"]) or re.match(r"Wenn\sdu\seine.+ausspielst", ability["effect"], flags=re.DOTALL)):
 						ability["type"] = "triggered"
