@@ -29,7 +29,7 @@ class Identifier:
 		"""
 		:return: True if this identifier is from a Quest card, False otherwise
 		"""
-		return self.setCode == "Q1"
+		return self.setCode.startswith("Q")
 
 	def _toString(self):
 		return f"{self.number}{self.variant if self.variant else ''}/{self.grouping} {LorcanaSymbols.SEPARATOR} {self.language} {LorcanaSymbols.SEPARATOR} {self.setCode}"
