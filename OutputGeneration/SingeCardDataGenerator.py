@@ -507,7 +507,7 @@ def parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, threadLoca
 	if "abilities" in outputCard:
 		for abilityIndex in range(len(outputCard["abilities"])):
 			ability: Dict = outputCard["abilities"][abilityIndex]
-			if ability.get("type", None) == "keyword" or ("type" not in ability and not ability.get("name", None) and (_KEYWORD_REGEX.match(ability.get("fullText", ability["effect"])) or  _KEYWORD_REGEX_WITHOUT_REMINDER.match(ability.get("fullText", ability["effect"])))):
+			if ability.get("type", None) == "keyword" or ("type" not in ability and not ability.get("name", None) and (_KEYWORD_REGEX.match(ability.get("fullText", ability["effect"])) or _KEYWORD_REGEX_WITHOUT_REMINDER.match(ability.get("fullText", ability["effect"])))):
 				# Clean up some mistakes from if an effect got corrected into a keyword ability
 				if "fullText" not in ability:
 					ability["fullText"] = ability["effect"]
