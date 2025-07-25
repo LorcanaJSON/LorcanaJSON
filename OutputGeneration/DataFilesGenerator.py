@@ -6,12 +6,13 @@ import GlobalConfig
 from APIScraping.ExternalLinksHandler import ExternalLinksHandler
 from OCR import ImageParser
 from OutputGeneration import SingeCardDataGenerator
+from OutputGeneration.AllowedInFormatsHandler import AllowedInFormatsHandler
 from OutputGeneration.RelatedCardsCollator import RelatedCardCollator
 from OutputGeneration.StoryParser import StoryParser
 from util import CardUtil, JsonUtil
 
 _logger = logging.getLogger("LorcanaJSON")
-FORMAT_VERSION = "2.1.6"
+FORMAT_VERSION = "2.2.0"
 _CARD_CODE_LOOKUP = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 _KEYWORD_REGEX = re.compile(r"(?:^|\n)([A-ZÀ][^.]+)(?=\s\([A-Z])")
 _KEYWORD_REGEX_WITHOUT_REMINDER = re.compile(r"^[A-Z][a-z]{2,}( \d)?$")
@@ -56,8 +57,6 @@ def createOutputFiles(onlyParseIds: Optional[List[int]] = None, shouldShowImages
 	else:
 		historicData = {}
 
-	cardBans = JsonUtil.loadJsonWithNumberKeys(os.path.join("OutputGeneration", "data", "CardBans.json"))
-
 	# Get the cards we don't have to parse (if any) from the previous generated file
 	fullCardList: List[Dict] = []
 	cardIdsStored: List[int] = []
@@ -90,6 +89,7 @@ def createOutputFiles(onlyParseIds: Optional[List[int]] = None, shouldShowImages
 	# Parse the cards we need to parse
 	cardToStoryParser = StoryParser(onlyParseIds)
 	relatedCardCollator = RelatedCardCollator(inputData)
+	allowedCardsHandler = AllowedInFormatsHandler()
 	with multiprocessing.pool.ThreadPool(GlobalConfig.threadCount, initializer=initThread) as pool:
 		results = []
 		for cardType, inputCardlist in inputData["cards"].items():
@@ -108,7 +108,7 @@ def createOutputFiles(onlyParseIds: Optional[List[int]] = None, shouldShowImages
 					continue
 				try:
 					results.append(pool.apply_async(SingeCardDataGenerator.parseSingleCard, (inputCard, cardTypeText, imageFolder, _threadingLocalStorage, relatedCardCollator.getRelatedCards(inputCard),
-												  cardDataCorrections.pop(cardId, None), cardToStoryParser, False, historicData.get(cardId, None), cardBans.pop(cardId, None), shouldShowImages)))
+												  cardDataCorrections.pop(cardId, None), cardToStoryParser, False, historicData.get(cardId, None), allowedCardsHandler, shouldShowImages)))
 					cardIdsStored.append(cardId)
 				except Exception as e:
 					_logger.error(f"Exception {type(e)} occured while parsing card ID {inputCard['culture_invariant_id']}")
@@ -126,7 +126,7 @@ def createOutputFiles(onlyParseIds: Optional[List[int]] = None, shouldShowImages
 				_logger.debug(f"Card ID {cardId} is defined in the official file and in the external file, skipping the external data")
 				continue
 			results.append(pool.apply_async(SingeCardDataGenerator.parseSingleCard, (externalCard, externalCard["type"], imageFolder, _threadingLocalStorage, relatedCardCollator.getRelatedCards(externalCard),
-															   cardDataCorrections.pop(cardId, None), cardToStoryParser, True, historicData.get(cardId, None), cardBans.pop(cardId, None), shouldShowImages)))
+															   cardDataCorrections.pop(cardId, None), cardToStoryParser, True, historicData.get(cardId, None), allowedCardsHandler, shouldShowImages)))
 		pool.close()
 		pool.join()
 	for result in results:

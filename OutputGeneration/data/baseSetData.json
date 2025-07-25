@@ -10,7 +10,18 @@
     "releaseDate": "2023-09-01",
     "hasAllCards": true,
     "type": "expansion",
-    "number": 1
+    "number": 1,
+    "allowedInFormats": {
+      "Core": {
+        "allowed": true,
+        "allowedUntilDate": "2025-09-19",
+        "rotationGroup": 1
+      },
+      "Infinity": {
+        "allowed": true
+      }
+    },
+    "allowedInTournamentsFromDate": "2023-09-08"
   },
   "2": {
     "names": {
@@ -23,7 +34,18 @@
     "releaseDate": "2023-12-01",
     "hasAllCards": true,
     "type": "expansion",
-    "number": 2
+    "number": 2,
+    "allowedInFormats": {
+      "Core": {
+        "allowed": true,
+        "allowedUntilDate": "2025-09-19",
+        "rotationGroup": 1
+      },
+      "Infinity": {
+        "allowed": true
+      }
+    },
+    "allowedInTournamentsFromDate": "2023-12-08"
   },
   "3": {
     "names": {
@@ -36,7 +58,18 @@
     "releaseDate": "2024-03-08",
     "hasAllCards": true,
     "type": "expansion",
-    "number": 3
+    "number": 3,
+    "allowedInFormats": {
+      "Core": {
+        "allowed": true,
+        "allowedUntilDate": "2025-09-19",
+        "rotationGroup": 1
+      },
+      "Infinity": {
+        "allowed": true
+      }
+    },
+    "allowedInTournamentsFromDate": "2024-03-15"
   },
   "4": {
     "names": {
@@ -49,7 +82,18 @@
     "releaseDate": "2024-05-31",
     "hasAllCards": true,
     "type": "expansion",
-    "number": 4
+    "number": 4,
+    "allowedInFormats": {
+      "Core": {
+        "allowed": true,
+        "allowedUntilDate": "2025-09-19",
+        "rotationGroup": 1
+      },
+      "Infinity": {
+        "allowed": true
+      }
+    },
+    "allowedInTournamentsFromDate": "2024-06-07"
   },
   "5": {
     "names": {
@@ -62,7 +106,17 @@
     "releaseDate": "2024-08-23",
     "hasAllCards": true,
     "type": "expansion",
-    "number": 5
+    "number": 5,
+    "allowedInFormats": {
+      "Core": {
+        "allowed": true,
+        "rotationGroup": 2
+      },
+      "Infinity": {
+        "allowed": true
+      }
+    },
+    "allowedInTournamentsFromDate": "2024-08-30"
   },
   "6": {
     "names": {
@@ -75,7 +129,17 @@
     "releaseDate": "2024-11-25",
     "hasAllCards": true,
     "type": "expansion",
-    "number": 6
+    "number": 6,
+    "allowedInFormats": {
+      "Core": {
+        "allowed": true,
+        "rotationGroup": 2
+      },
+      "Infinity": {
+        "allowed": true
+      }
+    },
+    "allowedInTournamentsFromDate": "2024-12-06"
   },
   "7": {
     "names": {
@@ -88,7 +152,17 @@
     "releaseDate": "2025-03-21",
     "hasAllCards": true,
     "type": "expansion",
-    "number": 7
+    "number": 7,
+    "allowedInFormats": {
+      "Core": {
+        "allowed": true,
+        "rotationGroup": 2
+      },
+      "Infinity": {
+        "allowed": true
+      }
+    },
+    "allowedInTournamentsFromDate": "2025-03-28"
   },
   "8": {
     "names": {
@@ -101,7 +175,17 @@
     "releaseDate": "2025-06-06",
     "hasAllCards": true,
     "type": "expansion",
-    "number": 8
+    "number": 8,
+    "allowedInFormats": {
+      "Core": {
+        "allowed": true,
+        "rotationGroup": 2
+      },
+      "Infinity": {
+        "allowed": true
+      }
+    },
+    "allowedInTournamentsFromDate": "2025-06-20"
   },
   "9": {
     "names": {
@@ -114,7 +198,17 @@
     "releaseDate": "2025-09-05",
     "hasAllCards": false,
     "type": "expansion",
-    "number": 9
+    "number": 9,
+    "allowedInFormats": {
+      "Core": {
+        "allowed": false,
+        "rotationGroup": 3
+      },
+      "Infinity": {
+        "allowed": false
+      }
+    },
+    "allowedInTournamentsFromDate": "2025-09-19"
   },
   "10": {
     "names": {
@@ -127,7 +221,17 @@
     "releaseDate": null,
     "hasAllCards": false,
     "type": "expansion",
-    "number": 10
+    "number": 10,
+    "allowedInFormats": {
+      "Core": {
+        "allowed": false,
+        "rotationGroup": 3
+      },
+      "Infinity": {
+        "allowed": false
+      }
+    },
+    "allowedInTournamentsFromDate": null
   },
   "Q1": {
     "names": {
@@ -140,7 +244,16 @@
     "releaseDate": "2024-05-31",
     "hasAllCards": true,
     "type": "quest",
-    "number": 1
+    "number": 1,
+    "allowedInFormats": {
+      "Core": {
+        "allowed": false
+      },
+      "Infinity": {
+        "allowed": false
+      }
+    },
+    "allowedInTournamentsFromDate": null
   },
   "Q2": {
     "names": {
@@ -152,6 +265,15 @@
     "releaseDate": "2025-06-06",
     "hasAllCards": true,
     "type": "quest",
-    "number": 2
+    "number": 2,
+    "allowedInFormats": {
+      "Core": {
+        "allowed": false
+      },
+      "Infinity": {
+        "allowed": false
+      }
+    },
+    "allowedInTournamentsFromDate": null
   }
 }

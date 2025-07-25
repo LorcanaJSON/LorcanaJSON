@@ -5,6 +5,7 @@ import GlobalConfig
 from OCR import OcrCacheHandler
 from OCR.OcrResult import OcrResult
 from OutputGeneration import TextCorrection, StoryParser
+from OutputGeneration.AllowedInFormatsHandler import AllowedInFormat, AllowedInFormatsHandler
 from OutputGeneration.RelatedCardsCollator import RelatedCards
 from util import CardUtil, IdentifierParser, Language, LorcanaSymbols
 
@@ -16,7 +17,7 @@ _ABILITY_TYPE_CORRECTION_FIELD_TO_ABILITY_TYPE: Dict[str, str] = {"_forceAbility
 
 
 def parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, threadLocalStorage, relatedCards: RelatedCards, cardDataCorrections: Dict, storyParser: StoryParser, isExternalReveal: bool, historicData: Optional[List[Dict]],
-					bannedSince: Optional[str] = None, shouldShowImage: bool = False) -> Optional[Dict]:
+					allowedCardsHandler: AllowedInFormatsHandler, shouldShowImage: bool = False) -> Optional[Dict]:
 	# Store some default values
 	outputCard: Dict[str, Union[str, int, List, Dict]] = {
 		"id": inputCard["culture_invariant_id"],
@@ -685,8 +686,17 @@ def parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, threadLoca
 		outputCard["varnishType"] = inputCard["varnish_type"]
 	if historicData:
 		outputCard["historicData"] = historicData
-	if bannedSince:
-		outputCard["bannedSince"] = bannedSince
+
+	allowedInFormats = allowedCardsHandler.getAllowedInFormatsForCard(outputCard["id"], relatedCards.printedInSets)
+	outputCard["allowedInTournamentsFromDate"] = allowedInFormats.allowedInTournamentsFromDate
+	outputCard["allowedInFormats"] = {}
+	for formatName, allowedInFormat in (("Core", allowedInFormats.allowedInCore), ("Infinity", allowedInFormats.allowedInInfinity)):
+		outputCard["allowedInFormats"][formatName]: Dict[str, Union[bool, str]] = {"allowed": allowedInFormat.allowed}
+		if allowedInFormat.allowedUntil:
+			outputCard["allowedInFormats"][formatName]["allowedUntilDate"] = allowedInFormat.allowedUntil
+		if allowedInFormat.bannedSince:
+			outputCard["allowedInFormats"][formatName]["bannedSinceDate"] = allowedInFormat.bannedSince
+
 	# Sort the dictionary by key
 	outputCard = {key: outputCard[key] for key in sorted(outputCard)}
 	return outputCard

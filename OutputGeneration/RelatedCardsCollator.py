@@ -35,12 +35,16 @@ class RelatedCards:
 		self.enchantedCardIdsBySet: Dict[str, int] = {}
 		self.promoCardIds: List[int] = []
 		self.variantCardIds: List[int] = []
+		self.printedInSets: List[str] = []  # List of set codes
 
 	def addCard(self, card: Dict):
-		if "Q" in card["card_identifier"]:
-			return
 		cardId: int = card["culture_invariant_id"]
 		parsedIdentifier = IdentifierParser.parseIdentifier(card["card_identifier"])
+		if parsedIdentifier.setCode not in self.printedInSets:
+			self.printedInSets.append(parsedIdentifier.setCode)
+		if parsedIdentifier.isQuest():
+			# Quest cards are never a promo or Enchanted, or in other sets
+			return
 		isNotVariantCard: bool = True
 		# Always keep track of variants separately
 		if parsedIdentifier.variant:
