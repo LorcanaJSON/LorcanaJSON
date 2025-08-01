@@ -222,10 +222,12 @@ def createOutputFiles(onlyParseIds: Optional[List[int]] = None, shouldShowImages
 				simpleDeckFilePaths.append(simpleDeckFilePath)
 				with open(simpleDeckFilePath, "w", encoding="utf-8") as simpleDeckFile:
 					json.dump(simpleDeckData, simpleDeckFile, indent=2)
+				_createMd5ForFile(simpleDeckFilePath)
 				fullDeckFilePath = os.path.join(decksOutputFolder, f"{deckCode}.full.json")
 				fullDeckFilePaths.append(fullDeckFilePath)
 				with open(fullDeckFilePath, "w", encoding="utf-8") as fullDeckFile:
 					json.dump(fullDeckData, fullDeckFile, indent=2)
+				_createMd5ForFile(fullDeckFilePath)
 	# Create a zipfile with all the decks
 	_saveZippedFile(os.path.join(decksOutputFolder, "allDecks.zip"), simpleDeckFilePaths)
 	_saveZippedFile(os.path.join(decksOutputFolder, "allDecks.full.zip"), fullDeckFilePaths)
