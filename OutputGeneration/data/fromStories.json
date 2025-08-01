@@ -131,6 +131,15 @@
     "matchingNames": ["Beagle Boys", "Della Duck", "Dewey", "Ducktales", "Flintheart Glomgold", "Gizmoduck", "Gyro Gearloose", "Huey", "Lena Sabrewing", "Louie", "Lucky Dime", "Magica De Spell", "Poe De Spell", "Scrooge", "Scrooge McDuck", "Webby Vanderquack"],
     "matchingIds": [636]
   },
+  "dumbo": {
+    "displayNames": {
+      "de": "Dumbo, der fliegende Elefant",
+      "en": "Dumbo",
+      "fr": "Dumbo, l'éléphant volant",
+      "it": "Dumbo - L'elefante volante"
+    },
+    "matchingNames": ["Dumbo", "Timothy Q. Mouse"]
+  },
   "encanto": {
     "displayNames": {
       "de": "Encanto",
