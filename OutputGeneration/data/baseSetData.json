@@ -217,8 +217,8 @@
       "fr": "Lueurs dans le Profondeurs",
       "it": "Sussurri nel Pozzo"
     },
-    "prereleaseDate": null,
-    "releaseDate": null,
+    "prereleaseDate": "2025-11-07",
+    "releaseDate": "2025-11-14",
     "hasAllCards": false,
     "type": "expansion",
     "number": 10,
@@ -231,7 +231,7 @@
         "allowed": false
       }
     },
-    "allowedInTournamentsFromDate": null
+    "allowedInTournamentsFromDate": "2025-11-28"
   },
   "Q1": {
     "names": {
