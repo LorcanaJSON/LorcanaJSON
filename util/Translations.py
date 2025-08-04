@@ -18,7 +18,9 @@ class Translation:
 	RARE: str
 	SUPER: str
 	LEGENDARY: str
+	EPIC: str
 	ENCHANTED: str
+	ICONIC: str
 	SPECIAL: str
 	# Types
 	Action: str
@@ -54,7 +56,9 @@ ENGLISH = Translation(
 	RARE="Rare",
 	SUPER="Super Rare",
 	LEGENDARY="Legendary",
+	EPIC="Epic",
 	ENCHANTED="Enchanted",
+	ICONIC="Iconic",
 	SPECIAL="Special",
 	# Types
 	Action="Action",
@@ -84,7 +88,9 @@ FRENCH = Translation(
 	RARE="Rare",
 	SUPER="Très Rare",
 	LEGENDARY="Légendaire",
+	EPIC="Épique",
 	ENCHANTED="Enchantée",
+	ICONIC="Iconique",
 	SPECIAL="Spécial",
 	# Types
 	Action="Action",
@@ -114,7 +120,9 @@ GERMAN = Translation(
 	RARE="Selten",
 	SUPER="Episch",
 	LEGENDARY="Legendär",
+	EPIC="Mythisch",
 	ENCHANTED="Verzaubert",
+	ICONIC="Ikonisch",
 	SPECIAL="Speziell",
 	# Types
 	Action="Aktion",
@@ -144,7 +152,9 @@ ITALIAN = Translation(
 	RARE="Rara",
 	SUPER="Super Rara",
 	LEGENDARY="Leggendaria",
+	EPIC="Epica",
 	ENCHANTED="Incantata",
+	ICONIC="Iconica",
 	SPECIAL="Speciale",
 	# Types
 	Action="Azione",
