@@ -233,6 +233,29 @@
     },
     "allowedInTournamentsFromDate": "2025-11-28"
   },
+  "11": {
+    "names": {
+      "de": "Winterzauber",
+      "en": "Winterspell",
+      "fr": "Givresort",
+      "it": "Incanto d'Inverno"
+    },
+    "prereleaseDate": null,
+    "releaseDate": null,
+    "hasAllCards": false,
+    "type": "expansion",
+    "number": 11,
+    "allowedInFormats": {
+      "Core": {
+        "allowed": false,
+        "rotationGroup": 3
+      },
+      "Infinity": {
+        "allowed": false
+      }
+    },
+    "allowedInTournamentsFromDate": null
+  },
   "Q1": {
     "names": {
       "de": "Die Luminari Chroniken: Gefahr aus der Tiefe",
