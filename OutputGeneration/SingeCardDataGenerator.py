@@ -526,7 +526,14 @@ def parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, threadLoca
 					reminderText = reminderText.replace("\n", " ")
 				keywordValue: Optional[str] = None
 				if keyword[-1].isnumeric():
-					keyword, keywordValue = keyword.rsplit(" ", 1)
+					if " " in keyword:
+						keyword, keywordValue = keyword.rsplit(" ", 1)
+					else:
+						# There should've been a space between the keyword and the numeric value, but something went wrong with parsing. Try to add it back in
+						_logger.debug(f"No space found in keyword-keywordvalue pair {keyword!r}, splitting by regular expression")
+						keywordNameValueMatch = re.match(r"(\w+)(\d+)", keyword)
+						keyword = keywordNameValueMatch.group(1)
+						keywordValue = keywordNameValueMatch.group(2)
 				elif ":" in keyword:
 					keyword, keywordValue = re.split(" ?: ?", keyword)
 				ability["keyword"] = keyword
