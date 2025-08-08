@@ -66,7 +66,7 @@ def compareInputToOutput(cardIdsToVerify: Optional[List[int]]):
 		inputCard = idToInputCard[cardId]
 
 		# Implement overrides
-		symbolCountChange = None
+		symbolCountChange: Optional[Dict[str, int]] = None
 		if cardId in inputOverrides:
 			symbolCountChange = inputOverrides[cardId].pop("_symbolCountChange", None)
 			for fieldName, correctionsTuple in inputOverrides[cardId].items():
