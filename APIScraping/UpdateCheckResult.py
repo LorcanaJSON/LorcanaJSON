@@ -81,7 +81,7 @@ class ChangedCard(BasicCard):
 		return super().toString()
 
 	def toString(self) -> str:
-		return f"{self.id} {self.name}: Field {self.fieldName} had {self.changeType} change from {self.oldValue!r} to {self.newValue!r}"
+		return f"{self.id} {self.name}: Field {self.fieldName} had {self.changeType.value} change from {self.oldValue!r} to {self.newValue!r}"
 
 	def __str__(self) -> str:
 		return self.toString()
