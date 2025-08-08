@@ -1,4 +1,167 @@
 {
+  "62": {
+    "rules_text": [
+      "^R",
+      "Choisissez et r"
+    ]
+  },
+  "82": {
+    "author": [
+      "^J",
+      "Duyen Nguyen / J"
+    ]
+  },
+  "141": {
+    "author": [
+      "o$",
+      "o / Pix Smith"
+    ]
+  },
+  "193": {
+    "rules_text": [
+      "un autre personnage",
+      "l'un de vos personnages La Fée"
+    ]
+  },
+  "209": {
+    "flavor_text": [
+      "^.+$",
+      ""
+    ]
+  },
+  "210": {
+    "rules_text": [
+      "y M",
+      "y Mouse.) M"
+    ]
+  },
+  "216": {
+    "rules_text": [
+      "un autre personnage",
+      "l'un de vos personnages La Fée"
+    ]
+  },
+  "235": {
+    "rules_text": [
+      "1 c",
+      "une c"
+    ]
+  },
+  "251": {
+    "flavor_text": [
+      "m\\.",
+      "m ."
+    ]
+  },
+  "266": {
+    "rules_text": [
+      "e qui",
+      "e, il"
+    ]
+  },
+  "280": {
+    "rules_text": [
+      "\\+ 3",
+      "+3"
+    ]
+  },
+  "288": {
+    "rules_text": [
+      "personne",
+      "personnage"
+    ]
+  },
+  "291": {
+    "rules_text": [
+      "bani",
+      "banni"
+    ]
+  },
+  "296": {
+    "rules_text": [
+      "il",
+      "ce personnage"
+    ]
+  },
+  "323": {
+    "author": [
+      "^.+C",
+      "C",
+      "e\".+$",
+      "e"
+    ]
+  },
+  "324": {
+    "flavor_text": [
+      " ou ",
+      " où "
+    ]
+  },
+  "333": {
+    "author": [
+      "^.+C",
+      "C",
+      "e\".+$",
+      "e"
+    ]
+  },
+  "362": {
+    "author": [
+      "R\\.",
+      "Rosa",
+      "L\\.",
+      "Leonardo"
+    ]
+  },
+  "410": {
+    "rules_text": [
+      "sez",
+      "ser"
+    ]
+  },
+  "526": {
+    "flavor_text": [
+      "^.+$",
+      ""
+    ]
+  },
+  "557": {
+    "rules_text": [
+      "choisissez",
+      "vous pouvez choisir",
+      "bannissez-le",
+      "le bannir"
+    ]
+  },
+  "560": {
+    "flavor_text": [
+      "^.+$",
+      ""
+    ]
+  },
+  "606": {
+    "flavor_text": [
+      "^.+$",
+      ""
+    ]
+  },
+  "641": {
+    "flavor_text": [
+      "^.+$",
+      ""
+    ]
+  },
+  "688": {
+    "flavor_text": [
+      "^.+$",
+      ""
+    ]
+  },
+  "783": {
+    "_symbolCountChange": {
+      "¤": -1
+    }
+  },
   "933": {
     "flavor_text": [
       " –",

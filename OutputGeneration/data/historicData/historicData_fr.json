@@ -1,4 +1,86 @@
 {
+  "4": [
+    {
+      "abilities": [
+        {
+          "fullText": "Rempart (Ce personnage peut entrer en jeu \u00e9puis\u00e9. Lorsqu'il\nvous d\u00e9fie, un personnage adverse doit, si possible, choisir\nl'un de vos personnages avec Rempart.)",
+          "keyword": "Rempart",
+          "reminderText": "Ce personnage peut entrer en jeu \u00e9puis\u00e9. Lorsqu'il vous d\u00e9fie, un personnage adverse doit, si possible, choisir l'un de vos personnages avec Rempart.",
+          "type": "keyword"
+        },
+        {
+          "effect": "Lorsque vous jouez ce personnage, vous pouvez retirer jusqu'\u00e0 2 jetons Dommage de chacun de vos personnages Mousquetaire.",
+          "fullText": "ET DEUX FOIS RIEN ! Lorsque vous jouez ce personnage,\nvous pouvez retirer jusqu'\u00e0 2 jetons Dommage de chacun\nde vos personnages Mousquetaire.",
+          "name": "ET DEUX FOIS RIEN !",
+          "type": "triggered"
+        }
+      ],
+      "fullText": "Rempart (Ce personnage peut entrer en jeu \u00e9puis\u00e9. Lorsqu'il\nvous d\u00e9fie, un personnage adverse doit, si possible, choisir\nl'un de vos personnages avec Rempart.)\nET DEUX FOIS RIEN ! Lorsque vous jouez ce personnage,\nvous pouvez retirer jusqu'\u00e0 2 jetons Dommage de chacun\nde vos personnages Mousquetaire.",
+      "fullTextSections": [
+        "Rempart (Ce personnage peut entrer en jeu \u00e9puis\u00e9. Lorsqu'il\nvous d\u00e9fie, un personnage adverse doit, si possible, choisir\nl'un de vos personnages avec Rempart.)",
+        "ET DEUX FOIS RIEN ! Lorsque vous jouez ce personnage,\nvous pouvez retirer jusqu'\u00e0 2 jetons Dommage de chacun\nde vos personnages Mousquetaire."
+      ],
+      "usedUntil": "2025-08-07"
+    }
+  ],
+  "20": [
+    {
+      "abilities": [
+        {
+          "fullText": "Rempart (Ce personnage peut entrer en jeu\n\u00e9puis\u00e9. Lorsqu'il vous d\u00e9fie, un personnage adverse\ndoit, si possible, choisir l'un de vos personnages\navec Rempart.)",
+          "keyword": "Rempart",
+          "reminderText": "Ce personnage peut entrer en jeu \u00e9puis\u00e9. Lorsqu'il vous d\u00e9fie, un personnage adverse doit, si possible, choisir l'un de vos personnages avec Rempart.",
+          "type": "keyword"
+        }
+      ],
+      "fullText": "Rempart (Ce personnage peut entrer en jeu\n\u00e9puis\u00e9. Lorsqu'il vous d\u00e9fie, un personnage adverse\ndoit, si possible, choisir l'un de vos personnages\navec Rempart.)",
+      "fullTextSections": [
+        "Rempart (Ce personnage peut entrer en jeu\n\u00e9puis\u00e9. Lorsqu'il vous d\u00e9fie, un personnage adverse\ndoit, si possible, choisir l'un de vos personnages\navec Rempart.)"
+      ],
+      "usedUntil": "2025-08-07"
+    }
+  ],
+  "177": [
+    {
+      "abilities": [
+        {
+          "fullText": "Rempart (Ce personnage peut entrer en jeu \u00e9puis\u00e9.\nLorsqu'il vous d\u00e9fie, un personnage adverse doit, si\npossible, choisir l'un de vos personnages avec Rempart.)",
+          "keyword": "Rempart",
+          "reminderText": "Ce personnage peut entrer en jeu \u00e9puis\u00e9. Lorsqu'il vous d\u00e9fie, un personnage adverse doit, si possible, choisir l'un de vos personnages avec Rempart.",
+          "type": "keyword"
+        },
+        {
+          "effect": "Durant votre tour, vos personnages Mousquetaires gagnent Insaisissable. (Ils peuvent d\u00e9fier les personnages avec Insaisissable.)",
+          "fullText": "RESTEZ SUR VOS GARDES ! Durant votre tour, vos\npersonnages Mousquetaires gagnent Insaisissable.\n(Ils peuvent d\u00e9fier les personnages avec Insaisissable.)",
+          "name": "RESTEZ SUR VOS GARDES !",
+          "type": "static"
+        }
+      ],
+      "fullText": "Rempart (Ce personnage peut entrer en jeu \u00e9puis\u00e9.\nLorsqu'il vous d\u00e9fie, un personnage adverse doit, si\npossible, choisir l'un de vos personnages avec Rempart.)\nRESTEZ SUR VOS GARDES ! Durant votre tour, vos\npersonnages Mousquetaires gagnent Insaisissable.\n(Ils peuvent d\u00e9fier les personnages avec Insaisissable.)",
+      "fullTextSections": [
+        "Rempart (Ce personnage peut entrer en jeu \u00e9puis\u00e9.\nLorsqu'il vous d\u00e9fie, un personnage adverse doit, si\npossible, choisir l'un de vos personnages avec Rempart.)",
+        "RESTEZ SUR VOS GARDES ! Durant votre tour, vos\npersonnages Mousquetaires gagnent Insaisissable.\n(Ils peuvent d\u00e9fier les personnages avec Insaisissable.)"
+      ],
+      "usedUntil": "2025-08-07"
+    }
+  ],
+  "181": [
+    {
+      "abilities": [
+        {
+          "fullText": "Rempart (Ce personnage peut entrer en jeu\n\u00e9puis\u00e9. Lorsqu'il vous d\u00e9fie, un personnage adverse\ndoit, si possible, choisir l'un de vos personnages\navec Rempart.)",
+          "keyword": "Rempart",
+          "reminderText": "Ce personnage peut entrer en jeu \u00e9puis\u00e9. Lorsqu'il vous d\u00e9fie, un personnage adverse doit, si possible, choisir l'un de vos personnages avec Rempart.",
+          "type": "keyword"
+        }
+      ],
+      "fullText": "Rempart (Ce personnage peut entrer en jeu\n\u00e9puis\u00e9. Lorsqu'il vous d\u00e9fie, un personnage adverse\ndoit, si possible, choisir l'un de vos personnages\navec Rempart.)",
+      "fullTextSections": [
+        "Rempart (Ce personnage peut entrer en jeu\n\u00e9puis\u00e9. Lorsqu'il vous d\u00e9fie, un personnage adverse\ndoit, si possible, choisir l'un de vos personnages\navec Rempart.)"
+      ],
+      "usedUntil": "2025-08-07"
+    }
+  ],
   "193": [
     {
       "abilities": [
@@ -65,6 +147,32 @@
       "usedUntil": "2024-08-23"
     }
   ],
+  "288": [
+    {
+      "abilities": [
+        {
+          "fullText": "Alter 3 (Vous pouvez payer 3 \u2b21 pour jouer ce personnage\nsur l'un de vos personnages Belle.)",
+          "keyword": "Alter",
+          "keywordValue": "3",
+          "keywordValueNumber": 3,
+          "reminderText": "Vous pouvez payer 3 \u2b21 pour jouer ce personnage sur l'un de vos personnages Belle.",
+          "type": "keyword"
+        },
+        {
+          "effect": "Lorsque ce personne est d\u00e9fi\u00e9, le propri\u00e9taire du personnage qui l'a d\u00e9fi\u00e9 d\u00e9fausse toute sa main.",
+          "fullText": "FL\u00c8CHES \u00c9PINEUSES Lorsque ce personne est d\u00e9fi\u00e9, le\npropri\u00e9taire du personnage qui l'a d\u00e9fi\u00e9 d\u00e9fausse toute sa\nmain.",
+          "name": "FL\u00c8CHES \u00c9PINEUSES",
+          "type": "triggered"
+        }
+      ],
+      "fullText": "Alter 3 (Vous pouvez payer 3 \u2b21 pour jouer ce personnage\nsur l'un de vos personnages Belle.)\nFL\u00c8CHES \u00c9PINEUSES Lorsque ce personne est d\u00e9fi\u00e9, le\npropri\u00e9taire du personnage qui l'a d\u00e9fi\u00e9 d\u00e9fausse toute sa\nmain.",
+      "fullTextSections": [
+        "Alter 3 (Vous pouvez payer 3 \u2b21 pour jouer ce personnage\nsur l'un de vos personnages Belle.)",
+        "FL\u00c8CHES \u00c9PINEUSES Lorsque ce personne est d\u00e9fi\u00e9, le\npropri\u00e9taire du personnage qui l'a d\u00e9fi\u00e9 d\u00e9fausse toute sa\nmain."
+      ],
+      "usedUntil": "2025-08-07"
+    }
+  ],
   "289": [
     {
       "abilities": [
@@ -91,6 +199,177 @@
         "Hors d'atteinte"
       ],
       "usedUntil": "2024-08-09"
+    }
+  ],
+  "290": [
+    {
+      "flavorText": "Alice \u00e9tait confuse. \u201cJe ne vois pourtant pas beaucoup\nd'encre ici\u2026 comment l'inondation peut-elle encore changer\nles Terres d'Encres ?\u201d\n\u201cLes choses changent toujours, tu sais\u201d dit le Chat. \u201cCe\nserait un sacr\u00e9 changement si elles ne changeaient pas.\u201d",
+      "usedUntil": "2025-08-07"
+    }
+  ],
+  "291": [
+    {
+      "abilities": [
+        {
+          "fullText": "Alter 5 (Vous pouvez payer 5 \u2b21 pour jouer ce personnage\nsur l'un de vos personnages Chat du Cheshire.)",
+          "keyword": "Alter",
+          "keywordValue": "5",
+          "keywordValueNumber": 5,
+          "reminderText": "Vous pouvez payer 5 \u2b21 pour jouer ce personnage sur l'un de vos personnages Chat du Cheshire.",
+          "type": "keyword"
+        },
+        {
+          "fullText": "Insaisissable (Seuls les personnages avec Insaisissable\npeuvent d\u00e9fier ce personnage.)",
+          "keyword": "Insaisissable",
+          "reminderText": "Seuls les personnages avec Insaisissable peuvent d\u00e9fier ce personnage.",
+          "type": "keyword"
+        },
+        {
+          "costs": [
+            "\u27f3"
+          ],
+          "costsText": "\u27f3",
+          "effect": "Choisissez un personnage bless\u00e9 et banissez-le.",
+          "fullText": "SOURIRE MALAISANT \u27f3 - Choisissez un personnage bless\u00e9\net banissez-le.",
+          "name": "SOURIRE MALAISANT",
+          "type": "activated"
+        }
+      ],
+      "fullText": "Alter 5 (Vous pouvez payer 5 \u2b21 pour jouer ce personnage\nsur l'un de vos personnages Chat du Cheshire.)\nInsaisissable (Seuls les personnages avec Insaisissable\npeuvent d\u00e9fier ce personnage.)\nSOURIRE MALAISANT \u27f3 - Choisissez un personnage bless\u00e9\net banissez-le.",
+      "fullTextSections": [
+        "Alter 5 (Vous pouvez payer 5 \u2b21 pour jouer ce personnage\nsur l'un de vos personnages Chat du Cheshire.)",
+        "Insaisissable (Seuls les personnages avec Insaisissable\npeuvent d\u00e9fier ce personnage.)",
+        "SOURIRE MALAISANT \u27f3 - Choisissez un personnage bless\u00e9\net banissez-le."
+      ],
+      "usedUntil": "2025-08-07"
+    }
+  ],
+  "313": [
+    {
+      "effects": [
+        "Choisissez l'un de vos personnages et renvoyez-le dans\nvotre main pour renvoyer un personnage adverse dans\nla main de son propri\u00e9taire."
+      ],
+      "fullText": "Choisissez l'un de vos personnages et renvoyez-le dans\nvotre main pour renvoyer un personnage adverse dans\nla main de son propri\u00e9taire.",
+      "fullTextSections": [
+        "Choisissez l'un de vos personnages et renvoyez-le dans\nvotre main pour renvoyer un personnage adverse dans\nla main de son propri\u00e9taire."
+      ],
+      "usedUntil": "2025-08-07"
+    }
+  ],
+  "323": [
+    {
+      "artists": [
+        "Michael \"Cookie\" Niewiadomy"
+      ],
+      "artistsText": "Michael \"Cookie\" Niewiadomy",
+      "usedUntil": "2025-08-07"
+    }
+  ],
+  "324": [
+    {
+      "flavorText": "L\u00e0 ou un acolyte quelconque serait incapable de\ncouper dans le vif.",
+      "usedUntil": "2025-08-07"
+    }
+  ],
+  "333": [
+    {
+      "artists": [
+        "Michael \"Cookie\" Niewiadomy"
+      ],
+      "artistsText": "Michael \"Cookie\" Niewiadomy",
+      "usedUntil": "2025-08-07"
+    }
+  ],
+  "405": [
+    {
+      "abilities": [
+        {
+          "fullText": "Rempart (Ce personnage peut entrer en jeu\n\u00e9puis\u00e9. Lorsqu'il vous d\u00e9fie, un personnage adverse\ndoit, si possible, choisir l'un de vos personnages\navec Rempart.)",
+          "keyword": "Rempart",
+          "reminderText": "Ce personnage peut entrer en jeu \u00e9puis\u00e9. Lorsqu'il vous d\u00e9fie, un personnage adverse doit, si possible, choisir l'un de vos personnages avec Rempart.",
+          "type": "keyword"
+        },
+        {
+          "effect": "Ce personnage peut d\u00e9fier des personnages redress\u00e9s.",
+          "fullText": "LAMES Ce personnage peut d\u00e9fier des\npersonnages redress\u00e9s.",
+          "name": "LAMES",
+          "type": "static"
+        }
+      ],
+      "fullText": "Rempart (Ce personnage peut entrer en jeu\n\u00e9puis\u00e9. Lorsqu'il vous d\u00e9fie, un personnage adverse\ndoit, si possible, choisir l'un de vos personnages\navec Rempart.)\nLAMES Ce personnage peut d\u00e9fier des\npersonnages redress\u00e9s.",
+      "fullTextSections": [
+        "Rempart (Ce personnage peut entrer en jeu\n\u00e9puis\u00e9. Lorsqu'il vous d\u00e9fie, un personnage adverse\ndoit, si possible, choisir l'un de vos personnages\navec Rempart.)",
+        "LAMES Ce personnage peut d\u00e9fier des\npersonnages redress\u00e9s."
+      ],
+      "usedUntil": "2025-08-07"
+    }
+  ],
+  "410": [
+    {
+      "abilities": [
+        {
+          "effect": "Lorsque ce personnage est envoy\u00e9 \u00e0 l'aventure, vous pouvez piocher une carte puis en d\u00e9faussez une.",
+          "fullText": "\u00c9CHANGE DE C\u0152UR Lorsque ce personnage est\nenvoy\u00e9 \u00e0 l'aventure, vous pouvez piocher une carte\npuis en d\u00e9faussez une.",
+          "name": "\u00c9CHANGE DE C\u0152UR",
+          "type": "triggered"
+        }
+      ],
+      "fullName": "Le chasseur - Homme de main r\u00e9ticent",
+      "fullText": "\u00c9CHANGE DE C\u0152UR Lorsque ce personnage est\nenvoy\u00e9 \u00e0 l'aventure, vous pouvez piocher une carte\npuis en d\u00e9faussez une.",
+      "fullTextSections": [
+        "\u00c9CHANGE DE C\u0152UR Lorsque ce personnage est\nenvoy\u00e9 \u00e0 l'aventure, vous pouvez piocher une carte\npuis en d\u00e9faussez une."
+      ],
+      "usedUntil": "2025-08-07"
+    }
+  ],
+  "411": [
+    {
+      "abilities": [
+        {
+          "fullText": "Rempart (Ce personnage peut entrer en jeu\n\u00e9puis\u00e9. Lorsqu'il vous d\u00e9fie, un personnage\nadverse doit, si possible, choisir l'un de vos\npersonnages avec Rempart.)",
+          "keyword": "Rempart",
+          "reminderText": "Ce personnage peut entrer en jeu \u00e9puis\u00e9. Lorsqu'il vous d\u00e9fie, un personnage adverse doit, si possible, choisir l'un de vos personnages avec Rempart.",
+          "type": "keyword"
+        },
+        {
+          "fullText": "R\u00e9sistance +1 (Les dommages qui lui sont inflig\u00e9s\nsont r\u00e9duits de 1.)",
+          "keyword": "R\u00e9sistance",
+          "keywordValue": "+1",
+          "keywordValueNumber": 1,
+          "reminderText": "Les dommages qui lui sont inflig\u00e9s sont r\u00e9duits de 1.",
+          "type": "keyword"
+        }
+      ],
+      "fullText": "Rempart (Ce personnage peut entrer en jeu\n\u00e9puis\u00e9. Lorsqu'il vous d\u00e9fie, un personnage\nadverse doit, si possible, choisir l'un de vos\npersonnages avec Rempart.)\nR\u00e9sistance +1 (Les dommages qui lui sont inflig\u00e9s\nsont r\u00e9duits de 1.)",
+      "fullTextSections": [
+        "Rempart (Ce personnage peut entrer en jeu\n\u00e9puis\u00e9. Lorsqu'il vous d\u00e9fie, un personnage\nadverse doit, si possible, choisir l'un de vos\npersonnages avec Rempart.)",
+        "R\u00e9sistance +1 (Les dommages qui lui sont inflig\u00e9s\nsont r\u00e9duits de 1.)"
+      ],
+      "usedUntil": "2025-08-07"
+    }
+  ],
+  "432": [
+    {
+      "abilities": [
+        {
+          "fullText": "Rempart (Ce personnage peut entrer en jeu \u00e9puis\u00e9.\nLorsqu'il vous d\u00e9fie, un personnage adverse doit,\nsi possible, choisir l'un de vos personnages avec\nRempart.)",
+          "keyword": "Rempart",
+          "reminderText": "Ce personnage peut entrer en jeu \u00e9puis\u00e9. Lorsqu'il vous d\u00e9fie, un personnage adverse doit, si possible, choisir l'un de vos personnages avec Rempart.",
+          "type": "keyword"
+        },
+        {
+          "effect": "Ce personnage peut d\u00e9fier des personnages redress\u00e9s.",
+          "fullText": "LAMES Ce personnage peut d\u00e9fier des\npersonnages redress\u00e9s.",
+          "name": "LAMES",
+          "type": "static"
+        }
+      ],
+      "fullText": "Rempart (Ce personnage peut entrer en jeu \u00e9puis\u00e9.\nLorsqu'il vous d\u00e9fie, un personnage adverse doit,\nsi possible, choisir l'un de vos personnages avec\nRempart.)\nLAMES Ce personnage peut d\u00e9fier des\npersonnages redress\u00e9s.",
+      "fullTextSections": [
+        "Rempart (Ce personnage peut entrer en jeu \u00e9puis\u00e9.\nLorsqu'il vous d\u00e9fie, un personnage adverse doit,\nsi possible, choisir l'un de vos personnages avec\nRempart.)",
+        "LAMES Ce personnage peut d\u00e9fier des\npersonnages redress\u00e9s."
+      ],
+      "usedUntil": "2025-08-07"
     }
   ],
   "509": [
