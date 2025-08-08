@@ -74,6 +74,8 @@ def downloadImagesIfUpdated(cardCatalog: Dict, cardIdsToCheck: List[int]) -> Lis
 			cardId = card["culture_invariant_id"]
 			if cardId not in cardIdsToCheck:
 				continue
+			if GlobalConfig.language.uppercaseCode not in card["card_identifier"]:
+				continue
 			localImagePath = os.path.join("downloads", "images", GlobalConfig.language.code, f"{cardId}.jpg")
 			with open(localImagePath, "rb") as localImageFile:
 				localImageBytes = localImageFile.read()
