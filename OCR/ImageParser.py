@@ -140,6 +140,8 @@ class ImageParser:
 			# The type separator character is always the same, but often gets interpreted wrong; fix that
 			if " " in typesImageText:
 				typesImageText = re.sub(r" (\S )?", LorcanaSymbols.SEPARATOR_STRING, typesImageText)
+			else:
+				typesImageText = re.sub("(?<=[a-z])-(?=[A-Z])", LorcanaSymbols.SEPARATOR_STRING, typesImageText)
 			result["subtypesText"] = ImageAndText(typesImage, typesImageText)
 			self._logger.debug(f"{typesImageText=}")
 			if parseSettings.isItemOverride:
