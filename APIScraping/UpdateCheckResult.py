@@ -48,7 +48,8 @@ class UpdateCheckResult:
 		return False
 
 	def listChangeCounts(self) -> str:
-		return f"{len(self.newCards):,} new cards, {len(self.changedCards):,} changed cards, {len(self.removedCards):,} removed cards, {len(self.possibleChangedImages):,}, {len(self.newCardFields):,} new card fields, possible image changes, {len(self.newSets)} new sets"
+		return (f"{len(self.newCards):,} new cards, {len(self.changedCards):,} changed cards, {len(self.removedCards):,} removed cards, {len(self.possibleChangedImages):,} possible image changes,"
+				f"{len(self.newCardFields):,} new card fields, {len(self.newSets)} new sets")
 
 
 class BasicCard:
