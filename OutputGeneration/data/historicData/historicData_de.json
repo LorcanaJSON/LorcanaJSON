@@ -148,6 +148,46 @@
       ],
       "artistsText": "Rob Di Salvo / Koni",
       "usedUntil": "2023-10-06"
+    },
+    {
+      "effects": [
+        "Z\u00e4hle deine Charaktere im Spiel. Der n\u00e4chste\nCharakter, den du ausspielst, kostet dich diese Anzahl\n\u2b21 weniger."
+      ],
+      "fullText": "(Du kannst einen Charakter, der 2 oder mehr kostet, \u27f3,\ndamit er dieses Lied kostenlos singt.)\nZ\u00e4hle deine Charaktere im Spiel. Der n\u00e4chste\nCharakter, den du ausspielst, kostet dich diese Anzahl\n\u2b21 weniger.",
+      "fullTextSections": [
+        "(Du kannst einen Charakter, der 2 oder mehr kostet, \u27f3,\ndamit er dieses Lied kostenlos singt.)",
+        "Z\u00e4hle deine Charaktere im Spiel. Der n\u00e4chste\nCharakter, den du ausspielst, kostet dich diese Anzahl\n\u2b21 weniger."
+      ],
+      "usedUntil": "2025-08-08"
+    }
+  ],
+  "269": [
+    {
+      "abilities": [
+        {
+          "effect": "Dieser Charakter erh\u00e4lt jedes Mal, wenn einer deiner anderen Charaktere aus dem Spiel auf deine Hand zur\u00fcckkehrt, in diesem Zug +1 \u25ca.",
+          "fullText": "KAMPF DER GEISTER Dieser Charakter erh\u00e4lt jedes\nMal, wenn einer deiner anderen Charaktere aus dem\nSpiel auf deine Hand zur\u00fcckkehrt, in diesem Zug\n+1 \u25ca.",
+          "name": "KAMPF DER GEISTER",
+          "type": "triggered"
+        }
+      ],
+      "fullText": "KAMPF DER GEISTER Dieser Charakter erh\u00e4lt jedes\nMal, wenn einer deiner anderen Charaktere aus dem\nSpiel auf deine Hand zur\u00fcckkehrt, in diesem Zug\n+1 \u25ca.",
+      "fullTextSections": [
+        "KAMPF DER GEISTER Dieser Charakter erh\u00e4lt jedes\nMal, wenn einer deiner anderen Charaktere aus dem\nSpiel auf deine Hand zur\u00fcckkehrt, in diesem Zug\n+1 \u25ca."
+      ],
+      "usedUntil": "2025-08-08"
+    }
+  ],
+  "272": [
+    {
+      "flavorText": "\u201eDieses Profil! Diese Figur! \u2026 Ich sehe deinen\nNamen in leuchtenden Lettern, strahlend hell!\u201c\n\u2013 Ehrenwerter John",
+      "usedUntil": "2025-08-08"
+    }
+  ],
+  "286": [
+    {
+      "flavorText": "\u201eIch werde denjenigen finden, der aus dem\nversiegelten Buch der Legenden entkommen ist.\nKomm mir dabei nicht in die Quere!\u201c",
+      "usedUntil": "2025-08-08"
     }
   ],
   "289": [
@@ -176,6 +216,24 @@
         "Beh\u00fctet"
       ],
       "usedUntil": "2024-08-09"
+    }
+  ],
+  "323": [
+    {
+      "artists": [
+        "Michael \"Cookie\" Niewiadomy"
+      ],
+      "artistsText": "Michael \"Cookie\" Niewiadomy",
+      "usedUntil": "2025-08-08"
+    }
+  ],
+  "333": [
+    {
+      "artists": [
+        "Michael \"Cookie\" Niewiadomy"
+      ],
+      "artistsText": "Michael \"Cookie\" Niewiadomy",
+      "usedUntil": "2025-08-08"
     }
   ],
   "393": [
@@ -542,6 +600,12 @@
       ],
       "subtypesText": "Traumgestalt \u2022 Verb\u00fcndeter",
       "usedUntil": "2025-02-26"
+    }
+  ],
+  "1613": [
+    {
+      "flavorText": "\u201eAkku auf 100%. Bereit f\u00fcr den Einsatz!\u201c\n\u2014Hiro",
+      "usedUntil": "2025-08-08"
     }
   ],
   "1804": [
