@@ -48,27 +48,35 @@ def checkForNewCardData(newCardCatalog: Dict = None, fieldsToIgnore: List[str] =
 			elif includeCardChanges:
 				# Remove the card from the old card dictionary, so we know which ones are left over (if any)
 				oldCard = oldCards.pop(cardId)
-				if not fieldsToIgnore or "image_urls" not in fieldsToIgnore:
+				if not fieldsToIgnore or ("image_urls" not in fieldsToIgnore and "variants" not in fieldsToIgnore):
 					# Specifically check for image URLs, because if the checksum changed, we may need to redownload it
 					imageUrl = None
 					oldImageUrl = None
-					for imageData in card["image_urls"]:
-						if imageData["height"] == 2048:
-							imageUrl = imageData["url"]
+					for imageData in card["variants"]:
+						if imageData["variant_id"] == "Regular":
+							imageUrl = imageData["detail_image_url"]
 							break
 					else:
 						_logger.warning(f"Unable to find properly sized image in downloaded data for card ID {cardId}")
-					for imageData in oldCard.get("image_urls", []):
-						if imageData["height"] == 2048:
-							oldImageUrl = imageData["url"]
-							break
+					if "image_urls" in oldCard:
+						# V2 formatting
+						for imageData in oldCard["image_urls"]:
+							if imageData["height"] == 2048:
+								oldImageUrl = imageData["url"]
+								break
+					elif "variants" in oldCard:
+						# V3 formatting
+						for imageData in oldCard["variants"]:
+							if imageData["variant_id"] == "Regular":
+								oldImageUrl = imageData["detail_image_url"]
+								break
 					else:
 						_logger.warning(f"Unable to find properly sized image in old data for card ID {cardId}")
 					if imageUrl != oldImageUrl:
 						updateCheckResult.addPossibleImageChange(card, oldImageUrl, imageUrl)
 				for fieldName, fieldValue in card.items():
-					if fieldName == "image_urls":
-						# Skip the image_urls field since we already checked it
+					if fieldName == "image_urls" or fieldName == "variants":
+						# Skip the images field since we already checked it
 						continue
 					if fieldsToIgnore and fieldName in fieldsToIgnore:
 						continue

@@ -178,17 +178,33 @@ def parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, threadLoca
 				_logger.error(f"Unable to parse {ocrResult[outputFieldName]!r} as {outputFieldName} in card ID {outputCard['id']}")
 				outputCard[outputFieldName] = -1
 	# Image URLs end with a checksum parameter, we don't need that
-	if "image_urls" in inputCard:
-		outputCard["images"] = {
-			"full": _cleanUrl(inputCard["image_urls"][0]["url"]),
-			"thumbnail": _cleanUrl(inputCard["image_urls"][1]["url"]),
-		}
-		if "foil_detail_url" in inputCard:
-			outputCard["images"]["fullFoil"] = _cleanUrl(inputCard["foil_detail_url"])
-		if "foil_mask_url" in inputCard:
-			outputCard["images"]["foilMask"] = _cleanUrl(inputCard["foil_mask_url"])
-		if "varnish_mask_url" in inputCard:
-			outputCard["images"]["varnishMask"] = _cleanUrl(inputCard["varnish_mask_url"])
+	if "variants" in inputCard:
+		outputImageData: Dict[str, str] = {}
+		normalImageUrl = None
+		for inputImageVariantData in inputCard["variants"]:
+			imageType = inputImageVariantData["variant_id"]
+			if imageType == "Regular":
+				# Normal version
+				outputImageData["full"] = _cleanUrl(inputImageVariantData["detail_image_url"])
+				normalImageUrl = inputImageVariantData["detail_image_url"]
+				if "foil_top_layer_mask" in inputImageVariantData:
+					# Despite being called 'foil', this is the varnish mask; foil data is in a different ImageVariant dictionary
+					outputImageData["varnishMask"] = _cleanUrl(inputImageVariantData["foil_top_layer_mask"])
+			elif imageType == "Foiled":
+				# Foil version
+				outputImageData["foilMask"] = inputImageVariantData["foil_mask_url"]
+				if normalImageUrl and inputImageVariantData["detail_image_url"] != normalImageUrl:
+					# Foil basic art differs from normal art (missing black edge, etc), store it
+					outputImageData["fullFoil"] = _cleanUrl(inputImageVariantData["detail_image_url"])
+		if "thumbnail_url" in inputCard:
+			outputImageData["thumbnail"] = _cleanUrl(inputCard["thumbnail_url"])
+		else:
+			_logger.warning(f"Missing thumbnail URL for {CardUtil.createCardIdentifier(outputCard)}")
+
+		if outputImageData:
+			outputCard["images"] = outputImageData
+		else:
+			_logger.error(f"Unable to determine any images for {CardUtil.createCardIdentifier(outputCard)}")
 	elif "imageUrl" in inputCard:
 		outputCard["images"] = {"full": inputCard["imageUrl"]}
 	else:

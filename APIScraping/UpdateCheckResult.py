@@ -29,7 +29,7 @@ class UpdateCheckResult:
 		self.removedCards.append(BasicCard(removedCard))
 
 	def addPossibleImageChange(self, card, oldImageUrl, newImageUrl):
-		self.possibleChangedImages.append(ChangedCard(card, ChangeType.UPDATED_FIELD, "image_urls", oldImageUrl, newImageUrl))
+		self.possibleChangedImages.append(ChangedCard(card, ChangeType.UPDATED_FIELD, "variants", oldImageUrl, newImageUrl))
 
 	def hasCardChanges(self) -> bool:
 		"""

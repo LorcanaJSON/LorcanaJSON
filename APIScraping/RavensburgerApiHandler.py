@@ -28,7 +28,7 @@ def retrieveCardCatalog() -> Dict[str, Any]:
 		raise ValueError(f"Missing access_token or token_type in token request: {tokenResponse.text}")
 
 	# Now we can retrieve the card catalog, again just like the official app
-	catalogResponse = DownloadUtil.retrieveFromUrl(f"https://api.lorcana.ravensburger.com/v2/catalog/{GlobalConfig.language.code}", additionalHeaderFields={"authorization": f"{tokenData['token_type']} {tokenData['access_token']}"})
+	catalogResponse = DownloadUtil.retrieveFromUrl(f"https://api.lorcana.ravensburger.com/v3/catalog/{GlobalConfig.language.code}", additionalHeaderFields={"authorization": f"{tokenData['token_type']} {tokenData['access_token']}"})
 	cardCatalog = catalogResponse.json()
 	if "cards" not in cardCatalog:
 		raise ValueError(f"Invalid data in catalog response: {catalogResponse.text}")
@@ -83,9 +83,9 @@ def downloadImagesIfUpdated(cardCatalog: Dict, cardIdsToCheck: List[int]) -> Lis
 			with open(localImagePath, "rb") as localImageFile:
 				localImageBytes = localImageFile.read()
 				localImageChecksum = hashlib.md5(localImageBytes).hexdigest()
-			for imageData in card["image_urls"]:
-				if imageData["height"] == 2048:
-					remoteImageRequest = DownloadUtil.retrieveFromUrl(imageData["url"])
+			for imageData in card["variants"]:
+				if imageData["variant_id"] == "Regular":
+					remoteImageRequest = DownloadUtil.retrieveFromUrl(imageData["detail_image_url"])
 					remoteImageBytes = remoteImageRequest.content
 					remoteImageChecksum = hashlib.md5(remoteImageBytes).hexdigest()
 					if localImageChecksum != remoteImageChecksum:
@@ -120,14 +120,14 @@ def downloadImages(shouldOverwriteImages: bool = False, pathToCardCatalog: str =
 			if languageCodeToCheck not in card["card_identifier"]:
 				_logger.debug(f"Skipping card with ID {card['culture_invariant_id']} because it's not in the requested language")
 				continue
-			if "image_urls" not in card:
-				_logger.error(f"Card ID {card['culture_invariant_id']} does not have an 'image_urls' key")
+			if "variants" not in card:
+				_logger.error(f"Card ID {card['culture_invariant_id']} does not have an 'variants' key, can't download images")
 				continue
-			for imageUrlDict in card["image_urls"]:
-				if imageUrlDict["height"] == 2048:
+			for imageUrlDict in card["variants"]:
+				if imageUrlDict["variant_id"] == "Regular":
 					imagesFound += 1
 					imageSavePath = os.path.join("downloads", "images", GlobalConfig.language.code, f"{card['culture_invariant_id']}.jpg")
-					wasImageDownloaded = downloadImage(imageUrlDict["url"], imageSavePath, shouldOverwriteImages)
+					wasImageDownloaded = downloadImage(imageUrlDict["detail_image_url"], imageSavePath, shouldOverwriteImages)
 					if wasImageDownloaded:
 						imagesDownloaded += 1
 						time.sleep(2 * random.random())
