@@ -98,7 +98,7 @@ class RelatedCards:
 		if self.promoCardIds:
 			if cardId in self.promoCardIds:
 				isNotPromo = False
-				otherRelatedCards.nonPromoId = self.firstNormalCardId
+				otherRelatedCards.nonPromoId = self.getNormalCard(setCode)
 			else:
 				otherRelatedCards.promoIds = self.promoCardIds.copy()
 
@@ -106,19 +106,19 @@ class RelatedCards:
 			if setCode in self.epicCardIdsBySet:
 				if cardId == self.epicCardIdsBySet[setCode]:
 					isNotFancyArt = False
-					otherRelatedCards.nonEpicId = self.firstNormalCardId
+					otherRelatedCards.nonEpicId = self.getNormalCard(setCode)
 				else:
 					otherRelatedCards.epicId = self.epicCardIdsBySet[setCode]
 			if setCode in self.enchantedCardIdsBySet:
 				if cardId == self.enchantedCardIdsBySet[setCode]:
 					isNotFancyArt = False
-					otherRelatedCards.nonEnchantedId = self.firstNormalCardId
+					otherRelatedCards.nonEnchantedId = self.getNormalCard(setCode)
 				else:
 					otherRelatedCards.enchantedId = self.enchantedCardIdsBySet[setCode]
 			if setCode in self.iconicCardIdsBySet:
 				if cardId == self.iconicCardIdsBySet[setCode]:
 					isNotFancyArt = False
-					otherRelatedCards.nonIconicId = self.firstNormalCardId
+					otherRelatedCards.nonIconicId = self.getNormalCard(setCode)
 				else:
 					otherRelatedCards.iconicId = self.iconicCardIdsBySet[setCode]
 
@@ -132,6 +132,11 @@ class RelatedCards:
 			elif isNotVariant:
 				otherRelatedCards.reprintOfId = self.firstNormalCardId
 		return otherRelatedCards
+
+	def getNormalCard(self, setCode):
+		if setCode in self.normalCardIdsBySet:
+			return self.normalCardIdsBySet[setCode]
+		return self.firstNormalCardId
 
 
 class OtherRelatedCards:
