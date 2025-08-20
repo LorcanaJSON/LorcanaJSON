@@ -179,7 +179,7 @@
       "fr": "Dingo et Max",
       "it": "In viaggio con Pippo"
     },
-    "matchingNames": ["Bobby Zimuruski", "I2I", "Max Goof", "P.J. Pete", "Powerline", "Roxanne"]
+    "matchingNames": ["Bobby Zimuruski", "Goofy Movie", "I2I", "Max Goof", "P.J. Pete", "Powerline", "Roxanne"]
   },
   "greatmousedetective": {
     "displayNames": {
@@ -354,7 +354,7 @@
       "fr": "La Princesse et la Grenouille",
       "it": "La principessa e il ranocchio"
     },
-    "matchingNames": ["Charlotte La Bouff", "Dr. Facilier", "Eli La Bouff", "Eudora", "Friends on the Other Side", "James", "Lawrence", "Louis", "Mama Odie", "Prince Naveen", "Ray", "Tiana"],
+    "matchingNames": ["Charlotte La Bouff", "Dr. Facilier", "Eli La Bouff", "Eudora", "Friends on the Other Side", "James", "Lawrence", "Louis", "Mama Odie", "Prince Naveen", "Princess and the Frog", "Ray", "Tiana"],
     "matchingIds": [640, 853, 1707, 1841]
   },
   "raya": {
