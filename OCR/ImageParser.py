@@ -187,8 +187,8 @@ class ImageParser:
 
 		# Find where the ability name labels are, store them as the top y, bottom y and the right x, so we know where to get the text from
 		# New-style Enchanted cards get parsed differently because this method doesn't find labels on those, it's handled in the 'remainingText' parsing section
-		textboxEdgeDetectedImage: Image.Image = None
-		textboxLinesImage: Image.Image = None
+		textboxEdgeDetectedImage: Optional[Image.Image] = None
+		textboxLinesImage: Optional[Image.Image] = None
 		labelCoords = []
 		if hasCardText is not False:
 			if parseSettings.labelParsingMethod == ParseSettings.LABEL_PARSING_METHODS.DEFAULT:

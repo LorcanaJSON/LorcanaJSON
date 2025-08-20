@@ -5,7 +5,7 @@ import GlobalConfig
 from OCR import OcrCacheHandler
 from OCR.OcrResult import OcrResult
 from OutputGeneration import TextCorrection, StoryParser
-from OutputGeneration.AllowedInFormatsHandler import AllowedInFormat, AllowedInFormatsHandler
+from OutputGeneration.AllowedInFormatsHandler import AllowedInFormats, AllowedInFormatsHandler
 from OutputGeneration.RelatedCardsCollator import RelatedCards
 from util import CardUtil, IdentifierParser, Language, LorcanaSymbols
 
@@ -441,15 +441,15 @@ def parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, threadLoca
 				if abilityIndexToCorrect in forceAbilityTypeAtIndex:
 					_logger.error(f"Ability at index {abilityIndexToCorrect} in card {CardUtil.createCardIdentifier(outputCard)} is being corrected to two types: '{forceAbilityTypeAtIndex[abilityIndexToCorrect]}' and '{abilityTypeCorrection}'")
 				forceAbilityTypeAtIndex[abilityIndexToCorrect] = abilityTypeCorrection
-		newlineAfterLabelIndex = cardDataCorrections.pop("_newlineAfterLabelIndex", -1)
-		mergeEffectIndexWithPrevious = cardDataCorrections.pop("_mergeEffectIndexWithPrevious", -1)
+		newlineAfterLabelIndex: int = cardDataCorrections.pop("_newlineAfterLabelIndex", -1)
+		mergeEffectIndexWithPrevious: int = cardDataCorrections.pop("_mergeEffectIndexWithPrevious", -1)
 		effectAtIndexIsAbility: Union[int, List[int, str]] = cardDataCorrections.pop("_effectAtIndexIsAbility", -1)
 		effectAtIndexIsFlavorText: int = cardDataCorrections.pop("_effectAtIndexIsFlavorText", -1)
-		externalLinksCorrection = cardDataCorrections.pop("externalLinks", None)
-		fullTextCorrection = cardDataCorrections.pop("fullText", None)
-		addNameToAbilityAtIndex: Optional[List[int, str]] = cardDataCorrections.pop("_addNameToAbilityAtIndex", None)
-		moveAbilityAtIndexToIndex = cardDataCorrections.pop("_moveAbilityAtIndexToIndex", None)
-		splitAbilityNameAtIndex = cardDataCorrections.pop("_splitAbilityNameAtIndex", None)
+		externalLinksCorrection: Optional[List[str]] = cardDataCorrections.pop("externalLinks", None)
+		fullTextCorrection: Optional[List[str]] = cardDataCorrections.pop("fullText", None)
+		addNameToAbilityAtIndex: Optional[List[Union[int, str]]] = cardDataCorrections.pop("_addNameToAbilityAtIndex", None)
+		moveAbilityAtIndexToIndex: Optional[List[Union[int, int]]] = cardDataCorrections.pop("_moveAbilityAtIndexToIndex", None)
+		splitAbilityNameAtIndex: Optional[List[Union[int, str]]] = cardDataCorrections.pop("_splitAbilityNameAtIndex", None)
 		for fieldName, correction in cardDataCorrections.items():
 			if len(correction) > 2:
 				for correctionIndex in range(0, len(correction), 2):
@@ -476,7 +476,7 @@ def parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, threadLoca
 					outputCard["effects"].insert(effectIndex + 1, secondEffect)
 		# Sometimes the ability name doesn't get recognised properly during fallback parsing, so there's a manual correction for it
 		if splitAbilityNameAtIndex:
-			ability = outputCard["abilities"][splitAbilityNameAtIndex[0]]
+			ability: Dict[str, str] = outputCard["abilities"][splitAbilityNameAtIndex[0]]
 			ability["name"], ability["effect"] = re.split(splitAbilityNameAtIndex[1], ability["effect"], maxsplit=1)
 			_logger.info(f"Split ability name and effect at index {splitAbilityNameAtIndex[0]} into name {ability['name']!r} and effect {ability['effect']!r}")
 		# Sometimes ability names get missed, apply the correction to fix this
@@ -710,7 +710,7 @@ def parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, threadLoca
 	if historicData:
 		outputCard["historicData"] = historicData
 
-	allowedInFormats = allowedCardsHandler.getAllowedInFormatsForCard(outputCard["id"], relatedCards.printedInSets)
+	allowedInFormats: AllowedInFormats = allowedCardsHandler.getAllowedInFormatsForCard(outputCard["id"], relatedCards.printedInSets)
 	outputCard["allowedInTournamentsFromDate"] = allowedInFormats.allowedInTournamentsFromDate
 	outputCard["allowedInFormats"] = {}
 	for formatName, allowedInFormat in (("Core", allowedInFormats.allowedInCore), ("Infinity", allowedInFormats.allowedInInfinity)):
