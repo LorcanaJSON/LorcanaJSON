@@ -14,7 +14,7 @@
     "allowedInFormats": {
       "Core": {
         "allowed": true,
-        "allowedUntilDate": "2025-09-19",
+        "allowedUntilDate": "2025-09-05",
         "rotationGroup": 1
       },
       "Infinity": {
@@ -38,7 +38,7 @@
     "allowedInFormats": {
       "Core": {
         "allowed": true,
-        "allowedUntilDate": "2025-09-19",
+        "allowedUntilDate": "2025-09-05",
         "rotationGroup": 1
       },
       "Infinity": {
@@ -62,7 +62,7 @@
     "allowedInFormats": {
       "Core": {
         "allowed": true,
-        "allowedUntilDate": "2025-09-19",
+        "allowedUntilDate": "2025-09-05",
         "rotationGroup": 1
       },
       "Infinity": {
@@ -86,7 +86,7 @@
     "allowedInFormats": {
       "Core": {
         "allowed": true,
-        "allowedUntilDate": "2025-09-19",
+        "allowedUntilDate": "2025-09-05",
         "rotationGroup": 1
       },
       "Infinity": {
