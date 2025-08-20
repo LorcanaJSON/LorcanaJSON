@@ -182,27 +182,52 @@ def parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, threadLoca
 	if "variants" in inputCard:
 		outputImageData: Dict[str, str] = {}
 		normalImageUrl = None
+		foilTypes: List[str] = []
+		varnishType = None
 		for inputImageVariantData in inputCard["variants"]:
 			imageType = inputImageVariantData["variant_id"]
 			if imageType == "Regular":
 				# Normal version
 				outputImageData["full"] = _cleanUrl(inputImageVariantData["detail_image_url"])
 				normalImageUrl = inputImageVariantData["detail_image_url"]
-				if "foil_top_layer_mask" in inputImageVariantData:
+				if "foil_mask_url" in inputImageVariantData:
+					outputImageData["foilMask"] = inputImageVariantData["foil_mask_url"]
+				if "foil_top_layer_mask_url" in inputImageVariantData:
 					# Despite being called 'foil', this is the varnish mask; foil data is in a different ImageVariant dictionary
-					outputImageData["varnishMask"] = _cleanUrl(inputImageVariantData["foil_top_layer_mask"])
+					outputImageData["varnishMask"] = _cleanUrl(inputImageVariantData["foil_top_layer_mask_url"])
+				foilTypes.append(inputImageVariantData.get("foil_type", "None"))
+				if "foil_top_layer" in inputImageVariantData:
+					varnishType = inputImageVariantData["foil_top_layer"]
 			elif imageType == "Foiled":
 				# Foil version
-				outputImageData["foilMask"] = inputImageVariantData["foil_mask_url"]
+				if "foilMask" in outputImageData:
+					_logger.warning(f"'Foiled' image data of {CardUtil.createCardIdentifier(outputCard)} contains a foil mask, but it was already set")
+				else:
+					outputImageData["foilMask"] = inputImageVariantData["foil_mask_url"]
 				if normalImageUrl and inputImageVariantData["detail_image_url"] != normalImageUrl:
 					# Foil basic art differs from normal art (missing black edge, etc), store it
 					outputImageData["fullFoil"] = _cleanUrl(inputImageVariantData["detail_image_url"])
+				foilTypes.append(inputImageVariantData["foil_type"])
+				if "foil_top_layer" in inputImageVariantData:
+					if varnishType is None:
+						varnishType = inputImageVariantData["foil_top_layer"]
+					elif varnishType != inputImageVariantData["foil_top_layer"]:
+						_logger.warning(f"Varnish type is both '{varnishType}' and '{inputImageVariantData['foil_top_layer']}' in card {CardUtil.createCardIdentifier(outputCard)}; Keeping '{varnishType}'")
+
+		if foilTypes:
+			outputCard["foilTypes"] = foilTypes
+		elif not isExternalReveal:
+			# We can't know the foil type(s) of externally revealed cards, so not having the data at all is better than adding possibly wrong data
+			# 'Normal' (so non-promo non-Enchanted) cards exist in unfoiled and silver-foiled types, so just default to that if no explicit foil type is provided
+			outputCard["foilTypes"] = ["None", "Silver"]
+		if varnishType:
+			outputCard["varnishType"] = varnishType
 		if "thumbnail_url" in inputCard:
 			outputImageData["thumbnail"] = _cleanUrl(inputCard["thumbnail_url"])
 		else:
 			_logger.warning(f"Missing thumbnail URL for {CardUtil.createCardIdentifier(outputCard)}")
-
 		if outputImageData:
+			outputImageData = {key: outputImageData[key] for key in sorted(outputImageData)}
 			outputCard["images"] = outputImageData
 		else:
 			_logger.error(f"Unable to determine any images for {CardUtil.createCardIdentifier(outputCard)}")
@@ -700,14 +725,6 @@ def parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, threadLoca
 		outputCard["story"] = inputCard["story"]
 	else:
 		outputCard["story"] = storyParser.getStoryNameForCard(outputCard, outputCard["id"], inputCard.get("searchable_keywords", None))
-	if "foil_type" in inputCard:
-		outputCard["foilTypes"] = ["None"] if inputCard["foil_type"] is None else [inputCard["foil_type"]]
-	elif not isExternalReveal:
-		# We can't know the foil type(s) of externally revealed cards, so not having the data at all is better than adding possibly wrong data
-		# 'Normal' (so non-promo non-Enchanted) cards exist in unfoiled and cold-foiled types, so just default to that if no explicit foil type is provided
-		outputCard["foilTypes"] = ["None", "Cold"]
-	if "varnish_type" in inputCard:
-		outputCard["varnishType"] = inputCard["varnish_type"]
 	if historicData:
 		outputCard["historicData"] = historicData
 
