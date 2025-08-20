@@ -99,6 +99,7 @@ _PARSE_SETTINGS_BY_ID: Dict[int, ParseSettings] = {
 	1933: dataclasses.replace(_DEFAULT_PARSE_SETTINGS, labelParsingMethod=LABEL_PARSING_METHODS.FALLBACK_BY_LINES, hasFlavorTextOverride=True),
 	1934: dataclasses.replace(_DEFAULT_PARSE_SETTINGS, labelParsingMethod=LABEL_PARSING_METHODS.FALLBACK_BY_LINES),
 	1935: dataclasses.replace(_DEFAULT_PARSE_SETTINGS, labelParsingMethod=LABEL_PARSING_METHODS.FALLBACK_BY_LINES),
+	2183: _PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["8"],
 }
 
 def getParseSetingsById(cardId: int) -> Optional[ParseSettings]:
