@@ -312,7 +312,7 @@ def _saveFile(outputFilePath: str, dictToSave: Dict, createZip: bool = True):
 
 def _zipFile(outputFilePath: str):
 	outputZipFilePath = outputFilePath + ".zip"
-	with zipfile.ZipFile(outputZipFilePath, "w", compression=zipfile.ZIP_LZMA, strict_timestamps=False) as outputZipfile:
+	with zipfile.ZipFile(outputZipFilePath, "w", compression=zipfile.ZIP_DEFLATED, compresslevel=9, strict_timestamps=False) as outputZipfile:
 		outputZipfile.write(outputFilePath, os.path.basename(outputFilePath))
 	_createMd5ForFile(outputZipFilePath)
 
@@ -322,7 +322,7 @@ def _createMd5ForFile(filePath: str):
 		md5File.write(fileHash)
 
 def _saveZippedFile(outputZipfilePath: str, filePathsToZip: List[str]):
-	with zipfile.ZipFile(outputZipfilePath, "w", compression=zipfile.ZIP_LZMA, strict_timestamps=False) as outputZipfile:
+	with zipfile.ZipFile(outputZipfilePath, "w", compression=zipfile.ZIP_DEFLATED, compresslevel=9, strict_timestamps=False) as outputZipfile:
 		for filePathToZip in filePathsToZip:
 			outputZipfile.write(filePathToZip, os.path.basename(filePathToZip))
 	_createMd5ForFile(outputZipfilePath)
