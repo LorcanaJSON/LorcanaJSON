@@ -17,9 +17,6 @@ class RelatedCardCollator:
 		self.deckbuildingIdToRelatedCards: Dict[str, RelatedCards] = {}
 		for cardtype, cardlist in cardstore["cards"].items():
 			for card in cardlist:
-				# if GlobalConfig.language.uppercaseCode not in card["card_identifier"]:
-				# 	# Skip cards not in this language
-				# 	continue
 				groupId = card["deck_building_id"]
 				if groupId not in self.deckbuildingIdToRelatedCards:
 					self.deckbuildingIdToRelatedCards[groupId] = RelatedCards()
