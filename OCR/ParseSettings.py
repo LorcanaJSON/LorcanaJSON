@@ -50,6 +50,7 @@ class ParseSettings:
 _DEFAULT_PARSE_SETTINGS = ParseSettings()
 _DEFAULT_ENCHANTED_PARSE_SETTINGS = ParseSettings(CardLayout.ENCHANTED, CardLayout.ENCHANTED_CHARACTER, CardLayout.ENCHANTED_LOCATION)
 _DEFAULT_NEW_ENCHANTED_PARSE_SETTINGS = ParseSettings(CardLayout.NEW_ENCHANTED, CardLayout.NEW_ENCHANTED_CHARACTER, CardLayout.NEW_ENCHANTED_LOCATION)
+_DEFAULT_EPIC_PARSE_SETTINGS = dataclasses.replace(_DEFAULT_ENCHANTED_PARSE_SETTINGS, labelParsingMethod=LABEL_PARSING_METHODS.DEFAULT, textboxOffset=_OPTIONAL_TEXTBOX_OFFSET, labelStartThreshold=175, labelEndThreshold=185, labelTextColor=ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND)
 _PARSE_SETTINGS_FOR_ENCHANTED_BY_SET: Dict[str, ParseSettings] = {
 	"5": dataclasses.replace(_DEFAULT_NEW_ENCHANTED_PARSE_SETTINGS, labelParsingMethod=LABEL_PARSING_METHODS.FALLBACK_WHITE_ABILITY_TEXT, thresholdTextColor=ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND, labelTextColor=ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND),
 	"6": dataclasses.replace(_DEFAULT_NEW_ENCHANTED_PARSE_SETTINGS, labelParsingMethod=LABEL_PARSING_METHODS.FALLBACK_BY_LINES, labelTextColor=ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND),
@@ -107,13 +108,15 @@ _PARSE_SETTINGS_BY_ID: Dict[int, ParseSettings] = {
 def getParseSetingsById(cardId: int) -> Optional[ParseSettings]:
 	return _PARSE_SETTINGS_BY_ID.get(cardId, None)
 
-def getParseSettings(cardId: int, identifier: Identifier, isEnchanted: bool) -> ParseSettings:
+def getParseSettings(cardId: int, identifier: Identifier, isEpic: bool, isEnchanted: bool) -> ParseSettings:
 	if cardId in _PARSE_SETTINGS_BY_ID:
 		return _PARSE_SETTINGS_BY_ID[cardId]
 	elif identifier.grouping in _PARSE_SETTINGS_BY_GROUPING:
 		return _PARSE_SETTINGS_BY_GROUPING[identifier.grouping]
 	elif identifier.setCode in _PARSE_SETTINGS_BY_SET:
 		return _PARSE_SETTINGS_BY_SET[identifier.setCode]
+	elif isEpic:
+		return _DEFAULT_EPIC_PARSE_SETTINGS
 	elif isEnchanted:
 		if identifier.setCode in _PARSE_SETTINGS_FOR_ENCHANTED_BY_SET:
 			return _PARSE_SETTINGS_FOR_ENCHANTED_BY_SET[identifier.setCode]

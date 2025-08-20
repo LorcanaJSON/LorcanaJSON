@@ -42,7 +42,7 @@ class ImageParser:
 		self._tesseractApi.SetVariable("crunch_early_convert_bad_unlv_chs", "1")
 
 	def getImageAndTextDataFromImage(self, cardId: int, baseImagePath: str, parseFully: bool, parsedIdentifier: IdentifierParser.Identifier = None, cardType: str = None, hasCardText: bool = None, hasFlavorText: bool = None,
-									 isEnchanted: bool = None, showImage: bool = False) -> OcrResult:
+									 isEpic: bool = False, isEnchanted: bool = None, showImage: bool = False) -> OcrResult:
 		startTime = time.perf_counter()
 		result: Dict[str, Optional[ImageAndText, List[ImageAndText]]] = {
 			"flavorText": None,
@@ -122,7 +122,7 @@ class ImageParser:
 
 		# Now we can determine the parse settings, if we hadn't found them already
 		if parseSettings is None:
-			parseSettings = ParseSettings.getParseSettings(cardId, parsedIdentifier, isEnchanted)
+			parseSettings = ParseSettings.getParseSettings(cardId, parsedIdentifier, isEpic, isEnchanted)
 
 		isCharacter = None
 		if cardType:
