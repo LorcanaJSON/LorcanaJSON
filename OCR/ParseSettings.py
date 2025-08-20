@@ -63,7 +63,8 @@ _PARSE_SETTINGS_BY_SET: Dict[str, ParseSettings] = {
 _PARSE_SETTINGS_BY_GROUPING: Dict[str, ParseSettings] = {
 	"C1": ParseSettings(textboxOffset=_OPTIONAL_TEXTBOX_OFFSET),
 	"D23": ParseSettings(getIdentifierFromCard=True, textboxOffset=_OPTIONAL_TEXTBOX_OFFSET, labelParsingMethod=LABEL_PARSING_METHODS.FALLBACK_BY_LINES),
-	"P1": ParseSettings(getIdentifierFromCard=True)
+	"P1": ParseSettings(getIdentifierFromCard=True),
+	"P3": dataclasses.replace(_DEFAULT_PARSE_SETTINGS, labelStartThreshold=175, labelEndThreshold=180, labelTextColor=ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND),
 }
 _PARSE_SETTINGS_BY_ID: Dict[int, ParseSettings] = {
 	676: _DEFAULT_ENCHANTED_PARSE_SETTINGS,
