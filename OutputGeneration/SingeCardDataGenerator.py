@@ -667,9 +667,14 @@ def parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, threadLoca
 						elif parsedIdentifier.setCode == "5":
 							costSeparatorDash = "—"  # em-dash, \u2014
 					if not costSeparatorDash:
+						costSeparatorDash = None
 						if "rules_text" in inputCard:
-							costSeparatorDash = re.search(r"\s([-–—])\s", inputCard["rules_text"]).group(1)
-						else:
+							costSeparatorDashMatch = re.search(r"\s([-–—])\s", inputCard["rules_text"])
+							if costSeparatorDashMatch:
+								costSeparatorDash = costSeparatorDashMatch.group(1)
+							else:
+								_logger.error(f"Unable to find cost separator dash match in '{inputCard['rules_text']}' in {CardUtil.createCardIdentifier(outputCard)}")
+						if not costSeparatorDash:
 							costSeparatorDash = activatedAbilityMatch.group(2)
 					ability["fullText"] += ability["costsText"] + activatedAbilityMatch.group(1) + costSeparatorDash + activatedAbilityMatch.group(3)
 					ability["costsText"] = ability["costsText"].replace("\n", " ")
