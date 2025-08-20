@@ -38,7 +38,7 @@ class ParseSettings:
 	isItemOverride: Optional[bool] = None
 
 	def __post_init__(self):
-		# Set layouts to defaults here, because we can't set them on class-level since they can't be mutalbe
+		# Set layouts to defaults here, because we can't set them on class-level since they can't be mutable
 		if self.cardLayout is None:
 			self.cardLayout = CardLayout.DEFAULT
 		if self.characterCardLayout is None:
