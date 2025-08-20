@@ -22,8 +22,8 @@ class ParseSettings:
 	cardLayout: CardLayout.CardLayout = None
 	characterCardLayout: CardLayout.CardLayout = None
 	locationCardLayout: CardLayout.CardLayout = None
-	textboxOffset: int = 0
-	textboxRightOffset: int = 0
+	textboxOffset: int = 0  # Shrinks the textbox from the left by this many pixels
+	textboxRightOffset: int = 0  # Shrinks the textbox from the right by this many pixels
 	labelParsingMethod: LABEL_PARSING_METHODS = LABEL_PARSING_METHODS.DEFAULT
 	thresholdTextColor: ImageArea.TextColour = ImageArea.TEXT_COLOUR_BLACK
 	labelTextColor: ImageArea.TextColour = ImageArea.TEXT_COLOUR_WHITE
