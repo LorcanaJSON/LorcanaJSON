@@ -13,7 +13,7 @@ from util import CardUtil, IdentifierParser, Language, LorcanaSymbols
 _logger = logging.getLogger("LorcanaJSON")
 _CARD_CODE_LOOKUP = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 _KEYWORD_REGEX = re.compile(r"(?:^|\n)([A-ZÀ][^.]+)(?=\s\([A-Z])")
-_KEYWORD_REGEX_WITHOUT_REMINDER = re.compile(r"^[A-Z][a-z]{2,}( \d)?$")
+_KEYWORD_REGEX_WITHOUT_REMINDER = re.compile(r"^[A-Z][a-z]{2,}( \d)?( .)?$")
 _ABILITY_TYPE_CORRECTION_FIELD_TO_ABILITY_TYPE: Dict[str, str] = {"_forceAbilityIndexToActivated": "activated", "_forceAbilityIndexToKeyword": "keyword", "_forceAbilityIndexToStatic": "static", "_forceAbilityIndexToTriggered": "triggered"}
 
 
@@ -584,6 +584,9 @@ def parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, threadLoca
 						keywordNameValueMatch = re.match(r"(\w+)(\d+)", keyword)
 						keyword = keywordNameValueMatch.group(1)
 						keywordValue = keywordNameValueMatch.group(2)
+				elif keyword[-3].isnumeric():
+					# From set 9 on, Shift gets written as "Shift x {ink}", check for that too
+					keyword, keywordValue, inkSymbol = keyword.rsplit(" ", 2)
 				elif ":" in keyword:
 					keyword, keywordValue = re.split(" ?: ?", keyword)
 				ability["keyword"] = keyword
