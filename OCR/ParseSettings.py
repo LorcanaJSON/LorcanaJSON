@@ -27,6 +27,8 @@ class ParseSettings:
 	labelParsingMethod: LABEL_PARSING_METHODS = LABEL_PARSING_METHODS.DEFAULT
 	thresholdTextColor: ImageArea.TextColour = ImageArea.TEXT_COLOUR_BLACK
 	labelTextColor: ImageArea.TextColour = ImageArea.TEXT_COLOUR_WHITE
+	labelStartThreshold: int = 105  # Pixel values lower than this indicate a label started (labels are darker than the background)
+	labelEndThreshold: int = 110  # Pixel values higher than this indicate a label ended
 	labelMaskColor: Tuple[int, int, int] = _WHITE
 	parseIdentifier: bool = False
 	getIdentifierFromCard: bool = False
