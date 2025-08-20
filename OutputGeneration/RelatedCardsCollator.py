@@ -58,7 +58,7 @@ class RelatedCards:
 		elif card["rarity"] == "ENCHANTED":
 			self._addFancyArtBySet(card, parsedIdentifier.setCode, self.enchantedCardIdsBySet)
 		elif card["rarity"] == "ICONIC":
-			self._addFancyArtBySet(card, parsedIdentifier.setCode, self.epicCardIdsBySet)
+			self._addFancyArtBySet(card, parsedIdentifier.setCode, self.iconicCardIdsBySet)
 		elif parsedIdentifier.number > 204:
 			# A card numbered higher than the normal 204 that isn't an Enchanted is also most likely a promo card (F.i. the special Q1 cards like ID 1179)
 			self.promoCardIds.append(cardId)
