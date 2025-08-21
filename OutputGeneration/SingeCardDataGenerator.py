@@ -138,7 +138,7 @@ def parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, threadLoca
 		# but starting from Set 7, they started writing it 'Heihei', with the second 'h' lowercase
 		# Searching around on non-Lorcana sources, the spelling isn't too consistent either, with sometimes 'Heihei' and sometimes 'Hei Hei'
 		outputCard["name"] = "HeiHei"
-	elif outputCard["name"].isupper() and outputCard["name"] != "B.E.N.":
+	elif outputCard["name"].isupper() and outputCard["name"] not in ("B.E.N.", "I2I"):
 		# Some names have capitals in the middle, correct those
 		if cardType == GlobalConfig.translation.Character:
 			if outputCard["name"] == "HEIHEI" and GlobalConfig.language == Language.ENGLISH:
