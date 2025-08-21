@@ -628,13 +628,13 @@ def parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, threadLoca
 					ability["costsText"] = ability["effect"][:activatedAbilityMatch.start()]
 					ability["effect"] = ability["effect"][activatedAbilityMatch.end():]
 				elif GlobalConfig.language == Language.ENGLISH:
-					if ability["effect"].startswith("Once per turn, you may"):
+					if re.match("Once (during your|per) turn, you may", ability["effect"]):
 						ability["type"] = "activated"
 					elif (ability["effect"].startswith("At the start of") or ability["effect"].startswith("At the end of") or re.search(r"(^W|,[ \n]w)hen(ever)?[ \n]", ability["effect"])
 							or re.search("when (he|she|it|they) enters play", ability["effect"])):
 						ability["type"] = "triggered"
 				elif GlobalConfig.language == Language.FRENCH:
-					if ability["effect"].startswith("Une fois par tour, vous pouvez"):
+					if re.match("Une fois (durant votre|par) tour, vous pouvez", ability["effect"]):
 						ability["type"] = "activated"
 					elif (ability["effect"].startswith("Au début de chacun") or re.match(r"Au\sdébut\sd[eu](\svotre)?\stour\b", ability["effect"]) or ability["effect"].startswith("À la fin d") or
 						re.search(r"(^L|\bl)orsqu(e|'une?|'il)\b", ability["effect"]) or re.search(r"(^À c|^C|,\sc)haque\sfois", ability["effect"]) or
@@ -642,7 +642,7 @@ def parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, threadLoca
 						re.search(r"une carte est\splacée", ability["effect"])):
 						ability["type"] = "triggered"
 				elif GlobalConfig.language == Language.GERMAN:
-					if ability["effect"].startswith("Einmal pro Zug, darfst du"):
+					if re.match(r"Einmal (pro|während deines) Zug(es)?,? darfst\sdu", ability["effect"]):
 						ability["type"] = "activated"
 					elif (re.match(r"Wenn(\sdu)?\sdiese", ability["effect"]) or re.match(r"Wenn\seiner\sdeiner\sCharaktere", ability["effect"]) or re.search(r"(^J|\bj)edes\sMal\b", ability["effect"]) or
 						  re.match(r"Einmal\swährend\sdeines\sZuges\b", ability["effect"]) or ability["effect"].startswith("Einmal pro Zug, wenn") or
@@ -652,7 +652,7 @@ def parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, threadLoca
 						  re.match(r"Wenn\s\w+\sdiese[nrs]\s\w+\sausspielt", ability["effect"]) or re.match(r"Wenn\sdu\seine.+ausspielst", ability["effect"], flags=re.DOTALL)):
 						ability["type"] = "triggered"
 				elif GlobalConfig.language == Language.ITALIAN:
-					if re.match(r"Una\svolta\sper\sturno,\spuoi", ability["effect"]):
+					if re.match(r"Una\svolta\s(durante\sil\stuo|per)\sturno,\spuoi\spagare", ability["effect"]):
 						ability["type"] = "activated"
 					elif (re.match(r"Quando\sgiochi", ability["effect"]) or re.search(r"(^Q|\sq)uando\s(questo|sposti)", ability["effect"]) or re.search(r"(^O|\so)gni\svolta\sche", ability["effect"]) or
 						  re.match(r"All'inizio\sdel\stuo\sturno", ability["effect"]) or re.match(r"Alla\sfine\sdel(\stuo)?\sturno", ability["effect"]) or
