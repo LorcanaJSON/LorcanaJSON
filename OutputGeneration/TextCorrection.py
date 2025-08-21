@@ -78,10 +78,10 @@ def correctText(cardText: str) -> str:
 		cardText = re.sub(r"\bIllumineers’(\s|$)", r"Illumineers'\1", cardText, flags=re.MULTILINE)
 		## Correct common phrases with symbols ##
 		# Ink payment discounts
-		cardText = re.sub(r"\bpay (\d) .?to\b", f"pay \\1 {LorcanaSymbols.INK} to", cardText)
+		cardText = re.sub(r"(?<=\bpay\s)(\d)0? .?to\b", f"\\1 {LorcanaSymbols.INK} to", cardText)
 		cardText = re.sub(rf"pay(s?) ?(\d)\.? ?[^{LorcanaSymbols.INK}.]{{1,2}}( |\.|$)", f"pay\\1 \\2 {LorcanaSymbols.INK}\\3", cardText, flags=re.MULTILINE)
 		cardText = re.sub(rf"pay(\s)(\d) [^{LorcanaSymbols.INK}] less", fr"pay\1\2 {LorcanaSymbols.INK} less", cardText)
-		cardText = re.sub(r"\bpay (\d) less\b", f"pay \\1 {LorcanaSymbols.INK} less", cardText)
+		cardText = re.sub(r"(?<=\bpay\s)(\d+)O?(?=\sless\b)", f"\\1 {LorcanaSymbols.INK}", cardText)
 		# It gets a bit confused about exert and payment, correct that
 		cardText = re.sub(r"^\(20 ", f"{LorcanaSymbols.EXERT}, 2 {LorcanaSymbols.INK} ", cardText)
 		# The Lore symbol after 'location's' often gets missed
