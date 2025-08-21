@@ -120,6 +120,7 @@ def parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, threadLoca
 		outputCard["artistsText"] = outputCard["artistsText"].replace("Dösiree", "Désirée")
 		outputCard["artistsText"] = re.sub(r"Man[6e]+\b", "Mané", outputCard["artistsText"])
 	outputCard["artistsText"] = re.sub(r"\bAime\b", "Aimé", outputCard["artistsText"])
+	outputCard["artistsText"] = outputCard["artistsText"].replace("Leén", "León")
 	outputCard["artistsText"] = re.sub(r"\bPe[^ñ]+a\b", "Peña", outputCard["artistsText"])
 	if "“" in outputCard["artistsText"]:
 		# Simplify quotemarks
