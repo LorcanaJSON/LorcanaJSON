@@ -300,8 +300,7 @@ def parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, threadLoca
 					abilities.append({"effect": remainingTextLine})
 					continue
 				keywordLines: List[str] = []
-				keywordMatch = _KEYWORD_REGEX.search(remainingTextLine)
-				if keywordMatch:
+				if _KEYWORD_REGEX.match(remainingTextLine):
 					keywordLines.append(remainingTextLine)
 				# Some cards list keyword abilities without reminder text, sometimes multiple separated by commas
 				elif ", " in remainingTextLine and not remainingTextLine.endswith("."):
