@@ -509,6 +509,17 @@ def parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, threadLoca
 					firstEffect, secondEffect = outputCard["effects"][effectIndex].rsplit("\n\n", 1)
 					outputCard["effects"][effectIndex] = firstEffect
 					outputCard["effects"].insert(effectIndex + 1, secondEffect)
+			# Splitting effects may lead to one or more effects being a keyword ability instead, correct that
+			for effectIndex in range(len(outputCard["effects"]) - 1, -1, -1):
+				effectText = outputCard["effects"][effectIndex]
+				if _KEYWORD_REGEX_WITHOUT_REMINDER.match(effectText):
+					_logger.info(f"Effect at index {effectIndex} is a keyword ability, moving it to 'abilities', in card {CardUtil.createCardIdentifier(outputCard)}")
+					outputCard["effects"].pop(effectIndex)
+					if "abilities" not in outputCard:
+						outputCard["abilities"] = []
+					outputCard["abilities"].insert(0, {"effect": effectText, "fullText": effectText, "type": "keyword"})
+			if len(outputCard["effects"]) == 0:
+				del outputCard["effects"]
 		# Sometimes the ability name doesn't get recognised properly during fallback parsing, so there's a manual correction for it
 		if splitAbilityNameAtIndex:
 			ability: Dict[str, str] = outputCard["abilities"][splitAbilityNameAtIndex[0]]
