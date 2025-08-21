@@ -91,6 +91,7 @@ def correctText(cardText: str) -> str:
 		cardText = re.sub(r"\(They get \+(\d)$", f"(They get +\\1 {LorcanaSymbols.STRENGTH}", cardText, flags=re.MULTILINE)
 		# Shift
 		cardText = re.sub(f"pay (\\d+) {LorcanaSymbols.INK} play this", f"pay \\1 {LorcanaSymbols.INK} to play this", cardText)
+		cardText = re.sub(fr"(^Shift \d) ?[O{LorcanaSymbols.STRENGTH}]", fr"\1 {LorcanaSymbols.INK}", cardText)
 		# Song
 		cardText = re.sub(fr"(can|may)( [^{LorcanaSymbols.EXERT}]{{1,2}})?(?=\sto sing this)", f"\\1 {LorcanaSymbols.EXERT}", cardText)
 		# Support, full line (not sure why it sometimes doesn't get cut into two lines
