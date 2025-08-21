@@ -130,7 +130,7 @@ class ImageParser:
 		# First determine the card (sub)type
 		typesImageArea = (parseSettings.locationCardLayout if isLocation else parseSettings.cardLayout).types
 		typesImage = self._getSubImage(greyCardImage, typesImageArea)
-		typesImage = self._convertToThresholdImage(typesImage, typesImageArea.textColour)
+		typesImage = self._convertToThresholdImage(typesImage, parseSettings.typeImageTextColorOverride if parseSettings.typeImageTextColorOverride else typesImageArea.textColour)
 		typesImageText = self._imageToString(typesImage).strip("\"'‘-1|{} ")
 		if "\n" in typesImageText:
 			self._logger.debug(f"Removing part before newline character from types image text {typesImageText!r}")

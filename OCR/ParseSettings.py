@@ -30,6 +30,7 @@ class ParseSettings:
 	labelStartThreshold: int = 105  # Pixel values lower than this indicate a label started (labels are darker than the background)
 	labelEndThreshold: int = 110  # Pixel values higher than this indicate a label ended
 	labelMaskColor: Tuple[int, int, int] = _WHITE
+	typeImageTextColorOverride: Optional[ImageArea.TextColour] = None  # If a different type image text color should be used than default for the card layout, set it here
 	parseIdentifier: bool = False
 	getIdentifierFromCard: bool = False
 	# Force some checks that could fail or be wrong on some cards. 'None' means they're not overridden, setting them to 'True' or 'False' uses those values instead of whatever is normally determined
@@ -76,14 +77,17 @@ _PARSE_SETTINGS_BY_ID: Dict[int, ParseSettings] = {
 	680: _DEFAULT_ENCHANTED_PARSE_SETTINGS,
 	681: _DEFAULT_ENCHANTED_PARSE_SETTINGS,
 	954: _DEFAULT_ENCHANTED_PARSE_SETTINGS,
+	1161: dataclasses.replace(_PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["5"], typeImageTextColorOverride=ImageArea.TEXT_COLOUR_WHITE),
 	1172: dataclasses.replace(_PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["5"], isLocationOverride=True),
 	1178: dataclasses.replace(_PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["5"], isLocationOverride=True),
-	1186: dataclasses.replace(_PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["5"], hasFlavorTextOverride=False),
+	1186: dataclasses.replace(_PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["5"], hasFlavorTextOverride=False, typeImageTextColorOverride=ImageArea.TEXT_COLOUR_WHITE),
 	1187: dataclasses.replace(_PARSE_SETTINGS_BY_GROUPING["C1"], labelParsingMethod=LABEL_PARSING_METHODS.NONE),
 	1191: ParseSettings(labelParsingMethod=LABEL_PARSING_METHODS.DEFAULT, textboxOffset=_OPTIONAL_TEXTBOX_OFFSET, getIdentifierFromCard=True),
 	1199: dataclasses.replace(_PARSE_SETTINGS_BY_GROUPING["C1"], textboxOffset=_OPTIONAL_TEXTBOX_OFFSET-5),
 	1197: dataclasses.replace(_PARSE_SETTINGS_BY_GROUPING["C1"], textboxOffset=39),
+	1405: dataclasses.replace(_PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["6"], typeImageTextColorOverride=ImageArea.TEXT_COLOUR_WHITE),
 	1406: dataclasses.replace(_PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["6"], isLocationOverride=True),
+	1407: dataclasses.replace(_PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["6"], typeImageTextColorOverride=ImageArea.TEXT_COLOUR_WHITE),
 	1412: dataclasses.replace(_PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["6"], labelParsingMethod=LABEL_PARSING_METHODS.NONE),
 	1415: dataclasses.replace(_PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["6"], labelParsingMethod=LABEL_PARSING_METHODS.NONE),
 	1418: dataclasses.replace(_PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["6"], labelParsingMethod=LABEL_PARSING_METHODS.NONE),
@@ -92,9 +96,14 @@ _PARSE_SETTINGS_BY_ID: Dict[int, ParseSettings] = {
 	1431: dataclasses.replace(_DEFAULT_PARSE_SETTINGS, textboxOffset=24),
 	1432: ParseSettings(textboxOffset=0, labelParsingMethod=LABEL_PARSING_METHODS.DEFAULT, getIdentifierFromCard=True),
 	1429: dataclasses.replace(_PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["5"], hasFlavorTextOverride=False),
+	1638: dataclasses.replace(_PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["7"], typeImageTextColorOverride=ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND),
 	1641: dataclasses.replace(_PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["7"], isItemOverride=True),
 	1662: _PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["7"],
 	1664: dataclasses.replace(_PARSE_SETTINGS_BY_GROUPING["C1"], labelParsingMethod=LABEL_PARSING_METHODS.FALLBACK_BY_LINES),
+	1869: dataclasses.replace(_PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["8"], typeImageTextColorOverride=ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND),
+	1871: dataclasses.replace(_PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["8"], typeImageTextColorOverride=ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND),
+	1872: dataclasses.replace(_PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["8"], typeImageTextColorOverride=ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND),
+	1893: dataclasses.replace(_PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["8"], typeImageTextColorOverride=ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND),
 	1895: dataclasses.replace(_PARSE_SETTINGS_BY_GROUPING["D23"], textboxOffset=15),
 	1931: dataclasses.replace(_DEFAULT_PARSE_SETTINGS, labelParsingMethod=LABEL_PARSING_METHODS.FALLBACK_BY_LINES),
 	1932: dataclasses.replace(_DEFAULT_PARSE_SETTINGS, labelParsingMethod=LABEL_PARSING_METHODS.FALLBACK_BY_LINES),
