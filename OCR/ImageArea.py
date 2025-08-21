@@ -64,6 +64,10 @@ NEW_ENCHANTED_CHARACTER_TEXT_BOX = ImageArea("newEnchantedCharacterTextbox", "Ne
 NEW_ENCHANTED_FULL_WIDTH_TEXT_BOX = ImageArea("newEnchantedFullWidthTextbox", "New Enchanted Full Width Textbox", _Coords(134,1406, 1375,1850), TEXT_COLOUR_WHITE)
 NEW_ENCHANTED_LOCATION_TEXT_BOX = ImageArea("newEnchantedLocationTextbox", "New Enchanted Location Textbox", _Coords(127,954, 1686,1286), TEXT_COLOUR_WHITE)
 
+NEW_ENCHANTED_TYPE_SMALL_TEXT_BOX = ImageArea("newEnchantedType_smallTextbox", "New Enchanted Type (Small Textbox)", _Coords(138,1541, 979,1601), TEXT_COLOUR_WHITE_LIGHT_BACKGROUND)
+NEW_ENCHANTED_CHARACTER_SMALL_TEXT_BOX = ImageArea("newEnchantedCharacterSmallTextBox", "New Enchanted Character Small Textbox", _Coords(134,1635, 1261,1869), TEXT_COLOUR_WHITE_LIGHT_BACKGROUND)
+NEW_ENCHANTED_FULL_WIDTH_SMALL_TEXT_BOX = ImageArea("newEnchantedFullWidthSmallTextbox", "New Enchanted Full Width Small Textbox", _Coords(134,1623, 1375,1850), TEXT_COLOUR_WHITE)
+
 IS_INKABLE_CHECK = ImageArea("isInkable", "Is Inkable", _Coords(69,142, 70,143), TEXT_COLOUR_MIDDLE)
 IS_BORDERLESS_CHECK = ImageArea("isBorderless", "Is Borderless", _Coords(5,260, 40,1290), TEXT_COLOUR_MIDDLE)
 IS_LOCATION_CHECK = ImageArea("isLocation", "Is Location", _Coords(1330,414, 1392,848), TEXT_COLOUR_MIDDLE)
