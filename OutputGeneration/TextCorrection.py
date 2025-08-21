@@ -18,7 +18,7 @@ def correctText(cardText: str) -> str:
 	# Commas should always be followed by a space
 	cardText = re.sub(",(?! |’|”|$)", ", ", cardText, flags=re.MULTILINE)
 	# The 'Exert' symbol often gets read as a 6
-	cardText = re.sub(r"^(6|fà)? ?,", f"{LorcanaSymbols.EXERT},", cardText)
+	cardText = re.sub(r"^(G?6|fà)? ?,", f"{LorcanaSymbols.EXERT},", cardText)
 	# There's usually an ink symbol between a number and a dash
 	cardText = re.sub(r"(^| )(\d) ?[0OÒQ©]{,2}( ?[-—]|,)", fr"\1\2 {LorcanaSymbols.INK}\3", cardText, flags=re.MULTILINE)
 	# Normally a closing quote mark should be preceded by a period, except mid-sentence
