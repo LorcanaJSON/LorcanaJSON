@@ -92,6 +92,11 @@ _CORRECTIONS = {
 		"154": {
 			"Olaf - Recapping the Story": ("8", "156/204")
 		}
+	},
+	"9": {
+		"41": {
+			"Jafar - Lamp Thief": ("9", "59/204")
+		}
 	}
 }
 
