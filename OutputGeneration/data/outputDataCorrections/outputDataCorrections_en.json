@@ -2333,5 +2333,340 @@
       "OT$",
       "OT BAD"
     ]
+  },
+  "1940": {
+    "abilities": [
+      "_+ ",
+      "",
+      "¤",
+      "⛉",
+      "1 a",
+      "1 ¤ a"
+    ]
+  },
+  "1941": {
+    "abilities": [
+      "\nto",
+      "\n¤ to",
+      "5\n",
+      "5 ¤\n"
+    ]
+  },
+  "1951": {
+    "flavorText": [
+      "-",
+      "—"
+    ]
+  },
+  "1956": {
+    "flavorText": [
+      "La",
+      "I a"
+    ]
+  },
+  "1959": {
+    "abilities": [
+      "LW",
+      "L W"
+    ]
+  },
+  "1977": {
+    "flavorText": [
+      "S",
+      "s"
+    ]
+  },
+  "1982": {
+    "abilities": [
+      "LD",
+      "L D"
+    ]
+  },
+  "1985": {
+    "abilities": [
+      " \\.$",
+      ""
+    ]
+  },
+  "1999": {
+    "flavorText": [
+      "-",
+      "—"
+    ]
+  },
+  "2002": {
+    "abilities": [
+      "IM",
+      "I'M"
+    ]
+  },
+  "2017": {
+    "abilities": [
+      "2 \\.",
+      "2 ¤."
+    ]
+  },
+  "2020": {
+    "flavorText": [
+      "L",
+      "Z"
+    ]
+  },
+  "2023": {
+    "abilities": [
+      "ILL",
+      "I'LL",
+      "3 \\.",
+      "3 ¤."    ]
+  },
+  "2038": {
+    "abilities": [
+      "¤ w",
+      "⛉ w"
+    ]
+  },
+  "2042": {
+    "abilities": [
+      "TY",
+      "T Y"
+    ]
+  },
+  "2043": {
+    "flavorText": [
+      "-",
+      "—"
+    ]
+  },
+  "2045": {
+    "flavorText": [
+      " J,",
+      "J."
+    ]
+  },
+  "2047": {
+    "abilities": [
+      "B",
+      "⛉"
+    ]
+  },
+  "2057": {
+    "flavorText": [
+      "were",
+      "we're"
+    ]
+  },
+  "2065": {
+    "abilities": [
+      "NAR",
+      "N A R"
+    ]
+  },
+  "2070": {
+    "abilities": [
+      "2 t",
+      "2 ¤ t"
+    ]
+  },
+  "2083": {
+    "flavorText": [
+      "-",
+      "—"
+    ]
+  },
+  "2085": {
+    "flavorText": [
+      "shed",
+      "she'd"
+    ]
+  },
+  "2096": {
+    "abilities": [
+      "10\n",
+      "10 ¤\n"
+    ]
+  },
+  "2099": {
+    "flavorText": [
+      "-",
+      "—"
+    ]
+  },
+  "2101": {
+    "flavorText": [
+      "-",
+      "—"
+    ]
+  },
+  "2110": {
+    "abilities": [
+      "T'E",
+      "T 'E"
+    ]
+  },
+  "2111": {
+    "abilities": [
+      "⟳",
+      "¤"
+    ]
+  },
+  "2116": {
+    "abilities": [
+      "AC",
+      "A C"
+    ]
+  },
+  "2126": {
+    "abilities": [
+      "sl",
+      "s!"
+    ]
+  },
+  "2129": {
+    "flavorText": [
+      "-",
+      "—"
+    ]
+  },
+  "2140": {
+    "flavorText": [
+      "-",
+      "—"
+    ]
+  },
+  "2141": {
+    "effects": [
+      null,
+      null
+    ]
+  },
+  "2142": {
+    "abilities": [
+      "B",
+      "⛉"
+    ],
+    "artistsText": [
+      "J",
+      "I"
+    ]
+  },
+  "2143": {
+    "effects": [
+      "8",
+      "8\n"
+    ]
+  },
+  "2151": {
+    "effects": [
+      "0 :",
+      " ⬡\n"
+    ]
+  },
+  "2153": {
+    "abilities": [
+      "LI",
+      "L I"
+    ]
+  },
+  "2154": {
+    "abilities": [
+      "TO",
+      "T O"
+    ]
+  },
+  "2155": {
+    "abilities": [
+      "ST",
+      "S T",
+      "AD",
+      "A D"
+    ]
+  },
+  "2156": {
+    "abilities": [
+      "OG",
+      "O G",
+      "T'E",
+      "T 'E"
+    ]
+  },
+  "2157": {
+    "abilities": [
+      "EG",
+      "E G",
+      "⟳",
+      "¤"
+    ]
+  },
+  "2166": {
+    "flavorText": [
+      "L",
+      "Z"
+    ]
+  },
+  "2173": {
+    "flavorText": [
+      "shed",
+      "she'd"
+    ]
+  },
+  "2176": {
+    "effects": [
+      "Ifa",
+      "If a"
+    ]
+  },
+  "2177": {
+    "abilities": [
+      "IM",
+      " M",
+      "/",
+      " ",
+      " yumm",
+      "",
+      "ghey I \\.\\)",
+      "gain Support.",
+      "^Min.+ones$",
+      "Whenever this character quests, you\nmay banish chosen exerted character with 5 ¤ or more."
+    ],
+    "artistsText": [
+      " Ke$",
+      ""
+    ],
+    "subtypes": [
+      null,
+      [
+        "Dreamborn",
+        "Hero",
+        "Princess"
+      ]
+    ]
+  },
+  "2178": {
+    "abilities": [
+      "^NE",
+      "C",
+      " J$",
+      "",
+      "et",
+      "e t",
+      "c ",
+      "s ",
+      "ecte aoa",
+      "acter",
+      "anes.+$",
+      "has a card under him, he gets +3 ¤, +3 ⛉, and +3 ◊."
+    ],
+    "effects": [
+      "O\\.\\) oo\\.",
+      " 5 ⬡\n\nEvasive"
+    ],
+    "subtypes": [
+      null,
+      [
+        "Floodborn",
+        "Hero",
+        "Prince"
+      ]
+    ]
   }
 }
