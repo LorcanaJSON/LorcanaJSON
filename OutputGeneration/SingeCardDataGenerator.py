@@ -240,12 +240,24 @@ def parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, threadLoca
 
 	# Store relations to other cards, like (non-)Enchanted and (non-)Promo cards
 	otherRelatedCards = relatedCards.getOtherRelatedCards(outputCard["setCode"], outputCard["id"])
+	if otherRelatedCards.epicId:
+		outputCard["epicId"] = otherRelatedCards.epicId
+	elif otherRelatedCards.nonEpicId:
+		outputCard["baseId"] = otherRelatedCards.nonEpicId
 	if otherRelatedCards.enchantedId:
 		outputCard["enchantedId"] = otherRelatedCards.enchantedId
 	elif otherRelatedCards.nonEnchantedId:
 		outputCard["nonEnchantedId"] = otherRelatedCards.nonEnchantedId
+		outputCard["baseId"] = otherRelatedCards.nonEnchantedId
+	if otherRelatedCards.iconicId:
+		outputCard["iconicId"] = otherRelatedCards.iconicId
+	elif otherRelatedCards.nonIconicId:
+		outputCard["baseId"] = otherRelatedCards.nonIconicId
 	if otherRelatedCards.nonPromoId:
 		outputCard["nonPromoId"] = otherRelatedCards.nonPromoId
+		if "baseId" in outputCard:
+			_logger.error(f"baseId is already set to {outputCard['baseId']} from a rarity, not setting it to non-promo ID {otherRelatedCards.nonPromoId} for card {CardUtil.createCardIdentifier(outputCard)}")
+		outputCard["baseId"] = otherRelatedCards.nonPromoId
 	elif otherRelatedCards.promoIds:
 		outputCard["promoIds"] = otherRelatedCards.promoIds
 	if otherRelatedCards.otherVariantIds:
