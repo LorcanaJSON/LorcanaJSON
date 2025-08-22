@@ -22,7 +22,8 @@ _CARD_MARKET_CARD_GROUP_TO_NAME = {
 	"C1": "Disney-Lorcana-Challenge-Promos",
 	"D23": "D23-Expo-2024-Collectors-Set",
 	"P1": "Promos",
-	"P2": "Promos-Year-2"
+	"P2": "Promos-Year-2",
+	"P3": "Promos-Year-3"
 }
 # This regex gets the card number and the 'group' from the full identifier. Use a regex instead of splitting to handle the earlier cards with different formatting
 _IDENTIFIER_REGEX = re.compile(r"\b(?P<identifier>(?P<number>\d+[a-z]?)/(?P<cardGroup>[A-Z0-9]+))\b")
