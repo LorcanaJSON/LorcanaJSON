@@ -526,7 +526,7 @@ def parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, threadLoca
 			# Splitting effects may lead to one or more effects being a keyword ability instead, correct that
 			for effectIndex in range(len(outputCard["effects"]) - 1, -1, -1):
 				effectText = outputCard["effects"][effectIndex]
-				if _KEYWORD_REGEX_WITHOUT_REMINDER.match(effectText):
+				if _KEYWORD_REGEX.match(effectText) or _KEYWORD_REGEX_WITHOUT_REMINDER.match(effectText):
 					_logger.info(f"Effect at index {effectIndex} is a keyword ability, moving it to 'abilities', in card {CardUtil.createCardIdentifier(outputCard)}")
 					outputCard["effects"].pop(effectIndex)
 					if "abilities" not in outputCard:
