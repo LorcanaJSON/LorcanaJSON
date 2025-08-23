@@ -2556,6 +2556,7 @@
     ]
   },
   "2151": {
+    "_skipFullTextSectionMergeAtIndex": 1,
     "effects": [
       "0 :",
       " ⬡\n"
