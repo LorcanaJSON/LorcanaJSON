@@ -31,9 +31,11 @@ def compareInputToOutput(cardIdsToVerify: Optional[List[int]]):
 					idToEnglishOutputCard[englishCard["id"]] = englishCard
 		else:
 			print("WARNING: English output file doesn't exist, skipping comparison")
-		englishRarities = (Translations.ENGLISH.COMMON, Translations.ENGLISH.UNCOMMON, Translations.ENGLISH.RARE, Translations.ENGLISH.SUPER, Translations.ENGLISH.LEGENDARY, Translations.ENGLISH.ENCHANTED, Translations.ENGLISH.SPECIAL)
+		englishRarities = (Translations.ENGLISH.COMMON, Translations.ENGLISH.UNCOMMON, Translations.ENGLISH.RARE, Translations.ENGLISH.SUPER, Translations.ENGLISH.LEGENDARY,
+						   Translations.ENGLISH.EPIC, Translations.ENGLISH.ENCHANTED, Translations.ENGLISH.ICONIC, Translations.ENGLISH.SPECIAL)
 		currentTranslation = Translations.getForLanguage(GlobalConfig.language)
-		currentLanguageRarities = (currentTranslation.COMMON, currentTranslation.UNCOMMON, currentTranslation.RARE, currentTranslation.SUPER, currentTranslation.LEGENDARY, currentTranslation.ENCHANTED, currentTranslation.SPECIAL)
+		currentLanguageRarities = (currentTranslation.COMMON, currentTranslation.UNCOMMON, currentTranslation.RARE, currentTranslation.SUPER, currentTranslation.LEGENDARY,
+								   currentTranslation.EPIC, currentTranslation.ENCHANTED, currentTranslation.ICONIC, currentTranslation.SPECIAL)
 
 	idToInputCard = {}
 	for cardtype, cardlist in inputCardStore["cards"].items():
