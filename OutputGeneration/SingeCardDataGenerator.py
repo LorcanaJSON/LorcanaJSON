@@ -630,19 +630,16 @@ def parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, threadLoca
 			else:
 				# Non-keyword ability, determine which type it is
 				ability["type"] = "static"
-				activatedAbilityMatch = re.search(r"(\s)([-–—])(\s)", ability["effect"])
+				# Some static abilities give characters such an activated ability, don't trigger on that (by ignoring quotemarks before a dash)
+				activatedAbilityMatch = re.search(r"^[^\"“„«]+(\s)([-–—])(\s)", ability["effect"])
 
 				# Activated abilities require a cost, a dash, and then an effect
-				# Some static abilities give characters such an activated ability, don't trigger on that
 				# Some cards contain their own name (e.g. 'Dalmatian Puppy - Tail Wagger', ID 436), don't trigger on that dash either
-				if (activatedAbilityMatch and
-						("“" not in ability["effect"] or ability["effect"].index("“") > activatedAbilityMatch.start()) and
-					  	("„" not in ability["effect"] or ability["effect"].index("„") > activatedAbilityMatch.start()) and
-						(outputCard["name"] not in ability["effect"] or ability["effect"].index(outputCard["name"]) > activatedAbilityMatch.start())):
+				if activatedAbilityMatch and (outputCard["name"] not in ability["effect"] or ability["effect"].index(outputCard["name"]) > activatedAbilityMatch.start(1)):
 					# Assume there's a payment text in there
 					ability["type"] = "activated"
-					ability["costsText"] = ability["effect"][:activatedAbilityMatch.start()]
-					ability["effect"] = ability["effect"][activatedAbilityMatch.end():]
+					ability["costsText"] = ability["effect"][:activatedAbilityMatch.start(1)]
+					ability["effect"] = ability["effect"][activatedAbilityMatch.end(3):]
 				elif GlobalConfig.language == Language.ENGLISH:
 					if re.match("Once (during your|per) turn, you may", ability["effect"]):
 						ability["type"] = "activated"
