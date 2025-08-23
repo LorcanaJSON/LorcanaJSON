@@ -318,7 +318,7 @@ def parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, threadLoca
 				elif ", " in remainingTextLine and not remainingTextLine.endswith("."):
 					remainingTextLineParts = remainingTextLine.split(", ")
 					for remainingTextLinePart in remainingTextLineParts:
-						if " " in remainingTextLinePart and remainingTextLinePart != "Hors d'atteinte":
+						if not _KEYWORD_REGEX_WITHOUT_REMINDER.match(remainingTextLinePart.rstrip()):
 							break
 					else:
 						# Sentence is single-word comma-separated parts, assume it's a list of keyword abilities
