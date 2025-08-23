@@ -744,7 +744,7 @@ def parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, threadLoca
 		previousAbilityWasKeywordWithoutReminder: bool = False
 		for ability in outputCard["abilities"]:  # type: Dict[str, str]
 			# Some cards have multiple keyword abilities on one line without reminder text. They'll be stored as separate abilities, but they should be in one section
-			if ability["type"] == "keyword" and ability["keyword"] == ability["fullText"]:
+			if ability["type"] == "keyword" and _KEYWORD_REGEX_WITHOUT_REMINDER.match(ability["fullText"]):
 				if previousAbilityWasKeywordWithoutReminder:
 					# Add this keyword to the previous section, since that's how it's on the card
 					fullTextSections[-1] += ", " + ability["fullText"]
