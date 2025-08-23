@@ -477,13 +477,15 @@ def parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, threadLoca
 			else:
 				_logger.error(f"'keywordsLast' set but keyword couldn't be found for card {outputCard['id']}")
 		if "_insertAbilityAtIndex" in cardDataCorrections:
-			insertAbilityData = cardDataCorrections.pop("_insertAbilityAtIndex")
-			# First item is ability index, second item is ability text, optional third parameter is ability name
 			if "abilities" not in outputCard:
-				outputCard["abilities"] = []
-			outputCard["abilities"].insert(insertAbilityData[0], {"effect": insertAbilityData[1], "fullText": insertAbilityData[1]})
-			if len(insertAbilityData) > 2:
-				outputCard["abilities"][insertAbilityData[0]]["name"] = insertAbilityData[3]
+				outputCard["abilities"]: List[Dict] = []
+			insertAbilityData: List = cardDataCorrections.pop("_insertAbilityAtIndex")
+			while insertAbilityData:
+				insertAbilityIndex = insertAbilityData.pop(0)
+				insertAbilityText = insertAbilityData.pop(0)
+				outputCard["abilities"].insert(insertAbilityIndex, {"effect": insertAbilityText, "fullText": insertAbilityText})
+				if insertAbilityData and isinstance(insertAbilityData[0], str):
+					outputCard["abilities"][insertAbilityIndex]["name"] = insertAbilityData.pop(0)
 		for correctionAbilityField, abilityTypeCorrection in _ABILITY_TYPE_CORRECTION_FIELD_TO_ABILITY_TYPE.items():
 			if correctionAbilityField in cardDataCorrections:
 				abilityIndexToCorrect = cardDataCorrections.pop(correctionAbilityField)
