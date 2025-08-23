@@ -104,7 +104,7 @@ def compareInputToOutput(cardIdsToVerify: Optional[List[int]]):
 					inputRulesText = re.sub(r"(?<=\w)([?!:])", r" \1", inputRulesText)
 					inputRulesText = re.sub("\\.{2,}", "…", inputRulesText)
 					# Correct the old phrasing of 'Rempart' ('Bodyguard' in English) to the new one, since the images got updated but the input text wasn't
-					if "Rempart" in inputRulesText:
+					if cardId <= 615 and "Rempart" in inputRulesText:
 						inputRulesText = inputRulesText.replace("Lorsqu'il vous défie, un personnage adverse doit,", "Lorsqu'un adversaire défie l'un de vos personnages, il doit,")
 				elif GlobalConfig.language == Language.ITALIAN:
 					inputRulesText = inputRulesText.replace("...", "…")
