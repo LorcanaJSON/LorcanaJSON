@@ -85,8 +85,13 @@ There are also some special correction entry keys to fix issues not easily match
 * '_moveKeywordsLast': On most cards, keyword abilities come before named abilities. There are a few cards where this isn't true (f.i. 'Madam Mim - Fox' ID 262; 'Slightly - Lost Boy' ID 560). Due to how the parsing code works, the keyword ability on these cards gets added to the named ability. Adding '_moveKeywordsLast' and setting it to 'true' in the correction file fixes this problem by making the keyword ability be detected separately, and having it listed last in the 'fullTextSections' field.  
 * '_newlineAfterLabelIndex': In some languages, the ability label can be as wide as the card itself. This means a newline isn't added between the label text and the effect text. If this field exists and is set to the ability index, a newline will be added after the label text to correct this.
 * '_splitAbilityNameAtIndex': The fallback label parsing method sometimes fails to split the ability name from the effect properly, which is what this correction is for. It takes two parameters: The ability index, and a regex specifying how to split the abilty name off
-
 Once one or more corrections are added, you can rerun the 'parse' action with just the corrected card IDs, and repeat this verification process, until there are no mistakes anymore.  
+### Input data corrections
+Sometimes the input data taken from the official app is wrong, leading to false positives during verification through the 'verify' action. This can be corrected with the 'verifierOverrides' JSON files in the 'OutputGeneration/data/verifier'-folder, one file for each language.  
+Corrections are specified the same way as in the output correction files. It doesn't have the special corrections of output correction, but it does have its own special corrections. These are meant for non-English data verification, since those are compared with the English datafile.  
+These special corrections are:
+* '_symbolCountChange': Differences in Lorcana symbol count between English and non-English cards get flagged, but due to phrasing choices this difference is sometimes correct. This correction is a dictionary, with the symbol as the key, and the change to expected count of that symbol as the value
+* '_listFieldLengthChange': The length of lists fields is compared between English and non-English cards, and a difference is flagged, but that difference is sometimes correct. This correction is a dictionary, with the field name as  the key, and the change to the expected list length as the value
 
 ## External early reveals
 In the weeks before a new set is released, new cards from that set get teased, and it can sometimes take a while before they get added to the official app.  
