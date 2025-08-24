@@ -349,5 +349,66 @@
       "^Gwawi$",
       "Luis Huerta"
     ]
+  },
+  "2026": {
+    "flavor_text": [
+      "^.+$",
+      ""
+    ]
+  },
+  "2040": {
+    "author": [
+      "Matthew",
+      "M.",
+      "Leonardo",
+      "L."
+    ]
+  },
+  "2091": {
+    "author": [
+      "Rosa",
+      "R.",
+      "Leonardo",
+      "L."
+    ]
+  },
+  "2106": {
+    "flavor_text": [
+      "^.+$",
+      ""
+    ]
+  },
+  "2151": {
+    "_listFieldLengthChange": {
+      "fullTextSections": -1
+    },
+    "rules_text": [
+      "4 M",
+      "4 , M"
+    ]
+  },
+  "2158": {
+    "rules_text": [
+      " \\(.+\\)",
+      ""
+    ]
+  },
+  "2173": {
+    "author": [
+      "i$",
+      "i / Livio Cacciatore"
+    ]
+  },
+  "2177": {
+    "rules_text": [
+      "Chaque fois que",
+      "Lorsque"
+    ]
+  },
+  "2178": {
+    "rules_text": [
+      " \\(.+\\)",
+      ""
+    ]
   }
 }

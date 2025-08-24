@@ -3054,5 +3054,378 @@
       "Ë,",
       "HÉ, "
     ]
+  },
+  "1939": {
+    "flavorText": [
+      "^l",
+      "L"
+    ]
+  },
+  "1940": {
+    "abilities": [
+      "W",
+      "⛉"
+    ]
+  },
+  "1947": {
+    "flavorText": [
+      "à",
+      "a"
+    ]
+  },
+  "1950": {
+    "abilities": [
+      "iHe",
+      "il le"
+    ]
+  },
+  "1954": {
+    "abilities": [
+      "Un",
+      "un"
+    ]
+  },
+  "1959": {
+    "abilities": [
+      "1 p",
+      "1 ◊ p"
+    ]
+  },
+  "1963": {
+    "flavorText": [
+      "\\.",
+      "…"
+    ]
+  },
+  "1971": {
+    "abilities": [
+      "ET",
+      "E T"
+    ]
+  },
+  "1973": {
+    "abilities": [
+      "PT",
+      "P T"
+    ]
+  },
+  "1979": {
+    "abilities": [
+      "LI",
+      "L I"
+    ]
+  },
+  "1981": {
+    "abilities": [
+      "-",
+      "—",
+      "(« .+)$",
+      "\\1 »"
+    ]
+  },
+  "1991": {
+    "flavorText": [
+      "^J",
+      "“J"
+    ]
+  },
+  "1996": {
+    "abilities": [
+      "¤",
+      "⟳"
+    ]
+  },
+  "1997": {
+    "flavorText": [
+      "mol",
+      "mal"
+    ]
+  },
+  "1998": {
+    "flavorText": [
+      "Js",
+      "J's"
+    ]
+  },
+  "1999": {
+    "flavorText": [
+      "-",
+      "–"
+    ]
+  },
+  "2000": {
+    "abilities": [
+      "US",
+      "U S"
+    ]
+  },
+  "2003": {
+    "flavorText": [
+      "à u",
+      "a u"
+    ]
+  },
+  "2011": {
+    "flavorText": [
+      "\\.",
+      "…"
+    ]
+  },
+  "2015": {
+    "abilities": [
+      "2 p",
+      "2 ¤ p"
+    ]
+  },
+  "2020": {
+    "flavorText": [
+      "\\.",
+      "…",
+      "/",
+      "Z"
+    ]
+  },
+  "2031": {
+    "flavorText": [
+      "\\.",
+      "…"
+    ]
+  },
+  "2034": {
+    "effects": [
+      "cg",
+      "g"
+    ]
+  },
+  "2037": {
+    "flavorText": [
+      "\\.",
+      "…",
+      "Ü",
+      "U"
+    ]
+  },
+  "2038": {
+    "abilities": [
+      "W",
+      "⛉"
+    ]
+  },
+  "2047": {
+    "abilities": [
+      "W",
+      "⛉"
+    ]
+  },
+  "2070": {
+    "abilities": [
+      "2 p",
+      "2 ¤ p"
+    ]
+  },
+  "2079": {
+    "abilities": [
+      "1 ",
+      "1 ¤"
+    ]
+  },
+  "2081": {
+    "abilities": [
+      "NR",
+      "N R"
+    ]
+  },
+  "2084": {
+    "abilities": [
+      "\\|",
+      "1"
+    ]
+  },
+  "2088": {
+    "abilities": [
+      "den",
+      "d'en"
+    ],
+    "flavorText": [
+      "fou",
+      "fau"
+    ]
+  },
+  "2089": {
+    "abilities": [
+      " ! ",
+      "",
+      "Is ",
+      "Ils "
+    ]
+  },
+  "2095": {
+    "flavorText": [
+      "lo",
+      "la"
+    ]
+  },
+  "2098": {
+    "flavorText": [
+      "\\. ",
+      "… "
+    ]
+  },
+  "2102": {
+    "abilities": [
+      "ou\n",
+      "au\n"
+    ]
+  },
+  "2104": {
+    "abilities": [
+      "AV",
+      "A V"
+    ]
+  },
+  "2112": {
+    "abilities": [
+      "AV",
+      "A V"
+    ]
+  },
+  "2128": {
+    "abilities": [
+      "\\] ¤",
+      "1 ◊"
+    ]
+  },
+  "2141": {
+    "abilities": [
+      " LU",
+      ""
+    ]
+  },
+  "2142": {
+    "abilities": [
+      "W",
+      "⛉"
+    ]
+  },
+  "2143": {
+    "effects": [
+      "\n",
+      "\n\n"
+    ]
+  },
+  "2144": {
+    "abilities": [
+      "3$",
+      "3 ⬡"
+    ]
+  },
+  "2146": {
+    "abilities": [
+      " f$",
+      "",
+      "-",
+      "—",
+      "(« .+)$",
+      "\\1 »"
+    ]
+  },
+  "2148": {
+    "abilities": [
+      "4$",
+      "4 ⬡",
+      "OU",
+      "O U",
+      "UT",
+      "U T"
+    ]
+  },
+  "2155": {
+    "abilities": [
+      "^A",
+      "Y A",
+      "LU",
+      "L U"
+    ]
+  },
+  "2157": {
+    "abilities": [
+      "^A ",
+      "À "
+    ]
+  },
+  "2158": {
+    "abilities": [
+      "ELES",
+      "E LE S"
+    ]
+  },
+  "2159": {
+    "_effectAtIndexIsAbility": [0, "CONVOCATION ROYALE"]
+  },
+  "2162": {
+    "_effectAtIndexIsAbility": [0, "TROP TARD"]
+  },
+  "2166": {
+    "flavorText": [
+      "\\.",
+      "…",
+      "/",
+      "Z"
+    ]
+  },
+  "2177": {
+    "abilities": [
+      "E .+N'$",
+      "E",
+      "^Mo",
+      "Vos personnages nommés Mickey\nMo",
+      "\\.\\)",
+      "",
+      "eg",
+      "e g",
+      "tes",
+      "t S",
+      ": Ç",
+      ".",
+      "^MEL",
+      "ALLEZ,",
+      "SOOR",
+      " REVOIR !",
+      "!.+$",
+      "!",
+      "^En.+a M$",
+      "Lorsque ce personnage est envoyé\nà l'aventure, vous pouvez choisir un personnage épuisé\nayant 5 ¤ ou plus et le bannir."
+    ],
+    "subtypes": [
+      null,
+      [
+        "Dreamborn",
+        "Héros",
+        "Princesse"
+      ]
+    ]
+  },
+  "2178": {
+    "_insertAbilityAtIndex": [0, "Alter 5 ⬡", 1, "Insaisissable"],
+    "abilities": [
+      "NE",
+      "NÉ",
+      "^Em.+eg$",
+      "Tant que ce personnage a\nune carte sous lui, il gagne +3 ¤, +3 ⛉ et +3 ◊."
+    ],
+    "subtypes": [
+      null,
+      [
+        "Floodborn",
+        "Héros",
+        "Prince"
+      ]
+    ]
+  },
+  "2183": {
+    "abilities": [
+      "UD",
+      "U D"
+    ]
   }
 }
