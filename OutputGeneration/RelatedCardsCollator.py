@@ -80,11 +80,6 @@ class RelatedCards:
 		else:
 			fancyArtBySet[setCode] = card["culture_invariant_id"]
 
-	def hasSpecialCards(self) -> bool:
-		if self.enchantedCardIdsBySet or self.promoCardIds or self.variantCardIds:
-			return True
-		return False
-
 	def getOtherRelatedCards(self, setCode: str, cardId: int) -> "OtherRelatedCards":
 		"""
 		:param setCode: The code of the set that this card belongs to
