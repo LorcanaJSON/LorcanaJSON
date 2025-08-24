@@ -68,8 +68,10 @@ def compareInputToOutput(cardIdsToVerify: Optional[List[int]]):
 		inputCard = idToInputCard[cardId]
 
 		# Implement overrides
+		listFieldLengthChange: Optional[Dict[str, int]] = None
 		symbolCountChange: Optional[Dict[str, int]] = None
 		if cardId in inputOverrides:
+			listFieldLengthChange = inputOverrides[cardId].pop("_listFieldLengthChange", None)
 			symbolCountChange = inputOverrides[cardId].pop("_symbolCountChange", None)
 			for fieldName, correctionsTuple in inputOverrides[cardId].items():
 				for correctionIndex in range(0, len(correctionsTuple), 2):
@@ -237,9 +239,12 @@ def compareInputToOutput(cardIdsToVerify: Optional[List[int]]):
 					cardDifferencesCount += 1
 					print(f"{cardId}: '{fieldname}' doesn't exist in {GlobalConfig.language.englishName} but does in English")
 				elif isinstance(outputCard[fieldname], list):
-					if len(outputCard[fieldname]) != len(englishCard[fieldname]):
+					expectedListLength = len(englishCard[fieldname])
+					if listFieldLengthChange and fieldname in listFieldLengthChange:
+						expectedListLength += listFieldLengthChange[fieldname]
+					if len(outputCard[fieldname]) != expectedListLength:
 						cardDifferencesCount += 1
-						print(f"{cardId}: '{fieldname}' doesn't have same length in {GlobalConfig.language.englishName} and English: length is {len(outputCard[fieldname])} in {GlobalConfig.language.englishName} but {len(englishCard[fieldname])} in English")
+						print(f"{cardId}: '{fieldname}' doesn't have same length in {GlobalConfig.language.englishName} and English: length is {len(outputCard[fieldname])} in {GlobalConfig.language.englishName} but {expectedListLength} in English")
 				elif outputCard[fieldname] != englishCard[fieldname]:
 					cardDifferencesCount += 1
 					print(f"{cardId}: '{fieldname}' differs between {GlobalConfig.language.englishName} '{outputCard[fieldname]}' and English '{englishCard[fieldname]}'")
