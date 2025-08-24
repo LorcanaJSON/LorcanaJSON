@@ -703,6 +703,12 @@
       "\n-"
     ]
   },
+  "387": {
+    "abilities": [
+      "ME",
+      "M'E"
+    ]
+  },
   "394": {
     "flavorText": [
       "por",
@@ -1845,19 +1851,9 @@
     ]
   },
   "1161": {
-    "abilities": [
-      "^.+Mé",
-      "Mé",
-      "^E",
-      "C'E"
-    ],
-    "subtypes": [
-      null,
-      [
-        "Storyborn",
-        "Héros",
-        "Prince"
-      ]
+    "effects": [
+      "^422 \\(4\n",
+      ""
     ]
   },
   "1164": {
@@ -1930,16 +1926,6 @@
     "simpleName": [
       "force hypnotique",
       "qui trouve garde"
-    ]
-  },
-  "1186": {
-    "subtypes": [
-      null,
-      [
-        "Storyborn",
-        "Héros",
-        "Madrigal"
-      ]
     ]
   },
   "1200": {
@@ -2255,16 +2241,6 @@
       "L"
     ]
   },
-  "1405": {
-    "subtypes": [
-      null,
-      [
-        "Storyborn",
-        "Héros",
-        "Princesse"
-      ]
-    ]
-  },
   "1409": {
     "abilities": [
       "\\. \\.",
@@ -2572,16 +2548,6 @@
     "abilities": [
       "LT",
       "L T"
-    ]
-  },
-  "1638": {
-    "subtypes": [
-      null,
-      [
-        "Storyborn",
-        "Héros",
-        "Princesse"
-      ]
     ]
   },
   "1641": {
@@ -2910,10 +2876,6 @@
       "1\n",
       "1 ¤\n"
     ],
-    "artistsText": [
-      "ô",
-      "ó"
-    ],
     "subtypes": [
       null,
       null,
@@ -2921,14 +2883,6 @@
       [
         "Storyborn",
         "Héros"
-      ]
-    ]
-  },
-  "1872": {
-    "subtypes": [
-      null,
-      [
-        "Chanson"
       ]
     ]
   },
@@ -2980,7 +2934,7 @@
   },
   "1884": {
     "abilities": [
-      "^TT\n",
+      "^TT\n—",
       "",
       "IME",
       "I MÉ",
