@@ -20,8 +20,8 @@ def compareInputToOutput(cardIdsToVerify: Optional[List[int]]):
 	with open(outputFilePath, "r", encoding="utf-8") as outputFile:
 		outputCardStore = json.load(outputFile)
 	idToEnglishOutputCard = {}
-	englishRarities = ()
-	currentLanguageRarities = ()
+	englishRarities = None
+	currentLanguageRarities = None
 	if GlobalConfig.language != Language.ENGLISH:
 		englishOutputFilePath = os.path.join("output", Language.ENGLISH.code, "allCards.json")
 		if os.path.isfile(englishOutputFilePath):
