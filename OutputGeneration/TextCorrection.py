@@ -240,7 +240,7 @@ def correctPunctuation(textToCorrect: str) -> str:
 	:param textToCorrect: The text to correct. Can be multiline
 	:return: The fixed text, or the original text if there was nothing to fix
 	"""
-	correctedText = textToCorrect
+	correctedText = textToCorrect.strip()
 	# Simplify quote mark if it's used in a contraction
 	correctedText = re.sub(r"(?<=\w)['‘’]+(?=\w)", "'", correctedText)
 	# It frequently misses the dash before a quote attribution
