@@ -32,6 +32,8 @@ def correctText(cardText: str) -> str:
 	cardText = re.sub(r"^([(&f]+À?|fà)? ?[-—](?=\s)", f"{LorcanaSymbols.EXERT} —", cardText)
 	# Some cards have a bulleted list, replace the start character with the separator symbol
 	cardText = re.sub(r"^[-+*«»¢.,‚]{1,2}(?= \w{2,} \w+)", LorcanaSymbols.SEPARATOR, cardText, flags=re.MULTILINE)
+	# 'À' is probably a Lore symbol
+	cardText = re.sub(r"(?<=\d )À\b", LorcanaSymbols.LORE, cardText)
 	# Other weird symbols are probably strength symbols
 	cardText = re.sub(r"(?<!\d)X?[&@©%$*<>{}€£¥Ÿ]{1,2}[0-9yFX+*%#“»]*", LorcanaSymbols.STRENGTH, cardText)
 	cardText = re.sub(r"(?<=\d )[CÇDIQX]{1,2}\b", LorcanaSymbols.STRENGTH, cardText)
