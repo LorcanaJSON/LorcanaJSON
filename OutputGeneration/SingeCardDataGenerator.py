@@ -579,9 +579,11 @@ def parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, threadLoca
 					del outputCard["effects"]
 
 	# An effect should never start with a separator; if it does, join it with the previous effect since it should be part of its option list
+	# An effect also never starts with a number, also join that with the previous effect
 	if "effects" in outputCard:
 		for effectIndex in range(len(outputCard["effects"]) - 1, 0, -1):
-			if outputCard["effects"][effectIndex].startswith(LorcanaSymbols.SEPARATOR):
+			if outputCard["effects"][effectIndex].startswith(LorcanaSymbols.SEPARATOR) or outputCard["effects"][effectIndex][0].isdigit():
+				_logger.debug(f"Joining effect at index {effectIndex} with previous one because it's erroneously split up, in card {CardUtil.createCardIdentifier(outputCard)}")
 				outputCard["effects"][effectIndex - 1] += "\n" + outputCard["effects"].pop(effectIndex)
 	# Now we can expand the ability fields with extra info, since it's all been corrected
 	keywordAbilities: List[str] = []
