@@ -120,6 +120,8 @@ def correctText(cardText: str) -> str:
 		cardText = re.sub(f"(?<=ajouter leur )[^{LorcanaSymbols.STRENGTH}](?= à celle)", LorcanaSymbols.STRENGTH, cardText)
 		# Correct Challenger/Offensif reminder text
 		cardText = re.sub(r"gagne \+(\d+) \.\)", fr"gagne +\1 {LorcanaSymbols.STRENGTH}.)", cardText)
+		# Correct Shift/Alter with an ink symbol
+		cardText = re.sub(fr"(^Alter \d) ?[O{LorcanaSymbols.STRENGTH}]", fr"\1 {LorcanaSymbols.INK}", cardText)
 		# Cost discount text
 		cardText = re.sub(r"coûte (\d)0 de moins", f"coûte \\1 {LorcanaSymbols.INK} de moins", cardText)
 		cardText = re.sub(fr"(coûte(?:nt)? )(\d+) [^{LorcanaSymbols.INK} \nou]+", fr"\1\2 {LorcanaSymbols.INK}", cardText)
