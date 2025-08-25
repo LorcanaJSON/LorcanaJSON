@@ -22,7 +22,6 @@ class ImageParser:
 	def __init__(self):
 		"""
 		Create an image parser
-		:param forceGenericModel: If True, force the use of the generic Tesseract model for the language, even if a Lorcana-specific one exists. If False or not provided, uses the Lorcana model if available for the current language. Defaults to False
 		"""
 		self._logger = logging.getLogger("LorcanaJSON")
 		self.nonCharacterTypes = (GlobalConfig.translation.Action, GlobalConfig.translation.Item, GlobalConfig.translation.Location)
