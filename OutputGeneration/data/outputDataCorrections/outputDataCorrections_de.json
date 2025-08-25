@@ -2278,5 +2278,298 @@
       "C$",
       "CHT ÜBEL"
     ]
+  },
+  "1940": {
+    "abilities": [
+      "^\\| ",
+      "",
+      "18",
+      "1 ⛉"
+    ]
+  },
+  "1951": {
+    "flavorText": [
+      "–",
+      "—"
+    ]
+  },
+  "1959": {
+    "abilities": [
+      "¤",
+      "◊"
+    ]
+  },
+  "1967": {
+    "_mergeEffectIndexWithPrevious": 1
+  },
+  "1981": {
+    "abilities": [
+      "—Z",
+      "– Z",
+      "—",
+      "–"
+    ]
+  },
+  "1983": {
+    "abilities": [
+      "¤",
+      "◊"
+    ],
+    "flavorText": [
+      "^B",
+      "„B",
+      "“.+\n",
+      "",
+      "!$",
+      "!“"
+    ]
+  },
+  "1988": {
+    "abilities": [
+      "1 ¤",
+      "1 ◊"
+    ]
+  },
+  "2003": {
+    "abilities": [
+      "—V",
+      "– V"
+    ]
+  },
+  "2007": {
+    "flavorText": [
+      "\\.\\.",
+      "…"
+    ]
+  },
+  "2033": {
+    "effects": [
+      "⟳",
+      "¤"
+    ]
+  },
+  "2036": {
+    "abilities": [
+      "TA",
+      "T A"
+    ]
+  },
+  "2037": {
+    "flavorText": [
+      "— U",
+      "—U"
+    ]
+  },
+  "2038": {
+    "abilities": [
+      "¤\\.",
+      "⛉."
+    ]
+  },
+  "2042": {
+    "_forceAbilityIndexToStatic": 0
+  },
+  "2047": {
+    "abilities": [
+      " N\n",
+      "\n",
+      "¤¤",
+      "¤",
+      " W\n",
+      " ⛉\n",
+      "¤\\.",
+      "◊."
+    ]
+  },
+  "2064": {
+    "flavorText": [
+      "Jo",
+      "Ja"
+    ]
+  },
+  "2082": {
+    "abilities": [
+      "¤",
+      "◊"
+    ]
+  },
+  "2083": {
+    "flavorText": [
+      "u …",
+      "u…"
+    ]
+  },
+  "2091": {
+    "artistsText": [
+      "\\.l",
+      ". l"
+    ]
+  },
+  "2096": {
+    "abilities": [
+      "⟳",
+      "¤",
+      "4 ¤",
+      "4 ◊"
+    ]
+  },
+  "2109": {
+    "abilities": [
+      "¤",
+      "◊"
+    ]
+  },
+  "2126": {
+    "abilities": [
+      "—",
+      "-"
+    ]
+  },
+  "2128": {
+    "abilities": [
+      "¤",
+      "◊"
+    ]
+  },
+  "2130": {
+    "flavorText": [
+      "ll",
+      "l!"
+    ]
+  },
+  "2141": {
+    "abilities": [
+      "^DA",
+      "DÄ",
+      " !",
+      ""
+    ]
+  },
+  "2142": {
+    "abilities": [
+      "¤\\.",
+      "⛉."
+    ]
+  },
+  "2143": {
+    "artistsText": [
+      "-",
+      " "
+    ],
+    "effects": [
+      "8\n",
+      "8\n\n"
+    ]
+  },
+  "2146": {
+    "abilities": [
+      "¤",
+      "⟳",
+      "—",
+      "–"
+    ]
+  },
+  "2148": {
+    "abilities": [
+      "4$",
+      "4 ⬡"
+    ]
+  },
+  "2155": {
+    "abilities": [
+      "^NN",
+      "KÖNN"
+    ]
+  },
+  "2156": {
+    "abilities": [
+      "TS",
+      "T S"
+    ]
+  },
+  "2157": {
+    "abilities": [
+      "41",
+      "1"
+    ]
+  },
+  "2163": {
+    "flavorText": [
+      "ff",
+      "ff."
+    ]
+  },
+  "2172": {
+    "abilities": [
+      "¤",
+      "◊"
+    ]
+  },
+  "2177": {
+    "abilities": [
+      "^KO",
+      "KÖ",
+      " DS$",
+      "",
+      "^V",
+      "Deine Micky-Maus-Charaktere\n",
+      "\\]",
+      "",
+      " '$",
+      "",
+      " B$",
+      "",
+      "^E",
+      "Je",
+      "TV",
+      " M",
+      "Rw",
+      ", w",
+      "idiesEn",
+      " dieser ",
+      "CHa",
+      "Cha",
+      "ten\n",
+      "ter\n",
+      "An.+hner",
+      "erkundet, darfst du einen erschöpften Charakter deiner",
+      "m ASt",
+      "mit 5",
+      "n m",
+      "r m",
+      "Over ",
+      "¤ ver",
+      " a$",
+      "."
+    ],
+    "artistsText": [
+      " \\+.+$",
+      ""
+    ],
+    "subtypes": [
+      null,
+      [
+        "Traumgestalt",
+        "Held",
+        "Prinzessin"
+      ]
+    ]
+  },
+  "2178": {
+    "_insertAbilityAtIndex": [0, "Gestaltwandel 5 ⬡", 1, "Wendig", 2, "Solange dieser Charakter\nmindestens eine Karte unter sich hat, erhält er +3 ¤,\n+3 ⛉ und +3 ◊.", "KRÖNENDER ABSCHLUSS"],
+    "subtypes": [
+      null,
+      [
+        "Flutgestalt",
+        "Held",
+        "Prinz"
+      ]
+    ]
+  },
+  "2185": {
+    "flavorText": [
+      "\\.\\.",
+      "…"
+    ]
   }
 }
