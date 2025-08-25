@@ -142,6 +142,18 @@
       "n-S"
     ]
   },
+  "138": {
+    "flavorText": [
+      "—P",
+      "P"
+    ]
+  },
+  "145": {
+    "flavorText": [
+      "u …",
+      "u…"
+    ]
+  },
   "146": {
     "flavorText": [
       "Val",
@@ -212,8 +224,8 @@
   },
   "192": {
     "abilities": [
-      ";",
-      "Z"
+      "R$",
+      "RZ"
     ]
   },
   "193": {
@@ -1384,16 +1396,6 @@
       "t”"
     ]
   },
-  "1161": {
-    "subtypes": [
-      null,
-      [
-        "Sagengestalt",
-        "Held",
-        "Prinz"
-      ]
-    ]
-  },
   "1165": {
     "abilities": [
       "RAU",
@@ -1436,16 +1438,6 @@
       "⟳ –"
     ]
   },
-  "1186": {
-    "subtypes": [
-      null,
-      [
-        "Sagengestalt",
-        "Held",
-        "Madrigal"
-      ]
-    ]
-  },
   "1200": {
     "abilities": [
       "TE",
@@ -1478,12 +1470,6 @@
     "abilities": [
       "¤",
       "◊"
-    ]
-  },
-  "1217": {
-    "abilities": [
-      "FS",
-      "F S"
     ]
   },
   "1222": {
@@ -1645,16 +1631,6 @@
       [
         "Flutgestalt",
         "Held"
-      ]
-    ]
-  },
-  "1405": {
-    "subtypes": [
-      null,
-      [
-        "Sagengestalt",
-        "Held",
-        "Prinzessin"
       ]
     ]
   },
@@ -1880,14 +1856,6 @@
     "abilities": [
       "ET",
       "E T"
-    ],
-    "subtypes": [
-      null,
-      [
-        "Sagengestalt",
-        "Held",
-        "Prinzessin"
-      ]
     ]
   },
   "1640": {
@@ -2160,19 +2128,6 @@
       "."
     ]
   },
-  "1869": {
-    "artistsText": [
-      "ö",
-      "ó"
-    ],
-    "subtypes": [
-      null,
-      [
-        "Sagengestalt",
-        "Held"
-      ]
-    ]
-  },
   "1870": {
     "abilities": [
       "FK",
@@ -2180,7 +2135,6 @@
     ]
   },
   "1872": {
-    "_effectAtIndexIsAbility": 0,
     "effects": [
       "^b",
       "G",
@@ -2190,12 +2144,6 @@
       "9",
       "Dele",
       "belie"
-    ],
-    "subtypes": [
-      null,
-      [
-        "Lied"
-      ]
     ]
   },
   "1875": {
@@ -2250,17 +2198,6 @@
     "abilities": [
       "¤",
       "◊"
-    ]
-  },
-  "1893": {
-    "subtypes": [
-      null,
-      [
-        "Traumgestalt",
-        "Schurke",
-        "König",
-        "Magier"
-      ]
     ]
   },
   "1901": {
