@@ -138,7 +138,6 @@ def correctText(cardText: str) -> str:
 		# French always has a space before punctuation marks
 		cardText = re.sub(r"([^? ])!", r"\1 !", cardText)
 		cardText = re.sub(r"!(\w)", r"! \1", cardText)
-		cardText = cardText.replace("//", "Il")
 		cardText = re.sub(fr"((?:\bce personnage|\bil) gagne )\+(\d) [^{LorcanaSymbols.LORE}{LorcanaSymbols.STRENGTH}{LorcanaSymbols.WILLPOWER}]?\.", fr"\1+\2 {LorcanaSymbols.STRENGTH}.", cardText)
 		# Fix second line of 'Challenger'/'Offensif' reminder text
 		cardText = re.sub(r"^\+(\d) ?[^.]{0,2}\.\)$", fr"+\1 {LorcanaSymbols.STRENGTH}.)", cardText, flags=re.MULTILINE)
