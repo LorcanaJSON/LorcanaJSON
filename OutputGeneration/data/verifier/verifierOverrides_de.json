@@ -85,6 +85,12 @@
       "SONDERLING"
     ]
   },
+  "246": {
+    "_listFieldLengthChange": {
+      "effects": 1,
+      "fullTextSections": 1
+    }
+  },
   "286": {
     "flavor_text": [
       "^.+$",
