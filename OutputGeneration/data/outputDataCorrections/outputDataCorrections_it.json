@@ -567,8 +567,6 @@
     ]
   },
   "897": {
-    "_effectAtIndexIsAbility": 0,
-    "_moveAbilityAtIndexToIndex": [1, 0],
     "effects": [
       "LU",
       "G",
@@ -784,16 +782,6 @@
       "I"
     ]
   },
-  "1161": {
-    "subtypes": [
-      null,
-      [
-        "Classico",
-        "Eroe",
-        "Principe"
-      ]
-    ]
-  },
   "1168": {
     "abilities": [
       "AV",
@@ -846,16 +834,6 @@
     "flavorText": [
       "\nl",
       "\n—I"
-    ]
-  },
-  "1186": {
-    "subtypes": [
-      null,
-      [
-        "Classico",
-        "Eroe",
-        "Madrigal"
-      ]
     ]
   },
   "1200": {
@@ -1126,16 +1104,6 @@
       ]
     ]
   },
-  "1405": {
-    "subtypes": [
-      null,
-      [
-        "Classico",
-        "Eroe",
-        "Principessa"
-      ]
-    ]
-  },
   "1406": {
     "abilities": [
       "luo\n",
@@ -1384,14 +1352,6 @@
     "abilities": [
       "10",
       "1 o"
-    ],
-    "subtypes": [
-      null,
-      [
-        "Classico",
-        "Eroe",
-        "Principessa"
-      ]
     ]
   },
   "1643": {
@@ -1660,25 +1620,6 @@
     "abilities": [
       "tX",
       "¤"
-    ],
-    "artistsText": [
-      "ò",
-      "ó"
-    ],
-    "subtypes": [
-      null,
-      [
-        "Classico",
-        "Eroe"
-      ]
-    ]
-  },
-  "1872": {
-    "subtypes": [
-      null,
-      [
-        "Canzone"
-      ]
     ]
   },
   "1873": {
@@ -1707,13 +1648,12 @@
       "◉"
     ]
   },
-  "1893": {
-    "subtypes": [
-      "^lri",
-      "In"
+  "1894": {
+    "abilities": [
+      "1\n",
+      "1 ¤\n"
     ]
   },
-  "1894": {
     "abilities": [
       "1\n",
       "1 ¤\n"
