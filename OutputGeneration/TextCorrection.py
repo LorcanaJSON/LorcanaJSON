@@ -35,7 +35,7 @@ def correctText(cardText: str) -> str:
 	# 'À' is probably a Lore symbol
 	cardText = re.sub(r"(?<=\d )À\b", LorcanaSymbols.LORE, cardText)
 	# Other weird symbols are probably strength symbols
-	cardText = re.sub(r"(?<!\d)[ÇX]?[&@©%$*<>{}€£¥Ÿ]{1,2}[0-9yFX+*%#“»]*", LorcanaSymbols.STRENGTH, cardText)
+	cardText = re.sub(r"(?<!\d)[ÇX]?[&@©%$*<>{}€£¥Ÿ]{1,2}[0-9yFÌX+*%#“»]*", LorcanaSymbols.STRENGTH, cardText)
 	cardText = re.sub(r"(?<=\d )[CÇDIQX]{1,2}\b", LorcanaSymbols.STRENGTH, cardText)
 	# Make sure there's a period before a closing bracket
 	cardText = re.sub(fr"([^.,'!?’{LorcanaSymbols.STRENGTH}])\)", r"\1.)", cardText)
