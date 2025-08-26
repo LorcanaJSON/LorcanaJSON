@@ -34,6 +34,7 @@ class ParseSettings:
 	parseIdentifier: bool = False
 	getIdentifierFromCard: bool = False
 	# Force some checks that could fail or be wrong on some cards. 'None' means they're not overridden, setting them to 'True' or 'False' uses those values instead of whatever is normally determined
+	hasCardTextOverride: Optional[bool] = None
 	hasFlavorTextOverride: Optional[bool] = None
 	isLocationOverride: Optional[bool] = None
 	isItemOverride: Optional[bool] = None
@@ -110,7 +111,9 @@ _PARSE_SETTINGS_BY_ID: Dict[int, ParseSettings] = {
 	1933: dataclasses.replace(_DEFAULT_PARSE_SETTINGS, labelParsingMethod=LABEL_PARSING_METHODS.FALLBACK_BY_LINES, hasFlavorTextOverride=True),
 	1934: dataclasses.replace(_DEFAULT_PARSE_SETTINGS, labelParsingMethod=LABEL_PARSING_METHODS.FALLBACK_BY_LINES),
 	1935: dataclasses.replace(_DEFAULT_PARSE_SETTINGS, labelParsingMethod=LABEL_PARSING_METHODS.FALLBACK_BY_LINES),
-	2141: dataclasses.replace(_PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["9"], typeImageTextColorOverride=ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND),
+	1938: dataclasses.replace(_DEFAULT_PARSE_SETTINGS, hasCardTextOverride=True),
+	2084: dataclasses.replace(_DEFAULT_PARSE_SETTINGS, hasCardTextOverride=True),
+	2141: dataclasses.replace(_PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["9"], typeImageTextColorOverride=ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND, hasCardTextOverride=True),
 	2142: dataclasses.replace(_PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["9"], cardLayout=CardLayout.NEW_ENCHANTED_SMALL_TEXTBOX, characterCardLayout=CardLayout.NEW_ENCHANTED_CHARACTER_SMALL_TEXTBOX),
 	2143: dataclasses.replace(_PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["9"], cardLayout=CardLayout.NEW_ENCHANTED_SMALL_TEXTBOX),
 	2145: dataclasses.replace(_PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["9"], cardLayout=CardLayout.NEW_ENCHANTED_SMALL_TEXTBOX, characterCardLayout=CardLayout.NEW_ENCHANTED_CHARACTER_SMALL_TEXTBOX),

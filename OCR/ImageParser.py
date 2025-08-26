@@ -189,7 +189,7 @@ class ImageParser:
 		textboxEdgeDetectedImage: Optional[Image.Image] = None
 		textboxLinesImage: Optional[Image.Image] = None
 		labelCoords = []
-		if hasCardText is not False:
+		if hasCardText is not False or parseSettings.hasCardTextOverride is True:
 			if parseSettings.labelParsingMethod == ParseSettings.LABEL_PARSING_METHODS.DEFAULT:
 				isCurrentlyInLabel: bool = False
 				currentCoords = [0, 0, 0]
@@ -340,7 +340,7 @@ class ImageParser:
 		abilityLabelImage = None
 		abilityTextImage = None
 		remainingTextImage = None
-		if hasCardText is not False:
+		if hasCardText is not False or parseSettings.hasCardTextOverride is True:
 			labelCoords.reverse()
 			previousBlockTopY = flavorTextSeparatorY - (_FLAVORTEXT_MARGIN + 1 if hasFlavorText else 0)
 			labelNumber = len(labelCoords)
