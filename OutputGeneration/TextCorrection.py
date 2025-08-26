@@ -196,6 +196,8 @@ def correctText(cardText: str) -> str:
 		cardText = re.sub(r"(?<=con costo \d)0(?= [^o])", " o", cardText)
 		# Fix Song reminder Exert symbol
 		cardText = re.sub(r"(?<=\d\so superiore può ).(?= per\scantare questa canzone gratis)", LorcanaSymbols.EXERT, cardText)
+		# Correct Shift/Trasformazione with an ink symbol
+		cardText = re.sub(fr"(^Trasformazione \d) ?[OÒ{LorcanaSymbols.STRENGTH}]", fr"\1 {LorcanaSymbols.INK}", cardText)
 		# It misses the Strength symbol if it's at the end of a line
 		cardText = re.sub(r"(?<=Riceve \+\d)\n", f" {LorcanaSymbols.STRENGTH}\n", cardText)
 		# It frequently reads the Strength symbol as 'XX or a percentage sign' or leaves a closing bracket
