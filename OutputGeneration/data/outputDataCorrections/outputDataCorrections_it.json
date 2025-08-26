@@ -1654,9 +1654,413 @@
       "1 ¤\n"
     ]
   },
+  "1940": {
+    "abilities": [
+      "¤\\.",
+      "⛉."
+    ]
+  },
+  "1944": {
+    "flavorText": [
+      "o”",
+      "o'"
+    ]
+  },
+  "1956": {
+    "flavorText": [
+      "L",
+      "I"
+    ]
+  },
+  "1960": {
+    "flavorText": [
+      "\\.",
+      "!"
+    ]
+  },
+  "1963": {
+    "flavorText": [
+      "\\.\\.",
+      "…"
+    ]
+  },
+  "1981": {
+    "abilities": [
+      "^1",
+      "⟳, 1",
+      "\\.”",
+      "”"
+    ]
+  },
+  "1983": {
+    "flavorText": [
+      "\\.",
+      "!"
+    ]
+  },
+  "1991": {
+    "flavorText": [
+      "L",
+      "I"
+    ]
+  },
+  "1993": {
+    "flavorText": [
+      "’",
+      "!"
+    ]
+  },
+  "1995": {
+    "abilities": [
+      "\\[0",
+      "IO"
+    ]
+  },
+  "1999": {
+    "flavorText": [
+      "0",
+      "O"
+    ]
+  },
+  "2000": {
+    "abilities": [
+      "AT",
+      "A T"
+    ]
+  },
+  "2002": {
+    "flavorText": [
+      "\nI",
+      "\n—I"
+    ]
+  },
+  "2008": {
+    "flavorText": [
+      "E",
+      "È"
+    ]
+  },
+  "2011": {
+    "flavorText": [
+      "^\\?$",
+      "“Skate veloce, canzoni che spaccano. Che altro vuoi\ndi più?”"
+    ]
+  },
+  "2015": {
+    "flavorText": [
+      "p p ’\n",
+      "",
+      "\\.$",
+      ".”"
+    ]
+  },
+  "2020": {
+    "flavorText": [
+      "/",
+      "Z"
+    ]
+  },
+  "2031": {
+    "abilities": [
+      "¤",
+      "o"
+    ]
+  },
+  "2033": {
+    "flavorText": [
+      "E",
+      "È"
+    ]
+  },
+  "2036": {
+    "abilities": [
+      "3 ⬡",
+      "⟳"
+    ]
+  },
+  "2038": {
+    "abilities": [
+      "¤ m",
+      "⛉ m"
+    ]
+  },
+  "2042": {
+    "abilities": [
+      "^i — ",
+      ""
+    ]
+  },
+  "2045": {
+    "flavorText": [
+      "E",
+      "È"
+    ]
+  },
+  "2047": {
+    "abilities": [
+      "¤ ",
+      "⛉ "
+    ]
+  },
+  "2049": {
+    "abilities": [
+      "◊ ",
+      "¤ "
+    ]
+  },
+  "2050": {
+    "flavorText": [
+      "E",
+      "È"
+    ]
+  },
+  "2052": {
+    "artistsText": [
+      "^N",
+      "M"
+    ]
+  },
+  "2054": {
     "abilities": [
       "1\n",
       "1 ¤\n"
+    ]
+  },
+  "2055": {
+    "abilities": [
+      "143",
+      "1 ¤"
+    ]
+  },
+  "2057": {
+    "flavorText": [
+      "E",
+      "È"
+    ]
+  },
+  "2068": {
+    "flavorText": [
+      "lo",
+      "Io"
+    ]
+  },
+  "2073": {
+    "abilities": [
+      "¤",
+      "◊"
+    ]
+  },
+  "2079": {
+    "abilities": [
+      " 2\\.",
+      "."
+    ]
+  },
+  "2082": {
+    "flavorText": [
+      "\\. ",
+      ", "
+    ]
+  },
+  "2083": {
+    "flavorText": [
+      "M",
+      "A"
+    ]
+  },
+  "2093": {
+    "abilities": [
+      "Su",
+      "su"
+    ],
+    "flavorText": [
+      "sè",
+      "s'è"
+    ]
+  },
+  "2103": {
+    "flavorText": [
+      "Ii",
+      "Il"
+    ]
+  },
+  "2105": {
+    "flavorText": [
+      "C",
+      "c"
+    ]
+  },
+  "2107": {
+    "abilities": [
+      "1\n",
+      "1 ¤\n"
+    ]
+  },
+  "2109": {
+    "abilities": [
+      "¤",
+      "◊"
+    ]
+  },
+  "2120": {
+    "flavorText": [
+      "L",
+      "—L"
+    ]
+  },
+  "2130": {
+    "flavorText": [
+      "\\.",
+      "!"
+    ]
+  },
+  "2139": {
+    "abilities": [
+      "1 ⬡",
+      "⟳"
+    ]
+  },
+  "2141": {
+    "abilities": [
+      " i\n",
+      "\n"
+    ]
+  },
+  "2142": {
+    "abilities": [
+      "®",
+      "⛉"
+    ]
+  },
+  "2143": {
+    "effects": [
+      "8\n",
+      "8\n\n"
+    ]
+  },
+  "2144": {
+    "abilities": [
+      "3$",
+      "3 ⬡"
+    ]
+  },
+  "2146": {
+    "abilities": [
+      "\\.”",
+      "”"
+    ]
+  },
+  "2148": {
+    "abilities": [
+      "4$",
+      "4 ⬡"
+    ]
+  },
+  "2151": {
+    "subtypes": [
+      null,
+      [
+        "Imbevuto"
+      ]
+    ]
+  },
+  "2154": {
+    "abilities": [
+      " 2\\.",
+      "."
+    ]
+  },
+  "2155": {
+    "subtypes": [
+      "^m",
+      "Im"
+    ]
+  },
+  "2166": {
+    "flavorText": [
+      "’",
+      "”",
+      "/",
+      "Z"
+    ]
+  },
+  "2172": {
+    "flavorText": [
+      "\\. ",
+      ", "
+    ]
+  },
+  "2174": {
+    "flavorText": [
+      "L",
+      "—L"
+    ]
+  },
+  "2177": {
+    "artistsText": [
+      "^.+A",
+      "A"
+    ],
+    "abilities": [
+      " \\{.+$",
+      "",
+      "^Pn\n'",
+      "I tuoi personaggi chiamati Topolino\n",
+      "g/",
+      "o ",
+      " °",
+      "",
+      "\\[",
+      "",
+      " O .+$",
+      "",
+      "^N",
+      "Ogni volta che questo personaggio va\nall'avventura, ",
+      "f",
+      " ",
+      "elu",
+      "e u",
+      "\\]",
+      " ",
+      "olim",
+      "o im",
+      " pai\n",
+      "\n",
+      "aj",
+      "a",
+      "CON.+$",
+      "con 5 ¤ o superiore."
+    ],
+    "subtypes": [
+      null,
+      [
+        "Immaginato",
+        "Eroe",
+        "Principessa"
+      ]
+    ]
+  },
+  "2178": {
+    "_insertAbilityAtIndex": [0, "Trasformazione 5 ⬡", 1, "Sfuggente"],
+    "abilities": [
+      "T$",
+      "TA",
+      "^A .+:$",
+      "Mentre questo personaggio ha\nuna carta sotto di sé, riceve +3 ¤, +3 ⛉ e +3 ◊."
+    ],
+    "subtypes": [
+      null,
+      [
+        "Imbevuto",
+        "Eroe",
+        "Principe"
+      ]
+    ]
+  },
+  "2187": {
+    "abilities": [
+      " ¤X",
+      "1 ¤"
     ]
   }
 }

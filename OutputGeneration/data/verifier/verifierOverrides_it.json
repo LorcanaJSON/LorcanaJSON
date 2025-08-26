@@ -130,5 +130,133 @@
       "uno dei tui personaggi",
       "un tuo personaggio"
     ]
+  },
+  "1938": {
+    "rules_text": [
+      "^$",
+      "TELEGRAFO DEL CREPUSCOLO Una volta durante il tuo turno, puoi pagare 2 per rivelare la prima carta del tuo mazzo. Se è una carta personaggio, aggiungila alla tua mano. Altrimenti, mettila in fondo al tuo mazzo."
+    ]
+  },
+  "1981": {
+    "rules_text": [
+      "a\"",
+      "a”"
+    ]
+  },
+  "2026": {
+    "flavor_text": [
+      "^.+$",
+      ""
+    ]
+  },
+  "2040": {
+    "author": [
+      "Matthew",
+      "M.",
+      "Leonardo",
+      "L."
+    ]
+  },
+  "2084": {
+    "rules_text": [
+      "^$",
+      "COMPLOTTI REGALI Quando giochi questo personaggio, se un personaggio Principessa o Regina è in gioco, ottieni 1 leggenda."
+    ]
+  },
+  "2091": {
+    "author": [
+      "Rosa",
+      "R.",
+      "Leonardo",
+      "L."
+    ]
+  },
+  "2106": {
+    "flavor_text": [
+      "^.+$",
+      ""
+    ]
+  },
+  "2141": {
+    "rules_text": [
+      "^$",
+      "TELEGRAFO DEL CREPUSCOLO Una volta durante il tuo turno, puoi pagare 2 per rivelare la prima carta del tuo mazzo. Se è una carta personaggio, aggiungila alla tua mano. Altrimenti, mettila in fondo al tuo mazzo."
+    ]
+  },
+  "2143": {
+    "rules_text": [
+      " \\([^)]+\\)",
+      ""
+    ]
+  },
+  "2144": {
+    "rules_text": [
+      " \\([^)]+\\)",
+      ""
+    ]
+  },
+  "2146": {
+    "rules_text": [
+      " \\([^)]+\\)",
+      "",
+      "a\"",
+      "a”"
+    ]
+  },
+  "2147": {
+    "rules_text": [
+      " \\([^)]+\\)",
+      ""
+    ]
+  },
+  "2148": {
+    "rules_text": [
+      " \\([^)]+\\)",
+      ""
+    ]
+  },
+  "2150": {
+    "rules_text": [
+      " \\([^)]+\\)",
+      ""
+    ]
+  },
+  "2151": {
+    "_listFieldLengthChange": {
+      "fullTextSections": -1
+    },
+    "rules_text": [
+      "\\([^)]+\\)",
+      ","
+    ]
+  },
+  "2152": {
+    "rules_text": [
+      " \\([^)]+\\)",
+      ""
+    ]
+  },
+  "2156": {
+    "rules_text": [
+      " \\([^)]+\\)",
+      ""
+    ]
+  },  "2158": {
+    "rules_text": [
+      " \\([^)]+\\)",
+      ""
+    ]
+  },
+  "2173": {
+    "author": [
+      "i$",
+      "i / Livio Cacciatore"
+    ]
+  },
+  "2177": {
+    "rules_text": [
+      "ADDIO, PER",
+      "CIAO CIAO,"
+    ]
   }
 }
