@@ -29,7 +29,7 @@ def correctText(cardText: str) -> str:
 	cardText = re.sub(r"(?<=[”’)])\s.$", "", cardText, flags=re.MULTILINE)
 	# The 'exert' symbol often gets mistaken for a @ or G, correct that
 	cardText = re.sub(r"(?<![0-9s])(^|[\"“„ ])[(@Gg©€]{1,3}[89]?([ ,])", fr"\1{LorcanaSymbols.EXERT}\2", cardText, flags=re.MULTILINE)
-	cardText = re.sub(r"^([(&f]+À?|fà)? ?[-—](?=\s)", f"{LorcanaSymbols.EXERT} —", cardText)
+	cardText = re.sub(r"^([(&f]+[Àà]?)? ?[-—](?=\s)", f"{LorcanaSymbols.EXERT} —", cardText)
 	# Some cards have a bulleted list, replace the start character with the separator symbol
 	cardText = re.sub(r"^[-+*«»¢.,‚]{1,2}(?= \w{2,} \w+)", LorcanaSymbols.SEPARATOR, cardText, flags=re.MULTILINE)
 	# 'À' is probably a Lore symbol
