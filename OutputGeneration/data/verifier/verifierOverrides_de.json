@@ -403,7 +403,8 @@
       " \\(.+\\)",
       ""
     ]
-  },  "2151": {
+  },
+  "2151": {
     "_listFieldLengthChange": {
       "fullTextSections": -1
     },
