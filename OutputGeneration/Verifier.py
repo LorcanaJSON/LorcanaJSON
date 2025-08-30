@@ -191,7 +191,8 @@ def compareInputToOutput(cardIdsToVerify: Optional[List[int]]):
 			print(f"{outputCard['fullName']} (ID {outputCard['id']}) should have a non-promo ID field, but it doesn't")
 
 		inputIdentifier = inputCard["card_identifier"].replace(" ", LorcanaSymbols.SEPARATOR_STRING).replace("1TFC", "1 TFC")
-		outputIdentifier = outputCard["fullIdentifier"].lstrip("0")  # The input identifiers don't have the leading zero, so strip it here too
+		# The input identifiers don't have the leading zero, so strip it here too (But don't remove it from 0/204 from Set 9)
+		outputIdentifier = re.sub(r"^0(?=\d)", "", outputCard["fullIdentifier"])
 		if inputIdentifier != outputIdentifier:
 			cardDifferencesCount += 1
 			_printDifferencesDescription(outputCard, "fullIdentifier", inputIdentifier, outputCard["fullIdentifier"])
