@@ -399,7 +399,7 @@ def parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, threadLoca
 				errata.append(infoText)
 			elif infoEntry["title"].startswith("FAQ") or infoEntry["title"].startswith("Keyword") or infoEntry["title"] == "Good to know":
 				# Sometimes they cram multiple questions and answers into one entry, split those up into separate clarifications
-				infoEntryClarifications = re.split(r"\s*\n+(?=[FQ]:)", infoText)
+				infoEntryClarifications = re.split(r"\s*\n+(?=[FQ] ?:)", infoText)
 				clarifications.extend(infoEntryClarifications)
 			# Some German cards have an artist correction in their 'additional_info', but that's already correct in the data, so ignore that
 			# Bans are listed as additional info, but we handle that separately, so ignore those
