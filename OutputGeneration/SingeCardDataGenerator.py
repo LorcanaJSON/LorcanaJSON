@@ -385,7 +385,7 @@ def parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, threadLoca
 		clarifications = []
 		for infoEntry in inputCard["additional_info"]:
 			# The text has multiple \r\n's as newlines, reduce that to just a single \n
-			infoText: str = infoEntry["body"].rstrip().replace("\r", "").replace("\n\n", "\n").replace("\t", " ")
+			infoText: str = re.sub(r" ?(\\r\\n|\r\n)+ ?", "\n", infoEntry["body"]).strip().replace("\t", " ")
 			# The text uses unicode characters in some places, replace those with their simple equivalents
 			infoText = infoText.replace("’", "'").replace("–", "-").replace("“", "\"").replace("”", "\"")
 			# Sometimes they write cardnames as "basename- subtitle", add the space before the dash back in
