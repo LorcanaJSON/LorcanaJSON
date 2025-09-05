@@ -257,7 +257,8 @@ def parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, threadLoca
 		outputCard["nonPromoId"] = otherRelatedCards.nonPromoId
 		if "baseId" in outputCard:
 			_logger.error(f"baseId is already set to {outputCard['baseId']} from a rarity, not setting it to non-promo ID {otherRelatedCards.nonPromoId} for card {CardUtil.createCardIdentifier(outputCard)}")
-		outputCard["baseId"] = otherRelatedCards.nonPromoId
+		else:
+			outputCard["baseId"] = otherRelatedCards.nonPromoId
 	elif otherRelatedCards.promoIds:
 		outputCard["promoIds"] = otherRelatedCards.promoIds
 	if otherRelatedCards.otherVariantIds:
