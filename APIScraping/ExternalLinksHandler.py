@@ -170,6 +170,9 @@ class ExternalLinksHandler:
 						card["fixed_properties"].get("lorcana_rarity", None) == "Oversized" or card["category_id"] != _CARD_TRADER_SINGLES_CATEGORY_ID):
 					continue
 				cardNumber: str = card["fixed_properties"]["collector_number"].lstrip("0")
+				if not cardNumber:
+					# 'Bruno Madrigal - Undetected Uncle' (ID 1936) is card 0/204 of Set 9, handle that
+					cardNumber = "0"
 				# Some Enchanted cards are listed with an 'a' at the end for some reason. Remove that, being careful not to remove it from cards that do need it (Like 'Dalmatian Puppy - Tail Wagger' ID 436)
 				if len(cardNumber) == 4 and cardNumber.endswith("a"):
 					cardNumber = cardNumber[:-1]
