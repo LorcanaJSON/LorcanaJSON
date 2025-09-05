@@ -13,7 +13,7 @@
     "number": 1,
     "allowedInFormats": {
       "Core": {
-        "allowed": true,
+        "allowed": false,
         "allowedUntilDate": "2025-09-05",
         "rotationGroup": 1
       },
@@ -37,7 +37,7 @@
     "number": 2,
     "allowedInFormats": {
       "Core": {
-        "allowed": true,
+        "allowed": false,
         "allowedUntilDate": "2025-09-05",
         "rotationGroup": 1
       },
@@ -61,7 +61,7 @@
     "number": 3,
     "allowedInFormats": {
       "Core": {
-        "allowed": true,
+        "allowed": false,
         "allowedUntilDate": "2025-09-05",
         "rotationGroup": 1
       },
@@ -85,7 +85,7 @@
     "number": 4,
     "allowedInFormats": {
       "Core": {
-        "allowed": true,
+        "allowed": false,
         "allowedUntilDate": "2025-09-05",
         "rotationGroup": 1
       },
@@ -201,7 +201,7 @@
     "number": 9,
     "allowedInFormats": {
       "Core": {
-        "allowed": false,
+        "allowed": true,
         "rotationGroup": 3
       },
       "Infinity": {
