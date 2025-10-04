@@ -1,5 +1,5 @@
 import logging, re
-from typing import Dict
+from typing import Dict, List, Union
 
 import GlobalConfig
 from util import CardUtil, Language, LorcanaSymbols
@@ -394,3 +394,16 @@ def correctCardField(card: Dict, fieldName: str, regexMatchString: str, correcti
 			_logger.warning(f"Correction {regexMatchString!r} for dictionary field '{fieldName}' in card {CardUtil.createCardIdentifier(card)} didn't match any of the values")
 	else:
 		raise ValueError(f"Card correction {regexMatchString!r} for field '{fieldName}' in card {CardUtil.createCardIdentifier(card)} is of unsupported type '{type(card[fieldName])}'")
+
+def correctCardFieldFromList(card: Dict, fieldName: str, correctionsList: List[Union[int, str]]):
+	"""
+	Correct card-specific mistakes in the fieldName field of the provided card
+	:param card: The output card as parsed so far
+	:param fieldName: The fieldname to correct
+	:param correctionsList: A list of corrections. This list should be of an even-numbered length, with the first entry being the error to match, the second entry the fix for the error, the (optional) third another match, etc
+	"""
+	if len(correctionsList) > 2:
+		for correctionIndex in range(0, len(correctionsList), 2):
+			correctCardField(card, fieldName, correctionsList[correctionIndex], correctionsList[correctionIndex + 1])
+	else:
+		correctCardField(card, fieldName, correctionsList[0], correctionsList[1])

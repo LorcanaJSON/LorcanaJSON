@@ -502,12 +502,8 @@ def parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, threadLoca
 		moveAbilityAtIndexToIndex: Optional[List[Union[int, int]]] = cardDataCorrections.pop("_moveAbilityAtIndexToIndex", None)
 		splitAbilityNameAtIndex: Optional[List[Union[int, str]]] = cardDataCorrections.pop("_splitAbilityNameAtIndex", None)
 		skipFullTextSectionMergeAtIndex: int = cardDataCorrections.pop("_skipFullTextSectionMergeAtIndex", -1)
-		for fieldName, correction in cardDataCorrections.items():
-			if len(correction) > 2:
-				for correctionIndex in range(0, len(correction), 2):
-					TextCorrection.correctCardField(outputCard, fieldName, correction[correctionIndex], correction[correctionIndex+1])
-			else:
-				TextCorrection.correctCardField(outputCard, fieldName, correction[0], correction[1])
+		for fieldName, correctionList in cardDataCorrections.items():
+			TextCorrection.correctCardFieldFromList(outputCard, fieldName, correctionList)
 		# If newlines got added through a correction, we may need to split the ability or effect in two
 		if "abilities" in cardDataCorrections and "abilities" in outputCard:
 			for abilityIndex in range(len(outputCard["abilities"]) - 1, -1, -1):
@@ -736,7 +732,7 @@ def parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, threadLoca
 	# Add external links (Do this after corrections so we can use a corrected 'fullIdentifier')
 	outputCard["externalLinks"] = threadLocalStorage.externalIdsHandler.getExternalLinksForCard(parsedIdentifier, "enchantedId" in outputCard)
 	if externalLinksCorrection:
-		TextCorrection.correctCardField(outputCard, "externalLinks", externalLinksCorrection[0], externalLinksCorrection[1])
+		TextCorrection.correctCardFieldFromList(outputCard, "externalLinks", externalLinksCorrection)
 	if moveAbilityAtIndexToIndex:
 		_logger.info(f"Moving ability at index {moveAbilityAtIndexToIndex[0]} to index {moveAbilityAtIndexToIndex[1]}")
 		outputCard["abilities"].insert(moveAbilityAtIndexToIndex[1], outputCard["abilities"].pop(moveAbilityAtIndexToIndex[0]))
@@ -766,7 +762,7 @@ def parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, threadLoca
 	outputCard["fullText"] = "\n".join(fullTextSections)
 	outputCard["fullTextSections"] = fullTextSections
 	if fullTextCorrection:
-		TextCorrection.correctCardField(outputCard, "fullText", fullTextCorrection[0], fullTextCorrection[1])
+		TextCorrection.correctCardFieldFromList(outputCard, "fullText", fullTextCorrection)
 	if "story" in inputCard:
 		outputCard["story"] = inputCard["story"]
 	else:
