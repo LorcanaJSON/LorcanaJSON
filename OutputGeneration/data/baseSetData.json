@@ -256,6 +256,29 @@
     },
     "allowedInTournamentsFromDate": null
   },
+  "12": {
+    "names": {
+      "de": "Unbekannte Wildnis",
+      "en": "Wilds Unknown",
+      "fr": "Contrées Inconnues",
+      "it": "Lande Sconosciute"
+    },
+    "prereleaseDate": null,
+    "releaseDate": null,
+    "hasAllCards": false,
+    "type": "expansion",
+    "number": 12,
+    "allowedInFormats": {
+      "Core": {
+        "allowed": false,
+        "rotationGroup": 3
+      },
+      "Infinity": {
+        "allowed": false
+      }
+    },
+    "allowedInTournamentsFromDate": null
+  },
   "Q1": {
     "names": {
       "de": "Die Luminari Chroniken: Gefahr aus der Tiefe",
