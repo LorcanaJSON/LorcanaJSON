@@ -356,6 +356,9 @@ def correctCardField(card: Dict, fieldName: str, regexMatchString: str, correcti
 						# Delete the value
 						_logger.info(f"Removing index {fieldIndex} value {fieldValue!r} from field '{fieldName}' in card {CardUtil.createCardIdentifier(card)}")
 						card[fieldName].pop(fieldIndex)
+						if len(card[fieldName]) == 0:
+							_logger.info(f"After correction, list field '{fieldName}' is now empty, deleting from card {CardUtil.createCardIdentifier(card)}")
+							del card[fieldName]
 					else:
 						preCorrectedText = fieldValue
 						card[fieldName][fieldIndex] = re.sub(regexMatchString, correction, fieldValue, flags=re.DOTALL)
