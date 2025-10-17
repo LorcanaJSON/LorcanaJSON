@@ -343,7 +343,7 @@ def parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, threadLoca
 		for abilityIndex in range(len(ocrResult.abilityLabels)):
 			abilityName = TextCorrection.correctPunctuation(ocrResult.abilityLabels[abilityIndex].replace("''", "'").replace("ß", "ẞ")).rstrip(" %:").upper()
 			originalAbilityName = abilityName
-			abilityName = re.sub(r"(?<=\w) ?[.;7|»”©(\"=~]$", "", abilityName)
+			abilityName = re.sub(r"(?<=\w) ?[.;7|>»”©(\"=~_]{1,2}$", "", abilityName)
 			if GlobalConfig.language == Language.ENGLISH:
 				abilityName = abilityName.replace("|", "I")
 				abilityName = re.sub("^l", "I", abilityName)
