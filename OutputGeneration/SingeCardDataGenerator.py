@@ -487,6 +487,7 @@ def parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, threadLoca
 			while insertAbilityData:
 				insertAbilityIndex = insertAbilityData.pop(0)
 				insertAbilityText = insertAbilityData.pop(0)
+				_logger.info(f"Inserting ability {insertAbilityText!r} at index {insertAbilityIndex} in card {CardUtil.createCardIdentifier(outputCard)}")
 				outputCard["abilities"].insert(insertAbilityIndex, {"effect": insertAbilityText, "fullText": insertAbilityText})
 				if insertAbilityData and isinstance(insertAbilityData[0], str):
 					outputCard["abilities"][insertAbilityIndex]["name"] = insertAbilityData.pop(0)
