@@ -514,6 +514,10 @@ def parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, threadLoca
 			for abilityIndex in range(len(outputCard["abilities"]) - 1, -1, -1):
 				ability = outputCard["abilities"][abilityIndex]
 				abilityTextFieldName = "fullText" if "fullText" in ability else "effect"
+				if not ability[abilityTextFieldName]:
+					_logger.info(f"Removing empty ability at index {abilityIndex} in card {CardUtil.createCardIdentifier(outputCard)}")
+					outputCard["abilities"].pop(abilityIndex)
+					continue
 				while "\n\n" in ability[abilityTextFieldName]:
 					# We need to split this ability in two
 					_logger.info(f"Splitting ability at index {abilityIndex} in two because it has a double newline, in card {CardUtil.createCardIdentifier(outputCard)}")
