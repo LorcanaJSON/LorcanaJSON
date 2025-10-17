@@ -19,8 +19,11 @@ def correctText(cardText: str) -> str:
 	cardText = re.sub(",(?! |’|”|$)", ", ", cardText, flags=re.MULTILINE)
 	# The 'Exert' symbol often gets read as a 6
 	cardText = re.sub(r"^(G?6|fà)? ?,", f"{LorcanaSymbols.EXERT},", cardText)
+	cardText = re.sub(r"^(6|fà) ?([-—])", f"{LorcanaSymbols.EXERT} \\2", cardText)
 	# There's usually an ink symbol between a number and a dash
 	cardText = re.sub(r"(^| )(\d) ?[0OÒQ©]{,2}( ?[-—]|,)", fr"\1\2 {LorcanaSymbols.INK}\3", cardText, flags=re.MULTILINE)
+	# And word-number-number should be word-number-ink
+	cardText = re.sub(r"^(\w+ \d )[O0]$", f"\\1{LorcanaSymbols.INK}", cardText)
 	# Normally a closing quote mark should be preceded by a period, except mid-sentence
 	cardText = re.sub(r"([^.,'!?’])”(?!,| \w)", "\\1.”", cardText)
 	# An opening bracket shouldn't have a space after it
@@ -32,31 +35,30 @@ def correctText(cardText: str) -> str:
 	cardText = re.sub(r"^([(&f]+[Àà]?)? ?[-—](?=\s)", f"{LorcanaSymbols.EXERT} —", cardText)
 	# Some cards have a bulleted list, replace the start character with the separator symbol
 	cardText = re.sub(r"^[-+*«»¢.,‚]{1,2}(?= \w{2,} \w+)", LorcanaSymbols.SEPARATOR, cardText, flags=re.MULTILINE)
-	# 'À' is probably a Lore symbol
-	cardText = re.sub(r"(?<=\d )À\b", LorcanaSymbols.LORE, cardText)
 	# Other weird symbols are probably strength symbols
-	cardText = re.sub(r"(?<!\d)[ÇX]?[&@©%$*<>{}€£¥Ÿ]{1,2}[0-9yFÌX+*%#“»]*", LorcanaSymbols.STRENGTH, cardText)
-	cardText = re.sub(r"(?<=\d )[CÇDIQX]{1,2}\b", LorcanaSymbols.STRENGTH, cardText)
+	cardText = re.sub(r"(?<!\d)[ÇX]?[&@©%$*<>{}€£¥Ÿ]{1,2}[0-9yFÌPX+*%#“»]*(?=[.,)—-]|\s|$)", LorcanaSymbols.STRENGTH, cardText)
+	cardText = re.sub(r"(?<=\d )[CÇDIQX]{1,2}2?\b", LorcanaSymbols.STRENGTH, cardText)
 	# Make sure there's a period before a closing bracket
 	cardText = re.sub(fr"([^.,'!?’{LorcanaSymbols.STRENGTH}])\)", r"\1.)", cardText)
 	# Strip erroneously detected characters from the end
 	cardText = re.sub(r" [‘‘;]$", "", cardText, flags=re.MULTILINE)
-	# The Lore symbol often gets mistaken for a 4 or è, correct hat
-	cardText = re.sub(r"(\d) ?[4è](?=[ \n.])", fr"\1 {LorcanaSymbols.LORE}", cardText)
+	# The Lore symbol often gets mistaken for a 4, À, or è, correct hat
+	cardText = re.sub(r"(\d) ?[4Àè](?=[ \n.])", fr"\1 {LorcanaSymbols.LORE}", cardText)
 	# It sometimes misses the strength symbol between a number and the closing bracket
 	cardText = re.sub(r"^\+(\d)(\.\)?)$", f"+\\1 {LorcanaSymbols.STRENGTH}\\2", cardText, flags=re.MULTILINE)
 	cardText = re.sub(r"^([-+]\d)0(\.\)?)$", fr"\1 {LorcanaSymbols.STRENGTH}\2", cardText, flags=re.MULTILINE)
 	# A 7 often gets mistaken for a /, correct that
-	cardText = cardText.replace(" / ", " 7 ")
+	cardText = re.sub(r" /(?=\.| |$)", " 7", cardText)
 	cardText = re.sub(f"{LorcanaSymbols.INK}([-—])", fr"{LorcanaSymbols.INK} \1", cardText)
 	# Negative numbers are always followed by a strength symbol, correct that
-	cardText = re.sub(fr"(?<= )(-\d)( [^{LorcanaSymbols.STRENGTH}{LorcanaSymbols.LORE}a-z .]{{1,2}})?( \w|$)", fr"\1 {LorcanaSymbols.STRENGTH}\3", cardText, flags=re.MULTILINE)
+	cardText = re.sub(fr"(?<= )(-\d)( [^{LorcanaSymbols.STRENGTH}{LorcanaSymbols.LORE}a-z .]{{1,2}})?( \w{{2,}}|$)", fr"\1 {LorcanaSymbols.STRENGTH}\3", cardText, flags=re.MULTILINE)
 	# Two numbers in a row never happens, or a digit followed by a loose capital lettter. The latter should probably be a Strength symbol
-	cardText = re.sub(r"(\d) [0-9DGOQ]{1,2}[%{}°]?(?=\W)", f"\\1 {LorcanaSymbols.STRENGTH}", cardText)
+	cardText = re.sub(r"(\d) \(?[0-9DGOQ]{1,2}[%{}°»]?(?=\W|\.)", f"\\1 {LorcanaSymbols.STRENGTH}", cardText)
 	# Letters after a quotemark at the start of a line should be capitalized
 	cardText = re.sub("^“[a-z]", lambda m: m.group(0).upper(), cardText, flags=re.MULTILINE)
-	if re.search(" [^?!.…”“0-9]$", cardText):
+	if re.search(f" [^?!.…”“0-9{LorcanaSymbols.INK}]$", cardText):
 		cardText = cardText[:-2]
+	cardText = re.sub(r"([.!?]”?)\s?[a-z][a-zA-Z ]{,2}$", "\\1", cardText)
 	cardText = re.sub(r"(?<=\bTe[ -]K)a\b", "ā", cardText)
 	# Floodborn characters have Shift, and a subtypes bar that drips ink, leading to erroneous character detection. Fix that
 	cardText = re.sub(fr"^[^\n]{{,15}}\n(?=(?:[A-Z]\w+[ -])?{GlobalConfig.translation.shift})", "", cardText)
@@ -73,6 +75,7 @@ def correctText(cardText: str) -> str:
 		cardText = re.sub(r"^(“)?! ", r"\1I ", cardText)
 		cardText = re.sub(r"(^| |\n|“)[lIL!]([dlmM]l?)\b", r"\1I'\2", cardText, flags=re.MULTILINE)
 		cardText = re.sub("^l", "I", cardText)
+		cardText = cardText.replace("Sing songs", "sing songs")
 		# Correct some fancy qoute marks at the end of some plural possessives. This is needed on a case-by-case basis, otherwise too much text is changed
 		cardText = re.sub(r"\bteammates’(\s|$)", r"teammates'\1", cardText, flags=re.MULTILINE)
 		cardText = re.sub(r"\bplayers’(\s|$)", r"players'\1", cardText, flags=re.MULTILINE)
@@ -86,8 +89,9 @@ def correctText(cardText: str) -> str:
 		cardText = re.sub(r"(?<=\bpay\s)(\d+)O?(?=\sless\b)", f"\\1 {LorcanaSymbols.INK}", cardText)
 		# It gets a bit confused about exert and payment, correct that
 		cardText = re.sub(r"^\(20 ", f"{LorcanaSymbols.EXERT}, 2 {LorcanaSymbols.INK} ", cardText)
-		# The Lore symbol after 'location's' often gets missed
-		cardText = cardText.replace("location's .", f"location's {LorcanaSymbols.LORE}.")
+		# The Lore symbol after 'location's' often gets missed or misread as a '4'
+		# cardText = cardText.replace("location's .", f"location's {LorcanaSymbols.LORE}.")
+		cardText = re.sub("(?<=location's )4?\\.", f"{LorcanaSymbols.LORE}.", cardText)
 		## Correct reminder text ##
 		# Challenger
 		cardText = re.sub(r"\(They get \+(\d)$", f"(They get +\\1 {LorcanaSymbols.STRENGTH}", cardText, flags=re.MULTILINE)
@@ -103,10 +107,10 @@ def correctText(cardText: str) -> str:
 		cardText = re.sub(fr"(^|\badd )their [^{LorcanaSymbols.STRENGTH}]{{1,2}} to", f"\\1their {LorcanaSymbols.STRENGTH} to", cardText, flags=re.MULTILINE)
 		# Support, second line if split (prevent hit on 'of this turn.' or '+2 this turn', which is unrelated to what we're correcting)
 		cardText = re.sub(rf"^([^{LorcanaSymbols.STRENGTH}of+]{{1,2}} )?this turn\.?\)$", f"{LorcanaSymbols.STRENGTH} this turn.)", cardText, flags=re.MULTILINE)
-		cardText = re.sub(f"chosen character's( [^{LorcanaSymbols.LORE}{LorcanaSymbols.STRENGTH}])? this turn", f"chosen character's {LorcanaSymbols.STRENGTH} this turn", cardText)
+		cardText = re.sub(f"chosen character's( [^{LorcanaSymbols.LORE}{LorcanaSymbols.STRENGTH}]{{1,2}})? this turn", f"chosen character's {LorcanaSymbols.STRENGTH} this turn", cardText)
 		# Common typos
 		cardText = re.sub(r"\bluminary\b", "Illuminary", cardText)
-		cardText = cardText.replace("I/lu", "Illu")
+		cardText = re.sub(r"\bI[I/]+l?um", "Illum", cardText)
 		cardText = re.sub(r"([Dd])rawa ?card", r"\1raw a card", cardText)
 		cardText = re.sub(r"\bLt\b", "It", cardText)
 		cardText = re.sub(r"\b([Hh])ed\b", r"\1e'd", cardText)
@@ -134,7 +138,8 @@ def correctText(cardText: str) -> str:
 		cardText = re.sub(r"^‘", "“", cardText, flags=re.MULTILINE)
 		# "Il" often gets misread as "I!" or "[|"
 		cardText = re.sub(r"(?<![A-Z])[I|/![][!|/]", "Il", cardText)
-		cardText = re.sub(r"(^|\s|')[/\[I]+l+umin(arium|eur)", "\\1Illumin\\2", cardText)
+		cardText = re.sub(r"(^|\s|')[/\[IH]+l+umin(arium|eur)", "\\1Illumin\\2", cardText)
+		cardText = cardText.replace("IHum", "Illum")
 		# French always has a space before punctuation marks
 		cardText = re.sub(r"([^? ])!", r"\1 !", cardText)
 		cardText = re.sub(r"!(\w)", r"! \1", cardText)
@@ -202,7 +207,7 @@ def correctText(cardText: str) -> str:
 		cardText = re.sub(r"(?<=Riceve \+\d)\n", f" {LorcanaSymbols.STRENGTH}\n", cardText)
 		# It frequently reads the Strength symbol as 'XX or a percentage sign' or leaves a closing bracket
 		cardText = cardText.replace("XX", LorcanaSymbols.STRENGTH)
-		cardText = re.sub(r"\d?%", f" {LorcanaSymbols.STRENGTH}", cardText)
+		cardText = re.sub(r"\d?%(?=\s)", f" {LorcanaSymbols.STRENGTH}", cardText)
 		cardText = cardText.replace(f"{LorcanaSymbols.STRENGTH})", LorcanaSymbols.STRENGTH)
 		# It sometimes reads the Exert symbol as a bracket
 		cardText = cardText.replace("(uno", f"{LorcanaSymbols.EXERT} uno")
@@ -248,8 +253,11 @@ def correctPunctuation(textToCorrect: str) -> str:
 	correctedText = re.sub(r"(?<=\w)['‘’]+(?=\w)", "'", correctedText)
 	# It frequently misses the dash before a quote attribution
 	correctedText = re.sub(r"\n([A-Z]\w+)$", "\n—\\1", correctedText)
+	# Fix some erroneous extra punctuation
+	correctedText = re.sub(r"\? [.;]$", "?", correctedText)
 	# Ellipses get parsed weird, with spaces between periods where they don't belong. Fix that
 	if correctedText.count(".") > 2:
+		correctedText = correctedText.replace(". ...", "...")
 		correctedText = re.sub(r"([\xa0 ]?\.[\xa0 ]?){3}", "..." if GlobalConfig.language == Language.ENGLISH else "…", correctedText)
 	if "…" in correctedText:
 		correctedText = re.sub(r"\.*…( ?\.+)?", "…", correctedText)
@@ -261,7 +269,9 @@ def correctPunctuation(textToCorrect: str) -> str:
 	if correctedText.endswith(","):
 		correctedText = correctedText[:-1] + "."
 	if GlobalConfig.language == Language.ENGLISH:
-		correctedText = re.sub(r"\b([Tt]hey|[Yy]ou)(ll|re)\b", r"\1'\2", correctedText)
+		correctedText = re.sub(r"\b([Tt]hey|[Yy]ou) ?(ll|re)\b", r"\1'\2", correctedText)
+		correctedText = re.sub(r"\bIAM\b", "I AM", correctedText)
+		correctedText = re.sub(r"\bl'm\b", "I'm", correctedText)
 		# Correct fancy quotemarks when they're used in shortenings (f.i. "'em", "comin'", etc.)
 		correctedText = re.sub(r"(?<=\s)[‘’](?=(cause|em|til)([,.?!]|\s|$))", "'", correctedText, flags=re.IGNORECASE)
 		correctedText = re.sub(r"(?<=\win)[‘’](?=[,.?!]|\s|$)", "'", correctedText, flags=re.IGNORECASE)
@@ -387,8 +397,8 @@ def correctCardField(card: Dict, fieldName: str, regexMatchString: str, correcti
 		isStringMatch = isinstance(regexMatchString, str)
 		for key in card[fieldName]:
 			value = card[fieldName][key]
-			if isStringMatch and isinstance(value, str) and re.search(regexMatchString, value, flags=re.DOTALL):
-				card[fieldName][key] = re.sub(regexMatchString, correction, value)
+			if value == regexMatchString or (isStringMatch and isinstance(value, str) and re.search(regexMatchString, value, flags=re.DOTALL)):
+				card[fieldName][key] = re.sub(regexMatchString, correction, value) if isStringMatch else correction
 				if value == card[fieldName][key]:
 					_logger.warning(f"Correcting value for key '{key}' in dictionary field '{fieldName}' of card {CardUtil.createCardIdentifier(card)} with regex {regexMatchString!r} didn't change anything, value is still '{value}'")
 				else:

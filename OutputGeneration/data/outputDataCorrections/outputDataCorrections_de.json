@@ -29,16 +29,10 @@
       "Fl"
     ]
   },
-  "21": {
-    "flavorText": [
-      " S",
-      " s"
-    ]
-  },
   "24": {
     "flavorText": [
-      "M",
-      "m"
+      "–",
+      "—"
     ]
   },
   "25": {
@@ -86,6 +80,12 @@
       "."
     ]
   },
+  "81": {
+    "flavorText": [
+      " \\.$",
+      ""
+    ]
+  },
   "101": {
     "abilities": [
       "1O",
@@ -100,7 +100,7 @@
   },
   "114": {
     "flavorText": [
-      "i“",
+      "‘$",
       "‘.“"
     ]
   },
@@ -184,6 +184,12 @@
       "—"
     ]
   },
+  "167": {
+    "abilities": [
+      "¤",
+      "◊"
+    ]
+  },
   "169": {
     "flavorText": [
       " \\.\\.“",
@@ -206,12 +212,6 @@
     "abilities": [
       "IRT",
       "IẞT"
-    ]
-  },
-  "190": {
-    "abilities": [
-      "ß",
-      "ẞ"
     ]
   },
   "191": {
@@ -286,12 +286,6 @@
     "flavorText": [
       "—",
       "–"
-    ]
-  },
-  "261": {
-    "flavorText": [
-      "f“",
-      "f.“"
     ]
   },
   "267": {
@@ -531,7 +525,7 @@
     "abilities": [
       "GE$",
       "GEWONNEN!",
-      "; ",
+      "^\\| ",
       ""
     ]
   },
@@ -657,8 +651,8 @@
   },
   "492": {
     "flavorText": [
-      "HH",
-      "Fl"
+      "H",
+      "l"
     ]
   },
   "494": {
@@ -746,6 +740,10 @@
     "abilities": [
       "¤",
       "◊"
+    ],
+    "flavorText": [
+      "\nS",
+      "\n—S"
     ]
   },
   "565": {
@@ -756,6 +754,12 @@
     "flavorText": [
       "’",
       "'"
+    ]
+  },
+  "568": {
+    "abilities": [
+      "^9 ⬡",
+      "⟳"
     ]
   },
   "569": {
@@ -774,6 +778,12 @@
     "flavorText": [
       " …",
       "..."
+    ]
+  },
+  "582": {
+    "flavorText": [
+      "Z",
+      "z"
     ]
   },
   "601": {
@@ -922,9 +932,15 @@
       "ièr"
     ]
   },
+  "742": {
+    "flavorText": [
+      " O",
+      "O"
+    ]
+  },
   "743": {
     "abilities": [
-      "¤",
+      "&",
       "è"
     ]
   },
@@ -958,12 +974,6 @@
     "abilities": [
       "\\+,",
       "+¤,"
-    ]
-  },
-  "786": {
-    "effects": [
-      "r ⟳ i",
-      "r ¤ i"
     ]
   },
   "789": {
@@ -1008,12 +1018,6 @@
     "flavorText": [
       "–",
       "-"
-    ]
-  },
-  "812": {
-    "flavorText": [
-      "ö",
-      ""
     ]
   },
   "814": {
@@ -1089,9 +1093,9 @@
     ]
   },
   "846": {
-    "flavorText": [
-      "M",
-      "m"
+    "artistsText": [
+      "ä",
+      "é"
     ]
   },
   "855": {
@@ -1145,9 +1149,7 @@
   "897": {
     "abilities": [
       "schut",
-      "schüt",
-      "schop",
-      "schöp"
+      "schüt"
     ]
   },
   "902": {
@@ -1196,6 +1198,12 @@
       "—U"
     ]
   },
+  "923": {
+    "flavorText": [
+      " U",
+      "U"
+    ]
+  },
   "924": {
     "flavorText": [
       "— U",
@@ -1212,6 +1220,12 @@
     "flavorText": [
       "— U",
       "—U"
+    ]
+  },
+  "929": {
+    "flavorText": [
+      " U",
+      "U"
     ]
   },
   "933": {
@@ -1238,7 +1252,7 @@
     "flavorText": [
       "wW",
       "w",
-      "\n—OS",
+      "\n—POS",
       ""
     ]
   },
@@ -1256,7 +1270,7 @@
   },
   "949": {
     "abilities": [
-      " ¤;",
+      " €;",
       "",
       " I\\.$",
       ""
@@ -1336,16 +1350,16 @@
       "i"
     ]
   },
-  "1051": {
-    "flavorText": [
-      "\nJ",
-      "\n—J"
-    ]
-  },
   "1082": {
     "flavorText": [
       "-",
       "—"
+    ]
+  },
+  "1090": {
+    "abilities": [
+      "4",
+      "1"
     ]
   },
   "1092": {
@@ -1367,6 +1381,10 @@
     ]
   },
   "1101": {
+    "abilities": [
+      "u1©",
+      "u 1 ⬡"
+    ],
     "artistsText": [
       "e$",
       "é"
@@ -1386,7 +1404,7 @@
   },
   "1125": {
     "abilities": [
-      "^I ",
+      "^\\| ",
       "",
       "¤",
       "◊"
@@ -1495,7 +1513,9 @@
   "1227": {
     "flavorText": [
       "^Till",
-      "'Til I"
+      "'Til I",
+      "Ill",
+      "I'll"
     ]
   },
   "1232": {
@@ -1571,6 +1591,18 @@
       "◊"
     ]
   },
+  "1332": {
+    "abilities": [
+      "^1",
+      "⟳, 1"
+    ]
+  },
+  "1337": {
+    "abilities": [
+      "¤",
+      "◊"
+    ]
+  },
   "1338": {
     "abilities": [
       "¤",
@@ -1593,8 +1625,16 @@
   },
   "1360": {
     "abilities": [
+      "O!",
+      "O",
       "¤",
       "◊"
+    ]
+  },
+  "1367": {
+    "abilities": [
+      ",",
+      "."
     ]
   },
   "1375": {
@@ -1611,8 +1651,8 @@
   },
   "1394": {
     "flavorText": [
-      "li",
-      "lii"
+      "lik",
+      "liik"
     ]
   },
   "1400": {
@@ -1629,20 +1669,9 @@
       " in ",
       "Ii",
       "Ti"
-    ],
-    "subtypes": [
-      null,
-      [
-        "Flutgestalt",
-        "Held"
-      ]
     ]
   },
   "1409": {
-    "abilities": [
-      " 2$",
-      ""
-    ],
     "artistsText": [
       " Z$",
       ""
@@ -1652,12 +1681,6 @@
     "abilities": [
       "¤\\.",
       "◊."
-    ]
-  },
-  "1429": {
-    "abilities": [
-      "^H",
-      "ZÄH"
     ]
   },
   "1431": {
@@ -1740,6 +1763,12 @@
       "¤"
     ]
   },
+  "1467": {
+    "flavorText": [
+      "…$",
+      "…“"
+    ]
+  },
   "1476": {
     "abilities": [
       "^N ",
@@ -1750,8 +1779,14 @@
   },
   "1485": {
     "flavorText": [
-      "\\. ",
-      "… "
+      "\\.\\.",
+      "…"
+    ]
+  },
+  "1494": {
+    "flavorText": [
+      "A",
+      "Ä"
     ]
   },
   "1533": {
@@ -1792,24 +1827,16 @@
       "⬡"
     ]
   },
-  "1560": {
-    "flavorText": [
-      "\\bnem\\b",
-      "'nem",
-      "\nS",
-      "\n—S"
-    ]
-  },
-  "1563": {
-    "flavorText": [
-      "Ö",
-      "O"
-    ]
-  },
   "1566": {
     "abilities": [
       "LV",
       "L V"
+    ]
+  },
+  "1568": {
+    "flavorText": [
+      "t, ",
+      "t"
     ]
   },
   "1571": {
@@ -1818,12 +1845,6 @@
       "'",
       "⟳",
       "¤"
-    ]
-  },
-  "1572": {
-    "abilities": [
-      "¤",
-      "◊"
     ]
   },
   "1577": {
@@ -1846,8 +1867,8 @@
   },
   "1630": {
     "abilities": [
-      "4",
-      "1"
+      " 4",
+      " +1"
     ]
   },
   "1637": {
@@ -1872,12 +1893,10 @@
   },
   "1643": {
     "subtypes": [
-      null,
-      [
-        "Traumgestalt",
-        "Schurke",
-        "Magier"
-      ]
+      "dd",
+      "ag",
+      "k$",
+      "r"
     ]
   },
   "1650": {
@@ -1900,6 +1919,12 @@
       " "
     ]
   },
+  "1654": {
+    "subtypes": [
+      "una",
+      null
+    ]
+  },
   "1658": {
     "artistsText": [
       "^Ce",
@@ -1908,8 +1933,8 @@
   },
   "1668": {
     "flavorText": [
-      " ä",
-      " à"
+      "ö",
+      "à"
     ]
   },
   "1673": {
@@ -1951,7 +1976,7 @@
   "1697": {
     "abilities": [
       "4",
-      "+1"
+      "1"
     ]
   },
   "1701": {
@@ -1970,12 +1995,6 @@
     "abilities": [
       "¤",
       "◊"
-    ]
-  },
-  "1715": {
-    "abilities": [
-      "TA",
-      "T A"
     ]
   },
   "1719": {
@@ -2018,6 +2037,12 @@
     "abilities": [
       "‚",
       "• "
+    ]
+  },
+  "1776": {
+    "flavorText": [
+      "\\.\\.",
+      "…"
     ]
   },
   "1778": {
@@ -2079,7 +2104,9 @@
   "1803": {
     "abilities": [
       "Lumiere",
-      "Lumière"
+      "Lumière",
+      "¤",
+      "◊"
     ]
   },
   "1809": {
@@ -2182,6 +2209,10 @@
   },
   "1884": {
     "abilities": [
+      "AA",
+      "",
+      "El a Bl",
+      "",
       "¤",
       "◉"
     ]
@@ -2251,7 +2282,7 @@
     "abilities": [
       "en$",
       "en\nCharakter auf einen deiner Elsa-Charaktere auszuspielen.)",
-      "ULNdFOKLET",
+      "ENAFOKLET",
       "WINTERLICHE MAUER",
       ".+\\.\\)\\s+",
       ""
@@ -2261,16 +2292,14 @@
     "_effectAtIndexIsAbility": [0, "JEDE MENGE ZU TUN"],
     "_effectAtIndexIsFlavorText": 0,
     "effects": [
-      " ä",
-      " à"
+      "ö",
+      "à"
     ]
   },
   "1934": {
     "abilities": [
       "BEH",
-      "ICH",
-      "“",
-      ""
+      "ICH"
     ]
   },
   "1935": {
@@ -2346,6 +2375,12 @@
       "…"
     ]
   },
+  "2025": {
+    "abilities": [
+      "TA",
+      "T A"
+    ]
+  },
   "2033": {
     "effects": [
       "⟳",
@@ -2377,8 +2412,6 @@
     "abilities": [
       " N\n",
       "\n",
-      "¤¤",
-      "¤",
       " W\n",
       " ⛉\n",
       "¤\\.",
@@ -2435,15 +2468,9 @@
       "◊"
     ]
   },
-  "2130": {
-    "flavorText": [
-      "ll",
-      "l!"
-    ]
-  },
   "2141": {
     "abilities": [
-      "^DA",
+      "^.+\nDA",
       "DÄ",
       " !",
       ""
@@ -2456,10 +2483,6 @@
     ]
   },
   "2143": {
-    "artistsText": [
-      "-",
-      " "
-    ],
     "effects": [
       "8\n",
       "8\n\n"
@@ -2471,18 +2494,6 @@
       "⟳",
       "—",
       "–"
-    ]
-  },
-  "2148": {
-    "abilities": [
-      "4$",
-      "4 ⬡"
-    ]
-  },
-  "2155": {
-    "abilities": [
-      "^NN",
-      "KÖNN"
     ]
   },
   "2156": {
@@ -2497,10 +2508,10 @@
       "1"
     ]
   },
-  "2163": {
+  "2169": {
     "flavorText": [
-      "ff",
-      "ff."
+      "rt",
+      "r t"
     ]
   },
   "2172": {
@@ -2511,7 +2522,7 @@
   },
   "2177": {
     "abilities": [
-      "^KO",
+      "^.+KO",
       "KÖ",
       " DS$",
       "",
@@ -2519,11 +2530,9 @@
       "Deine Micky-Maus-Charaktere\n",
       "\\]",
       "",
-      " '$",
+      " \\.\\)$",
       "",
-      " B$",
-      "",
-      "^E",
+      "^Be",
       "Je",
       "TV",
       " M",
@@ -2531,19 +2540,15 @@
       ", w",
       "idiesEn",
       " dieser ",
-      "CHa",
-      "Cha",
       "ten\n",
       "ter\n",
-      "An.+hner",
+      "Men.+hner",
       "erkundet, darfst du einen erschöpften Charakter deiner",
-      "m ASt",
-      "mit 5",
-      "n m",
-      "r m",
+      "io",
+      "it 5",
       "Over ",
       "¤ ver",
-      " a$",
+      " a .+$",
       "."
     ],
     "artistsText": [
@@ -2560,7 +2565,17 @@
     ]
   },
   "2178": {
-    "_insertAbilityAtIndex": [0, "Gestaltwandel 5 ⬡", 1, "Wendig", 2, "Solange dieser Charakter\nmindestens eine Karte unter sich hat, erhält er +3 ¤,\n+3 ⛉ und +3 ◊.", "KRÖNENDER ABSCHLUSS"],
+    "_insertAbilityAtIndex": [1, "Wendig", 2, "Solange dieser Charakter\nmindestens eine Karte unter sich hat, erhält er +3 ¤,\n+3 ⛉ und +3 ◊.", "KRÖNENDER ABSCHLUSS"],
+    "abilities": [
+      "^\\(",
+      "",
+      "SO\\.\\)",
+      "5 ⬡"
+    ],
+    "effects": [
+      null,
+      null
+    ],
     "subtypes": [
       null,
       [

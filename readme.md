@@ -10,7 +10,9 @@ Verify that Python works by running the command 'python --version' on the comman
 If you get an error that the command can't be found, try 'python3 --version' instead, and replace instances of the 'python' command in subsequent examples with 'python3'.   
 ### Tesseract models
 For every language you want to generate data for, you need to download the Tesseract model for that language (indicated by its three-letter code) from the official repository [here](https://github.com/tesseract-ocr/tessdata_best/tree/e12c65a915945e4c28e237a9b52bc4a8f39a0cec). Remember where you saved the model(s), because the location needs to be added to the Config file in the 'Configfile' Setup step.  
-Previously, a LorcanaJSON-specific Tesseract model was required for English, but that is no longer the case; English now also uses Tesseract's own model.
+Previously, a LorcanaJSON-specific Tesseract model was required for English, but that is no longer the case; English now also uses Tesseract's own model.  
+This project uses tesserocr 2.8.0 with Tesseract 5.3.4 and Leptonica 1.83.1; using other versions of these programs could lead to unexpected OCR results
+
 ### Libraries
 This project needs some libraries to work. These are listed in the 'requirements.txt' file.  
 To install these libraries, run the command 'python -m pip install -r requirements.txt'.  
