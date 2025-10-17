@@ -126,7 +126,7 @@ def parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, threadLoca
 		# Simplify quotemarks
 		outputCard["artistsText"] = outputCard["artistsText"].replace("“", "\"").replace("”", "\"")
 	if oldArtistsText != outputCard["artistsText"]:
-		_logger.info(f"Corrected artist name from '{oldArtistsText}' to '{outputCard['artistsText']}' in card {CardUtil.createCardIdentifier(inputCard)}")
+		_logger.info(f"Corrected artist name from {oldArtistsText!r} to {outputCard['artistsText']!r} in card {CardUtil.createCardIdentifier(inputCard)}")
 
 	outputCard["name"] = TextCorrection.correctPunctuation(inputCard["name"].strip() if "name" in inputCard else ocrResult.name).replace("’", "'").replace("‘", "'").replace("''", "'")
 	if outputCard["name"] == "Balais Magiques":
