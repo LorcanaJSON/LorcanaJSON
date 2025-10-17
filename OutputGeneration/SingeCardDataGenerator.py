@@ -371,6 +371,9 @@ def parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, threadLoca
 			if abilityName != originalAbilityName:
 				_logger.info(f"Corrected ability name from {originalAbilityName!r} to {abilityName!r}")
 			abilityEffect = TextCorrection.correctText(TextCorrection.correctPunctuation(ocrResult.abilityTexts[abilityIndex]))
+			if len(abilityName) < 3 and len(abilityEffect) < 5:
+				_logger.info(f"Skipping ability at index {abilityIndex}, name {abilityName!r} and effect text {abilityEffect!r} are too short")
+				continue
 			abilities.append({
 				"name": abilityName,
 				"effect": abilityEffect
