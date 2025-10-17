@@ -745,6 +745,13 @@ def parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, threadLoca
 	if moveAbilityAtIndexToIndex:
 		_logger.info(f"Moving ability at index {moveAbilityAtIndexToIndex[0]} to index {moveAbilityAtIndexToIndex[1]}")
 		outputCard["abilities"].insert(moveAbilityAtIndexToIndex[1], outputCard["abilities"].pop(moveAbilityAtIndexToIndex[0]))
+		# Moving keyword abilities might change the 'keywordAbilities' order, so rebuild the list if necessary
+		if "keywordAbilities" in outputCard:
+			_logger.info("Recreating keyword ability list")
+			outputCard["keywordAbilities"] = []
+			for ability in outputCard["abilities"]:
+				if "keyword" in ability:
+					outputCard["keywordAbilities"].append(ability["keyword"])
 	# Reconstruct the full card text. Do that after storing and correcting fields, so any corrections will be taken into account
 	# Remove the newlines in the fields we use while we're at it, because we only needed those to reconstruct the fullText
 	fullTextSections = []
