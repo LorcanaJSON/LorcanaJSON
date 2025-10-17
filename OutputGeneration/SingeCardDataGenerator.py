@@ -341,7 +341,7 @@ def parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, threadLoca
 
 	if ocrResult.abilityLabels:
 		for abilityIndex in range(len(ocrResult.abilityLabels)):
-			abilityName = TextCorrection.correctPunctuation(ocrResult.abilityLabels[abilityIndex].replace("''", "'").replace("ß", "ẞ")).rstrip(":").upper()
+			abilityName = TextCorrection.correctPunctuation(ocrResult.abilityLabels[abilityIndex].replace("''", "'").replace("ß", "ẞ")).rstrip(" %:").upper()
 			originalAbilityName = abilityName
 			abilityName = re.sub(r"(?<=\w) ?[.;7|»”©(\"=~]$", "", abilityName)
 			if GlobalConfig.language == Language.ENGLISH:
