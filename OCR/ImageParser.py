@@ -373,19 +373,19 @@ class ImageParser:
 					if parseSettings.labelParsingMethod == ParseSettings.LABEL_PARSING_METHODS.FALLBACK_WHITE_ABILITY_TEXT and re.search("[A-Z]{2,}", remainingText):
 						# Detecting labels on new-style Enchanted cards is hard, so for those the full card text is 'remainingText'
 						# Try to get the labels and effects out
-						labelMatch = re.search("([AÀÈI] |I['’]M |C['’])?[A-ZÈÉÊÜ]{2}", remainingText)
+						labelMatch = re.search("(^|\n)([AÀÈI|Y] |I['’]M |[A-Z]['’])?[A-ZÄÈÉÊÖÜ]{2,}", remainingText)
 						if labelMatch:
 							labelAndEffectText = remainingText[labelMatch.start():]
 							remainingText = remainingText[:labelMatch.start()].rstrip()
 							while labelAndEffectText:
-								effectMatch = re.search(fr"(([A-Z]|[AÀI|] )[a-zäéü]|[0-9{LorcanaSymbols.EXERT}@©&]|(^|\s)G( [a-z ]*)?[,—–-])", labelAndEffectText, flags=re.DOTALL)
+								effectMatch = re.search(fr"(([A-Z]|[AÀI|] )[a-zäéü]|[0-9{LorcanaSymbols.EXERT}@©&{{[]|(^|\s)G( [a-z ]*)?[,—–-])", labelAndEffectText, flags=re.DOTALL)
 								if effectMatch:
 									labelText = labelAndEffectText[:effectMatch.start()]
 									effectText = labelAndEffectText[effectMatch.start():]
 								else:
 									labelText = ""
 									effectText = ""
-								nextLabelMatch = re.search("\n([AÀÈI] |I['’]M |C['’])?[A-ZÉÊÜ]{2}", effectText)
+								nextLabelMatch = re.search("\n([AÀÈI] |I['’]M |C['’])?[A-ZÄÉÊÖÜ]{2}", effectText)
 								if nextLabelMatch:
 									labelAndEffectText = effectText[nextLabelMatch.start():].lstrip()
 									effectText = effectText[:nextLabelMatch.start()].rstrip()
