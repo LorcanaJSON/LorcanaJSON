@@ -501,7 +501,7 @@ class ImageParser:
 				self._logger.info(f"Corrected non-numeric result '{originalResult}' to '{result}' for image area '{imageAreaName}'")
 		return result
 
-	def _getSubImageAndText(self, cardImage: cv2.Mat, imageArea: ImageArea) -> ImageAndText:
+	def _getSubImageAndText(self, cardImage: cv2.Mat, imageArea: ImageArea.ImageArea) -> ImageAndText:
 		subImage = self._getSubImage(cardImage, imageArea)
 		# Numeric reading is more sensitive, so convert to a clearer threshold image
 		if imageArea.isNumeric or imageArea.textColour == ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND:
