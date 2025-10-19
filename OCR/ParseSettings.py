@@ -33,6 +33,7 @@ class ParseSettings:
 	typeImageTextColorOverride: Optional[ImageArea.TextColour] = None  # If a different type image text color should be used than default for the card layout, set it here
 	parseIdentifier: bool = False
 	getIdentifierFromCard: bool = False
+	forceArtistTextColor: Optional[ImageArea.TextColour] = None
 	# Force some checks that could fail or be wrong on some cards. 'None' means they're not overridden, setting them to 'True' or 'False' uses those values instead of whatever is normally determined
 	hasCardTextOverride: Optional[bool] = None
 	hasFlavorTextOverride: Optional[bool] = None

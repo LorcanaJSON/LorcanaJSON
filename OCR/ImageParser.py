@@ -159,7 +159,7 @@ class ImageParser:
 		else:
 			cardLayout = parseSettings.cardLayout
 
-		result["artist"] = self._getSubImageAndText(greyCardImage, cardLayout.artist)
+		result["artist"] = self._getSubImageAndText(greyCardImage, cardLayout.artist, parseSettings.forceArtistTextColor)
 		if parseFully:
 			# Parse from top to bottom
 			result["name"] = self._getSubImageAndText(greyCardImage, cardLayout.name)
@@ -501,11 +501,12 @@ class ImageParser:
 				self._logger.info(f"Corrected non-numeric result '{originalResult}' to '{result}' for image area '{imageAreaName}'")
 		return result
 
-	def _getSubImageAndText(self, cardImage: cv2.Mat, imageArea: ImageArea.ImageArea) -> ImageAndText:
+	def _getSubImageAndText(self, cardImage: cv2.Mat, imageArea: ImageArea.ImageArea, forceTextColor: Optional[ImageArea.TextColour] = None) -> ImageAndText:
 		subImage = self._getSubImage(cardImage, imageArea)
 		# Numeric reading is more sensitive, so convert to a clearer threshold image
-		if imageArea.isNumeric or imageArea.textColour == ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND:
-			subImage = self._convertToThresholdImage(subImage, imageArea.textColour)
+		textColour = forceTextColor if forceTextColor else imageArea.textColour
+		if imageArea.isNumeric or textColour == ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND:
+			subImage = self._convertToThresholdImage(subImage, textColour)
 		return ImageAndText(subImage, self._imageToString(subImage, imageArea.isNumeric, imageArea.keyName))
 
 	@staticmethod
