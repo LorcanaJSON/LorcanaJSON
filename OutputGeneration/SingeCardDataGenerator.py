@@ -413,6 +413,7 @@ def parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, threadLoca
 			outputCard["errata"] = errata
 		if clarifications:
 			outputCard["clarifications"] = clarifications
+
 	# Determine subtypes and their order. Items and Actions have an empty subtypes list, ignore those
 	if ocrResult.subtypesText:
 		subtypes: List[str] = re.sub(fr"[^A-Za-zàäèéöü{LorcanaSymbols.SEPARATOR} ]", "", ocrResult.subtypesText).split(LorcanaSymbols.SEPARATOR_STRING)
