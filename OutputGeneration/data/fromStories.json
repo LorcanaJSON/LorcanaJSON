@@ -81,6 +81,15 @@
     "matchingNames": ["Alistair Krei", "Aunt Cass", "Baymax", "Fred", "Go Go Tomago", "Hiro Hamada", "Honey Lemon", "Tadashi Hamada", "Wasabi", "Yokai"],
     "matchingIds": [1277, 1297, 1361, 1364, 1366, 1369, 1418]
   },
+  "blackcauldron": {
+    "displayNames": {
+      "de": "Taran und der Zauberkessel",
+      "en": "The Black Cauldron",
+      "fr": "Taram et le Chaudron magique",
+      "it": "Taron e la pentola magica"
+    },
+    "matchingNames": ["Black Cauldron", "Gurgi", "Gwythaint", "Hen Wen", "Taran", "The Horned King"]
+  },
   "bolt": {
     "displayNames": {
       "de": "Bolt – Ein Hund für alle Fälle",
