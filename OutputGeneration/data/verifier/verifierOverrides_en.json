@@ -510,5 +510,35 @@
       "i$",
       "i / Livio Cacciatore"
     ]
+  },
+  "2410": {
+    "rules_text": [
+      "W.+\"W",
+      "W",
+      "s,",
+      "s, if there's a card under him,",
+      "\"$",
+      ""
+    ]
+  },
+  "2416": {
+    "author": [
+      "eal \\(L",
+      "",
+      "\\)",
+      ""
+    ]
+  },
+  "2432": {
+    "card_identifier": [
+      "9$",
+      "1"
+    ]
+  },
+  "2436": {
+    "rules_text": [
+      "a character",
+      "another character"
+    ]
   }
 }

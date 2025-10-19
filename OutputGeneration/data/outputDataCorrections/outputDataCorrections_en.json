@@ -2284,10 +2284,6 @@
     "effects": [
       " d ",
       " à "
-    ],
-    "subtypes": [
-      "^t",
-      "St"
     ]
   },
   "1934": {
@@ -2667,6 +2663,165 @@
         "Hero",
         "Prince"
       ]
+    ]
+  },
+  "2183": {
+    "rarity": [
+      "Enchanted",
+      "Special"
+    ]
+  },
+  "2184": {
+    "abilities": [
+      "I$",
+      "E"
+    ]
+  },
+  "2188": {
+    "abilities": [
+      "4 \\(",
+      "4 ⬡ (",
+      "^[.-] ",
+      ""
+    ]
+  },
+  "2221": {
+    "abilities": [
+      "^\\(10",
+      "⟳, 1 ⬡",
+      "ta",
+      "t a"
+    ]
+  },
+  "2245": {
+    "flavorText": [
+      "-",
+      "—"
+    ]
+  },
+  "2248": {
+    "abilities": [
+      "\\.1Q",
+      "1 ⬡"
+    ]
+  },
+  "2257": {
+    "flavorText": [
+      "e r",
+      "e'r",
+      "F",
+      "E"
+    ]
+  },
+  "2275": {
+    "abilities": [
+      "^L",
+      "I'L",
+      "“d",
+      "d"
+    ]
+  },
+  "2283": {
+    "flavorText": [
+      "-",
+      "—"
+    ]
+  },
+  "2292": {
+    "artistsText": [
+      " l",
+      " I"
+    ]
+  },
+  "2318": {
+    "_effectAtIndexIsAbility": 0
+  },
+  "2382": {
+    "abilities": [
+      "B\\.\n\"¤",
+      "⛉."
+    ]
+  },
+  "2402": {
+    "abilities": [
+      "⬡\\.\\)",
+      "⬡"
+    ]
+  },
+  "2430": {
+    "_insertAbilityAtIndex": [0, "Boost 1 ⬡"],
+    "abilities": [
+      "^M",
+      "COM",
+      " J$",
+      "",
+      "\\.\\)",
+      " during",
+      "ny",
+      "turn, whenever",
+      "np",
+      "u p",
+      "asoug",
+      " a song,",
+      "t r.+$",
+      "f there's a card\nunder this character, you may draw a card."
+    ],
+    "subtypes": [
+      "y$",
+      "yborn",
+      null,
+      "Hero",
+      null,
+      "Princess",
+      null,
+      "Whisper"
+    ]
+  },
+  "2431": {
+    "_addNameToAbilityAtIndex": [0, "WHAT D'YA SAY?"],
+    "abilities": [
+      "^Ae\nf",
+      "When you play this character,\nyou may choose an opposing character. If you do,\ndraw 2 cards unless that character's player puts\nth",
+      "hak",
+      "their",
+      " .\\.$",
+      ""
+    ],
+    "subtypes": [
+      "Bowy",
+      null,
+      null,
+      [
+        "Storyborn",
+        "Villain",
+        "Deity"
+      ]
+    ]
+  },
+  "2432": {
+    "baseId": [
+      1949,
+      12
+    ],
+    "fullIdentifier": [
+      "9$",
+      "1"
+    ],
+    "setCode": [
+      "9",
+      "1"
+    ]
+  },
+  "2436": {
+    "abilities": [
+      "1\n",
+      "1 ◊\n"
+    ]
+  },
+  "2437": {
+    "flavorText": [
+      "e r",
+      "e'r"
     ]
   }
 }
