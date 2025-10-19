@@ -183,12 +183,11 @@ def compareInputToOutput(cardIdsToVerify: Optional[List[int]]):
 				_printDifferencesDescription(outputCard, "subtypes", inputSubtypesText, outputSubtypesText)
 
 		# Cards beyond the 'normal' numbering are either Enchanted or otherwise Special, check if that's stored properly
-		if outputCard["rarity"] == GlobalConfig.translation.ENCHANTED and "nonEnchantedId" not in outputCard and "nonPromoId" not in outputCard:
+		if ("baseId" not in outputCard and
+				(outputCard["rarity"] in (GlobalConfig.translation.EPIC, GlobalConfig.translation.ENCHANTED, GlobalConfig.translation.ICONIC) or
+				 ("Q" not in outputCard["setCode"] and outputCard["rarity"] == GlobalConfig.translation.SPECIAL))):
 			cardDifferencesCount += 1
-			print(f"{outputCard['fullName']} (ID {outputCard['id']}) should have a non-enchanted ID or non-promo ID field, but it doesn't")
-		elif "Q" not in outputCard["setCode"] and outputCard["rarity"] == GlobalConfig.translation.SPECIAL and "nonPromoId" not in outputCard:
-			cardDifferencesCount += 1
-			print(f"{outputCard['fullName']} (ID {outputCard['id']}) should have a non-promo ID field, but it doesn't")
+			print(f"{outputCard['fullName']} (ID {outputCard['id']}) should have a Base ID field, but it doesn't")
 
 		inputIdentifier = inputCard["card_identifier"].replace(" ", LorcanaSymbols.SEPARATOR_STRING).replace("1TFC", "1 TFC")
 		# The input identifiers don't have the leading zero, so strip it here too (But don't remove it from 0/204 from Set 9)
