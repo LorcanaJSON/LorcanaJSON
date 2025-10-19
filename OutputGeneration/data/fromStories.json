@@ -137,7 +137,8 @@
       "fr": "La Bande à Picsou",
       "it": "DuckTales"
     },
-    "matchingNames": ["Beagle Boys", "Della Duck", "Dewey", "Ducktales", "Flintheart Glomgold", "Gizmoduck", "Gyro Gearloose", "Huey", "Lena Sabrewing", "Louie", "Lucky Dime", "Magica De Spell", "Poe De Spell", "Scrooge", "Scrooge McDuck", "Webby Vanderquack"],
+    "matchingNames": ["Beagle Boys", "Della Duck", "Dewey", "Ducktales", "Duckworth", "Flintheart Glomgold", "Gizmoduck", "Gyro Gearloose", "Huey", "Launchpad", "Lena Sabrewing", "Louie", "Lucky Dime",
+      "Magica De Spell", "Mrs. Beakly", "Poe De Spell", "Scrooge", "Scrooge McDuck", "Violet Sabrewing", "Webby Vanderquack"],
     "matchingIds": [636]
   },
   "dumbo": {
