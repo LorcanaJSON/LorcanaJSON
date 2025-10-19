@@ -21,6 +21,13 @@ class RelatedCardCollator:
 				if groupId not in self.deckbuildingIdToRelatedCards:
 					self.deckbuildingIdToRelatedCards[groupId] = RelatedCards()
 				self.deckbuildingIdToRelatedCards[groupId].addCard(card)
+		# Sort the lists
+		for relatedCards in self.deckbuildingIdToRelatedCards.values():
+			if len(relatedCards.normalCardIdsBySet) > 1:
+				# Sort by value, since lower IDs are probably older
+				relatedCards.normalCardIdsBySet = {k: v for k, v in sorted(relatedCards.normalCardIdsBySet.items(), key=lambda item: item[1])}
+			relatedCards.promoCardIds.sort()
+			relatedCards.variantCardIds.sort()
 		_logger.info(f"Collating all the related cards took {time.perf_counter() - startTime:.4f} seconds")
 
 	def getRelatedCards(self, card: Dict) -> "RelatedCards":
