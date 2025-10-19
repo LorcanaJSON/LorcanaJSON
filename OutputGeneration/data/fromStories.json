@@ -181,6 +181,18 @@
     "matchingNames": ["Anna", "Arendelle", "Bruni", "Duke of Weselton", "Elsa", "Grand Pabbie", "Hans", "Honeymaren", "Iduna", "Kristoff", "Marshmellow", "Olaf", "Ryder", "Sven", "The Nokk", "Yelana"],
     "matchingIds": [63, 163, 200, 415, 720, 857, 997, 998, 1085, 1188, 1610, 1611, 1653, 1745, 1748]
   },
+  "gargoyles": {
+    "displayNames": {
+      "de": "Gargoyles",
+      "en": "Gargoyles",
+      "fr": "Gargoyles",
+      "it": "Gargoyles"
+    },
+    "matchingNames": ["Broadway", "Bronx", "Brooklyn", "David Xanatos", "Demona", "Elisa Maza", "Goliath", "Hudson", "Lexington"],
+    "matchingFields": {
+      "subtypes": "Gargoyle"
+    }
+  },
   "goofymovie": {
     "displayNames": {
       "de": "Der Goofy Film",
