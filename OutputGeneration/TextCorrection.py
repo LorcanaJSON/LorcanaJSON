@@ -23,7 +23,7 @@ def correctText(cardText: str) -> str:
 	# There's usually an ink symbol between a number and a dash
 	cardText = re.sub(r"(^| )(\d) ?[0OÒQ©]{,2}( ?[-—]|,)", fr"\1\2 {LorcanaSymbols.INK}\3", cardText, flags=re.MULTILINE)
 	# And word-number-number should be word-number-ink
-	cardText = re.sub(r"^(\w+ \d )[O0]$", f"\\1{LorcanaSymbols.INK}", cardText)
+	cardText = re.sub(r"^(\w+ \d) ?[O0©]$", f"\\1 {LorcanaSymbols.INK}", cardText)
 	# Normally a closing quote mark should be preceded by a period, except mid-sentence
 	cardText = re.sub(r"([^.,'!?’])”(?!,| \w)", "\\1.”", cardText)
 	# An opening bracket shouldn't have a space after it
@@ -83,7 +83,7 @@ def correctText(cardText: str) -> str:
 		cardText = re.sub(r"\bIllumineers’(\s|$)", r"Illumineers'\1", cardText, flags=re.MULTILINE)
 		## Correct common phrases with symbols ##
 		# Ink payment discounts
-		cardText = re.sub(r"(?<=\bpay\s)(\d)0? .?to\b", f"\\1 {LorcanaSymbols.INK} to", cardText)
+		cardText = re.sub(r"(?<=\bpay\s)(\d)[0Q]? .?to\b", f"\\1 {LorcanaSymbols.INK} to", cardText)
 		cardText = re.sub(rf"pay(s?) ?(\d)\.? ?[^{LorcanaSymbols.INK}.]{{1,2}}( |\.|$)", f"pay\\1 \\2 {LorcanaSymbols.INK}\\3", cardText, flags=re.MULTILINE)
 		cardText = re.sub(rf"pay(\s)(\d) [^{LorcanaSymbols.INK}] less", fr"pay\1\2 {LorcanaSymbols.INK} less", cardText)
 		cardText = re.sub(r"(?<=\bpay\s)(\d+)O?(?=\sless\b)", f"\\1 {LorcanaSymbols.INK}", cardText)
