@@ -14,6 +14,7 @@ def checkForNewCardData(newCardCatalog: Dict = None, fieldsToIgnore: List[str] =
 	oldCards: Dict[int, Dict] = {}
 	# Keep track of known card fields, so we can notice if new cards add new fields
 	knownCardFieldNames: List[str] = []
+	oldCardCatalog = None
 	pathToCardCatalog = os.path.join("downloads", "json", f"carddata.{GlobalConfig.language.code}.json")
 	if os.path.isfile(pathToCardCatalog):
 		with open(pathToCardCatalog, "r") as cardCatalogFile:
@@ -129,16 +130,20 @@ def checkForNewCardData(newCardCatalog: Dict = None, fieldsToIgnore: List[str] =
 				if card["culture_invariant_id"] not in existingIds:
 					updateCheckResult.addNewCard(card, "[external]")
 
-	# Check if new sets have been added
-	if len(oldCardCatalog["card_sets"]) != len(newCardCatalog["card_sets"]):
-		oldNames = [s["name"] for s in oldCardCatalog["card_sets"]]
-		for newSetData in newCardCatalog["card_sets"]:
-			if newSetData["name"] not in oldNames:
-				updateCheckResult.newSets.append(newSetData["name"])
+	if oldCardCatalog:
+		# Check if new sets have been added
+		if len(oldCardCatalog["card_sets"]) != len(newCardCatalog["card_sets"]):
+			oldNames = [s["name"] for s in oldCardCatalog["card_sets"]]
+			for newSetData in newCardCatalog["card_sets"]:
+				if newSetData["name"] not in oldNames:
+					updateCheckResult.newSets.append(newSetData["name"])
 
-	# The cardstore stores the latest version of the official app, compare that too
-	if oldCardCatalog["application_shared_properties"]["current_app_version"] != newCardCatalog["application_shared_properties"]["current_app_version"]:
-		updateCheckResult.appVersionChange = (oldCardCatalog["application_shared_properties"]["current_app_version"], newCardCatalog["application_shared_properties"]["current_app_version"])
+		# The cardstore stores the latest version of the official app, compare that too
+		if oldCardCatalog["application_shared_properties"]["current_app_version"] != newCardCatalog["application_shared_properties"]["current_app_version"]:
+			updateCheckResult.appVersionChange = (oldCardCatalog["application_shared_properties"]["current_app_version"], newCardCatalog["application_shared_properties"]["current_app_version"])
+	else:
+		# No old catalog, so all sets are new
+		updateCheckResult.newSets = [newSetData["name"] for newSetData in newCardCatalog["card_sets"]]
 
 	return updateCheckResult
 
