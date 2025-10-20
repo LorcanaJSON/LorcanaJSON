@@ -14,6 +14,8 @@ def checkForNewCardData(newCardCatalog: Dict = None, fieldsToIgnore: List[str] =
 	oldCards: Dict[int, Dict] = {}
 	# Keep track of known card fields, so we can notice if new cards add new fields
 	knownCardFieldNames: List[str] = []
+	# Initialize oldCardCatalog with empty structure that will be used if no stored catalog exists
+	oldCardCatalog: Dict = {"cards": {}, "card_sets": [], "application_shared_properties": {"current_app_version": ""}}
 	pathToCardCatalog = os.path.join("downloads", "json", f"carddata.{GlobalConfig.language.code}.json")
 	if os.path.isfile(pathToCardCatalog):
 		with open(pathToCardCatalog, "r") as cardCatalogFile:
