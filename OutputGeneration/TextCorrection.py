@@ -75,6 +75,7 @@ def correctText(cardText: str) -> str:
 		cardText = re.sub(r"^(“)?! ", r"\1I ", cardText)
 		cardText = re.sub(r"(^| |\n|“)[lIL!]([dlmM]l?)\b", r"\1I'\2", cardText, flags=re.MULTILINE)
 		cardText = re.sub("^l", "I", cardText)
+		cardText = re.sub(r"(?<=\s)l(?=\s)", "I", cardText)
 		cardText = cardText.replace("Sing songs", "sing songs")
 		# Correct some fancy quote marks at the end of some plural possessives. This is needed on a case-by-case basis, otherwise too much text is changed
 		cardText = re.sub(r"\bteammates’(\s|$)", r"teammates'\1", cardText, flags=re.MULTILINE)
@@ -271,7 +272,7 @@ def correctPunctuation(textToCorrect: str) -> str:
 	if correctedText.endswith(","):
 		correctedText = correctedText[:-1] + "."
 	if GlobalConfig.language == Language.ENGLISH:
-		correctedText = re.sub(r"\b([Tt]hey|[Yy]ou) ?(ll|re)\b", r"\1'\2", correctedText)
+		correctedText = re.sub(r"\b([Tt]hey|[Yy]ou) ?(ll|re|ve)\b", r"\1'\2", correctedText)
 		correctedText = re.sub(r"\bIAM\b", "I AM", correctedText)
 		correctedText = re.sub(r"\bl'm\b", "I'm", correctedText)
 		# Correct fancy quotemarks when they're used in shortenings (f.i. "'em", "comin'", etc.)
