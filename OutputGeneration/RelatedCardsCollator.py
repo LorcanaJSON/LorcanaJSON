@@ -130,7 +130,7 @@ class RelatedCards:
 		if isNotPromo and isNotFancyArt and len(self.normalCardIdsBySet) > 0:
 			# More than one normal card means this is or has a reprint
 			if cardId == self.firstNormalCardId:
-				otherRelatedCards.reprintedAsIds = [i for i in self.normalCardIdsBySet.values() if i != cardId]
+				otherRelatedCards.reprintedAsIds = sorted([i for i in self.normalCardIdsBySet.values() if i != cardId])
 			elif isNotVariant:
 				otherRelatedCards.reprintOfId = self.firstNormalCardId
 		return otherRelatedCards
