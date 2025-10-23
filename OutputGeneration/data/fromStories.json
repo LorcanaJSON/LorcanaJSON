@@ -88,7 +88,7 @@
       "fr": "Taram et le Chaudron magique",
       "it": "Taron e la pentola magica"
     },
-    "matchingNames": ["Black Cauldron", "Gurgi", "Gwythaint", "Hen Wen", "Taran", "The Horned King"]
+    "matchingNames": ["Black Cauldron", "Eilonwy", "Gurgi", "Gwythaint", "Hen Wen", "Taran", "The Horned King"]
   },
   "bolt": {
     "displayNames": {
@@ -137,8 +137,8 @@
       "fr": "La Bande à Picsou",
       "it": "DuckTales"
     },
-    "matchingNames": ["Beagle Boys", "Della Duck", "Dewey", "Ducktales", "Duckworth", "Flintheart Glomgold", "Gizmoduck", "Gyro Gearloose", "Huey", "Launchpad", "Lena Sabrewing", "Louie", "Lucky Dime",
-      "Magica De Spell", "Mrs. Beakly", "Poe De Spell", "Scrooge", "Scrooge McDuck", "Violet Sabrewing", "Webby Vanderquack"],
+    "matchingNames": ["Beagle Boys", "Black Heron", "Della Duck", "Dewey", "Ducktales", "Duckworth", "Emily Quackfaster", "Flintheart Glomgold", "Gizmoduck", "Goldy O'Gilt", "Gyro Gearloose", "Huey", "Inspector Tezuka",
+      "Launchpad", "Lena Sabrewing", "Louie", "Lucky Dime", "Magica De Spell", "Mrs. Beakly", "Poe De Spell", "Scrooge", "Scrooge McDuck", "Violet Sabrewing", "Webby Vanderquack"],
     "matchingIds": [636]
   },
   "dumbo": {
@@ -189,7 +189,7 @@
       "fr": "Gargoyles",
       "it": "Gargoyles"
     },
-    "matchingNames": ["Broadway", "Bronx", "Brooklyn", "David Xanatos", "Demona", "Elisa Maza", "Goliath", "Hudson", "Lexington"],
+    "matchingNames": ["Broadway", "Bronx", "Brooklyn", "Coldstone", "David Xanatos", "Demona", "Elisa Maza", "Goliath", "Hudson", "Lexington"],
     "matchingFields": {
       "subtypes": "Gargoyle"
     }
@@ -234,7 +234,7 @@
       "fr": "Le Livre de la jungle",
       "it": "Il libro della giungla"
     },
-    "matchingNames": ["Akela", "Bagheera", "Kaa", "Shere Khan"],
+    "matchingNames": ["Akela", "Bagheera", "Kaa", "Raksha", "Rama", "Shanti", "Shere Khan"],
     "matchingIds": [228, 314, 319, 464, 1575]
   },
   "kuzco": {
@@ -287,7 +287,7 @@
       "fr": "La Petite Sirène",
       "it": "La sirenetta"
     },
-    "matchingNames": ["Ariel", "Atlantica", "Dinglehopper", "Flotsam", "Flounder", "Jetsam", "Prince Eric", "Scuttle", "Sebastian", "Triton", "Triton's Daughters", "Ursula"],
+    "matchingNames": ["Ariel", "Atlantica", "Chef Louis", "Dinglehopper", "Flotsam", "Flounder", "Jetsam", "Prince Eric", "Scuttle", "Sebastian", "Triton", "Triton's Daughters", "Ursula"],
     "matchingIds": [30, 281, 499, 721, 751, 786, 856, 927]
   },
   "lorcana": {
@@ -476,7 +476,7 @@
       "fr": "Raiponce",
       "it": "Rapunzel - L'intreccio della torre"
     },
-    "matchingNames": ["Arianna", "Flynn Rider", "Gunther", "Maximus", "Mother Gothel", "Mother Knows Best", "Pascal", "Rapunzel", "Snuggly Duckling", "Stabbington Brother", "Tor", "Ulf"],
+    "matchingNames": ["Arianna", "Big Nose", "Flynn Rider", "Gunther", "Hook Hand", "Maximus", "Mother Gothel", "Mother Knows Best", "Pascal", "Rapunzel", "Snuggly Duckling", "Stabbington Brother", "Tor", "Ulf", "Vladimir"],
     "matchingIds": [33, 202, 462, 565, 983, 1153, 1163]
   },
   "threemusketeers": {
@@ -529,7 +529,7 @@
       "fr": "Zootopie",
       "it": "Zootropolis"
     },
-    "matchingNames": ["Bellwether", "Chief Bogo", "Clawhauser", "Duke Weaselton", "Judy Hopps", "Nick Wilde", "Zootropolis"],
+    "matchingNames": ["Bellwether", "Chief Bogo", "Clawhauser", "Duke Weaselton", "Finnick", "Flash", "Judy Hopps", "Mayor Winddancer", "Nick Wilde", "Zootopia", "Zootropolis"],
     "matchingIds": [385, 967, 981, 1227, 1287, 1367, 1373]
   }
 }
