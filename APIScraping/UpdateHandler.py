@@ -178,7 +178,7 @@ def createChangelog(updateCheckResult: UpdateCheckResult, subVersion: str = "1")
 	doubleIndent = indent * 2
 	tripleIndent = indent * 3
 	changelogEntryDescriptor = f"{currentDateString}-{DataFilesGenerator.FORMAT_VERSION}-{subVersion}"
-	with open(os.path.join("output", "newChangelogEntry.txt"), "w", encoding="utf-8") as newChangelogEntryFile:
+	with open(os.path.join("output", f"newChangelogEntry_{GlobalConfig.language.code}.txt"), "w", encoding="utf-8") as newChangelogEntryFile:
 		newChangelogEntryFile.write(f"<h4 id=\"{changelogEntryDescriptor}\">{currentDateString} - format version {DataFilesGenerator.FORMAT_VERSION}</h4>\n")
 		newChangelogEntryFile.write("<ul>\n")
 		if updateCheckResult.newCards:
