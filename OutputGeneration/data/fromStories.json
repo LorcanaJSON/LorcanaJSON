@@ -429,6 +429,15 @@
     "matchingNames": ["Aurora", "Diablo", "Dragon Fire", "Fauna", "Flora", "Goons", "King Stefan", "King Hubert", "Maleficent", "Merryweather", "Prince Phillip"],
     "matchingIds": [136, 855]
   },
+  "sleepyhollow": {
+    "displayNames": {
+      "de": "Die Legende von Sleepy Hollow",
+      "en": "The Legend of Sleepy Hollow",
+      "fr": "La Légende de la Vallée endormie",
+      "it": "La leggenda della valle addormentata"
+    },
+    "matchingNames": ["Brom Bones", "Ichabod Crane", "Katrina van Tassel", "Sleepy Hollow", "The Headless Horseman"]
+  },
   "snowwhite": {
     "displayNames": {
       "de": "Schneewittchen und die sieben Zwerge",
