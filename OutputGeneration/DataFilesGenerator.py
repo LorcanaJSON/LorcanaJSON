@@ -163,7 +163,7 @@ def createOutputFiles(onlyParseIds: Optional[List[int]] = None, shouldShowImages
 		for card in outputDict["cards"]:
 			if card["id"] in onlyParseIds:
 				parsedCards["cards"].append(card)
-		with open("parsedCards.json", "w", encoding="utf-8") as parsedCardsFile:
+		with open(os.path.join("output", "parsedCards.json"), "w", encoding="utf-8") as parsedCardsFile:
 			json.dump(parsedCards, parsedCardsFile, indent=2)
 	if GlobalConfig.limitedBuild:
 		_logger.info("Limited build, not creating extra files")

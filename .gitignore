@@ -1,7 +1,6 @@
 .idea/
 __pycache__/
 
-
 /downloads/**
 /logs/**
 /oldVersions/
@@ -9,4 +8,3 @@ __pycache__/
 /website/
 
 /config.json
-/parsedCards.json
