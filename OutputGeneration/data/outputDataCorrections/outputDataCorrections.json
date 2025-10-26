@@ -169,5 +169,13 @@
   },
   "2178": {
     "_skipFullTextSectionMergeAtIndex": 1
+  },
+  "2337": {
+    "artistsText": [
+      "z[^á]l",
+      "zál",
+      "e:?$",
+      "ean"
+    ]
   }
 }

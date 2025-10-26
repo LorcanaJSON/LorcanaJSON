@@ -2679,10 +2679,24 @@
       ""
     ]
   },
+  "2196": {
+    "flavorText": [
+      "L",
+      "I"
+    ]
+  },
   "2198": {
     "abilities": [
       "L",
       "I"
+    ]
+  },
+  "2212": {
+    "abilities": [
+      "^Per ",
+      "",
+      "s$",
+      "s\nget +2 ⛉."
     ]
   },
   "2220": {
@@ -2715,6 +2729,12 @@
     "flavorText": [
       "^“L",
       "“I "
+    ]
+  },
+  "2242": {
+    "abilities": [
+      "LI",
+      "L I"
     ]
   },
   "2245": {
@@ -2806,6 +2826,12 @@
   "2318": {
     "_effectAtIndexIsAbility": 0
   },
+  "2330": {
+    "abilities": [
+      "\n¤ ",
+      " ¤\n"
+    ]
+  },
   "2349": {
     "abilities": [
       "TAC",
@@ -2862,6 +2888,39 @@
       "L W",
       "HI",
       "H I"
+    ]
+  },
+  "2420": {
+    "effects": [
+      "^.+\nP",
+      "P"
+    ],
+    "subtypes": [
+      null,
+      [
+        "Song"
+      ]
+    ]
+  },
+  "2421": {
+    "abilities": [
+      "OT",
+      "O T"
+    ]
+  },
+  "2423": {
+    "_effectAtIndexIsAbility": 0
+  },
+  "2426": {
+    "effects": [
+      "^.+\nP",
+      "P"
+    ]
+  },
+  "2428": {
+    "abilities": [
+      "EC",
+      "E C"
     ]
   },
   "2430": {

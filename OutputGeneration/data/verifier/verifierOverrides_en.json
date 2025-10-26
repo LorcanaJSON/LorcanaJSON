@@ -523,6 +523,14 @@
       "—"
     ]
   },
+  "2321": {
+    "flavor_text": [
+      "emphasized",
+      "dwelled on",
+      "scare his",
+      "put a good scare into his"
+    ]
+  },
   "2410": {
     "rules_text": [
       "W.+\"W",
@@ -539,6 +547,12 @@
       "",
       "\\)",
       ""
+    ]
+  },
+  "2423": {
+    "rules_text": [
+      "another",
+      "a"
     ]
   },
   "2432": {
