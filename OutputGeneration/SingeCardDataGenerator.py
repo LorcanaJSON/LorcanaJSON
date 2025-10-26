@@ -64,7 +64,7 @@ def parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, threadLoca
 			hasCardText=inputCard["rules_text"] != "" if "rules_text" in inputCard else None,
 			hasFlavorText=inputCard["flavor_text"] != "" if "flavor_text" in inputCard else None,
 			isEpic=outputCard["rarity"] == GlobalConfig.translation.EPIC,
-			isEnchanted=outputCard["rarity"] == GlobalConfig.translation.ENCHANTED or inputCard.get("foil_type", None) == "Satin",  # Disney100 cards need Enchanted parsing, foil_type seems best way to determine Disney100
+			isEnchanted=outputCard["rarity"] == GlobalConfig.translation.ENCHANTED,
 			showImage=shouldShowImage
 		)
 		if not GlobalConfig.skipOcrCache:
