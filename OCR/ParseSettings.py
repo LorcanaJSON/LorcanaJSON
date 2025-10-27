@@ -126,6 +126,8 @@ _PARSE_SETTINGS_BY_ID: Dict[int, ParseSettings] = {
 	2183: _PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["8"],
 	2188: dataclasses.replace(_DEFAULT_PARSE_SETTINGS, textboxOffset=24),
 	2413: dataclasses.replace(_PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["10"], typeImageTextColorOverride=ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND),
+	2417: dataclasses.replace(_PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["10"], cardLayout=CardLayout.NEW_ENCHANTED_SMALL_TEXTBOX),
+	2426: dataclasses.replace(_PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["10"], cardLayout=CardLayout.NEW_ENCHANTED_SMALL_TEXTBOX),
 	2430: dataclasses.replace(_PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["10"], forceArtistTextColor=ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND),
 	2432: dataclasses.replace(_PARSE_SETTINGS_BY_GROUPING["P3"], forceArtistTextColor=ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND),
 	2435: dataclasses.replace(_PARSE_SETTINGS_BY_GROUPING["P3"], forceArtistTextColor=ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND),

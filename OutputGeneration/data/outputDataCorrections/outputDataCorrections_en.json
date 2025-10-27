@@ -2911,12 +2911,6 @@
   "2423": {
     "_effectAtIndexIsAbility": 0
   },
-  "2426": {
-    "effects": [
-      "^.+\nP",
-      "P"
-    ]
-  },
   "2428": {
     "abilities": [
       "EC",
