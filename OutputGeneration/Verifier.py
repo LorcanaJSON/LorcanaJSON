@@ -130,7 +130,7 @@ def compareInputToOutput(cardIdsToVerify: Optional[List[int]]):
 		# Compare flavor text
 		if inputCard.get("flavor_text", None) or "flavorText" in outputCard:
 			if "flavor_text" in inputCard and inputCard["flavor_text"] != "ERRATA":
-				inputFlavorText: str = inputCard["flavor_text"].replace("\u00a0", "").replace("‘", "'").replace("’", "'").replace("<", "").replace(">", "").rstrip()
+				inputFlavorText: str = inputCard["flavor_text"].replace("\u00a0", "").replace("‘", "'").replace("’", "'").replace("<", "").replace(">", "").replace("\u2028", " ").rstrip()
 				# '%' seems to be a substitute for a newline character
 				inputFlavorText = inputFlavorText.replace("—%", "—")
 				inputFlavorText = re.sub("%— (?=[A-Z])", " —", inputFlavorText)
