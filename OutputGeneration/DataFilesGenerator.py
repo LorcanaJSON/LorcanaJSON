@@ -5,7 +5,7 @@ from typing import Dict, List, Optional, Union
 import GlobalConfig
 from APIScraping.ExternalLinksHandler import ExternalLinksHandler
 from OCR import ImageParser
-from OutputGeneration import SingeCardDataGenerator
+from OutputGeneration import SingleCardDataGenerator
 from OutputGeneration.AllowedInFormatsHandler import AllowedInFormatsHandler
 from OutputGeneration.RelatedCardsCollator import RelatedCardCollator
 from OutputGeneration.StoryParser import StoryParser
@@ -103,7 +103,7 @@ def createOutputFiles(onlyParseIds: Optional[List[int]] = None, shouldShowImages
 					_logger.error(f"Card ID {cardId} is not in the ID parse list, but it's also not in the previous dataset. Skipping parsing for now, but this results in incomplete datafiles, so it's strongly recommended to rerun with this card ID included")
 					continue
 				try:
-					results.append(pool.apply_async(SingeCardDataGenerator.parseSingleCard, (inputCard, cardTypeText, imageFolder, _threadingLocalStorage, relatedCardCollator.getRelatedCards(inputCard),
+					results.append(pool.apply_async(SingleCardDataGenerator.parseSingleCard, (inputCard, cardTypeText, imageFolder, _threadingLocalStorage, relatedCardCollator.getRelatedCards(inputCard),
 												  cardDataCorrections.pop(cardId, None), cardToStoryParser, False, historicData.get(cardId, None), allowedCardsHandler, shouldShowImages)))
 					cardIdsStored.append(cardId)
 				except Exception as e:
@@ -121,7 +121,7 @@ def createOutputFiles(onlyParseIds: Optional[List[int]] = None, shouldShowImages
 			if cardId in cardIdsStored:
 				_logger.debug(f"Card ID {cardId} is defined in the official file and in the external file, skipping the external data")
 				continue
-			results.append(pool.apply_async(SingeCardDataGenerator.parseSingleCard, (externalCard, externalCard["type"], imageFolder, _threadingLocalStorage, relatedCardCollator.getRelatedCards(externalCard),
+			results.append(pool.apply_async(SingleCardDataGenerator.parseSingleCard, (externalCard, externalCard["type"], imageFolder, _threadingLocalStorage, relatedCardCollator.getRelatedCards(externalCard),
 															   cardDataCorrections.pop(cardId, None), cardToStoryParser, True, historicData.get(cardId, None), allowedCardsHandler, shouldShowImages)))
 		pool.close()
 		pool.join()
