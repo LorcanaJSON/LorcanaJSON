@@ -56,7 +56,7 @@ def correctText(cardText: str) -> str:
 	cardText = re.sub(r"(\d) \(?[0-9DGOQ]{1,2}[%{}°»]?(?=\W|\.)", f"\\1 {LorcanaSymbols.STRENGTH}", cardText)
 	# Letters after a quotemark at the start of a line should be capitalized
 	cardText = re.sub("^“[a-z]", lambda m: m.group(0).upper(), cardText, flags=re.MULTILINE)
-	if re.search(f" [^?!.…”“0-9{LorcanaSymbols.INK}]$", cardText):
+	while re.search(f"\\s[^?!.…”“0-9{LorcanaSymbols.INK}]$", cardText):
 		cardText = cardText[:-2]
 	cardText = re.sub(r"([.!?]”?)\s?[a-z][a-zA-Z ]{,2}$", "\\1", cardText)
 	cardText = re.sub(r"(?<=\bTe[ -]K)a\b", "ā", cardText)

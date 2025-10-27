@@ -3375,7 +3375,7 @@
       "e g",
       "tes",
       "t S",
-      ": \\[",
+      ":",
       ".",
       "^MEL",
       "ALLEZ,",
@@ -3383,7 +3383,7 @@
       " REVOIR !",
       "!.+$",
       "!",
-      "^SéS.+a M$",
+      "^SéS.+a 5$",
       "Lorsque ce personnage est envoyé\nà l'aventure, vous pouvez choisir un personnage épuisé\nayant 5 ¤ ou plus et le bannir."
     ],
     "subtypes": [
