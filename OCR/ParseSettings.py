@@ -26,9 +26,10 @@ class ParseSettings:
 	textboxRightOffset: int = 0  # Shrinks the textbox from the right by this many pixels
 	labelParsingMethod: LABEL_PARSING_METHODS = LABEL_PARSING_METHODS.DEFAULT
 	thresholdTextColor: ImageArea.TextColour = ImageArea.TEXT_COLOUR_BLACK
+	labelIsDarkerThanBackground: bool = True  # For most cards, the label is darker than the background, which is used when finding labels. Set this to 'False' if the label is lighter than the background
 	labelTextColor: ImageArea.TextColour = ImageArea.TEXT_COLOUR_WHITE
-	labelStartThreshold: int = 105  # Pixel values lower than this indicate a label started (labels are darker than the background)
-	labelEndThreshold: int = 110  # Pixel values higher than this indicate a label ended
+	labelStartThreshold: int = 105  # Pixel values lower than this (if 'labelIsDarkerThanBackground', otherwise higher) indicate a label started
+	labelEndThreshold: int = 110  # Pixel values higher than this (if 'labelIsDarkerThanBackground', otherwise lower) indicate a label ended
 	labelMaskColor: Tuple[int, int, int] = _WHITE
 	typeImageTextColorOverride: Optional[ImageArea.TextColour] = None  # If a different type image text color should be used than default for the card layout, set it here
 	parseIdentifier: bool = False

@@ -196,8 +196,8 @@ class ImageParser:
 				for y in range(textboxHeight):
 					pixelValue = greyTextboxImage[y, parseSettings.textboxOffset]
 					if isCurrentlyInLabel:
-						# Check if the pixel got lighter, indicating we left the label block
-						if pixelValue > parseSettings.labelEndThreshold:
+						# Check if the pixel got lighter, indicating we left the label block (or darker if it's a light label)
+						if pixelValue > parseSettings.labelEndThreshold if parseSettings.labelIsDarkerThanBackground else pixelValue < parseSettings.labelEndThreshold:
 							isCurrentlyInLabel = False
 							if y - currentCoords[0] < 50:
 								self._logger.debug(f"Skipping possible label starting at y={currentCoords[0]} and ending at {y=}, not high enough to be a label")
@@ -205,7 +205,7 @@ class ImageParser:
 								currentCoords[1] = y - 1
 								labelCoords.append(tuple(currentCoords))  # Copy the coordinates list so we can't accidentally change a value anymore
 					# Check if a label started here
-					elif pixelValue < parseSettings.labelStartThreshold:
+					elif pixelValue < parseSettings.labelStartThreshold if parseSettings.labelIsDarkerThanBackground else pixelValue > parseSettings.labelStartThreshold:
 						isCurrentlyInLabel = True
 						currentCoords[0] = y
 						yToCheck = min(textboxHeight - 1, y + 1)  # Check a few lines down to prevent weirdness with the edge of the label box
@@ -213,7 +213,7 @@ class ImageParser:
 						successiveLightPixels: int = 0
 						for x in range(parseSettings.textboxOffset, textboxWidth - parseSettings.textboxRightOffset):
 							checkValue = greyTextboxImage[yToCheck, x]
-							if checkValue > parseSettings.labelEndThreshold:
+							if checkValue > parseSettings.labelEndThreshold if parseSettings.labelIsDarkerThanBackground else checkValue < parseSettings.labelEndThreshold:
 								successiveLightPixels += 1
 								if successiveLightPixels > 5:
 									if x < 100:
