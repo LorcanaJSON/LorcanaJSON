@@ -219,7 +219,7 @@
     },
     "prereleaseDate": "2025-11-07",
     "releaseDate": "2025-11-14",
-    "hasAllCards": false,
+    "hasAllCards": true,
     "type": "expansion",
     "number": 10,
     "allowedInFormats": {

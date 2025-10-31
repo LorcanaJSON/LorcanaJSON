@@ -511,6 +511,12 @@
       "i / Livio Cacciatore"
     ]
   },
+  "2203": {
+    "rules_text": [
+      "\\. Y",
+      ".Y"
+    ]
+  },
   "2246": {
     "flavor_text": [
       " l ",
@@ -521,6 +527,12 @@
     "flavor_text": [
       "— ",
       "—"
+    ]
+  },
+  "2315": {
+    "author": [
+      "ila",
+      "illa"
     ]
   },
   "2321": {
@@ -565,6 +577,18 @@
     "rules_text": [
       "a character",
       "another character"
+    ]
+  },
+  "2444": {
+    "author": [
+      "Grace Tran",
+      "Sam Nielson"
+    ]
+  },
+  "2445": {
+    "author": [
+      "Grace Tran",
+      "Sam Nielson"
     ]
   }
 }

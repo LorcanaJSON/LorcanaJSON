@@ -73,12 +73,6 @@
       "n'."
     ]
   },
-  "85": {
-    "flavorText": [
-      "Lf",
-      "If"
-    ]
-  },
   "86": {
     "flavorText": [
       "!",
@@ -2679,16 +2673,22 @@
       ""
     ]
   },
-  "2196": {
-    "flavorText": [
-      "L",
-      "I"
-    ]
-  },
   "2198": {
     "abilities": [
       "L",
       "I"
+    ]
+  },
+  "2199": {
+    "flavorText": [
+      "yd",
+      "y'd"
+    ]
+  },
+  "2203": {
+    "abilities": [
+      "2\n",
+      "2 ¤\n"
     ]
   },
   "2212": {
@@ -2749,6 +2749,20 @@
       "1 ⬡"
     ]
   },
+  "2249": {
+    "abilities": [
+      "• ",
+      "",
+      " 7$",
+      ""
+    ]
+  },
+  "2253": {
+    "effects": [
+      "4",
+      "◊"
+    ]
+  },
   "2255": {
     "abilities": [
       "^⟳ 1",
@@ -2774,9 +2788,7 @@
   "2270": {
     "abilities": [
       "^L",
-      "I'L",
-      " j\\n—$",
-      ""
+      "I'L"
     ]
   },
   "2275": {
@@ -2791,6 +2803,18 @@
     "flavorText": [
       "’",
       "”"
+    ]
+  },
+  "2281": {
+    "abilities": [
+      "\n\\.$",
+      ""
+    ]
+  },
+  "2282": {
+    "abilities": [
+      "©",
+      " ⬡"
     ]
   },
   "2283": {
@@ -2811,6 +2835,18 @@
       " I"
     ]
   },
+  "2293": {
+    "abilities": [
+      "LT",
+      "L T"
+    ]
+  },
+  "2302": {
+    "abilities": [
+      " 4$",
+      ""
+    ]
+  },
   "2312": {
     "abilities": [
       "“ ",
@@ -2825,6 +2861,18 @@
   },
   "2318": {
     "_effectAtIndexIsAbility": 0
+  },
+  "2320": {
+    "effects": [
+      "\\blf\\b",
+      "If"
+    ]
+  },
+  "2328": {
+    "flavorText": [
+      "-",
+      "—"
+    ]
   },
   "2330": {
     "abilities": [
@@ -2850,6 +2898,22 @@
       "ll "
     ]
   },
+  "2367": {
+    "fullName": [
+      "Determined Detective",
+      "Sly Fox Sleuth"
+    ],
+    "simpleName": [
+      "determined detective",
+      "sly fox sleuth"
+    ]
+  },
+  "2381": {
+    "abilities": [
+      "“",
+      ""
+    ]
+  },
   "2382": {
     "abilities": [
       "B\\.\n\"¤",
@@ -2868,10 +2932,25 @@
       "w a"
     ]
   },
+  "2394": {
+    "_effectAtIndexIsAbility": [0, "PERFECT TRAP"]
+  },
+  "2400": {
+    "abilities": [
+      "1 t",
+      "1 ¤ t"
+    ]
+  },
   "2402": {
     "abilities": [
       "⬡\\.\\)",
       "⬡"
+    ]
+  },
+  "2406": {
+    "abilities": [
+      "\n¤ ",
+      " ¤\n"
     ]
   },
   "2414": {
@@ -2880,6 +2959,19 @@
       "E A",
       "¤",
       "⟳"
+    ]
+  },
+  "2417": {
+    "artistsText": [
+      "t",
+      "ł"
+    ]
+  },
+  "2418": {
+    "_skipFullTextSectionMergeAtIndex": 1,
+    "artistsText": [
+      "f",
+      "ń"
     ]
   },
   "2419": {
@@ -2910,6 +3002,18 @@
   },
   "2423": {
     "_effectAtIndexIsAbility": 0
+  },
+  "2424": {
+    "abilities": [
+      "LT",
+      "L T"
+    ]
+  },
+  "2427": {
+    "abilities": [
+      "KT",
+      "K T"
+    ]
   },
   "2428": {
     "abilities": [
@@ -2991,6 +3095,32 @@
     "flavorText": [
       "e r",
       "e'r"
+    ]
+  },
+  "2439": {
+    "abilities": [
+      "“",
+      "",
+      "¤\\.",
+      "⛉."
+    ]
+  },
+  "2440": {
+    "abilities": [
+      "^_ ‘",
+      ""
+    ],
+    "flavorText": [
+      "were",
+      "we're",
+      "F",
+      "E"
+    ]
+  },
+  "2442": {
+    "abilities": [
+      "2 ¤",
+      "2 ⬡"
     ]
   }
 }

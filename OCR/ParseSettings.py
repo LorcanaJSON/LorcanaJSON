@@ -134,6 +134,13 @@ _PARSE_SETTINGS_BY_ID: Dict[int, ParseSettings] = {
 	2435: dataclasses.replace(_PARSE_SETTINGS_BY_GROUPING["P3"], forceArtistTextColor=ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND),
 	2436: dataclasses.replace(_PARSE_SETTINGS_BY_GROUPING["P3"], forceArtistTextColor=ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND),
 	2437: dataclasses.replace(_PARSE_SETTINGS_BY_GROUPING["P3"], forceArtistTextColor=ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND),
+	2439: dataclasses.replace(_PARSE_SETTINGS_BY_GROUPING["P3"], labelIsDarkerThanBackground=False, labelTextColor=ImageArea.TEXT_COLOUR_BLACK, labelMaskColor=_BLACK, thresholdTextColor=ImageArea.TEXT_COLOUR_WHITE),
+	2440: dataclasses.replace(_PARSE_SETTINGS_BY_GROUPING["P3"], labelIsDarkerThanBackground=False, labelTextColor=ImageArea.TEXT_COLOUR_BLACK, labelMaskColor=_BLACK, thresholdTextColor=ImageArea.TEXT_COLOUR_WHITE),
+	2441: dataclasses.replace(_PARSE_SETTINGS_BY_GROUPING["P3"], labelIsDarkerThanBackground=False, labelTextColor=ImageArea.TEXT_COLOUR_BLACK, labelMaskColor=_BLACK, thresholdTextColor=ImageArea.TEXT_COLOUR_WHITE),
+	2442: dataclasses.replace(_PARSE_SETTINGS_BY_GROUPING["P3"], labelIsDarkerThanBackground=False, labelTextColor=ImageArea.TEXT_COLOUR_BLACK, labelMaskColor=_BLACK, thresholdTextColor=ImageArea.TEXT_COLOUR_WHITE),
+	2443: dataclasses.replace(_PARSE_SETTINGS_BY_GROUPING["P3"], labelIsDarkerThanBackground=False, labelTextColor=ImageArea.TEXT_COLOUR_BLACK, labelMaskColor=_BLACK, thresholdTextColor=ImageArea.TEXT_COLOUR_WHITE),
+	2444: _PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["10"],
+	2445: _PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["10"],
 }
 
 def getParseSetingsById(cardId: int) -> Optional[ParseSettings]:

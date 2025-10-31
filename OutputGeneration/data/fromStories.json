@@ -138,7 +138,7 @@
       "it": "DuckTales"
     },
     "matchingNames": ["Beagle Boys", "Black Heron", "Della Duck", "Dewey", "Duckburg", "Ducktales", "Duckworth", "Emily Quackfaster", "Fergus McDuck", "Flintheart Glomgold", "Gizmoduck", "Goldy O'Gilt", "Gyro Gearloose",
-      "Huey", "Inspector Tezuka", "Launchpad", "Lena Sabrewing", "Louie", "Lucky Dime", "Magica De Spell", "Mrs. Beakly", "Poe De Spell", "Scrooge", "Scrooge McDuck", "Violet Sabrewing", "Webby Vanderquack"],
+      "Huey", "Inspector Tezuka", "Launchpad", "Lena Sabrewing", "Louie", "Lucky Dime", "Magica De Spell", "Mrs. Beakly", "Penumbra", "Poe De Spell", "Scrooge", "Scrooge McDuck", "Violet Sabrewing", "Webby Vanderquack"],
     "matchingIds": [636]
   },
   "dumbo": {
@@ -297,7 +297,7 @@
       "fr": "Lorcana",
       "it": "Lorcana"
     },
-    "matchingNames": ["Chromicon", "Hexwell", "Martin", "Shanzay", "Venturo"],
+    "matchingNames": ["Chromicon", "Hexwell", "Martin", "Shanzay", "The Great Illuminary", "Venturo"],
     "matchingIds": [380, 535, 789, 792, 825, 859, 891, 952, 986, 987, 1020, 1055, 1125, 1179, 1267, 1300, 1301, 1362, 1399, 1516, 1552, 1784],
     "matchingFields": {
       "card_identifier": " Q\\d$"
@@ -311,7 +311,7 @@
       "it": "Topolino e i suoi amici"
     },
     "matchingNames": ["Clarabelle", "Daisy Duck", "Donald Duck", "Goofy", "Ludwig von Drake", "Ludwig Von Drake", "Mickey Mouse", "Minnie Mouse", "Pete", "Pluto", "The Phantom Blot"],
-    "matchingIds": [718, 784, 1154, 1155, 2353, 2426]
+    "matchingIds": [718, 784, 1154, 1155, 2353, 2408, 2426]
   },
   "mickeyandthebeanstalk": {
     "displayNames": {
@@ -436,7 +436,8 @@
       "fr": "La Légende de la Vallée endormie",
       "it": "La leggenda della valle addormentata"
     },
-    "matchingNames": ["Brom Bones", "Ichabod Crane", "Katrina van Tassel", "Sleepy Hollow", "The Headless Horseman"]
+    "matchingNames": ["Brom Bones", "Ichabod Crane", "Katrina van Tassel", "Sleepy Hollow", "The Headless Horseman"],
+    "matchingIds": [2441]
   },
   "snowwhite": {
     "displayNames": {
