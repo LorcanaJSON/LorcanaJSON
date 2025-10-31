@@ -247,7 +247,7 @@ class ImageParser:
 				else:
 					# Sort lines from top to bottom
 					lines = sorted(lines, key=lambda l: l[0][1])
-					self._logger.debug(f"In line fallback method found {len(lines):,} lines")
+					self._logger.debug(f"In line fallback method found {len(lines):,} lines: {lines}")
 					if showImage:
 						textboxLinesImage = greyTextboxImage.copy()
 						for line in lines:
