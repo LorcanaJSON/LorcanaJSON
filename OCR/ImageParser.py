@@ -352,6 +352,8 @@ class ImageParser:
 				abilityTextImage = greyTextboxImage.copy()
 				cv2.rectangle(abilityTextImage, (0, 0), (labelCoord[2] + _ABILITY_LABEL_MARGIN, labelCoord[1]), parseSettings.labelMaskColor, thickness=-1)  # -1 thickness fills the rectangle
 				abilityTextImage = self._convertToThresholdImage(abilityTextImage[labelCoord[0]:previousBlockTopY, 0:textboxWidth], parseSettings.thresholdTextColor)
+				if parseSettings.cardTextHasOutline:
+					cv2.floodFill(abilityTextImage, None, (1, 1), 0)
 				abilityText = self._imageToString(abilityTextImage)
 				result["abilityTexts"].append(ImageAndText(abilityTextImage, abilityText))
 				self._logger.debug(f"{abilityLabelText=} ({labelCoord[1] - labelCoord[0]} px high), {abilityText=}")

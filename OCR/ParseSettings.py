@@ -31,6 +31,7 @@ class ParseSettings:
 	labelStartThreshold: int = 105  # Pixel values lower than this (if 'labelIsDarkerThanBackground', otherwise higher) indicate a label started
 	labelEndThreshold: int = 110  # Pixel values higher than this (if 'labelIsDarkerThanBackground', otherwise lower) indicate a label ended
 	labelMaskColor: Tuple[int, int, int] = _WHITE
+	cardTextHasOutline: bool = False  # Iconic cards don't just have one card text color, but they have dark text with a white outline, which confuses parsing. Set this to True for those cards to floodfill and fix that problem
 	typeImageTextColorOverride: Optional[ImageArea.TextColour] = None  # If a different type image text color should be used than default for the card layout, set it here
 	parseIdentifier: bool = False
 	getIdentifierFromCard: bool = False
@@ -129,7 +130,9 @@ _PARSE_SETTINGS_BY_ID: Dict[int, ParseSettings] = {
 	2413: dataclasses.replace(_PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["10"], typeImageTextColorOverride=ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND),
 	2417: dataclasses.replace(_PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["10"], cardLayout=CardLayout.NEW_ENCHANTED_SMALL_TEXTBOX),
 	2426: dataclasses.replace(_PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["10"], cardLayout=CardLayout.NEW_ENCHANTED_SMALL_TEXTBOX),
-	2430: dataclasses.replace(_PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["10"], forceArtistTextColor=ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND),
+	2430: dataclasses.replace(_DEFAULT_ENCHANTED_PARSE_SETTINGS, cardTextHasOutline=True, labelIsDarkerThanBackground=False, labelMaskColor=_BLACK, labelTextColor=ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND,
+							  thresholdTextColor=ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND, forceArtistTextColor=ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND),
+	2431: dataclasses.replace(_DEFAULT_ENCHANTED_PARSE_SETTINGS, cardTextHasOutline=True, labelIsDarkerThanBackground=False, labelMaskColor=_BLACK, labelTextColor=ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND, thresholdTextColor=ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND),
 	2432: dataclasses.replace(_PARSE_SETTINGS_BY_GROUPING["P3"], forceArtistTextColor=ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND),
 	2435: dataclasses.replace(_PARSE_SETTINGS_BY_GROUPING["P3"], forceArtistTextColor=ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND),
 	2436: dataclasses.replace(_PARSE_SETTINGS_BY_GROUPING["P3"], forceArtistTextColor=ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND),
