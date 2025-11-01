@@ -337,8 +337,6 @@ class ImageParser:
 
 		#Find the card text, one block at the time, separated by the ability name label
 		# We have to go from bottom to top, because non-labelled text is above labelled text
-		abilityLabelImage = None
-		abilityTextImage = None
 		remainingTextImage = None
 		if hasCardText is not False or parseSettings.hasCardTextOverride is True:
 			labelCoords.reverse()
@@ -430,8 +428,6 @@ class ImageParser:
 			if result["abilityTexts"]:
 				for index, abilityTextEntry in enumerate(result["abilityTexts"]):
 					cv2.imshow(f"Ability text image {index}", abilityTextEntry.image)
-			if abilityTextImage is not None:
-				cv2.imshow("Ability text image", abilityTextImage)
 			if remainingTextImage is not None:
 				cv2.imshow("Remaining text image", remainingTextImage)
 			cv2.imshow("Artist", result["artist"].image)
