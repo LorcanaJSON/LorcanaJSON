@@ -2982,18 +2982,6 @@
       "H I"
     ]
   },
-  "2420": {
-    "effects": [
-      "^.+\nP",
-      "P"
-    ],
-    "subtypes": [
-      null,
-      [
-        "Song"
-      ]
-    ]
-  },
   "2421": {
     "abilities": [
       "OT",
