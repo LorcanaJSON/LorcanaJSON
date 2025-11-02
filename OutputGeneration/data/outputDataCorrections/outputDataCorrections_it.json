@@ -1938,12 +1938,6 @@
       "”"
     ]
   },
-  "2148": {
-    "abilities": [
-      "4$",
-      "4 ⬡"
-    ]
-  },
   "2155": {
     "subtypes": [
       "^m",
@@ -1988,8 +1982,6 @@
       " personaggi chiamati Topolino\n",
       "/",
       " ",
-      " °",
-      "",
       "^\\[.+7$",
       "Ogni volta che questo personaggio va\nall'avventura, puoi esiliare un personaggio impegnato a\ntua scelta con 5 ¤ o superiore."
     ],
