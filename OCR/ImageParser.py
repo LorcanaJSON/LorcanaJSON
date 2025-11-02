@@ -215,14 +215,14 @@ class ImageParser:
 							checkValue = greyTextboxImage[yToCheck, x]
 							if checkValue > parseSettings.labelEndThreshold if parseSettings.labelIsDarkerThanBackground else checkValue < parseSettings.labelEndThreshold:
 								successiveLightPixels += 1
-								if successiveLightPixels > 6:
+								if successiveLightPixels >= 10:
 									if x < 100:
 										self._logger.debug(f"Skipping label at {currentCoords=} and {x=}, not wide enough to be a label")
 										currentCoords[0] = 0
 										currentCoords[1] = 0
 										isCurrentlyInLabel = False
 									else:
-										currentCoords[2] = x - _ABILITY_LABEL_MARGIN - 7
+										currentCoords[2] = x - _ABILITY_LABEL_MARGIN - 10
 									break
 							else:
 								successiveLightPixels = 0
