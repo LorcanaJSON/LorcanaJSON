@@ -58,7 +58,7 @@ def correctText(cardText: str) -> str:
 	cardText = re.sub("^“[a-z]", lambda m: m.group(0).upper(), cardText, flags=re.MULTILINE)
 	while re.search(f"\\s[^?!.…”“0-9{LorcanaSymbols.INK}]$", cardText):
 		cardText = cardText[:-2]
-	cardText = re.sub(r"([.!?]”?)\s?[a-z][a-zA-Z ]{,2}$", "\\1", cardText)
+	cardText = re.sub(r"([.!?]”?)\s?([a-z][a-zA-Z ]{,2}|[0-9])$", "\\1", cardText)
 	cardText = re.sub(r"(?<=\bTe[ -]K)a\b", "ā", cardText)
 	# Floodborn characters have Shift, and a subtypes bar that drips ink, leading to erroneous character detection. Fix that
 	cardText = re.sub(fr"^[^\n]{{,15}}\n(?=(?:[A-Z]\w+[ -])?{GlobalConfig.translation.shift})", "", cardText)
