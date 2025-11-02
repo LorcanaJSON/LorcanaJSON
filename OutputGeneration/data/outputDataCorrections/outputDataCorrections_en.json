@@ -1619,8 +1619,6 @@
   },
   "1430": {
     "abilities": [
-      "^_ ",
-      "",
       "2 a",
       "2 ¤ a"
     ],
@@ -2252,8 +2250,6 @@
   "1931": {
     "_addNameToAbilityAtIndex": [1, "MARK OF POWER"],
     "abilities": [
-      "^-",
-      "",
       "TS",
       "T S",
       "\\(3",
