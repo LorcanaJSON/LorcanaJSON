@@ -166,7 +166,8 @@ def createOutputIfNeeded(onlyCreateOnNewCards: bool, cardFieldsToIgnore: List[st
 		idsToParse.extend(actualImageChanges)
 	RavensburgerApiHandler.saveCardCatalog(cardCatalog)
 	RavensburgerApiHandler.downloadImages()
-	DataFilesGenerator.createOutputFiles(idsToParse, shouldShowImages=shouldShowImages)
+	# Parse all images instead of just the new ones, because other cards might be related to the new ones (an Enchanted would have a baseId, and that base card needs to get an Enchanted ID too)
+	DataFilesGenerator.createOutputFiles(shouldShowImages=shouldShowImages)
 	createChangelog(updateCheckResult)
 
 def createChangelog(updateCheckResult: UpdateCheckResult, subVersion: str = "1"):
