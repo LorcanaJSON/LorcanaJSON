@@ -23,7 +23,7 @@ def correctText(cardText: str) -> str:
 	# There's usually an ink symbol between a number and a dash
 	cardText = re.sub(r"(^| )(\d) ?[0OÒQ©]{,2}( ?[-—]|,)", fr"\1\2 {LorcanaSymbols.INK}\3", cardText, flags=re.MULTILINE)
 	# And word-number-number should be word-number-ink
-	cardText = re.sub(r"^(\w+ \d) ?[O0©]$", f"\\1 {LorcanaSymbols.INK}", cardText)
+	cardText = re.sub(r"^(\w+ \d) ?[OQ0©]$", f"\\1 {LorcanaSymbols.INK}", cardText)
 	# Normally a closing quote mark should be preceded by a period, except mid-sentence
 	cardText = re.sub(r"([^.,'!?’])”(?!,| \w)", "\\1.”", cardText)
 	# An opening bracket shouldn't have a space after it
@@ -124,6 +124,7 @@ def correctText(cardText: str) -> str:
 		# Correct payment text
 		cardText = re.sub(fr"\bpa(yer|ie) (\d+) (?:\W|D|O|Ô|Q|{LorcanaSymbols.STRENGTH})", f"pa\\1 \\2 {LorcanaSymbols.INK}", cardText)
 		cardText = re.sub(fr"^(\d) ?[{LorcanaSymbols.STRENGTH}O0](\s)(pour|de moins)\b", fr"\1 {LorcanaSymbols.INK}\2\3", cardText, flags=re.MULTILINE)
+		cardText = re.sub(r"(?<=payer \d)(?=\n)", f" {LorcanaSymbols.INK}", cardText)
 		# Correct support reminder text
 		cardText = re.sub(r"(?<=ajouter sa )\W+(?= à celle)", LorcanaSymbols.STRENGTH, cardText)
 		cardText = re.sub(f"(?<=ajouter leur )[^{LorcanaSymbols.STRENGTH}](?= à celle)", LorcanaSymbols.STRENGTH, cardText)
@@ -131,6 +132,8 @@ def correctText(cardText: str) -> str:
 		cardText = re.sub(r"gagne \+(\d+) \.\)", fr"gagne +\1 {LorcanaSymbols.STRENGTH}.)", cardText)
 		# Correct Shift/Alter with an ink symbol
 		cardText = re.sub(fr"(^Alter \d) ?[O{LorcanaSymbols.STRENGTH}]", fr"\1 {LorcanaSymbols.INK}", cardText)
+		# Correct Boost with an ink symbol
+		cardText = re.sub(fr"(?<=^Boost \d) ?[^{LorcanaSymbols.INK}](?!{LorcanaSymbols.INK})", f" {LorcanaSymbols.INK}", cardText)
 		# Cost discount text
 		cardText = re.sub(r"coûte (\d)0 de moins", f"coûte \\1 {LorcanaSymbols.INK} de moins", cardText)
 		cardText = re.sub(fr"(coûte(?:nt)? )(\d+) [^{LorcanaSymbols.INK} \nou]+", fr"\1\2 {LorcanaSymbols.INK}", cardText)
@@ -153,8 +156,9 @@ def correctText(cardText: str) -> str:
 		cardText = re.sub(r"\b[l|] dommage", "1 dommage", cardText)
 		# Misc common mistakes
 		cardText = cardText.replace("Ily", "Il y")
-		cardText = re.sub(r"\bCa\b", "Ça", cardText)
+		cardText = re.sub(r"\bC[ao]\b", "Ça", cardText)
 		cardText = cardText.replace("personhage", "personnage")
+		cardText = re.sub("[—-]l['’]", "—L'", cardText)
 	elif GlobalConfig.language == Language.GERMAN:
 		# The Exert symbol sometimes gets missed at the start
 		cardText = re.sub(r"^ ?[-–—]+", f"{LorcanaSymbols.EXERT} —", cardText)
