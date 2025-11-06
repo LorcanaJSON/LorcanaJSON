@@ -3420,6 +3420,496 @@
     "abilities": [
       "UD",
       "U D"
+    ],
+    "rarity": [
+      "Enchantée",
+      "Spécial"
+    ]
+  },
+  "2197": {
+    "abilities": [
+      "¤",
+      "◊"
+    ]
+  },
+  "2203": {
+    "abilities": [
+      "…(?=\\w)",
+      "… ",
+      "2\n",
+      "2 ¤\n"
+    ]
+  },
+  "2212": {
+    "abilities": [
+      "^_ ",
+      "",
+      "W",
+      "⛉"
+    ]
+  },
+  "2220": {
+    "flavorText": [
+      "/0",
+      "Za"
+    ]
+  },
+  "2227": {
+    "flavorText": [
+      "–",
+      "—"
+    ]
+  },
+  "2230": {
+    "flavorText": [
+      "… l",
+      ". I"
+    ]
+  },
+  "2236": {
+    "abilities": [
+      "RA",
+      "R A"
+    ],
+    "subtypes": [
+      "tm",
+      "tôm"
+    ]
+  },
+  "2237": {
+    "abilities": [
+      "OUI",
+      "QUI"
+    ]
+  },
+  "2241": {
+    "abilities": [
+      "Un",
+      "un"
+    ]
+  },
+  "2248": {
+    "abilities": [
+      "-1Q",
+      "1 ⬡"
+    ]
+  },
+  "2252": {
+    "flavorText": [
+      "\\.",
+      "…"
+    ]
+  },
+  "2253": {
+    "effects": [
+      "4",
+      "◊"
+    ],
+    "flavorText": [
+      "“E",
+      "“É",
+      "\nq",
+      "\n‘q",
+      "t\\.",
+      "t’."
+    ]
+  },
+  "2257": {
+    "abilities": [
+      "^.+ L",
+      "L",
+      "-",
+      "—",
+      "z$",
+      "z\nune carte.”"
+    ]
+  },
+  "2258": {
+    "flavorText": [
+      "s\\.",
+      "s…"
+    ]
+  },
+  "2262": {
+    "flavorText": [
+      "à",
+      "a"
+    ]
+  },
+  "2263": {
+    "abilities": [
+      "2\n",
+      "2 ¤\n"
+    ]
+  },
+  "2280": {
+    "abilities": [
+      "^_ ",
+      "",
+      "Em",
+      "Ém"
+    ]
+  },
+  "2288": {
+    "flavorText": [
+      "\\.",
+      "…"
+    ]
+  },
+  "2289": {
+    "flavorText": [
+      "hon",
+      "han"
+    ]
+  },
+  "2291": {
+    "abilities": [
+      "¤",
+      "◊"
+    ]
+  },
+  "2292": {
+    "artistsText": [
+      " l",
+      " I"
+    ]
+  },
+  "2301": {
+    "flavorText": [
+      "E",
+      "É"
+    ]
+  },
+  "2302": {
+    "abilities": [
+      "“",
+      ""
+    ]
+  },
+  "2303": {
+    "abilities": [
+      "EJ",
+      "E J"
+    ]
+  },
+  "2307": {
+    "_forceAbilityIndexToStatic": 0
+  },
+  "2308": {
+    "abilities": [
+      "EJ",
+      "E J"
+    ]
+  },
+  "2309": {
+    "flavorText": [
+      "\\.”",
+      "…”"
+    ]
+  },
+  "2311": {
+    "flavorText": [
+      "\\.”",
+      "…”"
+    ]
+  },
+  "2312": {
+    "abilities": [
+      "-",
+      "—"
+    ]
+  },
+  "2313": {
+    "abilities": [
+      "• ",
+      ""
+    ]
+  },
+  "2314": {
+    "abilities": [
+      "2\n",
+      "2 ¤\n"
+    ]
+  },
+  "2318": {
+    "_effectAtIndexIsAbility": 0,
+    "effects": [
+      "\\.\nC",
+      ".\n\nC",
+      "e,",
+      "e."
+    ]
+  },
+  "2320": {
+    "flavorText": [
+      "Go",
+      "Ga"
+    ]
+  },
+  "2321": {
+    "effects": [
+      "E",
+      "É",
+      "2\n",
+      "2 ¤\n"
+    ]
+  },
+  "2329": {
+    "flavorText": [
+      "ô",
+      "â",
+      "Ep",
+      "Ép"
+    ]
+  },
+  "2332": {
+    "abilities": [
+      "É",
+      "Ê"
+    ]
+  },
+  "2335": {
+    "flavorText": [
+      "\\.",
+      "…"
+    ]
+  },
+  "2336": {
+    "flavorText": [
+      "oi",
+      "ai"
+    ]
+  },
+  "2349": {
+    "abilities": [
+      "NI",
+      "N I"
+    ],
+    "flavorText": [
+      "mois",
+      "mais"
+    ]
+  },
+  "2350": {
+    "flavorText": [
+      "\\.",
+      ""
+    ]
+  },
+  "2352": {
+    "effects": [
+      "\\|",
+      "1"
+    ]
+  },
+  "2357": {
+    "abilities": [
+      "É",
+      "È"
+    ]
+  },
+  "2360": {
+    "abilities": [
+      "1Q",
+      "1 ⬡"
+    ]
+  },
+  "2365": {
+    "flavorText": [
+      "E",
+      "É"
+    ]
+  },
+  "2366": {
+    "artistsText": [
+      "^sowsow$",
+      "SOWSOW"
+    ]
+  },
+  "2369": {
+    "abilities": [
+      "EJ",
+      "E J"
+    ]
+  },
+  "2371": {
+    "flavorText": [
+      "mas",
+      "m'as"
+    ]
+  },
+  "2381": {
+    "abilities": [
+      "“",
+      ""
+    ]
+  },
+  "2382": {
+    "abilities": [
+      "2\net\\+2W",
+      "2 ¤\net +2 ⛉"
+    ]
+  },
+  "2385": {
+    "flavorText": [
+      "i\\.",
+      "i…"
+    ]
+  },
+  "2386": {
+    "effects": [
+      "2 \\.",
+      "2 ¤."
+    ]
+  },
+  "2387": {
+    "flavorText": [
+      "pos",
+      "pas"
+    ]
+  },
+  "2402": {
+    "abilities": [
+      "\\| CO",
+      "1 ⬡"
+    ]
+  },
+  "2404": {
+    "abilities": [
+      "dg",
+      "g"
+    ]
+  },
+  "2405": {
+    "abilities": [
+      "-",
+      "—"
+    ]
+  },
+  "2412": {
+    "abilities": [
+      "\n1",
+      "\n-1"
+    ]
+  },
+  "2414": {
+    "abilities": [
+      "9 ⬡",
+      "⟳",
+      "ÀM",
+      "À M"
+    ]
+  },
+  "2418": {
+    "artistsText": [
+      "^w",
+      "Iw",
+      "ñ",
+      "ń"
+    ]
+  },
+  "2419": {
+    "abilities": [
+      "EA",
+      "E A"
+    ]
+  },
+  "2421": {
+    "abilities": [
+      "ET",
+      "E T",
+      "AF",
+      "A F"
+    ]
+  },
+  "2423": {
+    "_effectAtIndexIsAbility": 0,
+    "effects": [
+      "\nC",
+      "\n\nC",
+      "\\|",
+      "1"
+    ]
+  },
+  "2427": {
+    "abilities": [
+      "EL",
+      "E L"
+    ]
+  },
+  "2429": {
+    "abilities": [
+      "F",
+      "P",
+      "J",
+      "j",
+      "…",
+      ",",
+      "aa",
+      "ag"
+    ]
+  },
+  "2430": {
+    "abilities": [
+      "allO\\.\\)",
+      " 1 ⬡",
+      "^E",
+      "",
+      "^u",
+      "Une fois du",
+      "tv",
+      "t v",
+      "silyau",
+      "s'il y a u",
+      "e\\.c",
+      "e c"
+    ],
+    "subtypes": [
+      "tarhns",
+      null,
+      null,
+      [
+        "Storyborn",
+        "Héros",
+        "Princesse",
+        "Lueur"
+      ]
+    ]
+  },
+  "2431": {
+    "abilities": [
+      "^Z",
+      "",
+      "ru",
+      "r u",
+      " \\.",
+      ""
+    ],
+    "subtypes": [
+      "meme",
+      null,
+      null,
+      [
+        "Storyborn",
+        "Méchant",
+        "Dieu"
+      ]
+    ]
+  },
+  "2439": {
+    "abilities": [
+      "t\\+2@",
+      "t +2 ⛉"
+    ]
+  },
+  "2440": {
+    "abilities": [
+      "^unecarte ",
+      "",
+      "⟳  P",
+      "⟳ — P",
+      "z$",
+      "z\nune carte.”"
     ]
   }
 }
