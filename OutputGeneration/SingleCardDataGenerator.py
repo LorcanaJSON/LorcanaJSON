@@ -92,8 +92,8 @@ def parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, threadLoca
 	# Always get the artist from the parsed data, since in the input data it often only lists the first artist when there's multiple, so it's not reliable
 	outputCard["artistsText"] = ocrResult.artistsText.lstrip(". ").replace("’", "'").replace("|", "l").replace("NM", "M")
 	oldArtistsText = outputCard["artistsText"]
-	outputCard["artistsText"] = re.sub(r"^[l[]", "I", outputCard["artistsText"])
-	while re.search(r" [a-zAè0-9ÿI|(){\\/_+*.,;'‘”#¥©=—-]{1,2}$", outputCard["artistsText"]):
+	outputCard["artistsText"] = re.sub(r"(^l|\[)", "I", outputCard["artistsText"])
+	while re.search(r" [a-zAè0-9ÿI|(){\\/_+*%.,;'‘”#¥©=—-]{1,2}$", outputCard["artistsText"]):
 		outputCard["artistsText"] = outputCard["artistsText"].rsplit(" ", 1)[0]
 	outputCard["artistsText"] = outputCard["artistsText"].rstrip(".")
 	if "ggman-Sund" in outputCard["artistsText"]:
