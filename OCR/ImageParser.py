@@ -234,7 +234,7 @@ class ImageParser:
 							currentCoords = [0, 0, 0]
 							isCurrentlyInLabel = False
 				if isCurrentlyInLabel:
-					self._logger.warning(f"Still in label when end of label check reached in card image '{imagePath}'")
+					self._logger.warning(f"Still in label when end of label check reached in card image '{imagePath}'; {currentCoords=}")
 			elif parseSettings.labelParsingMethod == ParseSettings.LABEL_PARSING_METHODS.FALLBACK_BY_LINES:
 				# Find labels by trying to find their top and/or bottom horizontal edge
 				textboxEdgeDetectedImage = cv2.Canny(greyTextboxImage, 50, 200)
