@@ -192,7 +192,7 @@ class ImageParser:
 		if hasCardText is not False or parseSettings.hasCardTextOverride is True:
 			if parseSettings.labelParsingMethod == ParseSettings.LABEL_PARSING_METHODS.DEFAULT:
 				isCurrentlyInLabel: bool = False
-				currentCoords = [0, 0, 0]
+				currentCoords = [0, 0, 0]  # First is top Y, second is bottom Y, third is right X
 				for y in range(textboxHeight):
 					pixelValue = greyTextboxImage[y, parseSettings.textboxOffset]
 					if isCurrentlyInLabel:
