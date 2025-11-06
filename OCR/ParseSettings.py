@@ -146,6 +146,8 @@ _PARSE_SETTINGS_BY_ID: Dict[int, ParseSettings] = {
 	2443: dataclasses.replace(_PARSE_SETTINGS_BY_GROUPING["P3"], labelIsDarkerThanBackground=False, labelTextColor=ImageArea.TEXT_COLOUR_BLACK, labelMaskColor=_BLACK, thresholdTextColor=ImageArea.TEXT_COLOUR_WHITE),
 	2444: _PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["10"],
 	2445: _PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["10"],
+	2461: dataclasses.replace(_PARSE_SETTINGS_BY_GROUPING["P3"], labelStartThreshold=100, labelEndThreshold=170, labelTextColor=ImageArea.TEXT_COLOUR_MIDDLE, textboxOffset=10),
+	2462: dataclasses.replace(_PARSE_SETTINGS_BY_GROUPING["P3"], labelStartThreshold=100, labelEndThreshold=170, labelTextColor=ImageArea.TEXT_COLOUR_MIDDLE, textboxOffset=10),
 }
 
 def getParseSetingsById(cardId: int) -> Optional[ParseSettings]:
