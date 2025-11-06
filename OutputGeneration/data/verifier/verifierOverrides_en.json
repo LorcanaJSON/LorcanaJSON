@@ -590,5 +590,11 @@
       "Grace Tran",
       "Sam Nielson"
     ]
+  },
+  "2448": {
+    "author": [
+      " /.+$",
+      ""
+    ]
   }
 }
