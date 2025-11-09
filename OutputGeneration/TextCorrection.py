@@ -165,7 +165,7 @@ def correctText(cardText: str) -> str:
 		# It confuses some ink splats for a Strength symbol in Shift reminder text
 		cardText = re.sub(f"diese[nh] ?.\n", "diesen\n", cardText)
 		# Payment text
-		cardText = re.sub(fr"(\d)[ .]?(?:\W|0|D|O|Ô|Q{LorcanaSymbols.STRENGTH}){{,2}} (mehr )?(be)?zahl(en|t)\b", f"\\1 {LorcanaSymbols.INK} \\2\\3zahl\\4", cardText)
+		cardText = re.sub(fr"(\d)[ .]?(?:\W|0|D|O|Ô|Q{LorcanaSymbols.STRENGTH}){{,2}}(\s)(mehr )?(be)?zahl(en|t)\b", f"\\1 {LorcanaSymbols.INK}\\2\\3\\4zahl\\5", cardText)
 		cardText = re.sub(fr"zahlst(\sdu)?(\s)(\d) ?[0{LorcanaSymbols.STRENGTH}©]?(?=$| )", f"zahlst\\1\\2\\3 {LorcanaSymbols.INK}", cardText, flags=re.MULTILINE)
 		# 'Challenger' reminder text
 		cardText = re.sub(r"herausfordert, erhält er \+(\d+) \S+\.\)", f"herausfordert, erhält er +\\1 {LorcanaSymbols.STRENGTH}.)", cardText)
