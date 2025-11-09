@@ -368,6 +368,8 @@ class ImageParser:
 			# There might be text above the label coordinates too (abilities text), especially if there aren't any labels. Get that text as well
 			if previousBlockTopY > 35:
 				remainingTextImage = self._convertToThresholdImage(greyTextboxImage[0:previousBlockTopY, parseSettings.textboxOffset:textboxWidth - parseSettings.textboxRightOffset], parseSettings.thresholdTextColor)
+				if parseSettings.cardTextHasOutline:
+					cv2.floodFill(remainingTextImage, None, (1, 1), 0)
 				remainingText = self._imageToString(remainingTextImage)
 				if remainingText:
 					if parseSettings.labelParsingMethod == ParseSettings.LABEL_PARSING_METHODS.FALLBACK_WHITE_ABILITY_TEXT and re.search("[A-Z]{2,}", remainingText):
