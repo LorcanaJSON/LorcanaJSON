@@ -578,7 +578,11 @@ def parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, threadLoca
 				if isinstance(effectAtIndexIsAbility, list):
 					effectAtIndexIsAbility, abilityNameForEffectIsAbility = effectAtIndexIsAbility
 				_logger.info(f"Moving effect index {effectAtIndexIsAbility} to abilities")
-				outputCard["abilities"].append({"name": abilityNameForEffectIsAbility, "effect": outputCard["effects"].pop(effectAtIndexIsAbility)})
+				abilityEffectText = outputCard["effects"].pop(effectAtIndexIsAbility)
+				if abilityNameForEffectIsAbility and abilityEffectText.startswith(abilityNameForEffectIsAbility):
+					_logger.info(f"Removing duplicate label '{abilityNameForEffectIsAbility}' from start of ability effect")
+					abilityEffectText = abilityEffectText[len(abilityNameForEffectIsAbility) + 1:]
+				outputCard["abilities"].append({"name": abilityNameForEffectIsAbility, "effect": abilityEffectText})
 				if len(outputCard["effects"]) == 0:
 					del outputCard["effects"]
 		if effectAtIndexIsFlavorText != -1:
