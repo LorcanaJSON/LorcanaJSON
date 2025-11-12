@@ -22,6 +22,8 @@ def checkForNewCardData(newCardCatalog: Dict = None, fieldsToIgnore: List[str] =
 		for cardtype, cardlist in oldCardCatalog["cards"].items():
 			for cardIndex in range(len(cardlist)):
 				card = cardlist.pop()
+				if GlobalConfig.language.uppercaseCode not in card["card_identifier"]:
+					continue
 				cardId = card["culture_invariant_id"]
 				oldCards[cardId] = card
 				for fieldName in card:
@@ -38,6 +40,8 @@ def checkForNewCardData(newCardCatalog: Dict = None, fieldsToIgnore: List[str] =
 	updateCheckResult: UpdateCheckResult = UpdateCheckResult()
 	for cardType, cardList in newCardCatalog["cards"].items():
 		for card in cardList:
+			if GlobalConfig.language.uppercaseCode not in card["card_identifier"]:
+				continue
 			cardId = card["culture_invariant_id"]
 			if cardId not in oldCards:
 				updateCheckResult.addNewCard(card)
