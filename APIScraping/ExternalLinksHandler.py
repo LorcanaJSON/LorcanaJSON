@@ -225,10 +225,10 @@ class ExternalLinksHandler:
 				cardsBySet[cardSetCodeToUse][cardNumber] = cardExternalLinks
 
 		# Downloading and parsing data is done, list differences with the previous file (if it exists)
+		wasChangeFound = False
 		if os.path.isfile(_EXTERNAL_LINKS_FILE_PATH):
 			with open(_EXTERNAL_LINKS_FILE_PATH, "r", encoding="utf-8") as oldExternalLinksFile:
 				oldCardsBySet = json.load(oldExternalLinksFile)
-			wasChangeFound = False
 			for setCode, newSetData in cardsBySet.items():
 				if setCode not in oldCardsBySet:
 					wasChangeFound = True
@@ -253,9 +253,11 @@ class ExternalLinksHandler:
 		else:
 			_LOGGER.info("No externalLinks file existed yet, so no list of changes can be made")
 
-		# Done, save the new data, overwriting the old
-		with open(_EXTERNAL_LINKS_FILE_PATH, "w", encoding="utf-8") as externalLinksFile:
-			json.dump(cardsBySet, externalLinksFile, indent=2)
+		# Done, save the new data, overwriting the old, if needed
+		if wasChangeFound:
+			with open(_EXTERNAL_LINKS_FILE_PATH, "w", encoding="utf-8") as externalLinksFile:
+				json.dump(cardsBySet, externalLinksFile, indent=2)
+			#TODO Check here if all cards have externalLinks and warn about cards that don't
 
 	def getExternalLinksForCard(self, parsedIdentifier: Identifier, hasEnchanted: bool) -> Optional[Dict[str, str]]:
 		if parsedIdentifier.setCode not in self._externalLinks:
