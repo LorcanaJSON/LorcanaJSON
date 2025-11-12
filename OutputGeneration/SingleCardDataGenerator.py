@@ -93,6 +93,7 @@ def parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, threadLoca
 	outputCard["artistsText"] = ocrResult.artistsText.lstrip(". ").replace("’", "'").replace("|", "l").replace("NM", "M")
 	oldArtistsText = outputCard["artistsText"]
 	outputCard["artistsText"] = re.sub(r"(^l|\[)", "I", outputCard["artistsText"])
+	outputCard["artistsText"] = outputCard["artistsText"].replace(" 0. ", " O. ")
 	while re.search(r" [a-zAè0-9ÿI|(){\\/_+*%.,;'‘”#¥©=—-]{1,2}$", outputCard["artistsText"]):
 		outputCard["artistsText"] = outputCard["artistsText"].rsplit(" ", 1)[0]
 	outputCard["artistsText"] = outputCard["artistsText"].rstrip(".")
