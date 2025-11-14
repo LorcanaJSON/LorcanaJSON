@@ -242,6 +242,8 @@ def correctText(cardText: str) -> str:
 		cardText = re.sub(r"(?<=costo \d)0(?=\sinferiore)", " o", cardText)
 		# Misread of 'Illuminatore'
 		cardText = cardText.replace("Ilumi", "Illumi")
+		# Correct accent-less E at the start of lines to with an accent
+		cardText = re.sub(r"^(“?)E\b", "\\1È", cardText)
 
 	if GlobalConfig.language != Language.FRENCH:
 		# Make sure dash in ability cost and in quote attribution is always long-dash
