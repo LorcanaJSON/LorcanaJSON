@@ -3068,6 +3068,44 @@
       "2 ⬡"
     ]
   },
+  "2451": {
+    "abilities": [
+      "^.+\nE",
+      "E"
+    ],
+    "flavorText": [
+      "L",
+      "Z"
+    ],
+    "subtypes": [
+      "YROUSD",
+      null,
+      null,
+      [
+        "Storyborn",
+        "Ally"
+      ]
+    ]
+  },
+  "2455": {
+    "abilities": [
+      "^.+\nE",
+      "E"
+    ],
+    "flavorText": [
+      "L",
+      "Z"
+    ],
+    "subtypes": [
+      "YROUSD",
+      null,
+      null,
+      [
+        "Storyborn",
+        "Ally"
+      ]
+    ]
+  },
   "2461": {
     "abilities": [
       "1 a",
