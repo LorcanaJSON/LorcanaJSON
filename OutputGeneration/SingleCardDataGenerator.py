@@ -302,7 +302,7 @@ def parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, threadLoca
 				remainingTextLines[remainingTextLineIndex - 1] += "\n" + remainingTextLines.pop(remainingTextLineIndex)
 
 		for remainingTextLine in remainingTextLines:
-			remainingTextLine = TextCorrection.correctText(TextCorrection.correctPunctuation(remainingTextLine))
+			remainingTextLine = TextCorrection.correctText(TextCorrection.correctPunctuation(remainingTextLine)).replace("‘", "")
 			if len(remainingTextLine) < 4:
 				_logger.info(f"Remaining text for card {CardUtil.createCardIdentifier(outputCard)} {remainingTextLine!r} is too short, discarding")
 				continue
