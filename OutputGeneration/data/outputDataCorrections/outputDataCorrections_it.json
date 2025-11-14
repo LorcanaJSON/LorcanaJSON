@@ -1968,10 +1968,417 @@
       ]
     ]
   },
+  "2183": {
+    "rarity": [
+      "Incantata",
+      "Speciale"
+    ]
+  },
+  "2184": {
+    "artistsText": [
+      "ii",
+      "iri",
+      " .+$",
+      ""
+    ]
+  },
   "2187": {
     "abilities": [
       "1%X",
       "1 ¤"
+    ]
+  },
+  "2203": {
+    "abilities": [
+      "2\n",
+      "2 ¤\n"
+    ]
+  },
+  "2207": {
+    "abilities": [
+      "’",
+      "'"
+    ]
+  },
+  "2209": {
+    "abilities": [
+      " Ì\n",
+      "\n"
+    ]
+  },
+  "2210": {
+    "flavorText": [
+      "\\.”\n",
+      "",
+      "\\.$",
+      ".”"
+    ]
+  },
+  "2212": {
+    "abilities": [
+      "^L'",
+      "I ",
+      "¤",
+      "⛉"
+    ]
+  },
+  "2217": {
+    "abilities": [
+      "¤ ",
+      "o "
+    ]
+  },
+  "2220": {
+    "flavorText": [
+      "\\.",
+      "!"
+    ]
+  },
+  "2221": {
+    "abilities": [
+      " AM",
+      " A M"
+    ]
+  },
+  "2238": {
+    "abilities": [
+      "Se",
+      "se"
+    ]
+  },
+  "2239": {
+    "flavorText": [
+      "Ì",
+      "ì"
+    ]
+  },
+  "2240": {
+    "flavorText": [
+      "E",
+      "È"
+    ]
+  },
+  "2253": {
+    "effects": [
+      "è",
+      "◊"
+    ],
+    "flavorText": [
+      "E",
+      "È",
+      ":",
+      "’."
+    ]
+  },
+  "2259": {
+    "flavorText": [
+      "\\.",
+      ""
+    ]
+  },
+  "2257": {
+    "flavorText": [
+      "\nE",
+      "\n—E"
+    ]
+  },
+  "2262": {
+    "flavorText": [
+      "Cè",
+      "C'è",
+      "SUSSU",
+      "sussu"
+    ]
+  },
+  "2269": {
+    "flavorText": [
+      "!",
+      "l"
+    ]
+  },
+  "2272": {
+    "flavorText": [
+      "\\.”",
+      "’"
+    ]
+  },
+  "2273": {
+    "flavorText": [
+      "\\.",
+      "!"
+    ]
+  },
+  "2275": {
+    "abilities": [
+      "a\\.",
+      "a"
+    ]
+  },
+  "2279": {
+    "flavorText": [
+      "” ",
+      "”, ",
+      "\"\\.",
+      "!"
+    ]
+  },
+  "2285": {
+    "flavorText": [
+      "\\?”",
+      "?!”",
+      "E ",
+      "È ",
+      "\\.",
+      "!"
+    ]
+  },
+  "2291": {
+    "abilities": [
+      "¤",
+      "◊"
+    ]
+  },
+  "2292": {
+    "artistsText": [
+      " la",
+      " Ia"
+    ]
+  },
+  "2295": {
+    "flavorText": [
+      "lil",
+      "Ill"
+    ]
+  },
+  "2296": {
+    "flavorText": [
+      "” ",
+      "”, "
+    ]
+  },
+  "2302": {
+    "abilities": [
+      " \\.$",
+      ""
+    ]
+  },
+  "2312": {
+    "abilities": [
+      "\\.”",
+      "”"
+    ]
+  },
+  "2318": {
+    "_effectAtIndexIsAbility": 0
+  },
+  "2331": {
+    "flavorText": [
+      "L ",
+      "I "
+    ]
+  },
+  "2332": {
+    "flavorText": [
+      "!",
+      "'."
+    ]
+  },
+  "2335": {
+    "flavorText": [
+      "’",
+      "”"
+    ]
+  },
+  "2350": {
+    "flavorText": [
+      "…\n",
+      "…”\n"
+    ]
+  },
+  "2351": {
+    "flavorText": [
+      "\\.”\nJ",
+      "!”\n—J"
+    ]
+  },
+  "2354": {
+    "flavorText": [
+      "\\.",
+      "!"
+    ]
+  },
+  "2358": {
+    "abilities": [
+      "^1",
+      "⟳, 1"
+    ]
+  },
+  "2366": {
+    "flavorText": [
+      "is",
+      "Is"
+    ]
+  },
+  "2368": {
+    "flavorText": [
+      "\\.",
+      "!"
+    ]
+  },
+  "2371": {
+    "flavorText": [
+      "’",
+      "'"
+    ]
+  },
+  "2375": {
+    "flavorText": [
+      "Ì",
+      "ì"
+    ]
+  },
+  "2382": {
+    "abilities": [
+      "'¤",
+      "⛉"
+    ]
+  },
+  "2385": {
+    "flavorText": [
+      "\nJ",
+      "\n—J"
+    ]
+  },
+  "2388": {
+    "abilities": [
+      "⬡ es",
+      "⬡ ed es"
+    ]
+  },
+  "2390": {
+    "abilities": [
+      "LT",
+      "L T"
+    ]
+  },
+  "2394": {
+    "_effectAtIndexIsAbility": [0, "TRAPPOLA PERFETTA"],
+    "flavorText": [
+      "\\.”\n",
+      "",
+      "\\.$",
+      ".”"
+    ]
+  },
+  "2399": {
+    "abilities": [
+      "Se",
+      "se"
+    ]
+  },
+  "2400": {
+    "flavorText": [
+      "Cè",
+      "C'è",
+      "SUSSU",
+      "sussu"
+    ]
+  },
+  "2402": {
+    "abilities": [
+      "\\.”",
+      "”"
+    ]
+  },
+  "2403": {
+    "flavorText": [
+      "\\.\n",
+      ".”\n",
+      " lil",
+      " Ill"
+    ]
+  },
+  "2405": {
+    "abilities": [
+      "“ ",
+      "“⟳ ",
+      "\\.”",
+      "”"
+    ]
+  },
+  "2414": {
+    "abilities": [
+      " AM",
+      " A M"
+    ]
+  },
+  "2418": {
+    "artistsText": [
+      "ds",
+      "ńs"
+    ]
+  },
+  "2421": {
+    "abilities": [
+      "AT",
+      "A T"
+    ]
+  },
+  "2423": {
+    "_effectAtIndexIsAbility": 0,
+    "effects": [
+      "\\+2",
+      "¤"
+    ]
+  },
+  "2427": {
+    "subtypes": [
+      "^J",
+      "I"
+    ]
+  },
+  "2430": {
+    "abilities": [
+      "^E",
+      "",
+      "^a",
+      "Una volta"
+    ],
+    "subtypes": [
+      "PARISI",
+      null,
+      "sui",
+      null,
+      null,
+      [
+        "Classico",
+        "Eroe",
+        "Principessa",
+        "Sussurro"
+      ]
+    ]
+  },
+  "2431": {
+    "_effectAtIndexIsAbility": [0, "UNA STRETTA DI MANO?"],
+    "subtypes": [
+      null,
+      [
+        "Classico",
+        "Cattivo",
+        "Divinità"
+      ]
+    ]
+  },
+  "2439": {
+    "abilities": [
+      "¤\\.",
+      "⛉."
+    ]
+  },
+  "2443": {
+    "abilities": [
+      "“",
+      ""
     ]
   }
 }
