@@ -567,6 +567,7 @@ def parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, threadLoca
 		if "effects" in outputCard and mergeEffectIndexWithPrevious > -1:
 			_logger.info(f"Merging effect index {mergeEffectIndexWithPrevious} with previous index for card {CardUtil.createCardIdentifier(outputCard)}")
 			outputCard["effects"][mergeEffectIndexWithPrevious - 1] += "\n" + outputCard["effects"].pop(mergeEffectIndexWithPrevious)
+
 		# Do this after the general corrections since one of those might add or split an effect
 		if effectAtIndexIsAbility != -1:
 			if "effects" not in outputCard:
