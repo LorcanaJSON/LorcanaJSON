@@ -241,7 +241,7 @@ def parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, threadLoca
 	else:
 		_logger.error(f"Card {CardUtil.createCardIdentifier(outputCard)} does not contain any image URLs")
 
-	# Store relations to other cards, like (non-)Enchanted and (non-)Promo cards
+	# Store relations to other cards, like the link from Enchanted and Promo cards to their base version
 	otherRelatedCards = relatedCards.getOtherRelatedCards(outputCard["setCode"], outputCard["id"])
 	if otherRelatedCards.epicId:
 		outputCard["epicId"] = otherRelatedCards.epicId
