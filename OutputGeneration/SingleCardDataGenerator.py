@@ -466,7 +466,6 @@ def parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, threadLoca
 	fullTextCorrection: Optional[List[str]] = None  # Since the fullText gets created as the last step, if there is a correction for it, save it for later
 	forceAbilityTypeAtIndex: Dict[int, str] = {}  # index to ability type
 	newlineAfterLabelIndex: int = -1
-	mergeEffectIndexWithPrevious: int = -1
 	moveAbilityAtIndexToIndex: Optional[List[int, int]] = None
 	skipFullTextSectionMergeAtIndex: int = -1
 	if cardDataCorrections:
