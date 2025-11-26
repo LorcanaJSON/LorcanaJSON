@@ -182,18 +182,20 @@ def createChangelog(updateCheckResult: UpdateCheckResult, subVersion: str = "1")
 	indent = " " * 4
 	doubleIndent = indent * 2
 	tripleIndent = indent * 3
+	quadrupleIndent = indent * 4
 	changelogEntryDescriptor = f"{currentDateString}-{DataFilesGenerator.FORMAT_VERSION}-{subVersion}"
 	with open(os.path.join("output", f"newChangelogEntry_{GlobalConfig.language.code}.txt"), "w", encoding="utf-8") as newChangelogEntryFile:
-		newChangelogEntryFile.write(f"<h4 id=\"{changelogEntryDescriptor}\">{currentDateString} - format version {DataFilesGenerator.FORMAT_VERSION}</h4>\n")
-		newChangelogEntryFile.write("<ul>\n")
+		newChangelogEntryFile.write(f"<h2 id=\"v{changelogEntryDescriptor}\">{currentDateString} - format version {DataFilesGenerator.FORMAT_VERSION}</h2>\n")
+		newChangelogEntryFile.write("<div class=\"version\">\n")
+		newChangelogEntryFile.write(f"{indent}<ul>\n")
 		if updateCheckResult.newCards:
 			updateCheckResult.newCards.sort(key=lambda c: c.id)
-			newChangelogEntryFile.write(f"{indent}<li>Added {len(updateCheckResult.newCards):,} cards:\n")
-			newChangelogEntryFile.write(f"{doubleIndent}<ul>\n")
+			newChangelogEntryFile.write(f"{doubleIndent}<li>Added {len(updateCheckResult.newCards):,} cards:\n")
+			newChangelogEntryFile.write(f"{tripleIndent}<ul>\n")
 			for addedCard in updateCheckResult.newCards:
-				newChangelogEntryFile.write(f"{tripleIndent}<li>{addedCard}</li>\n")
-			newChangelogEntryFile.write(f"{doubleIndent}</ul>\n")
-			newChangelogEntryFile.write(f"{indent}</li>\n")
+				newChangelogEntryFile.write(f"{quadrupleIndent}<li>{addedCard}</li>\n")
+			newChangelogEntryFile.write(f"{tripleIndent}</ul>\n")
+			newChangelogEntryFile.write(f"{doubleIndent}</li>\n")
 		if updateCheckResult.changedCards:
 			# Aggregate field changes
 			fieldNameToCardDescriptors = {}
@@ -204,13 +206,19 @@ def createChangelog(updateCheckResult: UpdateCheckResult, subVersion: str = "1")
 					fieldNameToCardDescriptors[changedCard.fieldName].append(changedCard.getCardDescriptor())
 			# Add a list to the changelog for each updated field
 			for fieldName, cardDescriptors in fieldNameToCardDescriptors.items():
-				newChangelogEntryFile.write(f"{indent}<li>Updated '{fieldName}' in {len(cardDescriptors):,} cards:\n")
-				newChangelogEntryFile.write(f"{doubleIndent}<ul>\n")
+				newChangelogEntryFile.write(f"{doubleIndent}<li>Updated '{fieldName}' in {len(cardDescriptors):,} cards:\n")
+				newChangelogEntryFile.write(f"{tripleIndent}<ul>\n")
 				for cardDescriptor in cardDescriptors:
-					newChangelogEntryFile.write(f"{tripleIndent}<li>{cardDescriptor}</li>\n")
-				newChangelogEntryFile.write(f"{doubleIndent}</ul>\n")
-				newChangelogEntryFile.write(f"{indent}</li>\n")
-		newChangelogEntryFile.write(f"</ul>\n")
+					newChangelogEntryFile.write(f"{quadrupleIndent}<li>{cardDescriptor}</li>\n")
+				newChangelogEntryFile.write(f"{tripleIndent}</ul>\n")
+				newChangelogEntryFile.write(f"{doubleIndent}</li>\n")
+		newChangelogEntryFile.write(f"{indent}</ul>\n")
+
+		newChangelogEntryFile.write(f"{indent}<aside class=\"links\">\n")
+		newChangelogEntryFile.write(f"{doubleIndent}<header>Permanent links:</header>\n")
 		filePrefix = f"files/{changelogEntryDescriptor}/{GlobalConfig.language.code}/"
-		newChangelogEntryFile.write(f"Permanent links: <a href=\"{filePrefix}allCards.json.zip\">allCards.json.zip</a> (<a href=\"{filePrefix}allCards.json.zip.md5\">md5</a>), "
-									f"<a href=\"{filePrefix}allSets.json.zip\">allSets.json.zip</a> (<a href=\"{filePrefix}allSets.json.zip.md5\">md5</a>)\n")
+		for fileName in ("allCards.json.zip", "allSets.zip", "allDecks.zip"):
+			newChangelogEntryFile.write(f"{doubleIndent}<a class=\"download\" href=\"{filePrefix}/{fileName}\">{fileName}</a>\n")
+			newChangelogEntryFile.write(f"{doubleIndent}(<a class=\"md5\" href=\"{filePrefix}/{fileName}.md5\">md5</a>),\n")
+		newChangelogEntryFile.write(f"{indent}</aside>\n")
+		newChangelogEntryFile.write("</div>\n")
