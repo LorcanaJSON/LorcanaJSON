@@ -45,11 +45,11 @@ def parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, threadLoca
 	cardCodeDigits = divmod(outputCard["id"], 62)
 	outputCard["code"] = _CARD_CODE_LOOKUP[cardCodeDigits[0]] + _CARD_CODE_LOOKUP[cardCodeDigits[1]]
 
-	# Get required data by parsing the card image
 	parsedIdentifier: Optional[IdentifierParser.Identifier] = None
 	if "card_identifier" in inputCard:
 		parsedIdentifier = IdentifierParser.parseIdentifier(inputCard["card_identifier"])
 
+	# Get required data by parsing the card image
 	ocrResult: Optional[OcrResult] = None
 	if GlobalConfig.useCachedOcr and not GlobalConfig.skipOcrCache:
 		ocrResult = OcrCacheHandler.getCachedOcrResult(outputCard["id"])
