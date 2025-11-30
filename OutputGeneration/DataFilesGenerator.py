@@ -1,4 +1,4 @@
-import copy, datetime, hashlib, json, logging, multiprocessing.pool, os, re, threading, time, zipfile
+import copy, datetime, hashlib, json, logging, multiprocessing.pool, os, threading, time, zipfile
 import xml.etree.ElementTree as xmlElementTree
 from typing import Dict, List, Optional, Union
 
