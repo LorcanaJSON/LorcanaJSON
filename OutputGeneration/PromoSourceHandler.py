@@ -1,6 +1,6 @@
 import json, logging, os
 from dataclasses import dataclass
-from typing import Dict, List, Optional, Union
+from typing import Dict, Optional, Union
 
 import GlobalConfig
 from util import Language
