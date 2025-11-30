@@ -8,11 +8,12 @@ from OCR import ImageParser
 from OutputGeneration import SingleCardDataGenerator
 from OutputGeneration.AllowedInFormatsHandler import AllowedInFormatsHandler
 from OutputGeneration.RelatedCardsCollator import RelatedCardCollator
+from OutputGeneration.PromoSourceHandler import PromoSourceHandler
 from OutputGeneration.StoryParser import StoryParser
 from util import CardUtil, JsonUtil
 
 _logger = logging.getLogger("LorcanaJSON")
-FORMAT_VERSION = "2.3.0"
+FORMAT_VERSION = "2.3.1"
 # The card parser is run in threads, and each thread needs to initialize its own ImageParser (otherwise weird errors happen in Tesseract)
 # Store each initialized ImageParser in its own thread storage
 _threadingLocalStorage = threading.local()
@@ -86,6 +87,7 @@ def createOutputFiles(onlyParseIds: Optional[List[int]] = None, shouldShowImages
 	cardToStoryParser = StoryParser(onlyParseIds)
 	relatedCardCollator = RelatedCardCollator(inputData)
 	allowedCardsHandler = AllowedInFormatsHandler()
+	promoSourceHandler = PromoSourceHandler(inputData)
 	with multiprocessing.pool.ThreadPool(GlobalConfig.threadCount, initializer=initThread) as pool:
 		results = []
 		for cardType, inputCardlist in inputData["cards"].items():
@@ -104,7 +106,7 @@ def createOutputFiles(onlyParseIds: Optional[List[int]] = None, shouldShowImages
 					continue
 				try:
 					results.append(pool.apply_async(SingleCardDataGenerator.parseSingleCard, (inputCard, cardTypeText, imageFolder, _threadingLocalStorage, relatedCardCollator.getRelatedCards(inputCard),
-												  cardDataCorrections.pop(cardId, None), cardToStoryParser, False, historicData.get(cardId, None), allowedCardsHandler, shouldShowImages)))
+												  cardDataCorrections.pop(cardId, None), cardToStoryParser, False, historicData.get(cardId, None), allowedCardsHandler, promoSourceHandler, shouldShowImages)))
 					cardIdsStored.append(cardId)
 				except Exception as e:
 					_logger.error(f"Exception {type(e)} occured while parsing card ID {inputCard['culture_invariant_id']}")
@@ -122,7 +124,7 @@ def createOutputFiles(onlyParseIds: Optional[List[int]] = None, shouldShowImages
 				_logger.debug(f"Card ID {cardId} is defined in the official file and in the external file, skipping the external data")
 				continue
 			results.append(pool.apply_async(SingleCardDataGenerator.parseSingleCard, (externalCard, externalCard["type"], imageFolder, _threadingLocalStorage, relatedCardCollator.getRelatedCards(externalCard),
-															   cardDataCorrections.pop(cardId, None), cardToStoryParser, True, historicData.get(cardId, None), allowedCardsHandler, shouldShowImages)))
+															   cardDataCorrections.pop(cardId, None), cardToStoryParser, True, historicData.get(cardId, None), allowedCardsHandler, promoSourceHandler, shouldShowImages)))
 		pool.close()
 		pool.join()
 	for result in results:

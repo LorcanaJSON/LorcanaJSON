@@ -7,6 +7,7 @@ from OCR.OcrResult import OcrResult
 from OutputGeneration import TextCorrection
 from OutputGeneration.AllowedInFormatsHandler import AllowedInFormats, AllowedInFormatsHandler
 from OutputGeneration.RelatedCardsCollator import RelatedCards
+from OutputGeneration.PromoSourceHandler import PromoSourceHandler
 from OutputGeneration.StoryParser import StoryParser
 from util import CardUtil, IdentifierParser, Language, LorcanaSymbols
 
@@ -18,7 +19,7 @@ _ABILITY_TYPE_CORRECTION_FIELD_TO_ABILITY_TYPE: Dict[str, str] = {"_forceAbility
 
 
 def parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, threadLocalStorage, relatedCards: RelatedCards, cardDataCorrections: Dict, storyParser: StoryParser, isExternalReveal: bool, historicData: Optional[List[Dict]],
-					allowedCardsHandler: AllowedInFormatsHandler, shouldShowImage: bool = False) -> Optional[Dict]:
+					allowedCardsHandler: AllowedInFormatsHandler, promoSourceHandler: PromoSourceHandler, shouldShowImage: bool = False) -> Optional[Dict]:
 	# Store some default values
 	outputCard: Dict[str, Union[str, int, List, Dict]] = {
 		"id": inputCard["culture_invariant_id"],
@@ -53,7 +54,6 @@ def parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, threadLoca
 	ocrResult: Optional[OcrResult] = None
 	if GlobalConfig.useCachedOcr and not GlobalConfig.skipOcrCache:
 		ocrResult = OcrCacheHandler.getCachedOcrResult(outputCard["id"])
-
 	if ocrResult is None:
 		ocrResult = threadLocalStorage.imageParser.getImageAndTextDataFromImage(
 			outputCard["id"],
@@ -183,6 +183,7 @@ def parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, threadLoca
 			except ValueError:
 				_logger.error(f"Unable to parse {ocrResult[outputFieldName]!r} as {outputFieldName} in card ID {outputCard['id']}")
 				outputCard[outputFieldName] = -1
+
 	# Image URLs end with a checksum parameter, we don't need that
 	if "variants" in inputCard:
 		outputImageData: Dict[str, str] = {}
@@ -384,6 +385,7 @@ def parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, threadLoca
 		outputCard["abilities"] = abilities
 	if effects:
 		outputCard["effects"] = effects
+
 	# Some cards have errata or clarifications, both in the 'additional_info' fields. Split those up
 	if inputCard.get("additional_info", None):
 		errata = []
@@ -461,6 +463,7 @@ def parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, threadLoca
 			subtypes.pop(0)
 		if subtypes:
 			outputCard["subtypes"] = subtypes
+
 	# Card-specific corrections
 	externalLinksCorrection: Optional[List[str]] = None  # externalLinks depends on correct fullIdentifier, which may have a correction, but it also might need a correction itself. So store it for now, and correct it later
 	fullTextCorrection: Optional[List[str]] = None  # Since the fullText gets created as the last step, if there is a correction for it, save it for later
@@ -603,6 +606,7 @@ def parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, threadLoca
 			if outputCard["effects"][effectIndex].startswith(LorcanaSymbols.SEPARATOR) or outputCard["effects"][effectIndex][0].isdigit():
 				_logger.debug(f"Joining effect at index {effectIndex} with previous one because it's erroneously split up, in card {CardUtil.createCardIdentifier(outputCard)}")
 				outputCard["effects"][effectIndex - 1] += "\n" + outputCard["effects"].pop(effectIndex)
+
 	# Now we can expand the ability fields with extra info, since it's all been corrected
 	keywordAbilities: List[str] = []
 	if "abilities" in outputCard:
@@ -749,6 +753,7 @@ def parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, threadLoca
 			outputCard["abilities"][abilityIndex] = {abilityKey: ability[abilityKey] for abilityKey in sorted(ability)}
 	if keywordAbilities:
 		outputCard["keywordAbilities"] = keywordAbilities
+
 	outputCard["artists"] = outputCard["artistsText"].split(" / ")
 	if "subtypes" in outputCard:
 		outputCard["subtypesText"] = LorcanaSymbols.SEPARATOR_STRING.join(outputCard["subtypes"])
@@ -766,6 +771,7 @@ def parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, threadLoca
 			for ability in outputCard["abilities"]:
 				if "keyword" in ability:
 					outputCard["keywordAbilities"].append(ability["keyword"])
+
 	# Reconstruct the full card text. Do that after storing and correcting fields, so any corrections will be taken into account
 	# Remove the newlines in the fields we use while we're at it, because we only needed those to reconstruct the fullText
 	fullTextSections = []
@@ -790,6 +796,7 @@ def parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, threadLoca
 	outputCard["fullTextSections"] = fullTextSections
 	if fullTextCorrection:
 		TextCorrection.correctCardFieldFromList(outputCard, "fullText", fullTextCorrection)
+
 	if "story" in inputCard:
 		outputCard["story"] = inputCard["story"]
 	else:
@@ -806,6 +813,13 @@ def parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, threadLoca
 			outputCard["allowedInFormats"][formatName]["allowedUntilDate"] = allowedInFormat.allowedUntil
 		if allowedInFormat.bannedSince:
 			outputCard["allowedInFormats"][formatName]["bannedSinceDate"] = allowedInFormat.bannedSince
+
+	promoSource = promoSourceHandler.getSpecialSourceForCard(inputCard)
+	if promoSource:
+		if promoSource.sourceCategory:
+			outputCard["promoSourceCategory"] = promoSource.sourceCategory
+		if promoSource.source:
+			outputCard["promoSource"] = promoSource.source
 
 	# Sort the dictionary by key
 	outputCard = {key: outputCard[key] for key in sorted(outputCard)}

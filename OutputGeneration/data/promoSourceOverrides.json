@@ -1,0 +1,102 @@
+{
+  "sourceCategoryOverrides": {
+    "CRUISE": [2432, 2434, 2435, 2436, 2437, 2438],
+    "PARKS": [2448, 2449, 2461, 2462],
+    "PLAY": [666, 667, 668, 672, 673, 674, 675, 684, 685, 686, 687, 688, 950, 951, 952, 953, 954, 1182, 1183, 1184, 1185, 1186, 1425, 1426, 1427, 1428, 1429],
+    "PROMO": [1179, 2442]
+  },
+  "sources": {
+    "D23 Expo 2022": [659],
+    "D23 Expo 2022 Collector's Set": [660, 661, 662, 663, 664, 665],
+    "D23 Expo 2024": [1432],
+    "D23 Expo 2024 Collector's Set": [1191, 1192, 1193, 1194, 1195, 1422],
+    "D23 Gold Membership": [1895],
+    "Disney 100 Collector's Set": [676, 677, 678, 679, 680, 681],
+    "disney100 collector's set": {
+      "ids": [676, 677, 678, 679, 680, 681],
+      "de": "Disney 100 Geschenk Set",
+      "en": "Disney 100 Collector's Set",
+      "fr": "Coffret cadeau Disney 100"
+    },
+    "Elsa Gift Box": {
+      "ids": [2184],
+      "de": "Elsa Geschenkbox",
+      "en": "Elsa Gift Box",
+      "fr": "Coffret Cadeau Elsa",
+      "it": "Scatola regalo Elsa"
+    },
+    "Fabled booster display": {
+      "ids": [2180],
+      "de": "'Mythen' Booster Display",
+      "en": "'Fabled' booster display",
+      "fr": "'Fabuleux' display de booster",
+      "it": "'Leggende' confezione booster"
+    },
+    "Fabled Collection Starter Set": {
+      "ids": [2188],
+      "de": "'Mythen' Starterset Für Sammler",
+      "en": "'Fabled' Collection Starter Set",
+      "fr": "'Fabuleux' Coffret Démarrez Votre Collection",
+      "it": "'Leggende' Set Introduttivo Da Collezione"
+    },
+    "Gamescom 2023": [670],
+    "Gen Con 2023": [669],
+    "Gen Con 2025": [2446],
+    "Deep Trouble quest victory card": {
+      "ids": [1179],
+      "de": "'Die Luminari Chroniken: Gefahr aus der Tiefe' Siegeskarte",
+      "en": "'Illumineer's Quest: Deep Trouble' victory card",
+      "fr": "'Quête des Illumineurs - Menace des profondeurs' carte de victoire",
+      "it": "'Avventura degli Illuminatori: Problemi negli Abissi' carta vittoria"
+    },
+    "Into the Inklands bundle": [1430],
+    "Lilo Gift Set": {
+      "ids": [1431],
+      "de": "Lilo Geschenk Set",
+      "en": "Lilo Gift Set",
+      "fr": "Le Coffret Cadeau Lilo",
+      "it": "Set Regalo Lilo"
+    },
+    "Moana 2": {
+      "ids": [1433, 1663],
+      "de": "'Vaiana 2' Veröffentlichung",
+      "en": "'Moana 2' release",
+      "fr": "'Vaiana 2' sortie",
+      "it": "'Oceania 2' uscita"
+    },
+    "Palace Heist quest victory card": {
+      "ids": [1935],
+      "de": "'Die Luminari Chroniken: Überfall auf den Palast' Siegeskarte",
+      "en": "'Illumineer's Quest: Palace Heist' victory card",
+      "fr": "'Quête des Illumineurs: Vol au palais' carte de victoire"
+    },
+    "Spiel Essen 2023": [671],
+    "Stitch Gift Set": {
+      "ids": [1423],
+      "de": "Stitch Geschenk Set",
+      "en": "Stitch Gift Set",
+      "fr": "Le Coffret Cadeau Stitch"
+    },
+    "villainous introduction to evil": {
+      "ids": [1180],
+      "de": "'Disney Villainous: Einführung ins Böse' Brettspiel",
+      "en": "'Disney Villainous: Introduction to Evil' boardgame",
+      "fr": "'Disney Villainous: Les Prémices du mal' jeu de société",
+      "it": "'Disney Villainous: Introduction to Evil' gioco da tavolo"
+    },
+    "Whispers in the Well booster display": {
+      "ids": [2442],
+      "de": "'Geflüster aus der Tiefe' Booster Display",
+      "en": "'Whispers in the Well' booster display",
+      "fr": "'Lueurs dans les Profondeurs' display de booster",
+      "it": "'Sussurri nel Pozzo' confezione booster"
+    },
+    "Whispers in the Well bring-a-friend": {
+      "ids": [2443],
+      "de": "'Geflüster aus der Tiefe' Bring a Friend",
+      "en": "'Whispers in the Well' Bring a Friend",
+      "fr": "'Lueurs dans les Profondeurs' Amenez un ami",
+      "it": "'Sussurri nel Pozzo' Porta un Amico"
+    }
+  }
+}
