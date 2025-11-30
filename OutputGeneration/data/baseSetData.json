@@ -224,11 +224,11 @@
     "number": 10,
     "allowedInFormats": {
       "Core": {
-        "allowed": false,
+        "allowed": true,
         "rotationGroup": 3
       },
       "Infinity": {
-        "allowed": false
+        "allowed": true
       }
     },
     "allowedInTournamentsFromDate": "2025-11-28"
