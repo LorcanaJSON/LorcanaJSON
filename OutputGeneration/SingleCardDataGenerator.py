@@ -404,7 +404,7 @@ def parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, threadLoca
 					# There's a suffix explaining what field the errata is about, prepend it to the text
 					infoText = infoEntry["title"].split(" - ")[1] + "\n" + infoText
 				errata.append(infoText)
-			elif infoEntry["title"].startswith("FAQ") or infoEntry["title"].startswith("Keyword") or infoEntry["title"] == "Good to know":
+			elif infoEntry["title"].startswith("FAQ") or infoEntry["title"].startswith("Keyword") or infoEntry["title"] == "Good to know" or infoEntry["title"] == "Info":
 				# Sometimes they cram multiple questions and answers into one entry, split those up into separate clarifications
 				infoEntryClarifications = re.split(r"\s*\n+(?=[DFQ] ?:)", infoText)
 				clarifications.extend(infoEntryClarifications)
