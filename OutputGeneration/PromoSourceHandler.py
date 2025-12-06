@@ -40,6 +40,7 @@ class PromoSourceHandler:
 		for sourceCategoryName, cardIdList in overrides["sourceCategoryOverrides"].items():
 			for cardId in cardIdList:
 				self._sourceCategoryOverrides[cardId] = sourceCategoryName
+
 		self._sourceOverrides: Dict[int, str] = {}
 		for sourceIdentifier, sourceData in overrides["sources"].items():
 			sourceName = sourceIdentifier
@@ -52,6 +53,14 @@ class PromoSourceHandler:
 				cardIds = sourceData["ids"]
 			for cardId in cardIds:
 				self._sourceOverrides[cardId] = sourceName
+		# Set-specific promos, like promos when buying a booster display, can use the setname from the sets-file, saving duplicate data
+		with open(os.path.join("OutputGeneration", "data", "baseSetData.json"), "r") as setsFile:
+			setsData = json.load(setsFile)
+		for sourceData in overrides["setSpecificSources"].values():
+			for setCode, cardId in sourceData["idBySet"].items():
+				if GlobalConfig.language.code in setsData[setCode]["names"]:
+					setName = setsData[setCode]["names"][GlobalConfig.language.code]
+					self._sourceOverrides[cardId] = f"'{setName}' {sourceData[GlobalConfig.language.code]}"
 
 	def getSpecialSourceForCard(self, inputCard: Dict) -> Union[None, PromoSource]:
 		cardId = inputCard["culture_invariant_id"]

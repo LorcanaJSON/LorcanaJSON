@@ -25,13 +25,6 @@
       "fr": "Coffret Cadeau Elsa",
       "it": "Scatola regalo Elsa"
     },
-    "Fabled booster display": {
-      "ids": [2180],
-      "de": "'Mythen' Booster Display",
-      "en": "'Fabled' booster display",
-      "fr": "'Fabuleux' display de booster",
-      "it": "'Leggende' confezione booster"
-    },
     "Fabled Collection Starter Set": {
       "ids": [2188],
       "de": "'Mythen' Starterset Für Sammler",
@@ -42,13 +35,6 @@
     "Gamescom 2023": [670],
     "Gen Con 2023": [669],
     "Gen Con 2025": [2446],
-    "Deep Trouble quest victory card": {
-      "ids": [1179],
-      "de": "'Die Luminari Chroniken: Gefahr aus der Tiefe' Siegeskarte",
-      "en": "'Illumineer's Quest: Deep Trouble' victory card",
-      "fr": "'Quête des Illumineurs - Menace des profondeurs' carte de victoire",
-      "it": "'Avventura degli Illuminatori: Problemi negli Abissi' carta vittoria"
-    },
     "Into the Inklands bundle": [1430],
     "Lilo Gift Set": {
       "ids": [1431],
@@ -64,12 +50,6 @@
       "fr": "'Vaiana 2' sortie",
       "it": "'Oceania 2' uscita"
     },
-    "Palace Heist quest victory card": {
-      "ids": [1935],
-      "de": "'Die Luminari Chroniken: Überfall auf den Palast' Siegeskarte",
-      "en": "'Illumineer's Quest: Palace Heist' victory card",
-      "fr": "'Quête des Illumineurs: Vol au palais' carte de victoire"
-    },
     "Spiel Essen 2023": [671],
     "Stitch Gift Set": {
       "ids": [1423],
@@ -83,20 +63,37 @@
       "en": "'Disney Villainous: Introduction to Evil' boardgame",
       "fr": "'Disney Villainous: Les Prémices du mal' jeu de société",
       "it": "'Disney Villainous: Introduction to Evil' gioco da tavolo"
+    }
+  },
+  "setSpecificSources": {
+    "booster display": {
+      "idBySet": {
+        "9": 2180,
+        "10": 2442
+      },
+      "de": "Booster Display",
+      "en": "booster display",
+      "fr": "display de booster",
+      "it": "confezione booster"
     },
-    "Whispers in the Well booster display": {
-      "ids": [2442],
-      "de": "'Geflüster aus der Tiefe' Booster Display",
-      "en": "'Whispers in the Well' booster display",
-      "fr": "'Lueurs dans les Profondeurs' display de booster",
-      "it": "'Sussurri nel Pozzo' confezione booster"
+    "bring a friend": {
+      "idBySet": {
+        "10": 2443
+      },
+      "de": "Bring a Friend",
+      "en": "Bring a Friend",
+      "fr": "Amenez un ami",
+      "it": "Porta un Amico"
     },
-    "Whispers in the Well bring-a-friend": {
-      "ids": [2443],
-      "de": "'Geflüster aus der Tiefe' Bring a Friend",
-      "en": "'Whispers in the Well' Bring a Friend",
-      "fr": "'Lueurs dans les Profondeurs' Amenez un ami",
-      "it": "'Sussurri nel Pozzo' Porta un Amico"
+    "quest victory card": {
+      "idBySet": {
+        "Q1": 1179,
+        "Q2": 1935
+      },
+      "de": "Siegeskarte",
+      "en": "victory card",
+      "fr": "carte de victoire",
+      "it": "carta vittoria"
     }
   }
 }
