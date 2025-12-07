@@ -362,6 +362,7 @@ def parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, threadLoca
 					# French puts a space before an exclamation or question mark, add that in
 					abilityName = re.sub(r"(?<![?! ])([!?])", r" \1", abilityName)
 				abilityName = re.sub(r"\bCA\b", "ÇA", abilityName)
+				abilityName = re.sub(r"\bCAVA\b", "ÇA VA", abilityName)
 				abilityName = re.sub(r"\bTRES\b", "TRÈS", abilityName)
 				abilityName = re.sub(r"\bJY\b","J'Y", abilityName)
 			elif GlobalConfig.language == Language.GERMAN:
