@@ -343,6 +343,7 @@ def parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, threadLoca
 				abilities.append({"effect": remainingTextLine})
 
 	if ocrResult.abilityLabels:
+		inputAbilityNames: Optional[List[str]] = None
 		for abilityIndex in range(len(ocrResult.abilityLabels)):
 			abilityName = TextCorrection.correctPunctuation(ocrResult.abilityLabels[abilityIndex].replace("''", "'").replace("ß", "ẞ")).lstrip("-+_.… ").rstrip(" %:").upper()
 			originalAbilityName = abilityName
@@ -377,6 +378,43 @@ def parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, threadLoca
 				abilityName = re.sub("[1I]0", "IO", abilityName)
 				# Italian doesn't use fancy single-quotes in ability names, so replace all of the with simple ones
 				abilityName = abilityName.replace("’", "'")
+			# A common mistake is missing spaces in the ability name. Try to find the spaces from the input-text, if it exists (for some reason some cards with text have an empty 'rules_text')
+			# Skip German cards with a 'ẞ' (eszett) in the name, because they use 'SS' for it in the input text, and correcting for that would be too clumsy
+			if inputCard["rules_text"] and abilityName not in inputCard["rules_text"] and 'ẞ' not in abilityName:
+				# First create a list of ability labels in the input text, if we haven't done that already
+				if not inputAbilityNames:
+					inputAbilityNames = []
+					inputAbilityNameParts: List[str] = []
+					isInInputAbilityName = False
+					inputRulesText: str = inputCard["rules_text"]
+					# Some cards don't have uppercase ability labels for some bizarre reason, but they separate label and effect by a '\'; fix that
+					if "\\ " in inputRulesText:
+						inputRulesTextSlashIndex = inputRulesText.find("\\ ")
+						inputRulesText = inputRulesText[:inputRulesTextSlashIndex].upper() + inputRulesText[inputRulesTextSlashIndex + 1:]
+					for word in inputRulesText.split():
+						if word.isupper():
+							if not isInInputAbilityName:
+								isInInputAbilityName = True
+							inputAbilityNameParts.append(word)
+						elif isInInputAbilityName:
+							isInInputAbilityName = False
+							inputAbilityNames.append(" ".join(inputAbilityNameParts))
+							inputAbilityNameParts = []
+				inputAbilityName: str = inputAbilityNames[abilityIndex]
+				characterMismatchCount: int = 0
+				abilityNameBeforeSpaceCorrection = abilityName
+				for characterIndex in range(min(len(inputAbilityName), len(abilityName))):
+					inputAbilityNameCharacter = inputAbilityName[characterIndex]
+					outputAbilityNameCharacter = abilityName[characterIndex]
+					if inputAbilityNameCharacter == " " and outputAbilityNameCharacter != " ":
+						abilityName = abilityName[:characterIndex] + " " + abilityName[characterIndex:]
+					elif inputAbilityNameCharacter != outputAbilityNameCharacter:
+						# Sometimes Ravensburger set a wrong ability name. Check for that, so we don't add spaces from a different sentence
+						characterMismatchCount += 1
+						if characterMismatchCount == 4:
+							_logger.info(f"Too many characters mismatch between input abiilty name {inputAbilityName} and output {abilityName} in card {CardUtil.createCardIdentifier(outputCard)}, aborting missing-spaces check")
+							abilityName = abilityNameBeforeSpaceCorrection
+							break
 			if abilityName != originalAbilityName:
 				_logger.info(f"Corrected ability name from {originalAbilityName!r} to {abilityName!r}")
 			abilityEffect = TextCorrection.correctText(TextCorrection.correctPunctuation(ocrResult.abilityTexts[abilityIndex])).replace("‘", "")
