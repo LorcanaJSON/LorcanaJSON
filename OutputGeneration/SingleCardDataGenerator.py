@@ -363,6 +363,7 @@ def parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, threadLoca
 					abilityName = re.sub(r"(?<![?! ])([!?])", r" \1", abilityName)
 				abilityName = re.sub(r"\bCA\b", "ÇA", abilityName)
 				abilityName = re.sub(r"\bTRES\b", "TRÈS", abilityName)
+				abilityName = re.sub(r"\bJY\b","J'Y", abilityName)
 			elif GlobalConfig.language == Language.GERMAN:
 				# It seems to misread a lot of ability names as ending with a period, correct that (unless it's ellipsis)
 				if abilityName.endswith(".") and not abilityName.endswith("..."):
