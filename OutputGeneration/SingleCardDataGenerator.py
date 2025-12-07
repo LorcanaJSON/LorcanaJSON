@@ -351,8 +351,8 @@ def parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, threadLoca
 			if GlobalConfig.language == Language.ENGLISH:
 				abilityName = abilityName.replace("|", "I")
 				abilityName = re.sub("^l", "I", abilityName)
-				abilityName = re.sub(r"\bLM\b", "I'M", abilityName)
-				abilityName = re.sub(r"(^|\s)['’P]?LL\b", "\\1I'LL", abilityName)
+				abilityName = re.sub(r"\b[IL]M\b", "I'M", abilityName)
+				abilityName = re.sub(r"(^|\s)['’IP]?LL\b", "\\1I'LL", abilityName)
 				abilityName = abilityName.replace("ITLL", "IT'LL")
 				# Use simple quotemark for plural possesive
 				abilityName = re.sub(r"(?<=[A-Z]S)’(?=\s)", "'", abilityName)
