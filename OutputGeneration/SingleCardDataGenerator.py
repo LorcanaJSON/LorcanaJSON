@@ -379,8 +379,7 @@ def parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, threadLoca
 				# Italian doesn't use fancy single-quotes in ability names, so replace all of the with simple ones
 				abilityName = abilityName.replace("’", "'")
 			# A common mistake is missing spaces in the ability name. Try to find the spaces from the input-text, if it exists (for some reason some cards with text have an empty 'rules_text')
-			# Skip German cards with a 'ẞ' (eszett) in the name, because they use 'SS' for it in the input text, and correcting for that would be too clumsy
-			if inputCard["rules_text"] and abilityName not in inputCard["rules_text"] and 'ẞ' not in abilityName:
+			if inputCard["rules_text"] and abilityName not in inputCard["rules_text"]:
 				# First create a list of ability labels in the input text, if we haven't done that already
 				if not inputAbilityNames:
 					inputAbilityNames = []
