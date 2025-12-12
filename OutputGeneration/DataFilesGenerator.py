@@ -121,29 +121,33 @@ def createOutputFiles(onlyParseIds: Optional[List[int]] = None, shouldShowImages
 	def initThread():
 		_threadingLocalStorage.imageParser = ImageParser.ImageParser()
 	ocrResults: Dict[int, OcrResult] = {}
-	with multiprocessing.pool.ThreadPool(GlobalConfig.threadCount, initializer=initThread) as pool:
-		ocrResultGetters: Dict[int, ApplyResult[OcrResult]] = {}
-		for inputCard in inputCards:
-			shouldOcrCard: bool = True
-			if GlobalConfig.useCachedOcr and not GlobalConfig.skipOcrCache:
-				cardId = inputCard["culture_invariant_id"]
-				ocrResult = OcrCacheHandler.getCachedOcrResult(cardId)
-				if ocrResult:
-					shouldOcrCard = False
-					ocrResults[cardId] = ocrResult
-			if shouldOcrCard:
+	cardsToOcr: List[Dict] = []
+	for inputCard in inputCards:
+		cardId = inputCard["culture_invariant_id"]
+		shouldOcrCard: bool = True
+		if GlobalConfig.useCachedOcr and not GlobalConfig.skipOcrCache:
+			ocrResult = OcrCacheHandler.getCachedOcrResult(cardId)
+			if ocrResult:
+				shouldOcrCard = False
+				ocrResults[cardId] = ocrResult
+		if shouldOcrCard:
+			cardsToOcr.append(inputCard)
+	if cardsToOcr:
+		ocrResultGetters: Dict[int, Optional[ApplyResult[OcrResult]]] = {}
+		with multiprocessing.pool.ThreadPool(min(GlobalConfig.threadCount, len(cardsToOcr)), initializer=initThread) as pool:
+			for inputCard in cardsToOcr:
 				try:
 					ocrResultGetters[inputCard["culture_invariant_id"]] = pool.apply_async(getOcrResultForCard, (inputCard, imageFolder, _threadingLocalStorage, False, shouldShowImages))
 				except Exception as e:
 					_logger.error(f"Exception {type(e)} occured during OCR of card ID {inputCard['culture_invariant_id']}")
 					raise e
-		pool.close()
-		pool.join()
-	# Convert threaded result getter to actual ocr result
-	for cardId, ocrResultGetter in ocrResultGetters.items():
-		ocrResults[cardId] = ocrResultGetter.get()
-	del ocrResultGetters
-	_logger.info(f"Created OCR results in {time.perf_counter() - startTime} seconds")
+			pool.close()
+			pool.join()
+		# Convert threaded result getter to actual ocr result
+		for cardId, ocrResultGetter in ocrResultGetters.items():
+			ocrResults[cardId] = ocrResultGetter.get()
+		del ocrResultGetters
+		_logger.info(f"Parsed OCR results after {time.perf_counter() - startTime} seconds")
 
 	# Now actually parse the cards based on the collected data
 	allowedCardsHandler = AllowedInFormatsHandler()
