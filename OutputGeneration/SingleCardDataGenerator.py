@@ -2,6 +2,7 @@ import logging, re
 from typing import Dict, List, Optional, Union
 
 import GlobalConfig
+from APIScraping.ExternalLinksHandler import ExternalLinksHandler
 from OCR import OcrCacheHandler
 from OCR.OcrResult import OcrResult
 from OutputGeneration import TextCorrection
@@ -18,16 +19,16 @@ _KEYWORD_REGEX_WITHOUT_REMINDER = re.compile(r"^([A-ZÀ][^ ]{2,}|À)( ([dl]['’
 _ABILITY_TYPE_CORRECTION_FIELD_TO_ABILITY_TYPE: Dict[str, str] = {"_forceAbilityIndexToActivated": "activated", "_forceAbilityIndexToKeyword": "keyword", "_forceAbilityIndexToStatic": "static", "_forceAbilityIndexToTriggered": "triggered"}
 
 
-def parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, threadLocalStorage, relatedCards: RelatedCards, cardDataCorrections: Dict, storyParser: StoryParser, isExternalReveal: bool, historicData: Optional[List[Dict]],
-					allowedCardsHandler: AllowedInFormatsHandler, promoSourceHandler: PromoSourceHandler, shouldShowImage: bool = False) -> Optional[Dict]:
+def parseSingleCard(inputCard: Dict, ocrResult: OcrResult, externalLinksHandler: ExternalLinksHandler, relatedCards: RelatedCards, cardDataCorrections: Dict, storyParser: StoryParser,
+					historicData: Optional[List[Dict]],	allowedCardsHandler: AllowedInFormatsHandler, promoSourceHandler: PromoSourceHandler) -> Optional[Dict]:
 	# Store some default values
 	outputCard: Dict[str, Union[str, int, List, Dict]] = {
 		"id": inputCard["culture_invariant_id"],
 		"inkwell": inputCard["ink_convertible"],
 		"rarity": GlobalConfig.translation[inputCard["rarity"]],
-		"type": cardType
+		"type": inputCard["_type"]
 	}
-	if isExternalReveal:
+	if inputCard.get("_isExternalReveal", False):
 		outputCard["isExternalReveal"] = True
 	if not inputCard["magic_ink_colors"]:
 		outputCard["color"] = ""
@@ -46,29 +47,9 @@ def parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, threadLoca
 	cardCodeDigits = divmod(outputCard["id"], 62)
 	outputCard["code"] = _CARD_CODE_LOOKUP[cardCodeDigits[0]] + _CARD_CODE_LOOKUP[cardCodeDigits[1]]
 
-	parsedIdentifier: Optional[IdentifierParser.Identifier] = None
-	if "card_identifier" in inputCard:
+	parsedIdentifier: Optional[IdentifierParser.Identifier] = inputCard.get("_parsedIdentifier", None)
+	if parsedIdentifier is None and "card_identifier" in inputCard:
 		parsedIdentifier = IdentifierParser.parseIdentifier(inputCard["card_identifier"])
-
-	# Get required data by parsing the card image
-	ocrResult: Optional[OcrResult] = None
-	if GlobalConfig.useCachedOcr and not GlobalConfig.skipOcrCache:
-		ocrResult = OcrCacheHandler.getCachedOcrResult(outputCard["id"])
-	if ocrResult is None:
-		ocrResult = threadLocalStorage.imageParser.getImageAndTextDataFromImage(
-			outputCard["id"],
-			imageFolder,
-			parseFully=isExternalReveal,
-			parsedIdentifier=parsedIdentifier,
-			cardType=cardType,
-			hasCardText=inputCard["rules_text"] != "" if "rules_text" in inputCard else None,
-			hasFlavorText=inputCard["flavor_text"] != "" if "flavor_text" in inputCard else None,
-			isEpic=outputCard["rarity"] == GlobalConfig.translation.EPIC,
-			isEnchanted=outputCard["rarity"] == GlobalConfig.translation.ENCHANTED,
-			showImage=shouldShowImage
-		)
-		if not GlobalConfig.skipOcrCache:
-			OcrCacheHandler.storeOcrResult(outputCard["id"], ocrResult)
 
 	if ocrResult.identifier and (ocrResult.identifier.startswith("0") or "TFC" in ocrResult.identifier or GlobalConfig.language.uppercaseCode not in ocrResult.identifier):
 		outputCard["fullIdentifier"] = re.sub(fr" ?\W (?!$)", LorcanaSymbols.SEPARATOR_STRING, ocrResult.identifier)
@@ -143,7 +124,7 @@ def parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, threadLoca
 		outputCard["name"] = "HeiHei"
 	elif outputCard["name"].isupper() and outputCard["name"] not in ("B.E.N.", "I2I"):
 		# Some names have capitals in the middle, correct those
-		if cardType == GlobalConfig.translation.Character:
+		if outputCard["type"] == GlobalConfig.translation.Character:
 			if outputCard["name"] == "HEIHEI" and GlobalConfig.language == Language.ENGLISH:
 				outputCard["name"] = "HeiHei"
 			elif outputCard["name"] == "LEFOU":
@@ -222,7 +203,7 @@ def parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, threadLoca
 
 		if foilTypes:
 			outputCard["foilTypes"] = foilTypes
-		elif not isExternalReveal:
+		elif not outputCard.get("isExternalReveal", False):
 			# We can't know the foil type(s) of externally revealed cards, so not having the data at all is better than adding possibly wrong data
 			# 'Normal' (so non-promo non-Enchanted) cards exist in unfoiled and silver-foiled types, so just default to that if no explicit foil type is provided
 			outputCard["foilTypes"] = ["None", "Silver"]
@@ -801,7 +782,7 @@ def parseSingleCard(inputCard: Dict, cardType: str, imageFolder: str, threadLoca
 	if "subtypes" in outputCard:
 		outputCard["subtypesText"] = LorcanaSymbols.SEPARATOR_STRING.join(outputCard["subtypes"])
 	# Add external links (Do this after corrections so we can use a corrected 'fullIdentifier')
-	outputCard["externalLinks"] = threadLocalStorage.externalIdsHandler.getExternalLinksForCard(parsedIdentifier, "enchantedId" in outputCard)
+	outputCard["externalLinks"] = externalLinksHandler.getExternalLinksForCard(parsedIdentifier, "enchantedId" in outputCard)
 	if externalLinksCorrection:
 		TextCorrection.correctCardFieldFromList(outputCard, "externalLinks", externalLinksCorrection)
 	if moveAbilityAtIndexToIndex:
