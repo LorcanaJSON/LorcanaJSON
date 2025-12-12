@@ -113,7 +113,7 @@ def createOutputFiles(onlyParseIds: Optional[List[int]] = None, shouldShowImages
 					raise e
 		# Load in the external card reveals, which are cards revealed elsewhere but which aren't added to the official app yet
 		externalCardReveals = []
-		externalCardRevealsFilePath = os.path.join("output", f"externalCardReveals.{GlobalConfig.language.code}.json")
+		externalCardRevealsFilePath = os.path.join("OutputGeneration", "data", f"externalCardReveals.{GlobalConfig.language.code}.json")
 		if os.path.isfile(externalCardRevealsFilePath):
 			with open(externalCardRevealsFilePath, "r", encoding="utf-8") as externalCardRevealsFile:
 				externalCardReveals = json.load(externalCardRevealsFile)
