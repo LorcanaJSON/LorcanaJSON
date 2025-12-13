@@ -200,6 +200,8 @@ def parseSingleCard(inputCard: Dict, ocrResult: OcrResult, externalLinksHandler:
 						varnishType = inputImageVariantData["foil_top_layer"]
 					elif varnishType != inputImageVariantData["foil_top_layer"]:
 						_logger.warning(f"Varnish type is both '{varnishType}' and '{inputImageVariantData['foil_top_layer']}' in card {CardUtil.createCardIdentifier(outputCard)}; Keeping '{varnishType}'")
+			else:
+				_logger.warning(f"Unknown variant id {imageType!r} in card {CardUtil.createCardIdentifier(outputCard)}")
 
 		if foilTypes:
 			outputCard["foilTypes"] = foilTypes
