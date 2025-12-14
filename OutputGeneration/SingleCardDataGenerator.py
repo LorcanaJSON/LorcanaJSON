@@ -200,6 +200,13 @@ def parseSingleCard(inputCard: Dict, ocrResult: OcrResult, externalLinksHandler:
 						varnishType = inputImageVariantData["foil_top_layer"]
 					elif varnishType != inputImageVariantData["foil_top_layer"]:
 						_logger.warning(f"Varnish type is both '{varnishType}' and '{inputImageVariantData['foil_top_layer']}' in card {CardUtil.createCardIdentifier(outputCard)}; Keeping '{varnishType}'")
+			elif imageType == "StarterFoil":
+				# Foiling for the signature cards in a starter deck. It should use the same image URLs as the 'nromal' foil version
+				if "foilMask" in outputImageData and inputImageVariantData["foil_mask_url"] != outputImageData["foilMask"]:
+					_logger.warning(f"Different foil mask for 'normal' foil and Starter foil in card {CardUtil.createCardIdentifier(outputCard)}")
+				if "full" in outputImageData and inputImageVariantData["detail_image_url"] != outputImageData["full"]:
+					_logger.warning(f"Different normal image between base card and Starter in card {CardUtil.createCardIdentifier(outputCard)}")
+				foilTypes.append(inputImageVariantData["foil_type"])
 			else:
 				_logger.warning(f"Unknown variant id {imageType!r} in card {CardUtil.createCardIdentifier(outputCard)}")
 
