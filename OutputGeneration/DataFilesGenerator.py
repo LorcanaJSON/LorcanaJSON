@@ -9,13 +9,14 @@ from OCR import ImageParser, OcrCacheHandler
 from OCR.OcrResult import OcrResult
 from OutputGeneration import SingleCardDataGenerator
 from OutputGeneration.AllowedInFormatsHandler import AllowedInFormatsHandler
+from OutputGeneration.ArtistsHandler import ArtistsHandler
 from OutputGeneration.RelatedCardsCollator import RelatedCardCollator
 from OutputGeneration.PromoSourceHandler import PromoSourceHandler
 from OutputGeneration.StoryParser import StoryParser
 from util import CardUtil, IdentifierParser, JsonUtil
 
 _logger = logging.getLogger("LorcanaJSON")
-FORMAT_VERSION = "2.3.1"
+FORMAT_VERSION = "2.3.2"
 # The card parser is run in threads, and each thread needs to initialize its own ImageParser (otherwise weird errors happen in Tesseract)
 # Store each initialized ImageParser in its own thread storage
 _threadingLocalStorage = threading.local()
@@ -151,6 +152,7 @@ def createOutputFiles(onlyParseIds: Optional[List[int]] = None, shouldShowImages
 
 	# Now actually parse the cards based on the collected data
 	allowedCardsHandler = AllowedInFormatsHandler()
+	artistsHandler = ArtistsHandler()
 	externalLinksHandler = ExternalLinksHandler()
 	cardToStoryParser = StoryParser(onlyParseIds)
 	promoSourceHandler = PromoSourceHandler(inputData)
@@ -158,7 +160,7 @@ def createOutputFiles(onlyParseIds: Optional[List[int]] = None, shouldShowImages
 	for inputCard in inputCards:
 		cardId = inputCard["culture_invariant_id"]
 		fullCardList.append(SingleCardDataGenerator.parseSingleCard(inputCard, ocrResults[cardId], externalLinksHandler, relatedCardCollator.getRelatedCards(inputCard), cardDataCorrections.pop(cardId, None), cardToStoryParser,
-															 historicData.get(cardId, None), allowedCardsHandler, promoSourceHandler))
+															 historicData.get(cardId, None), allowedCardsHandler, promoSourceHandler, artistsHandler))
 	_logger.info(f"Created card list in {time.perf_counter() - startTime} seconds")
 
 	if cardDataCorrections:
