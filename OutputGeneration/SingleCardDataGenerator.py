@@ -3,7 +3,6 @@ from typing import Dict, List, Optional, Union
 
 import GlobalConfig
 from APIScraping.ExternalLinksHandler import ExternalLinksHandler
-from OCR import OcrCacheHandler
 from OCR.OcrResult import OcrResult
 from OutputGeneration import TextCorrection
 from OutputGeneration.AllowedInFormatsHandler import AllowedInFormats, AllowedInFormatsHandler
