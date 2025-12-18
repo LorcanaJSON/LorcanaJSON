@@ -164,7 +164,7 @@ def parseSingleCard(inputCard: Dict, ocrResult: OcrResult, externalLinksHandler:
 				_logger.error(f"Unable to parse {ocrResult[outputFieldName]!r} as {outputFieldName} in card ID {outputCard['id']}")
 				outputCard[outputFieldName] = -1
 
-	# Image URLs end with a checksum parameter, we don't need that
+	# Determine the various image data (normal, foil, varnish, etc)
 	if "variants" in inputCard:
 		outputImageData: Dict[str, str] = {}
 		normalImageUrl = None
