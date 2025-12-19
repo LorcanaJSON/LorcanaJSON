@@ -837,7 +837,7 @@ def parseSingleCard(inputCard: Dict, ocrResult: OcrResult, externalLinksHandler:
 	if historicData:
 		outputCard["historicData"] = historicData
 
-	allowedInFormats: AllowedInFormats = allowedCardsHandler.getAllowedInFormatsForCard(outputCard["id"], relatedCards.printedInSets)
+	allowedInFormats: AllowedInFormats = allowedCardsHandler.getAllowedInFormatsForCard(inputCard["_idAsString"], relatedCards.printedInSets)
 	outputCard["allowedInTournamentsFromDate"] = allowedInFormats.allowedInTournamentsFromDate
 	outputCard["allowedInFormats"] = {}
 	for formatName, allowedInFormat in (("Core", allowedInFormats.allowedInCore), ("Infinity", allowedInFormats.allowedInInfinity)):

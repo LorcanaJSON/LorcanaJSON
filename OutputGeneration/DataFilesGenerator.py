@@ -13,7 +13,7 @@ from OutputGeneration.ArtistsHandler import ArtistsHandler
 from OutputGeneration.RelatedCardsCollator import RelatedCardCollator
 from OutputGeneration.PromoSourceHandler import PromoSourceHandler
 from OutputGeneration.StoryParser import StoryParser
-from util import CardUtil, IdentifierParser, JsonUtil
+from util import CardUtil, IdentifierParser
 
 _logger = logging.getLogger("LorcanaJSON")
 FORMAT_VERSION = "2.3.2"
@@ -34,25 +34,28 @@ def createOutputFiles(onlyParseIds: Optional[List[int]] = None, shouldShowImages
 	with open(cardCatalogPath, "r", encoding="utf-8") as inputFile:
 		inputData = json.load(inputFile)
 
-	cardDataCorrections: Dict[int, Dict[str, List[str, str]]] = JsonUtil.loadJsonWithNumberKeys(os.path.join("OutputGeneration", "data", "outputDataCorrections", "outputDataCorrections.json"))
+	with open(os.path.join("OutputGeneration", "data", "outputDataCorrections", "outputDataCorrections.json"), "r", encoding="utf-8") as correctionsFile:
+		cardDataCorrections: Dict[str, Dict[str, List[str, str]]] = json.load(correctionsFile)
 	correctionsFilePath = os.path.join("OutputGeneration", "data", "outputDataCorrections", f"outputDataCorrections_{GlobalConfig.language.code}.json")
 	if os.path.isfile(correctionsFilePath):
-		for cardId, corrections in JsonUtil.loadJsonWithNumberKeys(correctionsFilePath).items():
-			if cardId in cardDataCorrections:
-				# Merge the language-specific corrections with the global corrections
-				for fieldCorrectionName, fieldCorrection in corrections.items():
-					if fieldCorrectionName in cardDataCorrections[cardId]:
-						cardDataCorrections[cardId][fieldCorrectionName].extend(fieldCorrection)
-					else:
-						cardDataCorrections[cardId][fieldCorrectionName] = fieldCorrection
-			else:
-				cardDataCorrections[cardId] = corrections
+		with open(correctionsFilePath, "r", encoding="utf-8") as correctionsFile:
+			for cardId, corrections in json.load(correctionsFile).items():
+				if cardId in cardDataCorrections:
+					# Merge the language-specific corrections with the global corrections
+					for fieldCorrectionName, fieldCorrection in corrections.items():
+						if fieldCorrectionName in cardDataCorrections[cardId]:
+							cardDataCorrections[cardId][fieldCorrectionName].extend(fieldCorrection)
+						else:
+							cardDataCorrections[cardId][fieldCorrectionName] = fieldCorrection
+				else:
+					cardDataCorrections[cardId] = corrections
 	else:
 		_logger.warning(f"No corrections file exists for language '{GlobalConfig.language.code}', so no language-specific corrections will be done. This doesn't break anything, but results might not be perfect")
 
 	historicDataFilePath = os.path.join("OutputGeneration", "data", "historicData", f"historicData_{GlobalConfig.language.code}.json")
 	if os.path.isfile(historicDataFilePath):
-		historicData = JsonUtil.loadJsonWithNumberKeys(historicDataFilePath)
+		with open(historicDataFilePath, "r", encoding="utf-8") as historicDataFile:
+			historicData = json.load(historicDataFile)
 	else:
 		historicData = {}
 
@@ -75,8 +78,9 @@ def createOutputFiles(onlyParseIds: Optional[List[int]] = None, shouldShowImages
 							fullCardList.append(card)
 							cardIdsStored.append(card["id"])
 							# Remove the card from the corrections list, so we can still check if the corrections got applied properly
-							cardDataCorrections.pop(card["id"], None)
-							historicData.pop(card["id"], None)
+							cardIdAsString = str(card["id"])
+							cardDataCorrections.pop(cardIdAsString, None)
+							historicData.pop(cardIdAsString, None)
 				del previousCardData
 		else:
 			_logger.warning("ID list provided but previously generated file doesn't exist. Generating all card data")
@@ -98,6 +102,7 @@ def createOutputFiles(onlyParseIds: Optional[List[int]] = None, shouldShowImages
 							  f"so it's strongly recommended to rerun with this card ID included")
 				continue
 			# Add some preprocessed data that we need in several places
+			inputCard["_idAsString"] = str(cardId)
 			inputCard["_parsedIdentifier"] = IdentifierParser.parseIdentifier(inputCard["card_identifier"])
 			inputCard["_type"] = cardTypeText
 			cardIdsStored.append(inputCard["culture_invariant_id"])
@@ -112,6 +117,7 @@ def createOutputFiles(onlyParseIds: Optional[List[int]] = None, shouldShowImages
 			if cardId in cardIdsStored:
 				_logger.debug(f"Card ID {cardId} is defined in the official file and in the external file, skipping the external data")
 				continue
+			externalCard["_idAsString"] = str(cardId)
 			externalCard["_isExternalReveal"] = True
 			if "card_identifier" in externalCard:
 				externalCard["_parsedIdentifier"] = IdentifierParser.parseIdentifier(externalCard["card_identifier"])
@@ -158,8 +164,8 @@ def createOutputFiles(onlyParseIds: Optional[List[int]] = None, shouldShowImages
 	relatedCardCollator = RelatedCardCollator(inputData)
 	for inputCard in inputCards:
 		cardId = inputCard["culture_invariant_id"]
-		fullCardList.append(SingleCardDataGenerator.parseSingleCard(inputCard, ocrResults[cardId], externalLinksHandler, relatedCardCollator.getRelatedCards(inputCard), cardDataCorrections.pop(cardId, None), cardToStoryParser,
-															 historicData.get(cardId, None), allowedCardsHandler, promoSourceHandler, artistsHandler))
+		fullCardList.append(SingleCardDataGenerator.parseSingleCard(inputCard, ocrResults[cardId], externalLinksHandler, relatedCardCollator.getRelatedCards(inputCard), cardDataCorrections.pop(inputCard["_idAsString"], None), cardToStoryParser,
+															 historicData.get(inputCard["_idAsString"], None), allowedCardsHandler, promoSourceHandler, artistsHandler))
 	_logger.info(f"Created card list in {time.perf_counter() - startTime} seconds")
 
 	if cardDataCorrections:

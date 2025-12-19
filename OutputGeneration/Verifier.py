@@ -2,7 +2,7 @@ import json, os, re
 from typing import Dict, List, Optional
 
 import GlobalConfig
-from util import JsonUtil, Language, LorcanaSymbols, Translations
+from util import Language, LorcanaSymbols, Translations
 
 
 def compareInputToOutput(cardIdsToVerify: Optional[List[int]]):
@@ -46,7 +46,8 @@ def compareInputToOutput(cardIdsToVerify: Optional[List[int]]):
 	# It's organised by language, then by card ID, then by inputCard field, where the value is a pair of strings (regex match and correction), or a new number if it's a numeric field
 	overridesFilePath = os.path.join("OutputGeneration", "data", "verifier", f"verifierOverrides_{GlobalConfig.language.code}.json")
 	if os.path.isfile(overridesFilePath):
-		inputOverrides = JsonUtil.loadJsonWithNumberKeys(overridesFilePath)
+		with open(overridesFilePath, "r", encoding="utf-8") as overridesFile:
+			inputOverrides = json.load(overridesFile)
 		print(f"Overrides file found, loaded {len(inputOverrides):,} input overrides")
 	else:
 		print("No overrides file found")
@@ -65,15 +66,17 @@ def compareInputToOutput(cardIdsToVerify: Optional[List[int]]):
 			print(f"WARNING: '{outputCard['fullName']}' (ID {outputCard['id']}) does not exist in the input file, skipping")
 			continue
 		cardId = outputCard["id"]
+		cardIdAsString = str(cardId)
 		inputCard = idToInputCard[cardId]
 
 		# Implement overrides
 		listFieldLengthChange: Optional[Dict[str, int]] = None
 		symbolCountChange: Optional[Dict[str, int]] = None
-		if cardId in inputOverrides:
-			listFieldLengthChange = inputOverrides[cardId].pop("_listFieldLengthChange", None)
-			symbolCountChange = inputOverrides[cardId].pop("_symbolCountChange", None)
-			for fieldName, correctionsTuple in inputOverrides[cardId].items():
+		if cardIdAsString in inputOverrides:
+			inputOverridesForCard = inputOverrides[cardIdAsString]
+			listFieldLengthChange = inputOverridesForCard.pop("_listFieldLengthChange", None)
+			symbolCountChange = inputOverridesForCard.pop("_symbolCountChange", None)
+			for fieldName, correctionsTuple in inputOverridesForCard.items():
 				for correctionIndex in range(0, len(correctionsTuple), 2):
 					regexMatch = correctionsTuple[correctionIndex]
 					correctionText = correctionsTuple[correctionIndex+1]

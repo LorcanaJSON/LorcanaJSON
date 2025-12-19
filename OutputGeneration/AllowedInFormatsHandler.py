@@ -1,14 +1,12 @@
 import json, os
 from typing import Dict, List, Optional, Union
 
-from util import JsonUtil
-
 
 class AllowedInFormatsHandler:
 	def __init__(self):
 		with open(os.path.join("OutputGeneration", "data", "CardBans.json"), "r", encoding="utf-8") as cardBansFile:
-			# Each format has a dict with the card ID as a key, but since it's JSON, that ID is stored as a string; Convert it to a number
-			self.cardBans: dict[str, dict[int, str]] = {f: JsonUtil.convertStringKeysToNumberKeys(d) for f, d in json.load(cardBansFile).items()}
+			# Each format has a dict with the card ID string as a key
+			self.cardBans: dict[str, dict[str, str]] = json.load(cardBansFile)
 		with open(os.path.join("OutputGeneration", "data", "baseSetData.json"), "r", encoding="utf-8") as setsFile:
 			self.allowedInFormatsBySetCode: Dict[str, Dict[str, Dict[str, Union[bool, str]]]] = {}  # For each set-code, a dictionary with as key the format name and as value a dictionary with allowed boolean and dates
 			self.allowedFromDateBySetCode: Dict[str, str] = {}
@@ -16,10 +14,10 @@ class AllowedInFormatsHandler:
 				self.allowedInFormatsBySetCode[setCode] = setData["allowedInFormats"]
 				self.allowedFromDateBySetCode[setCode] = setData["allowedInTournamentsFromDate"]
 
-	def getAllowedInFormatsForCard(self, cardId: int, printedInSets: List[str]) -> "AllowedInFormats":
+	def getAllowedInFormatsForCard(self, cardId: str, printedInSets: List[str]) -> "AllowedInFormats":
 		"""
 		Get whether the provided card is allowed in various play formats
-		:param cardId: The ID of the card to get the allowed-data for
+		:param cardId: The ID of the card to get the allowed-data for, as a string
 		:param printedInSets: A list of setcodes that this card was printed in
 		:return: An 'AllowedInFormats' instance with allowed-data for formas
 		"""
