@@ -31,8 +31,6 @@ def createOutputFiles(onlyParseIds: Optional[List[int]] = None, shouldShowImages
 	cardCatalogPath = os.path.join("downloads", "json", f"carddata.{GlobalConfig.language.code}.json")
 	if not os.path.isfile(cardCatalogPath):
 		raise FileNotFoundError(f"Card catalog for language '{GlobalConfig.language.code}' doesn't exist. Run the data downloader first")
-	with open(cardCatalogPath, "r", encoding="utf-8") as inputFile:
-		inputData = json.load(inputFile)
 
 	with open(os.path.join("OutputGeneration", "data", "outputDataCorrections", "outputDataCorrections.json"), "r", encoding="utf-8") as correctionsFile:
 		cardDataCorrections: Dict[str, Dict[str, List[str, str]]] = json.load(correctionsFile)
@@ -86,6 +84,8 @@ def createOutputFiles(onlyParseIds: Optional[List[int]] = None, shouldShowImages
 			_logger.warning("ID list provided but previously generated file doesn't exist. Generating all card data")
 
 	# Create a list of input cards from the app's input file and from the external reveals
+	with open(cardCatalogPath, "r", encoding="utf-8") as inputFile:
+		inputData = json.load(inputFile)
 	inputCards: List[Dict] = []
 	for cardType, inputCardsOfType in inputData["cards"].items():
 		cardTypeText = cardType[:-1].title()  # 'cardType' is plural ('characters', 'items', etc), make it singular
