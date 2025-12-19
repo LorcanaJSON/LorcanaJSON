@@ -115,7 +115,7 @@ def createOutputFiles(onlyParseIds: Optional[List[int]] = None, shouldShowImages
 			externalCard = externalCardReveals.pop()
 			cardId = externalCard["culture_invariant_id"]
 			if cardId in cardIdsStored:
-				_logger.debug(f"Card ID {cardId} is defined in the official file and in the external file, skipping the external data")
+				_logger.warning(f"Card ID {cardId} is defined in the official file and in the external file, skipping the external data")
 				continue
 			externalCard["_idAsString"] = str(cardId)
 			externalCard["_isExternalReveal"] = True
