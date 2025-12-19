@@ -21,7 +21,6 @@ FORMAT_VERSION = "2.3.2"
 # Store each initialized ImageParser in its own thread storage
 _threadingLocalStorage = threading.local()
 _threadingLocalStorage.imageParser: ImageParser.ImageParser = None
-_threadingLocalStorage.externalIdsHandler: ExternalLinksHandler = None
 
 
 def createOutputFiles(onlyParseIds: Optional[List[int]] = None, shouldShowImages: bool = False) -> None:
