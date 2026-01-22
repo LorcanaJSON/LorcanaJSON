@@ -389,21 +389,24 @@ def parseSingleCard(inputCard: Dict, ocrResult: OcrResult, externalLinksHandler:
 							isInInputAbilityName = False
 							inputAbilityNames.append(" ".join(inputAbilityNameParts))
 							inputAbilityNameParts = []
-				inputAbilityName: str = inputAbilityNames[abilityIndex]
-				characterMismatchCount: int = 0
-				abilityNameBeforeSpaceCorrection = abilityName
-				for characterIndex in range(min(len(inputAbilityName), len(abilityName))):
-					inputAbilityNameCharacter = inputAbilityName[characterIndex]
-					outputAbilityNameCharacter = abilityName[characterIndex]
-					if inputAbilityNameCharacter == " " and outputAbilityNameCharacter != " ":
-						abilityName = abilityName[:characterIndex] + " " + abilityName[characterIndex:]
-					elif inputAbilityNameCharacter != outputAbilityNameCharacter:
-						# Sometimes Ravensburger set a wrong ability name. Check for that, so we don't add spaces from a different sentence
-						characterMismatchCount += 1
-						if characterMismatchCount == 4:
-							_logger.info(f"Too many characters mismatch between input abiilty name {inputAbilityName} and output {abilityName} in card {CardUtil.createCardIdentifier(outputCard)}, aborting missing-spaces check")
-							abilityName = abilityNameBeforeSpaceCorrection
-							break
+				if abilityIndex >= len(inputAbilityNames):
+					_logger.error(f"Trying to read input ability name index {abilityIndex} but there are only {len(inputAbilityNames)} names, in card {CardUtil.createCardIdentifier(outputCard)}")
+				else:
+					inputAbilityName: str = inputAbilityNames[abilityIndex]
+					characterMismatchCount: int = 0
+					abilityNameBeforeSpaceCorrection = abilityName
+					for characterIndex in range(min(len(inputAbilityName), len(abilityName))):
+						inputAbilityNameCharacter = inputAbilityName[characterIndex]
+						outputAbilityNameCharacter = abilityName[characterIndex]
+						if inputAbilityNameCharacter == " " and outputAbilityNameCharacter != " ":
+							abilityName = abilityName[:characterIndex] + " " + abilityName[characterIndex:]
+						elif inputAbilityNameCharacter != outputAbilityNameCharacter:
+							# Sometimes Ravensburger set a wrong ability name. Check for that, so we don't add spaces from a different sentence
+							characterMismatchCount += 1
+							if characterMismatchCount == 4:
+								_logger.info(f"Too many characters mismatch between input abiilty name {inputAbilityName} and output {abilityName} in card {CardUtil.createCardIdentifier(outputCard)}, aborting missing-spaces check")
+								abilityName = abilityNameBeforeSpaceCorrection
+								break
 			if abilityName != originalAbilityName:
 				_logger.info(f"Corrected ability name from {originalAbilityName!r} to {abilityName!r}")
 			abilityEffect = TextCorrection.correctText(TextCorrection.correctPunctuation(ocrResult.abilityTexts[abilityIndex])).replace("‘", "")
