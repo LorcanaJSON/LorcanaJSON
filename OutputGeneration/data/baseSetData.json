@@ -279,6 +279,29 @@
     },
     "allowedInTournamentsFromDate": null
   },
+  "13": {
+    "names": {
+      "de": "Angriff der Ranke",
+      "en": "Attack of the Vine",
+      "fr": "Invasion Epineuse",
+      "it": "Viticcio All'Attacco"
+    },
+    "prereleaseDate": null,
+    "releaseDate": null,
+    "hasAllCards": false,
+    "type": "expansion",
+    "number": 13,
+    "allowedInFormats": {
+      "Core": {
+        "allowed": false,
+        "rotationGroup": 3
+      },
+      "Infinity": {
+        "allowed": false
+      }
+    },
+    "allowedInTournamentsFromDate": null
+  },
   "Q1": {
     "names": {
       "de": "Die Luminari Chroniken: Gefahr aus der Tiefe",
