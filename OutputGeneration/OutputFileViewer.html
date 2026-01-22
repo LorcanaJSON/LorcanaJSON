@@ -12,7 +12,9 @@
 </head>
 
 <body>
-<div id="dropLocation" style="background-color: lightgreen; width: 100%; height: 100px;"><b style="text-align: center;">Drag JSON here</b><br /><span id="metadataDisplay" /></div>
+<div id="dropLocation" style="background-color: lightgreen; width: 100%; height: 100px;"><b style="text-align: center;">Drag JSON here</b><br /><span id="metadataDisplay" />
+	<input type="file" id="browseForFile" accept=".json">
+</div>
 
 <div style="display: flex; gap: 1em; align-items: center;">
 	<a href="#" onclick="goToPreviousSet(); return false;">Previous Set</a>
@@ -73,6 +75,7 @@ let cardsJson = {"cards": []};
 let languageCode = "en";
 let currentIndex = 0;
 let maxIndex = 0;
+let fileReader = null // Set to a FileReader and used when loading a JSON file from the 'Browse' button
 
 function changeDisplayedIndex(indexChange) {
 	setDisplayedIndex(currentIndex + indexChange, false);
@@ -232,35 +235,48 @@ document.getElementById("cardIdForm").addEventListener("submit", (event) => {
 });
 
 // Handle dropping of cards.json
+function loadFile(fileText) {
+	let oldId = -1;
+	if (cardsJson["cards"].length > 0) {
+		oldId = cardsJson["cards"][currentIndex]["id"];
+	}
+	cardsJson = JSON.parse(fileText);
+	languageCode = cardsJson["metadata"]["language"];
+	maxIndex = cardsJson["cards"].length - 1;
+	// Try to stay at the same card ID; if that can't be found, stay on the same index
+	let targetIndex = currentIndex;
+	if (oldId > -1) {
+		for (let i = 0; i < cardsJson["cards"].length; ++i) {
+			if (cardsJson["cards"][i]["id"] === oldId) {
+				targetIndex = i;
+				break;
+			}
+		}
+	}
+	setDisplayedIndex(Math.min(targetIndex, maxIndex));
+	document.getElementById("maxIndex").textContent = maxIndex;
+	document.getElementById("maxId").textContent = cardsJson["cards"][maxIndex]["id"];
+	document.getElementById("metadataDisplay").textContent = cardsJson["metadata"]["generatedOn"];
+}
 document.getElementById("dropLocation").addEventListener("dragover", (event) => {
 	event.preventDefault();
 });
 document.getElementById("dropLocation").addEventListener("drop", (event) => {
 	event.preventDefault();
 	const file = event.dataTransfer.items[0].getAsFile();
-	file.text().then((fileText) => {
-		let oldId = -1;
-		if (cardsJson["cards"].length > 0) {
-			oldId = cardsJson["cards"][currentIndex]["id"];
-		}
-		cardsJson = JSON.parse(fileText);
-		languageCode = cardsJson["metadata"]["language"];
-		maxIndex = cardsJson["cards"].length - 1;
-		// Try to stay at the same card ID; if that can't be found, stay on the same index
-		let targetIndex = currentIndex;
-		if (oldId > -1) {
-			for (let i = 0; i < cardsJson["cards"].length; ++i) {
-				if (cardsJson["cards"][i]["id"] === oldId) {
-					targetIndex = i;
-					break;
-				}
-			}
-		}
-		setDisplayedIndex(Math.min(targetIndex, maxIndex));
-		document.getElementById("maxIndex").textContent = maxIndex;
-		document.getElementById("maxId").textContent = cardsJson["cards"][maxIndex]["id"];
-		document.getElementById("metadataDisplay").textContent = cardsJson["metadata"]["generatedOn"];
-	}).catch((error) => console.log("An error occurred: %o", error));
+	file.text().then((fileText) => loadFile(fileText)).catch((error) => console.log("An error occurred: %o", error));
+});
+document.getElementById("browseForFile").addEventListener("change", () => {
+	const browseForFile = document.getElementById("browseForFile");
+	if (browseForFile.value === null) {
+		// Browse was canceled
+		return;
+	}
+	if (fileReader === null) {
+		fileReader = new FileReader();
+		fileReader.onload = function (event) {loadFile(fileReader.result); }
+	}
+	fileReader.readAsText(browseForFile.files[0]);
 });
 </script>
 </body>
