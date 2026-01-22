@@ -335,7 +335,7 @@ def parseSingleCard(inputCard: Dict, ocrResult: OcrResult, externalLinksHandler:
 	if ocrResult.abilityLabels:
 		inputAbilityNames: Optional[List[str]] = None
 		for abilityIndex in range(len(ocrResult.abilityLabels)):
-			abilityName = TextCorrection.correctPunctuation(ocrResult.abilityLabels[abilityIndex].replace("''", "'").replace("ß", "ẞ")).lstrip("-+_.… ").rstrip(" %:").upper()
+			abilityName = TextCorrection.correctPunctuation(ocrResult.abilityLabels[abilityIndex].replace("''", "'").replace("ß", "ẞ")).lstrip("-+*_.… ").rstrip(" %:").upper()
 			originalAbilityName = abilityName
 			abilityName = re.sub(r"^\d ", "", abilityName)
 			abilityName = re.sub(r"(?<=\w) ?[.;7|>»”©(\"=~_]{1,2}$", "", abilityName)
