@@ -164,8 +164,12 @@ def createOutputFiles(onlyParseIds: Optional[List[int]] = None, shouldShowImages
 	relatedCardCollator = RelatedCardCollator(inputData)
 	for inputCard in inputCards:
 		cardId = inputCard["culture_invariant_id"]
-		fullCardList.append(SingleCardDataGenerator.parseSingleCard(inputCard, ocrResults[cardId], externalLinksHandler, relatedCardCollator.getRelatedCards(inputCard), cardDataCorrections.pop(inputCard["_idAsString"], None), cardToStoryParser,
-															 historicData.get(inputCard["_idAsString"], None), allowedCardsHandler, promoSourceHandler, artistsHandler))
+		try:
+			fullCardList.append(SingleCardDataGenerator.parseSingleCard(inputCard, ocrResults[cardId], externalLinksHandler, relatedCardCollator.getRelatedCards(inputCard), cardDataCorrections.pop(inputCard["_idAsString"], None),
+									cardToStoryParser, historicData.get(inputCard["_idAsString"], None), allowedCardsHandler, promoSourceHandler, artistsHandler))
+		except Exception as e:
+			_logger.error(f"{type(e).__name__} exception while parsing card {CardUtil.createCardIdentifier(inputCard)}: {e}")
+			raise e
 	_logger.info(f"Created card list in {time.perf_counter() - startTime} seconds")
 
 	if cardDataCorrections:
