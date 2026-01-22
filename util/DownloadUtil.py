@@ -5,7 +5,7 @@ import requests
 
 _logger = logging.getLogger("LorcanaJSON")
 UNITY_VERSION = "6000.0.58f2"
-DEFAULT_HEADERS = {"user-agent": "Lorcana/2025.4", "x-unity-version": UNITY_VERSION}
+DEFAULT_HEADERS = {"user-agent": "Lorcana/2026.1", "x-unity-version": UNITY_VERSION}
 
 
 class DownloadException(BaseException):
