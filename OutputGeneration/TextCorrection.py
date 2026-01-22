@@ -84,6 +84,7 @@ def correctText(cardText: str) -> str:
 		cardText = re.sub(r"\bplayers’(\s|$)", r"players'\1", cardText, flags=re.MULTILINE)
 		cardText = re.sub(r"\bopponents’(\s|$)", r"opponents'\1", cardText, flags=re.MULTILINE)
 		cardText = re.sub(r"\bIllumineers’(\s|$)", r"Illumineers'\1", cardText, flags=re.MULTILINE)
+		cardText = re.sub(r"\bcharacters’(\s|$)", r"characters'\1", cardText, flags=re.MULTILINE)
 		## Correct common phrases with symbols ##
 		# Ink payment discounts
 		cardText = re.sub(r"(?<=\bpay\s)(\d)[0Q]? .?to\b", f"\\1 {LorcanaSymbols.INK} to", cardText)
