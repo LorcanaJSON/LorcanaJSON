@@ -130,6 +130,15 @@
     "matchingNames": ["Anastasia", "Cinderella", "Drizella", "Fairy Godmother", "Grand Duke", "Gus", "Jaq", "Lady Tremaine", "Lucifer", "Perla", "Prince Charming", "Suzy", "The Glass Slipper"],
     "matchingIds": [312, 985, 1196]
   },
+  "darkwingduck": {
+    "displayNames": {
+      "de": "Darkwing Duck",
+      "en": "Darkwing Duck",
+      "fr": "Myster Mask",
+      "it": "Darkwing Duck"
+    },
+    "matchingNames": ["Darkwing Duck"]
+  },
   "ducktales": {
     "displayNames": {
       "de": "DuckTales",
