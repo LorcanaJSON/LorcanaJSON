@@ -534,6 +534,12 @@ def parseSingleCard(inputCard: Dict, ocrResult: OcrResult, externalLinksHandler:
 				outputCard["abilities"].insert(insertAbilityIndex, {"effect": insertAbilityText, "fullText": insertAbilityText})
 				if insertAbilityData and isinstance(insertAbilityData[0], str):
 					outputCard["abilities"][insertAbilityIndex]["name"] = insertAbilityData.pop(0)
+		removeAbilitiesAtIndexes: Optional[List[int]] = None
+		if "_removeAbilitiesAtIndexes" in cardDataCorrections:
+			removeAbilitiesAtIndexes = cardDataCorrections.pop("_removeAbilitiesAtIndexes")
+			if "abilities" not in outputCard:
+				_logger.warning(f"Correction to remove ability from {CardUtil.createCardIdentifier(outputCard)} but card doesn't have abilities")
+				removeAbilitiesAtIndexes = None
 		for correctionAbilityField, abilityTypeCorrection in _ABILITY_TYPE_CORRECTION_FIELD_TO_ABILITY_TYPE.items():
 			if correctionAbilityField in cardDataCorrections:
 				abilityIndexToCorrect = cardDataCorrections.pop(correctionAbilityField)
@@ -553,8 +559,12 @@ def parseSingleCard(inputCard: Dict, ocrResult: OcrResult, externalLinksHandler:
 		for fieldName, correctionList in cardDataCorrections.items():
 			TextCorrection.correctCardFieldFromList(outputCard, fieldName, correctionList)
 		# If newlines got added through a correction, we may need to split the ability or effect in two
-		if "abilities" in cardDataCorrections and "abilities" in outputCard:
+		if "abilities" in outputCard and ("abilities" in cardDataCorrections or removeAbilitiesAtIndexes):
 			for abilityIndex in range(len(outputCard["abilities"]) - 1, -1, -1):
+				if removeAbilitiesAtIndexes and abilityIndex in removeAbilitiesAtIndexes:
+					_logger.info(f"Removing ability at index {abilityIndex} in card {CardUtil.createCardIdentifier(outputCard)}")
+					outputCard["abilities"].pop(abilityIndex)
+					continue
 				ability = outputCard["abilities"][abilityIndex]
 				abilityTextFieldName = "fullText" if "fullText" in ability else "effect"
 				if not ability[abilityTextFieldName]:
