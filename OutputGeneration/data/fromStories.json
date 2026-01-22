@@ -397,6 +397,15 @@
     },
     "matchingNames": ["Blue Fairy", "Figaro", "Geppetto", "Honest John", "Jiminy Cricket", "Monstro", "Pinocchio", "The Coachman"]
   },
+  "pocahontas": {
+    "displayNames": {
+      "de": "Pocahontas",
+      "en": "Pocahontas",
+      "fr": "Pocahontas",
+      "it": "Pocahontas"
+    },
+    "matchingNames": ["Pocahontas"]
+  },
   "princessandthefrog": {
     "displayNames": {
       "de": "Küss den Frosch",
