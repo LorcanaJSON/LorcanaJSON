@@ -322,6 +322,15 @@
     },
     "matchingNames": ["Golden Harp"]
   },
+  "mickeyschristmascarol": {
+    "displayNames": {
+      "de": "Mickys Weihnachtserzählung",
+      "en": "Mickey's Christmas Carol",
+      "fr": "Le Noël de Mickey",
+      "it": "Canto di Natale di Topolino"
+    },
+    "matchingNames": ["Mickey's Christmas Carol"]
+  },
   "moana": {
     "displayNames": {
       "de": "Vaiana",
