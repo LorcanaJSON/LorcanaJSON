@@ -181,6 +181,15 @@
     },
     "matchingNames": ["Chernabog", "The Firebird"]
   },
+  "foxandthehound": {
+    "displayNames": {
+      "de": "Cap und Capper",
+      "en": "The Fox and the Hound",
+      "fr": "Rox et Rouky",
+      "it": "Red e Toby nemiciamici"
+    },
+    "matchingNames": ["Fox and the Hound"]
+  },
   "frozen": {
     "displayNames": {
       "de": "Die Eiskönigin",
