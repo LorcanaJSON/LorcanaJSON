@@ -137,6 +137,7 @@ _PARSE_SETTINGS_BY_ID: Dict[int, ParseSettings] = {
 							  thresholdTextColor=ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND, forceArtistTextColor=ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND),
 	2431: dataclasses.replace(_DEFAULT_ENCHANTED_PARSE_SETTINGS, cardTextHasOutline=True, labelIsDarkerThanBackground=False, labelMaskColor=_BLACK, labelTextColor=ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND, thresholdTextColor=ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND),
 	2432: dataclasses.replace(_PARSE_SETTINGS_BY_GROUPING["P3"], forceArtistTextColor=ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND),
+	2433: dataclasses.replace(_DEFAULT_PARSE_SETTINGS, textboxOffset=15),
 	2435: dataclasses.replace(_PARSE_SETTINGS_BY_GROUPING["P3"], forceArtistTextColor=ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND),
 	2436: dataclasses.replace(_PARSE_SETTINGS_BY_GROUPING["P3"], forceArtistTextColor=ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND),
 	2437: dataclasses.replace(_PARSE_SETTINGS_BY_GROUPING["P3"], forceArtistTextColor=ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND),
