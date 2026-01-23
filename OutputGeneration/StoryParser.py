@@ -37,7 +37,7 @@ class StoryParser:
 						elif fieldMatch in self._fieldMatchers[fieldName]:
 							raise ValueError(f"Duplicate field matcher '{fieldMatch}' in '{self._fieldMatchers[fieldName][fieldMatch]}' and '{storyName}'")
 						self._fieldMatchers[fieldName][fieldMatch] = storyName
-			lookupName: str = storyData["displayNames"][Language.ENGLISH.code].replace("'", "")
+			lookupName: str = storyData["displayNames"][Language.ENGLISH.code]
 			self._lookupNameToStoryName[lookupName] = storyName
 			# Lookup names don't have 'The' in front while our English names do, store it without 'The' too
 			if lookupName.startswith("The "):
