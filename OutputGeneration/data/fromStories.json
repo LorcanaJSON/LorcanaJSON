@@ -137,8 +137,7 @@
       "en": "Darkwing Duck",
       "fr": "Myster Mask",
       "it": "Darkwing Duck"
-    },
-    "matchingNames": ["Darkwing Duck"]
+    }
   },
   "ducktales": {
     "displayNames": {
@@ -350,8 +349,7 @@
       "en": "Mickey's Christmas Carol",
       "fr": "Le Noël de Mickey",
       "it": "Canto di Natale di Topolino"
-    },
-    "matchingNames": ["Mickey's Christmas Carol"]
+    }
   },
   "moana": {
     "displayNames": {
