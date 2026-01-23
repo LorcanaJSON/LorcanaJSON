@@ -19,8 +19,11 @@ class StoryParser:
 		self._subtypeToStoryName: Dict[str, str] = {}
 		self._fieldMatchers: Dict[str, Dict[str, str]] = {}  # A dictionary with for each fieldname a dict of matchers and their matching story name
 		self._lookupNameToStoryName: Dict[str, str] = {}  # This should help with mapping English 'searchable_keywords' from input cards with our story names
+		self._priorityStoryNames: List[str] = []  # Some specific story names should take precedence over more generic names ("Mickey's Christmas Carol" over "Mickey & Friends"), store the more specific names here
 		for storyId, storyData in fromStories.items():
 			storyName = storyData["displayNames"][GlobalConfig.language.code]
+			if storyData.get("isPriorityStory", False):
+				self._priorityStoryNames.append(storyName)
 			if "matchingIds" in storyData:
 				for cardId in storyData["matchingIds"]:
 					self._cardIdToStoryName[cardId] = storyName
@@ -72,6 +75,18 @@ class StoryParser:
 			for subtype in card["subtypes"]:
 				if subtype in self._subtypeToStoryName:
 					return self._subtypeToStoryName[subtype]
+		# Check if the extra search terms are useful
+		extraSearchTermStoryName: Optional[str] = None
+		if extaSearchTerms:
+			for extaSearchTerm in extaSearchTerms:
+				if extaSearchTerm in self._lookupNameToStoryName:
+					extraSearchTermStoryName = self._lookupNameToStoryName[extaSearchTerm]
+					break
+				elif extaSearchTerm in self._cardNameToStoryName:
+					extraSearchTermStoryName = self._cardNameToStoryName[extaSearchTerm]
+					break
+		if extraSearchTermStoryName and extraSearchTermStoryName in self._priorityStoryNames:
+			return extraSearchTermStoryName
 		for fieldName in ("name", "baseName", "subtitle", "fullName"):
 			if fieldName in card and card[fieldName] in self._cardNameToStoryName:
 				return self._cardNameToStoryName[card[fieldName]]
@@ -85,13 +100,9 @@ class StoryParser:
 						return storyName
 				elif fieldMatch in card[fieldName] or re.search(fieldMatch, card[fieldName]):
 					return storyName
-		# Check if the extra search terms are useful
-		if extaSearchTerms:
-			for extaSearchTerm in extaSearchTerms:
-				if extaSearchTerm in self._lookupNameToStoryName:
-					return self._lookupNameToStoryName[extaSearchTerm]
-				elif extaSearchTerm in self._cardNameToStoryName:
-					return self._cardNameToStoryName[extaSearchTerm]
+		# If we found a non-priority storyname in the extra search terms, return that now, since we don't have anything better
+		if extraSearchTermStoryName:
+			return extraSearchTermStoryName
 		# No match, try to see if any of the names occurs in some of the card's fields
 		for name, storyName in self._cardNameToStoryName.items():
 			nameRegex = re.compile(rf"\b{name}\b")

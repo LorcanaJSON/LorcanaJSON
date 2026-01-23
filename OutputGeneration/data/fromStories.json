@@ -131,6 +131,7 @@
     "matchingIds": [312, 985, 1196]
   },
   "darkwingduck": {
+    "isPriorityStory": true,
     "displayNames": {
       "de": "Darkwing Duck",
       "en": "Darkwing Duck",
@@ -173,6 +174,7 @@
     }
   },
   "fantasia": {
+    "isFallbackStory": true,
     "displayNames": {
       "de": "Fantasia",
       "en": "Fantasia",
@@ -332,6 +334,7 @@
     "matchingIds": [718, 784, 1154, 1155, 2353, 2408, 2426]
   },
   "mickeyandthebeanstalk": {
+    "isPriorityStory": true,
     "displayNames": {
       "de": "Micky und die Kletterbohne",
       "en": "Mickey and the Beanstalk",
@@ -341,6 +344,7 @@
     "matchingNames": ["Golden Harp"]
   },
   "mickeyschristmascarol": {
+    "isPriorityStory": true,
     "displayNames": {
       "de": "Mickys Weihnachtserzählung",
       "en": "Mickey's Christmas Carol",
@@ -486,6 +490,7 @@
     "matchingIds": [785, 1088, 1515, 1644]
   },
   "sorcerersapprentice": {
+    "isPriorityStory": true,
     "displayNames": {
       "de": "Der Zauberlehrling",
       "en": "The Sorcerer's Apprentice",
