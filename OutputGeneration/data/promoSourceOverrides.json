@@ -63,6 +63,13 @@
       "en": "'Disney Villainous: Introduction to Evil' boardgame",
       "fr": "'Disney Villainous: Les Prémices du mal' jeu de société",
       "it": "'Disney Villainous: Introduction to Evil' gioco da tavolo"
+    },
+    "Zootopia 2": {
+      "ids": [2463],
+      "de": "'Zoomania 2' Veröffentlichung",
+      "en": "'Zootopia 2' release",
+      "fr": "'Zootopie 2' sortie",
+      "it": "'Zootropolis 2' uscita"
     }
   },
   "setSpecificSources": {
