@@ -200,6 +200,18 @@
       "usedUntil": "2024-08-23"
     }
   ],
+  "983": [
+    {
+      "effects": [
+        "Play a character card with cost 5 or less from your\ndiscard for free."
+      ],
+      "fullText": "Play a character card with cost 5 or less from your\ndiscard for free.",
+      "fullTextSections": [
+        "Play a character card with cost 5 or less from your\ndiscard for free."
+      ],
+      "usedUntil": "2026-01-21"
+    }
+  ],
   "1117": [
     {
       "artists": [
@@ -210,6 +222,23 @@
       "usedUntil": "2024-08-23"
     }
   ],
+  "1140": [
+    {
+      "abilities": [
+        {
+          "effect": "During your turn, whenever one of your characters banishes a character in a challenge, you may deal 1 damage to chosen character.",
+          "fullText": "I'M WARNING YOU! During your turn, whenever\none of your characters banishes a character in\na challenge, you may deal 1 damage to chosen\ncharacter.",
+          "name": "I'M WARNING YOU!",
+          "type": "triggered"
+        }
+      ],
+      "fullText": "I'M WARNING YOU! During your turn, whenever\none of your characters banishes a character in\na challenge, you may deal 1 damage to chosen\ncharacter.",
+      "fullTextSections": [
+        "I'M WARNING YOU! During your turn, whenever\none of your characters banishes a character in\na challenge, you may deal 1 damage to chosen\ncharacter."
+      ],
+      "usedUntil": "2026-01-21"
+    }
+  ],
   "1244": [
     {
       "subtypes": [
@@ -218,6 +247,57 @@
       ],
       "subtypesText": "Dreamborn \u2022 Ally",
       "usedUntil": "2025-02-26"
+    }
+  ],
+  "2291": [
+    {
+      "artists": [
+        "Maximillien Borie"
+      ],
+      "artistsText": "Maximillien Borie",
+      "usedUntil": "2026-01-21"
+    }
+  ],
+  "2319": [
+    {
+      "artists": [
+        "Sebastian Pinson"
+      ],
+      "artistsText": "Sebastian Pinson",
+      "usedUntil": "2026-01-21"
+    }
+  ],
+  "2324": [
+    {
+      "artists": [
+        "Maximillien Borie"
+      ],
+      "artistsText": "Maximillien Borie",
+      "usedUntil": "2026-01-21"
+    }
+  ],
+  "2349": [
+    {
+      "artists": [
+        "Victor \"Yano\" Covarrubias",
+        "Bryan Turner"
+      ],
+      "artistsText": "Victor \"Yano\" Covarrubias / Bryan Turner",
+      "usedUntil": "2026-01-21"
+    }
+  ],
+  "2404": [
+    {
+      "artists": [
+        "Nicoletta Baldari",
+        "Raquel Vilanueva"
+      ],
+      "artistsNormalized": [
+        "Nicoletta Baldari",
+        "Raquel VilLanueva"
+      ],
+      "artistsText": "Nicoletta Baldari / Raquel Vilanueva",
+      "usedUntil": "2026-01-21"
     }
   ]
 }
