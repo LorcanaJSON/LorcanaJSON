@@ -546,16 +546,16 @@ def parseSingleCard(inputCard: Dict, ocrResult: OcrResult, externalLinksHandler:
 				if abilityIndexToCorrect in forceAbilityTypeAtIndex:
 					_logger.error(f"Ability at index {abilityIndexToCorrect} in card {CardUtil.createCardIdentifier(outputCard)} is being corrected to two types: '{forceAbilityTypeAtIndex[abilityIndexToCorrect]}' and '{abilityTypeCorrection}'")
 				forceAbilityTypeAtIndex[abilityIndexToCorrect] = abilityTypeCorrection
-		newlineAfterLabelIndex: int = cardDataCorrections.pop("_newlineAfterLabelIndex", -1)
-		mergeEffectIndexWithPrevious: int = cardDataCorrections.pop("_mergeEffectIndexWithPrevious", -1)
+		addNameToAbilityAtIndex: Optional[List[Union[int, str]]] = cardDataCorrections.pop("_addNameToAbilityAtIndex", None)
 		effectAtIndexIsAbility: Union[int, List[int, str]] = cardDataCorrections.pop("_effectAtIndexIsAbility", -1)
 		effectAtIndexIsFlavorText: int = cardDataCorrections.pop("_effectAtIndexIsFlavorText", -1)
 		externalLinksCorrection: Optional[List[str]] = cardDataCorrections.pop("externalLinks", None)
 		fullTextCorrection: Optional[List[str]] = cardDataCorrections.pop("fullText", None)
-		addNameToAbilityAtIndex: Optional[List[Union[int, str]]] = cardDataCorrections.pop("_addNameToAbilityAtIndex", None)
+		mergeEffectIndexWithPrevious: int = cardDataCorrections.pop("_mergeEffectIndexWithPrevious", -1)
 		moveAbilityAtIndexToIndex: Optional[List[Union[int, int]]] = cardDataCorrections.pop("_moveAbilityAtIndexToIndex", None)
-		splitAbilityNameAtIndex: Optional[List[Union[int, str]]] = cardDataCorrections.pop("_splitAbilityNameAtIndex", None)
+		newlineAfterLabelIndex: int = cardDataCorrections.pop("_newlineAfterLabelIndex", -1)
 		skipFullTextSectionMergeAtIndex: int = cardDataCorrections.pop("_skipFullTextSectionMergeAtIndex", -1)
+		splitAbilityNameAtIndex: Optional[List[Union[int, str]]] = cardDataCorrections.pop("_splitAbilityNameAtIndex", None)
 		for fieldName, correctionList in cardDataCorrections.items():
 			TextCorrection.correctCardFieldFromList(outputCard, fieldName, correctionList)
 		# If newlines got added through a correction, we may need to split the ability or effect in two
