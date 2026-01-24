@@ -28,24 +28,6 @@ def parseSingleCard(inputCard: Dict, ocrResult: OcrResult, externalLinksHandler:
 		"rarity": GlobalConfig.translation[inputCard["rarity"]],
 		"type": inputCard["_type"]
 	}
-	if inputCard.get("_isExternalReveal", False):
-		outputCard["isExternalReveal"] = True
-	if not inputCard["magic_ink_colors"]:
-		outputCard["color"] = ""
-	elif len(inputCard["magic_ink_colors"]) == 1:
-		outputCard["color"] = GlobalConfig.translation[inputCard["magic_ink_colors"][0]]
-	else:
-		# Multi-colored card
-		outputCard["colors"] = [GlobalConfig.translation[color] for color in inputCard["magic_ink_colors"]]
-		outputCard["color"] = "-".join(outputCard["colors"])
-
-	if "deck_building_limit" in inputCard:
-		outputCard["maxCopiesInDeck"] = inputCard["deck_building_limit"]
-
-	# When building a deck in the official app, it gets saves as a string. This string starts with a '2', and then each card gets a two-character code based on the card's ID
-	# This card code is the card ID in base 62, using 0-9, a-z, and then A-Z for individual digits
-	cardCodeDigits = divmod(outputCard["id"], 62)
-	outputCard["code"] = _CARD_CODE_LOOKUP[cardCodeDigits[0]] + _CARD_CODE_LOOKUP[cardCodeDigits[1]]
 
 	parsedIdentifier: Optional[IdentifierParser.Identifier] = inputCard.get("_parsedIdentifier", None)
 	if parsedIdentifier is None and "card_identifier" in inputCard:
@@ -66,6 +48,27 @@ def parseSingleCard(inputCard: Dict, ocrResult: OcrResult, externalLinksHandler:
 	if parsedIdentifier and parsedIdentifier.isPromo():
 		outputCard["promoGrouping"] = parsedIdentifier.grouping
 
+	_parseNameFields(inputCard, outputCard, ocrResult)
+
+	# When building a deck in the official app, it gets saves as a string. This string starts with a '2', and then each card gets a two-character code based on the card's ID
+	# This card code is the card ID in base 62, using 0-9, a-z, and then A-Z for individual digits
+	cardCodeDigits = divmod(outputCard["id"], 62)
+	outputCard["code"] = _CARD_CODE_LOOKUP[cardCodeDigits[0]] + _CARD_CODE_LOOKUP[cardCodeDigits[1]]
+
+	if inputCard.get("_isExternalReveal", False):
+		outputCard["isExternalReveal"] = True
+	if not inputCard["magic_ink_colors"]:
+		outputCard["color"] = ""
+	elif len(inputCard["magic_ink_colors"]) == 1:
+		outputCard["color"] = GlobalConfig.translation[inputCard["magic_ink_colors"][0]]
+	else:
+		# Multi-colored card
+		outputCard["colors"] = [GlobalConfig.translation[color] for color in inputCard["magic_ink_colors"]]
+		outputCard["color"] = "-".join(outputCard["colors"])
+
+	if "deck_building_limit" in inputCard:
+		outputCard["maxCopiesInDeck"] = inputCard["deck_building_limit"]
+
 	# Get the set and card numbers from the identifier
 	outputCard["number"] = parsedIdentifier.number
 	outputCard["setCode"] = parsedIdentifier.setCode
@@ -75,7 +78,6 @@ def parseSingleCard(inputCard: Dict, ocrResult: OcrResult, externalLinksHandler:
 	if ocrResult.artistsText != outputCard["artistsText"]:
 		_logger.info(f"Corrected artist name from {ocrResult.artistsText!r} to {outputCard['artistsText']!r} in card {CardUtil.createCardIdentifier(inputCard)}")
 
-	_parseNameFields(inputCard, outputCard, ocrResult)
 
 	try:
 		outputCard["cost"] = inputCard["ink_cost"] if "ink_cost" in inputCard else int(ocrResult.cost)
