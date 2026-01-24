@@ -1,5 +1,8 @@
-import json, os
+import json, os, re
 from typing import Dict, List, Optional
+
+import GlobalConfig
+from util import Language
 
 
 class ArtistsHandler:
@@ -26,3 +29,44 @@ class ArtistsHandler:
 					normalizedNames = cardArtists.copy()
 				normalizedNames[cardArtistIndex] = self._nameToNormalizedName[cardArtist]
 		return normalizedNames
+
+	@staticmethod
+	def correctArtistName(inputArtistText: str) -> str:
+		correctedArtistText = inputArtistText.lstrip(". ").replace("’", "'").replace("|", "l").replace("NM", "M")
+		correctedArtistText = re.sub(r"(^l|\[)", "I", correctedArtistText)
+		correctedArtistText = correctedArtistText.replace(" 0. ", " O. ")
+		while re.search(r" [a-zAè0-9ÿI|(){\\/_+*%.,;'‘”#¥©=—-]{1,2}$", correctedArtistText):
+			correctedArtistText = correctedArtistText.rsplit(" ", 1)[0]
+		correctedArtistText = correctedArtistText.rstrip(".")
+		if "ggman-Sund" in correctedArtistText:
+			correctedArtistText = re.sub("H[^ä]ggman-Sund", "Häggman-Sund", correctedArtistText)
+		# elif "Toziim" in correctedArtistText or "Tôzüm" in correctedArtistText or "Toztim" in correctedArtistText or "Tézim" in correctedArtistText:
+		elif re.search(r"T[eéoô]z[iüt]{1,2}m\b", correctedArtistText):
+			correctedArtistText = re.sub(r"\bT\w+z\w+m\b", "Tözüm", correctedArtistText)
+		elif re.match(r"Jo[^ã]o\b", correctedArtistText):
+			correctedArtistText = re.sub("Jo[^ã]o", "João", correctedArtistText)
+		elif re.search(r"Krysi.{1,2}ski", correctedArtistText):
+			correctedArtistText = re.sub(r"Krysi.{1,2}ski", "Krysiński", correctedArtistText)
+		elif "Cesar Vergara" in correctedArtistText:
+			correctedArtistText = correctedArtistText.replace("Cesar Vergara", "César Vergara")
+		elif "Roger Perez" in correctedArtistText:
+			correctedArtistText = re.sub(r"\bPerez\b", "Pérez", correctedArtistText)
+		elif correctedArtistText.startswith("Niss ") or correctedArtistText.startswith("Nilica "):
+			correctedArtistText = "M" + correctedArtistText[1:]
+		elif GlobalConfig.language == Language.GERMAN:
+			# For some bizarre reason, the German parser reads some artist names as something completely different
+			if re.match(r"^ICHLER[GS]I?EN$", correctedArtistText):
+				correctedArtistText = "Jenna Gray"
+			elif correctedArtistText == "ES" or correctedArtistText == "ET":
+				correctedArtistText = "Lauren Levering"
+			correctedArtistText = correctedArtistText.replace("Dösiree", "Désirée")
+			correctedArtistText = re.sub(r"Man[6e]+\b", "Mané", correctedArtistText)
+		correctedArtistText = re.sub(r"\bAime\b", "Aimé", correctedArtistText)
+		correctedArtistText = re.sub(r"\blvan\b", "Ivan", correctedArtistText)
+		correctedArtistText = re.sub("Le[éòöô]n", "León", correctedArtistText)
+		correctedArtistText = re.sub(r"^N(?=ichael)", "M", correctedArtistText)
+		correctedArtistText = re.sub(r"\bPe[^ñ]+a\b", "Peña", correctedArtistText)
+		if "“" in correctedArtistText:
+			# Simplify quotemarks
+			correctedArtistText = correctedArtistText.replace("“", "\"").replace("”", "\"")
+		return correctedArtistText

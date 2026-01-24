@@ -71,46 +71,9 @@ def parseSingleCard(inputCard: Dict, ocrResult: OcrResult, externalLinksHandler:
 	outputCard["setCode"] = parsedIdentifier.setCode
 
 	# Always get the artist from the parsed data, since in the input data it often only lists the first artist when there's multiple, so it's not reliable
-	outputCard["artistsText"] = ocrResult.artistsText.lstrip(". ").replace("’", "'").replace("|", "l").replace("NM", "M")
-	oldArtistsText = outputCard["artistsText"]
-	outputCard["artistsText"] = re.sub(r"(^l|\[)", "I", outputCard["artistsText"])
-	outputCard["artistsText"] = outputCard["artistsText"].replace(" 0. ", " O. ")
-	while re.search(r" [a-zAè0-9ÿI|(){\\/_+*%.,;'‘”#¥©=—-]{1,2}$", outputCard["artistsText"]):
-		outputCard["artistsText"] = outputCard["artistsText"].rsplit(" ", 1)[0]
-	outputCard["artistsText"] = outputCard["artistsText"].rstrip(".")
-	if "ggman-Sund" in outputCard["artistsText"]:
-		outputCard["artistsText"] = re.sub("H[^ä]ggman-Sund", "Häggman-Sund", outputCard["artistsText"])
-	# elif "Toziim" in outputCard["artistsText"] or "Tôzüm" in outputCard["artistsText"] or "Toztim" in outputCard["artistsText"] or "Tézim" in outputCard["artistsText"]:
-	elif re.search(r"T[eéoô]z[iüt]{1,2}m\b", outputCard["artistsText"]):
-		outputCard["artistsText"] = re.sub(r"\bT\w+z\w+m\b", "Tözüm", outputCard["artistsText"])
-	elif re.match(r"Jo[^ã]o\b", outputCard["artistsText"]):
-		outputCard["artistsText"] = re.sub("Jo[^ã]o", "João", outputCard["artistsText"])
-	elif re.search(r"Krysi.{1,2}ski", outputCard["artistsText"]):
-		outputCard["artistsText"] = re.sub(r"Krysi.{1,2}ski", "Krysiński", outputCard["artistsText"])
-	elif "Cesar Vergara" in outputCard["artistsText"]:
-		outputCard["artistsText"] = outputCard["artistsText"].replace("Cesar Vergara", "César Vergara")
-	elif "Roger Perez" in outputCard["artistsText"]:
-		outputCard["artistsText"] = re.sub(r"\bPerez\b", "Pérez", outputCard["artistsText"])
-	elif outputCard["artistsText"].startswith("Niss ") or outputCard["artistsText"].startswith("Nilica "):
-		outputCard["artistsText"] = "M" + outputCard["artistsText"][1:]
-	elif GlobalConfig.language == Language.GERMAN:
-		# For some bizarre reason, the German parser reads some artist names as something completely different
-		if re.match(r"^ICHLER[GS]I?EN$", outputCard["artistsText"]):
-			outputCard["artistsText"] = "Jenna Gray"
-		elif outputCard["artistsText"] == "ES" or outputCard["artistsText"] == "ET":
-			outputCard["artistsText"] = "Lauren Levering"
-		outputCard["artistsText"] = outputCard["artistsText"].replace("Dösiree", "Désirée")
-		outputCard["artistsText"] = re.sub(r"Man[6e]+\b", "Mané", outputCard["artistsText"])
-	outputCard["artistsText"] = re.sub(r"\bAime\b", "Aimé", outputCard["artistsText"])
-	outputCard["artistsText"] = re.sub(r"\blvan\b", "Ivan", outputCard["artistsText"])
-	outputCard["artistsText"] = re.sub("Le[éòöô]n", "León", outputCard["artistsText"])
-	outputCard["artistsText"] = re.sub(r"^N(?=ichael)", "M", outputCard["artistsText"])
-	outputCard["artistsText"] = re.sub(r"\bPe[^ñ]+a\b", "Peña", outputCard["artistsText"])
-	if "“" in outputCard["artistsText"]:
-		# Simplify quotemarks
-		outputCard["artistsText"] = outputCard["artistsText"].replace("“", "\"").replace("”", "\"")
-	if oldArtistsText != outputCard["artistsText"]:
-		_logger.info(f"Corrected artist name from {oldArtistsText!r} to {outputCard['artistsText']!r} in card {CardUtil.createCardIdentifier(inputCard)}")
+	outputCard["artistsText"] = ArtistsHandler.correctArtistName(ocrResult.artistsText)
+	if ocrResult.artistsText != outputCard["artistsText"]:
+		_logger.info(f"Corrected artist name from {ocrResult.artistsText!r} to {outputCard['artistsText']!r} in card {CardUtil.createCardIdentifier(inputCard)}")
 
 	outputCard["name"] = TextCorrection.correctPunctuation(inputCard["name"].strip() if "name" in inputCard else ocrResult.name).replace("’", "'").replace("‘", "'").replace("''", "'")
 	if outputCard["name"] == "Balais Magiques":
