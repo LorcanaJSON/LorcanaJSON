@@ -165,8 +165,10 @@ def createOutputFiles(onlyParseIds: Optional[List[int]] = None, shouldShowImages
 	for inputCard in inputCards:
 		cardId = inputCard["culture_invariant_id"]
 		try:
-			fullCardList.append(SingleCardDataGenerator.parseSingleCard(inputCard, ocrResults[cardId], externalLinksHandler, relatedCardCollator.getRelatedCards(inputCard), cardDataCorrections.pop(inputCard["_idAsString"], None),
-									cardToStoryParser, historicData.get(inputCard["_idAsString"], None), allowedCardsHandler, promoSourceHandler, artistsHandler))
+			parsedCard = SingleCardDataGenerator.parseSingleCard(inputCard, ocrResults[cardId], externalLinksHandler, relatedCardCollator.getRelatedCards(inputCard), cardDataCorrections.pop(inputCard["_idAsString"], None),
+									cardToStoryParser, historicData.get(inputCard["_idAsString"], None), allowedCardsHandler, promoSourceHandler, artistsHandler)
+			if parsedCard:
+				fullCardList.append(parsedCard)
 		except Exception as e:
 			_logger.error(f"{type(e).__name__} exception while parsing card {CardUtil.createCardIdentifier(inputCard)}: {e}")
 			raise e
