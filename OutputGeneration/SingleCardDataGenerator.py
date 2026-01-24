@@ -75,40 +75,7 @@ def parseSingleCard(inputCard: Dict, ocrResult: OcrResult, externalLinksHandler:
 	if ocrResult.artistsText != outputCard["artistsText"]:
 		_logger.info(f"Corrected artist name from {ocrResult.artistsText!r} to {outputCard['artistsText']!r} in card {CardUtil.createCardIdentifier(inputCard)}")
 
-	outputCard["name"] = TextCorrection.correctPunctuation(inputCard["name"].strip() if "name" in inputCard else ocrResult.name).replace("’", "'").replace("‘", "'").replace("''", "'")
-	if outputCard["name"] == "Balais Magiques":
-		# This name is inconsistent, sometimes it has a capital 'M', sometimes a lowercase 'm'
-		# Comparing with capitalization of other cards, this should be a lowercase 'm'
-		outputCard["name"] = outputCard["name"].replace("M", "m")
-	elif GlobalConfig.language == Language.ENGLISH and outputCard["name"] == "Heihei":
-		# They're inconsistent about the spelling of 'HeiHei': Up to Set 6 they wrote it 'HeiHei' with the second 'H' capitalized,
-		# but starting from Set 7, they started writing it 'Heihei', with the second 'h' lowercase
-		# Searching around on non-Lorcana sources, the spelling isn't too consistent either, with sometimes 'Heihei' and sometimes 'Hei Hei'
-		outputCard["name"] = "HeiHei"
-	elif outputCard["name"].isupper() and outputCard["name"] not in ("B.E.N.", "I2I"):
-		# Some names have capitals in the middle, correct those
-		if outputCard["type"] == GlobalConfig.translation.Character:
-			if outputCard["name"] == "HEIHEI" and GlobalConfig.language == Language.ENGLISH:
-				outputCard["name"] = "HeiHei"
-			elif outputCard["name"] == "LEFOU":
-				outputCard["name"] = "LeFou"
-			else:
-				outputCard["name"] = _toTitleCase(outputCard["name"])
-		elif GlobalConfig.language == Language.FRENCH:
-			# French titlecase rules are complicated, just capitalize the first letter for now
-			outputCard["name"] = outputCard["name"][0] + outputCard["name"][1:].lower()
-		else:
-			outputCard["name"] = _toTitleCase(outputCard["name"])
-	outputCard["fullName"] = outputCard["name"]
-	outputCard["simpleName"] = outputCard["fullName"]
-	if "subtitle" in inputCard or ocrResult.version:
-		outputCard["version"] = (inputCard["subtitle"].strip() if "subtitle" in inputCard else ocrResult.version).replace("’", "'")
-		outputCard["fullName"] += " - " + outputCard["version"]
-		outputCard["simpleName"] += " " + outputCard["version"]
-	# simpleName is the full name with special characters and the base-subtitle dash removed, for easier lookup. So remove the special characters
-	outputCard["simpleName"] = re.sub(r"[!.,…?“”\"]", "", outputCard["simpleName"].lower()).rstrip()
-	for replacementChar, charsToReplace in {"a": "[àâäā]", "c": "ç", "e": "[èêé]", "i": "[îïí]", "o": "[ôö]", "u": "[ùûü]", "oe": "œ", "ss": "ß"}.items():
-		outputCard["simpleName"] = re.sub(charsToReplace, replacementChar, outputCard["simpleName"])
+	_parseNameFields(inputCard, outputCard, ocrResult)
 
 	try:
 		outputCard["cost"] = inputCard["ink_cost"] if "ink_cost" in inputCard else int(ocrResult.cost)
@@ -857,3 +824,39 @@ def _toTitleCase(s: str) -> str:
 			if toLowerCaseWord in s:
 				s = s.replace(toLowerCaseWord, toLowerCaseWord.lower())
 	return s
+
+def _parseNameFields(inputCard: Dict, outputCard: Dict, ocrResult: OcrResult):
+	outputCard["name"] = TextCorrection.correctPunctuation(inputCard["name"].strip() if "name" in inputCard else ocrResult.name).replace("’", "'").replace("‘", "'").replace("''", "'")
+	if outputCard["name"] == "Balais Magiques":
+		# This name is inconsistent, sometimes it has a capital 'M', sometimes a lowercase 'm'
+		# Comparing with capitalization of other cards, this should be a lowercase 'm'
+		outputCard["name"] = outputCard["name"].replace("M", "m")
+	elif GlobalConfig.language == Language.ENGLISH and outputCard["name"] == "Heihei":
+		# They're inconsistent about the spelling of 'HeiHei': Up to Set 6 they wrote it 'HeiHei' with the second 'H' capitalized,
+		# but starting from Set 7, they started writing it 'Heihei', with the second 'h' lowercase
+		# Searching around on non-Lorcana sources, the spelling isn't too consistent either, with sometimes 'Heihei' and sometimes 'Hei Hei'
+		outputCard["name"] = "HeiHei"
+	elif outputCard["name"].isupper() and outputCard["name"] not in ("B.E.N.", "I2I"):
+		# Some names have capitals in the middle, correct those
+		if outputCard["type"] == GlobalConfig.translation.Character:
+			if outputCard["name"] == "HEIHEI" and GlobalConfig.language == Language.ENGLISH:
+				outputCard["name"] = "HeiHei"
+			elif outputCard["name"] == "LEFOU":
+				outputCard["name"] = "LeFou"
+			else:
+				outputCard["name"] = _toTitleCase(outputCard["name"])
+		elif GlobalConfig.language == Language.FRENCH:
+			# French titlecase rules are complicated, just capitalize the first letter for now
+			outputCard["name"] = outputCard["name"][0] + outputCard["name"][1:].lower()
+		else:
+			outputCard["name"] = _toTitleCase(outputCard["name"])
+	outputCard["fullName"] = outputCard["name"]
+	outputCard["simpleName"] = outputCard["fullName"]
+	if "subtitle" in inputCard or ocrResult.version:
+		outputCard["version"] = (inputCard["subtitle"].strip() if "subtitle" in inputCard else ocrResult.version).replace("’", "'")
+		outputCard["fullName"] += " - " + outputCard["version"]
+		outputCard["simpleName"] += " " + outputCard["version"]
+	# simpleName is the full name with special characters and the base-subtitle dash removed, for easier lookup. So remove the special characters
+	outputCard["simpleName"] = re.sub(r"[!.,…?“”\"]", "", outputCard["simpleName"].lower()).rstrip()
+	for replacementChar, charsToReplace in {"a": "[àâäā]", "c": "ç", "e": "[èêé]", "i": "[îïí]", "o": "[ôö]", "u": "[ùûü]", "oe": "œ", "ss": "ß"}.items():
+		outputCard["simpleName"] = re.sub(charsToReplace, replacementChar, outputCard["simpleName"])
