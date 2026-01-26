@@ -151,6 +151,7 @@ _PARSE_SETTINGS_BY_ID: Dict[int, ParseSettings] = {
 	2461: dataclasses.replace(_PARSE_SETTINGS_BY_GROUPING["P3"], labelStartThreshold=100, labelEndThreshold=170, labelTextColor=ImageArea.TEXT_COLOUR_MIDDLE, textboxOffset=10),
 	2462: dataclasses.replace(_PARSE_SETTINGS_BY_GROUPING["P3"], labelStartThreshold=100, labelEndThreshold=170, labelTextColor=ImageArea.TEXT_COLOUR_MIDDLE, textboxOffset=10),
 	2687: dataclasses.replace(_PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["11"], cardLayout=CardLayout.NEW_ENCHANTED_SMALL_TEXTBOX),
+	2694: dataclasses.replace(_PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["11"], cardLayout=CardLayout.NEW_ENCHANTED_SMALL_TEXTBOX),
 	2704: dataclasses.replace(_PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["11"], labelParsingMethod=LABEL_PARSING_METHODS.FALLBACK_BY_LINES),
 	2705: dataclasses.replace(_PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["11"], cardLayout=CardLayout.NEW_ENCHANTED_CHARACTER_SMALL_TEXTBOX, labelIsDarkerThanBackground=False, labelParsingMethod=LABEL_PARSING_METHODS.FALLBACK_BY_LINES),
 }
