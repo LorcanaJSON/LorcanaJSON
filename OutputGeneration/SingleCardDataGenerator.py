@@ -206,6 +206,7 @@ def parseSingleCard(inputCard: Dict, ocrResult: OcrResult, externalLinksHandler:
 				flavorText = flavorText[:-2]
 			flavorText = flavorText.replace("\nInschrift", "\n—Inschrift")
 		outputCard["flavorText"] = flavorText
+
 	abilities: List[Dict[str, str]] = []
 	effects: List[str] = []
 	if ocrResult.remainingText:
