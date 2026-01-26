@@ -4,6 +4,7 @@ from typing import Dict, List
 import GlobalConfig
 from APIScraping import RavensburgerApiHandler
 from APIScraping.UpdateCheckResult import ChangeType, UpdateCheckResult
+from OCR import OcrCacheHandler
 from OutputGeneration import DataFilesGenerator
 
 
@@ -165,9 +166,10 @@ def createOutputIfNeeded(onlyCreateOnNewCards: bool, cardFieldsToIgnore: List[st
 		actualImageChanges = RavensburgerApiHandler.downloadImagesIfUpdated(cardCatalog, [card.id for card in updateCheckResult.possibleChangedImages])
 		_logger.info(f"{len(actualImageChanges):,} actual image changes: {actualImageChanges}")
 		if actualImageChanges:
-			GlobalConfig.useCachedOcr = False
-			_logger.info("Image(s) changed, skipping using OCR cache")
+			_logger.info("Image(s) changed, skipping using OCR cache for these images")
+			OcrCacheHandler.clearOcrCacheForCards(actualImageChanges)
 		idsToParse.extend(actualImageChanges)
+	_logger.info(f"Updated IDs: {' '.join([str(i) for i in idsToParse])}")
 	RavensburgerApiHandler.saveCardCatalog(cardCatalog)
 	RavensburgerApiHandler.downloadImages()
 	# Parse all images instead of just the new ones, because other cards might be related to the new ones (an Enchanted would have a baseId, and that base card needs to get an Enchanted ID too)

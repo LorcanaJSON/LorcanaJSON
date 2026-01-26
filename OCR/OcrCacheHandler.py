@@ -1,5 +1,5 @@
 import hashlib, json, logging, os, pickle, shutil, time
-from typing import Dict, Optional
+from typing import Dict, List, Optional
 
 import GlobalConfig
 from OCR.OcrResult import OcrResult
@@ -82,6 +82,13 @@ def clearOcrCache(fileHashes: Optional[Dict[str, str]] = None):
 	with open(_cacheHashesFilePath, "w", encoding="utf-8") as cacheHashesFile:
 		json.dump(fileHashes, cacheHashesFile)
 	_logger.info(f"Clearing OCR cache took {time.perf_counter() - startTime:.4f} seconds")
+
+def clearOcrCacheForCards(cardIdsToClear: List[int]):
+	for cardIdToClear in cardIdsToClear:
+		cachedOcrResultPath = _buildCachedOcrResultPath(cardIdToClear)
+		if os.path.isfile(cachedOcrResultPath):
+			os.remove(cachedOcrResultPath)
+	_logger.info(f"Cleared OCR cache for {len(cardIdsToClear):,} cards")
 
 def getCachedOcrResult(cardId: int) -> Optional[OcrResult]:
 	"""
