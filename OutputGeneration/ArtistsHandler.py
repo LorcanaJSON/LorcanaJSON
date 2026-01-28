@@ -62,6 +62,7 @@ class ArtistsHandler:
 			correctedArtistText = correctedArtistText.replace("Dösiree", "Désirée")
 			correctedArtistText = re.sub(r"Man[6e]+\b", "Mané", correctedArtistText)
 		correctedArtistText = re.sub(r"\bAime\b", "Aimé", correctedArtistText)
+		correctedArtistText = correctedArtistText.replace(" lacopini", " Iacopini")
 		correctedArtistText = re.sub(r"\blvan\b", "Ivan", correctedArtistText)
 		correctedArtistText = re.sub("Le[éòöô]n", "León", correctedArtistText)
 		correctedArtistText = re.sub(r"^N(?=ichael)", "M", correctedArtistText)
