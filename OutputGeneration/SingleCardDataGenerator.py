@@ -453,7 +453,7 @@ def parseSingleCard(inputCard: Dict, ocrResult: OcrResult, externalLinksHandler:
 				lastAbility["effect"] = lastAbilityText[:keywordMatch.start()]
 				outputCard["abilities"].append({"type": "keyword", "fullText": keywordText})
 			else:
-				_logger.error(f"'keywordsLast' set but keyword couldn't be found for card {outputCard['id']}")
+				_logger.error(f"'_moveKeywordsLast' set but keyword couldn't be found for card {CardUtil.createCardIdentifier(outputCard)}")
 		if "_insertAbilityAtIndex" in cardDataCorrections:
 			if "abilities" not in outputCard:
 				outputCard["abilities"]: List[Dict] = []
