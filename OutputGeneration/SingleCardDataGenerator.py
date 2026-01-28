@@ -229,7 +229,10 @@ def parseSingleCard(inputCard: Dict, ocrResult: OcrResult, externalLinksHandler:
 				_logger.info(f"Remaining text for card {CardUtil.createCardIdentifier(outputCard)} {remainingTextLine!r} is too short, discarding")
 				continue
 			# Check if this is a keyword ability
-			if outputCard["type"] == GlobalConfig.translation.Character or outputCard["type"] == GlobalConfig.translation.Action or (parsedIdentifier.setCode == "Q2" and outputCard["type"] == GlobalConfig.translation.Location):
+			if outputCard["type"] == GlobalConfig.translation.Item:
+				# Some items ("Peter Pan's Dagger", ID 351; "Sword in the Stone", ID 352) have an ability without an ability name label. Store these as abilities too
+				abilities.append({"effect": remainingTextLine})
+			else:
 				if remainingTextLine.startswith("(") and ")" in remainingText:
 					# Song cards have reminder text of how Songs work, and for instance 'Flotsam & Jetsam - Entangling Eels' (ID 735) has a bracketed phrase at the bottom
 					# Treat those as static abilities
@@ -259,9 +262,6 @@ def parseSingleCard(inputCard: Dict, ocrResult: OcrResult, externalLinksHandler:
 					effects.append(remainingTextLine)
 				else:
 					_logger.debug(f"Remaining textline is {remainingTextLine!r}, too short to parse, discarding")
-			elif outputCard["type"] == GlobalConfig.translation.Item:
-				# Some items ("Peter Pan's Dagger", ID 351; "Sword in the Stone", ID 352) have an ability without an ability name label. Store these as abilities too
-				abilities.append({"effect": remainingTextLine})
 
 	if ocrResult.abilityLabels:
 		inputAbilityNames: Optional[List[str]] = None
