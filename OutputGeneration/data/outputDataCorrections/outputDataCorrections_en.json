@@ -2469,10 +2469,30 @@
       "—"
     ]
   },
+  "2532": {
+    "flavorText": [
+      "n,",
+      "n',"
+    ]
+  },
+  "2533": {
+    "flavorText": [
+      "E",
+      "H",
+      " ",
+      ""
+    ]
+  },
   "2538": {
     "abilities": [
       "1 t",
       "1 ¤ t"
+    ]
+  },
+  "2545": {
+    "flavorText": [
+      "!'",
+      "I'"
     ]
   },
   "2552": {
@@ -2501,6 +2521,18 @@
     "abilities": [
       "⟳ B",
       "⟳, B"
+    ]
+  },
+  "2597": {
+    "abilities": [
+      "¤",
+      "⛉"
+    ]
+  },
+  "2600": {
+    "flavorText": [
+      "-",
+      "—"
     ]
   },
   "2604": {
@@ -2539,6 +2571,18 @@
       "¤"
     ]
   },
+  "2653": {
+    "flavorText": [
+      "——",
+      "—"
+    ]
+  },
+  "2658": {
+    "_forceAbilityIndexToTriggered": 0
+  },
+  "2670": {
+    "_effectAtIndexIsAbility": [0, "BRING YOUR FRIENDS"]
+  },
   "2673": {
     "abilities": [
       "1\n",
@@ -2550,6 +2594,9 @@
       " ¤",
       ""
     ]
+  },
+  "2693": {
+    "_skipFullTextSectionMergeAtIndex": 1
   },
   "2704": {
     "_insertAbilityAtIndex": [0, "Shift 3 ⬡", 1, "When you play this character,\nif you used Shift to play her and none of your\ncharacters challenged this turn, characters can't\nchallenge until the start of your next turn.", "CALMING WORDS"],
