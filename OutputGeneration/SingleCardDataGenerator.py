@@ -255,7 +255,7 @@ def parseSingleCard(inputCard: Dict, ocrResult: OcrResult, externalLinksHandler:
 					keywordLines.append(remainingTextLine)
 				if keywordLines:
 					for keywordLine in keywordLines:
-						abilities.append({"type": "keyword", "fullText": keywordLine.rstrip()})
+						abilities.append({"type": "keyword", "fullText": TextCorrection.correctText(keywordLine.rstrip())})
 						# These entries will get more fleshed out after the corrections (if any) are applied, to prevent having to correct multiple fields
 				elif len(remainingTextLine) > 10:
 					# Since this isn't a named or keyword ability, assume it's a one-off effect
