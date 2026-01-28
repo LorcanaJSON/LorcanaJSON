@@ -169,7 +169,7 @@ def createOutputIfNeeded(onlyCreateOnNewCards: bool, cardFieldsToIgnore: List[st
 			_logger.info("Image(s) changed, skipping using OCR cache for these images")
 			OcrCacheHandler.clearOcrCacheForCards(actualImageChanges)
 		idsToParse.extend(actualImageChanges)
-	_logger.info(f"Updated IDs: {' '.join([str(i) for i in idsToParse])}")
+	_logger.info(f"Updated IDs: {' '.join([str(i) for i in sorted(idsToParse)])}")
 	RavensburgerApiHandler.saveCardCatalog(cardCatalog)
 	RavensburgerApiHandler.downloadImages()
 	# Parse all images instead of just the new ones, because other cards might be related to the new ones (an Enchanted would have a baseId, and that base card needs to get an Enchanted ID too)
