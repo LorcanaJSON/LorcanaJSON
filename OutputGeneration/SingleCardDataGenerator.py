@@ -359,9 +359,7 @@ def parseSingleCard(inputCard: Dict, ocrResult: OcrResult, externalLinksHandler:
 		if clarifications:
 			outputCard["clarifications"] = clarifications
 
-	subtypes = _parseSubtypes(ocrResult.subtypesText)
-	if subtypes:
-		outputCard["subtypes"] = subtypes
+	_parseSubtypes(ocrResult.subtypesText, outputCard)
 
 	# Card-specific corrections
 	externalLinksCorrection: Optional[List[str]] = None  # externalLinks depends on correct fullIdentifier, which may have a correction, but it also might need a correction itself. So store it for now, and correct it later
@@ -795,9 +793,9 @@ def _parseNameFields(inputCard: Dict, outputCard: Dict, ocrResult: OcrResult):
 	for replacementChar, charsToReplace in {"a": "[àâäā]", "c": "ç", "e": "[èêé]", "i": "[îïí]", "o": "[ôö]", "u": "[ùûü]", "oe": "œ", "ss": "ß"}.items():
 		outputCard["simpleName"] = re.sub(charsToReplace, replacementChar, outputCard["simpleName"])
 
-def _parseSubtypes(subtypesText: Optional[str]) -> Optional[List[str]]:
+def _parseSubtypes(subtypesText: Optional[str], outputCard: Dict):
 	if not subtypesText:
-		return None
+		return
 	subtypes: List[str] = re.sub(fr"[^A-Za-zàäèéöü{LorcanaSymbols.SEPARATOR} ]", "", subtypesText).split(LorcanaSymbols.SEPARATOR_STRING)
 	if "ltem" in subtypes:
 		subtypes[subtypes.index("ltem")] = "Item"
@@ -839,7 +837,8 @@ def _parseSubtypes(subtypesText: Optional[str]) -> Optional[List[str]]:
 	# Non-character cards have their main type as their (first) subtype, remove those
 	if subtypes and (subtypes[0] == GlobalConfig.translation.Action or subtypes[0] == GlobalConfig.translation.Item or subtypes[0] == GlobalConfig.translation.Location):
 		subtypes.pop(0)
-	return subtypes
+	if subtypes:
+		outputCard["subtypes"] = subtypes
 
 def _parseRelatedCards(relatedCards: RelatedCards, parsedIdentifier: IdentifierParser.Identifier, outputCard: Dict):
 	otherRelatedCards = relatedCards.getOtherRelatedCards(outputCard["setCode"], outputCard["id"])
