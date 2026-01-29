@@ -327,39 +327,8 @@ def parseSingleCard(inputCard: Dict, ocrResult: OcrResult, externalLinksHandler:
 	if effects:
 		outputCard["effects"] = effects
 
-	# Some cards have errata or clarifications, both in the 'additional_info' fields. Split those up
-	if inputCard.get("additional_info", None):
-		errata = []
-		clarifications = []
-		for infoEntry in inputCard["additional_info"]:
-			# The text has multiple \r\n's as newlines, reduce that to just a single \n
-			infoText: str = re.sub(r" ?(\\r\\n|\r\n)+ ?", "\n", infoEntry["body"]).strip().replace("\t", " ")
-			# The text uses unicode characters in some places, replace those with their simple equivalents
-			infoText = infoText.replace("’", "'").replace("–", "-").replace("“", "\"").replace("”", "\"")
-			# Sometimes they write cardnames as "basename- subtitle", add the space before the dash back in
-			infoText = re.sub(r"(\w)- ", r"\1 - ", infoText)
-			# The text uses {I} for ink and {S} for strength, replace those with our symbols
-			infoText = infoText.format(E=LorcanaSymbols.EXERT, I=LorcanaSymbols.INK, L=LorcanaSymbols.LORE, S=LorcanaSymbols.STRENGTH, W=LorcanaSymbols.WILLPOWER)
-			if infoEntry["title"].startswith("Errata") or infoEntry["title"].startswith("Ergänzung"):
-				if " - " in infoEntry["title"]:
-					# There's a suffix explaining what field the errata is about, prepend it to the text
-					infoText = infoEntry["title"].split(" - ")[1] + "\n" + infoText
-				errata.append(infoText)
-			elif infoEntry["title"].startswith("FAQ") or infoEntry["title"].startswith("Keyword") or infoEntry["title"] == "Good to know" or infoEntry["title"] == "Info":
-				# Sometimes they cram multiple questions and answers into one entry, split those up into separate clarifications
-				infoEntryClarifications = re.split(r"\s*\n+(?=[DFQ] ?:)", infoText)
-				clarifications.extend(infoEntryClarifications)
-			# Some German cards have an artist correction in their 'additional_info', but that's already correct in the data, so ignore that
-			# Bans are listed as additional info, but we handle that separately, so ignore those
-			# For other additional_info types, print an error, since that should be handled
-			elif infoEntry["title"] != "Illustratorin" and infoEntry["title"] != "Ban":
-				_logger.warning(f"Unknown 'additional_info' type '{infoEntry['title']}' in card {CardUtil.createCardIdentifier(outputCard)}")
-		if errata:
-			outputCard["errata"] = errata
-		if clarifications:
-			outputCard["clarifications"] = clarifications
-
 	_parseSubtypes(ocrResult.subtypesText, outputCard)
+	_parseAdditionalInfo(inputCard, outputCard)
 
 	# Card-specific corrections
 	externalLinksCorrection: Optional[List[str]] = None  # externalLinks depends on correct fullIdentifier, which may have a correction, but it also might need a correction itself. So store it for now, and correct it later
@@ -756,6 +725,40 @@ def _toTitleCase(s: str) -> str:
 			if toLowerCaseWord in s:
 				s = s.replace(toLowerCaseWord, toLowerCaseWord.lower())
 	return s
+
+def _parseAdditionalInfo(inputCard: Dict, outputCard: Dict):
+	# Some cards have errata or clarifications, both in the 'additional_info' fields. Split those up
+	if not inputCard.get("additional_info", None):
+		return
+	errata = []
+	clarifications = []
+	for infoEntry in inputCard["additional_info"]:
+		# The text has multiple \r\n's as newlines, reduce that to just a single \n
+		infoText: str = re.sub(r" ?(\\r\\n|\r\n)+ ?", "\n", infoEntry["body"]).strip().replace("\t", " ")
+		# The text uses unicode characters in some places, replace those with their simple equivalents
+		infoText = infoText.replace("’", "'").replace("–", "-").replace("“", "\"").replace("”", "\"")
+		# Sometimes they write cardnames as "basename- subtitle", add the space before the dash back in
+		infoText = re.sub(r"(\w)- ", r"\1 - ", infoText)
+		# The text uses {I} for ink and {S} for strength, replace those with our symbols
+		infoText = infoText.format(E=LorcanaSymbols.EXERT, I=LorcanaSymbols.INK, L=LorcanaSymbols.LORE, S=LorcanaSymbols.STRENGTH, W=LorcanaSymbols.WILLPOWER)
+		if infoEntry["title"].startswith("Errata") or infoEntry["title"].startswith("Ergänzung"):
+			if " - " in infoEntry["title"]:
+				# There's a suffix explaining what field the errata is about, prepend it to the text
+				infoText = infoEntry["title"].split(" - ")[1] + "\n" + infoText
+			errata.append(infoText)
+		elif infoEntry["title"].startswith("FAQ") or infoEntry["title"].startswith("Keyword") or infoEntry["title"] == "Good to know" or infoEntry["title"] == "Info":
+			# Sometimes they cram multiple questions and answers into one entry, split those up into separate clarifications
+			infoEntryClarifications = re.split(r"\s*\n+(?=[DFQ] ?:)", infoText)
+			clarifications.extend(infoEntryClarifications)
+		# Some German cards have an artist correction in their 'additional_info', but that's already correct in the data, so ignore that
+		# Bans are listed as additional info, but we handle that separately, so ignore those
+		# For other additional_info types, print an error, since that should be handled
+		elif infoEntry["title"] != "Illustratorin" and infoEntry["title"] != "Ban":
+			_logger.warning(f"Unknown 'additional_info' type '{infoEntry['title']}' in card {CardUtil.createCardIdentifier(outputCard)}")
+	if errata:
+		outputCard["errata"] = errata
+	if clarifications:
+		outputCard["clarifications"] = clarifications
 
 def _parseNameFields(inputCard: Dict, outputCard: Dict, ocrResult: OcrResult):
 	outputCard["name"] = TextCorrection.correctPunctuation(inputCard["name"].strip() if "name" in inputCard else ocrResult.name).replace("’", "'").replace("‘", "'").replace("''", "'")
