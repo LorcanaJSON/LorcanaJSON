@@ -793,6 +793,35 @@ def _parseNameFields(inputCard: Dict, outputCard: Dict, ocrResult: OcrResult):
 	for replacementChar, charsToReplace in {"a": "[àâäā]", "c": "ç", "e": "[èêé]", "i": "[îïí]", "o": "[ôö]", "u": "[ùûü]", "oe": "œ", "ss": "ß"}.items():
 		outputCard["simpleName"] = re.sub(charsToReplace, replacementChar, outputCard["simpleName"])
 
+def _parseRelatedCards(relatedCards: RelatedCards, parsedIdentifier: IdentifierParser.Identifier, outputCard: Dict):
+	otherRelatedCards = relatedCards.getOtherRelatedCards(outputCard["setCode"], outputCard["id"])
+	if otherRelatedCards.epicId:
+		outputCard["epicId"] = otherRelatedCards.epicId
+	elif otherRelatedCards.nonEpicId:
+		outputCard["baseId"] = otherRelatedCards.nonEpicId
+	if otherRelatedCards.enchantedId:
+		outputCard["enchantedId"] = otherRelatedCards.enchantedId
+	elif otherRelatedCards.nonEnchantedId:
+		outputCard["baseId"] = otherRelatedCards.nonEnchantedId
+	if otherRelatedCards.iconicId:
+		outputCard["iconicId"] = otherRelatedCards.iconicId
+	elif otherRelatedCards.nonIconicId:
+		outputCard["baseId"] = otherRelatedCards.nonIconicId
+	if otherRelatedCards.nonPromoId:
+		if "baseId" in outputCard:
+			_logger.error(f"baseId is already set to {outputCard['baseId']} from a rarity, not setting it to non-promo ID {otherRelatedCards.nonPromoId} for card {CardUtil.createCardIdentifier(outputCard)}")
+		else:
+			outputCard["baseId"] = otherRelatedCards.nonPromoId
+	elif otherRelatedCards.promoIds:
+		outputCard["promoIds"] = otherRelatedCards.promoIds
+	if otherRelatedCards.otherVariantIds:
+		outputCard["variantIds"] = otherRelatedCards.otherVariantIds
+		outputCard["variant"] = parsedIdentifier.variant
+	if otherRelatedCards.reprintedAsIds:
+		outputCard["reprintedAsIds"] = otherRelatedCards.reprintedAsIds
+	elif otherRelatedCards.reprintOfId:
+		outputCard["reprintOfId"] = otherRelatedCards.reprintOfId
+
 def _parseSubtypes(subtypesText: Optional[str], outputCard: Dict):
 	if not subtypesText:
 		return
@@ -839,32 +868,3 @@ def _parseSubtypes(subtypesText: Optional[str], outputCard: Dict):
 		subtypes.pop(0)
 	if subtypes:
 		outputCard["subtypes"] = subtypes
-
-def _parseRelatedCards(relatedCards: RelatedCards, parsedIdentifier: IdentifierParser.Identifier, outputCard: Dict):
-	otherRelatedCards = relatedCards.getOtherRelatedCards(outputCard["setCode"], outputCard["id"])
-	if otherRelatedCards.epicId:
-		outputCard["epicId"] = otherRelatedCards.epicId
-	elif otherRelatedCards.nonEpicId:
-		outputCard["baseId"] = otherRelatedCards.nonEpicId
-	if otherRelatedCards.enchantedId:
-		outputCard["enchantedId"] = otherRelatedCards.enchantedId
-	elif otherRelatedCards.nonEnchantedId:
-		outputCard["baseId"] = otherRelatedCards.nonEnchantedId
-	if otherRelatedCards.iconicId:
-		outputCard["iconicId"] = otherRelatedCards.iconicId
-	elif otherRelatedCards.nonIconicId:
-		outputCard["baseId"] = otherRelatedCards.nonIconicId
-	if otherRelatedCards.nonPromoId:
-		if "baseId" in outputCard:
-			_logger.error(f"baseId is already set to {outputCard['baseId']} from a rarity, not setting it to non-promo ID {otherRelatedCards.nonPromoId} for card {CardUtil.createCardIdentifier(outputCard)}")
-		else:
-			outputCard["baseId"] = otherRelatedCards.nonPromoId
-	elif otherRelatedCards.promoIds:
-		outputCard["promoIds"] = otherRelatedCards.promoIds
-	if otherRelatedCards.otherVariantIds:
-		outputCard["variantIds"] = otherRelatedCards.otherVariantIds
-		outputCard["variant"] = parsedIdentifier.variant
-	if otherRelatedCards.reprintedAsIds:
-		outputCard["reprintedAsIds"] = otherRelatedCards.reprintedAsIds
-	elif otherRelatedCards.reprintOfId:
-		outputCard["reprintOfId"] = otherRelatedCards.reprintOfId
