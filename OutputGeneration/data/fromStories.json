@@ -7,10 +7,7 @@
       "it": "La carica dei 101"
     },
     "matchingNames": ["Cruella De Vil", "Dalmatian Puppy", "Horace", "Jasper", "Patch", "Perdita", "Pongo", "Roger", "Rolly", "Sergeant Tibbs", "The Colonel", "Thunderbolt"],
-    "matchingIds": [106, 536, 1476],
-    "matchingFields": {
-      "subtypes": "Puppy"
-    }
+    "matchingIds": [106, 536, 1476]
   },
   "aladdin": {
     "displayNames": {
