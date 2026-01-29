@@ -385,51 +385,9 @@ def parseSingleCard(inputCard: Dict, ocrResult: OcrResult, externalLinksHandler:
 		if clarifications:
 			outputCard["clarifications"] = clarifications
 
-	# Determine subtypes and their order. Items and Actions have an empty subtypes list, ignore those
-	if ocrResult.subtypesText:
-		subtypes: List[str] = re.sub(fr"[^A-Za-zàäèéöü{LorcanaSymbols.SEPARATOR} ]", "", ocrResult.subtypesText).split(LorcanaSymbols.SEPARATOR_STRING)
-		if "ltem" in subtypes:
-			subtypes[subtypes.index("ltem")] = "Item"
-		# 'Seven Dwarves' is a subtype, but it might get split up into two types. Turn it back into one subtype
-		sevenDwarvesCheckTypes = None
-		if GlobalConfig.language == Language.ENGLISH:
-			sevenDwarvesCheckTypes = ("Seven", "Dwarfs")
-		elif GlobalConfig.language == Language.FRENCH:
-			sevenDwarvesCheckTypes = ("Sept", "Nains")
-		elif GlobalConfig.language == Language.GERMAN:
-			sevenDwarvesCheckTypes = ("Sieben", "Zwerge")
-		elif GlobalConfig.language == Language.ITALIAN:
-			sevenDwarvesCheckTypes = ("Sette", "Nani")
-		if sevenDwarvesCheckTypes and sevenDwarvesCheckTypes[0] in subtypes and sevenDwarvesCheckTypes[1] in subtypes:
-			subtypes.remove(sevenDwarvesCheckTypes[1])
-			subtypes[subtypes.index(sevenDwarvesCheckTypes[0])] = " ".join(sevenDwarvesCheckTypes)
-		for subtypeIndex in range(len(subtypes) - 1, -1, -1):
-			subtype = subtypes[subtypeIndex]
-			if GlobalConfig.language in (Language.ENGLISH, Language.FRENCH) and subtype != "Floodborn" and re.match(r"^[EF][il][aeo][aeo]d[^b]?b?[^b]?[aeo](r[an][es+-]?|m)$", subtype):
-				_logger.debug(f"Correcting '{subtype}' to 'Floodborn'")
-				subtypes[subtypeIndex] = "Floodborn"
-			elif GlobalConfig.language == Language.ENGLISH and subtype != "Hero" and re.match(r"e?H[eo]r[aeos]", subtype):
-				subtypes[subtypeIndex] = "Hero"
-			elif re.match("I?Hl?usion", subtype):
-				subtypes[subtypeIndex] = "Illusion"
-			elif GlobalConfig.language == Language.ITALIAN and subtype == "lena":
-				subtypes[subtypeIndex] = "Iena"
-			elif subtype == "Hros":
-				subtypes[subtypeIndex] = "Héros"
-			elif subtype == "toryborn" or subtype == "Storyhorn":
-				subtypes[subtypeIndex] = "Storyborn"
-			# Remove short subtypes, probably erroneous
-			elif len(subtype) < (4 if GlobalConfig.language == Language.ENGLISH else 3) and subtype != "Re":  # 'Re' is Italian for 'King', so it's a valid subtype
-				_logger.debug(f"Removing subtype '{subtype}', too short")
-				subtypes.pop(subtypeIndex)
-			elif not re.search("[aeiouAEIOU]", subtype):
-				_logger.debug(f"Removing subtype '{subtype}', no vowels so it's probably invalid")
-				subtypes.pop(subtypeIndex)
-		# Non-character cards have their main type as their (first) subtype, remove those
-		if subtypes and (subtypes[0] == GlobalConfig.translation.Action or subtypes[0] == GlobalConfig.translation.Item or subtypes[0] == GlobalConfig.translation.Location):
-			subtypes.pop(0)
-		if subtypes:
-			outputCard["subtypes"] = subtypes
+	subtypes = _parseSubtypes(ocrResult.subtypesText)
+	if subtypes:
+		outputCard["subtypes"] = subtypes
 
 	# Card-specific corrections
 	externalLinksCorrection: Optional[List[str]] = None  # externalLinks depends on correct fullIdentifier, which may have a correction, but it also might need a correction itself. So store it for now, and correct it later
@@ -862,3 +820,49 @@ def _parseNameFields(inputCard: Dict, outputCard: Dict, ocrResult: OcrResult):
 	outputCard["simpleName"] = re.sub(r"[!.,…?“”\"]", "", outputCard["simpleName"].lower()).rstrip()
 	for replacementChar, charsToReplace in {"a": "[àâäā]", "c": "ç", "e": "[èêé]", "i": "[îïí]", "o": "[ôö]", "u": "[ùûü]", "oe": "œ", "ss": "ß"}.items():
 		outputCard["simpleName"] = re.sub(charsToReplace, replacementChar, outputCard["simpleName"])
+
+def _parseSubtypes(subtypesText: Optional[str]) -> Optional[List[str]]:
+	if not subtypesText:
+		return None
+	subtypes: List[str] = re.sub(fr"[^A-Za-zàäèéöü{LorcanaSymbols.SEPARATOR} ]", "", subtypesText).split(LorcanaSymbols.SEPARATOR_STRING)
+	if "ltem" in subtypes:
+		subtypes[subtypes.index("ltem")] = "Item"
+	# 'Seven Dwarves' is a subtype, but it might get split up into two types. Turn it back into one subtype
+	sevenDwarvesCheckTypes = None
+	if GlobalConfig.language == Language.ENGLISH:
+		sevenDwarvesCheckTypes = ("Seven", "Dwarfs")
+	elif GlobalConfig.language == Language.FRENCH:
+		sevenDwarvesCheckTypes = ("Sept", "Nains")
+	elif GlobalConfig.language == Language.GERMAN:
+		sevenDwarvesCheckTypes = ("Sieben", "Zwerge")
+	elif GlobalConfig.language == Language.ITALIAN:
+		sevenDwarvesCheckTypes = ("Sette", "Nani")
+	if sevenDwarvesCheckTypes and sevenDwarvesCheckTypes[0] in subtypes and sevenDwarvesCheckTypes[1] in subtypes:
+		subtypes.remove(sevenDwarvesCheckTypes[1])
+		subtypes[subtypes.index(sevenDwarvesCheckTypes[0])] = " ".join(sevenDwarvesCheckTypes)
+	for subtypeIndex in range(len(subtypes) - 1, -1, -1):
+		subtype = subtypes[subtypeIndex]
+		if GlobalConfig.language in (Language.ENGLISH, Language.FRENCH) and subtype != "Floodborn" and re.match(r"^[EF][il][aeo][aeo]d[^b]?b?[^b]?[aeo](r[an][es+-]?|m)$", subtype):
+			_logger.debug(f"Correcting '{subtype}' to 'Floodborn'")
+			subtypes[subtypeIndex] = "Floodborn"
+		elif GlobalConfig.language == Language.ENGLISH and subtype != "Hero" and re.match(r"e?H[eo]r[aeos]", subtype):
+			subtypes[subtypeIndex] = "Hero"
+		elif re.match("I?Hl?usion", subtype):
+			subtypes[subtypeIndex] = "Illusion"
+		elif GlobalConfig.language == Language.ITALIAN and subtype == "lena":
+			subtypes[subtypeIndex] = "Iena"
+		elif subtype == "Hros":
+			subtypes[subtypeIndex] = "Héros"
+		elif subtype == "toryborn" or subtype == "Storyhorn":
+			subtypes[subtypeIndex] = "Storyborn"
+		# Remove short subtypes, probably erroneous
+		elif len(subtype) < (4 if GlobalConfig.language == Language.ENGLISH else 3) and subtype != "Re":  # 'Re' is Italian for 'King', so it's a valid subtype
+			_logger.debug(f"Removing subtype '{subtype}', too short")
+			subtypes.pop(subtypeIndex)
+		elif not re.search("[aeiouAEIOU]", subtype):
+			_logger.debug(f"Removing subtype '{subtype}', no vowels so it's probably invalid")
+			subtypes.pop(subtypeIndex)
+	# Non-character cards have their main type as their (first) subtype, remove those
+	if subtypes and (subtypes[0] == GlobalConfig.translation.Action or subtypes[0] == GlobalConfig.translation.Item or subtypes[0] == GlobalConfig.translation.Location):
+		subtypes.pop(0)
+	return subtypes
