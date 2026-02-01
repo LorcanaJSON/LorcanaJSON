@@ -250,8 +250,9 @@ class ImageParser:
 					self._logger.debug(f"In line fallback method found {len(lines):,} lines: {lines}")
 					if showImage:
 						textboxLinesImage = greyTextboxImage.copy()
+						lineColor = (0, 0, 0) if parseSettings.labelTextColor == ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND else (255, 255, 255)
 						for line in lines:
-							cv2.line(textboxLinesImage, (line[0][0], line[0][1]), (line[0][2], line[0][3]), (255, 255, 255), 2, cv2.LINE_AA)
+							cv2.line(textboxLinesImage, (line[0][0], line[0][1]), (line[0][2], line[0][3]), lineColor, 2, cv2.LINE_AA)
 					lastBottomY = 0
 					for line in lines:
 						# Check if this is a line at the top or bottom of a label
