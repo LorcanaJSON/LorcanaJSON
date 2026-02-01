@@ -89,7 +89,7 @@ def correctText(cardText: str) -> str:
 		# Ink payment discounts
 		cardText = re.sub(r"(?<=\bpay\s)(\d)[0Q©]? .?to\b", f"\\1 {LorcanaSymbols.INK} to", cardText)
 		cardText = re.sub(rf"pay(s?) ?(\d)\.? ?[^{LorcanaSymbols.INK}.]{{1,2}}( |\.|$)", f"pay\\1 \\2 {LorcanaSymbols.INK}\\3", cardText, flags=re.MULTILINE)
-		cardText = re.sub(rf"pay(\s)(\d) [^{LorcanaSymbols.INK}] less", fr"pay\1\2 {LorcanaSymbols.INK} less", cardText)
+		cardText = re.sub(rf"pay(\s)(\d) ?[^{LorcanaSymbols.INK} ] less", fr"pay\1\2 {LorcanaSymbols.INK} less", cardText)
 		cardText = re.sub(r"(?<=\bpay\s)(\d+)O?(?=\sless\b)", f"\\1 {LorcanaSymbols.INK}", cardText)
 		# It gets a bit confused about exert and payment, correct that
 		cardText = re.sub(r"^\(20 ", f"{LorcanaSymbols.EXERT}, 2 {LorcanaSymbols.INK} ", cardText)
