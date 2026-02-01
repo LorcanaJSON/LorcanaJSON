@@ -268,6 +268,8 @@ class ImageParser:
 								del labelCoords[-1]
 							continue
 						isTopLine = greyTextboxImage[lineRightY - 1, lineRightX] > greyTextboxImage[lineRightY + 1, lineRightX]  # Images use y,x
+						if not parseSettings.labelIsDarkerThanBackground:
+							isTopLine = not isTopLine
 						topY = bottomY = lineRightY
 						# Assume the height of the average label (it can vary based on font size, but accurately determining it is complicated, error-prone, and not really necessary)
 						if isTopLine:
