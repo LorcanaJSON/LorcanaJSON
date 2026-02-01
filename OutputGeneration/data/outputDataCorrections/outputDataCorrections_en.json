@@ -2670,10 +2670,10 @@
     ]
   },
   "2705": {
-    "_removeAbilitiesAtIndexes": [0],
-    "_addNameToAbilityAtIndex": [0, "ANCESTRAL LEGACY"],
     "abilities": [
-      "^CES.+",
+      "C$",
+      "GACY",
+      "^_.+ae$",
       "You can ink cards from\nyour discard."
     ],
     "artistsText": [
