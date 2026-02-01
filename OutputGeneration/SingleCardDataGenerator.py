@@ -370,6 +370,12 @@ def parseSingleCard(inputCard: Dict, ocrResult: OcrResult, externalLinksHandler:
 			if "abilities" not in outputCard:
 				_logger.warning(f"Correction to remove ability from {CardUtil.createCardIdentifier(outputCard)} but card doesn't have abilities")
 				removeAbilitiesAtIndexes = None
+		removeEffectsAtIndexes: Optional[List[int]] = None
+		if "_removeEffectsAtIndexes" in cardDataCorrections:
+			removeEffectsAtIndexes = cardDataCorrections.pop("_removeEffectsAtIndexes")
+			if "effects" not in outputCard:
+				_logger.warning(f"Correction to remove effect from {CardUtil.createCardIdentifier(outputCard)} but card doesn't have effects")
+				removeEffectsAtIndexes = None
 		for correctionAbilityField, abilityTypeCorrection in _ABILITY_TYPE_CORRECTION_FIELD_TO_ABILITY_TYPE.items():
 			if correctionAbilityField in cardDataCorrections:
 				abilityIndexToCorrect = cardDataCorrections.pop(correctionAbilityField)
@@ -416,6 +422,10 @@ def parseSingleCard(inputCard: Dict, ocrResult: OcrResult, externalLinksHandler:
 					outputCard["effects"].insert(effectIndex + 1, secondEffect)
 			# Splitting effects may lead to one or more effects being a keyword ability instead, correct that
 			for effectIndex in range(len(outputCard["effects"]) - 1, -1, -1):
+				if removeEffectsAtIndexes and effectIndex in removeEffectsAtIndexes:
+					_logger.info(f"Removing effect at index {effectIndex} in card {CardUtil.createCardIdentifier(outputCard)}")
+					outputCard["effects"].pop(effectIndex)
+					continue
 				effectText = outputCard["effects"][effectIndex]
 				if _KEYWORD_REGEX.match(effectText) or _KEYWORD_REGEX_WITHOUT_REMINDER.match(effectText):
 					_logger.info(f"Effect at index {effectIndex} is a keyword ability, moving it to 'abilities', in card {CardUtil.createCardIdentifier(outputCard)}")
