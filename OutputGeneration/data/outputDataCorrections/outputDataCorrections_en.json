@@ -2515,6 +2515,12 @@
       "I c"
     ]
   },
+  "2567": {
+    "abilities": [
+      "¤\n",
+      "⛉\n"
+    ]
+  },
   "2584": {
     "abilities": [
       "⟳ B",
@@ -2557,6 +2563,20 @@
       "⟳, "
     ]
   },
+  "2635": {
+    "flavorText": [
+      " I'l",
+      "'ll",
+      "!\n",
+      "I\n"
+    ]
+  },
+  "2637": {
+    "flavorText": [
+      "Lam",
+      "I am"
+    ]
+  },
   "2642": {
     "flavorText": [
       "n\\.",
@@ -2578,6 +2598,12 @@
   "2658": {
     "_forceAbilityIndexToTriggered": 0
   },
+  "2665": {
+    "abilities": [
+      "lf",
+      "If"
+    ]
+  },
   "2670": {
     "_effectAtIndexIsAbility": [0, "BRING YOUR FRIENDS"]
   },
@@ -2587,14 +2613,72 @@
       "1 ◊\n"
     ]
   },
+  "2679": {
+    "abilities": [
+      "0",
+      "O",
+      "⟳ B",
+      "⟳, B"
+    ]
+  },
+  "2686": {
+    "_effectAtIndexIsAbility": [0, "I'LL COUNT YOU IN"],
+    "effects": [
+      "^’.+N ",
+      ""
+    ]
+  },
   "2687": {
     "effects": [
       " ¤",
       ""
     ]
   },
+  "2690": {
+    "abilities": [
+      "¤",
+      "⬡",
+      "4",
+      "◊"
+    ]
+  },
+  "2692": {
+    "abilities": [
+      "⟳",
+      "¤"
+    ],
+    "artistsText": [
+      "laz",
+      "láz",
+      "Lop",
+      "Lóp"
+    ],
+    "subtypes": [
+      null,
+      [
+        "Storyborn",
+        "Hero",
+        "Princess"
+      ]
+    ]
+  },
   "2693": {
     "_skipFullTextSectionMergeAtIndex": 1
+  },
+  "2700": {
+    "_skipFullTextSectionMergeAtIndex": 1,
+    "effects": [
+      " :\n—",
+      "\n\n"
+    ]
+  },
+  "2703": {
+    "artistsText": [
+      "laz",
+      "láz",
+      "Lop",
+      "Lóp"
+    ]
   },
   "2704": {
     "_insertAbilityAtIndex": [0, "Shift 3 ⬡", 1, "When you play this character,\nif you used Shift to play her and none of your\ncharacters challenged this turn, characters can't\nchallenge until the start of your next turn.", "CALMING WORDS"],
