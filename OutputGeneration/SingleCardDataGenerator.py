@@ -433,7 +433,7 @@ def parseSingleCard(inputCard: Dict, ocrResult: OcrResult, externalLinksHandler:
 		# Sometimes ability names get missed, apply the correction to fix this
 		if addNameToAbilityAtIndex:
 			if addNameToAbilityAtIndex[0] >= len(outputCard["abilities"]):
-				_logger.error(f"Supplied name '{addNameToAbilityAtIndex[1]}' to add to ability at index {addNameToAbilityAtIndex[0]} of card {CardUtil.createCardIdentifier(outputCard)}, but maximum ability index is {len(outputCard['abilities'])}")
+				_logger.error(f"Supplied name '{addNameToAbilityAtIndex[1]}' to add to ability at index {addNameToAbilityAtIndex[0]} of card {CardUtil.createCardIdentifier(outputCard)}, but there are only {len(outputCard['abilities'])} abilities")
 			elif outputCard["abilities"][addNameToAbilityAtIndex[0]].get("name", None):
 				_logger.error(f"Supplied name '{addNameToAbilityAtIndex[1]}' to add to ability at index {addNameToAbilityAtIndex[0]} of card {CardUtil.createCardIdentifier(outputCard)}, but ability already has name '{outputCard['abilities'][addNameToAbilityAtIndex[0]]['name']}'")
 			else:
