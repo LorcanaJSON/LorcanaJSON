@@ -151,7 +151,11 @@ def createOutputFiles(onlyParseIds: Optional[List[int]] = None, shouldShowImages
 			pool.join()
 		# Convert threaded result getter to actual ocr result
 		for cardId, ocrResultGetter in ocrResultGetters.items():
-			ocrResults[cardId] = ocrResultGetter.get()
+			try:
+				ocrResults[cardId] = ocrResultGetter.get()
+			except Exception as e:
+				_logger.error(f"Exception occurred while getting OcrResult for card ID {cardId}. {type(e).__name__}: {e}")
+				raise e
 		del ocrResultGetters
 		_logger.info(f"Parsed OCR results after {time.perf_counter() - startTime} seconds")
 
