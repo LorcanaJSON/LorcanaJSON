@@ -176,10 +176,7 @@ class ImageParser:
 			result["identifier"] = self._getSubImageAndText(greyCardImage, cardLayout.identifier)
 
 		# Greyscale images work better, so get one from just the textbox
-		greyTextboxImage = self._getSubImage(greyCardImage, cardLayout.textbox)
-		if parseSettings.textboxOffset or parseSettings.textboxRightOffset:
-			self._logger.info(f"Shrinking textbox image, cutting {parseSettings.textboxOffset} pixels off the left side and {parseSettings.textboxRightOffset} off the right")
-			greyTextboxImage = greyTextboxImage[0:greyTextboxImage.shape[0], parseSettings.textboxOffset:greyTextboxImage.shape[1] - parseSettings.textboxRightOffset]
+		greyTextboxImage = self._getSubImage(greyCardImage, cardLayout.textbox, parseSettings.textboxOffset, parseSettings.textboxRightOffset*-1)
 		textboxWidth = greyTextboxImage.shape[1]
 		textboxHeight = greyTextboxImage.shape[0]
 
@@ -465,8 +462,8 @@ class ImageParser:
 		return ocrResult
 
 	@staticmethod
-	def _getSubImage(image, imageArea: ImageArea.ImageArea) -> cv2.Mat:
-		return image[imageArea.coords.top:imageArea.coords.bottom, imageArea.coords.left:imageArea.coords.right]
+	def _getSubImage(image, imageArea: ImageArea.ImageArea, offsetLeft: int = 0, offsetRight: int = 0) -> cv2.Mat:
+		return image[imageArea.coords.top:imageArea.coords.bottom, imageArea.coords.left+offsetLeft:imageArea.coords.right+offsetRight]
 
 	@staticmethod
 	def _convertToThresholdImage(greyscaleImage, textColour: ImageArea.TextColour) -> cv2.Mat:
