@@ -57,7 +57,8 @@
 <hr>
 <pre id="flavorText"></pre>
 <hr>
-Cost: <span id="cost-value"></span> | Inkwell: <span id="inkwell-value"></span> | Movecost: <span id="moveCost-value"></span> | Strength: <span id="strength-value"></span> | Willpower: <span id="willpower-value"></span> | Lore: <span id="lore-value"></span>
+Cost: <span id="cost-value"></span> | Inkwell: <span id="inkwell-value"></span> | Movecost: <span id="moveCost-value"></span> | Strength: <span id="strength-value"></span> | Willpower: <span id="willpower-value"></span> | Lore: <span id="lore-value"></span> ||
+Abilities: <span id="abilities-count"></span> | Effects: <span id="effects-count"></span>
 <hr>
 <pre id="cardJson" style="overflow-x: scroll;"></pre>
 <hr>
@@ -115,6 +116,9 @@ function setDisplayedIndex(newIndex, showErrorMessage=true) {
 	document.getElementById("story").textContent = currentCardData["story"] ? currentCardData["story"] : "???";
 	for (const fieldname of ["cost", "inkwell", "moveCost", "strength", "willpower", "lore"]) {
 		document.getElementById(fieldname + "-value").textContent = currentCardData[fieldname] === undefined ? "-" : currentCardData[fieldname];
+	}
+	for (const fieldname of ["abilities", "effects"]) {
+		document.getElementById(fieldname + "-count").textContent = currentCardData[fieldname] === undefined ? "-" : currentCardData[fieldname].length;
 	}
 	// Update the external links
 	const cardmarketLink = document.getElementById("cardmarketLink");
