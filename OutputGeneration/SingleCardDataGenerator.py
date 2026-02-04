@@ -202,6 +202,9 @@ def parseSingleCard(inputCard: Dict, ocrResult: OcrResult, externalLinksHandler:
 			if len(remainingTextLine) < 4:
 				_logger.info(f"Remaining text for card {CardUtil.createCardIdentifier(outputCard)} {remainingTextLine!r} is too short, discarding")
 				continue
+			if not re.search(r"\w{3,}", remainingTextLine):
+				_logger.info(f"Remaining text line {remainingTextLine!r} for card {CardUtil.createCardIdentifier(outputCard)} doesn't seem to contain any words, discarding")
+				continue
 			# Check if this is a keyword ability
 			if outputCard["type"] == GlobalConfig.translation.Item:
 				# Some items ("Peter Pan's Dagger", ID 351; "Sword in the Stone", ID 352) have an ability without an ability name label. Store these as abilities too
