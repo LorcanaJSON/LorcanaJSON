@@ -67,6 +67,7 @@ class ArtistsHandler:
 		correctedArtistText = re.sub("Le[éòöô]n", "León", correctedArtistText)
 		correctedArtistText = re.sub(r"^N(?=ichael)", "M", correctedArtistText)
 		correctedArtistText = re.sub(r"\bPe[^ñ]{,3}a\b", "Peña", correctedArtistText)
+		correctedArtistText = re.sub(r"\bVel[^á]zquez L.pez$", "Velázquez López", correctedArtistText)
 		if "“" in correctedArtistText:
 			# Simplify quotemarks
 			correctedArtistText = correctedArtistText.replace("“", "\"").replace("”", "\"")
