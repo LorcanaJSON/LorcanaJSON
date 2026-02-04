@@ -2497,6 +2497,12 @@
       "I c"
     ]
   },
+  "2566": {
+    "abilities": [
+      "\\(4",
+      "¤"
+    ]
+  },
   "2567": {
     "abilities": [
       "¤\n",
@@ -2641,6 +2647,18 @@
   "2693": {
     "_skipFullTextSectionMergeAtIndex": 1
   },
+  "2698": {
+    "abilities": [
+      "ts$",
+      "ft 4 ⬡"
+    ]
+  },
+  "2699": {
+    "abilities": [
+      " a\n",
+      "\n"
+    ]
+  },
   "2700": {
     "_skipFullTextSectionMergeAtIndex": 1,
     "effects": [
@@ -2648,6 +2666,10 @@
       "\n\n"
     ]
   },
+  "2701": {
+    "abilities": [
+      " ,",
+      ""
     ]
   },
   "2704": {
