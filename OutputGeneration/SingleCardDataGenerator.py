@@ -779,11 +779,6 @@ def _parseNameFields(inputCard: Dict, outputCard: Dict, ocrResult: OcrResult):
 		# This name is inconsistent, sometimes it has a capital 'M', sometimes a lowercase 'm'
 		# Comparing with capitalization of other cards, this should be a lowercase 'm'
 		outputCard["name"] = outputCard["name"].replace("M", "m")
-	elif GlobalConfig.language == Language.ENGLISH and outputCard["name"] == "Heihei":
-		# They're inconsistent about the spelling of 'HeiHei': Up to Set 6 they wrote it 'HeiHei' with the second 'H' capitalized,
-		# but starting from Set 7, they started writing it 'Heihei', with the second 'h' lowercase
-		# Searching around on non-Lorcana sources, the spelling isn't too consistent either, with sometimes 'Heihei' and sometimes 'Hei Hei'
-		outputCard["name"] = "HeiHei"
 	elif outputCard["name"].isupper() and outputCard["name"] not in ("B.E.N.", "I2I"):
 		# Some names have capitals in the middle, correct those
 		if outputCard["type"] == GlobalConfig.translation.Character:
@@ -798,6 +793,18 @@ def _parseNameFields(inputCard: Dict, outputCard: Dict, ocrResult: OcrResult):
 			outputCard["name"] = outputCard["name"][0] + outputCard["name"][1:].lower()
 		else:
 			outputCard["name"] = _toTitleCase(outputCard["name"])
+	elif GlobalConfig.language == Language.ENGLISH:
+		if outputCard["name"] == "Heihei":
+			# They're inconsistent about the spelling of 'HeiHei': Up to Set 6 they wrote it 'HeiHei' with the second 'H' capitalized,
+			# but starting from Set 7, they started writing it 'Heihei', with the second 'h' lowercase
+			# Searching around on non-Lorcana sources, the spelling isn't too consistent either, with sometimes 'Heihei' and sometimes 'Hei Hei'
+			outputCard["name"] = "HeiHei"
+		elif outputCard["name"] == "Vanellope Von Schweetz":
+			# They sometimes use 'Von' and sometimes 'von', it should be lowercase
+			outputCard["name"] = "Vanellope von Schweetz"
+		elif outputCard["name"] == "Wreck-it Ralph":
+			# They sometimes use a lower-case 'i', while the correct spelling is a capital 'I'
+			outputCard["name"] = "Wreck-It Ralph"
 	outputCard["fullName"] = outputCard["name"]
 	outputCard["simpleName"] = outputCard["fullName"]
 	if "subtitle" in inputCard or ocrResult.version:
