@@ -205,7 +205,7 @@
         "rotationGroup": 3
       },
       "Infinity": {
-        "allowed": false
+        "allowed": true
       }
     },
     "allowedInTournamentsFromDate": "2025-09-19"
