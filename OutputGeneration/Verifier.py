@@ -69,6 +69,10 @@ def compareInputToOutput(cardIdsToVerify: Optional[List[int]]):
 		cardIdAsString = str(cardId)
 		inputCard = idToInputCard[cardId]
 
+		# Global corrections
+		if inputCard["author"] == "Juan Pablo Velázquez":
+			# For some reason they repeatedly forgot to add the 'López' at the end
+			inputCard["author"] = "Juan Pablo Velázquez López"
 		# Implement overrides
 		listFieldLengthChange: Optional[Dict[str, int]] = None
 		symbolCountChange: Optional[Dict[str, int]] = None
