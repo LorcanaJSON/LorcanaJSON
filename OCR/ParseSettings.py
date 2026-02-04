@@ -153,6 +153,7 @@ _PARSE_SETTINGS_BY_ID: Dict[int, ParseSettings] = {
 	2669: dataclasses.replace(_DEFAULT_EPIC_PARSE_SETTINGS, labelStartThreshold=180, labelEndThreshold=185),
 	2687: dataclasses.replace(_PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["11"], cardLayout=CardLayout.NEW_ENCHANTED_SMALL_TEXTBOX),
 	2688: dataclasses.replace(_PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["11"], cardLayout=CardLayout.NEW_ENCHANTED_SMALL_TEXTBOX),
+	2691: dataclasses.replace(_PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["11"], cardLayout=CardLayout.NEW_ENCHANTED_SMALL_TEXTBOX),
 	2692: dataclasses.replace(_PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["11"], characterCardLayout=CardLayout.NEW_ENCHANTED_CHARACTER_SMALL_TEXTBOX),
 	2694: dataclasses.replace(_PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["11"], cardLayout=CardLayout.NEW_ENCHANTED_SMALL_TEXTBOX),
 	2702: dataclasses.replace(_PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["11"], typeImageTextColorOverride=ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND),
