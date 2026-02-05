@@ -386,7 +386,7 @@ def parseSingleCard(inputCard: Dict, ocrResult: OcrResult, externalLinksHandler:
 					_logger.error(f"Ability at index {abilityIndexToCorrect} in card {CardUtil.createCardIdentifier(outputCard)} is being corrected to two types: '{forceAbilityTypeAtIndex[abilityIndexToCorrect]}' and '{abilityTypeCorrection}'")
 				forceAbilityTypeAtIndex[abilityIndexToCorrect] = abilityTypeCorrection
 		addNameToAbilityAtIndex: Optional[List[Union[int, str]]] = cardDataCorrections.pop("_addNameToAbilityAtIndex", None)
-		effectAtIndexIsAbility: Union[int, List[int, str]] = cardDataCorrections.pop("_effectAtIndexIsAbility", -1)
+		effectAtIndexIsAbility: Union[int, List] = cardDataCorrections.pop("_effectAtIndexIsAbility", -1)
 		effectAtIndexIsFlavorText: int = cardDataCorrections.pop("_effectAtIndexIsFlavorText", -1)
 		externalLinksCorrection: Optional[List[str]] = cardDataCorrections.pop("externalLinks", None)
 		fullTextCorrection: Optional[List[str]] = cardDataCorrections.pop("fullText", None)
@@ -466,15 +466,18 @@ def parseSingleCard(inputCard: Dict, ocrResult: OcrResult, externalLinksHandler:
 			else:
 				if "abilities" not in outputCard:
 					outputCard["abilities"] = []
-				abilityNameForEffectIsAbility = ""
-				if isinstance(effectAtIndexIsAbility, list):
-					effectAtIndexIsAbility, abilityNameForEffectIsAbility = effectAtIndexIsAbility
-				_logger.info(f"Moving effect index {effectAtIndexIsAbility} to abilities")
-				abilityEffectText = outputCard["effects"].pop(effectAtIndexIsAbility)
-				if abilityNameForEffectIsAbility and abilityEffectText.startswith(abilityNameForEffectIsAbility):
-					_logger.info(f"Removing duplicate label '{abilityNameForEffectIsAbility}' from start of ability effect")
-					abilityEffectText = abilityEffectText[len(abilityNameForEffectIsAbility) + 1:]
-				outputCard["abilities"].append({"name": abilityNameForEffectIsAbility, "effect": abilityEffectText})
+				existingAbilityCount = len(outputCard["abilities"])
+				if isinstance(effectAtIndexIsAbility, int):
+					effectAtIndexIsAbility = [effectAtIndexIsAbility]
+				while effectAtIndexIsAbility:
+					abilityNameForEffectIsAbility = effectAtIndexIsAbility.pop() if isinstance(effectAtIndexIsAbility[-1], str) else None
+					effectIndex = effectAtIndexIsAbility.pop()
+					_logger.info(f"Moving effect index {effectIndex} to abilities")
+					abilityEffectText = outputCard["effects"].pop(effectIndex)
+					if abilityNameForEffectIsAbility and abilityEffectText.startswith(abilityNameForEffectIsAbility):
+						_logger.info(f"Removing duplicate label '{abilityNameForEffectIsAbility}' from start of ability effect")
+						abilityEffectText = abilityEffectText[len(abilityNameForEffectIsAbility) + 1:]
+					outputCard["abilities"].insert(existingAbilityCount,{"name": abilityNameForEffectIsAbility, "effect": abilityEffectText})
 				if len(outputCard["effects"]) == 0:
 					del outputCard["effects"]
 		if effectAtIndexIsFlavorText != -1:
