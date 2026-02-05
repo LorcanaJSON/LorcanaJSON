@@ -2739,5 +2739,44 @@
       " a.+$",
       ""
     ]
+  },
+  "2706": {
+    "abilities": [
+      "^o",
+      "Fo"
+    ],
+    "flavorText": [
+      "-",
+      "—"
+    ]
+  },
+  "2707": {
+    "_moveKeywordsLast": true,
+    "abilities": [
+      "^SE ",
+      "",
+      "^I ",
+      "If ",
+      "\neae$",
+      ""
+    ]
+  },
+  "2708": {
+    "abilities": [
+      "^SE ",
+      "",
+      "ee I ",
+      "If "
+    ]
+  },
+  "2710": {
+    "abilities": [
+      "^Se ",
+      ""
+    ],
+    "flavorText": [
+      "-",
+      "—"
+    ]
   }
 }
