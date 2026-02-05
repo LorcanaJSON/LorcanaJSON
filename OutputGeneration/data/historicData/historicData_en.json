@@ -11,6 +11,54 @@
       "usedUntil": "2023-09-29"
     }
   ],
+  "142": [
+    {
+      "abilities": [
+        {
+          "effect": "During your turn, you may put an additional card from your hand into your inkwell facedown.",
+          "fullText": "READ A BOOK During your turn, you may put an additional\ncard from your hand into your inkwell facedown.",
+          "name": "READ A BOOK",
+          "type": "static"
+        },
+        {
+          "effect": "While you have 10 or more cards in your inkwell, this character gets +4 \u25ca.",
+          "fullText": "MY FAVORITE PART! While you have 10 or more cards in\nyour inkwell, this character gets +4 \u25ca.",
+          "name": "MY FAVORITE PART!",
+          "type": "static"
+        }
+      ],
+      "fullText": "READ A BOOK During your turn, you may put an additional\ncard from your hand into your inkwell facedown.\nMY FAVORITE PART! While you have 10 or more cards in\nyour inkwell, this character gets +4 \u25ca.",
+      "fullTextSections": [
+        "READ A BOOK During your turn, you may put an additional\ncard from your hand into your inkwell facedown.",
+        "MY FAVORITE PART! While you have 10 or more cards in\nyour inkwell, this character gets +4 \u25ca."
+      ],
+      "usedUntil": "2026-02-05"
+    }
+  ],
+  "214": [
+    {
+      "abilities": [
+        {
+          "effect": "During your turn, you may put an additional card from your hand into your inkwell facedown.",
+          "fullText": "READ A BOOK During your turn, you may put an additional\ncard from your hand into your inkwell facedown.",
+          "name": "READ A BOOK",
+          "type": "static"
+        },
+        {
+          "effect": "While you have 10 or more cards in your inkwell, this character gets +4 \u25ca.",
+          "fullText": "MY FAVORITE PART! While you have 10 or more cards in\nyour inkwell, this character gets +4 \u25ca.",
+          "name": "MY FAVORITE PART!",
+          "type": "static"
+        }
+      ],
+      "fullText": "READ A BOOK During your turn, you may put an additional\ncard from your hand into your inkwell facedown.\nMY FAVORITE PART! While you have 10 or more cards in\nyour inkwell, this character gets +4 \u25ca.",
+      "fullTextSections": [
+        "READ A BOOK During your turn, you may put an additional\ncard from your hand into your inkwell facedown.",
+        "MY FAVORITE PART! While you have 10 or more cards in\nyour inkwell, this character gets +4 \u25ca."
+      ],
+      "usedUntil": "2026-02-05"
+    }
+  ],
   "289": [
     {
       "abilities": [
@@ -247,6 +295,18 @@
       ],
       "subtypesText": "Dreamborn \u2022 Ally",
       "usedUntil": "2025-02-26"
+    }
+  ],
+  "1362": [
+    {
+      "effects": [
+        "This turn, you may put an additional card from your\nhand into your inkwell facedown. Draw a card."
+      ],
+      "fullText": "This turn, you may put an additional card from your\nhand into your inkwell facedown. Draw a card.",
+      "fullTextSections": [
+        "This turn, you may put an additional card from your\nhand into your inkwell facedown. Draw a card."
+      ],
+      "usedUntil": "2026-02-05"
     }
   ],
   "2291": [

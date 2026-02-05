@@ -65,6 +65,30 @@
       "usedUntil": "2024-08-23"
     }
   ],
+  "142": [
+    {
+      "abilities": [
+        {
+          "effect": "Du darfst in deinem Zug 1 zus\u00e4tzliche Karte aus deiner Hand verdeckt in deinen Tintenvorrat legen.",
+          "fullText": "LIES EIN BUCH! Du darfst in deinem Zug 1 zus\u00e4tzliche Karte\naus deiner Hand verdeckt in deinen Tintenvorrat legen.",
+          "name": "LIES EIN BUCH!",
+          "type": "static"
+        },
+        {
+          "effect": "Solange du 10 oder mehr Karten in deinem Tintenvorrat hast, erh\u00e4lt dieser Charakter +4 \u25ca.",
+          "fullText": "MEIN LIEBLINGSBUCH Solange du 10 oder mehr Karten in\ndeinem Tintenvorrat hast, erh\u00e4lt dieser Charakter +4 \u25ca.",
+          "name": "MEIN LIEBLINGSBUCH",
+          "type": "static"
+        }
+      ],
+      "fullText": "LIES EIN BUCH! Du darfst in deinem Zug 1 zus\u00e4tzliche Karte\naus deiner Hand verdeckt in deinen Tintenvorrat legen.\nMEIN LIEBLINGSBUCH Solange du 10 oder mehr Karten in\ndeinem Tintenvorrat hast, erh\u00e4lt dieser Charakter +4 \u25ca.",
+      "fullTextSections": [
+        "LIES EIN BUCH! Du darfst in deinem Zug 1 zus\u00e4tzliche Karte\naus deiner Hand verdeckt in deinen Tintenvorrat legen.",
+        "MEIN LIEBLINGSBUCH Solange du 10 oder mehr Karten in\ndeinem Tintenvorrat hast, erh\u00e4lt dieser Charakter +4 \u25ca."
+      ],
+      "usedUntil": "2026-02-05"
+    }
+  ],
   "177": [
     {
       "abilities": [
@@ -128,6 +152,30 @@
         "ALLE F\u00dcR EINEN Deine anderen Musketiere\nerhalten +1 \u00a4."
       ],
       "usedUntil": "2024-08-23"
+    }
+  ],
+  "214": [
+    {
+      "abilities": [
+        {
+          "effect": "Du darfst in deinem Zug 1 zus\u00e4tzliche Karte aus deiner Hand verdeckt in deinen Tintenvorrat legen.",
+          "fullText": "LIES EIN BUCH! Du darfst in deinem Zug 1 zus\u00e4tzliche Karte\naus deiner Hand verdeckt in deinen Tintenvorrat legen.",
+          "name": "LIES EIN BUCH!",
+          "type": "static"
+        },
+        {
+          "effect": "Solange du 10 oder mehr Karten in deinem Tintenvorrat hast, erh\u00e4lt dieser Charakter +4 \u25ca.",
+          "fullText": "MEIN LIEBLINGSBUCH Solange du 10 oder mehr Karten in\ndeinem Tintenvorrat hast, erh\u00e4lt dieser Charakter +4 \u25ca.",
+          "name": "MEIN LIEBLINGSBUCH",
+          "type": "static"
+        }
+      ],
+      "fullText": "LIES EIN BUCH! Du darfst in deinem Zug 1 zus\u00e4tzliche Karte\naus deiner Hand verdeckt in deinen Tintenvorrat legen.\nMEIN LIEBLINGSBUCH Solange du 10 oder mehr Karten in\ndeinem Tintenvorrat hast, erh\u00e4lt dieser Charakter +4 \u25ca.",
+      "fullTextSections": [
+        "LIES EIN BUCH! Du darfst in deinem Zug 1 zus\u00e4tzliche Karte\naus deiner Hand verdeckt in deinen Tintenvorrat legen.",
+        "MEIN LIEBLINGSBUCH Solange du 10 oder mehr Karten in\ndeinem Tintenvorrat hast, erh\u00e4lt dieser Charakter +4 \u25ca."
+      ],
+      "usedUntil": "2026-02-05"
     }
   ],
   "242": [
@@ -600,6 +648,18 @@
       ],
       "subtypesText": "Traumgestalt \u2022 Verb\u00fcndeter",
       "usedUntil": "2025-02-26"
+    }
+  ],
+  "1362": [
+    {
+      "effects": [
+        "Du darfst in diesem Zug 1 weitere Karte aus deiner Hand\nverdeckt in deinen Tintenvorrat legen. Ziehe 1 Karte."
+      ],
+      "fullText": "Du darfst in diesem Zug 1 weitere Karte aus deiner Hand\nverdeckt in deinen Tintenvorrat legen. Ziehe 1 Karte.",
+      "fullTextSections": [
+        "Du darfst in diesem Zug 1 weitere Karte aus deiner Hand\nverdeckt in deinen Tintenvorrat legen. Ziehe 1 Karte."
+      ],
+      "usedUntil": "2026-02-05"
     }
   ],
   "1613": [

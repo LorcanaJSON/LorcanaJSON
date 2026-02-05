@@ -40,6 +40,30 @@
       "usedUntil": "2025-08-07"
     }
   ],
+  "142": [
+    {
+      "abilities": [
+        {
+          "effect": "\u00c0 chaque tour, vous pouvez placer une carte suppl\u00e9mentaire de votre main dans votre r\u00e9serve d'encre.",
+          "fullText": "LIRE UN LIVRE \u00c0 chaque tour, vous pouvez placer une carte\nsuppl\u00e9mentaire de votre main dans votre r\u00e9serve d'encre.",
+          "name": "LIRE UN LIVRE",
+          "type": "static"
+        },
+        {
+          "effect": "Tant que vous avez 10 cartes ou plus dans votre r\u00e9serve d'encre, ce personnage a +4 \u25ca.",
+          "fullText": "MON PASSAGE PR\u00c9F\u00c9R\u00c9 ! Tant que vous avez 10 cartes ou\nplus dans votre r\u00e9serve d'encre, ce personnage a +4 \u25ca.",
+          "name": "MON PASSAGE PR\u00c9F\u00c9R\u00c9 !",
+          "type": "static"
+        }
+      ],
+      "fullText": "LIRE UN LIVRE \u00c0 chaque tour, vous pouvez placer une carte\nsuppl\u00e9mentaire de votre main dans votre r\u00e9serve d'encre.\nMON PASSAGE PR\u00c9F\u00c9R\u00c9 ! Tant que vous avez 10 cartes ou\nplus dans votre r\u00e9serve d'encre, ce personnage a +4 \u25ca.",
+      "fullTextSections": [
+        "LIRE UN LIVRE \u00c0 chaque tour, vous pouvez placer une carte\nsuppl\u00e9mentaire de votre main dans votre r\u00e9serve d'encre.",
+        "MON PASSAGE PR\u00c9F\u00c9R\u00c9 ! Tant que vous avez 10 cartes ou\nplus dans votre r\u00e9serve d'encre, ce personnage a +4 \u25ca."
+      ],
+      "usedUntil": "2026-02-05"
+    }
+  ],
   "177": [
     {
       "abilities": [
@@ -112,6 +136,30 @@
         "PETIT PIRATE ! Lorsque ce personnage en bannit un autre\nvia un d\u00e9fi durant votre tour, vous pouvez choisir un\npersonnage adverse et lui infliger 2 dommages."
       ],
       "usedUntil": "2024-08-23"
+    }
+  ],
+  "214": [
+    {
+      "abilities": [
+        {
+          "effect": "\u00c0 chaque tour, vous pouvez placer une carte suppl\u00e9mentaire de votre main dans votre r\u00e9serve d'encre.",
+          "fullText": "LIRE UN LIVRE \u00c0 chaque tour, vous pouvez placer une carte\nsuppl\u00e9mentaire de votre main dans votre r\u00e9serve d'encre.",
+          "name": "LIRE UN LIVRE",
+          "type": "static"
+        },
+        {
+          "effect": "Tant que vous avez 10 cartes ou plus dans votre r\u00e9serve d'encre, ce personnage a +4 \u25ca.",
+          "fullText": "MON PASSAGE PR\u00c9F\u00c9R\u00c9 ! Tant que vous avez 10 cartes ou\nplus dans votre r\u00e9serve d'encre, ce personnage a +4 \u25ca.",
+          "name": "MON PASSAGE PR\u00c9F\u00c9R\u00c9 !",
+          "type": "static"
+        }
+      ],
+      "fullText": "LIRE UN LIVRE \u00c0 chaque tour, vous pouvez placer une carte\nsuppl\u00e9mentaire de votre main dans votre r\u00e9serve d'encre.\nMON PASSAGE PR\u00c9F\u00c9R\u00c9 ! Tant que vous avez 10 cartes ou\nplus dans votre r\u00e9serve d'encre, ce personnage a +4 \u25ca.",
+      "fullTextSections": [
+        "LIRE UN LIVRE \u00c0 chaque tour, vous pouvez placer une carte\nsuppl\u00e9mentaire de votre main dans votre r\u00e9serve d'encre.",
+        "MON PASSAGE PR\u00c9F\u00c9R\u00c9 ! Tant que vous avez 10 cartes ou\nplus dans votre r\u00e9serve d'encre, ce personnage a +4 \u25ca."
+      ],
+      "usedUntil": "2026-02-05"
     }
   ],
   "216": [
@@ -555,6 +603,18 @@
       ],
       "subtypesText": "Dreamborn \u2022 Alli\u00e9",
       "usedUntil": "2025-02-26"
+    }
+  ],
+  "1362": [
+    {
+      "effects": [
+        "Ce tour-ci, vous pouvez placer une carte\nsuppl\u00e9mentaire de votre main dans votre r\u00e9serve\nd'encre, face cach\u00e9e. Piochez une carte."
+      ],
+      "fullText": "Ce tour-ci, vous pouvez placer une carte\nsuppl\u00e9mentaire de votre main dans votre r\u00e9serve\nd'encre, face cach\u00e9e. Piochez une carte.",
+      "fullTextSections": [
+        "Ce tour-ci, vous pouvez placer une carte\nsuppl\u00e9mentaire de votre main dans votre r\u00e9serve\nd'encre, face cach\u00e9e. Piochez une carte."
+      ],
+      "usedUntil": "2026-02-05"
     }
   ]
 }
