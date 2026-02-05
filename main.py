@@ -182,6 +182,7 @@ if __name__ == '__main__':
 			if updateCheckResult.hasChanges():
 				if updateCheckResult.newCards:
 					_infoOrPrint(logger, f"{len(updateCheckResult.newCards):,} added cards: {', '.join([str(card) for card in updateCheckResult.newCards])}")
+					_infoOrPrint(logger, f"    Added IDs: {' '.join(sorted([str(card.id) for card in updateCheckResult.newCards]))}")
 				if updateCheckResult.changedCards:
 					# Count which fields changed
 					fieldsChanged = {}
