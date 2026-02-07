@@ -2583,9 +2583,6 @@
       "—"
     ]
   },
-  "2658": {
-    "_forceAbilityIndexToTriggered": 0
-  },
   "2665": {
     "abilities": [
       "lf",
@@ -2751,7 +2748,6 @@
     ]
   },
   "2707": {
-    "_moveKeywordsLast": true,
     "abilities": [
       "^SE ",
       "",
