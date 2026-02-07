@@ -64,6 +64,8 @@ def correctText(cardText: str) -> str:
 	cardText = re.sub(fr"^[^\n]{{,15}}\n(?=(?:[A-Z]\w+[ -])?{GlobalConfig.translation.shift})", "", cardText)
 	# Cards can grant abilities, written in quotemarks. These can never start with a Strength symbol, that should be Exert
 	cardText = cardText.replace(f"“{LorcanaSymbols.STRENGTH}", f"“{LorcanaSymbols.EXERT}")
+	# Sometimes in ability costs, the comma between 'Exert' and an ink cost gets missed
+	cardText = re.sub(fr"(?<={LorcanaSymbols.EXERT}) (?=\d)", ", ", cardText)
 
 	if GlobalConfig.language == Language.ENGLISH:
 		cardText = re.sub("^‘", "“", cardText, flags=re.MULTILINE)
