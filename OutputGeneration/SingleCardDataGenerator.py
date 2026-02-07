@@ -873,7 +873,9 @@ def _parseSubtypes(subtypesText: Optional[str], outputCard: Dict):
 		subtypes[subtypes.index(sevenDwarvesCheckTypes[0])] = " ".join(sevenDwarvesCheckTypes)
 	for subtypeIndex in range(len(subtypes) - 1, -1, -1):
 		subtype = subtypes[subtypeIndex]
-		if GlobalConfig.language in (Language.ENGLISH, Language.FRENCH) and subtype != "Floodborn" and re.match(r"^[EF][il][aeo][aeo]d[^b]?b?[^b]?[aeo](r[an][es+-]?|m)$", subtype):
+		if subtype == "Fantme":
+			subtypes[subtypeIndex] = "Fantôme"
+		elif GlobalConfig.language in (Language.ENGLISH, Language.FRENCH) and subtype != "Floodborn" and re.match(r"^[EF][il][aeo][aeo]d[^b]?b?[^b]?[aeo](r[an][es+-]?|m)$", subtype):
 			_logger.debug(f"Correcting '{subtype}' to 'Floodborn'")
 			subtypes[subtypeIndex] = "Floodborn"
 		elif GlobalConfig.language == Language.ENGLISH and subtype != "Hero" and re.match(r"e?H[eo]r[aeos]", subtype):
