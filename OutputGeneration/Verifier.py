@@ -252,6 +252,13 @@ def compareInputToOutput(cardIdsToVerify: Optional[List[int]]):
 					if len(outputCard[fieldname]) != expectedListLength:
 						cardDifferencesCount += 1
 						print(f"{cardId}: '{fieldname}' doesn't have same length in {GlobalConfig.language.englishName} and English: length is {len(outputCard[fieldname])} in {GlobalConfig.language.englishName} but {expectedListLength} in English")
+					elif len(outputCard[fieldname]) > 0 and isinstance(outputCard[fieldname][0], dict):
+						# Check if English and other-language dictionaries have the same keys
+						for listIndex, listEntry in enumerate(outputCard[fieldname]):
+							englishEntry = englishCard[fieldname][listIndex]
+							if len(listEntry) != len(englishEntry):
+								cardDifferencesCount += 1
+								print(f"{cardId}: Entry index {listIndex} of list field '{fieldname}' has {len(listEntry)} entries in {GlobalConfig.language.englishName} but {len(englishEntry)} in English")
 				elif outputCard[fieldname] != englishCard[fieldname]:
 					cardDifferencesCount += 1
 					print(f"{cardId}: '{fieldname}' differs between {GlobalConfig.language.englishName} '{outputCard[fieldname]}' and English '{englishCard[fieldname]}'")
