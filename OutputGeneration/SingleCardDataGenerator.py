@@ -451,7 +451,11 @@ def parseSingleCard(inputCard: Dict, ocrResult: OcrResult, externalLinksHandler:
 				_logger.error(f"Supplied name '{addNameToAbilityAtIndex[1]}' to add to ability at index {addNameToAbilityAtIndex[0]} of card {CardUtil.createCardIdentifier(outputCard)}, but ability already has name '{outputCard['abilities'][addNameToAbilityAtIndex[0]]['name']}'")
 			else:
 				_logger.info(f"Adding ability name '{addNameToAbilityAtIndex[1]}' to ability index {addNameToAbilityAtIndex[0]} for card {CardUtil.createCardIdentifier(outputCard)}")
-				outputCard["abilities"][addNameToAbilityAtIndex[0]]["name"] = addNameToAbilityAtIndex[1]
+				ability = outputCard["abilities"][addNameToAbilityAtIndex[0]]
+				ability["name"] = addNameToAbilityAtIndex[1]
+				if ability["effect"].startswith(addNameToAbilityAtIndex[1]):
+					_logger.info(f"Ability effect already started with ability name, removing, from card {CardUtil.createCardIdentifier(outputCard)}")
+					ability["effect"] = ability["effect"][len(addNameToAbilityAtIndex[1])+1:]
 
 		# Merge effects if requested
 		# Do this before potentially moving effects to abilities, so the merged effect moves instead of just the first part
