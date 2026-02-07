@@ -35,7 +35,7 @@ class ArtistsHandler:
 		correctedArtistText = inputArtistText.lstrip(". ").replace("’", "'").replace("|", "l").replace("NM", "M")
 		correctedArtistText = re.sub(r"(^l|\[)", "I", correctedArtistText)
 		correctedArtistText = correctedArtistText.replace(" 0. ", " O. ")
-		while re.search(r" [a-zAè0-9ÿI|(){\\/_+*%.,;'‘”#¥©=—-]{1,2}$", correctedArtistText):
+		while re.search(r" [a-zAè0-9ÿI|(){\\/_+*%.,;'‘\"”#¥©=—-]{1,2}$", correctedArtistText):
 			correctedArtistText = correctedArtistText.rsplit(" ", 1)[0]
 		correctedArtistText = correctedArtistText.rstrip(".")
 		if "ggman-Sund" in correctedArtistText:
