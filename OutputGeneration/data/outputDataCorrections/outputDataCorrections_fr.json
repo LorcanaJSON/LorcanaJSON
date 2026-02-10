@@ -3466,5 +3466,481 @@
       "z$",
       "z\nune carte.”"
     ]
+  },
+  "2467": {
+    "flavorText": [
+      "li",
+      "Ti"
+    ]
+  },
+  "2473": {
+    "flavorText": [
+      "l'",
+      "L'"
+    ]
+  },
+  "2479": {
+    "flavorText": [
+      "ao",
+      "aa"
+    ]
+  },
+  "2481": {
+    "flavorText": [
+      " A",
+      " ‘A",
+      "a \\.",
+      "a’."
+    ]
+  },
+  "2489": {
+    "flavorText": [
+      ",”",
+      ".”"
+    ]
+  },
+  "2492": {
+    "flavorText": [
+      "tok",
+      "tak"
+    ]
+  },
+  "2498": {
+    "flavorText": [
+      "\n",
+      " ",
+      "^J",
+      "“J",
+      "v a",
+      "va",
+      "b j",
+      "bi",
+      "u e",
+      "ue",
+      "\\.\\)",
+      " je",
+      "se rai is",
+      "serais",
+      "pre mie ièr e",
+      "première",
+      "b as ",
+      "bas",
+      "9Ù imb",
+      "Simba !”"
+    ]
+  },
+  "2503": {
+    "flavorText": [
+      "’$",
+      ".”"
+    ]
+  },
+  "2505": {
+    "abilities": [
+      "4",
+      "◊"
+    ]
+  },
+  "2511": {
+    "abilities": [
+      "/",
+      "7"
+    ]
+  },
+  "2513": {
+    "abilities": [
+      "¤",
+      "⬡",
+      "4",
+      "◊"
+    ]
+  },
+  "2518": {
+    "flavorText": [
+      "^l",
+      "L"
+    ]
+  },
+  "2524": {
+    "effects": [
+      "-",
+      "•"
+    ]
+  },
+  "2526": {
+    "flavorText": [
+      "ron",
+      "ran",
+      "la",
+      "Ta"
+    ]
+  },
+  "2529": {
+    "abilities": [
+      "à",
+      "a"
+    ]
+  },
+  "2532": {
+    "abilities": [
+      "Ç",
+      "¤"
+    ],
+    "flavorText": [
+      "\\.”",
+      "…”"
+    ]
+  },
+  "2547": {
+    "abilities": [
+      "¤",
+      "◊"
+    ]
+  },
+  "2548": {
+    "abilities": [
+      "JT",
+      "J'T",
+      "IT",
+      "I T"
+    ]
+  },
+  "2556": {
+    "abilities": [
+      "aae",
+      "age"
+    ]
+  },
+  "2559": {
+    "flavorText": [
+      "\\.",
+      "…"
+    ]
+  },
+  "2560": {
+    "effects": [
+      "⟳ — ",
+      "• "
+    ]
+  },
+  "2566": {
+    "abilities": [
+      " Q ",
+      " ¤ "
+    ]
+  },
+  "2567": {
+    "abilities": [
+      "¤ p",
+      "⛉ p"
+    ]
+  },
+  "2569": {
+    "flavorText": [
+      "\\.",
+      "…"
+    ]
+  },
+  "2571": {
+    "abilities": [
+      "D",
+      "¤"
+    ]
+  },
+  "2577": {
+    "abilities": [
+      "#",
+      "+"
+    ]
+  },
+  "2582": {
+    "flavorText": [
+      " \\.",
+      " !"
+    ]
+  },
+  "2583": {
+    "flavorText": [
+      "E",
+      "É"
+    ]
+  },
+  "2584": {
+    "flavorText": [
+      "mo",
+      "ma"
+    ]
+  },
+  "2586": {
+    "abilities": [
+      "L¤",
+      "¤"
+    ]
+  },
+  "2592": {
+    "effects": [
+      "z$",
+      "z\n2 cartes."
+    ]
+  },
+  "2597": {
+    "abilities": [
+      "¤",
+      "⛉"
+    ]
+  },
+  "2617": {
+    "abilities": [
+      "CA",
+      "ÇA"
+    ]
+  },
+  "2620": {
+    "abilities": [
+      "\\+\n",
+      "◊\n"
+    ]
+  },
+  "2624": {
+    "flavorText": [
+      "\\.",
+      "…"
+    ]
+  },
+  "2631": {
+    "abilities": [
+      "\nUn",
+      "\nun"
+    ]
+  },
+  "2642": {
+    "abilities": [
+      "à",
+      "a"
+    ]
+  },
+  "2647": {
+    "flavorText": [
+      "'o",
+      "'a"
+    ]
+  },
+  "2648": {
+    "flavorText": [
+      "'e",
+      "'c"
+    ]
+  },
+  "2653": {
+    "flavorText": [
+      "kdy",
+      "kly"
+    ]
+  },
+  "2662": {
+    "flavorText": [
+      "zoy",
+      "zay"
+    ]
+  },
+  "2670": {
+    "_effectAtIndexIsAbility": [0, "AMÈNE TES AMIS"]
+  },
+  "2681": {
+    "abilities": [
+      "E$",
+      "É"
+    ]
+  },
+  "2689": {
+    "abilities": [
+      " 29",
+      ""
+    ]
+  },
+  "2690": {
+    "_addNameToAbilityAtIndex": [1, "CŒUR CHALEUREUX"],
+    "abilities": [
+      "r0 ¤",
+      "r 0 ⬡",
+      "\\.\nC",
+      ".\n\nC",
+      "À",
+      "◊"
+    ]
+  },
+  "2691": {
+    "artistsText": [
+      "q",
+      "g"
+    ]
+  },
+  "2692": {
+    "abilities": [
+      "RKRAI",
+      "RAÎ",
+      "AIVUURKEVA",
+      "RIGOUREUX",
+      " GI",
+      "",
+      "HaQUE",
+      "Chaque",
+      "TOIS",
+      "fois",
+      " Le",
+      " ce",
+      "XX",
+      "¤"
+    ],
+    "subtypes": [
+      null,
+      [
+        "Storyborn",
+        "Héros",
+        "Princesse"
+      ]
+    ]
+  },
+  "2696": {
+    "abilities": [
+      "3 o",
+      "3 ¤ o"
+    ]
+  },
+  "2698": {
+    "effects": [
+      "⬡.+$",
+      "⬡"
+    ]
+  },
+  "2699": {
+    "abilities": [
+      " d\n",
+      "\n"
+    ]
+  },
+  "2700": {
+    "abilities": [
+      "¤",
+      "◊"
+    ]
+  },
+  "2704": {
+    "_insertAbilityAtIndex": [
+      0,
+      "Alter 3 ⬡"
+    ],
+    "abilities": [
+      " J$",
+      "",
+      "e, ",
+      "e ",
+      "[\"”{})£x-]",
+      " ",
+      "eyv",
+      "e v",
+      "epa.+San",
+      "capacité Alter, si aucun",
+      "tn aj",
+      " n'a ",
+      "J",
+      " ",
+      "r citles",
+      "r-ci, les",
+      "nnen ur",
+      "nnages",
+      "u aul",
+      "u'au ",
+      "\\. +",
+      " ",
+      " eg\n",
+      "\n",
+      " SRE.+$",
+      "."
+    ],
+    "artistsText": [
+      "oR",
+      "o R",
+      "uso",
+      "usso"
+    ]
+  },
+  "2705": {
+    "abilities": [
+      "^cart",
+      "Vous pouvez encrer les\ncart",
+      "y",
+      " ",
+      "eld",
+      "e d",
+      ": ie",
+      "."
+    ],
+    "artistsText": [
+      "#.+$",
+      ""
+    ]
+  },
+  "2706": {
+    "abilities": [
+      "^MN ",
+      ""
+    ],
+    "flavorText": [
+      "”\n.+$",
+      "”"
+    ]
+  },
+  "2707": {
+    "abilities": [
+      "^MN ",
+      "",
+      "\\).+$",
+      ")"
+    ]
+  },
+  "2708": {
+    "abilities": [
+      "^LE ",
+      "",
+      "⟳",
+      "¤",
+      "^M ",
+      ""
+    ],
+    "flavorText": [
+      "\n.+$",
+      ""
+    ]
+  },
+  "2710": {
+    "abilities": [
+      "^M ",
+      ""
+    ],
+    "flavorText": [
+      "ao",
+      "aa",
+      "\n.+$",
+      ""
+    ]
+  },
+  "2711": {
+    "abilities": [
+      "/",
+      "7"
+    ]
+  },
+  "2712": {
+    "abilities": [
+      "/",
+      "7"
+    ]
+  },
+  "2713": {
+    "flavorText": [
+      "'e",
+      "'c"
+    ]
   }
 }
