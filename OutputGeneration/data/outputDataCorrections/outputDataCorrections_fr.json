@@ -254,6 +254,22 @@
       "nn"
     ]
   },
+  "142": {
+    "_effectAtIndexIsAbility": [0, "LIRE UN LIVRE", 1, "MON PASSAGE PRÉFÉRÉ !"],
+    "_effectAtIndexIsFlavorText": 0,
+    "artistsText": [
+      "AII.+NI$",
+      "Alice Pisoni"
+    ],
+    "effects": [
+      "\\.\nT",
+      ".\n\nT",
+      "¤",
+      "◊",
+      "\\.\n“",
+      ".\n\n“"
+    ]
+  },
   "146": {
     "flavorText": [
       "lala",
@@ -384,6 +400,16 @@
     "abilities": [
       "LI",
       "L I"
+    ]
+  },
+  "214": {
+    "abilities": [
+      " \\|",
+      ""
+    ],
+    "artistsText": [
+      "^V.+O$",
+      "Valerio Buonfantino"
     ]
   },
   "216": {
@@ -558,7 +584,6 @@
   },
   "338": {
     "abilities": [
-
       "I ne",
       "Il ne"
     ]
@@ -2626,10 +2651,6 @@
       "MÉ",
       "⟳",
       "◉"
-    ],
-    "effects": [
-      null,
-      null
     ]
   },
   "1893": {
