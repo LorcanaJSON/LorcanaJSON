@@ -90,7 +90,11 @@ def compareInputToOutput(cardIdsToVerify: Optional[List[int]]):
 						else:
 							print(f"ERROR: Correction override number {regexMatch} does not match actual input card value {inputCard[fieldName]} for field '{fieldName}' in card {cardId}")
 					else:
-						inputCard[fieldName], correctionCount = re.subn(regexMatch, correctionText, inputCard[fieldName])
+						try:
+							inputCard[fieldName], correctionCount = re.subn(regexMatch, correctionText, inputCard[fieldName])
+						except Exception as e:
+							print(f"ERROR: Invalid regex {regexMatch!r} with correction text {correctionText!r} for card {cardId}; Exception {type(e).__name__}: {e}")
+							raise e
 						if correctionCount == 0:
 							print(f"ERROR: Invalid correction override {regexMatch!r} for field '{fieldName}' for card ID {cardId}")
 
