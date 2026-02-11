@@ -74,10 +74,12 @@ def compareInputToOutput(cardIdsToVerify: Optional[List[int]]):
 			# For some reason they repeatedly forgot to add the 'López' at the end
 			inputCard["author"] = "Juan Pablo Velázquez López"
 		# Implement overrides
+		listEntryLengthChange: Optional[Dict[str, List[int, int]]] = None
 		listFieldLengthChange: Optional[Dict[str, int]] = None
 		symbolCountChange: Optional[Dict[str, int]] = None
 		if cardIdAsString in inputOverrides:
 			inputOverridesForCard = inputOverrides[cardIdAsString]
+			listEntryLengthChange = inputOverridesForCard.pop("_listEntryLengthChange", None)
 			listFieldLengthChange = inputOverridesForCard.pop("_listFieldLengthChange", None)
 			symbolCountChange = inputOverridesForCard.pop("_symbolCountChange", None)
 			for fieldName, correctionsTuple in inputOverridesForCard.items():
@@ -260,7 +262,10 @@ def compareInputToOutput(cardIdsToVerify: Optional[List[int]]):
 						# Check if English and other-language dictionaries have the same keys
 						for listIndex, listEntry in enumerate(outputCard[fieldname]):
 							englishEntry = englishCard[fieldname][listIndex]
-							if len(listEntry) != len(englishEntry):
+							expectedEntryLength = len(englishEntry)
+							if listEntryLengthChange and fieldname in listEntryLengthChange and listIndex == listEntryLengthChange[fieldname][0]:
+								expectedEntryLength += listEntryLengthChange[fieldname][1]
+							if len(listEntry) != expectedEntryLength:
 								cardDifferencesCount += 1
 								print(f"{cardId}: Entry index {listIndex} of list field '{fieldname}' has {len(listEntry)} entries in {GlobalConfig.language.englishName} but {len(englishEntry)} in English")
 				elif outputCard[fieldname] != englishCard[fieldname]:
