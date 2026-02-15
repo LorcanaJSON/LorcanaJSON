@@ -312,7 +312,7 @@ def correctPunctuation(textToCorrect: str) -> str:
 		# It has some trouble recognising exclamation marks
 		correctedText = re.sub(r" ?\.””", "!”", correctedText)
 		# Quotemarks used as letter replacements should be simple quotemarks
-		correctedText = re.sub(r"(?<=\spo)’(?=\.|\s)", "'", correctedText)
+		correctedText = re.sub(r"(?<=\s(de|po))’(?=\.|\s)", "'", correctedText)
 
 	correctedText = correctedText.rstrip(" -_")
 	correctedText = correctedText.replace("““", "“")
