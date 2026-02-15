@@ -247,11 +247,11 @@
     "number": 11,
     "allowedInFormats": {
       "Core": {
-        "allowed": false,
+        "allowed": true,
         "rotationGroup": 3
       },
       "Infinity": {
-        "allowed": false
+        "allowed": true
       }
     },
     "allowedInTournamentsFromDate": "2026-02-13"
