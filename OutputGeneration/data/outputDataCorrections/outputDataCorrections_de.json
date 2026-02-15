@@ -2782,5 +2782,530 @@
       "¤",
       "⟳ –"
     ]
+  },
+  "2463": {
+    "artistsText": [
+      "e.+$",
+      "e"
+    ],
+    "flavorText": [
+      "\nJ",
+      "\n—J"
+    ]
+  },
+  "2465": {
+    "abilities": [
+      "¤",
+      "◊"
+    ]
+  },
+  "2468": {
+    "abilities": [
+      "\n¤ ",
+      " ¤\n"
+    ]
+  },
+  "2471": {
+    "abilities": [
+      "¤",
+      "◊"
+    ]
+  },
+  "2476": {
+    "_forceAbilityIndexToStatic": 0
+  },
+  "2484": {
+    "abilities": [
+      "¤",
+      "⬡"
+    ]
+  },
+  "2490": {
+    "artistsText": [
+      "e$",
+      "é"
+    ]
+  },
+  "2491": {
+    "flavorText": [
+      "\\.\\. “ ’\n",
+      "",
+      "!",
+      "!“"
+    ]
+  },
+  "2492": {
+    "flavorText": [
+      "Ö",
+      "O"
+    ]
+  },
+  "2503": {
+    "artistsText": [
+      "öe",
+      "è"
+    ],
+    "flavorText": [
+      ";",
+      ","
+    ]
+  },
+  "2505": {
+    "abilities": [
+      "¤",
+      "◊"
+    ]
+  },
+  "2513": {
+    "abilities": [
+      "¤",
+      "⬡"
+    ]
+  },
+  "2516": {
+    "flavorText": [
+      "!!!\"",
+      "!!“"
+    ]
+  },
+  "2518": {
+    "flavorText": [
+      "‘;",
+      "“,"
+    ]
+  },
+  "2524": {
+    "effects": [
+      "[‚+]",
+      "•"
+    ]
+  },
+  "2527": {
+    "_mergeEffectIndexWithPrevious": 1,
+    "effects": [
+      "f,",
+      "f."
+    ]
+  },
+  "2532": {
+    "abilities": [
+      "C-",
+      "¤-"
+    ]
+  },
+  "2533": {
+    "flavorText": [
+      "a …",
+      "a…"
+    ]
+  },
+  "2538": {
+    "abilities": [
+      "4",
+      ""
+    ]
+  },
+  "2545": {
+    "flavorText": [
+      ", I",
+      ". I"
+    ]
+  },
+  "2558": {
+    "flavorText": [
+      "\nJ",
+      "\n—J"
+    ]
+  },
+  "2560": {
+    "effects": [
+      ", W",
+      ". W",
+      "¤",
+      "◊"
+    ]
+  },
+  "2562": {
+    "abilities": [
+      "—Z",
+      "- Z"
+    ]
+  },
+  "2566": {
+    "abilities": [
+      "4",
+      "+1"
+    ]
+  },
+  "2567": {
+    "abilities": [
+      "®",
+      "⛉"
+    ]
+  },
+  "2571": {
+    "abilities": [
+      "⟳",
+      "¤",
+      "du1Q",
+      "du 1 ⬡"
+    ]
+  },
+  "2584": {
+    "abilities": [
+      "UI$",
+      "UIII"
+    ]
+  },
+  "2586": {
+    "abilities": [
+      "⟳",
+      "¤"
+    ]
+  },
+  "2590": {
+    "flavorText": [
+      "\nJ",
+      "\n—J"
+    ]
+  },
+  "2594": {
+    "effects": [
+      "O",
+      "¤"
+    ]
+  },
+  "2597": {
+    "abilities": [
+      "¤",
+      "⛉"
+    ]
+  },
+  "2602": {
+    "artistsText": [
+      "ä",
+      "é"
+    ]
+  },
+  "2604": {
+    "abilities": [
+      "\n¤ ",
+      " ¤\n"
+    ]
+  },
+  "2620": {
+    "abilities": [
+      "¤",
+      "◊"
+    ]
+  },
+  "2624": {
+    "flavorText": [
+      "\\.\\.",
+      "…"
+    ]
+  },
+  "2638": {
+    "abilities": [
+      "2\\.",
+      "2 ¤."
+    ]
+  },
+  "2647": {
+    "abilities": [
+      "¤",
+      "◊"
+    ]
+  },
+  "2650": {
+    "abilities": [
+      "—",
+      "-"
+    ]
+  },
+  "2653": {
+    "flavorText": [
+      "iü",
+      "ii"
+    ]
+  },
+  "2662": {
+    "flavorText": [
+      "Ilu",
+      "Illu"
+    ]
+  },
+  "2663": {
+    "flavorText": [
+      "\nJ",
+      "\n—J"
+    ]
+  },
+  "2668": {
+    "abilities": [
+      "\n¤ ",
+      " ¤\n"
+    ]
+  },
+  "2669": {
+    "_forceAbilityIndexToStatic": 0
+  },
+  "2670": {
+    "_effectAtIndexIsAbility": [0, "BRINGT EURE FREUNDE MIT"]
+  },
+  "2675": {
+    "flavorText": [
+      ", I",
+      ". I"
+    ]
+  },
+  "2679": {
+    "abilities": [
+      "NN",
+      "III"
+    ]
+  },
+  "2687": {
+    "effects": [
+      " #",
+      ""
+    ]
+  },
+  "2688": {
+    "effects": [
+      "^f \\.\n",
+      ""
+    ]
+  },
+  "2689": {
+    "abilities": [
+      " \\+",
+      ""
+    ]
+  },
+  "2690": {
+    "abilities": [
+      "0$",
+      "0 ⬡"
+    ]
+  },
+  "2691": {
+    "effects": [
+      "ae",
+      "ge"
+    ]
+  },
+  "2692": {
+    "abilities": [
+      "C-",
+      "¤-"
+    ],
+    "subtypes": [
+      null,
+      [
+        "Sagengestalt",
+        "Held",
+        "Prinzessin"
+      ]
+    ]
+  },
+  "2693": {
+    "_skipFullTextSectionMergeAtIndex": 1,
+    "effects": [
+      "—",
+      "\n"
+    ]
+  },
+  "2695": {
+    "artistsText": [
+      "\\.",
+      " "
+    ]
+  },
+  "2696": {
+    "abilities": [
+      "4$",
+      "4 ⬡",
+      "3 ¤",
+      "3 ◊"
+    ]
+  },
+  "2697": {
+    "artistsText": [
+      "\\.",
+      " "
+    ]
+  },
+  "2698": {
+    "effects": [
+      " m\\.",
+      ""
+    ]
+  },
+  "2699": {
+    "abilities": [
+      " ¤",
+      ""
+    ],
+    "artistsText": [
+      "^Lauren Levering",
+      "Jane Pica"
+    ]
+  },
+  "2700": {
+    "_skipFullTextSectionMergeAtIndex": 1,
+    "abilities": [
+      "¤",
+      "◊"
+    ],
+    "effects": [
+      "a SA\n—",
+      "",
+      "n20",
+      "n 2 ⬡"
+    ]
+  },
+  "2701": {
+    "abilities": [
+      " 4",
+      ""
+    ],
+    "artistsText": [
+      "-",
+      " "
+    ]
+  },
+  "2704": {
+    "abilities": [
+      "ltv",
+      "estaltw",
+      " J$",
+      "",
+      "urd",
+      "u d",
+      "\\(",
+      " ",
+      "M",
+      "m",
+      "ev",
+      "e v",
+      "elau",
+      "el au",
+      "X",
+      ", ",
+      "inid",
+      "in d",
+      "forder gr",
+      "fordert",
+      "n, C",
+      "n C",
+      "'",
+      " ",
+      "sz",
+      "s z",
+      "\\]",
+      " ",
+      "stn",
+      "s n",
+      "enge",
+      "en",
+      "tsh",
+      "t h",
+      "ör",
+      "or",
+      "t EP$",
+      "."
+    ]
+  },
+  "2705": {
+    "abilities": [
+      "^PN 7 ",
+      "",
+      "lk",
+      " k",
+      "taK",
+      "t K",
+      "laus",
+      " aus",
+      "g\ne",
+      "\nde",
+      "e$",
+      "el tinten."
+    ],
+    "artistsText": [
+      "to",
+      "tro",
+      " Sa$",
+      ""
+    ]
+  },
+  "2706": {
+    "abilities": [
+      "^Se ",
+      ""
+    ],
+    "flavorText": [
+      "\nve nn",
+      ""
+    ]
+  },
+  "2707": {
+    "abilities": [
+      "^SS ",
+      "",
+      "\nve",
+      ""
+    ]
+  },
+  "2708": {
+    "abilities": [
+      "^SE ",
+      "",
+      "⟳",
+      "¤",
+      "^AN ",
+      ""
+    ],
+    "flavorText": [
+      "\nve",
+      ""
+    ]
+  },
+  "2710": {
+    "abilities": [
+      "^ES ",
+      ""
+    ],
+    "flavorText": [
+      "\nve",
+      ""
+    ]
+  },
+  "2711": {
+    "abilities": [
+      "r g",
+      "f d",
+      "nasit",
+      "hast",
+      "¤",
+      "◊"
+    ]
+  },
+  "2712": {
+    "abilities": [
+      "r g",
+      "f d",
+      "nasit",
+      "hast",
+      "¤",
+      "◊"
+    ]
+  },
+  "2714": {
+    "_addNameToAbilityAtIndex": [1, "IN BEWEGUNG"],
+    "abilities": [
+      "\\.\nW",
+      ".\n\nW"
+    ]
   }
 }

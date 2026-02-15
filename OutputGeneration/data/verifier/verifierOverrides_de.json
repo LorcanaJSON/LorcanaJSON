@@ -462,6 +462,9 @@
     ]
   },
   "2381": {
+    "_listEntryLengthChange": {
+      "abilities": [0, -1]
+    },
     "_symbolCountChange": {
       "⬡": -1
     }
@@ -549,6 +552,34 @@
     "author": [
       "Grace Tran",
       "Sam Nielson"
+    ]
+  },
+  "2513": {
+    "_symbolCountChange": {
+      "◊": -1
+    }
+  },
+  "2544": {
+    "flavor_text": [
+      "^.+$",
+      ""
+    ]
+  },
+  "2674": {
+    "flavor_text": [
+      "^.+$",
+      ""
+    ]
+  },
+  "2690": {
+    "_symbolCountChange": {
+      "◊": -1
+    }
+  },
+  "2714": {
+    "author": [
+      "^Federico Maria Cugliari$",
+      "Lissette Carrera"
     ]
   }
 }
