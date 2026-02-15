@@ -416,7 +416,7 @@ def parseSingleCard(inputCard: Dict, ocrResult: OcrResult, externalLinksHandler:
 					firstAbilityTextPart, secondAbilityTextPart = ability[abilityTextFieldName].rsplit("\n\n", 1)
 					ability[abilityTextFieldName] = firstAbilityTextPart
 					outputCard["abilities"].insert(abilityIndex + 1, {"effect": secondAbilityTextPart})
-		if "effects" in cardDataCorrections and "effects" in outputCard:
+		if "effects" in outputCard and ("effects" in cardDataCorrections or removeEffectsAtIndexes):
 			for effectIndex in range(len(outputCard["effects"]) - 1, -1, -1):
 				while "\n\n" in outputCard["effects"][effectIndex]:
 					_logger.info(f"Splitting effect at index {effectIndex} in two because it has a double newline, in card {CardUtil.createCardIdentifier(outputCard)}")
