@@ -181,7 +181,7 @@ def correctText(cardText: str) -> str:
 		# It sometimes messes up if the second Strength symbol in the Support reminder text is completely missing, fix that
 		cardText = cardText.replace(f"{LorcanaSymbols.STRENGTH}nes", f"{LorcanaSymbols.STRENGTH} eines")
 		# Correct Shift/Gestaltwandel and Boost/Stärken with an ink symbol
-		cardText = re.sub(fr"^(Gestaltwandel|Stärken) ?(\d) ?[0O{LorcanaSymbols.STRENGTH}]", fr"\1 \2 {LorcanaSymbols.INK}", cardText)
+		cardText = re.sub(fr"^(Gestaltwandel|Stärken) ?(\d) ?[0O©{LorcanaSymbols.STRENGTH}]", fr"\1 \2 {LorcanaSymbols.INK}", cardText)
 		# Song reminder text
 		cardText = re.sub(fr"(?<=oder mehr kostet, )[^{LorcanaSymbols.EXERT}](?=, damit)", LorcanaSymbols.EXERT, cardText)
 		# The Lore symbol gets read as a '+', correct that
