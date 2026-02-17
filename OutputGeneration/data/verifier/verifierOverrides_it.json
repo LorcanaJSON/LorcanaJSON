@@ -283,5 +283,21 @@
       "Grace Tran",
       "Sam Nielson"
     ]
+  },
+  "2693": {
+    "_listFieldLengthChange": {
+      "fullTextSections": -1
+    }
+  },
+  "2700": {
+    "_listFieldLengthChange": {
+      "fullTextSections": -1
+    }
+  },
+  "2714": {
+    "author": [
+      "^Federico Maria Cugliari$",
+      "Lissette Carrera"
+    ]
   }
 }
