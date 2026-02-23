@@ -226,6 +226,7 @@ class ExternalLinksHandler:
 
 		# Downloading and parsing data is done, list differences with the previous file (if it exists)
 		wasChangeFound = False
+		newCardCount = 0
 		if os.path.isfile(_EXTERNAL_LINKS_FILE_PATH):
 			with open(_EXTERNAL_LINKS_FILE_PATH, "r", encoding="utf-8") as oldExternalLinksFile:
 				oldCardsBySet = json.load(oldExternalLinksFile)
@@ -238,6 +239,7 @@ class ExternalLinksHandler:
 					for cardId, newCardData in newSetData.items():
 						if cardId not in oldSetData:
 							wasChangeFound = True
+							newCardCount += 1
 							_LOGGER.info(f"Card {cardId} of set {setCode} exists in the new external-links data but not in the old")
 						else:
 							oldCardData = oldSetData[cardId]
@@ -256,6 +258,8 @@ class ExternalLinksHandler:
 
 		# Done, save the new data, overwriting the old, if needed
 		if wasChangeFound:
+			if newCardCount:
+				_LOGGER.info(f"Found new data for {newCardCount:,} cards")
 			with open(_EXTERNAL_LINKS_FILE_PATH, "w", encoding="utf-8") as externalLinksFile:
 				json.dump(cardsBySet, externalLinksFile, indent=2)
 			#TODO Check here if all cards have externalLinks and warn about cards that don't
