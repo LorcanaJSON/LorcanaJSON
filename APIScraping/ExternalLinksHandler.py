@@ -223,6 +223,8 @@ class ExternalLinksHandler:
 						cardmarketCategoryName = _CARD_MARKET_CARD_GROUP_TO_NAME[cardCategory]
 					else:
 						_LOGGER.error(f"Unknown CardMarket Group {cardCategory!r} for card {cardNumber} {card['name']!r}")
+				elif expansionName == "Promos Year 1":
+					cardmarketCategoryName = "Promos"
 				else:
 					cardmarketCategoryName = _convertStringToUrlValue(expansionName)
 				if cardmarketCategoryName:
