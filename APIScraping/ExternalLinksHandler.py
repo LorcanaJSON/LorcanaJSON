@@ -203,8 +203,8 @@ class ExternalLinksHandler:
 					cardmarketCategoryName = "Disney-Lorcana-Challenge-Promos"
 				elif cardSetCodeToUse != setCodeToUse:
 					cardmarketCategoryName = _convertStringToUrlValue(setCodeToName[cardSetCodeToUse])
-				elif re.search("/[A-Z]", card["fixed_properties"]["collector_number"]):
-					cardCategory = card["fixed_properties"]["collector_number"].split("/", 1)[1].strip()
+				elif re.search("/[A-Z]", cardNumber):
+					cardCategory = cardNumber.split("/", 1)[1].strip()
 					if cardCategory in _CARD_MARKET_CARD_GROUP_TO_NAME:
 						cardmarketCategoryName = _CARD_MARKET_CARD_GROUP_TO_NAME[cardCategory]
 					else:
