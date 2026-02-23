@@ -60,6 +60,12 @@ _CORRECTIONS = {
 		"10": {
 			"A Whole New World": ("Promos", "10/C1")
 		},
+		"11/P":{
+			"Mickey Mouse - Musketeer": ("Promos", "11/P1")
+		},
+		"12/P1": {
+			"The Queen - Mirror Seeker": ("Promos", "12/P3")
+		},
 		"24/P2": {
 			"Hiro Hamada - Armor Designer": ("Promos", "24A/P2")
 		}
