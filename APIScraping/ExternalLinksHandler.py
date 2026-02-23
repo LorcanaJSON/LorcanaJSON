@@ -155,7 +155,7 @@ class ExternalLinksHandler:
 			expansionName = expansion["name"]
 			if expansionName in setNameToCode:
 				setCodeToUse = setNameToCode[expansionName]
-			elif expansionName == "Promos" or expansionName == "Lorcana Challenge Promos":
+			elif expansionName in ("Lorcana Challenge Promos", "Promos") or expansionName.startswith("Promos Year "):
 				setCodeToUse = "Promos"
 			elif expansionName == "Errata Cards":
 				continue
