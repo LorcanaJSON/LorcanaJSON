@@ -213,8 +213,6 @@ class ExternalLinksHandler:
 					cardmarketCategoryName = "Promos-Year-2"
 				elif cardSetCodeToUse == "Q1":
 					cardmarketCategoryName = "Ursulas-Deck"
-				elif expansionName == "Lorcana Challenge Promos":
-					cardmarketCategoryName = "Disney-Lorcana-Challenge-Promos"
 				elif cardSetCodeToUse != setCodeToUse:
 					cardmarketCategoryName = _convertStringToUrlValue(setCodeToName[cardSetCodeToUse])
 				elif re.search("/[A-Z]", cardNumber):
