@@ -193,7 +193,7 @@ class ExternalLinksHandler:
 					cardNumber += "/P1"
 				if cardNumber in cardsBySet[cardSetCodeToUse]:
 					# Card with this number already exists
-					_LOGGER.error(f"While adding card '{card['name']}' from set '{expansionName}', already found card with number {cardNumber} in setcode {cardSetCodeToUse}")
+					_LOGGER.error(f"While adding card '{card['name']}' (Version '{card.get('version', 'unknown')}') from set '{expansionName}', already found card with number {cardNumber} in setcode {cardSetCodeToUse}")
 					continue
 				# Card Trader IDs always exist
 				cardExternalLinks = {"cardTraderId": card["id"], "cardTraderUrl": f"https://www.cardtrader.com/cards/{card['id']}"}
