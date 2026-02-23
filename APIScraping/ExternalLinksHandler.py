@@ -251,6 +251,7 @@ class ExternalLinksHandler:
 			if not wasChangeFound:
 				_LOGGER.info("No changes found between old and new externalLinks data")
 		else:
+			wasChangeFound = True
 			_LOGGER.info("No externalLinks file existed yet, so no list of changes can be made")
 
 		# Done, save the new data, overwriting the old, if needed
