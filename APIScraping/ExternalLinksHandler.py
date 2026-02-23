@@ -68,23 +68,23 @@ _CORRECTIONS = {
 		"11": {
 			"The Hexwell Crown": ("Q1", "29")
 		},
-		"223": {
+		"223/204": {
 			"Piglet - Pooh Pirate Captain": ("3", "223/204"),
 			"Yen Sid - Powerful Sorcerer": ("4", "223/204")
 		},
-		"224": {
+		"224/204": {
 			"Mulan - Elite Archer": ("4", "224/204")
 		},
-		"225": {
+		"225/204": {
 			"Mickey Mouse - Playful Sorcerer": ("4", "225/204")
 		}
 	},
 	"Q2": {
-		"223": {
+		"223/204": {
 			"Bolt - Superdog": ("7", "223/204"),
 			"Goofy - Groundbreaking Chef": ("8", "223/204")
 		},
-		"224": {
+		"224/204": {
 			"Elsa - Ice Maker": ("7", "224/204"),
 			"Pinocchio - Strings Attached": ("8", "224/204")
 		}
