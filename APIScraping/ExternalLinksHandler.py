@@ -177,6 +177,14 @@ class ExternalLinksHandler:
 				if len(cardNumber) == 4 and cardNumber.endswith("a"):
 					cardNumber = cardNumber[:-1]
 				cardSetCodeToUse = setCodeToUse
+				if card.get("version", None) and "/" in card["version"] and "/" not in cardNumber:
+					# Some promo cards have the full card number in the version, as "[promo source] | [number]/[promo group]" (f.e. "Pre-Release Promo | 28/P3")
+					# If the card number doesn't include that promo group yet, add it
+					promoGroupingMatch = _IDENTIFIER_REGEX.search(card["version"])
+					if promoGroupingMatch:
+						cardNumber += "/" + promoGroupingMatch.group("cardGroup")
+					else:
+						_LOGGER.error(f"Unable to find promo group in version '{card['version']}'")
 				if setCodeToUse in _CORRECTIONS and cardNumber in _CORRECTIONS[setCodeToUse] and card["name"] in _CORRECTIONS[setCodeToUse][cardNumber]:
 					_LOGGER.info(f"Correcting card '{card['name']}', changing setcode '{setCodeToUse}' and cardnumber '{cardNumber}' to {_CORRECTIONS[setCodeToUse][cardNumber][card['name']]}")
 					cardSetCodeToUse, cardNumber = _CORRECTIONS[setCodeToUse][cardNumber][card["name"]]
