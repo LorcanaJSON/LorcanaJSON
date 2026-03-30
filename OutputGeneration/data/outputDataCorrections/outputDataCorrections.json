@@ -8,12 +8,6 @@
   "262": {
     "_moveKeywordsLast": true
   },
-  "452": {
-    "externalLinks": [
-      "n\\?",
-      "n-V1?"
-    ]
-  },
   "469": {
     "abilities": [
       "2 \\S",
@@ -27,12 +21,6 @@
     "abilities": [
       "2 \\S",
       "2 ⛉"
-    ]
-  },
-  "688": {
-    "externalLinks": [
-      "r\\?",
-      "r-V2?"
     ]
   },
   "713": {
@@ -57,18 +45,6 @@
     "abilities": [
       "1 \\S+ ([^ ]+) \\+1 \\S",
       "1 ¤ \\1 +1 ⛉"
-    ]
-  },
-  "805": {
-    "externalLinks": [
-      "r\\?",
-      "r-V1?"
-    ]
-  },
-  "878": {
-    "externalLinks": [
-      "r\\?",
-      "r-V1?"
     ]
   },
   "900": {
@@ -137,8 +113,8 @@
   },
   "1213": {
     "externalLinks": [
-      "Agent",
-      "Ranger"
+      "Agents\\?",
+      "Rangers-V1?"
     ]
   },
   "1366": {
@@ -153,10 +129,36 @@
       " +1 ⛉\\1"
     ]
   },
+  "1404": {
+    "externalLinks": [
+      "s\\?",
+      "s-V2?"
+    ]
+  },
   "1460": {
     "externalLinks": [
       "k-I",
       "kI"
+    ]
+  },
+  "1663": {
+    "externalLinks": [
+      "Moana",
+      "Vaiana"
+    ]
+  },
+  "1734": {
+    "externalLinks": [
+      "H",
+      "G",
+      "t\\?",
+      "t-V1?"
+    ]
+  },
+  "1875": {
+    "externalLinks": [
+      "t\\?",
+      "t-V2?"
     ]
   },
   "2152": {
@@ -176,6 +178,24 @@
       "zál",
       "e:?$",
       "ean"
+    ]
+  },
+  "2402": {
+    "externalLinks": [
+      "-V3",
+      "-V2"
+    ]
+  },
+  "2410": {
+    "externalLinks": [
+      "-V3",
+      "-V2"
+    ]
+  },
+  "2413": {
+    "externalLinks": [
+      "-V3",
+      "-V2"
     ]
   },
   "2417": {
