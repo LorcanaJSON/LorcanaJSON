@@ -289,7 +289,7 @@ class ExternalLinksHandler:
 		if parsedIdentifier.variant:
 			numberGroupingString = numberGroupingString.replace("/", parsedIdentifier.variant + "/")
 			numberString += parsedIdentifier.variant
-		cardExternalLinks = None
+		cardExternalLinks: Optional[Dict] = None
 		if parsedIdentifier.isPromo():
 			if numberGroupingString in self._externalLinks["Promos"]:
 				cardExternalLinks = self._externalLinks["Promos"][numberGroupingString]
