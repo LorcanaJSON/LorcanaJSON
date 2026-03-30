@@ -654,7 +654,7 @@ def parseSingleCard(inputCard: Dict, ocrResult: OcrResult, externalLinksHandler:
 	if "subtypes" in outputCard:
 		outputCard["subtypesText"] = LorcanaSymbols.SEPARATOR_STRING.join(outputCard["subtypes"])
 	# Add external links (Do this after corrections so we can use a corrected 'fullIdentifier')
-	outputCard["externalLinks"] = externalLinksHandler.getExternalLinksForCard(parsedIdentifier, "enchantedId" in outputCard)
+	outputCard["externalLinks"] = externalLinksHandler.getExternalLinksForCard(parsedIdentifier)
 	if externalLinksCorrection:
 		TextCorrection.correctCardFieldFromList(outputCard, "externalLinks", externalLinksCorrection)
 	if moveAbilityAtIndexToIndex:
