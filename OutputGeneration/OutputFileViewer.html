@@ -207,6 +207,14 @@ function handleKeyPress(e) {
 			setLanguage("it");
 		} else if (e.key === "r") {
 			changeToRandomIndex();
+		} else if (e.key === "x") {
+			const currentCardData = cardsJson["cards"][currentIndex];
+			for (const urlKey of ["cardmarketUrl", "cardTraderUrl", "tcgPlayerUrl"]) {
+				const url = currentCardData["externalLinks"][urlKey]
+				if (url) {
+					window.open(url);
+				}
+			}
 		} else if (e.key === "Escape" && !isNotInInputField()) {
 			document.activeElement.blur();
 		} else if ((e.key === "Backspace" || !isNaN(+e.key)) && isNotInInputField()) {
