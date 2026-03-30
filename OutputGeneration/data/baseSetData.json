@@ -294,7 +294,7 @@
     "allowedInFormats": {
       "Core": {
         "allowed": false,
-        "rotationGroup": 3
+        "rotationGroup": 4
       },
       "Infinity": {
         "allowed": false
