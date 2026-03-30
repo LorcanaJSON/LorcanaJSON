@@ -328,7 +328,8 @@ class ExternalLinksHandler:
 		if not cardExternalLinks:
 			_LOGGER.warning(f"Unable to find external ID entry for full identifier '{parsedIdentifier}'")
 			return {}
-
+		# In rare cases multiple cards have the same number grouping ("Moana/Viana - Adventurer on Land and Sea", ID 1433 & 1663); make a copy of the data so changes in one card's data don't affect the other
+		cardExternalLinks = cardExternalLinks.copy()
 		# Some parts need extra filling in
 		# Cardmarket lists Enchanted cards with '-V2' at the end, and the non-Enchanted version with '-V1'. Promo versions are either '-V1' or '-V2'
 		if "cardmarketUrl" in cardExternalLinks:
