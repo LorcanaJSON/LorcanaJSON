@@ -1,5 +1,5 @@
 import json, logging, os, re, string
-from typing import Dict, Optional
+from typing import Dict, List, Optional, Union
 
 import requests
 
@@ -151,7 +151,7 @@ class ExternalLinksHandler:
 		# Get data from CardTrader, it includes Cardmarket and TCGplayer card IDs
 		headers = {"Authorization": "Bearer " + cardTraderToken}
 		expansionsRequest = requests.get("https://api.cardtrader.com/api/v2/expansions", headers=headers, timeout=10)
-		cardsBySet: Dict[str, Dict[str, Dict[str, int]]] = {"Promos": {}}  # Top level is the set code, it contains for each card number (as string, because it can have f.i. 'P1') in that set a dictionary with the card IDs for various stores
+		cardsBySet: Dict[str, Dict[str, Dict[str, Union[int, str]]]] = {"Promos": {}}  # Top level is the set code, it contains for each card number (as string, because it can have f.i. 'P1') in that set a dictionary with the card IDs and URLs for various stores
 		for setName, setCode in setNameToCode.items():
 			cardsBySet[setCode] = {}
 		if expansionsRequest.status_code != 200:
