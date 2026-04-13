@@ -97,6 +97,14 @@
     "matchingNames": ["Bobby", "Bolt", "Dr. Calico", "Joey", "Mittens", "Rhino", "Vinnie"],
     "matchingIds": [1471, 1704, 1868]
   },
+  "brave": {
+    "displayNames": {
+      "de": "Merida – Legende der Highlands",
+      "en": "Brave",
+      "fr": "Rebelle",
+      "it": "Ribelle - The Brave"
+    }
+  },
   "bravelittletailor": {
     "displayNames": {
       "de": "Tapferes kleines Schneiderlein",
@@ -241,6 +249,14 @@
     "matchingIds": [167, 248, 345, 531, 725, 888, 895, 1086, 1400, 1746, 1779],
     "matchingFields": {
       "subtypes": "Titan"
+    }
+  },
+  "incredibles": {
+    "displayNames": {
+      "de": "Die Unglaublichen",
+      "en": "The Incredibles",
+      "fr": "Les Indestructibles",
+      "it": "Gli Incredibili"
     }
   },
   "junglebook": {
@@ -536,6 +552,14 @@
     "matchingFields": {
       "flavor_text": "musketeer",
       "subtypes": "Musketeer"
+    }
+  },
+  "toystory": {
+    "displayNames": {
+      "de": "Toy Story",
+      "en": "Toy Story",
+      "fr": "Toy Story",
+      "it": "Toy Story"
     }
   },
   "treasureplanet": {
