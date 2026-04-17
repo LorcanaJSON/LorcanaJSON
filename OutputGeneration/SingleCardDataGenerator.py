@@ -631,7 +631,7 @@ def parseSingleCard(inputCard: Dict, ocrResult: OcrResult, externalLinksHandler:
 							if costSeparatorDashMatch:
 								costSeparatorDash = costSeparatorDashMatch.group(1)
 							else:
-								_logger.error(f"Unable to find cost separator dash match in '{inputCard['rules_text']}' in {CardUtil.createCardIdentifier(outputCard)}")
+								_logger.error(f"Unable to find cost separator dash match in '{inputCard['rules_text']!r}' in {CardUtil.createCardIdentifier(outputCard)}")
 						if not costSeparatorDash:
 							costSeparatorDash = activatedAbilityMatch.group(2)
 					ability["fullText"] += ability["costsText"] + activatedAbilityMatch.group(1) + costSeparatorDash + activatedAbilityMatch.group(3)
