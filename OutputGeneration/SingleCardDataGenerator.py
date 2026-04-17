@@ -277,26 +277,11 @@ def parseSingleCard(inputCard: Dict, ocrResult: OcrResult, externalLinksHandler:
 				# Italian doesn't use fancy single-quotes in ability names, so replace all of the with simple ones
 				abilityName = abilityName.replace("’", "'")
 			# A common mistake is missing spaces in the ability name. Try to find the spaces from the input-text, if it exists (for some reason some cards with text have an empty 'rules_text')
-			if inputCard["rules_text"] and abilityName not in inputCard["rules_text"]:
+			if inputCard["rules_text"] and abilityName.lower() not in inputCard["rules_text"].lower():
 				# First create a list of ability labels in the input text, if we haven't done that already
 				if not inputAbilityNames:
-					inputAbilityNames = []
-					inputAbilityNameParts: List[str] = []
-					isInInputAbilityName = False
-					inputRulesText: str = inputCard["rules_text"]
-					# Some cards don't have uppercase ability labels for some bizarre reason, but they separate label and effect by a '\'; fix that
-					if "\\ " in inputRulesText:
-						inputRulesTextSlashIndex = inputRulesText.find("\\ ")
-						inputRulesText = inputRulesText[:inputRulesTextSlashIndex].upper() + inputRulesText[inputRulesTextSlashIndex + 1:]
-					for word in inputRulesText.split():
-						if word.isupper():
-							if not isInInputAbilityName:
-								isInInputAbilityName = True
-							inputAbilityNameParts.append(word)
-						elif isInInputAbilityName:
-							isInInputAbilityName = False
-							inputAbilityNames.append(" ".join(inputAbilityNameParts))
-							inputAbilityNameParts = []
+					# Ability names are listed between '\' in titlecase, we need them upper case because that's how it's written on the card
+					inputAbilityNames: List[str] = [s.upper().replace(". . . ", "...") for s in re.findall(r"\\([^\\]+)\\", inputCard["rules_text"])]
 				if abilityIndex >= len(inputAbilityNames):
 					_logger.error(f"Trying to read input ability name index {abilityIndex} but there are only {len(inputAbilityNames)} names, in card {CardUtil.createCardIdentifier(outputCard)}")
 				else:
