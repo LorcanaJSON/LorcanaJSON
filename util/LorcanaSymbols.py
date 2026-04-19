@@ -10,3 +10,5 @@ SEPARATOR = "•"  # Unicode \u2022 HTML entities &#8226; &bull;
 SEPARATOR_STRING = f" {SEPARATOR} "  # Separator with a space at either side, gets used during parsing a lot
 
 ALL_SYMBOLS = (EXERT, INK, INKWELL, LORE, SEPARATOR, STRENGTH, WILLPOWER)
+
+LETTER_TO_SYMBOL = {"C": INKWELL, "E": EXERT, "I": INK, "L": LORE, "S": STRENGTH, "W": WILLPOWER}
