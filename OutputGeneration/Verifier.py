@@ -103,15 +103,24 @@ def compareInputToOutput(cardIdsToVerify: Optional[List[int]]):
 		# Compare rules text
 		if inputCard.get("rules_text", None) or outputCard["fullText"]:
 			if inputCard.get("rules_text", None):
-				inputRulesText = inputCard["rules_text"].replace("\\", "")
+				inputRulesText = inputCard["rules_text"].replace("<", "").replace(">", "")
+				inputRulesText = re.sub(" ?%", " ", inputRulesText)
+				inputRulesText = re.sub(" ?\n+", " ", inputRulesText)
+				# Ability names are in titlecase between '\', replace that with uppercase (Sometimes they forgot to add the slash at the start, add it if it seems missing)
+				if inputRulesText.count("\\") % 2 == 1:
+					inputRulesText = "\\" + inputRulesText
+				inputRulesText = re.sub(r"\\([^\\]+)\\", lambda m: m.group(1).upper(), inputRulesText)
+				# Replace bracketed letters with their proper symbol
+				if "{" in inputRulesText:
+					inputRulesText = re.sub(r"\{([^}]+)\}", lambda m: LorcanaSymbols.LETTER_TO_SYMBOL[m.group(1)], inputRulesText)
+				# Simplify quotemarks in the middle of a word ("it's", "you're")
 				inputRulesText = re.sub(r"(?<=\w)’(?=\w)", "'", inputRulesText)
 				inputRulesText = inputRulesText.replace("\u00a0", " " if GlobalConfig.language == Language.FRENCH else "").replace("  ", " ")
 				inputRulesText = inputRulesText.replace(" \"", " “")
 				inputRulesText = re.sub("\"( |\\.|$)", "”\\1", inputRulesText)
-				# Sometimes there's no space between the previous ability text and the next label or ability, fix that
-				inputRulesText = re.sub(r"([).])([A-Z])", r"\1 \2", inputRulesText)
 				# Some cards have an m-dash instead of normal 'minus' dash in front of numbers
 				inputRulesText = re.sub(r"[–—](?=\d)", "-", inputRulesText)
+				inputRulesText = inputRulesText.replace(" . . .", "..." if GlobalConfig.language == Language.ENGLISH else "…")
 				if GlobalConfig.language == Language.ENGLISH:
 					inputRulesText = inputRulesText.replace("teammates’ ", "teammates' ").replace("players’ ", "players' ").replace("Illumineers’ ", "Illumineers' ")
 				elif GlobalConfig.language == Language.FRENCH:
@@ -128,9 +137,6 @@ def compareInputToOutput(cardIdsToVerify: Optional[List[int]]):
 
 			if outputCard["fullText"]:
 				outputRulesText = outputCard["fullText"].replace(" -\n", " - ").replace("-\n", "-").replace("\n", " ")
-				# Remove all the Lorcana symbols:
-				outputRulesText = outputRulesText.replace(f"{LorcanaSymbols.EXERT},", ",")
-				outputRulesText = re.sub(fr" ?[{LorcanaSymbols.EXERT}{LorcanaSymbols.INK}{LorcanaSymbols.LORE}{LorcanaSymbols.STRENGTH}{LorcanaSymbols.WILLPOWER}{LorcanaSymbols.INKWELL}] ?", " ", outputRulesText).lstrip()
 				outputRulesText = re.sub(r"(?<=\d) \)", ")", outputRulesText)
 				outputRulesText = outputRulesText.replace("  ", " ").replace(" .", ".")
 			else:
@@ -143,7 +149,9 @@ def compareInputToOutput(cardIdsToVerify: Optional[List[int]]):
 		# Compare flavor text
 		if inputCard.get("flavor_text", None) or "flavorText" in outputCard:
 			if "flavor_text" in inputCard and inputCard["flavor_text"] != "ERRATA":
-				inputFlavorText: str = inputCard["flavor_text"].replace("\u00a0", "").replace("‘", "'").replace("’", "'").replace("<", "").replace(">", "").replace("\u2028", " ").rstrip()
+				inputFlavorText: str = inputCard["flavor_text"].replace("\u00a0", "").replace("‘", "'").replace("’", "'").replace("“", "\"").replace("”", "\"").replace("„", "\"").replace("<", "").replace(">", "").replace("\u2028", " ").rstrip()
+				inputFlavorText = re.sub("— ?\n", "—", inputFlavorText)
+				inputFlavorText = re.sub(" ?\n+", " ", inputFlavorText)
 				# '%' seems to be a substitute for a newline character
 				inputFlavorText = inputFlavorText.replace("—%", "—")
 				inputFlavorText = re.sub("%— (?=[A-Z])", " —", inputFlavorText)
@@ -153,7 +161,7 @@ def compareInputToOutput(cardIdsToVerify: Optional[List[int]]):
 					inputFlavorText = inputFlavorText.rsplit(" ", 1)[0]
 				if GlobalConfig.language == Language.ENGLISH:
 					# Input text always has a space after written-out ellipsis, while the card doesn't, remove it, unless it's just before a quote attribution dash
-					inputFlavorText = re.sub(r"\.\.\. (?!—)", "...", inputFlavorText)
+					inputFlavorText = re.sub(r"\s?\.\s?\.\s?\.\s?(?!—)", "...", inputFlavorText)
 				else:
 					# Use the ellipsis character instead of three separate periods
 					inputFlavorText = inputFlavorText.replace("...", "…")
@@ -173,7 +181,7 @@ def compareInputToOutput(cardIdsToVerify: Optional[List[int]]):
 				if outputFlavorText.count(openQuotemark) != outputFlavorText.count(closeQuotemark):
 					cardDifferencesCount += 1
 					print(f"{outputCard['fullName']} (ID {cardId}, {outputCard['fullIdentifier']}): Mismatched count of open and close quotemarks in flavor text {outputFlavorText!r}")
-				outputFlavorText = outputFlavorText.replace("“", "").replace("”", "").replace("„", "").replace("‘", "'").replace("’", "'")
+				outputFlavorText = outputFlavorText.replace("“", "\"").replace("”", "\"").replace("„", "\"").replace("‘", "'").replace("’", "'")
 				# Don't put a space between ellipses and the next word if there's a newline after the ellipsis...
 				outputFlavorText = re.sub(r"(?<=\.\.\.)\n(?=\w)", "", outputFlavorText)
 				# ... nor if the ellipsis are the first thing on a newline
