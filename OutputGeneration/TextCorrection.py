@@ -122,6 +122,7 @@ def correctText(cardText: str) -> str:
 		cardText = re.sub(r"([Dd])rawa ?card", r"\1raw a card", cardText)
 		cardText = re.sub(r"\bL([ft])\b", "I\\1", cardText)
 		cardText = re.sub(r"\b([Hh])ed\b", r"\1e'd", cardText)
+		cardText = re.sub(r"\bLam\b", "I am", cardText)
 		# Somehow 'a's often miss the space after it
 		cardText = re.sub(r"\bina\b", "in a", cardText)
 		cardText = re.sub(r"\bacard\b", "a card", cardText)
