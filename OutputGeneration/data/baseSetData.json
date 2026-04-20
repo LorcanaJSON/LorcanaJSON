@@ -302,6 +302,29 @@
     },
     "allowedInTournamentsFromDate": null
   },
+  "14": {
+    "names": {
+      "de": "Die Stadt Hyperia",
+      "en": "Hyperia City",
+      "fr": "Hyperia City",
+      "it": "Città die Hyperia"
+    },
+    "prereleaseDate": null,
+    "releaseDate": null,
+    "hasAllCards": false,
+    "type": "expansion",
+    "number": 14,
+    "allowedInFormats": {
+      "Core": {
+        "allowed": false,
+        "rotationGroup": 4
+      },
+      "Infinity": {
+        "allowed": false
+      }
+    },
+    "allowedInTournamentsFromDate": null
+  },
   "Q1": {
     "names": {
       "de": "Die Luminari Chroniken: Gefahr aus der Tiefe",
