@@ -60,6 +60,8 @@
 Cost: <span id="cost-value"></span> | Inkwell: <span id="inkwell-value"></span> | Movecost: <span id="moveCost-value"></span> | Strength: <span id="strength-value"></span> | Willpower: <span id="willpower-value"></span> | Lore: <span id="lore-value"></span> ||
 Abilities: <span id="abilities-count"></span> | Effects: <span id="effects-count"></span> ||
 Subtypes: <span id="subtypes"></span>
+<br>
+Artist: <span id="artist"></span> | Rarity: <span id="rarity"></span>
 <hr>
 <pre id="cardJson" style="overflow-x: scroll;"></pre>
 <hr>
@@ -116,6 +118,8 @@ function setDisplayedIndex(newIndex, showErrorMessage=true) {
 	document.getElementById("cardImageLink").href = currentCardData["images"]["full"];
 	document.getElementById("story").textContent = currentCardData["story"] ? currentCardData["story"] : "???";
 	document.getElementById("subtypes").textContent = currentCardData["subtypesText"] ? currentCardData["subtypesText"] : "-";
+	document.getElementById("artist").textContent = currentCardData["artistsText"];
+	document.getElementById("rarity").textContent = currentCardData["rarity"];
 	for (const fieldname of ["cost", "inkwell", "moveCost", "strength", "willpower", "lore"]) {
 		document.getElementById(fieldname + "-value").textContent = currentCardData[fieldname] === undefined ? "-" : currentCardData[fieldname];
 	}
