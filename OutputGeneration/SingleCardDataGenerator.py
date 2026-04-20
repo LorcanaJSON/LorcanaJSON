@@ -771,7 +771,7 @@ def _parseNameFields(inputCard: Dict, outputCard: Dict, ocrResult: OcrResult):
 		# This name is inconsistent, sometimes it has a capital 'M', sometimes a lowercase 'm'
 		# Comparing with capitalization of other cards, this should be a lowercase 'm'
 		outputCard["name"] = outputCard["name"].replace("M", "m")
-	elif outputCard["name"].isupper() and outputCard["name"] not in ("B.E.N.", "I2I"):
+	elif outputCard["name"].isupper() and outputCard["name"] not in ("B.E.N.", "I2I", "RC"):
 		# Some names have capitals in the middle, correct those
 		if outputCard["type"] == GlobalConfig.translation.Character:
 			if outputCard["name"] == "HEIHEI" and GlobalConfig.language == Language.ENGLISH:
