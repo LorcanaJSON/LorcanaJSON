@@ -127,9 +127,6 @@ function setDisplayedIndex(newIndex, showErrorMessage=true) {
 		document.getElementById(fieldname + "-count").textContent = currentCardData[fieldname] === undefined ? "-" : currentCardData[fieldname].length;
 	}
 	// Update the external links
-	const cardmarketLink = document.getElementById("cardmarketLink");
-	const cardTraderLink = document.getElementById("cardTraderLink");
-	const tcgPlayerLink = document.getElementById("tcgPlayerLink");
 	if (currentCardData.hasOwnProperty("externalLinks") && currentCardData["externalLinks"]) {
 		updateExternalLink("cardmarketLink", currentCardData["externalLinks"], "cardmarketUrl");
 		updateExternalLink("cardTraderLink", currentCardData["externalLinks"], "cardTraderUrl");
