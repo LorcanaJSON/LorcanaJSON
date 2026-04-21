@@ -23,14 +23,14 @@
 	<a href="#" onclick="goToPreviousSet(); return false;">Previous Set</a>
 	<a href="#" onclick="changeDisplayedIndex(-1); return false;">Previous</a>
 	<form id="indexForm" name="indexForm">
-		<span>Index: </span>
+		<label for="currentIndex">Index: </label>
 		<input id="currentIndex" type="number" placeholder="0" min="0" style="max-width: 5em;" />
 		<span> / </span>
 		<span id="maxIndex">0</span>
 	</form>
 	<a href="#" onclick="changeToRandomIndex(); return false;">Random</a>
 	<form id="cardIdForm" name="cardIdForm">
-		<span>ID: </span>
+		<label for="cardId">ID: </label>
 		<input id="cardId" type="number" placeholder="1" min="1" style="max-width: 5em;" />
 		<span> / </span>
 		<span id="maxId">0</span>
