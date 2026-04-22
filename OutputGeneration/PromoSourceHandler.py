@@ -57,10 +57,12 @@ class PromoSourceHandler:
 		with open(os.path.join("OutputGeneration", "data", "baseSetData.json"), "r") as setsFile:
 			setsData = json.load(setsFile)
 		for sourceData in overrides["setSpecificSources"].values():
-			for setCode, cardId in sourceData["idBySet"].items():
+			for setCode, cardIds in sourceData["idBySet"].items():
 				if GlobalConfig.language.code in setsData[setCode]["names"]:
 					setName = setsData[setCode]["names"][GlobalConfig.language.code]
-					self._sourceOverrides[cardId] = f"'{setName}' {sourceData[GlobalConfig.language.code]}"
+					promoDescription = f"'{setName}' {sourceData[GlobalConfig.language.code]}"
+					for cardId in cardIds:
+						self._sourceOverrides[cardId] = promoDescription
 
 	def getSpecialSourceForCard(self, inputCard: Dict) -> Union[None, PromoSource]:
 		cardId = inputCard["culture_invariant_id"]

@@ -82,8 +82,8 @@
   "setSpecificSources": {
     "booster display": {
       "idBySet": {
-        "9": 2180,
-        "10": 2442
+        "9": [2180],
+        "10": [2442]
       },
       "de": "Booster Display",
       "en": "booster display",
@@ -92,7 +92,7 @@
     },
     "bring a friend": {
       "idBySet": {
-        "10": 2443
+        "10": [2443]
       },
       "de": "Bring a Friend",
       "en": "Bring a Friend",
@@ -101,8 +101,8 @@
     },
     "quest victory card": {
       "idBySet": {
-        "Q1": 1179,
-        "Q2": 1935
+        "Q1": [1179],
+        "Q2": [1935]
       },
       "de": "Siegeskarte",
       "en": "victory card",
