@@ -99,6 +99,15 @@
       "fr": "Amenez un ami",
       "it": "Porta un Amico"
     },
+    "prerelease pack": {
+      "idBySet": {
+        "12": [2958, 2959, 2960, 2961, 2962, 2963]
+      },
+      "de": "Prerelease Box",
+      "en": "Prerelease Pack",
+      "fr": "pack d'Avant-Première",
+      "it": "pacchetto di prerelease"
+    },
     "quest victory card": {
       "idBySet": {
         "Q1": [1179],
