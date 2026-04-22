@@ -27,7 +27,7 @@
       "it": "Alice nel Paese delle Meraviglie"
     },
     "matchingNames": ["Alice", "Card Soldier", "Card Soldiers", "Caterpillar", "Cheshire Cat", "Dormouse", "King of Hearts", "Mad Hatter", "March Hare", "Queen of Hearts", "The Dodo", "Tweedle Dee", "Tweedle Dum", "Tweedledee", "Tweedledum", "Unbirthday", "White Rabbit"],
-    "matchingIds": [246, 282, 378, 1243, 1245, 1815]
+    "matchingIds": [246, 282, 378, 1243, 1245, 1815, 2877, 2913]
   },
   "aristocats": {
     "displayNames": {
@@ -330,7 +330,7 @@
       "it": "Lorcana"
     },
     "matchingNames": ["Chromicon", "Hexwell", "Martin", "Shanzay", "The Great Illuminary", "Venturo"],
-    "matchingIds": [380, 535, 789, 792, 825, 859, 891, 952, 986, 987, 1020, 1055, 1125, 1179, 1267, 1300, 1301, 1362, 1399, 1516, 1552, 1784, 2561],
+    "matchingIds": [380, 535, 789, 792, 825, 859, 891, 952, 986, 987, 1020, 1055, 1125, 1179, 1267, 1300, 1301, 1362, 1399, 1516, 1552, 1784, 2561, 2850],
     "matchingFields": {
       "card_identifier": " Q\\d$"
     }

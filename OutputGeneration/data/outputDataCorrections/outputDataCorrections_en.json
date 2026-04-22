@@ -2672,5 +2672,326 @@
       "-",
       "—"
     ]
+  },
+  "2717": {
+    "flavorText": [
+      " em",
+      " 'em"
+    ]
+  },
+  "2719": {
+    "flavorText": [
+      "\nem",
+      "\n'em"
+    ]
+  },
+  "2720": {
+    "artistsText": [
+      "yz",
+      "yż"
+    ]
+  },
+  "2721": {
+    "abilities": [
+      " 0\n¤ ",
+      " ¤\n"
+    ]
+  },
+  "2722": {
+    "flavorText": [
+      "were",
+      "we're",
+      "\\.”",
+      "”"
+    ]
+  },
+  "2727": {
+    "abilities": [
+      "¤",
+      "⛉"
+    ]
+  },
+  "2729": {
+    "abilities": [
+      "¤",
+      "⛉"
+    ]
+  },
+  "2730": {
+    "abilities": [
+      "R R",
+      "R 'R",
+      "¤",
+      "⛉"
+    ]
+  },
+  "2742": {
+    "abilities": [
+      "¤",
+      "⛉"
+    ]
+  },
+  "2749": {
+    "abilities": [
+      "¤",
+      "⛉"
+    ]
+  },
+  "2753": {
+    "abilities": [
+      "1 t",
+      "1 ◊ t"
+    ]
+  },
+  "2756": {
+    "flavorText": [
+      ":",
+      "'."
+    ]
+  },
+  "2769": {
+    "abilities": [
+      "1\nt",
+      "1 ◊\nt"
+    ]
+  },
+  "2777": {
+    "flavorText": [
+      "ora",
+      "or a",
+      "!m",
+      "I'm"
+    ]
+  },
+  "2784": {
+    "flavorText": [
+      "^“S",
+      "“‘S",
+      "\\. ‘",
+      ".’ ‘",
+      "\\.\n",
+      ".’\n"
+    ]
+  },
+  "2793": {
+    "abilities": [
+      "\\.{4}",
+      "..."
+    ]
+  },
+  "2834": {
+    "abilities": [
+      "OF",
+      "¤"
+    ]
+  },
+  "2846": {
+    "fullName": [
+      " A ",
+      " a ",
+      " In ",
+      " in "
+    ],
+    "name": [
+      " A ",
+      " a ",
+      " In ",
+      " in "
+    ]
+  },
+  "2847": {
+    "effects": [
+      "\\.”",
+      "”"
+    ]
+  },
+  "2851": {
+    "flavorText": [
+      "^.+$",
+      "[in Atlantean] Enter the lair of the leviathan."
+    ]
+  },
+  "2855": {
+    "abilities": [
+      "¤\n¤ ",
+      "¤\n"
+    ]
+  },
+  "2859": {
+    "flavorText": [
+      "!",
+      "I"
+    ]
+  },
+  "2860": {
+    "abilities": [
+      "’",
+      "",
+      "¤",
+      "◊"
+    ]
+  },
+  "2880": {
+    "effects": [
+      "¤",
+      "⛉"
+    ]
+  },
+  "2881": {
+    "abilities": [
+      " I ",
+      " 1 "
+    ]
+  },
+  "2893": {
+    "flavorText": [
+      "\\.”",
+      ".’”"
+    ]
+  },
+  "2919": {
+    "abilities": [
+      "¤ w",
+      "⛉ w"
+    ]
+  },
+  "2941": {
+    "_insertAbilityAtIndex": [0, "Rush"],
+    "artistsText": [
+      "eo",
+      "eó"
+    ]
+  },
+  "2956": {
+    "_insertAbilityAtIndex": [0, "Shift 5 ⬡"],
+    "abilities": [
+      " nN",
+      "",
+      "Zorl",
+      "7 or l",
+      "rh$",
+      "your hand.",
+      " ‘$",
+      "",
+      " _-",
+      "",
+      "1 t",
+      "1 ◊ t"
+    ],
+    "effects": [
+      null,
+      null
+    ],
+    "subtypes": [
+      null,
+      null,
+      null,
+      [
+        "Floodborn",
+        "Hero",
+        "Toy",
+        "Captain"
+      ]
+    ]
+  },
+  "2957": {
+    "abilities": [
+      "E$",
+      "ER",
+      "^¤ ",
+      "",
+      "olay",
+      "play",
+      ":",
+      "r",
+      "vou_",
+      "you ",
+      "T>turran",
+      "return an",
+      "nario!",
+      "named",
+      "froi “",
+      "from y",
+      "Wired",
+      "discard",
+      "tovo",
+      "to yo",
+      ", \\.\\)\noY",
+      ".",
+      "I oti,",
+      "your",
+      "¤",
+      "",
+      "qc.' v",
+      "ge to ",
+      "f!>1l2\"",
+      ", deal 2 ",
+      "e\\.t",
+      "e t",
+      "i.icr—\" ed",
+      "racter."
+    ],
+    "subtypes": [
+      null,
+      [
+        "Storyborn",
+        "Hero",
+        "Princess"
+      ]
+    ]
+  },
+  "2961": {
+    "flavorText": [
+      "\nwa —$",
+      ""
+    ]
+  },
+  "2962": {
+    "flavorText": [
+      "\nwe —$",
+      ""
+    ]
+  },
+  "2963": {
+    "flavorText": [
+      "\nNee —$",
+      ""
+    ]
+  },
+  "2964": {
+    "abilities": [
+      "\nNal$",
+      ""
+    ]
+  },
+  "2965": {
+    "flavorText": [
+      "\nwa$",
+      ""
+    ]
+  },
+  "2968": {
+    "abilities": [
+      "¤",
+      "⛉"
+    ]
+  },
+  "2969": {
+    "abilities": [
+      "¤",
+      "⛉"
+    ],
+    "rarity": [
+      "Enchanted",
+      "Special"
+    ]
+  },
+  "2971": {
+    "abilities": [
+      "j",
+      "q",
+      "sl",
+      "pl"
+    ]
   }
 }

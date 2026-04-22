@@ -224,5 +224,8 @@
   },
   "2707": {
     "_moveKeywordsLast": true
+  },
+  "2879": {
+    "_effectAtIndexIsAbility": 0
   }
 }

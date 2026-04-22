@@ -662,5 +662,35 @@
       "^Federico Maria Cugliari$",
       "Lissette Carrera"
     ]
+  },
+  "2733": {
+    "author": [
+      "Schaffner",
+      "Wolfensberger"
+    ]
+  },
+  "2830": {
+    "author": [
+      "Schaffner",
+      "Wolfensberger"
+    ]
+  },
+  "2851": {
+    "flavor_text": [
+      "^E",
+      "[in Atlantean] E"
+    ]
+  },
+  "2931": {
+    "author": [
+      "Schaffner",
+      "Wolfensberger"
+    ]
+  },
+  "2958": {
+    "author": [
+      "Schaffner",
+      "Wolfensberger"
+    ]
   }
 }
