@@ -757,8 +757,13 @@ def _parseAdditionalInfo(inputCard: Dict, outputCard: Dict):
 			clarifications.extend(infoEntryClarifications)
 		# Some German cards have an artist correction in their 'additional_info', but that's already correct in the data, so ignore that
 		# Bans are listed as additional info, but we handle that separately, so ignore those
+		# Sometimes text changes are listed in additional_info, but we already know about that, so ignore those too
 		# For other additional_info types, print an error, since that should be handled
-		elif infoEntry["title"] != "Illustratorin" and infoEntry["title"] != "Ban":
+		elif infoEntry["title"].strip() not in ("Illustratorin", "Ban",
+												"Updated text", "Updated rule text", "Rules Text", "Updated Description",
+												"Texte mis à jour", "Texte actualisé de la règle", "Texte des règles",
+												"Aktualisierter Text", "Aktualisierter Regeltext", "Regeltext",
+												"Testo aggiornato", "Testo aggiornato della norma", "Testo delle regole"):
 			_logger.warning(f"Unknown 'additional_info' type '{infoEntry['title']}' in card {CardUtil.createCardIdentifier(outputCard)}")
 	if errata:
 		outputCard["errata"] = errata
