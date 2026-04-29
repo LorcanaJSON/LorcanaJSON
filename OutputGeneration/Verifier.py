@@ -98,7 +98,7 @@ def compareInputToOutput(cardIdsToVerify: Optional[List[int]]):
 							print(f"ERROR: Invalid regex {regexMatch!r} with correction text {correctionText!r} for card {cardId}; Exception {type(e).__name__}: {e}")
 							raise e
 						if correctionCount == 0:
-							print(f"ERROR: Invalid correction override {regexMatch!r} for field '{fieldName}' for card ID {cardId}")
+							print(f"ERROR: Ineffective correction override {regexMatch!r} for field '{fieldName}' for card ID {cardId}")
 
 		# Compare rules text
 		if inputCard.get("rules_text", None) or outputCard["fullText"]:
