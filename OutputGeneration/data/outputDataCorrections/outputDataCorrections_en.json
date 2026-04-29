@@ -2807,6 +2807,12 @@
       "..."
     ]
   },
+  "2798": {
+    "abilities": [
+      "1 f",
+      "1 ¤ f"
+    ]
+  },
   "2805": {
     "abilities": [
       "¤",
@@ -2817,6 +2823,12 @@
     "abilities": [
       "OF",
       "¤"
+    ]
+  },
+  "2836": {
+    "abilities": [
+      "—",
+      "•"
     ]
   },
   "2840": {
@@ -2925,12 +2937,72 @@
       ""
     ]
   },
+  "2921": {
+    "abilities": [
+      " I ",
+      " 1 "
+    ]
+  },
+  "2924": {
+    "abilities": [
+      "1\n",
+      "1 ◊\n"
+    ]
+  },
+  "2925": {
+    "flavorText": [
+      "^O",
+      "“O"
+    ]
+  },
+  "2932": {
+    "flavorText": [
+      "^1",
+      "“I"
+    ]
+  },
+  "2934": {
+    "flavorText": [
+      "^1",
+      "“I"
+    ]
+  },
   "2941": {
     "_insertAbilityAtIndex": [0, "Rush"],
     "artistsText": [
       "eo",
       "eó"
     ]
+  },
+  "2942": {
+    "_effectAtIndexIsAbility": [0, "I CAN TAKE IT"],
+    "effects": [
+      "EI",
+      "E I"
+    ]
+  },
+  "2947": {
+    "abilities": [
+      "[—«]",
+      "•"
+    ]
+  },
+  "2950": {
+    "abilities": [
+      "¤",
+      "⛉",
+      "\\(",
+      "¤ "
+    ]
+  },
+  "2953": {
+    "artistsText": [
+      " > 2 22S",
+      ""
+    ]
+  },
+  "2954": {
+    "_insertAbilityAtIndex": [0, "Shift 5 ⬡"]
   },
   "2956": {
     "_insertAbilityAtIndex": [0, "Shift 5 ⬡"],
