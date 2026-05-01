@@ -130,7 +130,7 @@ def correctText(cardText: str) -> str:
 		cardText = re.sub(r"\bacard\b", "a card", cardText)
 	elif GlobalConfig.language == Language.FRENCH:
 		# Correct payment text
-		cardText = re.sub(fr"\bpa(yer|ie) (\d+) (?:\W|D|O|Ô|Q|{LorcanaSymbols.STRENGTH})", f"pa\\1 \\2 {LorcanaSymbols.INK}", cardText)
+		cardText = re.sub(fr"\bpa(yer|ie|yez)(\s)(\d+) (?:\W|D|O|Ô|Q|{LorcanaSymbols.STRENGTH})", f"pa\\1\\2\\3 {LorcanaSymbols.INK}", cardText)
 		cardText = re.sub(fr"^(\d) ?[{LorcanaSymbols.STRENGTH}O0](\s)(pour|de moins)\b", fr"\1 {LorcanaSymbols.INK}\2\3", cardText, flags=re.MULTILINE)
 		cardText = re.sub(r"(?<=payer \d)(?=\n)", f" {LorcanaSymbols.INK}", cardText)
 		# Correct support reminder text
