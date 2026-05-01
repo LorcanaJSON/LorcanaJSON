@@ -169,6 +169,7 @@ def correctText(cardText: str) -> str:
 		cardText = re.sub(r"\bC[ao]\b", "Ça", cardText)
 		cardText = cardText.replace("personhage", "personnage")
 		cardText = re.sub("[—-]l['’]", "—L'", cardText)
+		cardText = cardText.replace("®", LorcanaSymbols.WILLPOWER)
 	elif GlobalConfig.language == Language.GERMAN:
 		# The Exert symbol sometimes gets missed at the start
 		cardText = re.sub(r"^ ?[-–—]+", f"{LorcanaSymbols.EXERT} —", cardText)
