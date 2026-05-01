@@ -130,6 +130,8 @@ def compareInputToOutput(cardIdsToVerify: Optional[List[int]]):
 					# Correct the old phrasing of 'Rempart' ('Bodyguard' in English) to the new one, since the images got updated but the input text wasn't
 					if cardId <= 615 and "Rempart" in inputRulesText:
 						inputRulesText = inputRulesText.replace("Lorsqu'il vous défie, un personnage adverse doit,", "Lorsqu'un adversaire défie l'un de vos personnages, il doit,")
+					# They often forget the comma after the ink symbol on lines with multiple keyword abilities
+					inputRulesText = re.sub(f"{LorcanaSymbols.INK} (?=[A-Z][a-zé])", f"{LorcanaSymbols.INK}, ", inputRulesText)
 				elif GlobalConfig.language == Language.ITALIAN:
 					inputRulesText = inputRulesText.replace("...", "…")
 			else:
