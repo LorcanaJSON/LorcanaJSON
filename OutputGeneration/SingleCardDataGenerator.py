@@ -281,7 +281,8 @@ def parseSingleCard(inputCard: Dict, ocrResult: OcrResult, externalLinksHandler:
 				# First create a list of ability labels in the input text, if we haven't done that already
 				if not inputAbilityNames:
 					# Ability names are listed between '\' in titlecase, we need them upper case because that's how it's written on the card
-					inputAbilityNames: List[str] = [re.sub(r" ?\.\s\.\s\.\s?", "...", s.upper()) for s in re.findall(r"\\([^\\]+)\\", inputCard["rules_text"])]
+					#  Also correct ellipses to not have spaces inbetween the periods; and sometimes ability names have double spaces so correct those to single ones
+					inputAbilityNames: List[str] = [re.sub(r" ?\.\s\.\s\.\s?", "...", s.replace("  ", " ").upper()) for s in re.findall(r"\\([^\\]+)\\", inputCard["rules_text"])]
 				if abilityIndex >= len(inputAbilityNames):
 					_logger.error(f"Trying to read input ability name index {abilityIndex} but there are only {len(inputAbilityNames)} names, in card {CardUtil.createCardIdentifier(outputCard)}")
 				else:
