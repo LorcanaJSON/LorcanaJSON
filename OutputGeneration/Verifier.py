@@ -2,6 +2,7 @@ import json, os, re
 from typing import Dict, List, Optional
 
 import GlobalConfig
+from OutputGeneration import TextCorrection
 from util import Language, LorcanaSymbols, Translations
 
 
@@ -83,22 +84,7 @@ def compareInputToOutput(cardIdsToVerify: Optional[List[int]]):
 			listFieldLengthChange = inputOverridesForCard.pop("_listFieldLengthChange", None)
 			symbolCountChange = inputOverridesForCard.pop("_symbolCountChange", None)
 			for fieldName, correctionsTuple in inputOverridesForCard.items():
-				for correctionIndex in range(0, len(correctionsTuple), 2):
-					regexMatch = correctionsTuple[correctionIndex]
-					correctionText = correctionsTuple[correctionIndex+1]
-					if isinstance(regexMatch, int):
-						if inputCard[fieldName] == regexMatch:
-							inputCard[fieldName] = correctionText
-						else:
-							print(f"ERROR: Correction override number {regexMatch} does not match actual input card value {inputCard[fieldName]} for field '{fieldName}' in card {cardId}")
-					else:
-						try:
-							inputCard[fieldName], correctionCount = re.subn(regexMatch, correctionText, inputCard[fieldName])
-						except Exception as e:
-							print(f"ERROR: Invalid regex {regexMatch!r} with correction text {correctionText!r} for card {cardId}; Exception {type(e).__name__}: {e}")
-							raise e
-						if correctionCount == 0:
-							print(f"ERROR: Ineffective correction override {regexMatch!r} for field '{fieldName}' for card ID {cardId}")
+				TextCorrection.correctCardFieldFromList(inputCard, fieldName, correctionsTuple)
 
 		# Compare rules text
 		if inputCard.get("rules_text", None) or outputCard["fullText"]:
