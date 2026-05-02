@@ -75,11 +75,15 @@ def compareInputToOutput(cardIdsToVerify: Optional[List[int]]):
 			# For some reason they repeatedly forgot to add the 'López' at the end
 			inputCard["author"] = "Juan Pablo Velázquez López"
 		# Implement overrides
+		inputRulesTextCorrections: Optional[List[str]] = None
+		inputFlavorTextCorrections: Optional[List[str]] = None
 		listEntryLengthChange: Optional[Dict[str, List[int, int]]] = None
 		listFieldLengthChange: Optional[Dict[str, int]] = None
 		symbolCountChange: Optional[Dict[str, int]] = None
 		if cardIdAsString in inputOverrides:
 			inputOverridesForCard = inputOverrides[cardIdAsString]
+			inputRulesTextCorrections = inputOverridesForCard.pop("rules_text", None)
+			inputFlavorTextCorrections = inputOverridesForCard.pop("flavor_text", None)
 			listEntryLengthChange = inputOverridesForCard.pop("_listEntryLengthChange", None)
 			listFieldLengthChange = inputOverridesForCard.pop("_listFieldLengthChange", None)
 			symbolCountChange = inputOverridesForCard.pop("_symbolCountChange", None)
@@ -120,6 +124,8 @@ def compareInputToOutput(cardIdsToVerify: Optional[List[int]]):
 					inputRulesText = re.sub(f"{LorcanaSymbols.INK} (?=[A-Z][a-zé])", f"{LorcanaSymbols.INK}, ", inputRulesText)
 				elif GlobalConfig.language == Language.ITALIAN:
 					inputRulesText = inputRulesText.replace("...", "…")
+				if inputRulesTextCorrections:
+					inputRulesText = _applyCorrections(inputRulesText, inputRulesTextCorrections, cardId)
 			else:
 				inputRulesText = ""
 
@@ -161,6 +167,8 @@ def compareInputToOutput(cardIdsToVerify: Optional[List[int]]):
 					inputFlavorText = re.sub(r"(?<=\s)[–—](?=[A-Z])", "–" if 204 < cardId <= 432 else "—", inputFlavorText)
 					# Ellipsis are always preceded by a space
 					inputFlavorText = re.sub(r"(?<=\w)…", " …", inputFlavorText)
+				if inputFlavorTextCorrections:
+					inputFlavorText = _applyCorrections(inputFlavorText, inputFlavorTextCorrections, cardId)
 			else:
 				inputFlavorText = ""
 
@@ -293,6 +301,15 @@ def compareInputToOutput(cardIdsToVerify: Optional[List[int]]):
 				print(f"{cardId}: Cardmarket URL differs; {GlobalConfig.language.englishName} is {outputCard['externalLinks']['cardmarketUrl']}, English is {englishCard['externalLinks']['cardmarketUrl']}")
 
 	print(f"----------\nFound {cardDifferencesCount:,} difference{'' if cardDifferencesCount == 1 else 's'} between input and output")
+
+def _applyCorrections(inputText: str, corrections: List[str], cardId: int) -> str:
+	outputText = inputText
+	for correctionIndex in range(0, len(corrections), 2):
+		outputTextBeforeCorrection = outputText
+		outputText = re.sub(corrections[correctionIndex], corrections[correctionIndex + 1], inputText, flags=re.DOTALL)
+		if outputText == outputTextBeforeCorrection:
+			print(f"WARNING: Correcting text in card ID {cardId} with regex {corrections[correctionIndex]!r} didn't change anything, value is still {outputText!r}")
+	return outputText
 
 def _printDifferencesDescription(outputCard: Dict, fieldName: str, inputString: str, outputString: str):
 	maxCharIndex = max(len(inputString), len(outputString))

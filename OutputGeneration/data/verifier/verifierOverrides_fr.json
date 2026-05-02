@@ -466,8 +466,8 @@
   },
   "2670": {
     "flavor_text": [
-      " ",
-      " "
+      "tc",
+      "t c"
     ]
   },
   "2693": {
@@ -482,8 +482,8 @@
   },
   "2704": {
     "rules_text": [
-      "3 \\{I\\}%L",
-      "3 ⬡ PAROLES APAISANTES L"
+      "⬡, L",
+      "⬡ PAROLES APAISANTES L"
     ]
   },
   "2714": {
@@ -496,6 +496,12 @@
     "author": [
       "Schaffner",
       "Wolfensberger"
+    ]
+  },
+  "2735": {
+    "rules_text": [
+      "O !",
+      "O!"
     ]
   },
   "2830": {
@@ -538,8 +544,8 @@
   },
   "2971": {
     "flavor_text": [
-      " ",
-      " "
+      "tc",
+      "t c"
     ]
   }
 }
