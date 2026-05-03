@@ -298,15 +298,6 @@ def _prepareInputCardFlavorText(inputCard: Dict):
 		inputFlavorText = re.sub(r"(?<=\w)…", " …", inputFlavorText)
 	inputCard["flavor_text"] = inputFlavorText
 
-def _applyCorrections(inputText: str, corrections: List[str], cardId: int) -> str:
-	outputText = inputText
-	for correctionIndex in range(0, len(corrections), 2):
-		outputTextBeforeCorrection = outputText
-		outputText = re.sub(corrections[correctionIndex], corrections[correctionIndex + 1], inputText, flags=re.DOTALL)
-		if outputText == outputTextBeforeCorrection:
-			print(f"WARNING: Correcting text in card ID {cardId} with regex {corrections[correctionIndex]!r} didn't change anything, value is still {outputText!r}")
-	return outputText
-
 def _printDifferencesDescription(outputCard: Dict, fieldName: str, inputString: str, outputString: str):
 	maxCharIndex = max(len(inputString), len(outputString))
 	fieldDifferencesPointers = [" " for _ in range(maxCharIndex)]
