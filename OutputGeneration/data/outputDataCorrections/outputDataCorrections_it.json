@@ -2785,5 +2785,623 @@
       "\nQ",
       "\n\nQ"
     ]
+  },
+  "2718": {
+    "flavorText": [
+      "\\.",
+      ""
+    ]
+  },
+  "2720": {
+    "artistsText": [
+      "yz",
+      "yż"
+    ]
+  },
+  "2722": {
+    "flavorText": [
+      "ilu",
+      "Illu",
+      "\\.",
+      ""
+    ]
+  },
+  "2727": {
+    "abilities": [
+      "¤",
+      "⛉"
+    ]
+  },
+  "2729": {
+    "abilities": [
+      "¤",
+      "⛉"
+    ]
+  },
+  "2730": {
+    "abilities": [
+      "¤",
+      "⛉"
+    ]
+  },
+  "2734": {
+    "subtypes": [
+      "^i",
+      "I"
+    ]
+  },
+  "2735": {
+    "abilities": [
+      "1-000",
+      "I-OOO",
+      "%2",
+      " ¤"
+    ]
+  },
+  "2737": {
+    "abilities": [
+      "⟳",
+      "⛉"
+    ]
+  },
+  "2742": {
+    "abilities": [
+      "¤",
+      "⛉"
+    ]
+  },
+  "2743": {
+    "effects": [
+      " ¤",
+      " ⛉"
+    ]
+  },
+  "2746": {
+    "flavorText": [
+      "!s",
+      "Is"
+    ]
+  },
+  "2749": {
+    "abilities": [
+      "¤",
+      "⛉"
+    ]
+  },
+  "2754": {
+    "flavorText": [
+      "0",
+      "O"
+    ]
+  },
+  "2757": {
+    "flavorText": [
+      "U\"\\.",
+      "Ù!"
+    ]
+  },
+  "2767": {
+    "subtypes": [
+      "^n",
+      "In"
+    ]
+  },
+  "2769": {
+    "abilities": [
+      "¤",
+      "◊"
+    ]
+  },
+  "2777": {
+    "flavorText": [
+      "\\.",
+      "!"
+    ]
+  },
+  "2778": {
+    "fullName": [
+      "a P",
+      "a di P",
+      "e S",
+      "e dei S",
+      "eroi",
+      ""
+    ],
+    "name": [
+      "a P",
+      "a di P",
+      "e S",
+      "e dei S",
+      "eroi",
+      ""
+    ]
+  },
+  "2780": {
+    "effects": [
+      "¤",
+      "o"
+    ]
+  },
+  "2782": {
+    "abilities": [
+      "⟳ ",
+      "⟳, "
+    ]
+  },
+  "2784": {
+    "flavorText": [
+      "^“R",
+      "“‘R",
+      "a ‘",
+      "a’. ‘",
+      "!",
+      "’."
+    ]
+  },
+  "2786": {
+    "flavorText": [
+      "a M",
+      "a'. M"
+    ]
+  },
+  "2791": {
+    "flavorText": [
+      "î",
+      "ì"
+    ]
+  },
+  "2792": {
+    "abilities": [
+      "10",
+      "1 ⬡"
+    ]
+  },
+  "2806": {
+    "abilities": [
+      "\\] è",
+      "1 ◊"
+    ]
+  },
+  "2809": {
+    "flavorText": [
+      "agi",
+      "ai"
+    ]
+  },
+  "2812": {
+    "effects": [
+      "S",
+      "s"
+    ]
+  },
+  "2814": {
+    "abilities": [
+      "!",
+      "E",
+      "^3 ⬡",
+      "⟳"
+    ]
+  },
+  "2815": {
+    "abilities": [
+      "^1 ⬡",
+      "⟳",
+      "⟳ ",
+      "⟳, "
+    ]
+  },
+  "2819": {
+    "flavorText": [
+      "\\.",
+      "!"
+    ]
+  },
+  "2823": {
+    "abilities": [
+      "¤",
+      "o"
+    ]
+  },
+  "2834": {
+    "abilities": [
+      "20",
+      "2 ⬡"
+    ]
+  },
+  "2836": {
+    "abilities": [
+      "\n[—¤]",
+      "\n•"
+    ]
+  },
+  "2840": {
+    "abilities": [
+      "2 t",
+      "¤ t"
+    ]
+  },
+  "2846": {
+    "effects": [
+      "¤",
+      "◊"
+    ]
+  },
+  "2847": {
+    "effects": [
+      "\\+ ",
+      "¤ "
+    ]
+  },
+  "2848": {
+    "flavorText": [
+      "\\.",
+      "!"
+    ]
+  },
+  "2849": {
+    "flavorText": [
+      "Ii",
+      "Il"
+    ]
+  },
+  "2851": {
+    "flavorText": [
+      "^.+$",
+      "[in atlantideo] Entra nella tana del leviatano"
+    ]
+  },
+  "2862": {
+    "flavorText": [
+      "E",
+      "È"
+    ]
+  },
+  "2865": {
+    "abilities": [
+      "\n¤",
+      "\n⛉"
+    ]
+  },
+  "2873": {
+    "abilities": [
+      "20",
+      "2 o"
+    ]
+  },
+  "2874": {
+    "flavorText": [
+      "\\.”",
+      "!”"
+    ]
+  },
+  "2875": {
+    "abilities": [
+      "6$",
+      "6 ⬡"
+    ]
+  },
+  "2879": {
+    "effects": [
+      "o\\.\nO",
+      "o.\n\nO"
+    ]
+  },
+  "2880": {
+    "effects": [
+      "¤",
+      "⛉"
+    ]
+  },
+  "2882": {
+    "abilities": [
+      "X[23]",
+      "¤"
+    ]
+  },
+  "2883": {
+    "flavorText": [
+      "!",
+      "?"
+    ]
+  },
+  "2884": {
+    "abilities": [
+      "AL",
+      "AI"
+    ]
+  },
+  "2891": {
+    "flavorText": [
+      "a\\.",
+      "a'."
+    ]
+  },
+  "2892": {
+    "abilities": [
+      "ì",
+      "i"
+    ]
+  },
+  "2893": {
+    "flavorText": [
+      "o\\.",
+      "o’."
+    ]
+  },
+  "2898": {
+    "abilities": [
+      "0",
+      "O"
+    ]
+  },
+  "2911": {
+    "abilities": [
+      "2 e\\+1",
+      "2 ¤ e +1"
+    ]
+  },
+  "2912": {
+    "flavorText": [
+      "L",
+      "I"
+    ]
+  },
+  "2913": {
+    "flavorText": [
+      "\\.",
+      "!",
+      "I",
+      "T"
+    ]
+  },
+  "2914": {
+    "effects": [
+      "è",
+      "◊"
+    ]
+  },
+  "2916": {
+    "abilities": [
+      "^2",
+      "⟳, 2",
+      "—U",
+      "— U"
+    ]
+  },
+  "2919": {
+    "abilities": [
+      "◊ ",
+      "",
+      "¤ m",
+      "⛉ m"
+    ]
+  },
+  "2920": {
+    "flavorText": [
+      "À",
+      "A",
+      "\\.",
+      ""
+    ]
+  },
+  "2923": {
+    "flavorText": [
+      "1",
+      "I"
+    ]
+  },
+  "2924": {
+    "abilities": [
+      "¤",
+      "◊"
+    ]
+  },
+  "2925": {
+    "flavorText": [
+      "^0",
+      "“O"
+    ]
+  },
+  "2937": {
+    "flavorText": [
+      "Lo",
+      "Io"
+    ]
+  },
+  "2938": {
+    "abilities": [
+      "LA$",
+      "LA-I-OOO!",
+      "1 ⬡ -000! ",
+      ""
+    ]
+  },
+  "2941": {
+    "_insertAbilityAtIndex": [0, "Lesto"],
+    "_removeAbilitiesAtIndexes": [1],
+    "artistsText": [
+      "Len",
+      "León"
+    ]
+  },
+  "2943": {
+    "abilities": [
+      "M",
+      "m"
+    ]
+  },
+  "2947": {
+    "abilities": [
+      "— ",
+      "• "
+    ]
+  },
+  "2948": {
+    "abilities": [
+      "2 t",
+      "¤ t"
+    ]
+  },
+  "2950": {
+    "abilities": [
+      "¤ a",
+      "⛉ a"
+    ]
+  },
+  "2952": {
+    "effects": [
+      " I ",
+      " i "
+    ]
+  },
+  "2953": {
+    "subtypes": [
+      "^J",
+      "I",
+      "^ima$",
+      null
+    ]
+  },
+  "2955": {
+    "effects": [
+      "è",
+      "◊"
+    ]
+  },
+  "2956": {
+    "_insertAbilityAtIndex": [0, "Trasformazione 5 ⬡"],
+    "_removeEffectsAtIndexes": [0],
+    "abilities": [
+      "o'g",
+      "o g",
+      ";",
+      "",
+      " go 7",
+      ".",
+      " i\n",
+      "\n",
+      " oi ",
+      " tuoi ",
+      " 7\n",
+      "\n",
+      " =\"",
+      ""
+    ],
+    "artistsText": [
+      " fr Be",
+      ""
+    ],
+    "subtypes": [
+      null,
+      null,
+      null,
+      [
+        "Imbevuto",
+        "Eroe",
+        "Giocattolo",
+        "Capitano"
+      ]
+    ]
+  },
+  "2957": {
+    "_removeEffectsAtIndexes": [0],
+    "abilities": [
+      "F$",
+      "PIENA",
+      "⟳ — \\. \\. o ¤\nIENA ",
+      "",
+      "en\\.lo",
+      "ando",
+      ";\nroi T",
+      ",\npuoi r",
+      "u 1\\.",
+      "una",
+      "imsta",
+      "mata",
+      "LP d2i",
+      "Frecce dai",
+      " '\nOA$",
+      "",
+      "FR$",
+      "RA",
+      "A ¤ pl I Ro N, E\nA ",
+      "",
+      "n d",
+      "na d",
+      "Ggo Tu ",
+      "ge dan",
+      "\\. s",
+      "vers",
+      "oNi",
+      "o, i",
+      "'2",
+      " 2",
+      "\n\\.\\)_, mafe meme” ano",
+      "",
+      "a\\.q",
+      "a q",
+      "oI r",
+      "el p",
+      "o$",
+      "o."
+    ],
+    "subtypes": [
+      "Lernia",
+      "Classico",
+      "Dia",
+      "Eroe",
+      "^ace$",
+      "Principessa"
+    ]
+  },
+  "2964": {
+    "abilities": [
+      "\ne e\\.”",
+      ""
+    ]
+  },
+  "2965": {
+    "flavorText": [
+      "\ne e\\.”",
+      ""
+    ]
+  },
+  "2966": {
+    "flavorText": [
+      "\ne e\\.”",
+      ""
+    ]
+  },
+  "2968": {
+    "abilities": [
+      "⟳, ",
+      "",
+      "¤",
+      "⛉"
+    ]
+  },
+  "2969": {
+    "abilities": [
+      "⟳, ",
+      "",
+      "¤",
+      "⛉"
+    ],
+    "rarity": [
+      "Incantata",
+      "Speciale"
+    ]
+  },
+  "2971": {
+    "abilities": [
+      "\nra",
+      "\nva",
+      "\nuoi",
+      "\npuoi"
+    ],
+    "flavorText": [
+      "\\.",
+      "!"
+    ]
   }
 }
