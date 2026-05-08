@@ -298,7 +298,7 @@ def parseSingleCard(inputCard: Dict, ocrResult: OcrResult, externalLinksHandler:
 							# Sometimes Ravensburger set a wrong ability name. Check for that, so we don't add spaces from a different sentence
 							characterMismatchCount += 1
 							if characterMismatchCount == 4:
-								_logger.info(f"Too many characters mismatch between input abiilty name {inputAbilityName} and output {abilityName} in card {CardUtil.createCardIdentifier(outputCard)}, aborting missing-spaces check")
+								_logger.info(f"Too many characters mismatch between input ability name {inputAbilityName} and output {abilityName} in card {CardUtil.createCardIdentifier(outputCard)}, aborting missing-spaces check")
 								abilityName = abilityNameBeforeSpaceCorrection
 								break
 			if abilityName != originalAbilityName:
