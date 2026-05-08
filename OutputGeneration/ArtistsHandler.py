@@ -37,7 +37,7 @@ class ArtistsHandler:
 		correctedArtistText = correctedArtistText.replace(" 0. ", " O. ")
 		if correctedArtistText.endswith(" NE"):
 			correctedArtistText = correctedArtistText[:-3]
-		while re.search(r" [a-zAè0-9ÿI|(){\\/_+*%.,;'‘<>\"”#¥©=—-]{1,2}$", correctedArtistText):
+		while re.search(r" [a-zAè0-9ÿI|(){\\/_+*%.,;:'‘<>\"”#¥©=—-]{1,2}$", correctedArtistText):
 			correctedArtistText = correctedArtistText.rsplit(" ", 1)[0]
 		correctedArtistText = correctedArtistText.rstrip(".")
 		if "ggman-Sund" in correctedArtistText:
