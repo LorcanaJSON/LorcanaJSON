@@ -105,7 +105,7 @@ def compareInputToOutput(cardIdsToVerify: Optional[List[int]]):
 		if inputCard.get("flavor_text", None) or "flavorText" in outputCard:
 			if "flavorText" in outputCard:
 				outputFlavorText = outputCard['flavorText']
-				if outputFlavorText.count(openQuotemark) != outputFlavorText.count(closeQuotemark):
+				if outputFlavorText.count(openQuotemark) != outputFlavorText.count(closeQuotemark) or outputFlavorText.count("‘") != outputFlavorText.count("’"):
 					cardDifferencesCount += 1
 					print(f"{outputCard['fullName']} (ID {cardId}, {outputCard['fullIdentifier']}): Mismatched count of open and close quotemarks in flavor text {outputFlavorText!r}")
 				outputFlavorText = outputFlavorText.replace("“", "\"").replace("”", "\"").replace("„", "\"").replace("‘", "'").replace("’", "'")
