@@ -211,7 +211,7 @@ def correctText(cardText: str) -> str:
 		cardText = cardText.replace("|", "I")
 		# Correct payment text
 		cardText = re.sub(r"(paga(?:re)? \d) (in|per)", fr"\1 {LorcanaSymbols.INK} \2", cardText)
-		cardText = re.sub(fr"(\b[Pp]ag(a(?:re)?|hi)\s\d )[^{LorcanaSymbols.INK} .]+", fr"\1{LorcanaSymbols.INK}", cardText)
+		cardText = re.sub(fr"(\b[Pp]ag(a(?:re)?|hi)\s\d )[^{LorcanaSymbols.INK} .\n]+", fr"\1{LorcanaSymbols.INK}", cardText)
 		cardText = re.sub(r"(\b[Pp]aga(?:re)?\s\d)[0Q]", f"\\1 {LorcanaSymbols.INK}", cardText)
 		# Correct Support reminder text
 		cardText = re.sub(r"(?<=aggiungere\sla\ssua\s)(?:\S+)(\salla\s)(?:\S+)(?=\sdi\sun)", f"{LorcanaSymbols.STRENGTH}\\1{LorcanaSymbols.STRENGTH}", cardText)
