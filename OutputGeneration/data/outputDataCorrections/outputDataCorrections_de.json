@@ -3301,5 +3301,534 @@
       "\\.\nW",
       ".\n\nW"
     ]
+  },
+  "2718": {
+    "flavorText": [
+      "’",
+      "'"
+    ]
+  },
+  "2719": {
+    "abilities": [
+      "¤",
+      "◊"
+    ]
+  },
+  "2720": {
+    "artistsText": [
+      "yz",
+      "yż"
+    ]
+  },
+  "2727": {
+    "abilities": [
+      "®¤",
+      "⛉"
+    ]
+  },
+  "2729": {
+    "abilities": [
+      "[⟳¤]",
+      "⛉"
+    ]
+  },
+  "2730": {
+    "abilities": [
+      "®",
+      "⛉"
+    ]
+  },
+  "2732": {
+    "flavorText": [
+      "— J",
+      "—J"
+    ]
+  },
+  "2737": {
+    "abilities": [
+      "¤",
+      "⛉",
+      "⟳",
+      "¤"
+    ]
+  },
+  "2740": {
+    "flavorText": [
+      "\nM",
+      "\n—M"
+    ]
+  },
+  "2742": {
+    "abilities": [
+      "⟳",
+      "⛉"
+    ]
+  },
+  "2743": {
+    "effects": [
+      "\\+ ",
+      "+¤ ",
+      " ¤",
+      " ⛉"
+    ]
+  },
+  "2749": {
+    "abilities": [
+      "¤",
+      "⛉"
+    ]
+  },
+  "2753": {
+    "abilities": [
+      "¤",
+      "⟳"
+    ]
+  },
+  "2757": {
+    "flavorText": [
+      "-",
+      "–"
+    ]
+  },
+  "2766": {
+    "abilities": [
+      "2\\.\\)",
+      "2 ¤.)"
+    ]
+  },
+  "2769": {
+    "abilities": [
+      "¤",
+      "◊"
+    ]
+  },
+  "2772": {
+    "_forceAbilityIndexToStatic": 1
+  },
+  "2777": {
+    "abilities": [
+      "2\\.\\)",
+      "2 ¤.)"
+    ]
+  },
+  "2784": {
+    "flavorText": [
+      "—",
+      "–"
+    ]
+  },
+  "2785": {
+    "flavorText": [
+      "l,",
+      "l."
+    ]
+  },
+  "2792": {
+    "_forceAbilityIndexToStatic": 0,
+    "abilities": [
+      " ¤",
+      ""
+    ]
+  },
+  "2794": {
+    "abilities": [
+      "\\*",
+      "'"
+    ]
+  },
+  "2803": {
+    "flavorText": [
+      "—",
+      "–"
+    ]
+  },
+  "2805": {
+    "abilities": [
+      "¤",
+      "◊"
+    ]
+  },
+  "2806": {
+    "abilities": [
+      "¤",
+      "◊"
+    ]
+  },
+  "2816": {
+    "artistsText": [
+      "ä",
+      "é"
+    ]
+  },
+  "2823": {
+    "abilities": [
+      "¤",
+      "◊"
+    ]
+  },
+  "2833": {
+    "flavorText": [
+      "\nH",
+      "\n—H"
+    ]
+  },
+  "2835": {
+    "abilities": [
+      "1O",
+      "1 ⬡"
+    ]
+  },
+  "2836": {
+    "abilities": [
+      "— ",
+      "• "
+    ]
+  },
+  "2840": {
+    "abilities": [
+      "r\nh",
+      "r ¤\nh"
+    ]
+  },
+  "2842": {
+    "abilities": [
+      "—",
+      "-"
+    ]
+  },
+  "2845": {
+    "effects": [
+      " O",
+      " ¤"
+    ]
+  },
+  "2846": {
+    "effects": [
+      "¤",
+      "◊"
+    ]
+  },
+  "2851": {
+    "flavorText": [
+      "^.+$",
+      "[auf Atlanter] Betretet die Höhle des Leviathans."
+    ]
+  },
+  "2860": {
+    "abilities": [
+      "¤",
+      "◊"
+    ]
+  },
+  "2865": {
+    "abilities": [
+      "⟳",
+      "⛉"
+    ]
+  },
+  "2875": {
+    "abilities": [
+      "6$",
+      "6 ⬡"
+    ]
+  },
+  "2876": {
+    "abilities": [
+      "¤",
+      "◊"
+    ]
+  },
+  "2877": {
+    "effects": [
+      "m$",
+      "m\nZug -2 ¤."
+    ]
+  },
+  "2880": {
+    "effects": [
+      "⟳",
+      "⛉"
+    ]
+  },
+  "2882": {
+    "abilities": [
+      " ⟳",
+      " ¤"
+    ]
+  },
+  "2891": {
+    "abilities": [
+      "2\\.\\)",
+      "2 ¤.)"
+    ]
+  },
+  "2893": {
+    "flavorText": [
+      "‘\n",
+      "‘.“\n"
+    ]
+  },
+  "2901": {
+    "flavorText": [
+      "Ar",
+      "Är"
+    ]
+  },
+  "2911": {
+    "abilities": [
+      "1 ¤",
+      "1 ◊"
+    ]
+  },
+  "2914": {
+    "effects": [
+      "¤",
+      "◊"
+    ]
+  },
+  "2919": {
+    "abilities": [
+      "®¤",
+      "⛉"
+    ]
+  },
+  "2920": {
+    "flavorText": [
+      "’",
+      "'"
+    ]
+  },
+  "2921": {
+    "abilities": [
+      "hut",
+      "hüt"
+    ]
+  },
+  "2923": {
+    "abilities": [
+      "HAF",
+      "HÄF"
+    ]
+  },
+  "2924": {
+    "abilities": [
+      "¤",
+      "◊"
+    ]
+  },
+  "2928": {
+    "abilities": [
+      "SC$",
+      "SCHUTZ"
+    ]
+  },
+  "2929": {
+    "abilities": [
+      "SI$",
+      "SICH GEÄNDERT",
+      "^“",
+      ""
+    ]
+  },
+  "2931": {
+    "flavorText": [
+      "^Z",
+      "„Z"
+    ]
+  },
+  "2935": {
+    "flavorText": [
+      "^D",
+      "„D",
+      "\nG",
+      "\n—G"
+    ]
+  },
+  "2936": {
+    "_effectAtIndexIsAbility": [0, "BEGEISTERTER FAN"],
+    "_moveAbilityAtIndexToIndex": [0, 1],
+    "flavorText": [
+      "^N",
+      "„N"
+    ]
+  },
+  "2938": {
+    "abilities": [
+      "HO$",
+      "HOO!",
+      "^0! ",
+      ""
+    ]
+  },
+  "2940": {
+    "effects": [
+      "cK",
+      "ck",
+      "DU",
+      "Du",
+      "ae",
+      "ge"
+    ]
+  },
+  "2941": {
+    "effects": [
+      "“AED\\n—",
+      ""
+    ]
+  },
+  "2943": {
+    "abilities": [
+      "RK",
+      "RR",
+      "Le",
+      "Ge",
+      "Ko",
+      "ko",
+      "optt",
+      "öpft"
+    ]
+  },
+  "2944": {
+    "subtypes": [
+      "elt$",
+      "elzeug"
+    ]
+  },
+  "2947": {
+    "abilities": [
+      "\\+ ",
+      "• "
+    ]
+},
+  "2948": {
+    "abilities": [
+      "⟳",
+      "¤"
+    ]
+  },
+  "2950": {
+    "abilities": [
+      "e ¤",
+      "e ⛉"
+    ]
+  },
+  "2955": {
+    "effects": [
+      "¤",
+      "◊"
+    ]
+  },
+  "2956": {
+    "_insertAbilityAtIndex": [0, "Gestaltwandel 5 ⬡"],
+    "_removeAbilitiesAtIndexes": [1],
+    "abilities": [
+      " „$",
+      "",
+      "u\\. ",
+      "u ",
+      "'",
+      " ",
+      "läg",
+      "lag",
+      "¤",
+      "◊",
+      " —$",
+      ""
+    ],
+    "artistsText": [
+      "^-",
+      "",
+      " En Sn$",
+      ""
+    ],
+    "subtypes": [
+      null,
+      null,
+      null,
+      [
+        "Flutgestalt",
+        "Held",
+        "Spielzeug",
+        "Kapitän"
+      ]
+    ]
+  },
+  "2957": {
+    "abilities": [
+      "K$",
+      "KÖCHER",
+      "^ICHER ",
+      "",
+      "ein \\(l",
+      "enn d",
+      "o:",
+      "er",
+      "Ust",
+      "darfst du 1",
+      "kinn",
+      "ktion",
+      "n\\.\\)",
+      "m",
+      "l estanel",
+      "blagestapel",
+      "ln\\. \\| ",
+      "ine H",
+      "!",
+      ".",
+      "\n2 WU 4A 1",
+      "",
+      " em ",
+      " eine ",
+      " \\.\\)",
+      "",
+      "n etisch",
+      "m gegnerisch",
+      "Sci“ 1\"",
+      "Schaden",
+      "Zu",
+      "zu",
+      "gtef",
+      "gt, f",
+      "\\. Chai\\. ",
+      " Charak",
+      "zU",
+      "zu"
+    ],
+    "subtypes": [
+      "aAnctalk",
+      "Sagengestalt",
+      "Daft",
+      "Held",
+      "Dirfmayascsin",
+      "Prinzessin"
+    ]
+  },
+  "2964": {
+    "abilities": [
+      "‘",
+      "'"
+    ]
+  },
+  "2968": {
+    "abilities": [
+      "¤",
+      "⛉"
+    ]
+  },
+  "2969": {
+    "abilities": [
+      "¤",
+      "⛉"
+    ],
+    "rarity": [
+      "Verzaubert",
+      "Speziell"
+    ]
+  },
+  "2971": {
+    "abilities": [
+      "2h",
+      "Ch"
+    ]
   }
 }
