@@ -304,6 +304,9 @@ def correctPunctuation(textToCorrect: str) -> str:
 		if "…" in correctedText:
 			correctedText = re.sub(r"(\w)…", r"\1 …", correctedText)
 			correctedText = re.sub(r"…(\w)", r"… \1", correctedText)
+		# Fix opening quote mark
+		if correctedText.startswith("‚"):
+			correctedText = "„" + correctedText[1:]
 		# Fix closing quote mark
 		correctedText = correctedText.replace("”", "“")
 		# Quotemarks used as letter replacements should be simple quotemarks
