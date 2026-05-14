@@ -241,7 +241,10 @@ def _prepareInputCardRulesText(inputCard: Dict):
 	inputRulesText = re.sub(" ?\n+", " ", inputRulesText)
 	# Ability names are in titlecase between '\', replace that with uppercase (Sometimes they forgot to add the slash at the start, add it if it seems missing)
 	if inputRulesText.count("\\") % 2 == 1:
-		inputRulesText = "\\" + inputRulesText
+		if "\t" in inputRulesText:
+			inputRulesText = inputRulesText.replace("\t", "\\")
+		else:
+			inputRulesText = "\\" + inputRulesText
 	inputRulesText = re.sub(r"\\([^\\]+)\\", lambda m: m.group(1).upper(), inputRulesText)
 	# Replace bracketed letters with their proper symbol
 	if "{" in inputRulesText:
