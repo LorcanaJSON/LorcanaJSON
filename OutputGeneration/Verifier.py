@@ -243,6 +243,9 @@ def _prepareInputCardRulesText(inputCard: Dict):
 	if inputRulesText.count("\\") % 2 == 1:
 		if "\t" in inputRulesText:
 			inputRulesText = inputRulesText.replace("\t", "\\")
+		elif inputRulesText.count("\\") == 3:
+			# Remove the middle separator, since it's probably erroneous
+			inputRulesText = re.sub(r"(\\[^\\]+)\\([^\\]+\\)", "\\1\\2", inputRulesText)
 		else:
 			inputRulesText = "\\" + inputRulesText
 	inputRulesText = re.sub(r"\\([^\\]+)\\", lambda m: m.group(1).upper(), inputRulesText)
