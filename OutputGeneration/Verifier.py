@@ -54,8 +54,6 @@ def compareInputToOutput(cardIdsToVerify: Optional[List[int]]):
 		print("No overrides file found")
 		inputOverrides = {}
 
-	openQuotemark = "„" if GlobalConfig.language == Language.GERMAN else "“"
-	closeQuotemark = "“" if GlobalConfig.language == Language.GERMAN else "”"
 	cardDifferencesCount = 0
 	for outputCard in outputCardStore["cards"]:
 		if cardIdsToVerify and outputCard["id"] not in cardIdsToVerify:
@@ -105,7 +103,8 @@ def compareInputToOutput(cardIdsToVerify: Optional[List[int]]):
 		if inputCard.get("flavor_text", None) or "flavorText" in outputCard:
 			if "flavorText" in outputCard:
 				outputFlavorText = outputCard['flavorText']
-				if outputFlavorText.count(openQuotemark) != outputFlavorText.count(closeQuotemark) or outputFlavorText.count("‘") != outputFlavorText.count("’"):
+				if (outputFlavorText.count(GlobalConfig.language.openSingleQuotemark) != outputFlavorText.count(GlobalConfig.language.closeSingleQuotemark)
+						or outputFlavorText.count(GlobalConfig.language.openDoubleQuotemark) != outputFlavorText.count(GlobalConfig.language.closeDoubleQuotemark)):
 					cardDifferencesCount += 1
 					print(f"{outputCard['fullName']} (ID {cardId}, {outputCard['fullIdentifier']}): Mismatched count of open and close quotemarks in flavor text {outputFlavorText!r}")
 				outputFlavorText = outputFlavorText.replace("“", "\"").replace("”", "\"").replace("„", "\"").replace("‘", "'").replace("’", "'")

@@ -8,11 +8,15 @@ class Language:
 	threeLetterCode: str
 	englishName: str
 	nativeName: str
+	openSingleQuotemark: str = "‘"
+	closeSingleQuotemark: str = "’"
+	openDoubleQuotemark: str = "“"
+	closeDoubleQuotemark: str = "”"
 
 
 ENGLISH = Language("en", "EN", "eng", "English", "English")
 FRENCH = Language("fr", "FR", "fra", "French", "Français")
-GERMAN = Language("de", "DE", "deu", "German", "Deutsch")
+GERMAN = Language("de", "DE", "deu", "German", "Deutsch", "‚", "‘", "„", "“")
 ITALIAN = Language("it", "IT", "ita", "Italian", "Italiano")
 
 ALL: Tuple[Language, ...] = (ENGLISH, FRENCH, GERMAN, ITALIAN)
