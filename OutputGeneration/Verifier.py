@@ -103,6 +103,10 @@ def compareInputToOutput(cardIdsToVerify: Optional[List[int]]):
 		if inputCard.get("flavor_text", None) or "flavorText" in outputCard:
 			if "flavorText" in outputCard:
 				outputFlavorText = outputCard['flavorText']
+				if GlobalConfig.language == Language.GERMAN:
+					# For quoted text inside spoken text, they use different quotemarks (the same ones used in other languages) which means the German closing quotemark is then the opening quotemark
+					# To not throw off the quotemark count, replace the closing quotemark from other languages with the German opening quotemark
+					outputFlavorText = outputFlavorText.replace("”", "„")
 				if (outputFlavorText.count(GlobalConfig.language.openSingleQuotemark) != outputFlavorText.count(GlobalConfig.language.closeSingleQuotemark)
 						or outputFlavorText.count(GlobalConfig.language.openDoubleQuotemark) != outputFlavorText.count(GlobalConfig.language.closeDoubleQuotemark)):
 					cardDifferencesCount += 1
