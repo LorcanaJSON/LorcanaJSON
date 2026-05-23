@@ -316,6 +316,8 @@ def _prepareInputCardFlavorText(inputCard: Dict):
 		inputFlavorText = re.sub(r"(?<=\s)[–—](?=[A-Z])", "–" if 204 < inputCard["culture_invariant_id"] <= 432 else "—", inputFlavorText)
 		# Ellipsis are always preceded by a space
 		inputFlavorText = re.sub(r"(?<=\w)…", " …", inputFlavorText)
+		# Written-out ellipsis (with periods instead of one 'ellipsis'-character) are written with a space between the periods: remove that
+		inputFlavorText = re.sub(r"\. (?=\.)", ".", inputFlavorText)
 	inputCard["flavor_text"] = inputFlavorText
 
 def _printDifferencesDescription(outputCard: Dict, fieldName: str, inputString: str, outputString: str):
