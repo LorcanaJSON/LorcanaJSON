@@ -1,4 +1,10 @@
 {
+  "10": {
+    "rules_text": [
+      "un adversaire défie l'un de vos personnages, il",
+      "il vous défie, un personnage adverse"
+    ]
+  },
   "62": {
     "rules_text": [
       "^R",
@@ -21,6 +27,12 @@
     "rules_text": [
       "un autre personnage",
       "l'un de vos personnages La Fée"
+    ]
+  },
+  "205": {
+    "rules_text": [
+      "\\)S",
+      ") S"
     ]
   },
   "209": {
@@ -47,10 +59,16 @@
       "une c"
     ]
   },
-  "251": {
+  "238": {
+    "rules_text": [
+      ", ch",
+      ", vous pouvez ch"
+    ]
+  },
+  "245": {
     "flavor_text": [
-      "m\\.",
-      "m ."
+      "—N",
+      "— N"
     ]
   },
   "266": {
@@ -71,6 +89,12 @@
       "personnage"
     ]
   },
+  "290": {
+    "flavor_text": [
+      "comment",
+      "Comment"
+    ]
+  },
   "291": {
     "rules_text": [
       "bani",
@@ -81,6 +105,20 @@
     "rules_text": [
       "il",
       "ce personnage"
+    ]
+  },
+  "313": {
+    "rules_text": [
+      "l'",
+      "",
+      "renvoyez-le dans votre main pour renvoyer un personnage adverse dans la main de son",
+      "un autre personnage. Renvoyez ces deux personnages dans la main de leur"
+    ]
+  },
+  "318": {
+    "flavor_text": [
+      "- ",
+      "-"
     ]
   },
   "323": {
@@ -145,6 +183,12 @@
       ""
     ]
   },
+  "562": {
+    "flavor_text": [
+      "—",
+      "–"
+    ]
+  },
   "606": {
     "flavor_text": [
       "^.+$",
@@ -169,12 +213,6 @@
       "—"
     ]
   },
-  "734": {
-    "rules_text": [
-      "\"\\.",
-      "”."
-    ]
-  },
   "783": {
     "_symbolCountChange": {
       "¤": -1
@@ -194,7 +232,7 @@
   },
   "933": {
     "flavor_text": [
-      " –",
+      " – ",
       ", "
     ]
   },
@@ -212,8 +250,8 @@
   },
   "948": {
     "rules_text": [
-      "\\\\Tir ",
-      "\\\\Coup "
+      "TIR ",
+      "COUP "
     ]
   },
   "951": {
@@ -240,7 +278,7 @@
   },
   "1123": {
     "flavor_text": [
-      "-",
+      "- ",
       "—"
     ]
   },
@@ -258,15 +296,15 @@
   },
   "1200": {
     "flavor_text": [
-      "\u00a0",
-      " "
+      "oho",
+      "oh o"
     ]
   },
   "1302": {
     "rules_text": [
-      "«\u00a0",
+      "« ",
       "“",
-      "\u00a0»",
+      " »",
       "”"
     ]
   },
@@ -284,8 +322,8 @@
   },
   "1451": {
     "flavor_text": [
-      "\u00a0",
-      " "
+      "rb",
+      "r b"
     ]
   },
   "1492": {
@@ -304,8 +342,8 @@
   },
   "1613": {
     "flavor_text": [
-      "!”—",
-      "!” —"
+      "!\"—",
+      "!\" —"
     ]
   },
   "1630": {
@@ -336,7 +374,7 @@
   },
   "1901": {
     "flavor_text": [
-      "%—Jafar",
+      " —Jafar",
       ""
     ]
   },
@@ -399,6 +437,8 @@
   },
   "2178": {
     "rules_text": [
+      "⬡,",
+      "⬡",
       " \\(.+\\)",
       ""
     ]
@@ -436,26 +476,26 @@
   },
   "2470": {
     "flavor_text": [
-      " ",
-      " "
+      "tc",
+      "t c"
     ]
   },
   "2503": {
     "flavor_text": [
-      "— L",
-      "—  L"
+      "—L",
+      "— L"
     ]
   },
-  "2559": {
+  "2568": {
     "flavor_text": [
-      "“ I",
-      "“I"
+      "t :",
+      "t:"
     ]
   },
   "2576": {
     "flavor_text": [
-      " ",
-      " "
+      "…\\?",
+      "… ?"
     ]
   },
   "2625": {

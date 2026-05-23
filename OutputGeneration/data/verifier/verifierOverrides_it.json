@@ -5,6 +5,36 @@
       "G"
     ]
   },
+  "436": {
+    "rules_text": [
+      "–",
+      "-"
+    ]
+  },
+  "437": {
+    "rules_text": [
+      "–",
+      "-"
+    ]
+  },
+  "438": {
+    "rules_text": [
+      "–",
+      "-"
+    ]
+  },
+  "439": {
+    "rules_text": [
+      "–",
+      "-"
+    ]
+  },
+  "440": {
+    "rules_text": [
+      "–",
+      "-"
+    ]
+  },
   "442": {
     "flavor_text": [
       "^B",
@@ -19,10 +49,25 @@
       "Cubby"
     ]
   },
+  "508": {
+    "_closeQuotemarkCountChange": 1,
+    "flavor_text": [
+      "\"$",
+      ""
+    ]
+  },
   "526": {
     "flavor_text": [
       "^.+$",
       ""
+    ]
+  },
+  "538": {
+    "flavor_text": [
+      "^C",
+      "\"C",
+      "! ",
+      "!\" "
     ]
   },
   "606": {
@@ -35,6 +80,24 @@
     "flavor_text": [
       "^.+$",
       ""
+    ]
+  },
+  "729": {
+    "rules_text": [
+      "[“”]",
+      "\""
+    ]
+  },
+  "734": {
+    "rules_text": [
+      "[“”]",
+      "\""
+    ]
+  },
+  "762": {
+    "flavor_text": [
+      "  ",
+      " "
     ]
   },
   "904": {
@@ -71,18 +134,16 @@
       1
     ]
   },
-  "1178": {
-    "rules_text": [
-      " \"",
-      " “",
-      "\" ",
-      "” "
-    ]
-  },
   "1186": {
     "flavor_text": [
       "^.+$",
       ""
+    ]
+  },
+  "1302": {
+    "rules_text": [
+      "[“”]",
+      "\""
     ]
   },
   "1429": {
@@ -134,13 +195,19 @@
   "1938": {
     "rules_text": [
       "^$",
-      "TELEGRAFO DEL CREPUSCOLO Una volta durante il tuo turno, puoi pagare 2 per rivelare la prima carta del tuo mazzo. Se è una carta personaggio, aggiungila alla tua mano. Altrimenti, mettila in fondo al tuo mazzo."
+      "TELEGRAFO DEL CREPUSCOLO Una volta durante il tuo turno, puoi pagare 2 ⬡ per rivelare la prima carta del tuo mazzo. Se è una carta personaggio, aggiungila alla tua mano. Altrimenti, mettila in fondo al tuo mazzo."
     ]
   },
-  "1981": {
+  "1950": {
     "rules_text": [
-      "a\"",
-      "a”"
+      "5 \\(",
+      "5 ⬡ ("
+    ]
+  },
+  "1976": {
+    "rules_text": [
+      "3 \\(",
+      "3 ⬡ ("
     ]
   },
   "2026": {
@@ -180,7 +247,7 @@
   "2141": {
     "rules_text": [
       "^$",
-      "TELEGRAFO DEL CREPUSCOLO Una volta durante il tuo turno, puoi pagare 2 per rivelare la prima carta del tuo mazzo. Se è una carta personaggio, aggiungila alla tua mano. Altrimenti, mettila in fondo al tuo mazzo."
+      "TELEGRAFO DEL CREPUSCOLO Una volta durante il tuo turno, puoi pagare 2 ⬡ per rivelare la prima carta del tuo mazzo. Se è una carta personaggio, aggiungila alla tua mano. Altrimenti, mettila in fondo al tuo mazzo."
     ]
   },
   "2143": {
@@ -191,16 +258,14 @@
   },
   "2144": {
     "rules_text": [
-      " \\([^)]+\\)",
-      ""
+      "\\([^)]+\\)",
+      "⬡"
     ]
   },
   "2146": {
     "rules_text": [
       " \\([^)]+\\)",
-      "",
-      "a\"",
-      "a”"
+      ""
     ]
   },
   "2147": {
@@ -226,7 +291,7 @@
       "fullTextSections": -1
     },
     "rules_text": [
-      "\\([^)]+\\)",
+      " \\([^)]+\\)",
       ","
     ]
   },
@@ -270,7 +335,11 @@
   "2418": {
     "_listFieldLengthChange": {
       "fullTextSections": -1
-    }
+    },
+    "rules_text": [
+      "⬡ ,",
+      "⬡,"
+    ]
   },
   "2444": {
     "author": [

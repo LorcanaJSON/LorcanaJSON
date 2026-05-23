@@ -13,8 +13,8 @@
   },
   "134": {
     "rules_text": [
-      "e \\.",
-      "e."
+      "E \\.",
+      "E."
     ]
   },
   "141": {
@@ -33,30 +33,6 @@
     "rules_text": [
       "While",
       "When"
-    ]
-  },
-  "222": {
-    "rules_text": [
-      "Odd One Out",
-      "ODD ONE OUT"
-    ]
-  },
-  "226": {
-    "rules_text": [
-      "There's Trouble A-Brewin",
-      "THERE'S TROUBLE A-BREWIN"
-    ]
-  },
-  "238": {
-    "rules_text": [
-      "Ah-choo",
-      "AH-CHOO"
-    ]
-  },
-  "240": {
-    "rules_text": [
-      "How Do You Do",
-      "HOW DO YOU DO"
     ]
   },
   "245": {
@@ -81,12 +57,6 @@
     "author": [
       "^.+\"([^\"]+)\".+$",
       "\\1"
-    ]
-  },
-  "359": {
-    "rules_text": [
-      "\\\"$",
-      "\u201d"
     ]
   },
   "362": {
@@ -161,8 +131,8 @@
   },
   "487": {
     "rules_text": [
-      "d\n\n",
-      "d. "
+      "d D",
+      "d. D"
     ]
   },
   "497": {
@@ -233,7 +203,7 @@
   },
   "640": {
     "rules_text": [
-      "\\\\Gonna Take You There\\\\",
+      "GONNA TAKE YOU THERE",
       "SHOW ME THE WAY"
     ]
   },
@@ -339,11 +309,11 @@
       "Th"
     ],
     "rules_text": [
-      "Umbra's Power",
+      "UMBRA'S POWER",
       "AN UNEXPECTED FIND",
-      "d\n",
-      "d.\n",
-      "Umbra's Gift",
+      "d U",
+      "d. U",
+      "UMBRA'S GIFT",
       "A PERILOUS POWER"
     ]
   },
@@ -373,8 +343,8 @@
   },
   "1256": {
     "rules_text": [
-      "^\\\\G",
-      "\\\\I'VE G"
+      "^G",
+      "I'VE G"
     ]
   },
   "1327": {
@@ -387,8 +357,8 @@
     "rules_text": [
       " '",
       " ‘",
-      "w'",
-      "w’"
+      "' ",
+      "’ "
     ]
   },
   "1357": {
@@ -401,8 +371,8 @@
     "rules_text": [
       " '",
       " ‘",
-      "w'",
-      "w’"
+      "' ",
+      "’ "
     ]
   },
   "1422": {
@@ -416,7 +386,7 @@
       "card you",
       "card, you",
       "play it for free,",
-      "play that item for free and they enter play "
+      "play that item for free and they enter play"
     ]
   },
   "1429": {
@@ -504,7 +474,9 @@
   "1919": {
     "rules_text": [
       "Ilu",
-      "Illu"
+      "Illu",
+      "’",
+      "'"
     ]
   },
   "1935": {
@@ -563,11 +535,11 @@
   },
   "2410": {
     "rules_text": [
-      "W.+\"W",
+      "W.+“W",
       "W",
       "s,",
       "s, if there's a card under him,",
-      "\"$",
+      "”$",
       ""
     ]
   },
