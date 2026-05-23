@@ -78,11 +78,15 @@ def compareInputToOutput(cardIdsToVerify: Optional[List[int]]):
 		listEntryLengthChange: Optional[Dict[str, List[int, int]]] = None
 		listFieldLengthChange: Optional[Dict[str, int]] = None
 		symbolCountChange: Optional[Dict[str, int]] = None
+		openQuotemarkCountChange: int = 0
+		closeQuotemarkCountChange: int = 0
 		if cardIdAsString in inputOverrides:
 			inputOverridesForCard = inputOverrides[cardIdAsString]
 			listEntryLengthChange = inputOverridesForCard.pop("_listEntryLengthChange", None)
 			listFieldLengthChange = inputOverridesForCard.pop("_listFieldLengthChange", None)
 			symbolCountChange = inputOverridesForCard.pop("_symbolCountChange", None)
+			openQuotemarkCountChange = inputOverridesForCard.pop("_openQuotemarkCountChange", 0)
+			closeQuotemarkCountChange = inputOverridesForCard.pop("_closeQuotemarkCountChange", 0)
 			for fieldName, correctionsTuple in inputOverridesForCard.items():
 				TextCorrection.correctCardFieldFromList(inputCard, fieldName, correctionsTuple)
 
@@ -107,8 +111,9 @@ def compareInputToOutput(cardIdsToVerify: Optional[List[int]]):
 					# For quoted text inside spoken text, they use different quotemarks (the same ones used in other languages) which means the German closing quotemark is then the opening quotemark
 					# To not throw off the quotemark count, replace the closing quotemark from other languages with the German opening quotemark
 					outputFlavorText = outputFlavorText.replace("”", "„")
-				if (outputFlavorText.count(GlobalConfig.language.openSingleQuotemark) != outputFlavorText.count(GlobalConfig.language.closeSingleQuotemark)
-						or outputFlavorText.count(GlobalConfig.language.openDoubleQuotemark) != outputFlavorText.count(GlobalConfig.language.closeDoubleQuotemark)):
+				openQuotemarkCount = outputFlavorText.count(GlobalConfig.language.openSingleQuotemark) + outputFlavorText.count(GlobalConfig.language.openDoubleQuotemark) + openQuotemarkCountChange
+				closeQuotemarkCount = outputFlavorText.count(GlobalConfig.language.closeSingleQuotemark) + outputFlavorText.count(GlobalConfig.language.closeDoubleQuotemark) + closeQuotemarkCountChange
+				if openQuotemarkCount != closeQuotemarkCount:
 					cardDifferencesCount += 1
 					print(f"{outputCard['fullName']} (ID {cardId}, {outputCard['fullIdentifier']}): Mismatched count of open and close quotemarks in flavor text {outputFlavorText!r}")
 				outputFlavorText = outputFlavorText.replace("“", "\"").replace("”", "\"").replace("„", "\"").replace("‘", "'").replace("’", "'")
