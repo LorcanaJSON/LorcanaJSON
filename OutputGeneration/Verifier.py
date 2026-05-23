@@ -268,6 +268,7 @@ def _prepareInputCardRulesText(inputCard: Dict):
 	# Some cards have an m-dash instead of normal 'minus' dash in front of numbers
 	inputRulesText = re.sub(r"[–—](?=\d)", "-", inputRulesText)
 	inputRulesText = inputRulesText.replace(" . . .", "..." if GlobalConfig.language == Language.ENGLISH else "…")
+	inputRulesText = inputRulesText.rstrip()
 	if GlobalConfig.language == Language.ENGLISH:
 		inputRulesText = inputRulesText.replace("teammates’ ", "teammates' ").replace("players’ ", "players' ").replace("Illumineers’ ", "Illumineers' ")
 	elif GlobalConfig.language == Language.FRENCH:
