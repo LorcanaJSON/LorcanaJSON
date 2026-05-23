@@ -280,6 +280,11 @@ def _prepareInputCardRulesText(inputCard: Dict):
 			inputRulesText = inputRulesText.replace("Lorsqu'il vous défie, un personnage adverse doit,", "Lorsqu'un adversaire défie l'un de vos personnages, il doit,")
 		# They often forget the comma after the ink symbol on lines with multiple keyword abilities
 		inputRulesText = re.sub(f"{LorcanaSymbols.INK} (?=[A-Z][a-zé])", f"{LorcanaSymbols.INK}, ", inputRulesText)
+	elif GlobalConfig.language == Language.GERMAN:
+		# For earlier German cards, they didn't put a space between reminder text and the effect so add that in
+		inputRulesText = re.sub(r"\)(?=\w)", ") ", inputRulesText)
+		# Same problem with the previous effect and the next ability name
+		inputRulesText = re.sub(r"\.(?=[A-Z][A-Z])", ". ", inputRulesText)
 	elif GlobalConfig.language == Language.ITALIAN:
 		inputRulesText = inputRulesText.replace("...", "…")
 	inputCard["rules_text"] = inputRulesText
