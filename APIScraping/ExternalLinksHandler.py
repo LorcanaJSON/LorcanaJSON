@@ -105,6 +105,14 @@ _CORRECTIONS = {
 		"41": {
 			"Jafar - Lamp Thief": ("9", "59/204")
 		}
+	},
+	"12":{
+		"400": {
+			"Doc - Taking Notes": ("12", "40/204")
+		},
+		"480": {
+			"Violet Parr - Learning New Powers": ("12", "48/204")
+		}
 	}
 }
 
