@@ -1599,7 +1599,7 @@
   },
   "2011": {
     "flavorText": [
-      "^\\?",
+      "^“\\?",
       "“Skate veloce, canzoni che spaccano. Che altro vuoi"
     ]
   },
@@ -2733,7 +2733,7 @@
       "3 o"
     ],
     "flavorText": [
-      "^mote",
+      "^“mote",
       "“Non mi abituerò"
     ]
   },
@@ -3178,8 +3178,8 @@
   },
   "2925": {
     "flavorText": [
-      "^0",
-      "“O"
+      "0",
+      "O"
     ]
   },
   "2937": {

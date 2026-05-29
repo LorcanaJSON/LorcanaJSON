@@ -2253,8 +2253,6 @@
       "◊"
     ],
     "flavorText": [
-      "^B",
-      "„B",
       "“.+\n",
       "",
       "!$",
@@ -3690,27 +3688,15 @@
       ""
     ]
   },
-  "2931": {
-    "flavorText": [
-      "^Z",
-      "„Z"
-    ]
-  },
   "2935": {
     "flavorText": [
-      "^D",
-      "„D",
       "\nG",
       "\n—G"
     ]
   },
   "2936": {
     "_effectAtIndexIsAbility": [0, "BEGEISTERTER FAN"],
-    "_moveAbilityAtIndexToIndex": [0, 1],
-    "flavorText": [
-      "^N",
-      "„N"
-    ]
+    "_moveAbilityAtIndexToIndex": [0, 1]
   },
   "2938": {
     "abilities": [
