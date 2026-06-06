@@ -169,9 +169,12 @@ def parseSingleCard(inputCard: Dict, ocrResult: OcrResult, externalLinksHandler:
 	if ocrResult.flavorText:
 		flavorText = TextCorrection.correctText(ocrResult.flavorText)
 		flavorText = TextCorrection.correctPunctuation(flavorText)
-		# Sometimes it misses the opening quotemark of flavortext, add that back
-		if inputCard["flavor_text"].startswith(GlobalConfig.language.openDoubleQuotemark) and not flavorText.startswith(GlobalConfig.language.openDoubleQuotemark):
-			flavorText = GlobalConfig.language.openDoubleQuotemark + flavorText
+		# Sometimes it misses or misreads the opening quotemark of flavortext, add that back
+		if inputCard["flavor_text"].startswith(GlobalConfig.language.openDoubleQuotemark) or inputCard["flavor_text"].startswith("\""):
+			if flavorText.startswith(GlobalConfig.language.openSingleQuotemark) or flavorText.startswith("'") or flavorText.startswith(GlobalConfig.language.closeSingleQuotemark):
+				flavorText = flavorText[1:]
+			if not flavorText.startswith(GlobalConfig.language.openDoubleQuotemark):
+				flavorText = GlobalConfig.language.openDoubleQuotemark + flavorText
 		# Tesseract often sees the italic 'T' as an 'I', especially at the start of a word. Fix that
 		if GlobalConfig.language == Language.ENGLISH and "I" in flavorText:
 			flavorText = re.sub(r"(^|\W)I(?=[ehiow]\w)", r"\1T", flavorText)
