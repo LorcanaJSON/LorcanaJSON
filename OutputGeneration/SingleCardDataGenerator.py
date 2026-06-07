@@ -1,5 +1,5 @@
 import logging, re
-from typing import Dict, List, Optional, Union
+from typing import Dict, List, Optional, Tuple, Union
 
 import GlobalConfig
 from APIScraping.ExternalLinksHandler import ExternalLinksHandler
@@ -317,6 +317,28 @@ def parseSingleCard(inputCard: Dict, ocrResult: OcrResult, externalLinksHandler:
 				"name": abilityName,
 				"effect": abilityEffect
 			})
+
+	if "{" in inputCard["rules_text"] and abilities and not effects:  # Correcting symbols in both effects and abilities at the same time is hard, because you have to check two separate lists
+		inputSymbols: List[str] = re.findall("(?<=\\{)[A-Z](?=})", inputCard["rules_text"])
+		# A list of tuples with all the symbol matches in abilities.
+		# First element is the symbol string, second is abilty text field name, third is ability index, fourth is position within the ability text
+		outputSymbolsByAbility: List[Tuple[str, int, str, int]] = []
+		for abilityIndex, ability in enumerate(abilities):
+			abilityFieldName = "fullText" if "fullText" in ability else "effect"
+			for symbolMatch in LorcanaSymbols.LETTERED_SYMBOL_REGEX.finditer(ability[abilityFieldName]):
+				outputSymbolsByAbility.append((symbolMatch.group(0), abilityIndex, abilityFieldName, symbolMatch.start()))
+
+		if len(inputSymbols) == len(outputSymbolsByAbility):
+			# Same number of symbols, so assume the output symbol should be the same as the input symbol at each index
+			for symbolIndex in range(len(inputSymbols)):
+				symbol = LorcanaSymbols.LETTER_TO_SYMBOL[inputSymbols[symbolIndex]]
+				if symbol != outputSymbolsByAbility[symbolIndex][0]:
+					wrongSymbol, abilityIndex, abilityFieldName, symbolPosition = outputSymbolsByAbility[symbolIndex]
+					ability = abilities[abilityIndex]
+					oldAbilityText = ability[abilityFieldName]
+					ability[abilityFieldName] = ability[abilityFieldName][:symbolPosition] + symbol + ability[abilityFieldName][symbolPosition+1:]
+					_logger.debug(f"Correcting ability text at index {abilityIndex} from {oldAbilityText!r} to {ability[abilityFieldName]!r} in card {CardUtil.createCardIdentifier(outputCard)}")
+
 	if abilities:
 		outputCard["abilities"] = abilities
 	if effects:

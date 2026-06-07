@@ -8,26 +8,8 @@
   "262": {
     "_moveKeywordsLast": true
   },
-  "469": {
-    "abilities": [
-      "2 \\S",
-      "2 ⛉"
-    ]
-  },
   "560": {
     "_moveKeywordsLast": true
-  },
-  "643": {
-    "abilities": [
-      "2 \\S",
-      "2 ⛉"
-    ]
-  },
-  "713": {
-    "abilities": [
-      "\\+2 .",
-      "+2 ⛉"
-    ]
   },
   "736": {
     "externalLinks": [
@@ -39,12 +21,6 @@
     "artistsText": [
       "y[^ễ]+n",
       "yễn"
-    ]
-  },
-  "792": {
-    "abilities": [
-      "1 \\S+ ([^ ]+) \\+1 \\S",
-      "1 ¤ \\1 +1 ⛉"
     ]
   },
   "900": {
@@ -63,20 +39,8 @@
       2
     ]
   },
-  "968": {
-    "abilities": [
-      "2 \\S",
-      "2 ⛉"
-    ]
-  },
   "969": {
     "_moveKeywordsLast": true
-  },
-  "989": {
-    "abilities": [
-      "3 \\S",
-      "3 ⛉"
-    ]
   },
   "1006": {
     "_moveKeywordsLast": true
@@ -94,12 +58,6 @@
     "externalLinks": [
       "kT",
       "k-T"
-    ]
-  },
-  "1125": {
-    "abilities": [
-      "2(?: \\S)?(?=\\s|\\.)",
-      "2 ⛉"
     ]
   },
   "1138": {
@@ -121,12 +79,6 @@
     "maxCopiesInDeck": [
       99,
       null
-    ]
-  },
-  "1369": {
-    "abilities": [
-      " \\+?1 \\S([ .])",
-      " +1 ⛉\\1"
     ]
   },
   "1404": {
