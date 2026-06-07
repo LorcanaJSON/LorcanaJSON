@@ -233,6 +233,8 @@ def correctText(cardText: str) -> str:
 		cardText = cardText.replace(f"{LorcanaSymbols.STRENGTH})", LorcanaSymbols.STRENGTH)
 		# It sometimes reads the Exert symbol as a bracket
 		cardText = cardText.replace("(uno", f"{LorcanaSymbols.EXERT} uno")
+		# The 'Reserved'-symbol is Willpower
+		cardText = cardText.replace("®", LorcanaSymbols.WILLPOWER)
 		# It reads 'Iena' (Italian for 'Hyena'), as 'lena'
 		cardText = re.sub(r"\blena", "Iena", cardText)
 		# It sometimes read 'volta' on a new line as starting with a capital V
