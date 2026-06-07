@@ -98,7 +98,6 @@ def correctText(cardText: str) -> str:
 		# It gets a bit confused about exert and payment, correct that
 		cardText = re.sub(r"^\(20 ", f"{LorcanaSymbols.EXERT}, 2 {LorcanaSymbols.INK} ", cardText)
 		# The Lore symbol after 'location's' often gets missed or misread as a '4'
-		# cardText = cardText.replace("location's .", f"location's {LorcanaSymbols.LORE}.")
 		cardText = re.sub("(?<=location's )4?\\.", f"{LorcanaSymbols.LORE}.", cardText)
 		## Correct reminder text ##
 		# Challenger
