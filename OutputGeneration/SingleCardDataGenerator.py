@@ -17,6 +17,7 @@ _CARD_CODE_LOOKUP = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVW
 _KEYWORD_REGEX = re.compile(r"(?:^|\n)([A-ZÀ][^.]+)(?=\s\([A-Z])")
 _KEYWORD_REGEX_WITHOUT_REMINDER = re.compile(r"^([A-ZÀ][^ ]{2,}|À)( ([dl]['’])?[A-Zasu][^ ]{2,})?( \d+)?( .)?$")
 _ABILITY_TYPE_CORRECTION_FIELD_TO_ABILITY_TYPE: Dict[str, str] = {"_forceAbilityIndexToActivated": "activated", "_forceAbilityIndexToKeyword": "keyword", "_forceAbilityIndexToStatic": "static", "_forceAbilityIndexToTriggered": "triggered"}
+_SYMBOL_LETTER_REGEX = re.compile(f"[{''.join(LorcanaSymbols.LETTER_TO_SYMBOL.values())}]")
 
 
 def parseSingleCard(inputCard: Dict, ocrResult: OcrResult, externalLinksHandler: ExternalLinksHandler, relatedCards: RelatedCards, cardDataCorrections: Dict, storyParser: StoryParser,
@@ -325,7 +326,7 @@ def parseSingleCard(inputCard: Dict, ocrResult: OcrResult, externalLinksHandler:
 		outputSymbolsByAbility: List[Tuple[str, int, str, int]] = []
 		for abilityIndex, ability in enumerate(abilities):
 			abilityFieldName = "fullText" if "fullText" in ability else "effect"
-			for symbolMatch in LorcanaSymbols.LETTERED_SYMBOL_REGEX.finditer(ability[abilityFieldName]):
+			for symbolMatch in _SYMBOL_LETTER_REGEX.finditer(ability[abilityFieldName]):
 				outputSymbolsByAbility.append((symbolMatch.group(0), abilityIndex, abilityFieldName, symbolMatch.start()))
 
 		if len(inputSymbols) == len(outputSymbolsByAbility):

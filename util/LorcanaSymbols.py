@@ -1,5 +1,3 @@
-import re
-
 EXERT = "⟳"  # Unicode \u27F3   HTML entities &#10227;  &#x27F3;
 INK = "⬡"  # Unicode \u2B21  HTML entities &#11041;  &#x2B21;
 LORE = "◊"  # Unicode \u25CA  HTML entities &#9674;  &#x25CA;  &loz;
@@ -14,4 +12,3 @@ SEPARATOR_STRING = f" {SEPARATOR} "  # Separator with a space at either side, ge
 ALL_SYMBOLS = (EXERT, INK, INKWELL, LORE, SEPARATOR, STRENGTH, WILLPOWER)
 
 LETTER_TO_SYMBOL = {"C": INKWELL, "E": EXERT, "I": INK, "L": LORE, "S": STRENGTH, "W": WILLPOWER}
-LETTERED_SYMBOL_REGEX = re.compile(f"[{''.join(LETTER_TO_SYMBOL.values())}]")
