@@ -321,7 +321,7 @@ def parseSingleCard(inputCard: Dict, ocrResult: OcrResult, externalLinksHandler:
 	if "{" in inputCard["rules_text"] and abilities and not effects:  # Correcting symbols in both effects and abilities at the same time is hard, because you have to check two separate lists
 		inputSymbols: List[str] = re.findall("(?<=\\{)[A-Z](?=})", inputCard["rules_text"])
 		# A list of tuples with all the symbol matches in abilities.
-		# First element is the symbol string, second is abilty text field name, third is ability index, fourth is position within the ability text
+		# First element is the symbol string, second is ability index, third is ability text field name (to handle keyword abilities), fourth is position within the ability text
 		outputSymbolsByAbility: List[Tuple[str, int, str, int]] = []
 		for abilityIndex, ability in enumerate(abilities):
 			abilityFieldName = "fullText" if "fullText" in ability else "effect"
