@@ -374,6 +374,14 @@
     "matchingNames": ["Chief Tui", "Gramma Tala", "HeiHei", "Heihei", "Kakamora", "Moana", "Motunui", "Maui", "Pua", "Tamatoa", "Te Fiti", "Te Kā", "Vaiana"],
     "matchingIds": [29, 166, 497, 498, 597, 686, 1017, 1052, 1169, 1329, 1334, 1345, 1415]
   },
+  "monstersinc": {
+    "displayNames": {
+      "de": "Die Monster AG",
+      "en": "Monsters, Inc.",
+      "fr": "Monstres & Cie",
+      "it": "Monsters & Co."
+    }
+  },
   "mulan": {
     "displayNames": {
       "de": "Mulan",
