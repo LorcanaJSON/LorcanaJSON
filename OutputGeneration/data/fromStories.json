@@ -580,6 +580,14 @@
     "matchingNames": ["B.E.N.", "Billy Bones", "Captain Amelia", "Dr. Delbert Doppler", "Grewnge", "Jim Hawkins", "John Silver", "Morph", "Mr. Arrow", "Nathaniel Flint", "Scroop"],
     "matchingIds": [572, 632, 652, 1331, 1395, 1402, 1421]
   },
+  "up": {
+    "displayNames": {
+      "de": "Oben",
+      "en": "Up",
+      "fr": "Là-haut ",
+      "it": "Up"
+    }
+  },
   "winniethepooh": {
     "displayNames": {
       "de": "Winnie Puuh",
