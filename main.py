@@ -2,7 +2,7 @@ import argparse, dataclasses, datetime, json, logging, logging.handlers, os, re,
 
 import GlobalConfig
 from OutputGeneration import DataFilesGenerator, Verifier
-from APIScraping import RavensburgerApiHandler, UpdateHandler
+from APIScraping import ApiScrapingUtil, RavensburgerApiHandler, UpdateHandler
 from APIScraping.ExternalLinksHandler import ExternalLinksHandler
 from APIScraping.UpdateCheckResult import UpdateCheckResult
 from OCR import ImageParser, OcrCacheHandler
@@ -216,7 +216,7 @@ if __name__ == '__main__':
 			updateCheckResult: UpdateCheckResult = UpdateHandler.checkForNewCardData(cardCatalog, fieldsToIgnore=parsedArguments.ignoreFields)
 			if updateCheckResult.hasChanges():
 				_infoOrPrint(logger, f"Card catalog for language '{GlobalConfig.language.englishName}' was updated, saving ({updateCheckResult.listChangeCounts()})")
-				RavensburgerApiHandler.saveCardCatalog(cardCatalog)
+				ApiScrapingUtil.saveCardCatalog(cardCatalog)
 			else:
 				_infoOrPrint(logger, f"No new version of the card catalog for language '{GlobalConfig.language.englishName}' found")
 			RavensburgerApiHandler.downloadImages()

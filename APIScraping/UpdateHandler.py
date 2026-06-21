@@ -2,7 +2,7 @@ import datetime, json, logging, os
 from typing import Dict, List
 
 import GlobalConfig
-from APIScraping import RavensburgerApiHandler
+from APIScraping import ApiScrapingUtil, RavensburgerApiHandler
 from APIScraping.UpdateCheckResult import ChangeType, UpdateCheckResult
 from OCR import OcrCacheHandler
 from OutputGeneration import DataFilesGenerator
@@ -170,7 +170,7 @@ def createOutputIfNeeded(onlyCreateOnNewCards: bool, cardFieldsToIgnore: List[st
 			OcrCacheHandler.clearOcrCacheForCards(actualImageChanges)
 		idsToParse.extend(actualImageChanges)
 	_logger.info(f"Updated IDs: {' '.join([str(i) for i in sorted(idsToParse)])}")
-	RavensburgerApiHandler.saveCardCatalog(cardCatalog)
+	ApiScrapingUtil.saveCardCatalog(cardCatalog)
 	RavensburgerApiHandler.downloadImages()
 	# Parse all images instead of just the new ones, because other cards might be related to the new ones (an Enchanted would have a baseId, and that base card needs to get an Enchanted ID too)
 	DataFilesGenerator.createOutputFiles(shouldShowImages=shouldShowImages)
