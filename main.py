@@ -16,6 +16,134 @@ def _infoOrPrint(logger: logging.Logger, message: str):
 	else:
 		print(message)
 
+def _parseArguments() -> argparse.Namespace:
+	argumentParser = argparse.ArgumentParser(description="Handle LorcanaJSON data, depending on the action argument")
+	argumentParser.add_argument("action", choices=("check", "update", "updateExternalLinks", "download", "parse", "show", "verify"),
+								help="Specify the action to take. "
+									 "'check' checks if new card data is available, 'update' actually updates the local card datafiles. "
+									 "'updateExternalLinks' updates the datafile with card data as used by other sites"
+									 "'download' downloads missing images. "
+									 "'parse' parses the images specified in the 'cardIds' argument. "
+									 "'show' shows the image(s) specified in the 'cardIds' argument along with subimages used in parsing. "
+									 "'verify' compares the input and the output files and lists differences for important fields")
+	argumentParser.add_argument("--loglevel", dest="loglevel", choices=("debug", "info", "warn", "warning", "error"), default=None, help="Specify the log level. If omitted, defaults to 'warning'")
+	argumentParser.add_argument("--tesseractPath", help="Specify the path to Tesseract. This is needed if Tesseract can't just be called with 'tesseract' from the commandline")
+	argumentParser.add_argument("--language", nargs="*", help="Specify one or more languages to use, by its name or two-letter code. Defaults to 'en'", default=["en"])
+	argumentParser.add_argument("--cardIds", nargs="*", help="List the card IDs to parse. For the 'show' action, specify one or more card IDs to show. "
+	                                                         "For the 'parse' action, specify one or more card IDs to parse, or omit this argument to parse all cards. "
+	                                                         "For other actions, this field is ignored")
+	argumentParser.add_argument("--ignoreFields", nargs="*", help="Specify one or more card fields to ignore when checking for updates. Only used with the 'check' action", default=None)
+	argumentParser.add_argument("--show", action="store_true", dest="shouldShowSubimages",
+	                            help="If added, the program shows all the subimages used during parsing. It stops processing until the displayed images are closed, so this is a slow option")
+	argumentParser.add_argument("--threads", type=int, help="Specify how many threads should be used when executing multithreaded tasks. Specify a negative amount to use the maximum number of threads available minus the provided amount. "
+	                                                        "Leave empty to have the amount be determined automatically")
+	argumentParser.add_argument("--limitedBuild", action="store_true", help="If added, only the 'allCards.json' file will be generated. No deckfiles, setfiles, etc will be created. This leads to a slightly faster build")
+	argumentParser.add_argument("--useCachedOcr", action="store_true", help="If added, use cached OCR results, instead of parsing the card images, if cached results are available")
+	argumentParser.add_argument("--skipOcrCache", action="store_true", help="If added, no OCR caching files will be used or created")
+	argumentParser.add_argument("--rebuildOcrCache", action="store_true", help="Forces the OCR cache to be rebuilt. This overrides 'useCachedOcr' and 'skipOcrCache'")
+	return argumentParser.parse_args()
+
+def _setUpLogger(loglevelFromConfig: Optional[str], loglevelFromArgs: Optional[str]) -> logging.Logger:
+	logger = logging.getLogger("LorcanaJSON")
+	loglevelName = "warning"
+	if loglevelFromArgs:
+		loglevelName = loglevelFromArgs
+	elif loglevelFromConfig:
+		loglevelName = loglevelFromConfig
+	if loglevelName == "debug":
+		loglevel = logging.DEBUG
+	elif loglevelName == "info":
+		loglevel = logging.INFO
+	elif loglevelName == "warn" or loglevelName == "warning":
+		loglevel = logging.WARNING
+	elif loglevelName == "error":
+		loglevel = logging.ERROR
+	else:
+		logger.error(f"Invalid loglevel '{loglevelName}' provided")
+		sys.exit(-1)
+	logger.setLevel(loglevel)
+
+	loggingFormatter = logging.Formatter('%(asctime)s (%(levelname)s) %(message)s', datefmt="%Y-%m-%d %H:%M:%S")
+	# Log everything to a file. Use a new file each time the program is launched
+	if not os.path.isdir("logs"):
+		os.mkdir("logs")
+	logfilePath = os.path.join("logs", "LorcanaJSON.log")
+	loggingFileHandler = logging.handlers.RotatingFileHandler(logfilePath, mode="w", backupCount=10, encoding="utf-8", delay=True)
+	loggingFileHandler.setLevel(logging.DEBUG)
+	loggingFileHandler.setFormatter(loggingFormatter)
+	if os.path.isfile(logfilePath):
+		loggingFileHandler.doRollover()
+	logger.addHandler(loggingFileHandler)
+
+	# Also print everything to the console
+	loggingStreamHandler = logging.StreamHandler(sys.stdout)
+	loggingStreamHandler.setLevel(logging.DEBUG)
+	loggingStreamHandler.setFormatter(loggingFormatter)
+	logger.addHandler(loggingStreamHandler)
+
+	return logger
+
+def _parseCardIds(cardIdsFromArgs: Optional[List[str]]) -> Optional[List[int]]:
+	if not cardIdsFromArgs:
+		return None
+	cardIds: List[int] = []
+	for inputCardId in cardIdsFromArgs:
+		if "-" in inputCardId:
+			# This is either a negative number or a range
+			if inputCardId.startswith("-"):
+				# Negative number, remove the ID from the to-parse list, if it's there
+				cardIdToRemove = int(inputCardId, 10) * -1
+				if cardIdToRemove in cardIds:
+					cardIds.remove(cardIdToRemove)
+				else:
+					logger.warning(f"Asked to remove card ID {cardIdToRemove} from parsing, but it already wasn't in the parse list. Verify the '--cardIds' parameter list")
+			else:
+				# Range, add all the IDs in the range
+				cardIdRangeMatch = re.match(r"(\d+)-(\d+)", inputCardId)
+				if cardIdRangeMatch:
+					lowerBound = int(cardIdRangeMatch.group(1), 10)
+					upperBound = int(cardIdRangeMatch.group(2), 10)
+					cardIds.extend(list(range(lowerBound, upperBound + 1)))
+				else:
+					raise ValueError(f"Invalid range value '{inputCardId}' in the '--cardIds' list")
+		else:
+			# Normal number, add it to the to-parse list
+			try:
+				cardIds.append(int(inputCardId, 10))
+			except ValueError:
+				raise ValueError(f"Invalid value '{inputCardId}' in the '--cardIds' list, should be numeric")
+	return cardIds
+
+def _setUpThreadCount(shouldShowImages: bool, providedThreadCount: int = 0):
+	if shouldShowImages:
+		# If we need to show images, only use one thread, since with multithreading it freezes, and showing images of multiple cards at the same time would get confusing
+		GlobalConfig.threadCount = 1
+		logger.info("Forcing thread count to 1 because that's required to show images")
+	elif providedThreadCount:
+		if parsedArguments.threads:
+			GlobalConfig.threadCount = parsedArguments.threads
+			threadSource = "commandline argument"
+		else:
+			GlobalConfig.threadCount = config["threadCount"]
+			threadSource = "config file"
+		if GlobalConfig.threadCount < 0:
+			logger.info(f"Negative threadcount provided, leaving {GlobalConfig.threadCount} threads unused")
+			GlobalConfig.threadCount = os.cpu_count() - GlobalConfig.threadCount
+		if GlobalConfig.threadCount <= 0:
+			logger.error(f"Invalid thread count {GlobalConfig.threadCount} from {threadSource}, falling back to thread count of 1")
+			GlobalConfig.threadCount = 1
+		else:
+			logger.info(f"Using thread count {GlobalConfig.threadCount} from {threadSource}")
+	else:
+		# Only use half the available cores for threads, because we're also IO- and GIL-bound, so more threads would just slow things down
+		GlobalConfig.threadCount = max(1, os.cpu_count() // 2)
+		if cardIds and len(cardIds) < GlobalConfig.threadCount:
+			# No sense using more threads than we have images to process
+			GlobalConfig.threadCount = len(cardIds)
+			logger.info(f"Using thread count of {GlobalConfig.threadCount} since that's how many cards need to be parsed")
+		else:
+			logger.info(f"Using half the available threads, setting thread count to {GlobalConfig.threadCount:,}")
+
 
 def _checkForUpdates(fieldsToIgnore: Optional[List[str]] = None) -> bool:
 	updateCheckResult: UpdateCheckResult = UpdateHandler.checkForNewCardData(fieldsToIgnore=fieldsToIgnore)
@@ -53,72 +181,14 @@ def _checkForUpdates(fieldsToIgnore: Optional[List[str]] = None) -> bool:
 
 
 if __name__ == '__main__':
-	argumentParser = argparse.ArgumentParser(description="Handle LorcanaJSON data, depending on the action argument")
-	argumentParser.add_argument("action", choices=("check", "update", "updateExternalLinks", "download", "parse", "show", "verify"), help="Specify the action to take. "
-																										 "'check' checks if new card data is available, 'update' actually updates the local card datafiles. "
-																										 "'updateExternalLinks' updates the datafile with card data as used by other sites"
-																										 "'download' downloads missing images. "
-																										 "'parse' parses the images specified in the 'cardIds' argument. "
-																										 "'show' shows the image(s) specified in the 'cardIds' argument along with subimages used in parsing. "
-																										 "'verify' compares the input and the output files and lists differences for important fields")
-	argumentParser.add_argument("--loglevel", dest="loglevel", choices=("debug", "info", "warn", "warning", "error"), default=None, help="Specify the log level. If omitted, defaults to 'warning'")
-	argumentParser.add_argument("--tesseractPath", help="Specify the path to Tesseract. This is needed if Tesseract can't just be called with 'tesseract' from the commandline")
-	argumentParser.add_argument("--language", nargs="*", help="Specify one or more languages to use, by its name or two-letter code. Defaults to 'en'", default=["en"])
-	argumentParser.add_argument("--cardIds", nargs="*", help="List the card IDs to parse. For the 'show' action, specify one or more card IDs to show. "
-															 "For the 'parse' action, specify one or more card IDs to parse, or omit this argument to parse all cards. "
-															 "For other actions, this field is ignored")
-	argumentParser.add_argument("--ignoreFields", nargs="*", help="Specify one or more card fields to ignore when checking for updates. Only used with the 'check' action", default=None)
-	argumentParser.add_argument("--show", action="store_true", dest="shouldShowSubimages", help="If added, the program shows all the subimages used during parsing. It stops processing until the displayed images are closed, so this is a slow option")
-	argumentParser.add_argument("--threads", type=int, help="Specify how many threads should be used when executing multithreaded tasks. Specify a negative amount to use the maximum number of threads available minus the provided amount. "
-															"Leave empty to have the amount be determined automatically")
-	argumentParser.add_argument("--limitedBuild", action="store_true", help="If added, only the 'allCards.json' file will be generated. No deckfiles, setfiles, etc will be created. This leads to a slightly faster build")
-	argumentParser.add_argument("--useCachedOcr", action="store_true", help="If added, use cached OCR results, instead of parsing the card images, if cached results are available")
-	argumentParser.add_argument("--skipOcrCache", action="store_true", help="If added, no OCR caching files will be used or created")
-	argumentParser.add_argument("--rebuildOcrCache", action="store_true", help="Forces the OCR cache to be rebuilt. This overrides 'useCachedOcr' and 'skipOcrCache'")
-	parsedArguments = argumentParser.parse_args()
+	parsedArguments = _parseArguments()
 
 	config = {}
 	if os.path.isfile("config.json"):
 		with open("config.json", "r") as configFile:
 			config = json.load(configFile)
 
-	# Set up logging
-	logger = logging.getLogger("LorcanaJSON")
-	loglevelName = "warning"
-	if parsedArguments.loglevel:
-		loglevelName = parsedArguments.loglevel
-	elif "loglevel" in config:
-		loglevelName = config["loglevel"]
-	if loglevelName == "debug":
-		loglevel = logging.DEBUG
-	elif loglevelName == "info":
-		loglevel = logging.INFO
-	elif loglevelName == "warn" or loglevelName == "warning":
-		loglevel = logging.WARNING
-	elif loglevelName == "error":
-		loglevel = logging.ERROR
-	else:
-		logger.error(f"Invalid loglevel '{loglevelName}' provided")
-		sys.exit(-1)
-	logger.setLevel(loglevel)
-
-	loggingFormatter = logging.Formatter('%(asctime)s (%(levelname)s) %(message)s', datefmt="%Y-%m-%d %H:%M:%S")
-	#Log everything to a file. Use a new file each time the program is launched
-	if not os.path.isdir("logs"):
-		os.mkdir("logs")
-	logfilePath = os.path.join("logs", "LorcanaJSON.log")
-	loggingFileHandler = logging.handlers.RotatingFileHandler(logfilePath, mode="w", backupCount=10, encoding="utf-8", delay=True)
-	loggingFileHandler.setLevel(logging.DEBUG)
-	loggingFileHandler.setFormatter(loggingFormatter)
-	if os.path.isfile(logfilePath):
-		loggingFileHandler.doRollover()
-	logger.addHandler(loggingFileHandler)
-
-	#Also print everything to the console
-	loggingStreamHandler = logging.StreamHandler(sys.stdout)
-	loggingStreamHandler.setLevel(logging.DEBUG)
-	loggingStreamHandler.setFormatter(loggingFormatter)
-	logger.addHandler(loggingStreamHandler)
+	logger = _setUpLogger(config.get("loglevel", None), parsedArguments.loglevel)
 
 	GlobalConfig.tesseractPath = os.path.dirname(__file__)
 	if parsedArguments.tesseractPath:
@@ -126,64 +196,10 @@ if __name__ == '__main__':
 	elif config.get("tesseractPath", None):
 		GlobalConfig.tesseractPath = config["tesseractPath"]
 
-	cardIds = None
-	if parsedArguments.cardIds:
-		cardIds = []
-		for inputCardId in parsedArguments.cardIds:
-			if "-" in inputCardId:
-				# This is either a negative number or a range
-				if inputCardId.startswith("-"):
-					# Negative number, remove the ID from the to-parse list, if it's there
-					cardIdToRemove = int(inputCardId, 10) * -1
-					if cardIdToRemove in cardIds:
-						cardIds.remove(cardIdToRemove)
-					else:
-						logger.warning(f"Asked to remove card ID {cardIdToRemove} from parsing, but it already wasn't in the parse list. Verify the '--cardIds' parameter list")
-				else:
-					# Range, add all the IDs in the range
-					cardIdRangeMatch = re.match(r"(\d+)-(\d+)", inputCardId)
-					if cardIdRangeMatch:
-						lowerBound = int(cardIdRangeMatch.group(1), 10)
-						upperBound = int(cardIdRangeMatch.group(2), 10)
-						cardIds.extend(list(range(lowerBound, upperBound + 1)))
-					else:
-						raise ValueError(f"Invalid range value '{inputCardId}' in the '--cardIds' list")
-			else:
-				# Normal number, add it to the to-parse list
-				try:
-					cardIds.append(int(inputCardId, 10))
-				except ValueError:
-					raise ValueError(f"Invalid value '{inputCardId}' in the '--cardIds' list, should be numeric")
+	cardIds: Optional[List[int]] = _parseCardIds(parsedArguments.cardIds)
 
 	if parsedArguments.action in ("parse", "show", "update"):
-		if parsedArguments.action == "show" or parsedArguments.shouldShowSubimages:
-			# If we need to show images, only use one thread, since with multithreading it freezes, and showing images of multiple cards at the same time would get confusing
-			GlobalConfig.threadCount = 1
-			logger.info("Forcing thread count to 1 because that's required to show images")
-		elif config.get("threadCount", 0) or parsedArguments.threads:
-			if parsedArguments.threads:
-				GlobalConfig.threadCount = parsedArguments.threads
-				threadSource = "commandline argument"
-			else:
-				GlobalConfig.threadCount = config["threadCount"]
-				threadSource = "config file"
-			if GlobalConfig.threadCount < 0:
-				logger.info(f"Negative threadcount provided, leaving {GlobalConfig.threadCount} threads unused")
-				GlobalConfig.threadCount = os.cpu_count() - GlobalConfig.threadCount
-			if GlobalConfig.threadCount <= 0:
-				logger.error(f"Invalid thread count {GlobalConfig.threadCount} from {threadSource}, falling back to thread count of 1")
-				GlobalConfig.threadCount = 1
-			else:
-				logger.info(f"Using thread count {GlobalConfig.threadCount} from {threadSource}")
-		else:
-			# Only use half the available cores for threads, because we're also IO- and GIL-bound, so more threads would just slow things down
-			GlobalConfig.threadCount = max(1, os.cpu_count() // 2)
-			if cardIds and len(cardIds) < GlobalConfig.threadCount:
-				# No sense using more threads than we have images to process
-				GlobalConfig.threadCount = len(cardIds)
-				logger.info(f"Using thread count of {GlobalConfig.threadCount} since that's how many cards need to be parsed")
-			else:
-				logger.info(f"Using half the available threads, setting thread count to {GlobalConfig.threadCount:,}")
+		_setUpThreadCount(parsedArguments.action == "show" or parsedArguments.shouldShowSubimages, config.get("threadCount", 0) or parsedArguments.threads)
 
 		if parsedArguments.rebuildOcrCache:
 			_infoOrPrint(logger, "Setting OCR cache to be rebuilt")
