@@ -4,9 +4,8 @@ import GlobalConfig
 
 from typing import Dict
 
-def saveCardCatalog(cardCatalog: Dict, shouldSaveDatedFile: bool = True, pathToSaveTo: str = None):
-	if not pathToSaveTo:
-		pathToSaveTo = os.path.join("downloads", "json")
+def saveCardCatalog(cardCatalog: Dict, shouldSaveDatedFile: bool = True):
+	pathToSaveTo = os.path.join("downloads", "json")
 	os.makedirs(pathToSaveTo, exist_ok=True)
 	mainCardCatalogPath = os.path.join(pathToSaveTo, f"carddata.{GlobalConfig.language.code}.json")
 	with open(mainCardCatalogPath, "w", encoding="utf-8") as cardfile:
