@@ -4,6 +4,7 @@ from typing import Any, Dict, List
 import requests
 
 import GlobalConfig
+from APIScraping import ApiScrapingUtil
 from util import DownloadUtil
 
 
@@ -36,21 +37,8 @@ def retrieveCardCatalog() -> Dict[str, Any]:
 
 def retrieveAndSaveCardCatalog(pathToSaveTo: str = None) -> Dict[str, Any]:
 	cardCatalog = retrieveCardCatalog()
-	saveCardCatalog(cardCatalog, True, pathToSaveTo)
+	ApiScrapingUtil.saveCardCatalog(cardCatalog, True, pathToSaveTo)
 	return cardCatalog
-
-def saveCardCatalog(cardCatalog: Dict, shouldSaveDatedFile: bool = True, pathToSaveTo: str = None):
-	if not pathToSaveTo:
-		pathToSaveTo = os.path.join("downloads", "json")
-	os.makedirs(pathToSaveTo, exist_ok=True)
-	mainCardCatalogPath = os.path.join(pathToSaveTo, f"carddata.{GlobalConfig.language.code}.json")
-	with open(mainCardCatalogPath, "w", encoding="utf-8") as cardfile:
-		json.dump(cardCatalog, cardfile, indent=2)
-	if shouldSaveDatedFile:
-		datedCardCatalogPath = os.path.join(pathToSaveTo, f"carddata.{GlobalConfig.language.code}.{datetime.datetime.now().strftime('%Y-%m-%d.%H-%M-%S')}.json")
-		with open(datedCardCatalogPath, "w", encoding="utf-8") as cardfile:
-			json.dump(cardCatalog, cardfile, indent=2)
-
 
 def downloadImage(imageUrl: str, savePath: str, shouldOverwriteImage: bool = False) -> bool:
 	if not shouldOverwriteImage and os.path.isfile(savePath):
