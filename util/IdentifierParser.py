@@ -4,7 +4,7 @@ from typing import Optional
 
 from util import LorcanaSymbols
 
-_IDENTIFIER_REGEX = re.compile(r"^(?P<number>[0-9V]+)(?P<variant>[A-Za-z])?[/1](?P<grouping>[A-Z]?\d+'?)( ?[-+<«.]{1,2} ?| (. )?)(?P<language>\w+)( ?[-+<«.]{1,2} ?| (. )?)(?P<setCode>\S+)$")
+_IDENTIFIER_REGEX = re.compile(r"^(?P<number>[0-9V]+)(?P<variant>[A-Za-z])?[/1](?P<grouping>[A-Z]{0,2}\d+'?)( ?[-+<«.]{1,2} ?| (. )?)(?P<language>\w+)( ?[-+<«.]{1,2} ?| (. )?)(?P<setCode>\S+)$")
 _BASE_CARD_REGEX = re.compile(r"^20\d$")
 _LOGGER = logging.getLogger("LorcanaJSON")
 
