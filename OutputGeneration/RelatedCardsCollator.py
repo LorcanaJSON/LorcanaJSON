@@ -48,6 +48,8 @@ class RelatedCards:
 	def addCard(self, card: Dict):
 		cardId: int = card["culture_invariant_id"]
 		parsedIdentifier = IdentifierParser.parseIdentifier(card["card_identifier"])
+		if not parsedIdentifier:
+			raise ValueError(f"Unable to parse identifier from '{card['card_identifier']}'")
 		if parsedIdentifier.setCode not in self.printedInSets:
 			self.printedInSets.append(parsedIdentifier.setCode)
 		if parsedIdentifier.isQuest():
