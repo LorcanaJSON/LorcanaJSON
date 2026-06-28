@@ -78,10 +78,10 @@ Artists (<span id="artistCount">0</span>): <span id="artist"></span> || Rarity: 
 <pre id="cardJson" style="overflow-x: scroll;"></pre>
 <hr>
 Keys:<br>
-Left/Right arrows for previous/next card<br>
+Left/Right arrows for previous/next card index<br>
 Type numbers or Backspace to start entering a card ID
 E for English, D/G for German, F for French, I for Italian<br>
-R for a random card, X to open external links
+P for last-viewed card, R for a random card, X to open external links
 
 <script>
 let cardsJson = {"cards": []};
@@ -90,6 +90,7 @@ let languageCode = "en";
 let currentIndex = 0;
 let maxIndex = 0;
 let fileReader = null // Set to a FileReader and used when loading a JSON file from the 'Browse' button
+let previousIndex = null;
 
 function changeDisplayedIndex(indexChange) {
 	setDisplayedIndex(currentIndex + indexChange, false);
@@ -106,6 +107,7 @@ function setDisplayedIndex(newIndex, showErrorMessage=true) {
 		}
 		return;
 	}
+	previousIndex = currentIndex;
 	currentIndex = newIndex;
 	let currentCardData = cardsJson["cards"][currentIndex];
 	document.getElementById("name").textContent = currentCardData["fullName"];
@@ -215,6 +217,10 @@ function handleKeyPress(e) {
 			setLanguage("de");
 		} else if (e.key === "i") {
 			setLanguage("it");
+		} else if (e.key === "p") {
+			if (previousIndex !== null) {
+				setDisplayedIndex(previousIndex);
+			}
 		} else if (e.key === "r") {
 			changeToRandomIndex();
 		} else if (e.key === "x") {
