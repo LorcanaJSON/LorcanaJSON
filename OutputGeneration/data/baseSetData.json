@@ -390,5 +390,26 @@
       }
     },
     "allowedInTournamentsFromDate": null
+  },
+  "Q3": {
+    "names": {
+      "de": "Die Luminari Chroniken: Die große Honigrettung",
+      "en": "Illumineer's Quest: The Great Hunny Rescue",
+      "fr": "Quête des Illumineurs: Équipe Miel à la rescousse"
+    },
+    "prereleaseDate": "2026-10-01",
+    "releaseDate": "2026-10-01",
+    "hasAllCards": false,
+    "type": "quest",
+    "number": 3,
+    "allowedInFormats": {
+      "Core": {
+        "allowed": false
+      },
+      "Infinity": {
+        "allowed": false
+      }
+    },
+    "allowedInTournamentsFromDate": null
   }
 }
