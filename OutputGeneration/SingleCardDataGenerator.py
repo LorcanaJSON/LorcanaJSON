@@ -19,6 +19,26 @@ _KEYWORD_REGEX_WITHOUT_REMINDER = re.compile(r"^([A-ZÀ][^ ]{2,}|À)( ([dl]['’
 _ABILITY_TYPE_CORRECTION_FIELD_TO_ABILITY_TYPE: Dict[str, str] = {"_forceAbilityIndexToActivated": "activated", "_forceAbilityIndexToKeyword": "keyword", "_forceAbilityIndexToStatic": "static", "_forceAbilityIndexToTriggered": "triggered"}
 _SYMBOL_LETTER_REGEX = re.compile(f"[{''.join(LorcanaSymbols.LETTER_TO_SYMBOL.values())}]")
 
+# Most subtypes ae one word, but some are two. Make sure they're joined into one subtype, instead of split over two
+_DOUBLE_WORD_SUBTYPES: Dict[Language.Language, Dict[str, str]] = {
+	Language.ENGLISH: {
+		"Red": "Panda",
+		"Seven": "Dwarfs",
+	},
+	Language.FRENCH: {
+		"Panda": "roux",
+		"Sept": "Nains"
+	},
+	Language.GERMAN: {
+		"Roter": "Panda",
+		"Sieben": "Zwerge"
+	},
+	Language.ITALIAN: {
+		"Panda": "Rosso",
+		"Sette": "Nani"
+	}
+}
+
 
 def parseSingleCard(inputCard: Dict, ocrResult: OcrResult, externalLinksHandler: ExternalLinksHandler, relatedCards: RelatedCards, cardDataCorrections: Dict, storyParser: StoryParser,
 					historicData: Optional[List[Dict]],	allowedCardsHandler: AllowedInFormatsHandler, promoSourceHandler: PromoSourceHandler, artistsHandler: ArtistsHandler) -> Optional[Dict]:
@@ -881,19 +901,13 @@ def _parseSubtypes(subtypesText: Optional[str], outputCard: Dict):
 	subtypes: List[str] = re.sub(fr"[^A-Za-zàäèéöü{LorcanaSymbols.SEPARATOR} ]", "", subtypesText).split(LorcanaSymbols.SEPARATOR_STRING)
 	if "ltem" in subtypes:
 		subtypes[subtypes.index("ltem")] = "Item"
-	# 'Seven Dwarves' is a subtype, but it might get split up into two types. Turn it back into one subtype
-	sevenDwarvesCheckTypes = None
-	if GlobalConfig.language == Language.ENGLISH:
-		sevenDwarvesCheckTypes = ("Seven", "Dwarfs")
-	elif GlobalConfig.language == Language.FRENCH:
-		sevenDwarvesCheckTypes = ("Sept", "Nains")
-	elif GlobalConfig.language == Language.GERMAN:
-		sevenDwarvesCheckTypes = ("Sieben", "Zwerge")
-	elif GlobalConfig.language == Language.ITALIAN:
-		sevenDwarvesCheckTypes = ("Sette", "Nani")
-	if sevenDwarvesCheckTypes and sevenDwarvesCheckTypes[0] in subtypes and sevenDwarvesCheckTypes[1] in subtypes:
-		subtypes.remove(sevenDwarvesCheckTypes[1])
-		subtypes[subtypes.index(sevenDwarvesCheckTypes[0])] = " ".join(sevenDwarvesCheckTypes)
+	# Some subtypes consist of two words ('Seven Dwarfs', 'Red Panda') but it might get split up into two types. Turn it back into one subtype
+	if GlobalConfig.language in _DOUBLE_WORD_SUBTYPES:
+		for firstWord, secondWord in _DOUBLE_WORD_SUBTYPES[GlobalConfig.language].items():
+			if firstWord in subtypes and secondWord in subtypes:
+				subtypes.remove(secondWord)
+				subtypes[subtypes.index(firstWord)] += " " + secondWord
+
 	for subtypeIndex in range(len(subtypes) - 1, -1, -1):
 		subtype = subtypes[subtypeIndex]
 		if subtype == "Fantme":
