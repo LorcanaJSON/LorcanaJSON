@@ -325,6 +325,29 @@
     },
     "allowedInTournamentsFromDate": null
   },
+  "15": {
+    "names": {
+      "de": "In die Dunkeltinte",
+      "en": "Into the Inkdark",
+      "fr": "Entrez en Encresombre",
+      "it": "Nelle Terre Oscure"
+    },
+    "prereleaseDate": null,
+    "releaseDate": null,
+    "hasAllCards": false,
+    "type": "expansion",
+    "number": 15,
+    "allowedInFormats": {
+      "Core": {
+        "allowed": false,
+        "rotationGroup": 4
+      },
+      "Infinity": {
+        "allowed": false
+      }
+    },
+    "allowedInTournamentsFromDate": null
+  },
   "Q1": {
     "names": {
       "de": "Die Luminari Chroniken: Gefahr aus der Tiefe",
