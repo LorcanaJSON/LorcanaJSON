@@ -1172,9 +1172,7 @@
   "1410": {
     "abilities": [
       "O$",
-      "ORES",
-      "_ ",
-      ""
+      "ORES"
     ]
   },
   "1417": {
@@ -2144,7 +2142,7 @@
   },
   "2440": {
     "abilities": [
-      "^_ ",
+      "^“",
       ""
     ],
     "flavorText": [
@@ -2517,7 +2515,7 @@
     "abilities": [
       "C$",
       "GACY",
-      "^_.+ae$",
+      "^.+ae$",
       "You can ink cards from\nyour discard."
     ],
     "artistsText": [

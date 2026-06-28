@@ -280,6 +280,7 @@ def correctPunctuation(textToCorrect: str) -> str:
 	# It frequently misses the dash before a quote attribution
 	correctedText = re.sub(r"\n([A-Z]\w+)$", "\n—\\1", correctedText)
 	# Fix some erroneous extra punctuation
+	correctedText = re.sub(r"^_ ", "", correctedText)
 	correctedText = re.sub(r"\? [.;]$", "?", correctedText)
 	# Ellipses get parsed weird, with spaces between periods where they don't belong. Fix that
 	if correctedText.count(".") > 2:
