@@ -580,6 +580,14 @@
     "matchingNames": ["B.E.N.", "Billy Bones", "Captain Amelia", "Dr. Delbert Doppler", "Grewnge", "Jim Hawkins", "John Silver", "Morph", "Mr. Arrow", "Nathaniel Flint", "Scroop"],
     "matchingIds": [572, 632, 652, 1331, 1395, 1402, 1421]
   },
+  "turningred": {
+    "displayNames": {
+      "de": "Rot",
+      "en": "Turning Red",
+      "fr": "Alerte rouge",
+      "it": "Red"
+    }
+  },
   "up": {
     "displayNames": {
       "de": "Oben",
