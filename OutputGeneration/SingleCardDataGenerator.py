@@ -292,7 +292,7 @@ def parseSingleCard(inputCard: Dict, ocrResult: OcrResult, externalLinksHandler:
 					#  Also correct ellipses to not have spaces inbetween the periods; and sometimes ability names have double spaces so correct those to single ones
 					inputAbilityNames: List[str] = [re.sub(r" ?\.\s\.\s\.\s?", "...", s.replace("  ", " ").upper()) for s in re.findall(r"\\([^\\]+)\\", inputCard["rules_text"])]
 				if abilityIndex >= len(inputAbilityNames):
-					_logger.error(f"Trying to read input ability name index {abilityIndex} but there are only {len(inputAbilityNames)} names, in card {CardUtil.createCardIdentifier(outputCard)}")
+					_logger.error(f"Trying to read input ability name index {abilityIndex} but there are only {len(inputAbilityNames)} names, while {len(ocrResult.abilityLabels)} were expected, in card {CardUtil.createCardIdentifier(outputCard)}")
 				else:
 					inputAbilityName: str = inputAbilityNames[abilityIndex]
 					characterMismatchCount: int = 0
