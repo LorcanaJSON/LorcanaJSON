@@ -48,6 +48,7 @@ def parseSingleCard(inputCard: Dict, ocrResult: OcrResult, externalLinksHandler:
 	# Set the grouping ('P1', 'D23', etc) for promo cards
 	if parsedIdentifier and parsedIdentifier.isPromo():
 		outputCard["promoGrouping"] = parsedIdentifier.grouping
+		outputCard["rarity"] = GlobalConfig.translation.SPECIAL
 
 	_parseNameFields(inputCard, outputCard, ocrResult)
 
