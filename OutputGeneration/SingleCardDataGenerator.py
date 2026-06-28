@@ -355,7 +355,7 @@ def parseSingleCard(inputCard: Dict, ocrResult: OcrResult, externalLinksHandler:
 	forceAbilityTypeAtIndex: Dict[int, str] = {}  # index to ability type
 	newlineAfterLabelIndex: int = -1
 	moveAbilityAtIndexToIndex: Optional[List[int, int]] = None
-	skipFullTextSectionMergeAtIndex: int = -1
+	skipFullTextSectionMergeAtIndex: Optional[Union[int, List[int]]] = None
 	if cardDataCorrections:
 		if cardDataCorrections.pop("_moveKeywordsLast", False):
 			if "abilities" not in outputCard or "effect" not in outputCard["abilities"][-1]:
@@ -409,7 +409,9 @@ def parseSingleCard(inputCard: Dict, ocrResult: OcrResult, externalLinksHandler:
 		mergeEffectIndexWithPrevious: int = cardDataCorrections.pop("_mergeEffectIndexWithPrevious", -1)
 		moveAbilityAtIndexToIndex: Optional[List[Union[int, int]]] = cardDataCorrections.pop("_moveAbilityAtIndexToIndex", None)
 		newlineAfterLabelIndex: int = cardDataCorrections.pop("_newlineAfterLabelIndex", -1)
-		skipFullTextSectionMergeAtIndex: int = cardDataCorrections.pop("_skipFullTextSectionMergeAtIndex", -1)
+		skipFullTextSectionMergeAtIndex: Optional[Union[int, List[int]]] = cardDataCorrections.pop("_skipFullTextSectionMergeAtIndex", None)
+		if isinstance(skipFullTextSectionMergeAtIndex, int):
+			skipFullTextSectionMergeAtIndex = [skipFullTextSectionMergeAtIndex]
 		splitAbilityNameAtIndex: Optional[List[Union[int, str]]] = cardDataCorrections.pop("_splitAbilityNameAtIndex", None)
 		for fieldName, correctionList in cardDataCorrections.items():
 			TextCorrection.correctCardFieldFromList(outputCard, fieldName, correctionList)
@@ -691,7 +693,7 @@ def parseSingleCard(inputCard: Dict, ocrResult: OcrResult, externalLinksHandler:
 		previousAbilityWasKeywordWithoutReminder: bool = False
 		for abilityIndex, ability in enumerate(outputCard["abilities"]):  # type: Dict[str, str]
 			# Some cards have multiple keyword abilities on one line without reminder text. They'll be stored as separate abilities, but they should be in one section
-			if abilityIndex != skipFullTextSectionMergeAtIndex and ability["type"] == "keyword" and _KEYWORD_REGEX_WITHOUT_REMINDER.match(ability["fullText"]):
+			if abilityIndex not in skipFullTextSectionMergeAtIndex and ability["type"] == "keyword" and _KEYWORD_REGEX_WITHOUT_REMINDER.match(ability["fullText"]):
 				if previousAbilityWasKeywordWithoutReminder:
 					# Add this keyword to the previous section, since that's how it's on the card
 					fullTextSections[-1] += ", " + ability["fullText"]
@@ -699,7 +701,7 @@ def parseSingleCard(inputCard: Dict, ocrResult: OcrResult, externalLinksHandler:
 					previousAbilityWasKeywordWithoutReminder = True
 					fullTextSections.append(ability["fullText"])
 			else:
-				if abilityIndex == skipFullTextSectionMergeAtIndex:
+				if abilityIndex in skipFullTextSectionMergeAtIndex:
 					_logger.debug(f"Skipping joining keyword ability at index {abilityIndex} with the previous line in card {CardUtil.createCardIdentifier(outputCard)}")
 				fullTextSections.append(ability["fullText"])
 	if "effects" in outputCard:

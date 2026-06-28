@@ -87,7 +87,7 @@ There are also some special correction entry keys to fix issues not easily match
 * '_newlineAfterLabelIndex': In some languages, the ability label can be as wide as the card itself. This means a newline isn't added between the label text and the effect text. If this field exists and is set to the ability index, a newline will be added after the label text to correct this.
 * '_removeAbilitiesAtIndexes': Sometimes an extra ability gets made up by the OCR. This field is a list of the ability indexes to remove
 * '_removeEffectsAtIndexes': Same as previous, but for effects
-* '_skipFullTextSectionMergeAtIndex': Usually multiple keywords without reminder text are on one line, so their fulltext sections are joined together. If that shouldn't be done, provide this correction, set to the index of the full text section that shouldn't be joined with the previous section
+* '_skipFullTextSectionMergeAtIndex': Usually multiple keywords without reminder text are on one line, so their fulltext sections are joined together. If that shouldn't be done, provide this correction, set to the index of the full text section that shouldn't be joined with the previous section. To skip multiple merges, provide a list of indexes
 * '_splitAbilityNameAtIndex': The fallback label parsing method sometimes fails to split the ability name from the effect properly, which is what this correction is for. It takes two parameters: The ability index, and a regex specifying how to split the ability name off
 Once one or more corrections are added, you can rerun the 'parse' action with just the corrected card IDs, and repeat this verification process, until there are no mistakes anymore.  
 ### Input data corrections
