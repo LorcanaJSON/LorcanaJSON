@@ -299,6 +299,7 @@ def correctPunctuation(textToCorrect: str) -> str:
 		correctedText = re.sub(r"\b([Tt]hey|[Yy]ou) ?(ll|re|ve)\b", r"\1'\2", correctedText)
 		correctedText = re.sub(r"\bIAM\b", "I AM", correctedText)
 		correctedText = re.sub(r"\bl'm\b", "I'm", correctedText)
+		correctedText = re.sub(r"\bwe re\b", "we're", correctedText)
 		# Correct fancy quotemarks when they're used in shortenings (f.i. "'em", "comin'", etc.)
 		correctedText = re.sub(r"(?<=\s)[‘’](?=(cause|em|round|til)([,.?!]|\s|$))", "'", correctedText, flags=re.IGNORECASE)
 		correctedText = re.sub(r"(?<=\win)[‘’](?=[,.?!]|\s|$)", "'", correctedText, flags=re.IGNORECASE)
