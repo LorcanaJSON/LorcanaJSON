@@ -355,7 +355,7 @@ def parseSingleCard(inputCard: Dict, ocrResult: OcrResult, externalLinksHandler:
 	forceAbilityTypeAtIndex: Dict[int, str] = {}  # index to ability type
 	newlineAfterLabelIndex: int = -1
 	moveAbilityAtIndexToIndex: Optional[List[int, int]] = None
-	skipFullTextSectionMergeAtIndex: Optional[Union[int, List[int]]] = None
+	skipFullTextSectionMergeAtIndex: List[int] = []
 	if cardDataCorrections:
 		if cardDataCorrections.pop("_moveKeywordsLast", False):
 			if "abilities" not in outputCard or "effect" not in outputCard["abilities"][-1]:
@@ -409,7 +409,7 @@ def parseSingleCard(inputCard: Dict, ocrResult: OcrResult, externalLinksHandler:
 		mergeEffectIndexWithPrevious: int = cardDataCorrections.pop("_mergeEffectIndexWithPrevious", -1)
 		moveAbilityAtIndexToIndex: Optional[List[Union[int, int]]] = cardDataCorrections.pop("_moveAbilityAtIndexToIndex", None)
 		newlineAfterLabelIndex: int = cardDataCorrections.pop("_newlineAfterLabelIndex", -1)
-		skipFullTextSectionMergeAtIndex: Optional[Union[int, List[int]]] = cardDataCorrections.pop("_skipFullTextSectionMergeAtIndex", None)
+		skipFullTextSectionMergeAtIndex: List[int] = cardDataCorrections.pop("_skipFullTextSectionMergeAtIndex", [])
 		if isinstance(skipFullTextSectionMergeAtIndex, int):
 			skipFullTextSectionMergeAtIndex = [skipFullTextSectionMergeAtIndex]
 		splitAbilityNameAtIndex: Optional[List[Union[int, str]]] = cardDataCorrections.pop("_splitAbilityNameAtIndex", None)
