@@ -63,7 +63,8 @@ Subtypes (<span id="subtypesCount">0</span>): <span id="subtypes"></span>
 <br>
 Artists (<span id="artistCount">0</span>): <span id="artist"></span> || Rarity: <span id="rarity"></span> || Full identifier: <span id="fullIdentifier"></span>
 <hr>
-<a id="cardImageLink" href="#" target="_blank">Card Image</a> ||
+<a id="cardImageLink" href="#" target="_blank">Card Image</a> |
+<a id="foilCardImageLink" href="#" target="_blank" style="text-decoration-line: line-through;">Foil</a> ||
 <a id="baseCardLink" href="#" onclick="goToIdOfField('baseId'); return false;">Base card</a> |
 <a id="epicLink" href="#" onclick="goToIdOfField('epicId'); return false;">Epic</a> |
 <a id="enchantedLink" href="#" onclick="goToIdOfField('enchantedId'); return false;">Enchanted</a> |
@@ -125,6 +126,7 @@ function setDisplayedIndex(newIndex, showErrorMessage=true) {
 	document.getElementById("currentIndex").value = currentIndex;
 	document.getElementById("cardId").value = currentCardData["id"];
 	document.getElementById("cardImageLink").href = currentCardData["images"]["full"];
+	updateOptionalLink("foilCardImageLink", currentCardData["images"], "fullFoil");
 	document.getElementById("story").textContent = currentCardData["story"] ? currentCardData["story"] : "???";
 	document.getElementById("subtypesCount").textContent = currentCardData["subtypes"] ? currentCardData["subtypes"].length : "0";
 	document.getElementById("subtypes").textContent = currentCardData["subtypesText"] ? currentCardData["subtypesText"] : "-";
