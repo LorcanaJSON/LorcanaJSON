@@ -25,7 +25,7 @@ def correctText(cardText: str) -> str:
 	# And word-number-number should be word-number-ink
 	cardText = re.sub(r"^(\w+ \d) ?[OÒQ0©]$", f"\\1 {LorcanaSymbols.INK}", cardText)
 	# Normally a closing quote mark should be preceded by a period, except mid-sentence
-	cardText = re.sub(r"([^.,'!?’])”(?!,| \w)", "\\1.”", cardText)
+	cardText = re.sub(r"([^.,'!?’])”(?![!,]| \w)", "\\1.”", cardText)
 	# An opening bracket shouldn't have a space after it
 	cardText = cardText.replace("( ", "(")
 	# Sometimes an extra character gets added after the closing quote mark or bracket from an inksplotch, remove that
