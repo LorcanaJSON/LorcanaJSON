@@ -1,6 +1,6 @@
 import logging, math, os, re, time
 from collections import namedtuple
-from typing import Dict, List, Optional
+from typing import Dict, List, Optional, Union
 
 import cv2, tesserocr
 from PIL import Image
@@ -43,7 +43,7 @@ class ImageParser:
 	def getImageAndTextDataFromImage(self, cardId: int, baseImagePath: str, parseFully: bool, parsedIdentifier: IdentifierParser.Identifier = None, cardType: str = None, hasCardText: bool = None, hasFlavorText: bool = None,
 									 isEpic: bool = False, isEnchanted: bool = None, showImage: bool = False) -> OcrResult:
 		startTime = time.perf_counter()
-		result: Dict[str, Optional[ImageAndText, List[ImageAndText]]] = {
+		result: Dict[str, Optional[Union[ImageAndText, List[ImageAndText]]]] = {
 			"flavorText": None,
 			"abilityLabels": [],
 			"abilityTexts": [],
