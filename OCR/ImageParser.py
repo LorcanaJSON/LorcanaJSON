@@ -372,7 +372,19 @@ class ImageParser:
 				remainingTextImage = self._convertToThresholdImage(greyTextboxImage[0:previousBlockTopY, 0:textboxWidth], parseSettings.thresholdTextColor)
 				if parseSettings.cardTextHasOutline:
 					cv2.floodFill(remainingTextImage, None, (1, 1), 0)
-				remainingText = self._imageToString(remainingTextImage)
+				# For some cards, it thinks there is remaining text, but they're just random markings (mainly Floodborn cards with ink splotches dripping from the subtypes)
+				# If the image is too white, it can't be text, so discard the erroneous remaining text image
+				# Only do this check if there's at least one ability, because the percentages can get weird if there's one short effect on the whole card, leading to false positives
+				if result["abilityLabels"] and cv2.countNonZero(remainingTextImage) / remainingTextImage.size > 0.96:
+					# Double-check that the problem is blotches at the top by verifying the bottom half is completely white
+					remainingTextImageBottomHalf = remainingTextImage[remainingTextImage.shape[0] // 2:remainingTextImage.shape[0], 0:remainingTextImage.shape[1]]
+					if cv2.countNonZero(remainingTextImageBottomHalf) / remainingTextImageBottomHalf.size >= 0.99:
+						self._logger.info("Remaining text image has too much white to be text, discarding")
+						remainingTextImage = None
+				if remainingTextImage is None:
+					remainingText = None
+				else:
+					remainingText = self._imageToString(remainingTextImage)
 				if remainingText:
 					if parseSettings.labelParsingMethod == ParseSettings.LABEL_PARSING_METHODS.FALLBACK_WHITE_ABILITY_TEXT and re.search("[A-Z]{2,}", remainingText):
 						# Detecting labels on new-style Enchanted cards is hard, so for those the full card text is 'remainingText'
