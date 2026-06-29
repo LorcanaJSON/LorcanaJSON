@@ -176,7 +176,7 @@ class ImageParser:
 			result["identifier"] = self._getSubImageAndText(greyCardImage, cardLayout.identifier)
 
 		# Greyscale images work better, so get one from just the textbox
-		greyTextboxImage = self._getSubImage(greyCardImage, cardLayout.textbox, parseSettings.textboxOffset, parseSettings.textboxRightOffset*-1, parseSettings.textboxTopOffset, parseSettings.textboxBottomOffset)
+		greyTextboxImage = self._getSubImage(greyCardImage, cardLayout.textbox, parseSettings.textboxLeftOffset, parseSettings.textboxRightOffset * -1, parseSettings.textboxTopOffset, parseSettings.textboxBottomOffset)
 		textboxWidth = greyTextboxImage.shape[1]
 		textboxHeight = greyTextboxImage.shape[0]
 

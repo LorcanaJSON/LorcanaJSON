@@ -22,7 +22,7 @@ class ParseSettings:
 	cardLayout: CardLayout.CardLayout = None
 	characterCardLayout: CardLayout.CardLayout = None
 	locationCardLayout: CardLayout.CardLayout = None
-	textboxOffset: int = 0  # Shrinks the textbox from the left by this many pixels
+	textboxLeftOffset: int = 0  # Shrinks the textbox from the left by this many pixels
 	textboxRightOffset: int = 0  # Shrinks the textbox from the right by this many pixels
 	textboxTopOffset: int = 0  # A positive number here starts the textbox image further down; this value gets added to the y-value from the CardLayout
 	textboxBottomOffset: int = 0  # A positive number here ends the textbox image further down; this value gets added the the y-value from the CardLayout
@@ -57,7 +57,7 @@ class ParseSettings:
 _DEFAULT_PARSE_SETTINGS = ParseSettings()
 _DEFAULT_ENCHANTED_PARSE_SETTINGS = ParseSettings(CardLayout.ENCHANTED, CardLayout.ENCHANTED_CHARACTER, CardLayout.ENCHANTED_LOCATION)
 _DEFAULT_NEW_ENCHANTED_PARSE_SETTINGS = ParseSettings(CardLayout.NEW_ENCHANTED, CardLayout.NEW_ENCHANTED_CHARACTER, CardLayout.NEW_ENCHANTED_LOCATION)
-_DEFAULT_EPIC_PARSE_SETTINGS = dataclasses.replace(_DEFAULT_ENCHANTED_PARSE_SETTINGS, labelParsingMethod=LABEL_PARSING_METHODS.DEFAULT, textboxOffset=_OPTIONAL_TEXTBOX_OFFSET, labelStartThreshold=175, labelEndThreshold=185, labelTextColor=ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND)
+_DEFAULT_EPIC_PARSE_SETTINGS = dataclasses.replace(_DEFAULT_ENCHANTED_PARSE_SETTINGS, labelParsingMethod=LABEL_PARSING_METHODS.DEFAULT, textboxLeftOffset=_OPTIONAL_TEXTBOX_OFFSET, labelStartThreshold=175, labelEndThreshold=185, labelTextColor=ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND)
 _PARSE_SETTINGS_FOR_ENCHANTED_BY_SET: Dict[str, ParseSettings] = {
 	"5": dataclasses.replace(_DEFAULT_NEW_ENCHANTED_PARSE_SETTINGS, labelParsingMethod=LABEL_PARSING_METHODS.FALLBACK_WHITE_ABILITY_TEXT, thresholdTextColor=ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND, labelTextColor=ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND),
 	"6": dataclasses.replace(_DEFAULT_NEW_ENCHANTED_PARSE_SETTINGS, labelParsingMethod=LABEL_PARSING_METHODS.FALLBACK_BY_LINES, labelTextColor=ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND),
@@ -70,15 +70,16 @@ _PARSE_SETTINGS_FOR_ENCHANTED_BY_SET: Dict[str, ParseSettings] = {
 }
 _PARSE_SETTINGS_BY_SET: Dict[str, ParseSettings] = {
 	"Q1": ParseSettings(labelParsingMethod=LABEL_PARSING_METHODS.FALLBACK_WHITE_ABILITY_TEXT, thresholdTextColor=ImageArea.TEXT_COLOUR_WHITE, labelMaskColor=_BLACK),
-	"Q2": ParseSettings(labelParsingMethod=LABEL_PARSING_METHODS.FALLBACK_WHITE_ABILITY_TEXT, thresholdTextColor=ImageArea.TEXT_COLOUR_WHITE, labelMaskColor=_BLACK, textboxOffset=26, textboxRightOffset=24)
+	"Q2": ParseSettings(labelParsingMethod=LABEL_PARSING_METHODS.FALLBACK_WHITE_ABILITY_TEXT, thresholdTextColor=ImageArea.TEXT_COLOUR_WHITE, labelMaskColor=_BLACK, textboxLeftOffset=26, textboxRightOffset=24)
 }
 _PARSE_SETTINGS_BY_GROUPING: Dict[str, ParseSettings] = {
-	"C1": ParseSettings(textboxOffset=_OPTIONAL_TEXTBOX_OFFSET),
-	"D23": ParseSettings(getIdentifierFromCard=True, textboxOffset=_OPTIONAL_TEXTBOX_OFFSET, labelParsingMethod=LABEL_PARSING_METHODS.FALLBACK_BY_LINES),
+	"C1": ParseSettings(textboxLeftOffset=_OPTIONAL_TEXTBOX_OFFSET),
+	"D23": ParseSettings(getIdentifierFromCard=True, textboxLeftOffset=_OPTIONAL_TEXTBOX_OFFSET, labelParsingMethod=LABEL_PARSING_METHODS.FALLBACK_BY_LINES),
 	"P1": ParseSettings(getIdentifierFromCard=True),
 	"P3": dataclasses.replace(_DEFAULT_PARSE_SETTINGS, labelStartThreshold=175, labelEndThreshold=180, labelTextColor=ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND),
 	"PD1": dataclasses.replace(_DEFAULT_PARSE_SETTINGS, labelIsDarkerThanBackground=False, thresholdTextColor=ImageArea.TEXT_COLOUR_WHITE, labelMaskColor=_BLACK),
 }
+
 _PARSE_SETTINGS_BY_ID: Dict[int, ParseSettings] = {
 	676: _DEFAULT_ENCHANTED_PARSE_SETTINGS,
 	677: _DEFAULT_ENCHANTED_PARSE_SETTINGS,
@@ -92,9 +93,9 @@ _PARSE_SETTINGS_BY_ID: Dict[int, ParseSettings] = {
 	1178: dataclasses.replace(_PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["5"], isLocationOverride=True),
 	1186: dataclasses.replace(_PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["5"], hasFlavorTextOverride=False, typeImageTextColorOverride=ImageArea.TEXT_COLOUR_WHITE),
 	1187: dataclasses.replace(_PARSE_SETTINGS_BY_GROUPING["C1"], labelParsingMethod=LABEL_PARSING_METHODS.NONE),
-	1191: ParseSettings(labelParsingMethod=LABEL_PARSING_METHODS.DEFAULT, textboxOffset=_OPTIONAL_TEXTBOX_OFFSET, getIdentifierFromCard=True),
-	1199: dataclasses.replace(_PARSE_SETTINGS_BY_GROUPING["C1"], textboxOffset=_OPTIONAL_TEXTBOX_OFFSET-5),
-	1197: dataclasses.replace(_PARSE_SETTINGS_BY_GROUPING["C1"], textboxOffset=39),
+	1191: ParseSettings(labelParsingMethod=LABEL_PARSING_METHODS.DEFAULT, textboxLeftOffset=_OPTIONAL_TEXTBOX_OFFSET, getIdentifierFromCard=True),
+	1199: dataclasses.replace(_PARSE_SETTINGS_BY_GROUPING["C1"], textboxLeftOffset=_OPTIONAL_TEXTBOX_OFFSET-5),
+	1197: dataclasses.replace(_PARSE_SETTINGS_BY_GROUPING["C1"], textboxLeftOffset=39),
 	1405: dataclasses.replace(_PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["6"], typeImageTextColorOverride=ImageArea.TEXT_COLOUR_WHITE),
 	1406: dataclasses.replace(_PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["6"], isLocationOverride=True),
 	1407: dataclasses.replace(_PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["6"], typeImageTextColorOverride=ImageArea.TEXT_COLOUR_WHITE),
@@ -102,9 +103,9 @@ _PARSE_SETTINGS_BY_ID: Dict[int, ParseSettings] = {
 	1415: dataclasses.replace(_PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["6"], labelParsingMethod=LABEL_PARSING_METHODS.NONE),
 	1418: dataclasses.replace(_PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["6"], labelParsingMethod=LABEL_PARSING_METHODS.NONE),
 	1421: dataclasses.replace(_PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["6"], isLocationOverride=True),
-	1430: dataclasses.replace(_DEFAULT_PARSE_SETTINGS, textboxOffset=24),
-	1431: dataclasses.replace(_DEFAULT_PARSE_SETTINGS, textboxOffset=24),
-	1432: ParseSettings(textboxOffset=0, labelParsingMethod=LABEL_PARSING_METHODS.DEFAULT, getIdentifierFromCard=True),
+	1430: dataclasses.replace(_DEFAULT_PARSE_SETTINGS, textboxLeftOffset=24),
+	1431: dataclasses.replace(_DEFAULT_PARSE_SETTINGS, textboxLeftOffset=24),
+	1432: ParseSettings(textboxLeftOffset=0, labelParsingMethod=LABEL_PARSING_METHODS.DEFAULT, getIdentifierFromCard=True),
 	1429: dataclasses.replace(_PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["5"], hasFlavorTextOverride=False),
 	1638: dataclasses.replace(_PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["7"], typeImageTextColorOverride=ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND),
 	1641: dataclasses.replace(_PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["7"], isItemOverride=True),
@@ -114,7 +115,7 @@ _PARSE_SETTINGS_BY_ID: Dict[int, ParseSettings] = {
 	1871: dataclasses.replace(_PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["8"], typeImageTextColorOverride=ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND),
 	1872: dataclasses.replace(_PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["8"], typeImageTextColorOverride=ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND),
 	1893: dataclasses.replace(_PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["8"], typeImageTextColorOverride=ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND),
-	1895: dataclasses.replace(_PARSE_SETTINGS_BY_GROUPING["D23"], textboxOffset=15),
+	1895: dataclasses.replace(_PARSE_SETTINGS_BY_GROUPING["D23"], textboxLeftOffset=15),
 	1931: dataclasses.replace(_DEFAULT_PARSE_SETTINGS, labelParsingMethod=LABEL_PARSING_METHODS.FALLBACK_BY_LINES),
 	1932: dataclasses.replace(_DEFAULT_PARSE_SETTINGS, labelParsingMethod=LABEL_PARSING_METHODS.FALLBACK_BY_LINES),
 	1933: dataclasses.replace(_DEFAULT_PARSE_SETTINGS, labelParsingMethod=LABEL_PARSING_METHODS.FALLBACK_BY_LINES, hasFlavorTextOverride=True),
@@ -131,8 +132,8 @@ _PARSE_SETTINGS_BY_ID: Dict[int, ParseSettings] = {
 	2177: dataclasses.replace(_DEFAULT_ENCHANTED_PARSE_SETTINGS, labelParsingMethod=LABEL_PARSING_METHODS.FALLBACK_WHITE_ABILITY_TEXT, labelTextColor=ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND, thresholdTextColor=ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND),
 	2178: dataclasses.replace(_DEFAULT_ENCHANTED_PARSE_SETTINGS, labelParsingMethod=LABEL_PARSING_METHODS.FALLBACK_WHITE_ABILITY_TEXT, labelTextColor=ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND, thresholdTextColor=ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND),
 	2183: _PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["8"],
-	2184: dataclasses.replace(_DEFAULT_PARSE_SETTINGS, textboxOffset=18),
-	2188: dataclasses.replace(_DEFAULT_PARSE_SETTINGS, textboxOffset=24),
+	2184: dataclasses.replace(_DEFAULT_PARSE_SETTINGS, textboxLeftOffset=18),
+	2188: dataclasses.replace(_DEFAULT_PARSE_SETTINGS, textboxLeftOffset=24),
 	2413: dataclasses.replace(_PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["10"], typeImageTextColorOverride=ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND),
 	2417: dataclasses.replace(_PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["10"], cardLayout=CardLayout.NEW_ENCHANTED_SMALL_TEXTBOX),
 	2420: dataclasses.replace(_PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["10"], cardLayout=CardLayout.NEW_ENCHANTED_SMALL_TEXTBOX),
@@ -141,7 +142,7 @@ _PARSE_SETTINGS_BY_ID: Dict[int, ParseSettings] = {
 							  thresholdTextColor=ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND, forceArtistTextColor=ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND),
 	2431: dataclasses.replace(_DEFAULT_ENCHANTED_PARSE_SETTINGS, cardTextHasOutline=True, labelIsDarkerThanBackground=False, labelMaskColor=_BLACK, labelTextColor=ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND, thresholdTextColor=ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND),
 	2432: dataclasses.replace(_PARSE_SETTINGS_BY_GROUPING["P3"], forceArtistTextColor=ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND),
-	2433: dataclasses.replace(_DEFAULT_PARSE_SETTINGS, textboxOffset=15),
+	2433: dataclasses.replace(_DEFAULT_PARSE_SETTINGS, textboxLeftOffset=15),
 	2435: dataclasses.replace(_PARSE_SETTINGS_BY_GROUPING["P3"], forceArtistTextColor=ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND),
 	2436: dataclasses.replace(_PARSE_SETTINGS_BY_GROUPING["P3"], forceArtistTextColor=ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND),
 	2437: dataclasses.replace(_PARSE_SETTINGS_BY_GROUPING["P3"], forceArtistTextColor=ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND),
@@ -152,9 +153,9 @@ _PARSE_SETTINGS_BY_ID: Dict[int, ParseSettings] = {
 	2443: dataclasses.replace(_PARSE_SETTINGS_BY_GROUPING["P3"], labelIsDarkerThanBackground=False, labelTextColor=ImageArea.TEXT_COLOUR_BLACK, labelMaskColor=_BLACK, thresholdTextColor=ImageArea.TEXT_COLOUR_WHITE),
 	2444: _PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["10"],
 	2445: _PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["10"],
-	2450: dataclasses.replace(_PARSE_SETTINGS_BY_GROUPING["P3"], labelStartThreshold=100, labelEndThreshold=170, labelTextColor=ImageArea.TEXT_COLOUR_MIDDLE, textboxOffset=10, hasCardTextOverride=True),
-	2461: dataclasses.replace(_PARSE_SETTINGS_BY_GROUPING["P3"], labelStartThreshold=100, labelEndThreshold=170, labelTextColor=ImageArea.TEXT_COLOUR_MIDDLE, textboxOffset=10),
-	2462: dataclasses.replace(_PARSE_SETTINGS_BY_GROUPING["P3"], labelStartThreshold=100, labelEndThreshold=170, labelTextColor=ImageArea.TEXT_COLOUR_MIDDLE, textboxOffset=10),
+	2450: dataclasses.replace(_PARSE_SETTINGS_BY_GROUPING["P3"], labelStartThreshold=100, labelEndThreshold=170, labelTextColor=ImageArea.TEXT_COLOUR_MIDDLE, textboxLeftOffset=10, hasCardTextOverride=True),
+	2461: dataclasses.replace(_PARSE_SETTINGS_BY_GROUPING["P3"], labelStartThreshold=100, labelEndThreshold=170, labelTextColor=ImageArea.TEXT_COLOUR_MIDDLE, textboxLeftOffset=10),
+	2462: dataclasses.replace(_PARSE_SETTINGS_BY_GROUPING["P3"], labelStartThreshold=100, labelEndThreshold=170, labelTextColor=ImageArea.TEXT_COLOUR_MIDDLE, textboxLeftOffset=10),
 	2669: dataclasses.replace(_DEFAULT_EPIC_PARSE_SETTINGS, labelStartThreshold=180, labelEndThreshold=185),
 	2687: dataclasses.replace(_PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["11"], cardLayout=CardLayout.NEW_ENCHANTED_SMALL_TEXTBOX),
 	2688: dataclasses.replace(_PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["11"], cardLayout=CardLayout.NEW_ENCHANTED_SMALL_TEXTBOX),
@@ -162,14 +163,14 @@ _PARSE_SETTINGS_BY_ID: Dict[int, ParseSettings] = {
 	2692: dataclasses.replace(_PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["11"], characterCardLayout=CardLayout.NEW_ENCHANTED_CHARACTER_SMALL_TEXTBOX),
 	2694: dataclasses.replace(_PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["11"], cardLayout=CardLayout.NEW_ENCHANTED_SMALL_TEXTBOX),
 	2702: dataclasses.replace(_PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["11"], typeImageTextColorOverride=ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND),
-	2704: dataclasses.replace(_PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["11"], labelParsingMethod=LABEL_PARSING_METHODS.FALLBACK_WHITE_ABILITY_TEXT, textboxOffset=-80, thresholdTextColor=ImageArea.TEXT_COLOUR_MIDDLE),
+	2704: dataclasses.replace(_PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["11"], labelParsingMethod=LABEL_PARSING_METHODS.FALLBACK_WHITE_ABILITY_TEXT, textboxLeftOffset=-80, thresholdTextColor=ImageArea.TEXT_COLOUR_MIDDLE),
 	2705: dataclasses.replace(_PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["11"], cardLayout=CardLayout.NEW_ENCHANTED_CHARACTER_SMALL_TEXTBOX, characterCardLayout=CardLayout.NEW_ENCHANTED_CHARACTER_SMALL_TEXTBOX,
-							  labelIsDarkerThanBackground=False, labelParsingMethod=LABEL_PARSING_METHODS.FALLBACK_BY_LINES, textboxOffset=-75),
+							  labelIsDarkerThanBackground=False, labelParsingMethod=LABEL_PARSING_METHODS.FALLBACK_BY_LINES, textboxLeftOffset=-75),
 	2706: dataclasses.replace(_DEFAULT_PARSE_SETTINGS, labelIsDarkerThanBackground=False, thresholdTextColor=ImageArea.TEXT_COLOUR_WHITE),
 	2707: dataclasses.replace(_DEFAULT_PARSE_SETTINGS, labelIsDarkerThanBackground=False, thresholdTextColor=ImageArea.TEXT_COLOUR_WHITE),
 	2708: dataclasses.replace(_DEFAULT_PARSE_SETTINGS, labelIsDarkerThanBackground=False, thresholdTextColor=ImageArea.TEXT_COLOUR_WHITE),
 	2710: dataclasses.replace(_DEFAULT_PARSE_SETTINGS, labelIsDarkerThanBackground=False, thresholdTextColor=ImageArea.TEXT_COLOUR_WHITE),
-	2714: dataclasses.replace(_DEFAULT_PARSE_SETTINGS, textboxOffset=15, forceArtistTextColor=ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND),
+	2714: dataclasses.replace(_DEFAULT_PARSE_SETTINGS, textboxLeftOffset=15, forceArtistTextColor=ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND),
 	2715: _DEFAULT_PARSE_SETTINGS,
 	2928: dataclasses.replace(_DEFAULT_EPIC_PARSE_SETTINGS, labelParsingMethod=LABEL_PARSING_METHODS.FALLBACK_BY_LINES),
 	2922: dataclasses.replace(_DEFAULT_EPIC_PARSE_SETTINGS, labelParsingMethod=LABEL_PARSING_METHODS.FALLBACK_BY_LINES),
@@ -178,9 +179,9 @@ _PARSE_SETTINGS_BY_ID: Dict[int, ParseSettings] = {
 	2940: dataclasses.replace(_PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["12"], cardLayout=CardLayout.NEW_ENCHANTED_SMALL_TEXTBOX),
 	2955: dataclasses.replace(_PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["12"], cardLayout=CardLayout.NEW_ENCHANTED_SMALL_TEXTBOX),
 	2956: dataclasses.replace(_DEFAULT_ENCHANTED_PARSE_SETTINGS, labelParsingMethod=LABEL_PARSING_METHODS.FALLBACK_WHITE_ABILITY_TEXT, cardTextHasOutline=False, labelIsDarkerThanBackground=False,
-							  labelTextColor=ImageArea.TEXT_COLOUR_MIDDLE, thresholdTextColor=ImageArea.TEXT_COLOUR_MIDDLE, textboxOffset=25),
+							  labelTextColor=ImageArea.TEXT_COLOUR_MIDDLE, thresholdTextColor=ImageArea.TEXT_COLOUR_MIDDLE, textboxLeftOffset=25),
 	2957: dataclasses.replace(_DEFAULT_ENCHANTED_PARSE_SETTINGS, labelParsingMethod=LABEL_PARSING_METHODS.FALLBACK_BY_LINES, labelIsDarkerThanBackground=False,
-							  labelTextColor=ImageArea.TEXT_COLOUR_MIDDLE, thresholdTextColor=ImageArea.TEXT_COLOUR_MIDDLE, textboxOffset=25),
+							  labelTextColor=ImageArea.TEXT_COLOUR_MIDDLE, thresholdTextColor=ImageArea.TEXT_COLOUR_MIDDLE, textboxLeftOffset=25),
 	2958: dataclasses.replace(_DEFAULT_PARSE_SETTINGS, labelIsDarkerThanBackground=False, thresholdTextColor=ImageArea.TEXT_COLOUR_WHITE, labelMaskColor=_BLACK),
 	2959: dataclasses.replace(_DEFAULT_PARSE_SETTINGS, labelIsDarkerThanBackground=False, thresholdTextColor=ImageArea.TEXT_COLOUR_WHITE, labelMaskColor=_BLACK),
 	2960: dataclasses.replace(_DEFAULT_PARSE_SETTINGS, labelIsDarkerThanBackground=False, thresholdTextColor=ImageArea.TEXT_COLOUR_WHITE, labelMaskColor=_BLACK),
@@ -190,8 +191,8 @@ _PARSE_SETTINGS_BY_ID: Dict[int, ParseSettings] = {
 	2964: dataclasses.replace(_DEFAULT_PARSE_SETTINGS, labelIsDarkerThanBackground=False, thresholdTextColor=ImageArea.TEXT_COLOUR_WHITE, labelMaskColor=_BLACK),
 	2965: dataclasses.replace(_DEFAULT_PARSE_SETTINGS, labelIsDarkerThanBackground=False, thresholdTextColor=ImageArea.TEXT_COLOUR_WHITE, labelMaskColor=_BLACK),
 	2966: dataclasses.replace(_DEFAULT_PARSE_SETTINGS, labelIsDarkerThanBackground=False, thresholdTextColor=ImageArea.TEXT_COLOUR_WHITE, labelMaskColor=_BLACK),
-	2968: dataclasses.replace(_DEFAULT_PARSE_SETTINGS, textboxOffset=40),
-	2969: dataclasses.replace(_DEFAULT_PARSE_SETTINGS, textboxOffset=40),
+	2968: dataclasses.replace(_DEFAULT_PARSE_SETTINGS, textboxLeftOffset=40),
+	2969: dataclasses.replace(_DEFAULT_PARSE_SETTINGS, textboxLeftOffset=40),
 	2971: _DEFAULT_EPIC_PARSE_SETTINGS,
 }
 
