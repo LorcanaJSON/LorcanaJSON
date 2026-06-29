@@ -140,9 +140,9 @@ function setDisplayedIndex(newIndex, showErrorMessage=true) {
 	}
 	// Update the external links
 	if (currentCardData.hasOwnProperty("externalLinks") && currentCardData["externalLinks"]) {
-		updateExternalLink("cardmarketLink", currentCardData["externalLinks"], "cardmarketUrl");
-		updateExternalLink("cardTraderLink", currentCardData["externalLinks"], "cardTraderUrl");
-		updateExternalLink("tcgPlayerLink", currentCardData["externalLinks"], "tcgPlayerUrl");
+		updateOptionalLink("cardmarketLink", currentCardData["externalLinks"], "cardmarketUrl");
+		updateOptionalLink("cardTraderLink", currentCardData["externalLinks"], "cardTraderUrl");
+		updateOptionalLink("tcgPlayerLink", currentCardData["externalLinks"], "tcgPlayerUrl");
 	}
 	// Some 'fullText' goes off the screen, creating a scrollbar. Pressing left or right both scrolls and changes index. Reset horizontal scroll after changing index so we don't start a new image scrolled
 	document.scrollLeft = 0;
@@ -189,10 +189,10 @@ function goToNextSet() {
 		}
 	}
 }
-function updateExternalLink(linkId, externalLinkData, externalLinkName) {
+function updateOptionalLink(linkId, dataContainer, dataKey) {
 	const linkElement = document.getElementById(linkId);
-	if (externalLinkData[externalLinkName]) {
-	  linkElement.href = externalLinkData[externalLinkName];
+	if (dataContainer[dataKey]) {
+	  linkElement.href = dataContainer[dataKey];
 	  linkElement.style.removeProperty("text-decoration-line");
 	} else {
 	  linkElement.href = "#";
