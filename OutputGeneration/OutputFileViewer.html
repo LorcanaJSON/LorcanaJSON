@@ -61,7 +61,7 @@ Cost: <span id="cost-value"></span> | Inkwell: <span id="inkwell-value"></span> 
 Abilities: <span id="abilities-count"></span> | Effects: <span id="effects-count"></span> ||
 Subtypes (<span id="subtypesCount">0</span>): <span id="subtypes"></span>
 <br>
-Artists (<span id="artistCount">0</span>): <span id="artist"></span> || Rarity: <span id="rarity"></span>
+Artists (<span id="artistCount">0</span>): <span id="artist"></span> || Rarity: <span id="rarity"></span> || Full identifier: <span id="fullIdentifier"></span>
 <hr>
 <a id="cardImageLink" href="#" target="_blank">Card Image</a> ||
 <a id="baseCardLink" href="#" onclick="goToIdOfField('baseId'); return false;">Base card</a> |
@@ -131,6 +131,7 @@ function setDisplayedIndex(newIndex, showErrorMessage=true) {
 	document.getElementById("artistCount").textContent = currentCardData["artists"].length;
 	document.getElementById("artist").textContent = currentCardData["artistsText"];
 	document.getElementById("rarity").textContent = currentCardData["rarity"];
+	document.getElementById("fullIdentifier").textContent = currentCardData["fullIdentifier"];
 	for (const fieldname of ["cost", "inkwell", "moveCost", "strength", "willpower", "lore"]) {
 		document.getElementById(fieldname + "-value").textContent = currentCardData[fieldname] === undefined ? "-" : currentCardData[fieldname];
 	}
