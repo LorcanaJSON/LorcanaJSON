@@ -88,6 +88,7 @@ def correctText(cardText: str) -> str:
 		cardText = re.sub(r"\bopponents’(\s|$)", r"opponents'\1", cardText, flags=re.MULTILINE)
 		cardText = re.sub(r"\bIllumineers’(\s|$)", r"Illumineers'\1", cardText, flags=re.MULTILINE)
 		cardText = re.sub(r"\bcharacters’(\s|$)", r"characters'\1", cardText, flags=re.MULTILINE)
+		cardText = re.sub(r"\bfriends’(\s|$)", r"friends'\1", cardText, flags=re.MULTILINE)
 		cardText = re.sub(r"\bo’(\s|$)", r"o'\1", cardText, flags=re.MULTILINE)
 		## Correct common phrases with symbols ##
 		# Ink payment discounts
