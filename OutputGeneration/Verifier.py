@@ -115,7 +115,7 @@ def compareInputToOutput(cardIdsToVerify: Optional[List[int]]):
 				closeQuotemarkCount = outputFlavorText.count(GlobalConfig.language.closeSingleQuotemark) + outputFlavorText.count(GlobalConfig.language.closeDoubleQuotemark) + closeQuotemarkCountChange
 				if openQuotemarkCount != closeQuotemarkCount:
 					cardDifferencesCount += 1
-					print(f"{outputCard['fullName']} (ID {cardId}, {outputCard['fullIdentifier']}): Mismatched count of open ({openQuotemarkCount}) and close ({closeQuotemarkCountChange}) quotemarks in flavor text {outputFlavorText!r}")
+					print(f"{outputCard['fullName']} (ID {cardId}, {outputCard['fullIdentifier']}): Mismatched count of open ({openQuotemarkCount}) and close ({closeQuotemarkCount}) quotemarks in flavor text {outputFlavorText!r}")
 				outputFlavorText = outputFlavorText.replace("“", "\"").replace("”", "\"").replace("„", "\"").replace("‘", "'").replace("’", "'")
 				# Don't put a space between ellipses and the next word if there's a newline after the ellipsis...
 				outputFlavorText = re.sub(r"(?<=\.\.\.)\n(?=\w)", "", outputFlavorText)
