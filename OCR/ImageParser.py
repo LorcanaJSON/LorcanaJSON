@@ -128,7 +128,7 @@ class ImageParser:
 			isCharacter = cardType == GlobalConfig.translation.Character
 		# First determine the card (sub)type
 		typesImageArea = (parseSettings.locationCardLayout if isLocation else parseSettings.cardLayout).types
-		typesImage = self._getSubImage(greyCardImage, typesImageArea)
+		typesImage = self._getSubImage(greyCardImage, typesImageArea, offsetTop=parseSettings.textboxTopOffset, offsetBottom=parseSettings.textboxTopOffset)
 		typesImage = self._convertToThresholdImage(typesImage, parseSettings.typeImageTextColorOverride if parseSettings.typeImageTextColorOverride else typesImageArea.textColour)
 		typesImageText = self._imageToString(typesImage).strip("\"'‘-1|{} ")
 		if "\n" in typesImageText:
@@ -176,7 +176,7 @@ class ImageParser:
 			result["identifier"] = self._getSubImageAndText(greyCardImage, cardLayout.identifier)
 
 		# Greyscale images work better, so get one from just the textbox
-		greyTextboxImage = self._getSubImage(greyCardImage, cardLayout.textbox, parseSettings.textboxOffset, parseSettings.textboxRightOffset*-1)
+		greyTextboxImage = self._getSubImage(greyCardImage, cardLayout.textbox, parseSettings.textboxOffset, parseSettings.textboxRightOffset*-1, parseSettings.textboxTopOffset, parseSettings.textboxBottomOffset)
 		textboxWidth = greyTextboxImage.shape[1]
 		textboxHeight = greyTextboxImage.shape[0]
 
@@ -478,8 +478,8 @@ class ImageParser:
 		return ocrResult
 
 	@staticmethod
-	def _getSubImage(image, imageArea: ImageArea.ImageArea, offsetLeft: int = 0, offsetRight: int = 0) -> cv2.Mat:
-		return image[imageArea.coords.top:imageArea.coords.bottom, imageArea.coords.left+offsetLeft:imageArea.coords.right+offsetRight]
+	def _getSubImage(image, imageArea: ImageArea.ImageArea, offsetLeft: int = 0, offsetRight: int = 0, offsetTop: int = 0, offsetBottom: int = 0) -> cv2.Mat:
+		return image[imageArea.coords.top+offsetTop:imageArea.coords.bottom+offsetBottom, imageArea.coords.left+offsetLeft:imageArea.coords.right+offsetRight]
 
 	@staticmethod
 	def _convertToThresholdImage(greyscaleImage, textColour: ImageArea.TextColour) -> cv2.Mat:

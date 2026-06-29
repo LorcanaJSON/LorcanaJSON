@@ -24,6 +24,8 @@ class ParseSettings:
 	locationCardLayout: CardLayout.CardLayout = None
 	textboxOffset: int = 0  # Shrinks the textbox from the left by this many pixels
 	textboxRightOffset: int = 0  # Shrinks the textbox from the right by this many pixels
+	textboxTopOffset: int = 0  # A positive number here starts the textbox image further down; this value gets added to the y-value from the CardLayout
+	textboxBottomOffset: int = 0  # A positive number here ends the textbox image further down; this value gets added the the y-value from the CardLayout
 	labelParsingMethod: LABEL_PARSING_METHODS = LABEL_PARSING_METHODS.DEFAULT
 	thresholdTextColor: ImageArea.TextColour = ImageArea.TEXT_COLOUR_BLACK
 	labelIsDarkerThanBackground: bool = True  # For most cards, the label is darker than the background, which is used when finding labels. Set this to 'False' if the label is lighter than the background
