@@ -290,7 +290,7 @@ class ImageParser:
 		flavorTextLineDetectionCroppedImage: Optional[cv2.Mat] = None
 		flavorTextEdgeDetectedImage = None
 		flavorTextGreyscaleImageWithLines = None
-		if (parseSettings.hasFlavorTextOverride or (parseSettings.hasFlavorTextOverride is None and hasFlavorText is not False)) and parseSettings.labelParsingMethod != ParseSettings.LABEL_PARSING_METHODS.FALLBACK_BY_LINES:
+		if parseSettings.hasFlavorTextOverride or (parseSettings.hasFlavorTextOverride is None and hasFlavorText is not False):
 			flavorTextImageTop = 0
 			flavorTextLineDetectionCroppedImage = greyTextboxImage
 			if labelCoords:
