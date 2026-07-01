@@ -381,7 +381,7 @@ class ImageParser:
 					# Double-check that the problem is blotches at the top by verifying the bottom half is completely white
 					remainingTextImageBottomHalf = remainingTextImage[remainingTextImage.shape[0] // 2:remainingTextImage.shape[0], 0:remainingTextImage.shape[1]]
 					if cv2.countNonZero(remainingTextImageBottomHalf) / remainingTextImageBottomHalf.size >= 0.99:
-						self._logger.info("Remaining text image has too much white to be text, discarding")
+						self._logger.debug(f"Remaining text image for card ID {cardId} has too much white to be text, discarding")
 						remainingTextImage = None
 				if remainingTextImage is None:
 					remainingText = None
