@@ -601,7 +601,7 @@ def parseSingleCard(inputCard: Dict, ocrResult: OcrResult, externalLinksHandler:
 					ability["costsText"] = ability["effect"][:activatedAbilityMatch.start(1)]
 					ability["effect"] = ability["effect"][activatedAbilityMatch.end(3):]
 				elif GlobalConfig.language == Language.ENGLISH:
-					if re.match("Once (during your|per) turn, you may", ability["effect"]):
+					if re.match(r"Once\s(during\syour|per)\sturn,\syou\smay", ability["effect"]):
 						ability["type"] = "activated"
 					elif (ability["effect"].startswith("At the start of") or ability["effect"].startswith("At the end of") or re.search(r"(^W|,[ \n]w)hen(ever)?[ \n]", ability["effect"])
 							or re.search("when (he|she|it|they) enters play", ability["effect"])):
