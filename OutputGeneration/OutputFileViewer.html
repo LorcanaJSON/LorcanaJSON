@@ -62,6 +62,7 @@ Abilities: <span id="abilities-count"></span> | Effects: <span id="effects-count
 Subtypes (<span id="subtypesCount">0</span>): <span id="subtypes"></span>
 <br>
 Artists (<span id="artistCount">0</span>): <span id="artist"></span> || Rarity: <span id="rarity"></span> || Full identifier: <span id="fullIdentifier"></span>
+<span id="promoFieldsContainer" style="visibility: collapse;"> || Promo Source Category: <span id="promoSourceCategory"></span> | Promo Source: <span id="promoSource"></span></span>
 <hr>
 <a id="cardImageLink" href="#" target="_blank">Card Image</a> |
 <a id="foilCardImageLink" href="#" target="_blank" style="text-decoration-line: line-through;">Foil</a> ||
@@ -145,6 +146,14 @@ function setDisplayedIndex(newIndex, showErrorMessage=true) {
 		updateOptionalLink("cardmarketLink", currentCardData["externalLinks"], "cardmarketUrl");
 		updateOptionalLink("cardTraderLink", currentCardData["externalLinks"], "cardTraderUrl");
 		updateOptionalLink("tcgPlayerLink", currentCardData["externalLinks"], "tcgPlayerUrl");
+	}
+	// Fill in the promo fields if they exist
+	if (currentCardData["promoSourceCategory"] || currentCardData["promoSource"]) {
+		document.getElementById("promoFieldsContainer").style.visibility = "visible";
+		document.getElementById("promoSourceCategory").textContent = currentCardData["promoSourceCategory"] === undefined ? "-" : currentCardData["promoSourceCategory"];
+		document.getElementById("promoSource").textContent = currentCardData["promoSource"] === undefined ? "-" : currentCardData["promoSource"];
+	} else {
+		document.getElementById("promoFieldsContainer").style.visibility = "collapse";
 	}
 	// Some 'fullText' goes off the screen, creating a scrollbar. Pressing left or right both scrolls and changes index. Reset horizontal scroll after changing index so we don't start a new image scrolled
 	document.scrollLeft = 0;
