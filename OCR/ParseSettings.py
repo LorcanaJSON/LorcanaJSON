@@ -58,6 +58,8 @@ _DEFAULT_PARSE_SETTINGS = ParseSettings()
 _DEFAULT_ENCHANTED_PARSE_SETTINGS = ParseSettings(CardLayout.ENCHANTED, CardLayout.ENCHANTED_CHARACTER, CardLayout.ENCHANTED_LOCATION)
 _DEFAULT_NEW_ENCHANTED_PARSE_SETTINGS = ParseSettings(CardLayout.NEW_ENCHANTED, CardLayout.NEW_ENCHANTED_CHARACTER, CardLayout.NEW_ENCHANTED_LOCATION)
 _DEFAULT_EPIC_PARSE_SETTINGS = dataclasses.replace(_DEFAULT_ENCHANTED_PARSE_SETTINGS, labelParsingMethod=LABEL_PARSING_METHODS.DEFAULT, textboxLeftOffset=_OPTIONAL_TEXTBOX_OFFSET, labelStartThreshold=175, labelEndThreshold=185, labelTextColor=ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND)
+_PARSE_SETTINGS_FOR_EPIC_BY_SET: Dict[str, ParseSettings] = {
+}
 _PARSE_SETTINGS_FOR_ENCHANTED_BY_SET: Dict[str, ParseSettings] = {
 	"5": dataclasses.replace(_DEFAULT_NEW_ENCHANTED_PARSE_SETTINGS, labelParsingMethod=LABEL_PARSING_METHODS.FALLBACK_WHITE_ABILITY_TEXT, thresholdTextColor=ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND, labelTextColor=ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND),
 	"6": dataclasses.replace(_DEFAULT_NEW_ENCHANTED_PARSE_SETTINGS, labelParsingMethod=LABEL_PARSING_METHODS.FALLBACK_BY_LINES, labelTextColor=ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND),
@@ -207,7 +209,10 @@ def getParseSettings(cardId: int, identifier: Identifier, isEpic: bool, isEnchan
 	elif identifier.setCode in _PARSE_SETTINGS_BY_SET:
 		return _PARSE_SETTINGS_BY_SET[identifier.setCode]
 	elif isEpic:
-		return _DEFAULT_EPIC_PARSE_SETTINGS
+		if identifier.setCode in _PARSE_SETTINGS_FOR_EPIC_BY_SET:
+			return _PARSE_SETTINGS_FOR_EPIC_BY_SET[identifier.setCode]
+		else:
+			return _DEFAULT_EPIC_PARSE_SETTINGS
 	elif isEnchanted:
 		if identifier.setCode in _PARSE_SETTINGS_FOR_ENCHANTED_BY_SET:
 			return _PARSE_SETTINGS_FOR_ENCHANTED_BY_SET[identifier.setCode]
