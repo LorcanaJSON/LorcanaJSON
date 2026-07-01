@@ -261,6 +261,11 @@ class ImageParser:
 						if lineRightY < 10:
 							self._logger.warning(f"Found line at x={lineRightX} y={lineRightY} for card ID {cardId} but that is too close to the top, skipping")
 							continue
+						if hasFlavorText:
+							lineLeftX = line[0][0]
+							# Skip presumed flavor-text separator lines
+							if lineLeftX > 150 or lineRightX - lineLeftX > 800:
+								continue
 						# If this line is too close to the previous one, it's probably the bottom line of the previous top line of the same label; skip it
 						if lastBottomY and lineRightY - lastBottomY < 80:
 							continue
