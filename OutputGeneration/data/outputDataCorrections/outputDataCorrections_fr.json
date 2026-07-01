@@ -2577,11 +2577,9 @@
     "_addNameToAbilityAtIndex": [1, "MUR GLACIAL"]
   },
   "1933": {
-    "_effectAtIndexIsAbility": [0, "SUFFISAMMENT POUR TOUT LE MONDE"],
-    "_effectAtIndexIsFlavorText": 0,
-    "effects": [
-      "«Aa f",
-      "À la f"
+    "abilities": [
+      "BAU",
+      "SUFFISAM"
     ]
   },
   "1934": {

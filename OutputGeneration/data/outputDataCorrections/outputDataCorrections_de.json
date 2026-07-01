@@ -1715,9 +1715,11 @@
     ]
   },
   "1933": {
-    "_effectAtIndexIsAbility": [0, "JEDE MENGE ZU TUN"],
-    "_effectAtIndexIsFlavorText": 0,
-    "effects": [
+    "abilities": [
+      "BRE\\.",
+      "JEDE"
+    ],
+    "flavorText": [
       "ö",
       "à"
     ]

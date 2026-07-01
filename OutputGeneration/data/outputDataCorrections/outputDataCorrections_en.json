@@ -1472,8 +1472,7 @@
     ]
   },
   "1895": {
-    "_effectAtIndexIsAbility": [0, "SELF-PRESERVATION"],
-    "_effectAtIndexIsFlavorText": 0
+    "_addNameToAbilityAtIndex": [0, "SELF-PRESERVATION"]
   },
   "1897": {
     "abilities": [
@@ -1559,9 +1558,11 @@
     ]
   },
   "1933": {
-    "_effectAtIndexIsAbility": [0, "PLENTY TO GO AROUND"],
-    "_effectAtIndexIsFlavorText": 0,
-    "effects": [
+    "abilities": [
+      "MA",
+      "P"
+    ],
+    "flavorText": [
       " d ",
       " à "
     ]
