@@ -204,6 +204,11 @@ _PARSE_SETTINGS_BY_ID: Dict[int, ParseSettings] = {
 	3207: dataclasses.replace(_PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["13"], characterCardLayout=CardLayout.NEW_ENCHANTED_CHARACTER_SMALL_TEXTBOX),
 	3211: dataclasses.replace(_PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["13"], textboxLeftOffset=-20, thresholdTextColor=ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND),
 	3216: dataclasses.replace(_DEFAULT_PARSE_SETTINGS, labelParsingMethod=LABEL_PARSING_METHODS.FALLBACK_WHITE_ABILITY_TEXT),
+	3217: dataclasses.replace(_DEFAULT_PARSE_SETTINGS, labelIsDarkerThanBackground=False, thresholdTextColor=ImageArea.TEXT_COLOUR_WHITE, labelMaskColor=_BLACK, textboxBottomOffset=-80),
+	3218: dataclasses.replace(_DEFAULT_PARSE_SETTINGS, labelIsDarkerThanBackground=False, thresholdTextColor=ImageArea.TEXT_COLOUR_WHITE, labelMaskColor=_BLACK, textboxBottomOffset=-80),
+	3219: dataclasses.replace(_DEFAULT_PARSE_SETTINGS, labelIsDarkerThanBackground=False, thresholdTextColor=ImageArea.TEXT_COLOUR_WHITE, labelMaskColor=_BLACK, textboxBottomOffset=-80),
+	3225: dataclasses.replace(_DEFAULT_PARSE_SETTINGS, textboxLeftOffset=10),
+	3226: dataclasses.replace(_DEFAULT_PARSE_SETTINGS, textboxLeftOffset=10, labelParsingMethod=LABEL_PARSING_METHODS.FALLBACK_BY_LINES),
 }
 
 def getParseSetingsById(cardId: int) -> Optional[ParseSettings]:
