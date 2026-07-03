@@ -288,7 +288,7 @@
     },
     "prereleaseDate": "2026-07-17",
     "releaseDate": "2026-07-24",
-    "hasAllCards": false,
+    "hasAllCards": true,
     "type": "expansion",
     "number": 13,
     "allowedInFormats": {
