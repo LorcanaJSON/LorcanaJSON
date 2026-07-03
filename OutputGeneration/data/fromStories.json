@@ -330,7 +330,7 @@
       "it": "Lorcana"
     },
     "matchingNames": ["Chromicon", "Hexwell", "Martin", "Shanzay", "The Great Illuminary", "The Vine", "Venturo"],
-    "matchingIds": [380, 535, 789, 792, 825, 859, 891, 952, 986, 987, 1020, 1055, 1125, 1179, 1267, 1300, 1301, 1362, 1399, 1516, 1552, 1784, 2561, 2850],
+    "matchingIds": [380, 535, 789, 792, 825, 859, 891, 952, 986, 987, 1020, 1055, 1125, 1179, 1267, 1300, 1301, 1362, 1399, 1516, 1552, 1784, 2561, 2850, 3076, 3177, 3178],
     "matchingFields": {
       "card_identifier": " Q\\d$"
     }
