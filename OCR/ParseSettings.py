@@ -159,6 +159,7 @@ _PARSE_SETTINGS_BY_ID: Dict[int, ParseSettings] = {
 	2444: _PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["10"],
 	2445: _PARSE_SETTINGS_FOR_ENCHANTED_BY_SET["10"],
 	2450: dataclasses.replace(_PARSE_SETTINGS_BY_GROUPING["P3"], labelStartThreshold=100, labelEndThreshold=170, labelTextColor=ImageArea.TEXT_COLOUR_MIDDLE, textboxLeftOffset=10, hasCardTextOverride=True),
+	2459: dataclasses.replace(_DEFAULT_PARSE_SETTINGS, textboxTopOffset=150, textboxBottomOffset=-70),
 	2461: dataclasses.replace(_PARSE_SETTINGS_BY_GROUPING["P3"], labelStartThreshold=100, labelEndThreshold=170, labelTextColor=ImageArea.TEXT_COLOUR_MIDDLE, textboxLeftOffset=10),
 	2462: dataclasses.replace(_PARSE_SETTINGS_BY_GROUPING["P3"], labelStartThreshold=100, labelEndThreshold=170, labelTextColor=ImageArea.TEXT_COLOUR_MIDDLE, textboxLeftOffset=10),
 	2669: dataclasses.replace(_DEFAULT_EPIC_PARSE_SETTINGS, labelStartThreshold=180, labelEndThreshold=185),
