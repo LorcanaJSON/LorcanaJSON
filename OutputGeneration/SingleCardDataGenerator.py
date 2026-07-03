@@ -262,6 +262,9 @@ def parseSingleCard(inputCard: Dict, ocrResult: OcrResult, externalLinksHandler:
 					for keywordLine in keywordLines:
 						abilities.append({"type": "keyword", "fullText": TextCorrection.correctText(keywordLine.rstrip())})
 						# These entries will get more fleshed out after the corrections (if any) are applied, to prevent having to correct multiple fields
+						if outputCard["id"] >= 1937 and GlobalConfig.translation.shift in keywordLine and abilities[-1]["fullText"][-1].isnumeric():
+							# Starting from Set 9, Shift abilities that cost ink should end with the ink symbol. Add it if it's missing
+							abilities[-1]["fullText"] += " " + LorcanaSymbols.INK
 				elif len(remainingTextLine) > 10:
 					# Since this isn't a named or keyword ability, assume it's a one-off effect
 					effects.append(remainingTextLine)
