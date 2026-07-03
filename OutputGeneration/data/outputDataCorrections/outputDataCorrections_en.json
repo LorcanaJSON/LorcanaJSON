@@ -2930,5 +2930,334 @@
       "sl",
       "pl"
     ]
+  },
+  "2974": {
+    "flavorText": [
+      "-",
+      "—"
+    ]
+  },
+  "2976": {
+    "abilities": [
+      "1 t",
+      "1 ◊ t"
+    ]
+  },
+  "2981": {
+    "abilities": [
+      "\n¤ ",
+      " ¤\n"
+    ]
+  },
+  "2986": {
+    "flavorText": [
+      "are",
+      "a re"
+    ]
+  },
+  "2994": {
+    "flavorText": [
+      "——",
+      "—"
+    ]
+  },
+  "2998": {
+    "abilities": [
+      "2 \\(",
+      "2 ⬡ ("
+    ]
+  },
+  "2999": {
+    "abilities": [
+      "^AND",
+      "...AND"
+    ]
+  },
+  "3010": {
+    "flavorText": [
+      "-",
+      "—"
+    ]
+  },
+  "3019": {
+    "flavorText": [
+      "-",
+      "—"
+    ]
+  },
+  "3029": {
+    "flavorText": [
+      "!",
+      ""
+    ]
+  },
+  "3033": {
+    "abilities": [
+      "1 f",
+      "1 ◊ f"
+    ]
+  },
+  "3038": {
+    "flavorText": [
+      "L",
+      "I"
+    ]
+  },
+  "3041": {
+    "abilities": [
+      "ta",
+      "t a"
+    ]
+  },
+  "3051": {
+    "flavorText": [
+      "Q",
+      "O"
+    ]
+  },
+  "3070": {
+    "abilities": [
+      " 4",
+      ""
+    ]
+  },
+  "3077": {
+    "abilities": [
+      "I O",
+      "1 ⬡"
+    ],
+    "flavorText": [
+      "-",
+      "—",
+      "\\.”",
+      "”"
+    ]
+  },
+  "3088": {
+    "flavorText": [
+      "Ls",
+      "Is"
+    ]
+  },
+  "3106": {
+    "effects": [
+      "\nl",
+      "\n1 l"
+    ]
+  },
+  "3110": {
+    "flavorText": [
+      "^“T",
+      "“‘T",
+      "l. P",
+      "l.’ P"
+    ]
+  },
+  "3123": {
+    "abilities": [
+      "Ct",
+      "¤"
+    ]
+  },
+  "3132": {
+    "abilities": [
+      "\n¤ ",
+      " ¤\n"
+    ]
+  },
+  "3135": {
+    "abilities": [
+      "1\n",
+      "1 ◊\n"
+    ]
+  },
+  "3144": {
+    "abilities": [
+      "O\n¤ ",
+      "¤\n"
+    ]
+  },
+  "3148": {
+    "flavorText": [
+      "-",
+      "—"
+    ]
+  },
+  "3165": {
+    "abilities": [
+      "I l",
+      "1 l"
+    ]
+  },
+  "3177": {
+    "abilities": [
+      " ac",
+      " a c"
+    ]
+  },
+  "3198": {
+    "_skipFullTextSectionMergeAtIndex": 1
+  },
+  "3199": {
+    "_addNameToAbilityAtIndex": [2, "...AND BEYOND!"],
+    "abilities": [
+      "\n\\.\\.A",
+      "\n\n...A"
+    ],
+    "effects": [
+      "tSO 8gy",
+      " 5 ⬡"
+    ]
+  },
+  "3204": {
+    "subtypes": [
+      null,
+      [
+        "Storyborn",
+        "Team",
+        "Hero",
+        "Fairy"
+      ]
+    ]
+  },
+  "3205": {
+    "subtypes": [
+      "nn$",
+      "nny"
+    ]
+  },
+  "3207": {
+    "_skipFullTextSectionMergeAtIndex": 1,
+    "effects": [
+      "0 —\n—",
+      " ⬡\n\n"
+    ],
+    "subtypes": [
+      null,
+      [
+        "Storyborn",
+        "Team",
+        "Hero",
+        "Puppy"
+      ]
+    ]
+  },
+  "3212": {
+    "_skipFullTextSectionMergeAtIndex": 1
+  },
+  "3213": {
+    "_skipFullTextSectionMergeAtIndex": 1
+  },
+  "3215": {
+    "_insertAbilityAtIndex": [0, "Shift 3 ⬡", 1, "Resist +1", 2, "Support"],
+    "_removeAbilitiesAtIndexes": [3],
+    "_skipFullTextSectionMergeAtIndex": [1, 2],
+    "artistsText": [
+      "\\}.+$",
+      ""
+    ],
+    "effects": [
+      null,
+      null
+    ],
+    "subtypes": [
+      null,
+      [
+        "Storyborn",
+        "Team",
+        "Hero",
+        "Alien"
+      ]
+    ]
+  },
+  "3216": {
+    "abilities": [
+      "^N",
+      "IN",
+      "r,",
+      "r",
+      "\"",
+      ",",
+      "n,",
+      "n",
+      "!",
+      ".",
+      "^⟳, 05 R",
+      "6 ⬡ — R",
+      "—\nh",
+      "\nch",
+      " ema$",
+      "."
+    ],
+    "effects": [
+      "⬡.+$",
+      "⬡"
+    ],
+    "subtypes": [
+      null,
+      [
+        "Storyborn",
+        "Team",
+        "Hero",
+        "Prince",
+        "Princess"
+      ]
+    ]
+  },
+  "3217": {
+    "flavorText": [
+      "\\.— J",
+      "—J"
+    ]
+  },
+  "3219": {
+    "abilities": [
+      "“",
+      ""
+    ]
+  },
+  "3225": {
+    "abilities": [
+      "^NY",
+      "DY",
+      "II",
+      "U"
+    ],
+    "artistsText": [
+      "nM",
+      "n M",
+      "ll",
+      "al"
+    ],
+    "effects": [
+      "^t",
+      "R",
+      "“",
+      "t"
+    ]
+  },
+  "3226": {
+    "abilities": [
+      " I$",
+      ""
+    ]
+  },
+  "3228": {
+    "flavorText": [
+      "Y",
+      "I'v"
+    ]
+  },
+  "3230": {
+    "abilities": [
+      "\nwa",
+      ""
+    ]
+  },
+  "3232": {
+    "abilities": [
+      "\nwe",
+      ""
+    ]
   }
 }

@@ -197,5 +197,8 @@
       "-V2",
       ""
     ]
+  },
+  "3178": {
+    "_forceAbilityIndexToTriggered": 0
   }
 }

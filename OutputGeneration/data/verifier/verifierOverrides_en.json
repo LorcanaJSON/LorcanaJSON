@@ -666,5 +666,47 @@
       "Schaffner",
       "Wolfensberger"
     ]
+  },
+  "2973": {
+    "rules_text": [
+      "Mei Lee",
+      "Meilin Lee"
+    ]
+  },
+  "2999": {
+    "rules_text": [
+      "\\. AND",
+      ".AND"
+    ]
+  },
+  "3199": {
+    "rules_text": [
+      "\\. A",
+      ".A"
+    ]
+  },
+  "3206": {
+    "author": [
+      "’",
+      "'"
+    ]
+  },
+  "3223": {
+    "author": [
+      "^Emily Abeydeera$",
+      "Lisanne Koeteeuw"
+    ]
+  },
+ "3224": {
+    "author": [
+      "^Emily Abeydeera$",
+      "Lisanne Koeteeuw"
+    ]
+  },
+  "3225": {
+    "author": [
+      "^Omar Lozano$",
+      "Ian MacDonald"
+    ]
   }
 }
