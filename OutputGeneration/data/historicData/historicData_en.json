@@ -59,6 +59,23 @@
       "usedUntil": "2026-02-05"
     }
   ],
+  "286": [
+    {
+      "abilities": [
+        {
+          "effect": "Whenever an opposing character is damaged, you may ready this character.",
+          "fullText": "SECOND WIND Whenever an opposing character\nis damaged, you may ready this character.",
+          "name": "SECOND WIND",
+          "type": "triggered"
+        }
+      ],
+      "fullText": "SECOND WIND Whenever an opposing character\nis damaged, you may ready this character.",
+      "fullTextSections": [
+        "SECOND WIND Whenever an opposing character\nis damaged, you may ready this character."
+      ],
+      "usedUntil": "2026-06-23"
+    }
+  ],
   "289": [
     {
       "abilities": [
@@ -118,6 +135,23 @@
       "usedUntil": "2024-08-23"
     }
   ],
+  "426": [
+    {
+      "abilities": [
+        {
+          "effect": "Whenever an opposing character is damaged, you may ready this character.",
+          "fullText": "SECOND WIND Whenever an opposing character is\ndamaged, you may ready this character.",
+          "name": "SECOND WIND",
+          "type": "triggered"
+        }
+      ],
+      "fullText": "SECOND WIND Whenever an opposing character is\ndamaged, you may ready this character.",
+      "fullTextSections": [
+        "SECOND WIND Whenever an opposing character is\ndamaged, you may ready this character."
+      ],
+      "usedUntil": "2026-06-23"
+    }
+  ],
   "527": [
     {
       "abilities": [
@@ -133,6 +167,23 @@
         "WHAT A DEAL Whenever this character sings a song,\nyou may play that song again from your discard for\nfree, then put it on the bottom of your deck."
       ],
       "usedUntil": "2025-05-15"
+    }
+  ],
+  "544": [
+    {
+      "abilities": [
+        {
+          "effect": "Whenever this character is dealt damage, deal that much damage to chosen opposing character.",
+          "fullText": "WATCH THE TEETH Whenever this character is\ndealt damage, deal that much damage to chosen\nopposing character.",
+          "name": "WATCH THE TEETH",
+          "type": "triggered"
+        }
+      ],
+      "fullText": "WATCH THE TEETH Whenever this character is\ndealt damage, deal that much damage to chosen\nopposing character.",
+      "fullTextSections": [
+        "WATCH THE TEETH Whenever this character is\ndealt damage, deal that much damage to chosen\nopposing character."
+      ],
+      "usedUntil": "2026-06-23"
     }
   ],
   "581": [
@@ -309,6 +360,39 @@
       "usedUntil": "2026-02-05"
     }
   ],
+  "1524": [
+    {
+      "abilities": [
+        {
+          "effect": "If an opposing character was damaged this turn, you pay 2 \u2b21 less to play this character.",
+          "fullText": "DRAWN TO A FIGHT If an opposing character was damaged\nthis turn, you pay 2 \u2b21 less to play this character.",
+          "name": "DRAWN TO A FIGHT",
+          "type": "static"
+        },
+        {
+          "fullText": "Resist +1 (Damage dealt to this character is reduced by 1.)",
+          "keyword": "Resist",
+          "keywordValue": "+1",
+          "keywordValueNumber": 1,
+          "reminderText": "Damage dealt to this character is reduced by 1.",
+          "type": "keyword"
+        },
+        {
+          "effect": "Whenever you play an action that isn't a song, you may deal 1 damage to chosen character.",
+          "fullText": "I AIN'T GONE SOFT! Whenever you play an action that isn't a\nsong, you may deal 1 damage to chosen character.",
+          "name": "I AIN'T GONE SOFT!",
+          "type": "triggered"
+        }
+      ],
+      "fullText": "DRAWN TO A FIGHT If an opposing character was damaged\nthis turn, you pay 2 \u2b21 less to play this character.\nResist +1 (Damage dealt to this character is reduced by 1.)\nI AIN'T GONE SOFT! Whenever you play an action that isn't a\nsong, you may deal 1 damage to chosen character.",
+      "fullTextSections": [
+        "DRAWN TO A FIGHT If an opposing character was damaged\nthis turn, you pay 2 \u2b21 less to play this character.",
+        "Resist +1 (Damage dealt to this character is reduced by 1.)",
+        "I AIN'T GONE SOFT! Whenever you play an action that isn't a\nsong, you may deal 1 damage to chosen character."
+      ],
+      "usedUntil": "2026-06-23"
+    }
+  ],
   "1536": [
     {
       "flavorText": "\u201cYou can't leave yet! Don't you want to hear the ending?\u201d\n\u2014Tweedle Dee",
@@ -316,6 +400,158 @@
       "name": "Tweedle Dee & Tweedle Dum",
       "simpleName": "tweedle dee & tweedle dum strange storytellers",
       "usedUntil": "2026-04-15"
+    }
+  ],
+  "1585": [
+    {
+      "abilities": [
+        {
+          "costs": [
+            "\u27f3"
+          ],
+          "costsText": "\u27f3",
+          "effect": "If one of your characters was damaged this turn, gain 1 lore.",
+          "fullText": "THE PRICE OF POWER \u27f3 \u2014 If one of your characters\nwas damaged this turn, gain 1 lore.",
+          "name": "THE PRICE OF POWER",
+          "type": "activated"
+        }
+      ],
+      "fullText": "THE PRICE OF POWER \u27f3 \u2014 If one of your characters\nwas damaged this turn, gain 1 lore.",
+      "fullTextSections": [
+        "THE PRICE OF POWER \u27f3 \u2014 If one of your characters\nwas damaged this turn, gain 1 lore."
+      ],
+      "usedUntil": "2026-06-23"
+    }
+  ],
+  "1609": [
+    {
+      "abilities": [
+        {
+          "effect": "During an opponent's turn, whenever one of your Ally characters is damaged, deal 1 damage to chosen opposing character.",
+          "fullText": "GOOD SHOT During an opponent's turn, whenever\none of your Ally characters is damaged, deal 1\ndamage to chosen opposing character.",
+          "name": "GOOD SHOT",
+          "type": "triggered"
+        },
+        {
+          "effect": "Your characters named Lady Kluck gain Resist +1. (Damage dealt to them is reduced by 1.)",
+          "fullText": "FAIR PLAY Your characters named Lady Kluck gain\nResist +1. (Damage dealt to them is reduced by 1.)",
+          "name": "FAIR PLAY",
+          "type": "static"
+        }
+      ],
+      "fullText": "GOOD SHOT During an opponent's turn, whenever\none of your Ally characters is damaged, deal 1\ndamage to chosen opposing character.\nFAIR PLAY Your characters named Lady Kluck gain\nResist +1. (Damage dealt to them is reduced by 1.)",
+      "fullTextSections": [
+        "GOOD SHOT During an opponent's turn, whenever\none of your Ally characters is damaged, deal 1\ndamage to chosen opposing character.",
+        "FAIR PLAY Your characters named Lady Kluck gain\nResist +1. (Damage dealt to them is reduced by 1.)"
+      ],
+      "usedUntil": "2026-06-23"
+    }
+  ],
+  "1651": [
+    {
+      "abilities": [
+        {
+          "costs": [
+            "\u27f3"
+          ],
+          "costsText": "\u27f3",
+          "effect": "If one of your characters was damaged this turn, gain 1 lore.",
+          "fullText": "THE PRICE OF POWER \u27f3 \u2014 If one of your\ncharacters was damaged this turn, gain 1 lore.",
+          "name": "THE PRICE OF POWER",
+          "type": "activated"
+        }
+      ],
+      "fullText": "THE PRICE OF POWER \u27f3 \u2014 If one of your\ncharacters was damaged this turn, gain 1 lore.",
+      "fullTextSections": [
+        "THE PRICE OF POWER \u27f3 \u2014 If one of your\ncharacters was damaged this turn, gain 1 lore."
+      ],
+      "usedUntil": "2026-06-23"
+    }
+  ],
+  "1773": [
+    {
+      "abilities": [
+        {
+          "fullText": "Shift 3 (You may pay 3 \u2b21 to play this on top of one\nof your characters named Captain Hook.)",
+          "keyword": "Shift",
+          "keywordValue": "3",
+          "keywordValueNumber": 3,
+          "reminderText": "You may pay 3 \u2b21 to play this on top of one of your characters named Captain Hook.",
+          "type": "keyword"
+        },
+        {
+          "effect": "Once during your turn, whenever an opposing character is damaged, your Pirate characters get +2 \u00a4 and gain Resist +2 this turn. (Damage dealt to them is reduced by 2.)",
+          "fullText": "GIVE 'EM ALL YOU GOT! Once during your turn,\nwhenever an opposing character is damaged, your\nPirate characters get +2 \u00a4 and gain Resist +2 this\nturn. (Damage dealt to them is reduced by 2.)",
+          "name": "GIVE 'EM ALL YOU GOT!",
+          "type": "triggered"
+        }
+      ],
+      "fullText": "Shift 3 (You may pay 3 \u2b21 to play this on top of one\nof your characters named Captain Hook.)\nGIVE 'EM ALL YOU GOT! Once during your turn,\nwhenever an opposing character is damaged, your\nPirate characters get +2 \u00a4 and gain Resist +2 this\nturn. (Damage dealt to them is reduced by 2.)",
+      "fullTextSections": [
+        "Shift 3 (You may pay 3 \u2b21 to play this on top of one\nof your characters named Captain Hook.)",
+        "GIVE 'EM ALL YOU GOT! Once during your turn,\nwhenever an opposing character is damaged, your\nPirate characters get +2 \u00a4 and gain Resist +2 this\nturn. (Damage dealt to them is reduced by 2.)"
+      ],
+      "usedUntil": "2026-06-23"
+    }
+  ],
+  "1789": [
+    {
+      "abilities": [
+        {
+          "effect": "During your turn, when this character is banished, if one of your characters was damaged this turn, gain 2 lore.",
+          "fullText": "SPITEFUL During your turn, when this character\nis banished, if one of your characters was damaged\nthis turn, gain 2 lore.",
+          "name": "SPITEFUL",
+          "type": "triggered"
+        }
+      ],
+      "fullText": "SPITEFUL During your turn, when this character\nis banished, if one of your characters was damaged\nthis turn, gain 2 lore.",
+      "fullTextSections": [
+        "SPITEFUL During your turn, when this character\nis banished, if one of your characters was damaged\nthis turn, gain 2 lore."
+      ],
+      "usedUntil": "2026-06-23"
+    }
+  ],
+  "1860": [
+    {
+      "abilities": [
+        {
+          "effect": "You can't play this character unless an opposing character was damaged this turn.",
+          "fullText": "PREDATORY INSTINCT You can't play this character\nunless an opposing character was damaged this turn.",
+          "name": "PREDATORY INSTINCT",
+          "type": "static"
+        }
+      ],
+      "fullText": "PREDATORY INSTINCT You can't play this character\nunless an opposing character was damaged this turn.",
+      "fullTextSections": [
+        "PREDATORY INSTINCT You can't play this character\nunless an opposing character was damaged this turn."
+      ],
+      "usedUntil": "2026-06-23"
+    }
+  ],
+  "1879": [
+    {
+      "abilities": [
+        {
+          "fullText": "Shift 3 (You may pay 3 \u2b21 to play this on top of one\nof your characters named Captain Hook.)",
+          "keyword": "Shift",
+          "keywordValue": "3",
+          "keywordValueNumber": 3,
+          "reminderText": "You may pay 3 \u2b21 to play this on top of one of your characters named Captain Hook.",
+          "type": "keyword"
+        },
+        {
+          "effect": "Once during your turn, whenever an opposing character is damaged, your Pirate characters get +2 \u00a4 and gain Resist +2 this turn. (Damage dealt to them is reduced by 2.)",
+          "fullText": "GIVE 'EM ALL YOU GOT! Once during your turn,\nwhenever an opposing character is damaged, your\nPirate characters get +2 \u00a4 and gain Resist +2 this\nturn. (Damage dealt to them is reduced by 2.)",
+          "name": "GIVE 'EM ALL YOU GOT!",
+          "type": "triggered"
+        }
+      ],
+      "fullText": "Shift 3 (You may pay 3 \u2b21 to play this on top of one\nof your characters named Captain Hook.)\nGIVE 'EM ALL YOU GOT! Once during your turn,\nwhenever an opposing character is damaged, your\nPirate characters get +2 \u00a4 and gain Resist +2 this\nturn. (Damage dealt to them is reduced by 2.)",
+      "fullTextSections": [
+        "Shift 3 (You may pay 3 \u2b21 to play this on top of one\nof your characters named Captain Hook.)",
+        "GIVE 'EM ALL YOU GOT! Once during your turn,\nwhenever an opposing character is damaged, your\nPirate characters get +2 \u00a4 and gain Resist +2 this\nturn. (Damage dealt to them is reduced by 2.)"
+      ],
+      "usedUntil": "2026-06-23"
     }
   ],
   "2291": [
