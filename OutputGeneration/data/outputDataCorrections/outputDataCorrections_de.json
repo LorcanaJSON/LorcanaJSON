@@ -2512,8 +2512,6 @@
   },
   "2696": {
     "abilities": [
-      "4$",
-      "4 ⬡",
       "3 ¤",
       "3 ◊"
     ]
@@ -2838,12 +2836,6 @@
     "flavorText": [
       "^.+$",
       "[auf Atlanter] Betretet die Höhle des Leviathans."
-    ]
-  },
-  "2875": {
-    "abilities": [
-      "6$",
-      "6 ⬡"
     ]
   },
   "2877": {
