@@ -168,6 +168,12 @@ def compareInputToOutput(cardIdsToVerify: Optional[List[int]]):
 			cardDifferencesCount += 1
 			print(f"WARNING: {outputCard['fullName']} (ID {outputCard['id']}) does not have a valid story set")
 
+		# Check if all historic data has a used-until date
+		if "historicData" in outputCard:
+			for historicEntry in outputCard["historicData"]:
+				if "usedUntil" not in historicEntry:
+					cardDifferencesCount += 1
+					print(f"WARNING: {outputCard['fullName']} (ID {outputCard['id']} has a historic entry without a 'usedUntil'-date set")
 		# Check if the whitespace is correct
 		for symbol in LorcanaSymbols.ALL_SYMBOLS:
 			# Symbols should have whitespace around them
