@@ -377,12 +377,17 @@ class ImageParser:
 				# For some cards, it thinks there is remaining text, but they're just random markings (mainly Floodborn cards with ink splotches dripping from the subtypes)
 				# If the image is too white, it can't be text, so discard the erroneous remaining text image
 				# Only do this check if there's at least one ability, because the percentages can get weird if there's one short effect on the whole card, leading to false positives
-				if result["abilityLabels"] and cv2.countNonZero(remainingTextImage) / remainingTextImage.size > 0.96:
-					# Double-check that the problem is blotches at the top by verifying the bottom half is completely white
-					remainingTextImageBottomHalf = remainingTextImage[remainingTextImage.shape[0] // 2:remainingTextImage.shape[0], 0:remainingTextImage.shape[1]]
-					if cv2.countNonZero(remainingTextImageBottomHalf) / remainingTextImageBottomHalf.size >= 0.99:
+				if result["abilityLabels"]:
+					whitenessPercentage = cv2.countNonZero(remainingTextImage) / remainingTextImage.size
+					if whitenessPercentage >= 0.99:
 						self._logger.debug(f"Remaining text image for card ID {cardId} has too much white to be text, discarding")
 						remainingTextImage = None
+					elif whitenessPercentage >= 0.96:
+						# Double-check that the problem is blotches at the top by verifying the bottom half is completely white
+						remainingTextImageBottomHalf = remainingTextImage[remainingTextImage.shape[0] // 2:remainingTextImage.shape[0], 0:remainingTextImage.shape[1]]
+						if cv2.countNonZero(remainingTextImageBottomHalf) / remainingTextImageBottomHalf.size >= 0.99:
+							self._logger.debug(f"Bottom half of remaining text image for card ID {cardId} has too much white to be text, discarding")
+							remainingTextImage = None
 				if remainingTextImage is None:
 					remainingText = None
 				else:
