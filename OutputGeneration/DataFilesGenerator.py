@@ -16,7 +16,7 @@ from OutputGeneration.StoryParser import StoryParser
 from util import CardUtil, IdentifierParser
 
 _logger = logging.getLogger("LorcanaJSON")
-FORMAT_VERSION = "2.3.2"
+FORMAT_VERSION = "2.3.3"
 # The card parser is run in threads, and each thread needs to initialize its own ImageParser (otherwise weird errors happen in Tesseract)
 # Store each initialized ImageParser in its own thread storage
 _threadingLocalStorage = threading.local()

@@ -868,6 +868,11 @@ def _parseNameFields(inputCard: Dict, outputCard: Dict, ocrResult: OcrResult):
 	outputCard["simpleName"] = re.sub(r"[!.,…?“”\"]", "", outputCard["simpleName"].lower()).rstrip()
 	for replacementChar, charsToReplace in {"a": "[àâäā]", "c": "ç", "e": "[èêé]", "i": "[îïí]", "o": "[ôö]", "u": "[ùûü]", "oe": "œ", "ss": "ß"}.items():
 		outputCard["simpleName"] = re.sub(charsToReplace, replacementChar, outputCard["simpleName"])
+	# Set 13 introduces Team cards, which have two names on them (f.i. "Mickey Mouse & Minnie Mouse"). These also count as a card named "Mickey Mouse" and named "Minnie Mouse"
+	# To make that easier to process, add a separate field that lists all the names this card qualifies as. (Italian uses ' e ' instead of ' & ' so check for that too)
+	nameSeparator = " e " if GlobalConfig.language == Language.ITALIAN else " & "
+	if nameSeparator in outputCard["name"]:
+		outputCard["names"] = sorted(outputCard["name"].split(nameSeparator))
 
 def _parseRelatedCards(relatedCards: RelatedCards, parsedIdentifier: IdentifierParser.Identifier, outputCard: Dict):
 	otherRelatedCards = relatedCards.getOtherRelatedCards(outputCard["setCode"], outputCard["id"])
