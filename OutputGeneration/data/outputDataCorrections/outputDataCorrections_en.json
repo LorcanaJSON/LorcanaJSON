@@ -3124,12 +3124,6 @@
       ]
     ]
   },
-  "3212": {
-    "_skipFullTextSectionMergeAtIndex": 1
-  },
-  "3213": {
-    "_skipFullTextSectionMergeAtIndex": 1
-  },
   "3215": {
     "_insertAbilityAtIndex": [0, "Shift 3 ⬡", 1, "Resist +1", 2, "Support"],
     "_removeAbilitiesAtIndexes": [3],
