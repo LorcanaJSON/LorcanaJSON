@@ -213,6 +213,12 @@
   "3178": {
     "_forceAbilityIndexToTriggered": 0
   },
+  "3198": {
+    "_skipFullTextSectionMergeAtIndex": 1
+  },
+  "3207": {
+    "_skipFullTextSectionMergeAtIndex": 1
+  },
   "3212": {
     "_skipFullTextSectionMergeAtIndex": 1
   },

@@ -3101,9 +3101,6 @@
       " a c"
     ]
   },
-  "3198": {
-    "_skipFullTextSectionMergeAtIndex": 1
-  },
   "3199": {
     "_addNameToAbilityAtIndex": [2, "...AND BEYOND!"],
     "abilities": [
@@ -3127,7 +3124,6 @@
     ]
   },
   "3207": {
-    "_skipFullTextSectionMergeAtIndex": 1,
     "effects": [
       "0 —\n—",
       " ⬡\n\n"
