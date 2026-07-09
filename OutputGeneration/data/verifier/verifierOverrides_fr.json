@@ -587,5 +587,77 @@
       "tc",
       "t c"
     ]
+  },
+  "2988": {
+    "flavor_text": [
+      " \\. \\. \\. ",
+      "..."
+    ]
+  },
+  "3129": {
+    "flavor_text": [
+      "^.+$",
+      ""
+    ]
+  },
+  "3206": {
+    "author": [
+      "’",
+      "'"
+    ]
+  },
+  "3198": {
+    "rules_text": [
+      "⬡,",
+      "⬡"
+    ]
+  },
+  "3207": {
+    "rules_text": [
+      "⬡,",
+      "⬡"
+    ]
+  },
+  "3212": {
+    "rules_text": [
+      "⬡,",
+      "⬡"
+    ]
+  },
+  "3213": {
+    "rules_text": [
+      "⬡,",
+      "⬡"
+    ]
+  },
+  "3215": {
+    "rules_text": [
+      " \\([^)]+\\)",
+      ""
+    ]
+  },
+  "3216": {
+    "rules_text": [
+      " \\([^)]+\\)",
+      ""
+    ]
+  },
+  "3223": {
+    "author": [
+      "^Emily Abeydeera$",
+      "Lisanne Koeteeuw"
+    ]
+  },
+ "3224": {
+    "author": [
+      "^Emily Abeydeera$",
+      "Lisanne Koeteeuw"
+    ]
+  },
+  "3225": {
+    "author": [
+      "^Omar Lozano$",
+      "Ian MacDonald"
+    ]
   }
 }

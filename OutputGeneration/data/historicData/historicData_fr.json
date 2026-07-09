@@ -195,6 +195,23 @@
       "usedUntil": "2024-08-23"
     }
   ],
+  "286": [
+    {
+      "abilities": [
+        {
+          "effect": "Chaque fois que des dommages sont inflig\u00e9s \u00e0 un personnage adverse, vous pouvez redresser ce personnage.",
+          "fullText": "SECOND SOUFFLE Chaque fois que des\ndommages sont inflig\u00e9s \u00e0 un personnage adverse,\nvous pouvez redresser ce personnage.",
+          "name": "SECOND SOUFFLE",
+          "type": "triggered"
+        }
+      ],
+      "fullText": "SECOND SOUFFLE Chaque fois que des\ndommages sont inflig\u00e9s \u00e0 un personnage adverse,\nvous pouvez redresser ce personnage.",
+      "fullTextSections": [
+        "SECOND SOUFFLE Chaque fois que des\ndommages sont inflig\u00e9s \u00e0 un personnage adverse,\nvous pouvez redresser ce personnage."
+      ],
+      "usedUntil": "2026-06-23"
+    }
+  ],
   "288": [
     {
       "abilities": [
@@ -394,6 +411,23 @@
         "R\u00e9sistance +1 (Les dommages qui lui sont inflig\u00e9s\nsont r\u00e9duits de 1.)"
       ],
       "usedUntil": "2025-08-07"
+    }
+  ],
+  "426": [
+    {
+      "abilities": [
+        {
+          "effect": "Chaque fois que des dommages sont inflig\u00e9s \u00e0 un personnage adverse, vous pouvez redresser ce personnage.",
+          "fullText": "SECOND SOUFFLE Chaque fois que des dommages\nsont inflig\u00e9s \u00e0 un personnage adverse, vous\npouvez redresser ce personnage.",
+          "name": "SECOND SOUFFLE",
+          "type": "triggered"
+        }
+      ],
+      "fullText": "SECOND SOUFFLE Chaque fois que des dommages\nsont inflig\u00e9s \u00e0 un personnage adverse, vous\npouvez redresser ce personnage.",
+      "fullTextSections": [
+        "SECOND SOUFFLE Chaque fois que des dommages\nsont inflig\u00e9s \u00e0 un personnage adverse, vous\npouvez redresser ce personnage."
+      ],
+      "usedUntil": "2026-06-23"
     }
   ],
   "432": [
@@ -615,6 +649,48 @@
         "Ce tour-ci, vous pouvez placer une carte\nsuppl\u00e9mentaire de votre main dans votre r\u00e9serve\nd'encre, face cach\u00e9e. Piochez une carte."
       ],
       "usedUntil": "2026-02-05"
+    }
+  ],
+  "1585": [
+    {
+      "abilities": [
+        {
+          "costs": [
+            "\u27f3"
+          ],
+          "costsText": "\u27f3",
+          "effect": "Si l'un de vos personnages s'est vu infliger des dommages ce tour-ci, gagnez 1 \u00e9clat de Lore.",
+          "fullText": "LE PRIX DU POUVOIR \u27f3 \u2014 Si l'un de vos personnages\ns'est vu infliger des dommages ce tour-ci, gagnez 1 \u00e9clat\nde Lore.",
+          "name": "LE PRIX DU POUVOIR",
+          "type": "activated"
+        }
+      ],
+      "fullText": "LE PRIX DU POUVOIR \u27f3 \u2014 Si l'un de vos personnages\ns'est vu infliger des dommages ce tour-ci, gagnez 1 \u00e9clat\nde Lore.",
+      "fullTextSections": [
+        "LE PRIX DU POUVOIR \u27f3 \u2014 Si l'un de vos personnages\ns'est vu infliger des dommages ce tour-ci, gagnez 1 \u00e9clat\nde Lore."
+      ],
+      "usedUntil": "2026-06-23"
+    }
+  ],
+  "1651": [
+    {
+      "abilities": [
+        {
+          "costs": [
+            "\u27f3"
+          ],
+          "costsText": "\u27f3",
+          "effect": "Si l'un de vos personnages s'est vu infliger des dommages ce tour-ci, gagnez 1 \u00e9clat de Lore.",
+          "fullText": "LE PRIX DU POUVOIR \u27f3 \u2014 Si l'un de vos\npersonnages s'est vu infliger des dommages ce\ntour-ci, gagnez 1 \u00e9clat de Lore.",
+          "name": "LE PRIX DU POUVOIR",
+          "type": "activated"
+        }
+      ],
+      "fullText": "LE PRIX DU POUVOIR \u27f3 \u2014 Si l'un de vos\npersonnages s'est vu infliger des dommages ce\ntour-ci, gagnez 1 \u00e9clat de Lore.",
+      "fullTextSections": [
+        "LE PRIX DU POUVOIR \u27f3 \u2014 Si l'un de vos\npersonnages s'est vu infliger des dommages ce\ntour-ci, gagnez 1 \u00e9clat de Lore."
+      ],
+      "usedUntil": "2026-06-23"
     }
   ]
 }
