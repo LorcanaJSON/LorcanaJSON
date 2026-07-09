@@ -919,7 +919,9 @@ def _parseSubtypes(subtypesText: Optional[str], outputCard: Dict):
 
 	for subtypeIndex in range(len(subtypes) - 1, -1, -1):
 		subtype = subtypes[subtypeIndex]
-		if subtype == "Fantme":
+		if subtype == "Equipe" or subtype == "quipe":
+			subtypes[subtypeIndex] = "Équipe"
+		elif subtype == "Fantme":
 			subtypes[subtypeIndex] = "Fantôme"
 		elif GlobalConfig.language in (Language.ENGLISH, Language.FRENCH) and subtype != "Floodborn" and re.match(r"^[EF][il][aeo][aeo]d[^b]?b?[^b]?[aeo](r[an][es+-]?|m)$", subtype):
 			_logger.debug(f"Correcting '{subtype}' to 'Floodborn'")
