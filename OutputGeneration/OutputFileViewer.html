@@ -66,13 +66,13 @@ Artists (<span id="artistCount">0</span>): <span id="artist"></span> || Rarity: 
 <hr>
 <a id="cardImageLink" href="#" target="_blank">Card Image</a> |
 <a id="foilCardImageLink" href="#" target="_blank" style="text-decoration-line: line-through;">Foil</a> ||
-<a id="baseCardLink" href="#" onclick="goToIdOfField('baseId'); return false;">Base card</a> |
-<a id="epicLink" href="#" onclick="goToIdOfField('epicId'); return false;">Epic</a> |
-<a id="enchantedLink" href="#" onclick="goToIdOfField('enchantedId'); return false;">Enchanted</a> |
-<a id="iconicLink" href="#" onclick="goToIdOfField('iconicId'); return false;">Iconic</a> |
-<a id="promoLink" href="#" onclick="goToIdOfField('promoIds', true); return false;">First Promo</a> |
-<a id="reprintedAsLink" href="#" onclick="goToIdOfField('reprintedAsIds', true); return false;">First Reprint</a> |
-<a id="reprintOfLink" href="#" onclick="goToIdOfField('reprintOfId'); return false;">Original print</a> ||
+<a id="baseCardLink" href="#" style="text-decoration-line: line-through;" onclick="goToIdOfField('baseId'); return false;">Base card</a> |
+<a id="epicLink" href="#" style="text-decoration-line: line-through;" onclick="goToIdOfField('epicId'); return false;">Epic</a> |
+<a id="enchantedLink" href="#" style="text-decoration-line: line-through;" onclick="goToIdOfField('enchantedId'); return false;">Enchanted</a> |
+<a id="iconicLink" href="#" style="text-decoration-line: line-through;" onclick="goToIdOfField('iconicId'); return false;">Iconic</a> |
+<a id="promoLink" href="#" style="text-decoration-line: line-through;" onclick="goToIdOfField('promoIds', true); return false;">First Promo</a> |
+<a id="reprintedAsLink" href="#" style="text-decoration-line: line-through;" onclick="goToIdOfField('reprintedAsIds', true); return false;">First Reprint</a> |
+<a id="reprintOfLink" href="#" style="text-decoration-line: line-through;" onclick="goToIdOfField('reprintOfId'); return false;">Original print</a> ||
 <a id="cardmarketLink" href="#" target="_blank" style="text-decoration-line: line-through;">Cardmarket</a> |
 <a id="cardTraderLink" href="#" target="_blank" style="text-decoration-line: line-through;">CardTrader</a> |
 <a id="tcgPlayerLink" href="#" target="_blank" style="text-decoration-line: line-through;">TcgPlayer</a>
@@ -128,6 +128,12 @@ function setDisplayedIndex(newIndex, showErrorMessage=true) {
 	document.getElementById("cardId").value = currentCardData["id"];
 	document.getElementById("cardImageLink").href = currentCardData["images"]["full"];
 	updateOptionalLink("foilCardImageLink", currentCardData["images"], "fullFoil");
+	updateOptionalLink("baseCardLink", currentCardData, "baseId");
+	updateOptionalLink("epicLink", currentCardData, "epicId");
+	updateOptionalLink("enchantedLink", currentCardData, "enchantedId");
+	updateOptionalLink("promoLink", currentCardData, "promoIds");
+	updateOptionalLink("reprintedAsLink", currentCardData, "reprintedAsId");
+	updateOptionalLink("reprintOfLink", currentCardData, "reprintOfId");
 	document.getElementById("story").textContent = currentCardData["story"] ? currentCardData["story"] : "???";
 	document.getElementById("subtypesCount").textContent = currentCardData["subtypes"] ? currentCardData["subtypes"].length : "0";
 	document.getElementById("subtypes").textContent = currentCardData["subtypesText"] ? currentCardData["subtypesText"] : "-";
