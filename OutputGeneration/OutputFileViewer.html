@@ -7,7 +7,10 @@
 	pre {
 		font-size: 1.1em;
 		tab-size: 4;
-  }
+  	}
+	.disabled-link {
+		text-decoration-line: line-through;
+	}
 </style>
 </head>
 
@@ -65,17 +68,17 @@ Artists (<span id="artistCount">0</span>): <span id="artist"></span> || Rarity: 
 <span id="promoFieldsContainer" style="visibility: collapse;"> || Promo Source Category: <span id="promoSourceCategory"></span> | Promo Source: <span id="promoSource"></span></span>
 <hr>
 <a id="cardImageLink" href="#" target="_blank">Card Image</a> |
-<a id="foilCardImageLink" href="#" target="_blank" style="text-decoration-line: line-through;">Foil</a> ||
-<a id="baseCardLink" href="#" style="text-decoration-line: line-through;" onclick="goToIdOfField('baseId'); return false;">Base card</a> |
-<a id="epicLink" href="#" style="text-decoration-line: line-through;" onclick="goToIdOfField('epicId'); return false;">Epic</a> |
-<a id="enchantedLink" href="#" style="text-decoration-line: line-through;" onclick="goToIdOfField('enchantedId'); return false;">Enchanted</a> |
-<a id="iconicLink" href="#" style="text-decoration-line: line-through;" onclick="goToIdOfField('iconicId'); return false;">Iconic</a> |
-<a id="promoLink" href="#" style="text-decoration-line: line-through;" onclick="goToIdOfField('promoIds', true); return false;">First Promo</a> |
-<a id="reprintedAsLink" href="#" style="text-decoration-line: line-through;" onclick="goToIdOfField('reprintedAsIds', true); return false;">First Reprint</a> |
-<a id="reprintOfLink" href="#" style="text-decoration-line: line-through;" onclick="goToIdOfField('reprintOfId'); return false;">Original print</a> ||
-<a id="cardmarketLink" href="#" target="_blank" style="text-decoration-line: line-through;">Cardmarket</a> |
-<a id="cardTraderLink" href="#" target="_blank" style="text-decoration-line: line-through;">CardTrader</a> |
-<a id="tcgPlayerLink" href="#" target="_blank" style="text-decoration-line: line-through;">TcgPlayer</a>
+<a id="foilCardImageLink" href="#" target="_blank" class="disabled-link">Foil</a> ||
+<a id="baseCardLink" href="#" class="disabled-link" onclick="goToIdOfField('baseId'); return false;">Base card</a> |
+<a id="epicLink" href="#" class="disabled-link" onclick="goToIdOfField('epicId'); return false;">Epic</a> |
+<a id="enchantedLink" href="#" class="disabled-link" onclick="goToIdOfField('enchantedId'); return false;">Enchanted</a> |
+<a id="iconicLink" href="#" class="disabled-link" onclick="goToIdOfField('iconicId'); return false;">Iconic</a> |
+<a id="promoLink" href="#" class="disabled-link" onclick="goToIdOfField('promoIds', true); return false;">First Promo</a> |
+<a id="reprintedAsLink" href="#" class="disabled-link" onclick="goToIdOfField('reprintedAsIds', true); return false;">First Reprint</a> |
+<a id="reprintOfLink" href="#" class="disabled-link" onclick="goToIdOfField('reprintOfId'); return false;">Original print</a> ||
+<a id="cardmarketLink" href="#" target="_blank" class="disabled-link">Cardmarket</a> |
+<a id="cardTraderLink" href="#" target="_blank" class="disabled-link">CardTrader</a> |
+<a id="tcgPlayerLink" href="#" target="_blank" class="disabled-link">TcgPlayer</a>
 <hr>
 <pre id="cardJson" style="overflow-x: scroll;"></pre>
 <hr>
@@ -210,10 +213,10 @@ function updateOptionalLink(linkId, dataContainer, dataKey) {
 	const linkElement = document.getElementById(linkId);
 	if (dataContainer[dataKey]) {
 	  linkElement.href = dataContainer[dataKey];
-	  linkElement.style.removeProperty("text-decoration-line");
+	  linkElement.classList.remove("disabled-link");
 	} else {
 	  linkElement.href = "#";
-	  linkElement.style.textDecorationLine = "line-through";
+	  linkElement.classList.add("disabled-link");
 	}
 }
 function changeToRandomIndex() {
