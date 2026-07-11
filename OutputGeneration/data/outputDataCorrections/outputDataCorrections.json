@@ -224,5 +224,8 @@
   },
   "3213": {
     "_skipFullTextSectionMergeAtIndex": 1
+  },
+  "3215": {
+    "_skipFullTextSectionMergeAtIndex": [1, 2]
   }
 }
