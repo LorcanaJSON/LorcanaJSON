@@ -197,6 +197,7 @@ def parseSingleCard(inputCard: Dict, ocrResult: OcrResult, externalLinksHandler:
 				flavorText = flavorText[1:]
 			if not flavorText.startswith(GlobalConfig.language.openDoubleQuotemark):
 				flavorText = GlobalConfig.language.openDoubleQuotemark + flavorText
+		flavorText = re.sub("(Waterno(o|us)se )Ill", "\\1III", flavorText)
 		# Tesseract often sees the italic 'T' as an 'I', especially at the start of a word. Fix that
 		if GlobalConfig.language == Language.ENGLISH and "I" in flavorText:
 			flavorText = re.sub(r"(^|\W)I(?=[ehiow]\w)", r"\1T", flavorText)
