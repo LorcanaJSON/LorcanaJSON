@@ -632,7 +632,7 @@ def parseSingleCard(inputCard: Dict, ocrResult: OcrResult, externalLinksHandler:
 				elif GlobalConfig.language == Language.ITALIAN:
 					if re.match(r"Una\svolta\s(durante\sil\stuo|per)\sturno,\spuoi\b", ability["effect"]):
 						ability["type"] = "activated"
-					elif (re.match(r"Quando\sgiochi", ability["effect"]) or re.search(r"(^Q|\sq)uando\s(questo|sposti)", ability["effect"]) or re.search(r"(^O|\so)gni\svolta\sche", ability["effect"]) or
+					elif (re.match(r"Quando\sgiochi", ability["effect"]) or re.search(r"(^Q|\sq)uando\s(questo|scarti|sposti|trasformi)", ability["effect"]) or re.search(r"(^O|\so)gni\svolta\sche", ability["effect"]) or
 						  re.match(r"All'inizio\sdel\stuo\sturno", ability["effect"]) or re.match(r"Alla\sfine\sdel(\stuo)?\sturno", ability["effect"]) or
 						  re.search(r"quando\saggiungi\suna\scarta\sal\stuo\scalamaio", ability["effect"]) or re.match(r"Quando\sun\savversario", ability["effect"])):
 						ability["type"] = "triggered"
