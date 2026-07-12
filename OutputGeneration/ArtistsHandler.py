@@ -61,6 +61,8 @@ class ArtistsHandler:
 				correctedArtistText = "Jenna Gray"
 			elif correctedArtistText == "ES" or correctedArtistText == "ET":
 				correctedArtistText = "Lauren Levering"
+			elif correctedArtistText == "A ZI":
+				correctedArtistText = "Aubrey Archer"
 			correctedArtistText = correctedArtistText.replace("Dösiree", "Désirée")
 			correctedArtistText = re.sub(r"Man[6e]+\b", "Mané", correctedArtistText)
 		correctedArtistText = re.sub(r"\bAime\b", "Aimé", correctedArtistText)
