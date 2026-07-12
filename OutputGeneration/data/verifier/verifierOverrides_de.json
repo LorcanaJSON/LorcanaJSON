@@ -984,5 +984,42 @@
       "okay",
       "weißt du"
     ]
+  },
+  "3110": {
+    "_closeQuotemarkCountChange": -1
+  },
+  "3206": {
+    "author": [
+      "’",
+      "'"
+    ]
+  },
+  "3216": {
+    "subtypes": [
+      "z$",
+      "zessin_",
+      "zessin$",
+      "z",
+      "_",
+      ""
+    ]
+  },
+  "3223": {
+    "author": [
+      "^Emily Abeydeera$",
+      "Lisanne Koeteeuw"
+    ]
+  },
+ "3224": {
+    "author": [
+      "^Emily Abeydeera$",
+      "Lisanne Koeteeuw"
+    ]
+  },
+  "3225": {
+    "author": [
+      "^Omar Lozano$",
+      "Ian MacDonald"
+    ]
   }
 }

@@ -284,6 +284,23 @@
       "usedUntil": "2025-08-08"
     }
   ],
+  "388": [
+    {
+      "abilities": [
+        {
+          "effect": "Jedes Mal, wenn einer deiner anderen Charaktere Schaden erhalten w\u00fcrde, lege die entsprechenden Schadensmarker stattdessen auf diesen Charakter.",
+          "fullText": "ANDERE SCH\u00dcTZEN Jedes Mal, wenn einer\ndeiner anderen Charaktere Schaden erhalten\nw\u00fcrde, lege die entsprechenden Schadensmarker\nstattdessen auf diesen Charakter.",
+          "name": "ANDERE SCH\u00dcTZEN",
+          "type": "triggered"
+        }
+      ],
+      "fullText": "ANDERE SCH\u00dcTZEN Jedes Mal, wenn einer\ndeiner anderen Charaktere Schaden erhalten\nw\u00fcrde, lege die entsprechenden Schadensmarker\nstattdessen auf diesen Charakter.",
+      "fullTextSections": [
+        "ANDERE SCH\u00dcTZEN Jedes Mal, wenn einer\ndeiner anderen Charaktere Schaden erhalten\nw\u00fcrde, lege die entsprechenden Schadensmarker\nstattdessen auf diesen Charakter."
+      ],
+      "usedUntil": "2026-06-23"
+    }
+  ],
   "393": [
     {
       "artists": [
@@ -474,6 +491,23 @@
         "D\u00c4MMERUNGSBELLEN Einmal pro Zug, darfst du\n2 \u2b21 bezahlen, um die oberste Karte deines Decks\naufdecken. Falls sie eine Charakterkarte ist, nimm sie\nauf deine Hand. Falls nicht, lege sie unter dein Deck."
       ],
       "usedUntil": "2024-08-23"
+    }
+  ],
+  "544": [
+    {
+      "abilities": [
+        {
+          "effect": "Jedes Mal, wenn diesem Charakter Schaden zugef\u00fcgt wird, f\u00fcge einem gegnerischen Charakter deiner Wahl genauso viel Schaden zu.",
+          "fullText": "VORSICHT Z\u00c4HNE! Jedes Mal, wenn diesem\nCharakter Schaden zugef\u00fcgt wird, f\u00fcge einem\ngegnerischen Charakter deiner Wahl genauso viel\nSchaden zu.",
+          "name": "VORSICHT Z\u00c4HNE!",
+          "type": "triggered"
+        }
+      ],
+      "fullText": "VORSICHT Z\u00c4HNE! Jedes Mal, wenn diesem\nCharakter Schaden zugef\u00fcgt wird, f\u00fcge einem\ngegnerischen Charakter deiner Wahl genauso viel\nSchaden zu.",
+      "fullTextSections": [
+        "VORSICHT Z\u00c4HNE! Jedes Mal, wenn diesem\nCharakter Schaden zugef\u00fcgt wird, f\u00fcge einem\ngegnerischen Charakter deiner Wahl genauso viel\nSchaden zu."
+      ],
+      "usedUntil": "2026-06-23"
     }
   ],
   "568": [
@@ -668,6 +702,49 @@
       "usedUntil": "2025-08-08"
     }
   ],
+  "1773": [
+    {
+      "abilities": [
+        {
+          "fullText": "Gestaltwandel 3 (Du kannst 3 \u2b21 zahlen, um diesen Charakter\nauf einen deiner K\u00e4pt'n-Hook-Charaktere auszuspielen.)",
+          "keyword": "Gestaltwandel",
+          "keywordValue": "3",
+          "keywordValueNumber": 3,
+          "reminderText": "Du kannst 3 \u2b21 zahlen, um diesen Charakter auf einen deiner K\u00e4pt'n-Hook-Charaktere auszuspielen.",
+          "type": "keyword"
+        },
+        {
+          "effect": "Einmal w\u00e4hrend deines Zuges, wenn ein gegnerischer Charakter besch\u00e4digt wird, erhalten deine Piraten in diesem Zug +2 \u00a4 und Robust +2. (Reduziere jeglichen Schaden, der den Charakteren zugef\u00fcgt wird, um 2.)",
+          "fullText": "GEBT IHNEN DEN REST! Einmal w\u00e4hrend deines Zuges,\nwenn ein gegnerischer Charakter besch\u00e4digt wird,\nerhalten deine Piraten in diesem Zug +2 \u00a4 und Robust +2.\n(Reduziere jeglichen Schaden, der den Charakteren zugef\u00fcgt\nwird, um 2.)",
+          "name": "GEBT IHNEN DEN REST!",
+          "type": "triggered"
+        }
+      ],
+      "fullText": "Gestaltwandel 3 (Du kannst 3 \u2b21 zahlen, um diesen Charakter\nauf einen deiner K\u00e4pt'n-Hook-Charaktere auszuspielen.)\nGEBT IHNEN DEN REST! Einmal w\u00e4hrend deines Zuges,\nwenn ein gegnerischer Charakter besch\u00e4digt wird,\nerhalten deine Piraten in diesem Zug +2 \u00a4 und Robust +2.\n(Reduziere jeglichen Schaden, der den Charakteren zugef\u00fcgt\nwird, um 2.)",
+      "fullTextSections": [
+        "Gestaltwandel 3 (Du kannst 3 \u2b21 zahlen, um diesen Charakter\nauf einen deiner K\u00e4pt'n-Hook-Charaktere auszuspielen.)",
+        "GEBT IHNEN DEN REST! Einmal w\u00e4hrend deines Zuges,\nwenn ein gegnerischer Charakter besch\u00e4digt wird,\nerhalten deine Piraten in diesem Zug +2 \u00a4 und Robust +2.\n(Reduziere jeglichen Schaden, der den Charakteren zugef\u00fcgt\nwird, um 2.)"
+      ],
+      "usedUntil": "2026-06-23"
+    }
+  ],
+  "1789": [
+    {
+      "abilities": [
+        {
+          "effect": "Wenn dieser Charakter in deinem Zug verbannt wird, falls in diesem Zug einer deiner Charaktere besch\u00e4digt wurde, sammelst du 2 Legenden.",
+          "fullText": "BISSIG Wenn dieser Charakter in deinem Zug verbannt\nwird, falls in diesem Zug einer deiner Charaktere\nbesch\u00e4digt wurde, sammelst du 2 Legenden.",
+          "name": "BISSIG",
+          "type": "triggered"
+        }
+      ],
+      "fullText": "BISSIG Wenn dieser Charakter in deinem Zug verbannt\nwird, falls in diesem Zug einer deiner Charaktere\nbesch\u00e4digt wurde, sammelst du 2 Legenden.",
+      "fullTextSections": [
+        "BISSIG Wenn dieser Charakter in deinem Zug verbannt\nwird, falls in diesem Zug einer deiner Charaktere\nbesch\u00e4digt wurde, sammelst du 2 Legenden."
+      ],
+      "usedUntil": "2026-06-23"
+    }
+  ],
   "1804": [
     {
       "abilities": [
@@ -683,6 +760,121 @@
         "WILDER RITT Solange 2 oder mehr deiner\nCharaktere ersch\u00f6pft sind, erh\u00e4lt dieser\nCharakter +1 \u00a4 und Wendig. (Nur Charaktere mit\nWendig k\u00f6nnen diesen Charakter herausfordern.)"
       ],
       "usedUntil": "2025-06-12"
+    }
+  ],
+  "1860": [
+    {
+      "abilities": [
+        {
+          "effect": "Du kannst diesen Charakter nicht ausspielen, au\u00dfer in diesem Zug wurde ein gegnerischer Charakter besch\u00e4digt.",
+          "fullText": "RAUBTIERINSTINKT Du kannst diesen Charakter nicht\nausspielen, au\u00dfer in diesem Zug wurde ein gegnerischer\nCharakter besch\u00e4digt.",
+          "name": "RAUBTIERINSTINKT",
+          "type": "static"
+        }
+      ],
+      "fullText": "RAUBTIERINSTINKT Du kannst diesen Charakter nicht\nausspielen, au\u00dfer in diesem Zug wurde ein gegnerischer\nCharakter besch\u00e4digt.",
+      "fullTextSections": [
+        "RAUBTIERINSTINKT Du kannst diesen Charakter nicht\nausspielen, au\u00dfer in diesem Zug wurde ein gegnerischer\nCharakter besch\u00e4digt."
+      ],
+      "usedUntil": "2026-06-23"
+    }
+  ],
+  "1879": [
+    {
+      "abilities": [
+        {
+          "fullText": "Gestaltwandel 3 (Du kannst 3 \u2b21 zahlen, um diesen Charakter\nauf einen deiner K\u00e4pt'n-Hook-Charaktere auszuspielen.)",
+          "keyword": "Gestaltwandel",
+          "keywordValue": "3",
+          "keywordValueNumber": 3,
+          "reminderText": "Du kannst 3 \u2b21 zahlen, um diesen Charakter auf einen deiner K\u00e4pt'n-Hook-Charaktere auszuspielen.",
+          "type": "keyword"
+        },
+        {
+          "effect": "Einmal w\u00e4hrend deines Zuges, wenn ein gegnerischer Charakter besch\u00e4digt wird, erhalten deine Piraten in diesem Zug +2 \u00a4 und Robust +2. (Reduziere jeglichen Schaden, der den Charakteren zugef\u00fcgt wird, um 2.)",
+          "fullText": "GEBT IHNEN DEN REST! Einmal w\u00e4hrend deines Zuges, wenn\nein gegnerischer Charakter besch\u00e4digt wird, erhalten deine\nPiraten in diesem Zug +2 \u00a4 und Robust +2. (Reduziere\njeglichen Schaden, der den Charakteren zugef\u00fcgt wird, um 2.)",
+          "name": "GEBT IHNEN DEN REST!",
+          "type": "triggered"
+        }
+      ],
+      "fullText": "Gestaltwandel 3 (Du kannst 3 \u2b21 zahlen, um diesen Charakter\nauf einen deiner K\u00e4pt'n-Hook-Charaktere auszuspielen.)\nGEBT IHNEN DEN REST! Einmal w\u00e4hrend deines Zuges, wenn\nein gegnerischer Charakter besch\u00e4digt wird, erhalten deine\nPiraten in diesem Zug +2 \u00a4 und Robust +2. (Reduziere\njeglichen Schaden, der den Charakteren zugef\u00fcgt wird, um 2.)",
+      "fullTextSections": [
+        "Gestaltwandel 3 (Du kannst 3 \u2b21 zahlen, um diesen Charakter\nauf einen deiner K\u00e4pt'n-Hook-Charaktere auszuspielen.)",
+        "GEBT IHNEN DEN REST! Einmal w\u00e4hrend deines Zuges, wenn\nein gegnerischer Charakter besch\u00e4digt wird, erhalten deine\nPiraten in diesem Zug +2 \u00a4 und Robust +2. (Reduziere\njeglichen Schaden, der den Charakteren zugef\u00fcgt wird, um 2.)"
+      ],
+      "usedUntil": "2026-06-23"
+    }
+  ],
+  "2192": [
+    {
+      "abilities": [
+        {
+          "fullText": "Unterst\u00fctzen (Jedes Mal, wenn dieser Charakter erkundet,\ndarfst du seine \u00a4 in diesem Zug zur \u00a4 eines anderen\nCharakters deiner Wahl addieren.)",
+          "keyword": "Unterst\u00fctzen",
+          "reminderText": "Jedes Mal, wenn dieser Charakter erkundet, darfst du seine \u00a4 in diesem Zug zur \u00a4 eines anderen Charakters deiner Wahl addieren.",
+          "type": "keyword"
+        },
+        {
+          "effect": "Jedes Mal, wenn einer deiner Charaktere f\u00fcr Unterst\u00fctzen ausgew\u00e4hlt wird, erh\u00e4lt er bis zu Beginn deines n\u00e4chsten Zuges das n\u00e4chste Mal, wenn er Schaden erhalten w\u00fcrde, stattdessen keinen Schaden.",
+          "fullText": "AKT DER FREUNDLICHKEIT Jedes Mal, wenn einer deiner\nCharaktere f\u00fcr Unterst\u00fctzen ausgew\u00e4hlt wird, erh\u00e4lt er bis\nzu Beginn deines n\u00e4chsten Zuges das n\u00e4chste Mal, wenn er\nSchaden erhalten w\u00fcrde, stattdessen keinen Schaden.",
+          "name": "AKT DER FREUNDLICHKEIT",
+          "type": "triggered"
+        }
+      ],
+      "fullText": "Unterst\u00fctzen (Jedes Mal, wenn dieser Charakter erkundet,\ndarfst du seine \u00a4 in diesem Zug zur \u00a4 eines anderen\nCharakters deiner Wahl addieren.)\nAKT DER FREUNDLICHKEIT Jedes Mal, wenn einer deiner\nCharaktere f\u00fcr Unterst\u00fctzen ausgew\u00e4hlt wird, erh\u00e4lt er bis\nzu Beginn deines n\u00e4chsten Zuges das n\u00e4chste Mal, wenn er\nSchaden erhalten w\u00fcrde, stattdessen keinen Schaden.",
+      "fullTextSections": [
+        "Unterst\u00fctzen (Jedes Mal, wenn dieser Charakter erkundet,\ndarfst du seine \u00a4 in diesem Zug zur \u00a4 eines anderen\nCharakters deiner Wahl addieren.)",
+        "AKT DER FREUNDLICHKEIT Jedes Mal, wenn einer deiner\nCharaktere f\u00fcr Unterst\u00fctzen ausgew\u00e4hlt wird, erh\u00e4lt er bis\nzu Beginn deines n\u00e4chsten Zuges das n\u00e4chste Mal, wenn er\nSchaden erhalten w\u00fcrde, stattdessen keinen Schaden."
+      ],
+      "usedUntil": "2026-06-23"
+    }
+  ],
+  "2307": [
+    {
+      "abilities": [
+        {
+          "effect": "Dieser Charakter erh\u00e4lt keinen Schaden, au\u00dfer er wird herausgefordert.",
+          "fullText": "STETS WACHSAM Dieser Charakter erh\u00e4lt keinen\nSchaden, au\u00dfer er wird herausgefordert.",
+          "name": "STETS WACHSAM",
+          "type": "static"
+        },
+        {
+          "effect": "Solange dieser Charakter ersch\u00f6pft ist, erhalten deine anderen Helden keinen Schaden, au\u00dfer sie werden herausgefordert.",
+          "fullText": "STETS WACKER Solange dieser Charakter ersch\u00f6pft\nist, erhalten deine anderen Helden keinen Schaden,\nau\u00dfer sie werden herausgefordert.",
+          "name": "STETS WACKER",
+          "type": "static"
+        }
+      ],
+      "fullText": "STETS WACHSAM Dieser Charakter erh\u00e4lt keinen\nSchaden, au\u00dfer er wird herausgefordert.\nSTETS WACKER Solange dieser Charakter ersch\u00f6pft\nist, erhalten deine anderen Helden keinen Schaden,\nau\u00dfer sie werden herausgefordert.",
+      "fullTextSections": [
+        "STETS WACHSAM Dieser Charakter erh\u00e4lt keinen\nSchaden, au\u00dfer er wird herausgefordert.",
+        "STETS WACKER Solange dieser Charakter ersch\u00f6pft\nist, erhalten deine anderen Helden keinen Schaden,\nau\u00dfer sie werden herausgefordert."
+      ],
+      "usedUntil": "2026-06-23"
+    }
+  ],
+  "2374": [
+    {
+      "abilities": [
+        {
+          "effect": "In deinem Zug erh\u00e4lt dieser Charakter keinen Schaden.",
+          "fullText": "MEIN ZUST\u00c4NDIGKEITSBEREICH In deinem Zug\nerh\u00e4lt dieser Charakter keinen Schaden.",
+          "name": "MEIN ZUST\u00c4NDIGKEITSBEREICH",
+          "type": "static"
+        },
+        {
+          "effect": "Deine anderen Charaktere erhalten die Klassifizierung Detektiv.",
+          "fullText": "ABORDNEN Deine anderen Charaktere erhalten\ndie Klassifizierung Detektiv.",
+          "name": "ABORDNEN",
+          "type": "static"
+        }
+      ],
+      "fullText": "MEIN ZUST\u00c4NDIGKEITSBEREICH In deinem Zug\nerh\u00e4lt dieser Charakter keinen Schaden.\nABORDNEN Deine anderen Charaktere erhalten\ndie Klassifizierung Detektiv.",
+      "fullTextSections": [
+        "MEIN ZUST\u00c4NDIGKEITSBEREICH In deinem Zug\nerh\u00e4lt dieser Charakter keinen Schaden.",
+        "ABORDNEN Deine anderen Charaktere erhalten\ndie Klassifizierung Detektiv."
+      ],
+      "usedUntil": "2026-06-23"
     }
   ]
 }
