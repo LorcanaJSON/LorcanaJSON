@@ -621,7 +621,8 @@ def parseSingleCard(inputCard: Dict, ocrResult: OcrResult, externalLinksHandler:
 				elif GlobalConfig.language == Language.GERMAN:
 					if re.match(r"Einmal\s(pro|während\sdeines)\sZug(es)?,?\sdarfst\sdu", ability["effect"]):
 						ability["type"] = "activated"
-					elif (re.match(r"Wenn(\sdu)?\sdiese", ability["effect"]) or re.match(r"Wenn\seiner\sdeiner\sCharaktere", ability["effect"]) or re.search(r"(^J|\bj)edes\sMal\b", ability["effect"]) or
+					elif (re.match(r"Wenn(\sdu)?\sdiese", ability["effect"]) or re.match(r"Wenn\seiner\sdeiner\sCharaktere", ability["effect"]) or
+						  re.match(r"Wenn\sdu\seinen\sCharakter\sauf\sdiesen\sCharakter", ability["effect"]) or re.search(r"(^J|\bj)edes\sMal\b", ability["effect"]) or
 						  re.match(r"(Ein|Zwei)mal\swährend\sdeines\sZuges\b", ability["effect"]) or ability["effect"].startswith("Einmal pro Zug, wenn") or
 						  re.search(r"(^Z|\bz)u\sBeginn\s(deines|von\s\w+)\sZug", ability["effect"]) or re.match(r"Am\sEnde\s(deines|des)\sZuges", ability["effect"]) or
 						  re.match(r"Falls\sdu\sGestaltwandel\sbenutzt\shas", ability["effect"]) or "wenn du eine Karte ziehst" in ability["effect"] or
