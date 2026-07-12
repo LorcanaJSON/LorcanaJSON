@@ -250,40 +250,10 @@
       "TELEGRAFO DEL CREPUSCOLO Una volta durante il tuo turno, puoi pagare 2 ⬡ per rivelare la prima carta del tuo mazzo. Se è una carta personaggio, aggiungila alla tua mano. Altrimenti, mettila in fondo al tuo mazzo."
     ]
   },
-  "2143": {
-    "rules_text": [
-      " \\([^)]+\\)",
-      ""
-    ]
-  },
   "2144": {
     "rules_text": [
-      "\\([^)]+\\)",
-      "⬡"
-    ]
-  },
-  "2146": {
-    "rules_text": [
-      " \\([^)]+\\)",
-      ""
-    ]
-  },
-  "2147": {
-    "rules_text": [
-      " \\([^)]+\\)",
-      ""
-    ]
-  },
-  "2148": {
-    "rules_text": [
-      " \\([^)]+\\)",
-      ""
-    ]
-  },
-  "2150": {
-    "rules_text": [
-      " \\([^)]+\\)",
-      ""
+      "3 G",
+      "3 ⬡ G"
     ]
   },
   "2151": {
@@ -291,25 +261,8 @@
       "fullTextSections": -1
     },
     "rules_text": [
-      " \\([^)]+\\)",
-      ","
-    ]
-  },
-  "2152": {
-    "rules_text": [
-      " \\([^)]+\\)",
-      ""
-    ]
-  },
-  "2156": {
-    "rules_text": [
-      " \\([^)]+\\)",
-      ""
-    ]
-  },  "2158": {
-    "rules_text": [
-      " \\([^)]+\\)",
-      ""
+      "⬡ M",
+      "⬡, M"
     ]
   },
   "2173": {
