@@ -237,6 +237,8 @@ def correctText(cardText: str) -> str:
 		cardText = cardText.replace("(uno", f"{LorcanaSymbols.EXERT} uno")
 		# The 'Reserved'-symbol is Willpower
 		cardText = cardText.replace("®", LorcanaSymbols.WILLPOWER)
+		# Sometimes it reads an 'o' after a number wrong and changes it to a Strength symbol
+		cardText = re.sub(fr"(?<=\d\s){LorcanaSymbols.STRENGTH}(?=\s(infe|supe)riore)", "o", cardText)
 		# It reads 'Iena' (Italian for 'Hyena'), as 'lena'
 		cardText = re.sub(r"\blena", "Iena", cardText)
 		# It sometimes read 'volta' on a new line as starting with a capital V
