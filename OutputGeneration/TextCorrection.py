@@ -226,7 +226,7 @@ def correctText(cardText: str) -> str:
 		# Fix Song reminder Exert symbol
 		cardText = re.sub(r"(?<=\d\so superiore può ).(?= per\scantare questa canzone gratis)", LorcanaSymbols.EXERT, cardText)
 		# Correct Shift/Trasformazione and Boost/Potenziamento with an ink symbol
-		cardText = re.sub(fr"^(Trasformazione|Potenziamento) (\d) ?[0ÈOÒ{LorcanaSymbols.STRENGTH}]", fr"\1 \2 {LorcanaSymbols.INK}", cardText)
+		cardText = re.sub(fr"^(Trasformazione|Potenziamento) (\w+ )?(\d) ?[0ÈOÒ{LorcanaSymbols.STRENGTH}]", fr"\1 \2\3 {LorcanaSymbols.INK}", cardText)
 		# It misses the Strength symbol if it's at the end of a line
 		cardText = re.sub(r"(?<=Riceve \+\d)\n", f" {LorcanaSymbols.STRENGTH}\n", cardText)
 		# It frequently reads the Strength symbol as 'XX or a percentage sign' or leaves a closing bracket
