@@ -252,9 +252,9 @@ def _prepareInputCardRulesText(inputCard: Dict):
 	if not inputCard.get("rules_text", None):
 		return
 	inputRulesText = inputCard["rules_text"].replace("<", "").replace(">", "")
-	# In German, after the first few sets, keywords on Enchanted and Iconic cards don't have reminder text, but they keep putting it into the input data anyway. Fix that
+	# In German and Italian, after the first few sets, keywords on Enchanted and Iconic cards don't have reminder text, but they keep putting it into the input data anyway. Fix that
 	# Do this before everything else so we can use the '%' character as an ending check before it gets removed
-	if GlobalConfig.language == Language.GERMAN and inputCard["culture_invariant_id"] >= 2141 and inputCard["rarity"] in ("ENCHANTED", "ICONIC"):
+	if (GlobalConfig.language == Language.GERMAN or GlobalConfig.language == Language.ITALIAN) and inputCard["culture_invariant_id"] >= 2141 and inputCard["rarity"] in ("ENCHANTED", "ICONIC"):
 		inputRulesText = re.sub(r"\([^)]+\)(%|$)", "", inputRulesText).replace("  ", " ")
 	inputRulesText = re.sub(" ?%", " ", inputRulesText)
 	inputRulesText = re.sub(" ?\n+", " ", inputRulesText)
