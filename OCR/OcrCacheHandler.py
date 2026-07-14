@@ -8,7 +8,7 @@ from OCR.OcrResult import OcrResult
 _logger = logging.getLogger("LorcanaJSON")
 _cachePath = os.path.join("output", "cachedOcr")
 _cacheHashesFilePath = os.path.join(_cachePath, "cacheHashes")
-_cacheRelevantFilePaths = (os.path.join("OCR", "ImageArea.py"), os.path.join("OCR", "ImageParser.py"), os.path.join("OCR", "ParseSettings.py"))
+_cacheRelevantFilePaths = (os.path.join("OCR", "CardLayout.py"), os.path.join("OCR", "ImageArea.py"), os.path.join("OCR", "ImageParser.py"), os.path.join("OCR", "ParseSettings.py"))
 
 def _infoOrPrint(message: str):
 	if _logger.level <= logging.INFO:
