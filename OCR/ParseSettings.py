@@ -16,12 +16,12 @@ class LABEL_PARSING_METHODS(StrEnum):
 	FALLBACK_BY_LINES = auto()
 	NONE = auto()
 
-@dataclasses.dataclass
+@dataclasses.dataclass(frozen=True)
 class ParseSettings:
 	# Layouts to use. Set these to None here and actually set them to the defaults in __post_init__ since you can't assign mutables at class-level in a dataclass
-	cardLayout: CardLayout.CardLayout = None
-	characterCardLayout: CardLayout.CardLayout = None
-	locationCardLayout: CardLayout.CardLayout = None
+	cardLayout: CardLayout.CardLayout = CardLayout.DEFAULT
+	characterCardLayout: CardLayout.CardLayout = CardLayout.DEFAULT_CHARACTER
+	locationCardLayout: CardLayout.CardLayout = CardLayout.DEFAULT_LOCATION
 	textboxLeftOffset: int = 0  # Shrinks the textbox from the left by this many pixels
 	textboxRightOffset: int = 0  # Shrinks the textbox from the right by this many pixels
 	textboxTopOffset: int = 0  # A positive number here starts the textbox image further down; this value gets added to the y-value from the CardLayout
@@ -44,15 +44,6 @@ class ParseSettings:
 	hasFlavorTextOverride: Optional[bool] = None
 	isLocationOverride: Optional[bool] = None
 	isItemOverride: Optional[bool] = None
-
-	def __post_init__(self):
-		# Set layouts to defaults here, because we can't set them on class-level since they can't be mutable
-		if self.cardLayout is None:
-			self.cardLayout = CardLayout.DEFAULT
-		if self.characterCardLayout is None:
-			self.characterCardLayout = CardLayout.DEFAULT_CHARACTER
-		if self.locationCardLayout is None:
-			self.locationCardLayout = CardLayout.DEFAULT_LOCATION
 
 
 _DEFAULT_PARSE_SETTINGS = ParseSettings()

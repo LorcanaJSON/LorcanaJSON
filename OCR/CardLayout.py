@@ -4,7 +4,7 @@ from typing import Optional
 from OCR import ImageArea as IA
 
 
-@dataclasses.dataclass
+@dataclasses.dataclass(frozen=True)
 class CardLayout:
 	"""
 	Defines which Image Areas to use for various card parts
@@ -20,17 +20,9 @@ class CardLayout:
 	moveCost: Optional[IA.ImageArea] = None
 	# At the bottom so we can set a default, since it's the same for almost every card
 	# Actually set this in __post_innit__ instead of just setting it here because dataclass field defaults can't be mutable
-	ink: IA.ImageArea = None
-	artist: IA.ImageArea = None
-	identifier: IA.ImageArea = None
-
-	def __post_init__(self):
-		if self.ink is None:
-			self.ink = IA.INK_COST
-		if self.artist is None:
-			self.artist = IA.ARTIST
-		if self.identifier is None:
-			self.identifier = IA.CARD_IDENTIFIER
+	ink: IA.ImageArea = IA.INK_COST
+	artist: IA.ImageArea = IA.ARTIST
+	identifier: IA.ImageArea = IA.CARD_IDENTIFIER
 
 
 DEFAULT = CardLayout(IA.CARD_NAME, IA.TYPE, IA.FULL_WIDTH_TEXT_BOX)

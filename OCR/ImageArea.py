@@ -17,7 +17,7 @@ TEXT_COLOUR_MIDDLE = TextColour("middle", 127, cv2.THRESH_BINARY)
 _Coords = namedtuple("Coords", ("left", "top", "right", "bottom"))
 
 
-@dataclass
+@dataclass(frozen=True)
 class ImageArea:
 	keyName: str
 	description: str
