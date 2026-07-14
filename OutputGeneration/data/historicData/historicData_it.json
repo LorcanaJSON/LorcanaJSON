@@ -111,5 +111,190 @@
       "flavorText": "Ognuno brilla di una luce unica",
       "usedUntil": "2025-08-08"
     }
+  ],
+  "1542": [
+    {
+      "abilities": [
+        {
+          "effect": "Se un personaggio avversario \u00e8 stato danneggiato in questo turno, paga 2 \u2b21 in meno per giocare questo personaggio.",
+          "fullText": "ATTRATTO DALLE ZUFFE Se un personaggio avversario \u00e8 stato\ndanneggiato in questo turno, paga 2 \u2b21 in meno per giocare\nquesto personaggio.",
+          "name": "ATTRATTO DALLE ZUFFE",
+          "type": "static"
+        },
+        {
+          "fullText": "Resistere +1 (Il danno inflitto a questo personaggio \u00e8 ridotto di 1.)",
+          "keyword": "Resistere",
+          "keywordValue": "+1",
+          "keywordValueNumber": 1,
+          "reminderText": "Il danno inflitto a questo personaggio \u00e8 ridotto di 1.",
+          "type": "keyword"
+        },
+        {
+          "effect": "Ogni volta che giochi un'azione che non \u00e8 una canzone, puoi infliggere 1 danno a un personaggio a tua scelta.",
+          "fullText": "NON MI SONO RAMMOLLITO Ogni volta che giochi un'azione che\nnon \u00e8 una canzone, puoi infliggere 1 danno a un personaggio a\ntua scelta.",
+          "name": "NON MI SONO RAMMOLLITO",
+          "type": "triggered"
+        }
+      ],
+      "fullText": "ATTRATTO DALLE ZUFFE Se un personaggio avversario \u00e8 stato\ndanneggiato in questo turno, paga 2 \u2b21 in meno per giocare\nquesto personaggio.\nResistere +1 (Il danno inflitto a questo personaggio \u00e8 ridotto di 1.)\nNON MI SONO RAMMOLLITO Ogni volta che giochi un'azione che\nnon \u00e8 una canzone, puoi infliggere 1 danno a un personaggio a\ntua scelta.",
+      "fullTextSections": [
+        "ATTRATTO DALLE ZUFFE Se un personaggio avversario \u00e8 stato\ndanneggiato in questo turno, paga 2 \u2b21 in meno per giocare\nquesto personaggio.",
+        "Resistere +1 (Il danno inflitto a questo personaggio \u00e8 ridotto di 1.)",
+        "NON MI SONO RAMMOLLITO Ogni volta che giochi un'azione che\nnon \u00e8 una canzone, puoi infliggere 1 danno a un personaggio a\ntua scelta."
+      ],
+      "usedUntil": "2026-06-23"
+    }
+  ],
+  "1585": [
+    {
+      "abilities": [
+        {
+          "costs": [
+            "\u27f3"
+          ],
+          "costsText": "\u27f3",
+          "effect": "Se uno dei tuoi personaggi \u00e8 stato danneggiato in questo turno, ottieni 1 leggenda.",
+          "fullText": "IL PREZZO DEL POTERE \u27f3 \u2014 Se uno dei tuoi personaggi \u00e8\nstato danneggiato in questo turno, ottieni 1 leggenda.",
+          "name": "IL PREZZO DEL POTERE",
+          "type": "activated"
+        }
+      ],
+      "fullText": "IL PREZZO DEL POTERE \u27f3 \u2014 Se uno dei tuoi personaggi \u00e8\nstato danneggiato in questo turno, ottieni 1 leggenda.",
+      "fullTextSections": [
+        "IL PREZZO DEL POTERE \u27f3 \u2014 Se uno dei tuoi personaggi \u00e8\nstato danneggiato in questo turno, ottieni 1 leggenda."
+      ],
+      "usedUntil": "2026-06-23"
+    }
+  ],
+  "1609": [
+    {
+      "abilities": [
+        {
+          "effect": "Durante il turno di un avversario, ogni volta che uno dei tuoi personaggi Alleato viene danneggiato, infliggi 1 danno a un personaggio avversario a tua scelta.",
+          "fullText": "BEL COLPO Durante il turno di un avversario, ogni volta\nche uno dei tuoi personaggi Alleato viene danneggiato,\ninfliggi 1 danno a un personaggio avversario a tua scelta.",
+          "name": "BEL COLPO",
+          "type": "triggered"
+        },
+        {
+          "effect": "I tuoi personaggi chiamati Lady Cocca ottengono Resistere +1. (Il danno che gli viene inflitto \u00e8 ridotto di 1.)",
+          "fullText": "FAIR PLAY I tuoi personaggi chiamati Lady Cocca\nottengono Resistere +1. (Il danno che gli viene inflitto \u00e8\nridotto di 1.)",
+          "name": "FAIR PLAY",
+          "type": "static"
+        }
+      ],
+      "fullText": "BEL COLPO Durante il turno di un avversario, ogni volta\nche uno dei tuoi personaggi Alleato viene danneggiato,\ninfliggi 1 danno a un personaggio avversario a tua scelta.\nFAIR PLAY I tuoi personaggi chiamati Lady Cocca\nottengono Resistere +1. (Il danno che gli viene inflitto \u00e8\nridotto di 1.)",
+      "fullTextSections": [
+        "BEL COLPO Durante il turno di un avversario, ogni volta\nche uno dei tuoi personaggi Alleato viene danneggiato,\ninfliggi 1 danno a un personaggio avversario a tua scelta.",
+        "FAIR PLAY I tuoi personaggi chiamati Lady Cocca\nottengono Resistere +1. (Il danno che gli viene inflitto \u00e8\nridotto di 1.)"
+      ],
+      "usedUntil": "2026-06-23"
+    }
+  ],
+  "1651": [
+    {
+      "abilities": [
+        {
+          "costs": [
+            "\u27f3"
+          ],
+          "costsText": "\u27f3",
+          "effect": "Se uno dei tuoi personaggi \u00e8 stato danneggiato in questo turno, ottieni 1 leggenda.",
+          "fullText": "IL PREZZO DEL POTERE \u27f3 \u2014 Se uno dei tuoi\npersonaggi \u00e8 stato danneggiato in questo turno,\nottieni 1 leggenda.",
+          "name": "IL PREZZO DEL POTERE",
+          "type": "activated"
+        }
+      ],
+      "fullText": "IL PREZZO DEL POTERE \u27f3 \u2014 Se uno dei tuoi\npersonaggi \u00e8 stato danneggiato in questo turno,\nottieni 1 leggenda.",
+      "fullTextSections": [
+        "IL PREZZO DEL POTERE \u27f3 \u2014 Se uno dei tuoi\npersonaggi \u00e8 stato danneggiato in questo turno,\nottieni 1 leggenda."
+      ],
+      "usedUntil": "2026-06-23"
+    }
+  ],
+  "1773": [
+    {
+      "abilities": [
+        {
+          "fullText": "Trasformazione 3 (Puoi pagare 3 \u2b21 per giocare questa carta\nsopra a uno dei tuoi personaggi chiamato Capitan Uncino.)",
+          "keyword": "Trasformazione",
+          "keywordValue": "3",
+          "keywordValueNumber": 3,
+          "reminderText": "Puoi pagare 3 \u2b21 per giocare questa carta sopra a uno dei tuoi personaggi chiamato Capitan Uncino.",
+          "type": "keyword"
+        },
+        {
+          "effect": "Una volta durante il tuo turno, ogni volta che un personaggio avversario viene danneggiato, i tuoi personaggi Pirata ricevono +2 \u00a4 e ottengono Resistere +2 per questo turno. (Il danno che gli viene inflitto \u00e8 ridotto di 2.)",
+          "fullText": "DATECI DENTRO FINO ALL'ULTIMO! Una volta durante il\ntuo turno, ogni volta che un personaggio avversario viene\ndanneggiato, i tuoi personaggi Pirata ricevono +2 \u00a4 e\nottengono Resistere +2 per questo turno. (Il danno che gli\nviene inflitto \u00e8 ridotto di 2.)",
+          "name": "DATECI DENTRO FINO ALL'ULTIMO!",
+          "type": "triggered"
+        }
+      ],
+      "fullText": "Trasformazione 3 (Puoi pagare 3 \u2b21 per giocare questa carta\nsopra a uno dei tuoi personaggi chiamato Capitan Uncino.)\nDATECI DENTRO FINO ALL'ULTIMO! Una volta durante il\ntuo turno, ogni volta che un personaggio avversario viene\ndanneggiato, i tuoi personaggi Pirata ricevono +2 \u00a4 e\nottengono Resistere +2 per questo turno. (Il danno che gli\nviene inflitto \u00e8 ridotto di 2.)",
+      "fullTextSections": [
+        "Trasformazione 3 (Puoi pagare 3 \u2b21 per giocare questa carta\nsopra a uno dei tuoi personaggi chiamato Capitan Uncino.)",
+        "DATECI DENTRO FINO ALL'ULTIMO! Una volta durante il\ntuo turno, ogni volta che un personaggio avversario viene\ndanneggiato, i tuoi personaggi Pirata ricevono +2 \u00a4 e\nottengono Resistere +2 per questo turno. (Il danno che gli\nviene inflitto \u00e8 ridotto di 2.)"
+      ],
+      "usedUntil": "2026-06-23"
+    }
+  ],
+  "1789": [
+    {
+      "abilities": [
+        {
+          "effect": "Durante il tuo turno, quando questo personaggio viene esiliato, se uno dei tuoi personaggi \u00e8 stato danneggiato in questo turno, ottieni 2 leggenda.",
+          "fullText": "MALEVOLO Durante il tuo turno, quando questo\npersonaggio viene esiliato, se uno dei tuoi\npersonaggi \u00e8 stato danneggiato in questo turno,\nottieni 2 leggenda.",
+          "name": "MALEVOLO",
+          "type": "triggered"
+        }
+      ],
+      "fullText": "MALEVOLO Durante il tuo turno, quando questo\npersonaggio viene esiliato, se uno dei tuoi\npersonaggi \u00e8 stato danneggiato in questo turno,\nottieni 2 leggenda.",
+      "fullTextSections": [
+        "MALEVOLO Durante il tuo turno, quando questo\npersonaggio viene esiliato, se uno dei tuoi\npersonaggi \u00e8 stato danneggiato in questo turno,\nottieni 2 leggenda."
+      ],
+      "usedUntil": "2026-06-23"
+    }
+  ],
+  "1860": [
+    {
+      "abilities": [
+        {
+          "effect": "Non puoi giocare questo personaggio a meno che un personaggio avversario non sia stato danneggiato in questo turno.",
+          "fullText": "ISTINTO PREDATORIO Non puoi giocare questo\npersonaggio a meno che un personaggio avversario\nnon sia stato danneggiato in questo turno.",
+          "name": "ISTINTO PREDATORIO",
+          "type": "static"
+        }
+      ],
+      "fullText": "ISTINTO PREDATORIO Non puoi giocare questo\npersonaggio a meno che un personaggio avversario\nnon sia stato danneggiato in questo turno.",
+      "fullTextSections": [
+        "ISTINTO PREDATORIO Non puoi giocare questo\npersonaggio a meno che un personaggio avversario\nnon sia stato danneggiato in questo turno."
+      ],
+      "usedUntil": "2026-06-23"
+    }
+  ],
+  "1879": [
+    {
+      "abilities": [
+        {
+          "fullText": "Trasformazione 3 (Puoi pagare 3 \u2b21 per giocare questa carta\nsopra a uno dei tuoi personaggi chiamato Capitan Uncino.)",
+          "keyword": "Trasformazione",
+          "keywordValue": "3",
+          "keywordValueNumber": 3,
+          "reminderText": "Puoi pagare 3 \u2b21 per giocare questa carta sopra a uno dei tuoi personaggi chiamato Capitan Uncino.",
+          "type": "keyword"
+        },
+        {
+          "effect": "Una volta durante il tuo turno, ogni volta che un personaggio avversario viene danneggiato, i tuoi personaggi Pirata ricevono +2 \u00a4 e ottengono Resistere +2 per questo turno. (Il danno che gli viene inflitto \u00e8 ridotto di 2.)",
+          "fullText": "DATECI DENTRO FINO ALL'ULTIMO! Una volta durante il\ntuo turno, ogni volta che un personaggio avversario viene\ndanneggiato, i tuoi personaggi Pirata ricevono +2 \u00a4 e\nottengono Resistere +2 per questo turno. (Il danno che gli\nviene inflitto \u00e8 ridotto di 2.)",
+          "name": "DATECI DENTRO FINO ALL'ULTIMO!",
+          "type": "triggered"
+        }
+      ],
+      "fullText": "Trasformazione 3 (Puoi pagare 3 \u2b21 per giocare questa carta\nsopra a uno dei tuoi personaggi chiamato Capitan Uncino.)\nDATECI DENTRO FINO ALL'ULTIMO! Una volta durante il\ntuo turno, ogni volta che un personaggio avversario viene\ndanneggiato, i tuoi personaggi Pirata ricevono +2 \u00a4 e\nottengono Resistere +2 per questo turno. (Il danno che gli\nviene inflitto \u00e8 ridotto di 2.)",
+      "fullTextSections": [
+        "Trasformazione 3 (Puoi pagare 3 \u2b21 per giocare questa carta\nsopra a uno dei tuoi personaggi chiamato Capitan Uncino.)",
+        "DATECI DENTRO FINO ALL'ULTIMO! Una volta durante il\ntuo turno, ogni volta che un personaggio avversario viene\ndanneggiato, i tuoi personaggi Pirata ricevono +2 \u00a4 e\nottengono Resistere +2 per questo turno. (Il danno che gli\nviene inflitto \u00e8 ridotto di 2.)"
+      ],
+      "usedUntil": "2026-06-23"
+    }
   ]
 }

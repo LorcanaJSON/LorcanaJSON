@@ -1776,6 +1776,12 @@
       "l"
     ]
   },
+  "2272": {
+    "flavorText": [
+      "a”",
+      "a’"
+    ]
+  },
   "2273": {
     "flavorText": [
       "\\.",
@@ -3072,6 +3078,439 @@
     "flavorText": [
       "\\.",
       "!"
+    ]
+  },
+  "2979": {
+    "flavorText": [
+      "L",
+      "I"
+    ]
+  },
+  "2981": {
+    "abilities": [
+      "X2 ",
+      ""
+    ]
+  },
+  "2986": {
+    "flavorText": [
+      "È",
+      "E"
+    ]
+  },
+  "2992": {
+    "flavorText": [
+      " E",
+      " È"
+    ]
+  },
+  "2994": {
+    "flavorText": [
+      "\\.\\)",
+      ")"
+    ]
+  },
+  "2999": {
+    "abilities": [
+      "^E",
+      "…E"
+    ]
+  },
+  "3001": {
+    "abilities": [
+      "10",
+      "1 o"
+    ]
+  },
+  "3002": {
+    "_moveAbilityAtIndexToIndex": [0, 1],
+    "effects": [
+      "¤!",
+      "(Il"
+    ]
+  },
+  "3007": {
+    "abilities": [
+      "ll ",
+      "Il "
+    ]
+  },
+  "3014": {
+    "flavorText": [
+      "—l",
+      "—I"
+    ]
+  },
+  "3017": {
+    "flavorText": [
+      "L",
+      "I",
+      "v ",
+      "v'è "
+    ]
+  },
+  "3019": {
+    "flavorText": [
+      "E ",
+      "È "
+    ]
+  },
+  "3028": {
+    "flavorText": [
+      "o\\.",
+      "o'."
+    ]
+  },
+  "3041": {
+    "flavorText": [
+      "Î",
+      "I"
+    ]
+  },
+  "3042": {
+    "abilities": [
+      "⬡ d",
+      "⬡ per d"
+    ]
+  },
+  "3047": {
+    "flavorText": [
+      "— \\. \\. ’ \\. \\.”\n",
+      "",
+      "\\.$",
+      ".”"
+    ]
+  },
+  "3051": {
+    "flavorText": [
+      "\\?$",
+      "!”"
+    ]
+  },
+  "3053": {
+    "flavorText": [
+      "M",
+      "m"
+    ]
+  },
+  "3054": {
+    "abilities": [
+      "\\$",
+      ""
+    ]
+  },
+  "3057": {
+    "abilities": [
+      "C◉",
+      "◉"
+    ]
+  },
+  "3061": {
+    "flavorText": [
+      "È",
+      "E"
+    ]
+  },
+  "3062": {
+    "flavorText": [
+      "E",
+      "È"
+    ]
+  },
+  "3070": {
+    "abilities": [
+      " 4",
+      ""
+    ]
+  },
+  "3077": {
+    "flavorText": [
+      ";",
+      "',",
+      "\\.",
+      ""
+    ]
+  },
+  "3078": {
+    "abilities": [
+      "3 ",
+      ""
+    ]
+  },
+  "3083": {
+    "flavorText": [
+      "\nA",
+      "\n—A"
+    ]
+  },
+  "3084": {
+    "abilities": [
+      "è",
+      "◊"
+    ]
+  },
+  "3086": {
+    "flavorText": [
+      "E ",
+      "È "
+    ]
+  },
+  "3093": {
+    "abilities": [
+      "\\{Q",
+      "¤"
+    ]
+  },
+  "3095": {
+    "flavorText": [
+      "“l",
+      "“I",
+      "E",
+      "È"
+    ]
+  },
+  "3102": {
+    "flavorText": [
+      "ì\\.",
+      "ì!"
+    ]
+  },
+  "3107": {
+    "effects": [
+      "X3",
+      "¤"
+    ]
+  },
+  "3110": {
+    "flavorText": [
+      "“Q",
+      "“‘Q",
+      "l’",
+      "l.’"
+    ]
+  },
+  "3114": {
+    "flavorText": [
+      "E",
+      "È"
+    ]
+  },
+  "3125": {
+    "flavorText": [
+      "a\\.",
+      "a!"
+    ]
+  },
+  "3126": {
+    "flavorText": [
+      "Cè",
+      "C'è"
+    ]
+  },
+  "3130": {
+    "abilities": [
+      "T$",
+      "TO"
+    ]
+  },
+  "3136": {
+    "subtypes": [
+      "^UIL$",
+      null
+    ]
+  },
+  "3141": {
+    "abilities": [
+      "OO",
+      "O",
+      ",T",
+      ", T"
+    ]
+  },
+  "3144": {
+    "flavorText": [
+      "\\.”\\?",
+      "!”"
+    ]
+  },
+  "3147": {
+    "_moveAbilityAtIndexToIndex": [0, 1],
+    "effects": [
+      "¤!",
+      "(Il"
+    ]
+  },
+  "3148": {
+    "flavorText": [
+      "\\.”",
+      "!”",
+      "'i",
+      "'I"
+    ]
+  },
+  "3152": {
+    "flavorText": [
+      ";",
+      "',",
+      "…$",
+      "…”"
+    ]
+  },
+  "3153": {
+    "flavorText": [
+      "I",
+      "T"
+    ]
+  },
+  "3161": {
+    "flavorText": [
+      "\\.",
+      "!",
+      "f r",
+      "f Ir"
+    ]
+  },
+  "3176": {
+    "abilities": [
+      "^1",
+      "⟳, 1"
+    ]
+  },
+  "3184": {
+    "abilities": [
+      "imb",
+      "Imb"
+    ]
+  },
+  "3199": {
+    "_addNameToAbilityAtIndex": [2, "…E OLTRE!"],
+    "abilities": [
+      "\\.\n… E",
+      ".\n\n…E"
+    ],
+    "effects": [
+      " Pa$",
+      ""
+    ],
+    "subtypes": [
+      "ta$",
+      "tano"
+    ]
+  },
+  "3201": {
+    "abilities": [
+      "10",
+      "1 o"
+    ]
+  },
+  "3204": {
+    "subtypes": [
+      null,
+      [
+        "Classico",
+        "Squadra",
+        "Eroe",
+        "Fata"
+      ]
+    ]
+  },
+  "3205": {
+    "abilities": [
+      "\ner",
+      "\nper",
+      "Ch",
+      "ch"
+    ],
+    "subtypes": [
+      "^Mie$",
+      "Miele"
+    ]
+  },
+  "3207": {
+    "effects": [
+      " o\n—",
+      "\n\n"
+    ],
+    "subtypes": [
+      null,
+      [
+        "Classico",
+        "Squadra",
+        "Eroe",
+        "Cucciolo"
+      ]
+    ]
+  },
+  "3208": {
+    "abilities": [
+      "¤",
+      "◊"
+    ]
+  },
+  "3210": {
+    "subtypes": [
+      "s$",
+      "ssa"
+    ]
+  },
+  "3215": {
+    "artistsText": [
+      "ì WE Wi",
+      ""
+    ],
+    "effects": [
+      "\\[",
+      "T",
+      "tornm",
+      "form",
+      "¤ e i N JA\n“E",
+      "⬡\n\nRe",
+      "TA ¤ kr\nSN I i\nA i",
+      "+1\n\nAi",
+      " e\\.\\)\n1 ii",
+      ""
+    ],
+    "subtypes": [
+      "ZAN",
+      null
+    ]
+  },
+  "3216": {
+    "abilities": [
+      "yol",
+      "vol",
+      " —",
+      "",
+      ", ,\n• ENIT a Cern",
+      ".",
+      " ‘$",
+      "",
+      "⬡ P",
+      "⬡ — P",
+      "i\\.",
+      "i",
+      "ituo",
+      "i tuo",
+      "!",
+      ".",
+      "peril",
+      "per il",
+      "tot",
+      "to t",
+      "mo MiB A nai",
+      "no."
+    ]
+  },
+  "3217": {
+    "abilities": [
+      "^“",
+      ""
+    ],
+    "flavorText": [
+      ":",
+      "'.",
+      "\nJ",
+      "\n—J"
     ]
   }
 }
