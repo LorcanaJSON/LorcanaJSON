@@ -53,6 +53,7 @@ def validateOcrCache() -> bool:
 				else:
 					_infoOrPrint(f"File '{cacheHashCheckFilePath}' is missing from OCR cache hashes file, clearing OCR cache")
 					shouldClearCache = True
+					break
 	else:
 		_infoOrPrint("OCR Cache hashes file is missing, rebuilding OCR cache")
 		shouldClearCache = True
