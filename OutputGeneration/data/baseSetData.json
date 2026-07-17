@@ -109,7 +109,8 @@
     "number": 5,
     "allowedInFormats": {
       "Core": {
-        "allowed": true,
+        "allowed": false,
+        "allowedUntilDate": "2026-07-17",
         "rotationGroup": 2
       },
       "Infinity": {
@@ -132,7 +133,8 @@
     "number": 6,
     "allowedInFormats": {
       "Core": {
-        "allowed": true,
+        "allowed": false,
+        "allowedUntilDate": "2026-07-17",
         "rotationGroup": 2
       },
       "Infinity": {
@@ -155,7 +157,8 @@
     "number": 7,
     "allowedInFormats": {
       "Core": {
-        "allowed": true,
+        "allowed": false,
+        "allowedUntilDate": "2026-07-17",
         "rotationGroup": 2
       },
       "Infinity": {
@@ -178,7 +181,8 @@
     "number": 8,
     "allowedInFormats": {
       "Core": {
-        "allowed": true,
+        "allowed": false,
+        "allowedUntilDate": "2026-07-17",
         "rotationGroup": 2
       },
       "Infinity": {
