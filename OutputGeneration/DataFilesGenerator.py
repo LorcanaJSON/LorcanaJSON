@@ -16,7 +16,7 @@ from OutputGeneration.StoryParser import StoryParser
 from util import CardUtil, IdentifierParser
 
 _logger = logging.getLogger("LorcanaJSON")
-FORMAT_VERSION = "2.3.3"
+FORMAT_VERSION = "2.3.4"
 # The card parser is run in threads, and each thread needs to initialize its own ImageParser (otherwise weird errors happen in Tesseract)
 # Store each initialized ImageParser in its own thread storage
 _threadingLocalStorage = threading.local()
@@ -166,6 +166,7 @@ def createOutputFiles(onlyParseIds: Optional[List[int]] = None, shouldShowImages
 	cardToStoryParser = StoryParser(onlyParseIds)
 	promoSourceHandler = PromoSourceHandler(inputData)
 	relatedCardCollator = RelatedCardCollator(inputData)
+	cardCountsPerSet: Dict[str, Dict[str, int]] = {}
 	for inputCard in inputCards:
 		cardId = inputCard["culture_invariant_id"]
 		try:
@@ -173,6 +174,17 @@ def createOutputFiles(onlyParseIds: Optional[List[int]] = None, shouldShowImages
 									cardToStoryParser, historicData.get(inputCard["_idAsString"], None), allowedCardsHandler, promoSourceHandler, artistsHandler)
 			if parsedCard:
 				fullCardList.append(parsedCard)
+				if parsedCard["setCode"] not in cardCountsPerSet:
+					cardCountsPerSet[parsedCard["setCode"]] = {"base": 0, "nonBase": 0, "promo": 0, "total": 0}
+				# Count the card in the correct category
+				if "promoGrouping" in parsedCard:
+					countField = "promo"
+				elif parsedCard["number"] <= int(inputCard["_parsedIdentifier"].grouping, 10):
+					countField = "base"
+				else:
+					countField = "nonBase"
+				cardCountsPerSet[parsedCard["setCode"]][countField] += 1
+				cardCountsPerSet[parsedCard["setCode"]]["total"] += 1
 		except Exception as e:
 			_logger.error(f"{type(e).__name__} exception while parsing card {CardUtil.createCardIdentifier(inputCard)}: {e}")
 			raise e
@@ -194,6 +206,7 @@ def createOutputFiles(onlyParseIds: Optional[List[int]] = None, shouldShowImages
 		for setCode in list(setsData.keys()):
 			if setsData[setCode]["names"].get(GlobalConfig.language.code, None):
 				setsData[setCode]["name"] = setsData[setCode].pop("names")[GlobalConfig.language.code]
+				setsData[setCode]["cardCounts"] = cardCountsPerSet.get(setCode, {"base": 0, "nonBase": 0, "promo": 0})
 			else:
 				_logger.info(f"Name for set {setCode} is empty or doesn't exist for language code '{GlobalConfig.language.code}', not adding the set to the output files")
 				del setsData[setCode]
