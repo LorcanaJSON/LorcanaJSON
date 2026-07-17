@@ -297,14 +297,14 @@
     "number": 13,
     "allowedInFormats": {
       "Core": {
-        "allowed": false,
+        "allowed": true,
         "rotationGroup": 4
       },
       "Infinity": {
-        "allowed": false
+        "allowed": true
       }
     },
-    "allowedInTournamentsFromDate": null
+    "allowedInTournamentsFromDate": "2026-07-17"
   },
   "14": {
     "names": {
