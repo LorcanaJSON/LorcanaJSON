@@ -714,5 +714,41 @@
       "^Omar Lozano$",
       "Ian MacDonald"
     ]
+  },
+  "3237": {
+    "rules_text": [
+      " \\([^)]+\\)",
+      ""
+    ]
+  },
+  "3238": {
+    "flavor_text": [
+      "^.+$",
+      ""
+    ]
+  },
+  "3239": {
+    "rules_text": [
+      " \\([^)]+\\)",
+      ""
+    ]
+  },
+  "3240": {
+    "rules_text": [
+      " \\([^)]+\\)",
+      ""
+    ]
+  },
+  "3241": {
+    "author": [
+      "^George Caltsoudas$",
+      "John John Bajet"
+    ]
+  },
+  "3242": {
+    "rules_text": [
+      " \\([^)]+\\)",
+      ""
+    ]
   }
 }

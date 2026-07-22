@@ -76,6 +76,7 @@ _PARSE_SETTINGS_BY_GROUPING: Dict[str, ParseSettings] = {
 	"P1": ParseSettings(getIdentifierFromCard=True),
 	"P3": dataclasses.replace(_DEFAULT_PARSE_SETTINGS, labelStartThreshold=175, labelEndThreshold=180, labelTextColor=ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND),
 	"PD1": dataclasses.replace(_DEFAULT_PARSE_SETTINGS, labelIsDarkerThanBackground=False, thresholdTextColor=ImageArea.TEXT_COLOUR_WHITE, labelMaskColor=_BLACK),
+	"CC1": dataclasses.replace(_DEFAULT_NEW_ENCHANTED_PARSE_SETTINGS, labelParsingMethod=LABEL_PARSING_METHODS.FALLBACK_BY_LINES, labelTextColor=ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND),
 }
 
 _PARSE_SETTINGS_BY_ID: Dict[int, ParseSettings] = {
@@ -203,6 +204,8 @@ _PARSE_SETTINGS_BY_ID: Dict[int, ParseSettings] = {
 	3219: dataclasses.replace(_DEFAULT_PARSE_SETTINGS, labelIsDarkerThanBackground=False, thresholdTextColor=ImageArea.TEXT_COLOUR_WHITE, labelMaskColor=_BLACK, textboxBottomOffset=-80),
 	3225: dataclasses.replace(_DEFAULT_PARSE_SETTINGS, textboxLeftOffset=10),
 	3226: dataclasses.replace(_DEFAULT_PARSE_SETTINGS, textboxLeftOffset=10, labelParsingMethod=LABEL_PARSING_METHODS.FALLBACK_BY_LINES),
+	3237: dataclasses.replace(_PARSE_SETTINGS_BY_GROUPING["CC1"], typeImageTextColorOverride=ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND),
+	3238: dataclasses.replace(_PARSE_SETTINGS_BY_GROUPING["CC1"], characterCardLayout=CardLayout.NEW_ENCHANTED_CHARACTER_SMALL_TEXTBOX, lineParsingMaxGap=7, textboxTopOffset=-60),
 }
 
 def getParseSetingsById(cardId: int) -> Optional[ParseSettings]:
