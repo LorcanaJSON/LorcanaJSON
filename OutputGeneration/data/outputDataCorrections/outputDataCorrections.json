@@ -210,9 +210,24 @@
       ""
     ]
   },
-  "3178": {
-    "_forceAbilityIndexToTriggered": 0
+  "3176": {
+    "foilTypes": [
+      null,
+      "Silver"
+    ]
   },
+  "3177": {
+    "foilTypes": [
+      null,
+      "Silver"
+    ]
+  },
+  "3178": {
+    "_forceAbilityIndexToTriggered": 0,
+    "foilTypes": [
+      null,
+      "Silver"
+    ]  },
   "3198": {
     "_skipFullTextSectionMergeAtIndex": 1
   },
