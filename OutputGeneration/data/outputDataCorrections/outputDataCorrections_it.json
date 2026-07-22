@@ -2379,16 +2379,6 @@
       "◊"
     ]
   },
-  "2692": {
-    "subtypes": [
-      null,
-      [
-        "Classico",
-        "Eroe",
-        "Principessa"
-      ]
-    ]
-  },
   "2698": {
     "effects": [
       " \\.\\)",
@@ -3403,17 +3393,6 @@
       "1 o"
     ]
   },
-  "3204": {
-    "subtypes": [
-      null,
-      [
-        "Classico",
-        "Squadra",
-        "Eroe",
-        "Fata"
-      ]
-    ]
-  },
   "3205": {
     "abilities": [
       "\ner",
@@ -3430,15 +3409,6 @@
     "effects": [
       " o\n—",
       "\n\n"
-    ],
-    "subtypes": [
-      null,
-      [
-        "Classico",
-        "Squadra",
-        "Eroe",
-        "Cucciolo"
-      ]
     ]
   },
   "3208": {

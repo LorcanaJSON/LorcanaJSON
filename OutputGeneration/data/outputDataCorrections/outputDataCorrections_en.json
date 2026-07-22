@@ -2398,16 +2398,6 @@
       "◊"
     ]
   },
-  "2692": {
-    "subtypes": [
-      null,
-      [
-        "Storyborn",
-        "Hero",
-        "Princess"
-      ]
-    ]
-  },
   "2693": {
     "_skipFullTextSectionMergeAtIndex": 1
   },
@@ -3112,30 +3102,10 @@
       " 5 ⬡"
     ]
   },
-  "3204": {
-    "subtypes": [
-      null,
-      [
-        "Storyborn",
-        "Team",
-        "Hero",
-        "Fairy"
-      ]
-    ]
-  },
   "3207": {
     "effects": [
       "0 —\n—",
       " ⬡\n\n"
-    ],
-    "subtypes": [
-      null,
-      [
-        "Storyborn",
-        "Team",
-        "Hero",
-        "Puppy"
-      ]
     ]
   },
   "3215": {

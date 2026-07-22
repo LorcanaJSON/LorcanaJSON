@@ -3608,14 +3608,6 @@
       " ce",
       "XX",
       "¤"
-    ],
-    "subtypes": [
-      null,
-      [
-        "Storyborn",
-        "Héros",
-        "Princesse"
-      ]
     ]
   },
   "2696": {
@@ -4485,30 +4477,10 @@
       ""
     ]
   },
-  "3204": {
-    "subtypes": [
-      null,
-      [
-        "Storyborn",
-        "Équipe",
-        "Héros",
-        "Fée"
-      ]
-    ]
-  },
   "3207": {
     "effects": [
       "⬡\n—",
       "⬡\n\n"
-    ],
-    "subtypes": [
-      null,
-      [
-        "Storyborn",
-        "Équipe",
-        "Héros",
-        "Chiot"
-      ]
     ]
   },
   "3209": {

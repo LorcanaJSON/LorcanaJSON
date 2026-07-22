@@ -2512,14 +2512,6 @@
     "abilities": [
       "C-",
       "¤-"
-    ],
-    "subtypes": [
-      null,
-      [
-        "Sagengestalt",
-        "Held",
-        "Prinzessin"
-      ]
     ]
   },
   "2693": {
@@ -3271,17 +3263,6 @@
       "itän"
     ]
   },
-  "3204": {
-    "subtypes": [
-      null,
-      [
-        "Sagengestalt",
-        "Team",
-        "Held",
-        "Fee"
-      ]
-    ]
-  },
   "3205": {
     "abilities": [
       "¤",
@@ -3292,15 +3273,6 @@
     "effects": [
       "⬡\n—",
       "⬡\n\n"
-    ],
-    "subtypes": [
-      null,
-      [
-        "Sagengestalt",
-        "Team",
-        "Held",
-        "Welpe"
-      ]
     ]
   },
   "3208": {
