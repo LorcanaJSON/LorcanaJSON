@@ -243,10 +243,10 @@ class ImageParser:
 			elif parseSettings.labelParsingMethod == ParseSettings.LABEL_PARSING_METHODS.FALLBACK_BY_LINES:
 				# Find labels by trying to find their top and/or bottom horizontal edge
 				textboxEdgeDetectedImage = cv2.Canny(greyTextboxImage, 50, 200)
-				lines = cv2.HoughLinesP(textboxEdgeDetectedImage, 1, math.pi / 180, 150, minLineLength=125, maxLineGap=3)
+				lines = cv2.HoughLinesP(textboxEdgeDetectedImage, 1, math.pi / 180, 150, minLineLength=125, maxLineGap=parseSettings.lineParsingMaxGap)
 				if lines is None:
 					self._logger.debug(f"Not found any abiltylabel lines in card {cardId}, trying a shorter minimum length")
-					lines = cv2.HoughLinesP(textboxEdgeDetectedImage, 1, math.pi / 180, 150, minLineLength=100, maxLineGap=3)
+					lines = cv2.HoughLinesP(textboxEdgeDetectedImage, 1, math.pi / 180, 150, minLineLength=100, maxLineGap=parseSettings.lineParsingMaxGap)
 				if lines is None:
 					self._logger.debug(f"No lines found in card {cardId}")
 				else:
