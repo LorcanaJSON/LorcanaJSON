@@ -176,6 +176,9 @@ class ExternalLinksHandler:
 				setCodeToUse = setNameToCode[expansionName]
 			elif expansionName in ("Lorcana Challenge Promos", "Promos") or expansionName.startswith("Promos Year "):
 				setCodeToUse = "Promos"
+			elif expansionName.endswith("Promo") or expansionName.endswith("Promos"):
+				_LOGGER.info(f"Falling back to 'Promos' setcode for expansion name '{expansionName}'")
+				setCodeToUse = "Promos"
 			elif expansionName == "Curator’s Collection: Heroines Edition":
 				setCodeToUse = "Promos"
 				cardNumberSuffix = "/CC1"
