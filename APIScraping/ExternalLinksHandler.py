@@ -171,10 +171,14 @@ class ExternalLinksHandler:
 			if expansion["game_id"] != _CARD_TRADER_LORCANA_ID:
 				continue
 			expansionName = expansion["name"]
+			cardNumberSuffix: Optional[str] = None
 			if expansionName in setNameToCode:
 				setCodeToUse = setNameToCode[expansionName]
 			elif expansionName in ("Lorcana Challenge Promos", "Promos") or expansionName.startswith("Promos Year "):
 				setCodeToUse = "Promos"
+			elif expansionName == "Curator’s Collection: Heroines Edition":
+				setCodeToUse = "Promos"
+				cardNumberSuffix = "/CC1"
 			elif expansionName == "Errata Cards":
 				continue
 			else:
@@ -194,6 +198,8 @@ class ExternalLinksHandler:
 				# Some Enchanted cards are listed with an 'a' at the end for some reason. Remove that, being careful not to remove it from cards that do need it (Like 'Dalmatian Puppy - Tail Wagger' ID 436)
 				if len(cardNumber) == 4 and cardNumber.endswith("a"):
 					cardNumber = cardNumber[:-1]
+				if cardNumberSuffix:
+					cardNumber += cardNumberSuffix
 				cardSetCodeToUse = setCodeToUse
 				if card.get("version", None) and "/" in card["version"] and "/" not in cardNumber:
 					# Some promo cards have the full card number in the version, as "[promo source] | [number]/[promo group]" (f.e. "Pre-Release Promo | 28/P3")
