@@ -23,8 +23,6 @@ _CARD_MARKET_CARD_GROUP_TO_NAME = {
 	"C2": "Lorcana-Challenge-Promos-Year-3",
 	"D23": "D23-Expo-2024-Collectors-Set",
 	"P1": "Promos",
-	"P2": "Promos-Year-2",
-	"P3": "Promos-Year-3"
 }
 # This regex gets the card number and the 'group' from the full identifier. Use a regex instead of splitting to handle the earlier cards with different formatting
 _IDENTIFIER_REGEX = re.compile(r"\b(?P<identifier>(?P<number>\d+[a-z]?)/(?P<cardGroup>[A-Z0-9]+))\b")
@@ -230,6 +228,8 @@ class ExternalLinksHandler:
 					cardCategory = cardNumber.split("/", 1)[1].strip()
 					if cardCategory in _CARD_MARKET_CARD_GROUP_TO_NAME:
 						cardmarketCategoryName = _CARD_MARKET_CARD_GROUP_TO_NAME[cardCategory]
+					elif cardCategory[0] == "P" and cardCategory[1].isnumeric():
+						cardmarketCategoryName = f"Promos-Year-{cardCategory[1]}"
 					else:
 						_LOGGER.error(f"Unknown CardMarket Group {cardCategory!r} for card {cardNumber} {card['name']!r}")
 				elif expansionName == "Promos Year 1":
