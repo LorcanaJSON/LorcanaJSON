@@ -209,7 +209,7 @@ class ExternalLinksHandler:
 					# If the card number doesn't include that promo group yet, add it
 					promoGroupingMatch = _IDENTIFIER_REGEX.search(card["version"])
 					if promoGroupingMatch:
-						cardNumber += "/" + promoGroupingMatch.group("cardGroup")
+						cardNumber = promoGroupingMatch.group("identifier").lstrip("0")
 					else:
 						_LOGGER.error(f"Unable to find promo group in version '{card['version']}'")
 				if setCodeToUse in _CORRECTIONS and cardNumber in _CORRECTIONS[setCodeToUse] and card["name"] in _CORRECTIONS[setCodeToUse][cardNumber]:
