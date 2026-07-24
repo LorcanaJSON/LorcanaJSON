@@ -104,7 +104,7 @@ _CORRECTIONS = {
 			"Jafar - Lamp Thief": ("9", "59/204")
 		}
 	},
-	"12":{
+	"12": {
 		"400": {
 			"Doc - Taking Notes": ("12", "40/204")
 		},
