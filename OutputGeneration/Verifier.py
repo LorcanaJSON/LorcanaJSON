@@ -3,7 +3,7 @@ from typing import Dict, List, Optional
 
 import GlobalConfig
 from OutputGeneration import TextCorrection
-from util import Language, LorcanaSymbols, Translations
+from util import CardUtil, Language, LorcanaSymbols, Translations
 
 
 def compareInputToOutput(cardIdsToVerify: Optional[List[int]]):
@@ -185,6 +185,11 @@ def compareInputToOutput(cardIdsToVerify: Optional[List[int]]):
 		if multipleWhitespaceMatch:
 			cardDifferencesCount += 1
 			print(f"{cardId}: Fulltext has two or more whitespace characters in a row, at position {multipleWhitespaceMatch.start()}: {multipleWhitespaceMatch.group()!r}")
+
+		for externalLinkKey, externalLinkValue in outputCard["externalLinks"].items():
+			if externalLinkValue is None:
+				cardDifferencesCount += 1
+				print(f"{CardUtil.createCardIdentifier(outputCard, True)} has emtpy externalLink key '{externalLinkKey}'")
 
 		# If this isn't English, compare with the English results
 		# English is easier to manually verify, so this is done to prevent mistakes or oddities, like ability type mismatches between languages
