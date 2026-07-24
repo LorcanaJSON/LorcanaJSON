@@ -117,6 +117,69 @@ _CORRECTIONS = {
 	}
 }
 
+# Sometimes some values just aren't in the input data, so manually add them here
+_CARDMARKET_ID_ADDITIONS: Dict[str, int] = {
+	"27/P2": 826584,
+	"28/P2": 826585,
+	"29/P2": 826586,
+	"30/P2": 826587,
+	"31/P2": 826588,
+	"32/P2": 826589,
+	"33/P2": 826590,
+	"35/P2": 826591,
+	"1/PD1": 898820,
+	"2/PD1": 898818,
+}
+_TCGPLAYER_ID_ADDITIONS: Dict[str, int] = {
+	"10/C1": 654595,
+	"2/C2": 672472,
+	"4/C2": 695330,
+	"5/C2": 686340,
+	"7/C2": 672467,
+	"9/C2": 693401,
+	"10/C2": 544501,
+	"1/CC1": 702517,
+	"2/CC1": 702518,
+	"3/CC1": 702519,
+	"4/CC1": 702520,
+	"5/CC1": 702521,
+	"6/CC1": 702603,
+	"16/D23": 679565,
+	"23/P3": 661794,
+	"24/P3": 662883,
+	"27/P3": 662256,
+	"28/P3": 673344,
+	"29/P3": 673347,
+	"30/P3": 673351,
+	"31/P3": 673338,
+	"32/P3": 673342,
+	"33/P3": 673334,
+	"34/P3": 673333,
+	"35/P3": 673336,
+	"36/P3": 683650,
+	"39/P3": 678645,
+	"42/P3": 683651,
+	"43/P3": 692413,
+	"44/P3": 692476,
+	"45/P3": 692477,
+	"46/P3": 692478,
+	"47/P3": 692479,
+	"48/P3": 692480,
+	"49/P3": 692481,
+	"50/P3": 692482,
+	"51/P3": 692483,
+	"52/P3": 692484,
+	"53/P3": 692485,
+	"54/P3": 692486,
+	"55/P3": 692487,
+	"3/PD1": 705068,
+	"4/PD1": 705072,
+	"5/PD1": 705073,
+	"6/PD1": 702706,
+	"7/PD1": 705074,
+	"8/PD1": 702707,
+}
+
 
 def _convertStringToUrlValue(inputString: str, shouldRemoveMidwordDashes: bool = False) -> str:
 	outputString = inputString
@@ -225,10 +288,7 @@ class ExternalLinksHandler:
 				# Card Trader IDs always exist
 				cardExternalLinks = {"cardTraderId": card["id"], "cardTraderUrl": f"https://www.cardtrader.com/cards/{card['id']}"}
 
-				if card["card_market_ids"]:
-					if len(card["card_market_ids"]) > 1:
-						_LOGGER.warning(f"Found {len(card['card_market_ids']):,} Cardmarket IDs for card '{card['name']}' (CardTrader ID {card['id']}) in expansion {expansionName} (ID {expansion['id']}), using first one")
-					cardExternalLinks["cardmarketId"] = card["card_market_ids"][0]
+				ExternalLinksHandler._addStoreId(card["card_market_ids"][0] if card["card_market_ids"] else None, _CARDMARKET_ID_ADDITIONS.get(cardNumber, None), cardExternalLinks, "cardmarketId", cardNumber)
 				cardmarketCategoryName: str = ""
 				if cardSetCodeToUse == "Promos" and "/P2" in card["fixed_properties"]["collector_number"]:
 					cardmarketCategoryName = "Promos-Year-2"
@@ -252,8 +312,8 @@ class ExternalLinksHandler:
 					cardmarketCardName = _convertStringToUrlValue(card["name"], cardSetCodeToUse in ("5", "7"))  # For some reason, they remove mid-word dashes (like in 'mid-word') only in cardnames from some sets, correct for that
 					cardExternalLinks["cardmarketUrl"] = f"https://www.cardmarket.com/{{languageCode}}/Lorcana/Products/Singles/{cardmarketCategoryName}/{cardmarketCardName}[[versionSuffix]]?language={{cardmarketLanguageCode}}"
 
-				if card["tcg_player_id"]:
-					cardExternalLinks["tcgPlayerId"] = card["tcg_player_id"]
+				ExternalLinksHandler._addStoreId(card.get("tcg_player_id", None), _TCGPLAYER_ID_ADDITIONS.get(cardNumber, None), cardExternalLinks, "tcgPlayerId", cardNumber)
+				if "tcgPlayerId" in cardExternalLinks:
 					cardExternalLinks["tcgPlayerUrl"] = f"https://www.tcgplayer.com/product/{cardExternalLinks['tcgPlayerId']}"
 
 				# Sort the entries
@@ -325,6 +385,22 @@ class ExternalLinksHandler:
 			with open(_EXTERNAL_LINKS_FILE_PATH, "w", encoding="utf-8") as externalLinksFile:
 				json.dump(cardsBySet, externalLinksFile, indent=2)
 			#TODO Check here if all cards have externalLinks and warn about cards that don't
+
+	@staticmethod
+	def _addStoreId(storeIdFromInput: Optional[int], storeIdFromAdditions: Optional[int], outputData: Dict, outputKey: str, cardNumber: str):
+		outputId: Optional[int] = storeIdFromInput
+		if storeIdFromAdditions:
+			if storeIdFromInput:
+				if storeIdFromInput == storeIdFromAdditions:
+					_LOGGER.warning(f"'{outputKey}' for card {cardNumber} is already the same as the override, namely {storeIdFromInput}")
+				else:
+					_LOGGER.warning(f"'{outputKey}'  for card {cardNumber} exists in input data, however it is {outputId} there but {storeIdFromAdditions} in the override data, using the override value")
+					outputId = storeIdFromAdditions
+			else:
+				_LOGGER.debug(f"Setting '{outputKey}' from override for card {cardNumber}")
+				outputId = storeIdFromAdditions
+		if outputId:
+			outputData[outputKey] = outputId
 
 	def getExternalLinksForCard(self, parsedIdentifier: Identifier) -> Optional[Dict[str, str]]:
 		if parsedIdentifier.setCode not in self._externalLinks:
