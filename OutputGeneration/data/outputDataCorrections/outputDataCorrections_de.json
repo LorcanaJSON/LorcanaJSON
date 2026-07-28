@@ -3338,6 +3338,12 @@
       "e."
     ]
   },
+  "3222": {
+    "artistsText": [
+      " :.+$",
+      ""
+    ]
+  },
   "3225": {
     "_effectAtIndexIsAbility": [0, "DYNAMISCHES MANÖVER"],
     "abilities": [
