@@ -45,7 +45,7 @@ class UpdateCheckResult:
 		"""
 		:return: True if there are any updates, False otherwise
 		"""
-		if self.newSets or self.appVersionChange or self.hasCardChanges():
+		if self.newSets or self.appVersionChange or self.newTopLevelFields or self.removedTopLevelFields or self.hasCardChanges():
 			return True
 		return False
 
