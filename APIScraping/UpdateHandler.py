@@ -146,6 +146,7 @@ def checkForNewCardData(newCardCatalog: Dict = None, fieldsToIgnore: List[str] =
 		# The cardstore stores the latest version of the official app, compare that too
 		if oldCardCatalog["application_shared_properties"]["current_app_version"] != newCardCatalog["application_shared_properties"]["current_app_version"]:
 			updateCheckResult.appVersionChange = (oldCardCatalog["application_shared_properties"]["current_app_version"], newCardCatalog["application_shared_properties"]["current_app_version"])
+
 		# Check if any toplevel fields have been added or removed
 		if len(oldCardCatalog) != len(newCardCatalog):
 			for fieldName in newCardCatalog:
@@ -154,9 +155,11 @@ def checkForNewCardData(newCardCatalog: Dict = None, fieldsToIgnore: List[str] =
 			for fieldName in oldCardCatalog:
 				if fieldName not in newCardCatalog:
 					updateCheckResult.removedTopLevelFields.append(fieldName)
+
 		# The cardstore has a hash field too, since october 2025
 		if "catalog_hash" in oldCardCatalog and oldCardCatalog["catalog_hash"] != newCardCatalog["catalog_hash"] and not updateCheckResult.hasChanges():
 			_logger.warning("The new card catalog has a different catalog_hash than the old card catalog, but no changes were found")
+
 	else:
 		# No old catalog, so all sets are new
 		updateCheckResult.newSets = [newSetData["name"] for newSetData in newCardCatalog["card_sets"]]
