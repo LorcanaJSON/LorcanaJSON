@@ -15,6 +15,7 @@ def checkForNewCardData(newCardCatalog: Dict = None, fieldsToIgnore: List[str] =
 	oldCards: Dict[int, Dict] = {}
 	# Keep track of known card fields, so we can notice if new cards add new fields
 	knownCardFieldNames: List[str] = []
+	knownVariantFieldNames: List[str] = []
 	oldCardCatalog: Dict = None
 	pathToCardCatalog = os.path.join("downloads", "json", f"carddata.{GlobalConfig.language.code}.json")
 	if os.path.isfile(pathToCardCatalog):
@@ -30,6 +31,12 @@ def checkForNewCardData(newCardCatalog: Dict = None, fieldsToIgnore: List[str] =
 				for fieldName in card:
 					if fieldName not in knownCardFieldNames:
 						knownCardFieldNames.append(fieldName)
+				# Keep a list of known 'variant' subfields too, so we know if a new one gets created
+				if "variants" in card:
+					for variant in card["variants"]:
+						for fieldName in variant:
+							if fieldName not in knownVariantFieldNames:
+								knownVariantFieldNames.append(fieldName)
 	else:
 		_logger.info("No card catalog stored, so full update is needed")
 
@@ -51,6 +58,11 @@ def checkForNewCardData(newCardCatalog: Dict = None, fieldsToIgnore: List[str] =
 					if fieldName not in knownCardFieldNames:
 						updateCheckResult.newCardFields.append(fieldName)
 						knownCardFieldNames.append(fieldName)
+				for variant in card["variants"]:
+					for fieldName in variant:
+						if fieldName not in knownVariantFieldNames:
+							updateCheckResult.newCardVariantFields.append(fieldName)
+							knownVariantFieldNames.append(fieldName)
 			elif includeCardChanges:
 				# Remove the card from the old card dictionary, so we know which ones are left over (if any)
 				oldCard = oldCards.pop(cardId)

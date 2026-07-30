@@ -15,6 +15,7 @@ class UpdateCheckResult:
 		self.changedCards: List[ChangedCard] = []
 		self.removedCards: List[BasicCard] = []
 		self.newCardFields: List[str] = []
+		self.newCardVariantFields: List[str] = []
 		self.possibleChangedImages: List[ChangedCard] = []
 		self.newSets: List[str] = []
 		self.appVersionChange: Optional[Tuple[str, str]] = None  # First Tuple entry is old app version number string, second entry is new
@@ -45,7 +46,7 @@ class UpdateCheckResult:
 		"""
 		:return: True if there are any updates, False otherwise
 		"""
-		if self.newSets or self.appVersionChange or self.newTopLevelFields or self.removedTopLevelFields or self.hasCardChanges():
+		if self.newSets or self.appVersionChange or self.newTopLevelFields or self.removedTopLevelFields or self.newCardFields or self.newCardVariantFields or self.hasCardChanges():
 			return True
 		return False
 

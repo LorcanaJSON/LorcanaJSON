@@ -166,6 +166,8 @@ def _checkForUpdates(fieldsToIgnore: Optional[List[str]] = None) -> bool:
 			_infoOrPrint(logger, f"{len(updateCheckResult.removedCards):,} removed cards: {updateCheckResult.removedCards}")
 		if updateCheckResult.newCardFields:
 			_infoOrPrint(logger, f"{len(updateCheckResult.newCardFields):,} new card fields: {updateCheckResult.newCardFields}")
+		if updateCheckResult.newCardVariantFields:
+			_infoOrPrint(logger, f"{len(updateCheckResult.newCardVariantFields):,} new card variant fields: {updateCheckResult.newCardVariantFields}")
 		if updateCheckResult.possibleChangedImages:
 			_infoOrPrint(logger, f"{len(updateCheckResult.possibleChangedImages):,} possible image changes:")
 			for possibleImageChange in updateCheckResult.possibleChangedImages:
