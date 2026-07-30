@@ -12,16 +12,11 @@ _logger = logging.getLogger("LorcanaJSON")
 
 def retrieveCardCatalog() -> Dict[str, Any]:
 	# First get the token we need for the API, in the same way the official app does
-	tokenResponse = requests.post("https://sso.ravensburger.de/token",
-								  headers={
-									  # API key captured from the official Lorcana app
-									  "authorization": "Basic bG9yY2FuYS1hcGktcmVhZDpFdkJrMzJkQWtkMzludWt5QVNIMHc2X2FJcVZEcHpJenVrS0lxcDlBNXRlb2c5R3JkQ1JHMUFBaDVSendMdERkYlRpc2k3THJYWDl2Y0FkSTI4S096dw==",
-									  "content-type": "application/x-www-form-urlencoded",
-									  "user-agent": f"UnityPlayer/{DownloadUtil.UNITY_VERSION} (UnityWebRequest/1.0, libcurl/8.10.1-DEV)",
-									  "x-unity-version": DownloadUtil.UNITY_VERSION
-								  },
-								  data={"grant_type": "client_credentials"},
-								  timeout=10)
+	headers = DownloadUtil.DEFAULT_HEADERS.copy()
+	# API key captured from the official Lorcana app
+	headers["authorization"] = "Basic bG9yY2FuYS1hcGktcmVhZDpFdkJrMzJkQWtkMzludWt5QVNIMHc2X2FJcVZEcHpJenVrS0lxcDlBNXRlb2c5R3JkQ1JHMUFBaDVSendMdERkYlRpc2k3THJYWDl2Y0FkSTI4S096dw=="
+	headers["content-type"] = "application/x-www-form-urlencoded"
+	tokenResponse = requests.post("https://sso.ravensburger.de/token", headers=headers, data={"grant_type": "client_credentials"}, timeout=10)
 	if tokenResponse.status_code != 200:
 		raise ValueError(f"Non-success reply when retrieving token (status code {tokenResponse.status_code}): {tokenResponse.text=}")
 	tokenData = tokenResponse.json()
