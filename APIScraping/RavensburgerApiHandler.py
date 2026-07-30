@@ -30,9 +30,9 @@ def retrieveCardCatalog() -> Dict[str, Any]:
 		raise ValueError(f"Invalid data in catalog response: {catalogResponse.text}")
 	return cardCatalog
 
-def retrieveAndSaveCardCatalog(pathToSaveTo: str = None) -> Dict[str, Any]:
+def retrieveAndSaveCardCatalog() -> Dict[str, Any]:
 	cardCatalog = retrieveCardCatalog()
-	ApiScrapingUtil.saveCardCatalog(cardCatalog, True, pathToSaveTo)
+	ApiScrapingUtil.saveCardCatalog(cardCatalog, True)
 	return cardCatalog
 
 def downloadImage(imageUrl: str, savePath: str, shouldOverwriteImage: bool = False) -> bool:
@@ -86,13 +86,11 @@ def downloadImagesIfUpdated(cardCatalog: Dict, cardIdsToCheck: List[int]) -> Lis
 				_logger.warning(f"Unable to find correct 2048-high image for card ID {cardId}, unable to check if image changed")
 	return cardIdsWithUpdatedImage
 
-def downloadImages(shouldOverwriteImages: bool = False, pathToCardCatalog: str = None):
+def downloadImages(shouldOverwriteImages: bool = False):
 	startTime = time.perf_counter()
-	if not pathToCardCatalog:
-		pathToCardCatalog = os.path.join("downloads", "json")
-	cardCatalogPath = os.path.join(pathToCardCatalog, f"carddata.{GlobalConfig.language.code}.json")
+	cardCatalogPath = os.path.join("downloads", "json", f"carddata.{GlobalConfig.language.code}.json")
 	if not os.path.isfile(cardCatalogPath):
-		retrieveAndSaveCardCatalog(pathToCardCatalog)
+		retrieveAndSaveCardCatalog()
 	with open(cardCatalogPath, "r", encoding="utf-8") as cardCatalogFile:
 		cardCatalog = json.load(cardCatalogFile)
 	imagesFound = 0
