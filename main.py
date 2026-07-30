@@ -174,6 +174,10 @@ def _checkForUpdates(fieldsToIgnore: Optional[List[str]] = None) -> bool:
 			_infoOrPrint(logger, f"{len(updateCheckResult.newSets)} new sets: {updateCheckResult.newSets}")
 		if updateCheckResult.appVersionChange:
 			_infoOrPrint(logger, f"Official app version changed from {updateCheckResult.appVersionChange[0]} to {updateCheckResult.appVersionChange[1]}")
+		if updateCheckResult.newTopLevelFields:
+			_infoOrPrint(logger, f"{len(updateCheckResult.newTopLevelFields):,} new top-level fields were added to the input data: {'; '.join(updateCheckResult.newTopLevelFields)}")
+		if updateCheckResult.removedTopLevelFields:
+			_infoOrPrint(logger, f"{len(updateCheckResult.removedTopLevelFields):,} top-level fields were removed to the input data: {'; '.join(updateCheckResult.removedTopLevelFields)}")
 		return True
 	else:
 		_infoOrPrint(logger, "No changes found")

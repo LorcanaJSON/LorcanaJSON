@@ -18,6 +18,8 @@ class UpdateCheckResult:
 		self.possibleChangedImages: List[ChangedCard] = []
 		self.newSets: List[str] = []
 		self.appVersionChange: Optional[Tuple[str, str]] = None  # First Tuple entry is old app version number string, second entry is new
+		self.newTopLevelFields: List[str] = []  # Any newly added fields besides the cardlist, setlist, app version data, etc
+		self.removedTopLevelFields: List[str] = []  # Even though it's unlikely, also track possible removed top-level fields
 
 	def addNewCard(self, newCard: Dict, nameOverride: Optional[str] = None):
 		self.newCards.append(BasicCard(newCard, nameOverride))
