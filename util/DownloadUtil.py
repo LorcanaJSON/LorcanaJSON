@@ -1,5 +1,5 @@
 import logging
-from typing import Dict
+from typing import Dict, Optional
 
 import requests
 
@@ -12,7 +12,7 @@ DEFAULT_HEADERS = {"user-agent": f"Lorcana/{APP_VERSION}", "x-unity-version": UN
 class DownloadException(BaseException):
 	pass
 
-def retrieveFromUrl(url: str, maxAttempts: int = 5, additionalHeaderFields: Dict[str, str] = None) -> requests.api.request:
+def retrieveFromUrl(url: str, maxAttempts: int = 5, additionalHeaderFields: Optional[Dict[str, str]] = None) -> requests.models.Response:
 	"""
 	Since downloading from the Ravensburger API and CDN can sometimes take a few attempts, this helper method exists.
 	It downloads the provided URL, tries a few times if it somehow fails, and if it succeeds, it returns the request
