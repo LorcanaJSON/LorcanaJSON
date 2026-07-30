@@ -51,8 +51,11 @@ class UpdateCheckResult:
 		return False
 
 	def listChangeCounts(self) -> str:
-		return (f"{len(self.newCards):,} new cards, {len(self.changedCards):,} changed cards, {len(self.removedCards):,} removed cards, {len(self.possibleChangedImages):,} possible image changes, "
-				f"{len(self.newCardFields):,} new card fields, {len(self.newSets)} new sets")
+		countStrings: List[str] = []
+		for fieldName, fieldValue in vars(self).items():
+			if isinstance(fieldValue, list) or isinstance(fieldValue, dict):
+				countStrings.append(f"{fieldName}: {len(fieldValue):,}")
+		return ", ".join(countStrings)
 
 
 class BasicCard:

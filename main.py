@@ -244,7 +244,8 @@ if __name__ == '__main__':
 			cardCatalog = RavensburgerApiHandler.retrieveCardCatalog()
 			updateCheckResult: UpdateCheckResult = UpdateHandler.checkForNewCardData(cardCatalog, fieldsToIgnore=parsedArguments.ignoreFields)
 			if updateCheckResult.hasChanges():
-				_infoOrPrint(logger, f"Card catalog for language '{GlobalConfig.language.englishName}' was updated, saving ({updateCheckResult.listChangeCounts()})")
+				_infoOrPrint(logger, f"Card catalog for language '{GlobalConfig.language.englishName}' was updated, saving")
+				_infoOrPrint(logger, updateCheckResult.listChangeCounts())
 				ApiScrapingUtil.saveCardCatalog(cardCatalog)
 			else:
 				_infoOrPrint(logger, f"No new version of the card catalog for language '{GlobalConfig.language.englishName}' found")
