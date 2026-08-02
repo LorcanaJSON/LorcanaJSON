@@ -16,7 +16,7 @@ from OutputGeneration.StoryParser import StoryParser
 from util import CardUtil, IdentifierParser
 
 _logger = logging.getLogger("LorcanaJSON")
-FORMAT_VERSION = "2.3.4"
+FORMAT_VERSION = "2.3.5"
 # The card parser is run in threads, and each thread needs to initialize its own ImageParser (otherwise weird errors happen in Tesseract)
 # Store each initialized ImageParser in its own thread storage
 _threadingLocalStorage = threading.local()
@@ -299,6 +299,7 @@ def createOutputFiles(onlyParseIds: Optional[List[int]] = None, shouldShowImages
 		}
 		_saveFile(os.path.join(outputFolder, "formatCoconutCards.json"), outputCoconutData, False)
 		_logger.info(f"Created Format Cooconut file in {time.perf_counter() - startTime}")
+
 	# Create an XML file that Cockatrice can load
 	rootElement = xmlElementTree.Element("cockatrice_carddatabase", {"version": "4"})
 	setsElement = xmlElementTree.SubElement(rootElement, "sets")

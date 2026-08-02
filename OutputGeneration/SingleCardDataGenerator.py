@@ -123,6 +123,7 @@ def parseSingleCard(inputCard: Dict, ocrResult: OcrResult, externalLinksHandler:
 		normalImageUrl: Optional[str] = None
 		foilTypes: List[str] = []
 		varnishType: Optional[str] = None
+		foilEffectColors: List[str] = []
 		for inputImageVariantData in inputCard["variants"]:
 			imageType = inputImageVariantData["variant_id"]
 			if imageType == "Regular":
@@ -134,9 +135,16 @@ def parseSingleCard(inputCard: Dict, ocrResult: OcrResult, externalLinksHandler:
 				if "foil_top_layer_mask_url" in inputImageVariantData:
 					# Despite being called 'foil', this is the varnish mask; foil data is in a different ImageVariant dictionary
 					outputImageData["varnishMask"] = _cleanUrl(inputImageVariantData["foil_top_layer_mask_url"])
+				if "second_foil_top_layer_mask_url" in inputImageVariantData:
+					# Some Iconic cards have a second varnish mask
+					outputImageData["varnishMask2"] = _cleanUrl(inputImageVariantData["second_foil_top_layer_mask_url"])
 				foilTypes.append(inputImageVariantData.get("foil_type", "None"))
 				if "foil_top_layer" in inputImageVariantData:
 					varnishType = inputImageVariantData["foil_top_layer"]
+				if "hot_foil_color" in inputImageVariantData:
+					foilEffectColors.append(inputImageVariantData["hot_foil_color"])
+				if "second_hot_foil_color" in inputImageVariantData:
+					foilEffectColors.append(inputImageVariantData["second_hot_foil_color"])
 			elif imageType == "Foiled":
 				# Foil version
 				if "foilMask" in outputImageData:
@@ -170,6 +178,8 @@ def parseSingleCard(inputCard: Dict, ocrResult: OcrResult, externalLinksHandler:
 			outputCard["foilTypes"] = ["None", "Silver"]
 		if varnishType:
 			outputCard["varnishType"] = varnishType
+		if foilEffectColors:
+			outputCard["foilEffectColors"] = foilEffectColors
 		if "thumbnail_url" in inputCard:
 			outputImageData["thumbnail"] = _cleanUrl(inputCard["thumbnail_url"])
 		else:
