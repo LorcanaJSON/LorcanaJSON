@@ -134,11 +134,15 @@ def downloadImages(shouldOverwriteImages: bool = False):
 
 	# Download Coconut cards, if relevant (Coconut cards for now only exist in English)
 	if GlobalConfig.language == Language.ENGLISH and "coconut_cards" in cardCatalog:
+		baseCoconutImagePath = os.path.join("downloads", "images", GlobalConfig.language.code, "coconut")
 		for coconutCardData in cardCatalog["coconut_cards"]:
 			coconutCard = FormatCoconutCard(coconutCardData)
-			imageSavePath = os.path.join("downloads", "images", GlobalConfig.language.code, "coconut", f"{coconutCard.number}.jpg")
+			imageSavePath = os.path.join(baseCoconutImagePath, f"{coconutCard.number}.jpg")
 			wasImageDownloaded = downloadImage(coconutCardData["card_detail_url"], imageSavePath, shouldOverwriteImages)
 			if wasImageDownloaded:
 				imagesDownloaded += 1
+			# Also download the closeup images, in case they disappear at some point
+			imageSavePath = os.path.join(baseCoconutImagePath, f"{coconutCard.number}_closeup.jpg")
+			downloadImage(coconutCardData["settings_thumbnail_url"], imageSavePath, shouldOverwriteImages)
 
 	_logger.info(f"Downloading {imagesDownloaded} of {imagesFound} {GlobalConfig.language.englishName} card images took {time.perf_counter() - startTime} seconds")
