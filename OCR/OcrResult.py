@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import List
+from typing import List, Optional
 
 @dataclass
 class OcrResult:
@@ -12,13 +12,13 @@ class OcrResult:
 	remainingText: str
 	subtypesText: str
 	# Optionally parsed
-	cost: str = None
-	identifier: str = None
-	moveCost: str = None
-	name: str = None
-	strength: str = None
-	version: str = None
-	willpower: str = None
+	cost: Optional[str] = None
+	identifier: Optional[str] = None
+	moveCost: Optional[str] = None
+	name: Optional[str] = None
+	strength: Optional[str] = None
+	version: Optional[str] = None
+	willpower: Optional[str] = None
 
 	def __getitem__(self, item) -> str:
 		# This allows the use of item subscription (myOcrResult['cost'])
