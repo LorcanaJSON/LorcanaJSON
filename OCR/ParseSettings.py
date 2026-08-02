@@ -209,6 +209,7 @@ _PARSE_SETTINGS_BY_ID: Dict[int, ParseSettings] = {
 	3226: dataclasses.replace(_DEFAULT_PARSE_SETTINGS, textboxLeftOffset=10, labelParsingMethod=LABEL_PARSING_METHODS.FALLBACK_BY_LINES),
 	3237: dataclasses.replace(_PARSE_SETTINGS_BY_GROUPING["CC1"], typeImageTextColorOverride=ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND),
 	3238: dataclasses.replace(_PARSE_SETTINGS_BY_GROUPING["CC1"], characterCardLayout=CardLayout.NEW_ENCHANTED_CHARACTER_SMALL_TEXTBOX, lineParsingMaxGap=7, textboxTopOffset=-60),
+	3249: dataclasses.replace(_PARSE_SETTINGS_BY_GROUPING["P3"], labelStartThreshold=100, labelEndThreshold=170, labelTextColor=ImageArea.TEXT_COLOUR_MIDDLE, textboxLeftOffset=10),
 }
 
 def getParseSetingsById(cardId: int) -> Optional[ParseSettings]:
