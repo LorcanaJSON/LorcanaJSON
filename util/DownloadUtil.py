@@ -5,7 +5,7 @@ import requests
 
 _logger = logging.getLogger("LorcanaJSON")
 UNITY_VERSION = "6000.3.17f1"
-APP_VERSION = "2026.4"
+APP_VERSION = "2026.4.1"
 DEFAULT_HEADERS = {"user-agent": f"Lorcana/{APP_VERSION}", "x-unity-version": UNITY_VERSION}
 
 
