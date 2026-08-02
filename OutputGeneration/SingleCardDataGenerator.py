@@ -120,9 +120,9 @@ def parseSingleCard(inputCard: Dict, ocrResult: OcrResult, externalLinksHandler:
 	# Determine the various image data (normal, foil, varnish, etc)
 	if "variants" in inputCard:
 		outputImageData: Dict[str, str] = {}
-		normalImageUrl = None
+		normalImageUrl: Optional[str] = None
 		foilTypes: List[str] = []
-		varnishType = None
+		varnishType: Optional[str] = None
 		for inputImageVariantData in inputCard["variants"]:
 			imageType = inputImageVariantData["variant_id"]
 			if imageType == "Regular":
