@@ -5,7 +5,8 @@ import requests
 
 import GlobalConfig
 from APIScraping import ApiScrapingUtil
-from util import DownloadUtil
+from util import DownloadUtil, Language
+from util.FormatCoconutCard import FormatCoconutCard
 
 
 _logger = logging.getLogger("LorcanaJSON")
@@ -130,4 +131,14 @@ def downloadImages(shouldOverwriteImages: bool = False):
 				wasImageDownloaded = downloadImage(externalCardReveal["imageUrl"], imageSavePath, shouldOverwriteImages)
 				if wasImageDownloaded:
 					imagesDownloaded += 1
+
+	# Download Coconut cards, if relevant (Coconut cards for now only exist in English)
+	if GlobalConfig.language == Language.ENGLISH and "coconut_cards" in cardCatalog:
+		for coconutCardData in cardCatalog["coconut_cards"]:
+			coconutCard = FormatCoconutCard(coconutCardData)
+			imageSavePath = os.path.join("downloads", "images", GlobalConfig.language.code, "coconut", f"{coconutCard.number}.jpg")
+			wasImageDownloaded = downloadImage(coconutCardData["card_detail_url"], imageSavePath, shouldOverwriteImages)
+			if wasImageDownloaded:
+				imagesDownloaded += 1
+
 	_logger.info(f"Downloading {imagesDownloaded} of {imagesFound} {GlobalConfig.language.englishName} card images took {time.perf_counter() - startTime} seconds")

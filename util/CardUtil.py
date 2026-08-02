@@ -15,4 +15,7 @@ def createCardIdentifier(card: Dict, addIdentiferNumberGroup: bool = False) -> s
 		result += ")"
 		return result
 	# Input card
-	return f"'{card['name']} - {card.get('subtitle', None)}' (ID {card['culture_invariant_id']})"
+	if "culture_invariant_id" in card:
+		return f"'{card['name']} - {card.get('subtitle', None)}' (ID {card['culture_invariant_id']})"
+	# Probably a coconut card
+	return str(card)

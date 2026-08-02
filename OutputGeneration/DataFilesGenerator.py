@@ -7,7 +7,7 @@ import GlobalConfig
 from APIScraping.ExternalLinksHandler import ExternalLinksHandler
 from OCR import ImageParser, OcrCacheHandler
 from OCR.OcrResult import OcrResult
-from OutputGeneration import SingleCardDataGenerator
+from OutputGeneration import SingleCardDataGenerator, FormatCoconutCardDataGenerator
 from OutputGeneration.AllowedInFormatsHandler import AllowedInFormatsHandler
 from OutputGeneration.ArtistsHandler import ArtistsHandler
 from OutputGeneration.RelatedCardsCollator import RelatedCardCollator
@@ -291,6 +291,14 @@ def createOutputFiles(onlyParseIds: Optional[List[int]] = None, shouldShowImages
 	_saveZippedFile(os.path.join(decksOutputFolder, "allDecks.full.zip"), fullDeckFilePaths)
 	_logger.info(f"Created deck files in {time.perf_counter() - startTime} seconds")
 
+	coconutCardsData = FormatCoconutCardDataGenerator.generateFormatCoconutCardData(inputData, fullCardList)
+	if coconutCardsData:
+		outputCoconutData = {
+			"metadata": metaDataDict,
+			"cards": coconutCardsData
+		}
+		_saveFile(os.path.join(outputFolder, "formatCoconutCards.json"), outputCoconutData, False)
+		_logger.info(f"Created Format Cooconut file in {time.perf_counter() - startTime}")
 	# Create an XML file that Cockatrice can load
 	rootElement = xmlElementTree.Element("cockatrice_carddatabase", {"version": "4"})
 	setsElement = xmlElementTree.SubElement(rootElement, "sets")

@@ -9,6 +9,7 @@ import GlobalConfig
 from OCR import ImageArea, ParseSettings
 from OCR.OcrResult import OcrResult
 from util import IdentifierParser, LorcanaSymbols
+from util.FormatCoconutCard import FormatCoconutCard
 
 
 ImageAndText = namedtuple("ImageAndText", ("image", "text"))
@@ -489,6 +490,20 @@ class ImageParser:
 			ocrResult.willpower = result["willpower"].text if result["willpower"] else None
 		return ocrResult
 
+	def getOcrResultForCoconutCard(self, coconutCard: FormatCoconutCard, baseImagePath: str, shouldShowImages: bool = False) -> OcrResult:
+		imageFilePath = os.path.join(baseImagePath, f"{coconutCard.number}.jpg")
+		if not os.path.isfile(imageFilePath):
+			raise FileNotFoundError(f"The image file for Format Coconut card {coconutCard} is missing, please run the 'download' action first")
+		cardImage: cv2.Mat = cv2.imread(imageFilePath)
+		cardImageAndText: ImageAndText = self._getSubImageAndText(cardImage, ImageArea.FULL_WIDTH_TEXT_BOX)
+		artistImageAndText: ImageAndText = self._getSubImageAndText(cardImage, ImageArea.ARTIST)
+		if shouldShowImages:
+			cv2.imshow("Coconut card text", cardImageAndText.image)
+			cv2.imshow("Coconut card artist", artistImageAndText.image)
+			cv2.waitKey(0)
+			cv2.destroyAllWindows()
+		ocrResult: OcrResult = OcrResult(None, None, artistImageAndText.text, None, cardImageAndText.text, None)
+		return ocrResult
 	@staticmethod
 	def _getSubImage(image, imageArea: ImageArea.ImageArea, offsetLeft: int = 0, offsetRight: int = 0, offsetTop: int = 0, offsetBottom: int = 0) -> cv2.Mat:
 		return image[imageArea.coords.top+offsetTop:imageArea.coords.bottom+offsetBottom, imageArea.coords.left+offsetLeft:imageArea.coords.right+offsetRight]

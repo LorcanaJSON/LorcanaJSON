@@ -117,8 +117,15 @@ function setDisplayedIndex(newIndex, showErrorMessage=true) {
 	currentIndex = newIndex;
 	let currentCardData = cardsJson["cards"][currentIndex];
 	document.getElementById("name").textContent = currentCardData["fullName"];
-	const isExternal = currentCardData.hasOwnProperty("isExternalReveal");
-	document.getElementById("img").src = "../downloads/images/" + languageCode + "/" + (isExternal ? "external/" : "") + currentCardData["id"] + ".jpg";
+	let extraImagePathPart = "";
+	let cardImageIdentifierField = "id";
+	if (currentCardData.hasOwnProperty("isExternalReveal")) {
+		extraImagePathPart = "external/";
+	} else if (currentCardData.hasOwnProperty("associatedCardId")) {
+		extraImagePathPart = "coconut/";
+		cardImageIdentifierField = "number";
+	}
+	document.getElementById("img").src = "../downloads/images/" + languageCode + "/" + extraImagePathPart + currentCardData[cardImageIdentifierField] + ".jpg";
 	if (["Lieu", "Location", "Luogo", "Ort"].includes(currentCardData["type"])) {
 		// Rotate Location cards, since they're horizontal, so verifying the data is easier
 		document.getElementById("img").style.transform = "rotate(0.25turn) translateY(-20%)";

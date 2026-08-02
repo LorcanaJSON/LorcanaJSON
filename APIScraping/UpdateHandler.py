@@ -6,6 +6,7 @@ from APIScraping import ApiScrapingUtil, RavensburgerApiHandler
 from APIScraping.UpdateCheckResult import ChangeType, UpdateCheckResult
 from OCR import OcrCacheHandler
 from OutputGeneration import DataFilesGenerator
+from util.FormatCoconutCard import FormatCoconutCard
 
 
 _logger = logging.getLogger("LorcanaJSON")
@@ -13,6 +14,7 @@ _logger = logging.getLogger("LorcanaJSON")
 def checkForNewCardData(newCardCatalog: Dict = None, fieldsToIgnore: List[str] = None, includeCardChanges: bool = True, ignoreOrderChanges: bool = True) -> UpdateCheckResult:
 	# We need to find the old cards by ID, so set up a dict
 	oldCards: Dict[int, Dict] = {}
+	oldCoconutCardsByNumber: Dict[int, FormatCoconutCard] = {}
 	# Keep track of known card fields, so we can notice if new cards add new fields
 	knownCardFieldNames: List[str] = []
 	knownVariantFieldNames: List[str] = []
@@ -37,6 +39,13 @@ def checkForNewCardData(newCardCatalog: Dict = None, fieldsToIgnore: List[str] =
 						for fieldName in variant:
 							if fieldName not in knownVariantFieldNames:
 								knownVariantFieldNames.append(fieldName)
+		if "coconut_cards" in oldCardCatalog:
+			for oldCoconutCardData in oldCardCatalog["coconut_cards"]:
+				oldCoconutCard = FormatCoconutCard(oldCoconutCardData)
+				if oldCoconutCard.number in oldCoconutCardsByNumber:
+					_logger.error(f"Duplicate coconut card number '{oldCoconutCard.number} in old card catalog")
+				else:
+					oldCoconutCardsByNumber[oldCoconutCard.number] = oldCoconutCard
 	else:
 		_logger.info("No card catalog stored, so full update is needed")
 
@@ -167,6 +176,24 @@ def checkForNewCardData(newCardCatalog: Dict = None, fieldsToIgnore: List[str] =
 			for fieldName in oldCardCatalog:
 				if fieldName not in newCardCatalog:
 					updateCheckResult.removedTopLevelFields.append(fieldName)
+
+		# Check if the Coconut cards have changed
+		if oldCoconutCardsByNumber and "coconut_cards" not in newCardCatalog:
+			for oldCoconutCardNumber, oldCoconutCard in oldCoconutCardsByNumber.items():
+				updateCheckResult.removedFormatCoconutCards.append(oldCoconutCard)
+		elif "coconut_cards" in newCardCatalog:
+			for newCoconutCardData in newCardCatalog["coconut_cards"]:
+				newCoconutCard = FormatCoconutCard(newCoconutCardData)
+				if newCoconutCard.number not in oldCoconutCardsByNumber:
+					updateCheckResult.newFormatCoconutCards.append(newCoconutCard)
+				else:
+					oldCoconutCard = oldCoconutCardsByNumber[newCoconutCard.number]
+					changedFields: List[str] = []
+					for fieldName, fieldValue in newCoconutCard.coconutData.items():
+						if fieldName not in oldCoconutCard.coconutData or oldCoconutCard.coconutData[fieldName] != fieldValue:
+							changedFields.append(fieldName)
+					if changedFields:
+						updateCheckResult.changedFormatCoconutCards[newCoconutCard] = changedFields
 
 		# The cardstore has a hash field too, since october 2025
 		if "catalog_hash" in oldCardCatalog and oldCardCatalog["catalog_hash"] != newCardCatalog["catalog_hash"] and not updateCheckResult.hasChanges():

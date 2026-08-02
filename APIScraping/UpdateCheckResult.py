@@ -1,6 +1,8 @@
 from enum import Enum
 from typing import Any, Dict, List, Optional, Tuple
 
+from util.FormatCoconutCard import FormatCoconutCard
+
 
 class ChangeType(Enum):
 	NEW_FIELD = "newField"
@@ -21,6 +23,10 @@ class UpdateCheckResult:
 		self.appVersionChange: Optional[Tuple[str, str]] = None  # First Tuple entry is old app version number string, second entry is new
 		self.newTopLevelFields: List[str] = []  # Any newly added fields besides the cardlist, setlist, app version data, etc
 		self.removedTopLevelFields: List[str] = []  # Even though it's unlikely, also track possible removed top-level fields
+		# Fields for the cards for 'Format Coconut'
+		self.newFormatCoconutCards: List[FormatCoconutCard] = []
+		self.changedFormatCoconutCards: Dict[FormatCoconutCard, List[str]] = {}  # For each changed Coconut Card, a list of fieldnames that changed
+		self.removedFormatCoconutCards: List[FormatCoconutCard] = []
 
 	def addNewCard(self, newCard: Dict, nameOverride: Optional[str] = None):
 		self.newCards.append(BasicCard(newCard, nameOverride))
@@ -42,11 +48,19 @@ class UpdateCheckResult:
 			return True
 		return False
 
+	def hasCoconutCardChanges(self) -> bool:
+		"""
+		:return: True if the cards for 'Format Coconut' have changed, False otherwise
+		"""
+		if self.newFormatCoconutCards or self.changedFormatCoconutCards or self.removedFormatCoconutCards:
+			return True
+		return False
+
 	def hasChanges(self) -> bool:
 		"""
 		:return: True if there are any updates, False otherwise
 		"""
-		if self.newSets or self.appVersionChange or self.newTopLevelFields or self.removedTopLevelFields or self.newCardFields or self.newCardVariantFields or self.hasCardChanges():
+		if self.newSets or self.appVersionChange or self.newTopLevelFields or self.removedTopLevelFields or self.newCardFields or self.newCardVariantFields or self.hasCardChanges() or self.hasCoconutCardChanges():
 			return True
 		return False
 
@@ -92,4 +106,3 @@ class ChangedCard(BasicCard):
 
 	def __str__(self) -> str:
 		return self.toString()
-

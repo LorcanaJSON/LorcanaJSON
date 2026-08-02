@@ -180,6 +180,14 @@ def _checkForUpdates(fieldsToIgnore: Optional[List[str]] = None) -> bool:
 			_infoOrPrint(logger, f"{len(updateCheckResult.newTopLevelFields):,} new top-level fields were added to the input data: {'; '.join(updateCheckResult.newTopLevelFields)}")
 		if updateCheckResult.removedTopLevelFields:
 			_infoOrPrint(logger, f"{len(updateCheckResult.removedTopLevelFields):,} top-level fields were removed to the input data: {'; '.join(updateCheckResult.removedTopLevelFields)}")
+		if updateCheckResult.newFormatCoconutCards:
+			_infoOrPrint(logger, f"{len(updateCheckResult.newFormatCoconutCards):,} Format Coconut cards added: {', '.join([str(c) for c in updateCheckResult.newFormatCoconutCards])}")
+		if updateCheckResult.removedFormatCoconutCards:
+			_infoOrPrint(logger, f"{len(updateCheckResult.removedFormatCoconutCards):,} Format Coconut cards removed: {', '.join([str(c) for c in updateCheckResult.removedFormatCoconutCards])}")
+		if updateCheckResult.changedFormatCoconutCards:
+			_infoOrPrint(logger, f"{len(updateCheckResult.changedFormatCoconutCards):,} Format Coconut cards changed:")
+			for changedCoconutCard, changedCoconutCardFields in updateCheckResult.changedFormatCoconutCards.items():
+				_infoOrPrint(logger, f"  {changedCoconutCard}: {', '.join(changedCoconutCardFields)}")
 		return True
 	else:
 		_infoOrPrint(logger, "No changes found")
