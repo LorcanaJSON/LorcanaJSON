@@ -2,6 +2,7 @@ import logging, json, os, re
 from typing import Dict, List, Optional
 
 import GlobalConfig
+from OCR import OcrCacheHandler
 from OCR.ImageParser import ImageParser
 from OCR.OcrResult import OcrResult
 from OutputGeneration import TextCorrection
@@ -45,7 +46,13 @@ def generateFormatCoconutCardData(inputCardData: Dict, outputCardList: List[Dict
 	return outputCoconutCards
 
 def _generateDataForSingleFormatCoconutCard(coconutCard: FormatCoconutCard, associatedCard: Dict, imageParser: ImageParser, baseImagePath: str, cardCorrections: Optional[Dict]) -> Dict:
-	ocrResult: OcrResult = imageParser.getOcrResultForCoconutCard(coconutCard, baseImagePath)
+	ocrResult: Optional[OcrResult] = None
+	if GlobalConfig.useCachedOcr and not GlobalConfig.skipOcrCache:
+		ocrResult = OcrCacheHandler.getCachedOcrResult(coconutCard.getOcrIdentifier())
+	if not ocrResult:
+		ocrResult: OcrResult = imageParser.getOcrResultForCoconutCard(coconutCard, baseImagePath)
+		if not GlobalConfig.skipOcrCache:
+			OcrCacheHandler.storeOcrResult(coconutCard.getOcrIdentifier(), ocrResult)
 	fullText = ocrResult.remainingText
 	# The Ink symbol could cause the OCR reader to read a double newline where it should be a single newline, fix that
 	fullText = re.sub(r"(?<=[a-z])\n\n(?=\d)", "\n", fullText)
