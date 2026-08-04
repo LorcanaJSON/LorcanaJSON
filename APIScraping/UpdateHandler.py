@@ -219,8 +219,13 @@ def createOutputIfNeeded(onlyCreateOnNewCards: bool, cardFieldsToIgnore: List[st
 		actualImageChanges = RavensburgerApiHandler.downloadImagesIfUpdated(cardCatalog, [card.id for card in updateCheckResult.possibleChangedImages])
 		_logger.info(f"{len(actualImageChanges):,} actual image changes: {actualImageChanges}")
 		if actualImageChanges:
-			_logger.info("Image(s) changed, skipping using OCR cache for these images")
+			_logger.info("Image(s) changed, removing OCR cache for these images")
 			OcrCacheHandler.clearOcrCacheForCards(actualImageChanges)
+		if updateCheckResult.removedFormatCoconutCards or updateCheckResult.changedFormatCoconutCards:
+			_logger.info("Format Coconut data changed, removing OCR cache for these cards")
+			coconutOcrIdentifiersToClear: List[str] = [c.getOcrIdentifier() for c in updateCheckResult.removedFormatCoconutCards]
+			coconutOcrIdentifiersToClear.extend([c.getOcrIdentifier() for c in updateCheckResult.changedFormatCoconutCards])
+			OcrCacheHandler.clearOcrCacheForCards(coconutOcrIdentifiersToClear)
 		idsToParse.extend(actualImageChanges)
 	_logger.info(f"Updated IDs: {' '.join([str(i) for i in sorted(idsToParse)])}")
 	ApiScrapingUtil.saveCardCatalog(cardCatalog)
