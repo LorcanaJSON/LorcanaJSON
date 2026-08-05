@@ -15,5 +15,11 @@ class FormatCoconutCard:
 		self.numberString = numberMatch.group(1).lstrip("0")
 		self.number: int = int(self.numberString)
 
+	def getOcrIdentifier(self) -> str:
+		"""
+		:return: The identifier used for this Format Coconut card in the OCR cache
+		"""
+		return f"coconut_{self.number}"
+
 	def __str__(self) -> str:
 		return f"{self.fullName} (nr {self.number})"
