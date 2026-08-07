@@ -21,5 +21,8 @@ class FormatCoconutCard:
 		"""
 		return f"coconut_{self.number}"
 
+	def getImageUrl(self):
+		return self.coconutData["card_detail_url"]
+
 	def __str__(self) -> str:
 		return f"{self.fullName} (nr {self.number})"
