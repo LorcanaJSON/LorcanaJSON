@@ -79,6 +79,7 @@ def downloadImagesIfUpdated(cardCatalog: Dict, cardIdsToCheck: List[int], format
 			if _backupAndDownloadImageIfNeeded(baseImagePath, formatCoconutCard.number, formatCoconutCard.getImageUrl(), imageBackupFolderPath, today):
 				formatCoconutCardsWithUpdatedImage.append(formatCoconutCard)
 	return cardIdsWithUpdatedImage, formatCoconutCardsWithUpdatedImage
+
 def _backupAndDownloadImageIfNeeded(basePath: str, cardIdentifier: int, remoteImageUrl: str, backupFolderPath: str, today: str) -> bool:
 	localImagePath = os.path.join(basePath, f"{cardIdentifier}.jpg")
 	if not os.path.isfile(localImagePath):
