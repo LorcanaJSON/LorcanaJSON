@@ -1,0 +1,46 @@
+{
+  "7": [
+    {
+      "abilities": [
+        {
+          "effect": "You can have up to 4 copies of Mufasa - Ruler of Pride Rock in your deck.",
+          "fullText": "(You can have up to 4 copies of Mufasa - Ruler of\nPride Rock in your deck.)",
+          "type": "static"
+        },
+        {
+          "effect": "Once per game during your turn, you may pay 5 \u2b21 to put the top 3 cards of your deck into your inkwell facedown and exerted.",
+          "fullText": "Once per game during your turn, you may pay\n5 \u2b21 to put the top 3 cards of your deck into your\ninkwell facedown and exerted.",
+          "type": "activated"
+        }
+      ],
+      "fullText": "(You can have up to 4 copies of Mufasa - Ruler of\nPride Rock in your deck.)\nOnce per game during your turn, you may pay\n5 \u2b21 to put the top 3 cards of your deck into your\ninkwell facedown and exerted.",
+      "fullTextSections": [
+        "(You can have up to 4 copies of Mufasa - Ruler of\nPride Rock in your deck.)",
+        "Once per game during your turn, you may pay\n5 \u2b21 to put the top 3 cards of your deck into your\ninkwell facedown and exerted."
+      ],
+      "usedUntil": "2026-08-06"
+    }
+  ],
+  "14": [
+    {
+      "abilities": [
+        {
+          "effect": "You can have up to 4 copies of Robin Hood - Sneaky Sleuth in your deck.",
+          "fullText": "(You can have up to 4 copies of Robin Hood -\nSneaky Sleuth in your deck.)",
+          "type": "static"
+        },
+        {
+          "effect": "Once per game during your turn, you may deal 1 damage to each opposing character.",
+          "fullText": "Once per game during your turn, you may deal 1\ndamage to each opposing character.",
+          "type": "activated"
+        }
+      ],
+      "fullText": "(You can have up to 4 copies of Robin Hood -\nSneaky Sleuth in your deck.)\nOnce per game during your turn, you may deal 1\ndamage to each opposing character.",
+      "fullTextSections": [
+        "(You can have up to 4 copies of Robin Hood -\nSneaky Sleuth in your deck.)",
+        "Once per game during your turn, you may deal 1\ndamage to each opposing character."
+      ],
+      "usedUntil": "2026-08-06"
+    }
+  ]
+}

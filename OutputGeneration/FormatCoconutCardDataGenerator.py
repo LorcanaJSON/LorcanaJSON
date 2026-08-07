@@ -34,6 +34,12 @@ def generateFormatCoconutCardData(inputCardData: Dict, outputCardList: List[Dict
 		with open(cardCorrectionsPath, "r") as cardCorrectionsFile:
 			cardCorrections = json.load(cardCorrectionsFile)
 
+	historicDataPath = os.path.join("OutputGeneration", "data", "historicData", f"formatCoconutHistoricData_{GlobalConfig.language.code}.json")
+	historicData: Dict[str, List[Dict]] = {}
+	if os.path.isfile(historicDataPath):
+		with open(historicDataPath, "r") as historicDataFile:
+			historicData = json.load(historicDataFile)
+
 	outputCoconutCards: List[Dict] = []
 	imageParser: ImageParser = ImageParser()
 	baseImagePath: str = os.path.join("downloads", "images", GlobalConfig.language.code, "coconut")
@@ -41,11 +47,12 @@ def generateFormatCoconutCardData(inputCardData: Dict, outputCardList: List[Dict
 		coconutCard = FormatCoconutCard(coconutCardData)
 		if coconutCard.cleanFullName not in cardNameToCard:
 			raise KeyError(f"Unable to match Format Coconut card {coconutCard} to any main card")
-		outputCoconutCards.append(_generateDataForSingleFormatCoconutCard(coconutCard, cardNameToCard[coconutCard.cleanFullName], imageParser, baseImagePath, cardCorrections.pop(coconutCard.numberString, None)))
+		outputCoconutCards.append(_generateDataForSingleFormatCoconutCard(coconutCard, cardNameToCard[coconutCard.cleanFullName], imageParser, baseImagePath, cardCorrections.pop(coconutCard.numberString, None),
+																		  historicData.pop(coconutCard.numberString, None)))
 	outputCoconutCards.sort(key=lambda c: c["number"])
 	return outputCoconutCards
 
-def _generateDataForSingleFormatCoconutCard(coconutCard: FormatCoconutCard, associatedCard: Dict, imageParser: ImageParser, baseImagePath: str, cardCorrections: Optional[Dict]) -> Dict:
+def _generateDataForSingleFormatCoconutCard(coconutCard: FormatCoconutCard, associatedCard: Dict, imageParser: ImageParser, baseImagePath: str, cardCorrections: Optional[Dict], historicCardData: Optional[List[Dict]]) -> Dict:
 	ocrResult: Optional[OcrResult] = None
 	if GlobalConfig.useCachedOcr and not GlobalConfig.skipOcrCache:
 		ocrResult = OcrCacheHandler.getCachedOcrResult(coconutCard.getOcrIdentifier())
@@ -99,6 +106,8 @@ def _generateDataForSingleFormatCoconutCard(coconutCard: FormatCoconutCard, asso
 	if cardCorrections:
 		for fieldName, correctionList in cardCorrections.items():
 			TextCorrection.correctCardFieldFromList(outputData, fieldName, correctionList)
+	if historicCardData:
+		outputData["historicData"] = historicCardData
 	# After corrections are done, fill in fields based on other fields, to prevent needing double corrections
 	outputData["fullTextSections"] = [a["fullText"] for a in abilities]
 	outputData["fullText"] = "\n".join(outputData["fullTextSections"])
