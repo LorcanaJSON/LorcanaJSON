@@ -215,18 +215,21 @@ def createOutputIfNeeded(onlyCreateOnNewCards: bool, cardFieldsToIgnore: List[st
 	idsToParse = [card.id for card in updateCheckResult.newCards]
 	idsToParse.extend([card.id for card in updateCheckResult.changedCards])
 	# Not all possible image changes are actual changes, update only the changed images
-	if updateCheckResult.possibleChangedImages:
-		actualImageChanges = RavensburgerApiHandler.downloadImagesIfUpdated(cardCatalog, [card.id for card in updateCheckResult.possibleChangedImages])
+	if updateCheckResult.possibleChangedImages or updateCheckResult.changedFormatCoconutCards:
+		actualImageChanges, actualChangedFormatCoconutCards = RavensburgerApiHandler.downloadImagesIfUpdated(cardCatalog, [card.id for card in updateCheckResult.possibleChangedImages], list(updateCheckResult.changedFormatCoconutCards))
 		_logger.info(f"{len(actualImageChanges):,} actual image changes: {actualImageChanges}")
 		if actualImageChanges:
 			_logger.info("Image(s) changed, removing OCR cache for these images")
 			OcrCacheHandler.clearOcrCacheForCards(actualImageChanges)
-		if updateCheckResult.removedFormatCoconutCards or updateCheckResult.changedFormatCoconutCards:
-			_logger.info("Format Coconut data changed, removing OCR cache for these cards")
-			coconutOcrIdentifiersToClear: List[str] = [c.getOcrIdentifier() for c in updateCheckResult.removedFormatCoconutCards]
-			coconutOcrIdentifiersToClear.extend([c.getOcrIdentifier() for c in updateCheckResult.changedFormatCoconutCards])
-			OcrCacheHandler.clearOcrCacheForCards(coconutOcrIdentifiersToClear)
 		idsToParse.extend(actualImageChanges)
+		if actualChangedFormatCoconutCards:
+			changedCoconutCardIdentifiers: List[str] = [c.getOcrIdentifier() for c in actualChangedFormatCoconutCards]
+			_logger.info(f"{len(actualChangedFormatCoconutCards):,} Format Coconut cards have changed image data, removing OCR cache for these cards: {actualChangedFormatCoconutCards}")
+			OcrCacheHandler.clearOcrCacheForCards(changedCoconutCardIdentifiers)
+	if updateCheckResult.removedFormatCoconutCards:
+		coconutOcrIdentifiersToClear: List[str] = [c.getOcrIdentifier() for c in updateCheckResult.removedFormatCoconutCards]
+		_logger.info(f"{len(updateCheckResult.removedFormatCoconutCards):,} Format Coconut cards have been removed, removing OCR cache for these cards: {coconutOcrIdentifiersToClear}")
+		OcrCacheHandler.clearOcrCacheForCards(coconutOcrIdentifiersToClear)
 	_logger.info(f"Updated IDs: {' '.join([str(i) for i in sorted(idsToParse)])}")
 	ApiScrapingUtil.saveCardCatalog(cardCatalog)
 	RavensburgerApiHandler.downloadImages()

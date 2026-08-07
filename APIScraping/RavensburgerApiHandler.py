@@ -1,5 +1,5 @@
 import datetime, hashlib, json, logging, os, random, time
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Tuple, Union
 
 import requests
 
@@ -47,9 +47,8 @@ def downloadImage(imageUrl: str, savePath: str, shouldOverwriteImage: bool = Fal
 	_logger.info(f"Successfully downloaded '{savePath}'")
 	return True
 
-def downloadImagesIfUpdated(cardCatalog: Dict, cardIdsToCheck: List[int]) -> List[int]:
+def downloadImagesIfUpdated(cardCatalog: Dict, cardIdsToCheck: List[int], formatCoocnutCardsToCheck: List[FormatCoconutCard]) -> Tuple[List[int], List[FormatCoconutCard]]:
 	cardIdsWithUpdatedImage: List[int] = []
-	imageBackupFolderPath = os.path.join("downloads", "images", GlobalConfig.language.code, "backups")
 	baseImagePath = os.path.join("downloads", "images", GlobalConfig.language.code)
 	imageBackupFolderPath = os.path.join(baseImagePath, "backups")
 	if not os.path.isdir(imageBackupFolderPath):
@@ -69,7 +68,17 @@ def downloadImagesIfUpdated(cardCatalog: Dict, cardIdsToCheck: List[int]) -> Lis
 					break
 			else:
 				_logger.warning(f"Unable to find correct 2048-high image for card ID {cardId}, unable to check if image changed")
-	return cardIdsWithUpdatedImage
+	# Also check for changed Format Coconut cards, if needed
+	formatCoconutCardsWithUpdatedImage: List[FormatCoconutCard] = []
+	if GlobalConfig.language == Language.ENGLISH and formatCoocnutCardsToCheck:
+		baseImagePath = os.path.join(baseImagePath, "coconut")
+		imageBackupFolderPath = os.path.join(baseImagePath, "backup")
+		if not os.path.isdir(imageBackupFolderPath):
+			os.makedirs(imageBackupFolderPath)
+		for formatCoconutCard in formatCoocnutCardsToCheck:
+			if _backupAndDownloadImageIfNeeded(baseImagePath, formatCoconutCard.number, formatCoconutCard.getImageUrl(), imageBackupFolderPath, today):
+				formatCoconutCardsWithUpdatedImage.append(formatCoconutCard)
+	return cardIdsWithUpdatedImage, formatCoconutCardsWithUpdatedImage
 def _backupAndDownloadImageIfNeeded(basePath: str, cardIdentifier: int, remoteImageUrl: str, backupFolderPath: str, today: str) -> bool:
 	localImagePath = os.path.join(basePath, f"{cardIdentifier}.jpg")
 	if not os.path.isfile(localImagePath):
