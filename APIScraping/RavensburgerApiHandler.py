@@ -50,6 +50,8 @@ def downloadImage(imageUrl: str, savePath: str, shouldOverwriteImage: bool = Fal
 def downloadImagesIfUpdated(cardCatalog: Dict, cardIdsToCheck: List[int]) -> List[int]:
 	cardIdsWithUpdatedImage: List[int] = []
 	imageBackupFolderPath = os.path.join("downloads", "images", GlobalConfig.language.code, "backups")
+	baseImagePath = os.path.join("downloads", "images", GlobalConfig.language.code)
+	imageBackupFolderPath = os.path.join(baseImagePath, "backups")
 	if not os.path.isdir(imageBackupFolderPath):
 		os.makedirs(imageBackupFolderPath)
 	today: str = datetime.datetime.today().strftime("%Y-%m-%d")
@@ -60,32 +62,36 @@ def downloadImagesIfUpdated(cardCatalog: Dict, cardIdsToCheck: List[int]) -> Lis
 				continue
 			if GlobalConfig.language.uppercaseCode not in card["card_identifier"]:
 				continue
-			localImagePath = os.path.join("downloads", "images", GlobalConfig.language.code, f"{cardId}.jpg")
-			if not os.path.isfile(localImagePath):
-				_logger.warning(f"Image '{localImagePath}' for ID {cardId} doesn't exist locally, while it was expected to exist. Skipping")
-				continue
-			with open(localImagePath, "rb") as localImageFile:
-				localImageBytes = localImageFile.read()
-				localImageChecksum = hashlib.md5(localImageBytes).hexdigest()
 			for imageData in card["variants"]:
 				if imageData["variant_id"] == "Regular":
-					remoteImageRequest = DownloadUtil.retrieveFromUrl(imageData["detail_image_url"])
-					remoteImageBytes = remoteImageRequest.content
-					remoteImageChecksum = hashlib.md5(remoteImageBytes).hexdigest()
-					if localImageChecksum != remoteImageChecksum:
-						_logger.debug(f"Image for card with ID {cardId} has changed, backing up old version and saving new version")
-						# Images actually differ
-						# Backup the original image first
-						with open(os.path.join(imageBackupFolderPath, f"{cardId}_until_{today}.jpg"), "wb") as backupImageFile:
-							backupImageFile.write(localImageBytes)
-						# Then save the new version
-						with open(localImagePath, "wb") as localImageFile:
-							localImageFile.write(remoteImageBytes)
+					if _backupAndDownloadImageIfNeeded(baseImagePath, cardId, imageData["detail_image_url"], imageBackupFolderPath, today):
 						cardIdsWithUpdatedImage.append(cardId)
 					break
 			else:
 				_logger.warning(f"Unable to find correct 2048-high image for card ID {cardId}, unable to check if image changed")
 	return cardIdsWithUpdatedImage
+def _backupAndDownloadImageIfNeeded(basePath: str, cardIdentifier: int, remoteImageUrl: str, backupFolderPath: str, today: str) -> bool:
+	localImagePath = os.path.join(basePath, f"{cardIdentifier}.jpg")
+	if not os.path.isfile(localImagePath):
+		_logger.warning(f"Image '{localImagePath}' for card identifier {cardIdentifier} doesn't exist locally, while it was expected to exist. Skipping")
+		return False
+	with open(localImagePath, "rb") as localImageFile:
+		localImageBytes = localImageFile.read()
+		localImageChecksum = hashlib.md5(localImageBytes).hexdigest()
+	remoteImageResponse = DownloadUtil.retrieveFromUrl(remoteImageUrl)
+	remoteImageBytes = remoteImageResponse.content
+	remoteImageChecksum = hashlib.md5(remoteImageBytes).hexdigest()
+	if localImageChecksum == remoteImageChecksum:
+		return False
+	# Images actually differ
+	_logger.debug(f"Image for card with Identifier {cardIdentifier} has changed, backing up old version and saving new version")
+	# Backup the original image first
+	with open(os.path.join(backupFolderPath, f"{cardIdentifier}_until_{today}.jpg"), "wb") as backupImageFile:
+		backupImageFile.write(localImageBytes)
+	# Then save the new version
+	with open(localImagePath, "wb") as localImageFile:
+		localImageFile.write(remoteImageBytes)
+	return True
 
 def downloadImages(shouldOverwriteImages: bool = False):
 	startTime = time.perf_counter()
