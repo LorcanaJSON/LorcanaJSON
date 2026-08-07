@@ -74,7 +74,7 @@ def _generateDataForSingleFormatCoconutCard(coconutCard: FormatCoconutCard, asso
 		abilityType = "static"
 		if abilityText.startswith("Whenever"):
 			abilityType = "triggered"
-		elif re.match(r"Once(\sper\sgame)?\sduring\syour\sturn,\syou\smay", abilityText):
+		elif re.match(r"(Once(\sper\sgame)?\sduring\syour|At\sthe\sstart\sof\syour\sfirst)\sturn,\syou\smay", abilityText):
 			abilityType = "activated"
 		abilities.append({
 			"fullText": abilityText,
