@@ -56,6 +56,8 @@ def _generateDataForSingleFormatCoconutCard(coconutCard: FormatCoconutCard, asso
 	fullText = ocrResult.remainingText
 	# The Ink symbol could cause the OCR reader to read a double newline where it should be a single newline, fix that
 	fullText = re.sub(r"(?<=[a-z])\n\n(?=\d)", "\n", fullText)
+	# Sometimes it reads a double newline as a single, combining two abilities into one. Fix that
+	fullText = re.sub("(?<=\\.)\n(?=[A-Z])", "\n\n", fullText)
 	reminderTextMatch = re.match(r"^\([^)]+\)", fullText)
 	if not reminderTextMatch:
 		raise ValueError(f"Unable to find reminder text in {fullText!r} of {coconutCard}")
