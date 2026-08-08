@@ -98,13 +98,13 @@ def getCachedOcrResult(resultIdentifier: Union[int, str]) -> Optional[OcrResult]
 	:return: The cached OCR result for the provided identifier, or None if it couldn't be found or loaded
 	"""
 	cachedOcrResultPath = _buildCachedOcrResultPath(resultIdentifier)
-	if os.path.isfile(cachedOcrResultPath):
-		try:
-			with open(cachedOcrResultPath, "rb") as cachedCardOcrFile:
-				return pickle.load(cachedCardOcrFile)
-		except Exception as e:
-			_logger.error(f"Unable to load cached OCR result for result identifier {resultIdentifier!r}: {e}")
-	return None
+	if not os.path.isfile(cachedOcrResultPath):
+		return None
+	try:
+		with open(cachedOcrResultPath, "rb") as cachedCardOcrFile:
+			return pickle.load(cachedCardOcrFile)
+	except Exception as e:
+		_logger.error(f"Unable to load cached OCR result for result identifier {resultIdentifier!r}: {e}")
 
 def storeOcrResult(resultIdentifier: Union[int, str], ocrResult: OcrResult):
 	cachedOcrResultPath = _buildCachedOcrResultPath(resultIdentifier)
