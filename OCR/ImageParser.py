@@ -43,9 +43,10 @@ class ImageParser:
 		self._tesseractApi.SetVariable("tessedit_fix_hyphens", "0")
 		self._tesseractApi.SetVariable("crunch_early_convert_bad_unlv_chs", "1")
 
-	def getImageAndTextDataFromImage(self, cardId: int, baseImagePath: str, parseFully: bool, parseSettings: ParseSettings, cardType: str = None, hasCardText: bool = None, hasFlavorText: bool = None, showImage: bool = False) -> OcrResult:
+	def getImageAndTextDataFromImage(self, cardId: int, baseImagePath: str, parseFully: bool, parseSettings: ParseSettings, cardType: Optional[str] = None, hasCardText: Optional[bool] = None, hasFlavorText: Optional[bool] = None,
+									 showImage: bool = False) -> OcrResult:
 		startTime = time.perf_counter()
-		result: Dict[str, Optional[Union[ImageAndText, List[ImageAndText]]]] = {
+		result: Dict[str, Union[Optional[ImageAndText], List[ImageAndText]]] = {
 			"flavorText": None,
 			"abilityLabels": [],
 			"abilityTexts": [],
@@ -68,9 +69,10 @@ class ImageParser:
 			imagePath = os.path.join(baseImagePath, f"{cardId}.png")
 		if not os.path.isfile(imagePath):
 			raise FileNotFoundError(f"Unable to find image for card ID {cardId}")
-		cardImage: cv2.Mat = cv2.imread(imagePath)
+		cardImage: Optional[cv2.typing.MatLike] = cv2.imread(imagePath)
 		if cardImage is None:
 			raise ValueError(f"Card image '{imagePath}' could not be loaded, possibly because it doesn't exist")
+		cardImage: cv2.typing.MatLike
 		cardImageHeight = cardImage.shape[0]
 		cardImageWidth = cardImage.shape[1]
 		if cardImageHeight != ImageArea.IMAGE_HEIGHT or cardImageWidth != ImageArea.IMAGE_WIDTH:
@@ -105,7 +107,7 @@ class ImageParser:
 		if isLocation:
 			# Location cards are horizontal, so the image should be rotated for proper OCR
 			cardImage = cv2.rotate(cardImage, cv2.ROTATE_90_CLOCKWISE)
-		greyCardImage: cv2.Mat = cv2.cvtColor(cardImage, cv2.COLOR_BGR2GRAY)
+		greyCardImage: cv2.typing.MatLike = cv2.cvtColor(cardImage, cv2.COLOR_BGR2GRAY)
 
 		isCharacter = None
 		if cardType:
@@ -175,8 +177,8 @@ class ImageParser:
 
 		# Find where the ability name labels are, store them as the top y, bottom y and the right x, so we know where to get the text from
 		# New-style Enchanted cards get parsed differently because this method doesn't find labels on those, it's handled in the 'remainingText' parsing section
-		textboxEdgeDetectedImage: Optional[Image.Image] = None
-		textboxLinesImage: Optional[Image.Image] = None
+		textboxEdgeDetectedImage: Optional[cv2.typing.MatLike] = None
+		textboxLinesImage: Optional[cv2.typing.MatLike] = None
 		labelCoords = []
 		if hasCardText is not False or parseSettings.hasCardTextOverride is True:
 			if parseSettings.labelParsingMethod == LABEL_PARSING_METHODS.DEFAULT:
@@ -227,6 +229,8 @@ class ImageParser:
 			elif parseSettings.labelParsingMethod == LABEL_PARSING_METHODS.FALLBACK_BY_LINES:
 				# Find labels by trying to find their top and/or bottom horizontal edge
 				textboxEdgeDetectedImage = cv2.Canny(greyTextboxImage, 50, 200)
+				if textboxEdgeDetectedImage is None:
+					raise ValueError(f"Unable to get textbox edge detection image for card ID {cardId}")
 				lines = cv2.HoughLinesP(textboxEdgeDetectedImage, 1, math.pi / 180, 150, minLineLength=125, maxLineGap=parseSettings.lineParsingMaxGap)
 				if lines is None:
 					self._logger.debug(f"Not found any abiltylabel lines in card {cardId}, trying a shorter minimum length")
@@ -238,7 +242,7 @@ class ImageParser:
 					lines = sorted(lines, key=lambda l: l[0][1])
 					self._logger.debug(f"In line fallback method found {len(lines):,} lines: {lines}")
 					if showImage:
-						textboxLinesImage = greyTextboxImage.copy()
+						textboxLinesImage: cv2.typing.MatLike = greyTextboxImage.copy()
 						lineColor = (0, 0, 0) if parseSettings.labelTextColor == ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND else (255, 255, 255)
 						for line in lines:
 							cv2.line(textboxLinesImage, (line[0][0], line[0][1]), (line[0][2], line[0][3]), lineColor, 2, cv2.LINE_AA)
@@ -274,18 +278,18 @@ class ImageParser:
 		self._logger.debug(f"Finished finding label coords at {time.perf_counter() - startTime} seconds in")
 
 		# Find the line dividing the abilities from the flavor text, if needed
-		flavorTextImage = None
+		flavorTextImage: Optional[cv2.typing.MatLike] = None
 		flavorTextSeparatorY = textboxHeight
-		flavorTextLineDetectionCroppedImage: Optional[cv2.Mat] = None
-		flavorTextEdgeDetectedImage = None
-		flavorTextGreyscaleImageWithLines = None
+		flavorTextLineDetectionCroppedImage: Optional[cv2.typing.MatLike] = None
+		flavorTextEdgeDetectedImage: Optional[cv2.typing.MatLike] = None
+		flavorTextGreyscaleImageWithLines: Optional[cv2.typing.MatLike] = None
 		if parseSettings.hasFlavorTextOverride or (parseSettings.hasFlavorTextOverride is None and hasFlavorText is not False):
 			flavorTextImageTop = 0
-			flavorTextLineDetectionCroppedImage = greyTextboxImage
+			flavorTextLineDetectionCroppedImage: cv2.typing.MatLike = greyTextboxImage
 			if labelCoords:
 				flavorTextImageTop = labelCoords[-1][1] + 5
 				flavorTextLineDetectionCroppedImage = greyTextboxImage[flavorTextImageTop:textboxHeight, 0:textboxWidth]
-			flavorTextEdgeDetectedImage = cv2.Canny(flavorTextLineDetectionCroppedImage, 50, 200)
+			flavorTextEdgeDetectedImage: cv2.typing.MatLike = cv2.Canny(flavorTextLineDetectionCroppedImage, 50, 200)
 			lines = cv2.HoughLinesP(flavorTextEdgeDetectedImage, 1, math.pi / 180, 150, minLineLength=70)
 			if lines is None and hasFlavorText is True:
 				# Sometimes it can't find the full separator line, try to find a section of it instead
@@ -306,7 +310,7 @@ class ImageParser:
 						continue
 					self._logger.debug(f"line length: {line[0][2] - line[0][0]}")
 					# Draw the lines for debug purposes
-					if showImage:
+					if showImage and flavorTextGreyscaleImageWithLines is not None:
 						cv2.line(flavorTextGreyscaleImageWithLines, (line[0][0], line[0][1]), (line[0][2], line[0][3]), (0, 0, 0), 3, cv2.LINE_AA)
 					if line[0][1] > flavorTextSeparatorY:
 						flavorTextSeparatorY = line[0][1]
@@ -322,7 +326,7 @@ class ImageParser:
 						self._logger.warning(f"Flavortext separator Y {flavorTextSeparatorY} plus margin {_FLAVORTEXT_MARGIN} is larger than textbox height {textboxHeight} in card {cardId}")
 						hasFlavorText = False
 					else:
-						flavorTextImage = self._convertToThresholdImage(greyTextboxImage[flavorTextSeparatorY + _FLAVORTEXT_MARGIN:textboxHeight, 0:textboxWidth], parseSettings.thresholdTextColor)
+						flavorTextImage: cv2.typing.MatLike = self._convertToThresholdImage(greyTextboxImage[flavorTextSeparatorY + _FLAVORTEXT_MARGIN:textboxHeight, 0:textboxWidth], parseSettings.thresholdTextColor)
 						flavourText = self._imageToString(flavorTextImage)
 						result["flavorText"] = ImageAndText(flavorTextImage, flavourText)
 						self._logger.debug(f"{flavourText=}")
@@ -478,7 +482,9 @@ class ImageParser:
 		imageFilePath = os.path.join(baseImagePath, f"{coconutCard.number}.jpg")
 		if not os.path.isfile(imageFilePath):
 			raise FileNotFoundError(f"The image file for Format Coconut card {coconutCard} is missing, please run the 'download' action first")
-		cardImage: cv2.Mat = cv2.imread(imageFilePath)
+		cardImage: Optional[cv2.typing.MatLike] = cv2.imread(imageFilePath)
+		if cardImage is None:
+			raise ValueError(f"Unable to read image for coconut card {coconutCard}")
 		cardImageAndText: ImageAndText = self._getSubImageAndText(cardImage, parseSettings.cardLayout.textbox)
 		artistImageAndText: ImageAndText = self._getSubImageAndText(cardImage, parseSettings.cardLayout.artist)
 		if shouldShowImages:
@@ -490,19 +496,19 @@ class ImageParser:
 		return ocrResult
 
 	@staticmethod
-	def _getSubImage(image, imageArea: ImageArea.ImageArea, offsetLeft: int = 0, offsetRight: int = 0, offsetTop: int = 0, offsetBottom: int = 0) -> cv2.Mat:
+	def _getSubImage(image: cv2.typing.MatLike, imageArea: ImageArea.ImageArea, offsetLeft: int = 0, offsetRight: int = 0, offsetTop: int = 0, offsetBottom: int = 0) -> cv2.typing.MatLike:
 		return image[imageArea.coords.top+offsetTop:imageArea.coords.bottom+offsetBottom, imageArea.coords.left+offsetLeft:imageArea.coords.right+offsetRight]
 
 	@staticmethod
-	def _convertToThresholdImage(greyscaleImage, textColour: ImageArea.TextColour) -> cv2.Mat:
+	def _convertToThresholdImage(greyscaleImage, textColour: ImageArea.TextColour) -> cv2.typing.MatLike:
 		threshold, thresholdImage = cv2.threshold(greyscaleImage, textColour.thresholdValue, 255, textColour.thresholdType)
 		return thresholdImage
 
 	@staticmethod
-	def _cv2ImageToPillowImage(cv2Image: cv2.Mat) -> Image.Image:
+	def _cv2ImageToPillowImage(cv2Image: cv2.typing.MatLike) -> Image.Image:
 		return Image.fromarray(cv2.cvtColor(cv2Image, cv2.COLOR_BGR2RGB))
 
-	def _imageToString(self, image: cv2.Mat, isNumeric: bool = False, imageAreaName: str = None) -> str:
+	def _imageToString(self, image: cv2.typing.MatLike, isNumeric: bool = False, imageAreaName: Optional[str] = None) -> str:
 		# TesserOCR uses Pillow-format images, so convert our CV2-format image
 		self._tesseractApi.SetImage(self._cv2ImageToPillowImage(image))
 		result: str = self._tesseractApi.GetUTF8Text().rstrip("\n")
@@ -520,6 +526,7 @@ class ImageParser:
 				result = "6"
 			elif result == "Q":
 				result = "9"
+			imageAreaName: str = imageAreaName if imageAreaName else "[unknown]"
 			if originalResult == result:
 				self._logger.error(f"Asked to find number in image area '{imageAreaName}' but found non-numeric result '{result}'")
 				return "-1"
@@ -527,7 +534,7 @@ class ImageParser:
 				self._logger.info(f"Corrected non-numeric result '{originalResult}' to '{result}' for image area '{imageAreaName}'")
 		return result
 
-	def _getSubImageAndText(self, cardImage: cv2.Mat, imageArea: ImageArea.ImageArea, forceTextColor: Optional[ImageArea.TextColour] = None) -> ImageAndText:
+	def _getSubImageAndText(self, cardImage: cv2.typing.MatLike, imageArea: ImageArea.ImageArea, forceTextColor: Optional[ImageArea.TextColour] = None) -> ImageAndText:
 		subImage = self._getSubImage(cardImage, imageArea)
 		# Numeric reading is more sensitive, so convert to a clearer threshold image
 		textColour = forceTextColor if forceTextColor else imageArea.textColour
@@ -536,7 +543,7 @@ class ImageParser:
 		return ImageAndText(subImage, self._imageToString(subImage, imageArea.isNumeric, imageArea.keyName))
 
 	@staticmethod
-	def _isImageBlack(image: cv2.Mat) -> bool:
+	def _isImageBlack(image: cv2.typing.MatLike) -> bool:
 		"""
 		Check whether the whole provided image is black. Useful for border checks, to determine image type
 		:param image: The image to check. Should usually be a sub image of a card image

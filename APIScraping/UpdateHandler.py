@@ -1,5 +1,5 @@
 import datetime, json, logging, os
-from typing import Dict, List
+from typing import Dict, List, Optional
 
 import GlobalConfig
 from APIScraping import ApiScrapingUtil, RavensburgerApiHandler
@@ -11,21 +11,21 @@ from util.FormatCoconutCard import FormatCoconutCard
 
 _logger = logging.getLogger("LorcanaJSON")
 
-def checkForNewCardData(newCardCatalog: Dict = None, fieldsToIgnore: List[str] = None, includeCardChanges: bool = True, ignoreOrderChanges: bool = True) -> UpdateCheckResult:
+def checkForNewCardData(newCardCatalog: Optional[Dict] = None, fieldsToIgnore: Optional[List[str]] = None, includeCardChanges: bool = True, ignoreOrderChanges: bool = True) -> UpdateCheckResult:
 	# We need to find the old cards by ID, so set up a dict
 	oldCards: Dict[int, Dict] = {}
 	oldCoconutCardsByNumber: Dict[int, FormatCoconutCard] = {}
 	# Keep track of known card fields, so we can notice if new cards add new fields
 	knownCardFieldNames: List[str] = []
 	knownVariantFieldNames: List[str] = []
-	oldCardCatalog: Dict = None
+	oldCardCatalog: Optional[Dict] = None
 	pathToCardCatalog = os.path.join("downloads", "json", f"carddata.{GlobalConfig.language.code}.json")
 	if os.path.isfile(pathToCardCatalog):
 		with open(pathToCardCatalog, "r") as cardCatalogFile:
-			oldCardCatalog = json.load(cardCatalogFile)
+			oldCardCatalog: Dict = json.load(cardCatalogFile)
 		for cardtype, cardlist in oldCardCatalog["cards"].items():
 			for cardIndex in range(len(cardlist)):
-				card = cardlist.pop()
+				card: Dict = cardlist.pop()
 				if GlobalConfig.language.uppercaseCode not in card["card_identifier"]:
 					continue
 				cardId = card["culture_invariant_id"]
@@ -51,7 +51,7 @@ def checkForNewCardData(newCardCatalog: Dict = None, fieldsToIgnore: List[str] =
 
 	# Get the new card catalog, if needed
 	if not newCardCatalog:
-		newCardCatalog = RavensburgerApiHandler.retrieveCardCatalog()
+		newCardCatalog: Dict = RavensburgerApiHandler.retrieveCardCatalog()
 
 	# Now go through all the new cards and see if the card exists in the old list, and if so, if the values are the same
 	updateCheckResult: UpdateCheckResult = UpdateCheckResult()
@@ -74,7 +74,7 @@ def checkForNewCardData(newCardCatalog: Dict = None, fieldsToIgnore: List[str] =
 							knownVariantFieldNames.append(fieldName)
 			elif includeCardChanges:
 				# Remove the card from the old card dictionary, so we know which ones are left over (if any)
-				oldCard = oldCards.pop(cardId)
+				oldCard: Dict = oldCards.pop(cardId)
 				if not fieldsToIgnore or ("image_urls" not in fieldsToIgnore and "variants" not in fieldsToIgnore):
 					# Specifically check for image URLs, because if the checksum changed, we may need to redownload it
 					imageUrl = None
@@ -205,7 +205,7 @@ def checkForNewCardData(newCardCatalog: Dict = None, fieldsToIgnore: List[str] =
 
 	return updateCheckResult
 
-def createOutputIfNeeded(onlyCreateOnNewCards: bool, cardFieldsToIgnore: List[str] = None, shouldShowImages: bool = False):
+def createOutputIfNeeded(onlyCreateOnNewCards: bool, cardFieldsToIgnore: Optional[List[str]] = None, shouldShowImages: bool = False):
 	cardCatalog = RavensburgerApiHandler.retrieveCardCatalog()
 	updateCheckResult: UpdateCheckResult = checkForNewCardData(cardCatalog, cardFieldsToIgnore, includeCardChanges=not onlyCreateOnNewCards)
 	if not updateCheckResult.hasChanges():

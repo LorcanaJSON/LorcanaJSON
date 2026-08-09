@@ -17,7 +17,7 @@ class Identifier:
 	language: str
 	number: int
 	setCode: str
-	variant: str = None
+	variant: Optional[str] = None
 
 	def isBaseCard(self) -> bool:
 		"""

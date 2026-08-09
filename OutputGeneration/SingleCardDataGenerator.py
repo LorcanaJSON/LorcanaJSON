@@ -40,7 +40,7 @@ _DOUBLE_WORD_SUBTYPES: Dict[Language.Language, Dict[str, str]] = {
 }
 
 
-def parseSingleCard(inputCard: Dict, ocrResult: OcrResult, externalLinksHandler: ExternalLinksHandler, relatedCards: RelatedCards, cardDataCorrections: Dict, storyParser: StoryParser,
+def parseSingleCard(inputCard: Dict, ocrResult: OcrResult, externalLinksHandler: ExternalLinksHandler, relatedCards: RelatedCards, cardDataCorrections: Optional[Dict], storyParser: StoryParser,
 					historicData: Optional[List[Dict]],	allowedCardsHandler: AllowedInFormatsHandler, promoSourceHandler: PromoSourceHandler, artistsHandler: ArtistsHandler) -> Optional[Dict]:
 	# Store some default values
 	outputCard: Dict[str, Union[str, int, List, Dict]] = {
@@ -65,6 +65,8 @@ def parseSingleCard(inputCard: Dict, ocrResult: OcrResult, externalLinksHandler:
 	if GlobalConfig.language.uppercaseCode not in outputCard["fullIdentifier"]:
 		_logger.info(f"Card ID {outputCard['id']} ({outputCard['fullIdentifier']}) is not in current language '{GlobalConfig.language.englishName}', skipping")
 		return None
+	if parsedIdentifier is None:
+		raise ValueError(f"Unable to determine parsed identifier of card {CardUtil.createCardIdentifier(inputCard)}")
 	# Set the grouping ('P1', 'D23', etc) for promo cards
 	if parsedIdentifier and parsedIdentifier.isPromo():
 		outputCard["promoGrouping"] = parsedIdentifier.grouping
@@ -388,7 +390,7 @@ def parseSingleCard(inputCard: Dict, ocrResult: OcrResult, externalLinksHandler:
 	fullTextCorrection: Optional[List[str]] = None  # Since the fullText gets created as the last step, if there is a correction for it, save it for later
 	forceAbilityTypeAtIndex: Dict[int, str] = {}  # index to ability type
 	newlineAfterLabelIndex: int = -1
-	moveAbilityAtIndexToIndex: Optional[List[int, int]] = None
+	moveAbilityAtIndexToIndex: Optional[List[int]] = None
 	skipFullTextSectionMergeAtIndex: List[int] = []
 	if cardDataCorrections:
 		if cardDataCorrections.pop("_moveKeywordsLast", False):

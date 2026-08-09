@@ -339,7 +339,7 @@ def correctPunctuation(textToCorrect: str) -> str:
 		_logger.info(f"Corrected punctuation from {textToCorrect!r} to {correctedText!r}")
 	return correctedText
 
-def correctCardField(card: Dict, fieldName: str, regexMatchString: str, correction: str) -> None:
+def correctCardField(card: Dict, fieldName: str, regexMatchString: Union[str, None], correction: Union[int, str, None]) -> None:
 	"""
 	Correct card-specific mistakes in the fieldName field of the provided card
 	:param card: The output card as parsed so far

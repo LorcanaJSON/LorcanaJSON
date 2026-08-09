@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 
 COUNTS: dict[str, list[int]] = {}
 
@@ -28,19 +28,19 @@ class StringReplaceCounter:
 		_count(whatToReplace, replaceCount)
 		return self
 
-	def strip(self, stripChars: str = None) -> "StringReplaceCounter":
+	def strip(self, stripChars: Optional[str] = None) -> "StringReplaceCounter":
 		beforeLength = len(self.s)
 		self.s = self.s.strip(stripChars)
 		_count(f"strip_{stripChars}", beforeLength - len(self.s))
 		return self
 
-	def lstrip(self, stripChars: str = None) -> "StringReplaceCounter":
+	def lstrip(self, stripChars: Optional[str] = None) -> "StringReplaceCounter":
 		beforeLength = len(self.s)
 		self.s = self.s.lstrip(stripChars)
 		_count(f"lstrip_{stripChars}", beforeLength - len(self.s))
 		return self
 
-	def rstrip(self, stripChars: str = None) -> "StringReplaceCounter":
+	def rstrip(self, stripChars: Optional[str] = None) -> "StringReplaceCounter":
 		beforeLength = len(self.s)
 		self.s = self.s.rstrip(stripChars)
 		_count(f"rstrip_{stripChars}", beforeLength - len(self.s))

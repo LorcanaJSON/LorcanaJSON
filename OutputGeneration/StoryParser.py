@@ -8,7 +8,7 @@ _logger = logging.getLogger("LorcanaJSON")
 
 
 class StoryParser:
-	def __init__(self, onlyParseIds: List[int]):
+	def __init__(self, onlyParseIds: Optional[List[int]]):
 		startTime = time.perf_counter()
 		with open(os.path.join("OutputGeneration", "data", "fromStories.json"), "r", encoding="utf-8") as fromStoriesFile:
 			fromStories = json.load(fromStoriesFile)
@@ -66,7 +66,7 @@ class StoryParser:
 						self._cardIdToStoryName[cardId] = storyName
 		_logger.debug(f"Reorganized story data after {time.perf_counter() - startTime:.4f} seconds")
 
-	def getStoryNameForCard(self, card, cardId: int, extaSearchTerms: Optional[List[str]]) -> Optional[str]:
+	def getStoryNameForCard(self, card: Dict, cardId: int, extaSearchTerms: Optional[List[str]]) -> Optional[str]:
 		if cardId in self._cardIdToStoryName:
 			# Card is already stored, by directly referencing its ID in the 'fromStories' file, so we don't need to do anything anymore
 			return self._cardIdToStoryName[cardId]

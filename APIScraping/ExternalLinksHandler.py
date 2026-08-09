@@ -181,7 +181,7 @@ class ExternalLinksHandler:
 			for cardnumber, carddata in cardsBySet[setcode].items():
 				cardmarketUrl: Optional[str] = carddata.get("cardmarketUrl", None)
 				if cardmarketUrl:
-					cardmarketUrl = cardmarketUrl.lower()  # Prevent case differences in names from causing problems ("Look at this Family" versus "Look at This Family")
+					cardmarketUrl: str = cardmarketUrl.lower()  # Prevent case differences in names from causing problems ("Look at this Family" versus "Look at This Family")
 					if cardmarketUrl not in cardmarketUrlToCardNumbers:
 						cardmarketUrlToCardNumbers[cardmarketUrl] = []
 					cardmarketUrlToCardNumbers[cardmarketUrl].append(cardnumber)
@@ -253,7 +253,7 @@ class ExternalLinksHandler:
 		if outputId:
 			outputData[outputKey] = outputId
 
-	def getExternalLinksForCard(self, parsedIdentifier: Identifier) -> Optional[Dict[str, str]]:
+	def getExternalLinksForCard(self, parsedIdentifier: Identifier) -> Dict[str, Union[int, str]]:
 		if parsedIdentifier.setCode not in self._externalLinks:
 			_LOGGER.error(f"Setcode '{parsedIdentifier.setCode}' does not exist in the External IDs data")
 		numberGroupingString = f"{parsedIdentifier.number}/{parsedIdentifier.grouping}"
@@ -261,7 +261,7 @@ class ExternalLinksHandler:
 		if parsedIdentifier.variant:
 			numberGroupingString = numberGroupingString.replace("/", parsedIdentifier.variant + "/")
 			numberString += parsedIdentifier.variant
-		cardExternalLinks: Optional[Dict] = None
+		cardExternalLinks: Optional[Dict[str, Union[int, str]]] = None
 		if parsedIdentifier.isPromo():
 			if numberGroupingString in self._externalLinks["Promos"]:
 				cardExternalLinks = self._externalLinks["Promos"][numberGroupingString]
@@ -276,7 +276,7 @@ class ExternalLinksHandler:
 			_LOGGER.warning(f"Unable to find external ID entry for full identifier '{parsedIdentifier}'")
 			return {}
 		# In rare cases multiple cards have the same number grouping ("Moana/Viana - Adventurer on Land and Sea", ID 1433 & 1663); make a copy of the data so changes in one card's data don't affect the other
-		cardExternalLinks = cardExternalLinks.copy()
+		cardExternalLinks: Dict[str, Union[int, str]] = cardExternalLinks.copy()
 		# Some parts need extra filling in
 		# Cardmarket lists Enchanted cards with '-V2' at the end, and the non-Enchanted version with '-V1'. Promo versions are either '-V1' or '-V2'
 		if "cardmarketUrl" in cardExternalLinks:

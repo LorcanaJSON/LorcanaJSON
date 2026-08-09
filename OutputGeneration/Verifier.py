@@ -75,7 +75,7 @@ def compareInputToOutput(cardIdsToVerify: Optional[List[int]]):
 		_prepareInputCardRulesText(inputCard)
 		_prepareInputCardFlavorText(inputCard)
 		# Implement overrides
-		listEntryLengthChange: Optional[Dict[str, List[int, int]]] = None
+		listEntryLengthChange: Optional[Dict[str, List[int]]] = None
 		listFieldLengthChange: Optional[Dict[str, int]] = None
 		symbolCountChange: Optional[Dict[str, int]] = None
 		openQuotemarkCountChange: int = 0

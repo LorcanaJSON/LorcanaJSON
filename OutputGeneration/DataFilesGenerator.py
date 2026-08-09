@@ -35,7 +35,7 @@ def createOutputFiles(onlyParseIds: Optional[List[int]] = None, shouldShowImages
 		raise FileNotFoundError(f"Card catalog for language '{GlobalConfig.language.code}' doesn't exist. Run the data downloader first")
 
 	with open(os.path.join("OutputGeneration", "data", "outputDataCorrections", "outputDataCorrections.json"), "r", encoding="utf-8") as correctionsFile:
-		cardDataCorrections: Dict[str, Dict[str, List[str, str]]] = json.load(correctionsFile)
+		cardDataCorrections: Dict[str, Dict[str, List[str]]] = json.load(correctionsFile)
 	correctionsFilePath = os.path.join("OutputGeneration", "data", "outputDataCorrections", f"outputDataCorrections_{GlobalConfig.language.code}.json")
 	if os.path.isfile(correctionsFilePath):
 		with open(correctionsFilePath, "r", encoding="utf-8") as correctionsFile:
