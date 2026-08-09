@@ -41,7 +41,7 @@ def correctText(cardText: str) -> str:
 	# Make sure there's a period before a closing bracket
 	cardText = re.sub(fr"([^.,'!?’{LorcanaSymbols.STRENGTH}])\)", r"\1.)", cardText)
 	# Strip erroneously detected characters from the end
-	cardText = re.sub(r" [‘‘;]$", "", cardText, flags=re.MULTILINE)
+	cardText = re.sub(r" ['‘;]$", "", cardText, flags=re.MULTILINE)
 	# The Lore symbol often gets mistaken for a 4, À, or è, correct hat
 	cardText = re.sub(r"(\d) ?[4Àè](?=[ \n.])", fr"\1 {LorcanaSymbols.LORE}", cardText)
 	# It sometimes misses the strength symbol between a number and the closing bracket
@@ -53,7 +53,7 @@ def correctText(cardText: str) -> str:
 	# Negative numbers are always followed by a strength symbol, correct that
 	cardText = re.sub(fr"(?<= )(-\d)( [^{LorcanaSymbols.STRENGTH}{LorcanaSymbols.LORE}a-z .]{{1,2}})?( \w{{2,}}|$)", fr"\1 {LorcanaSymbols.STRENGTH}\3", cardText, flags=re.MULTILINE)
 	# Two numbers in a row never happens, or a digit followed by a loose capital lettter. The latter should probably be a Strength symbol
-	cardText = re.sub(r"(\d) \(?[0-9DGOQ]{1,2}[%{}°»]?(?=\W|\.)", f"\\1 {LorcanaSymbols.STRENGTH}", cardText)
+	cardText = re.sub(r"(\d) \(?[0-9DGOQ]{1,2}[%{}°»]?(?=[\W.])", f"\\1 {LorcanaSymbols.STRENGTH}", cardText)
 	# Letters after a quotemark at the start of a line should be capitalized
 	cardText = re.sub("^“[a-z]", lambda m: m.group(0).upper(), cardText, flags=re.MULTILINE)
 	while re.search(f"\\s[^?!.…”“0-9{LorcanaSymbols.INK}]$", cardText):
@@ -217,7 +217,7 @@ def correctText(cardText: str) -> str:
 		cardText = re.sub(fr"(\b[Pp]ag(a(?:re)?|hi)\s\d )[^{LorcanaSymbols.INK} .\n]+", fr"\1{LorcanaSymbols.INK}", cardText)
 		cardText = re.sub(r"(\b[Pp]aga(?:re)?\s\d)[0Q]", f"\\1 {LorcanaSymbols.INK}", cardText)
 		# Correct Support reminder text
-		cardText = re.sub(r"(?<=aggiungere\sla\ssua\s)(?:\S+)(\salla\s)(?:\S+)(?=\sdi\sun)", f"{LorcanaSymbols.STRENGTH}\\1{LorcanaSymbols.STRENGTH}", cardText)
+		cardText = re.sub(r"(?<=aggiungere\sla\ssua\s)\S+(\salla\s)\S+(?=\sdi\sun)", f"{LorcanaSymbols.STRENGTH}\\1{LorcanaSymbols.STRENGTH}", cardText)
 		cardText = re.sub(fr"(?<=puoi aggiungere la sua )(?:. )?alla(?=\n[^{LorcanaSymbols.STRENGTH}])", f"{LorcanaSymbols.STRENGTH} alla {LorcanaSymbols.STRENGTH}", cardText)
 		# Correct 'Evasive', it sometimes imagines a character between the 'S' and the 'f'
 		cardText = re.sub(r"^S.fuggente\b", "Sfuggente", cardText)
