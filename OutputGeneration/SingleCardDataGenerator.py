@@ -55,20 +55,23 @@ def parseSingleCard(inputCard: Dict, ocrResult: OcrResult, externalLinksHandler:
 		parsedIdentifier = IdentifierParser.parseIdentifier(inputCard["card_identifier"])
 
 	if ocrResult.identifier and (ocrResult.identifier.startswith("0") or "TFC" in ocrResult.identifier or GlobalConfig.language.uppercaseCode not in ocrResult.identifier):
-		outputCard["fullIdentifier"] = re.sub(fr" ?\W (?!$)", LorcanaSymbols.SEPARATOR_STRING, ocrResult.identifier)
-		outputCard["fullIdentifier"] = outputCard["fullIdentifier"].replace("I", "/").replace("1P ", "/P ").replace("//", "/").replace(".", "").replace("1TFC", "1 TFC").rstrip(" —")
-		outputCard["fullIdentifier"] = re.sub(fr" ?[-+] ?", LorcanaSymbols.SEPARATOR_STRING, outputCard["fullIdentifier"])
+		fullIdentifier: str = re.sub(fr" ?\W (?!$)", LorcanaSymbols.SEPARATOR_STRING, ocrResult.identifier)
+		fullIdentifier = fullIdentifier.replace("I", "/").replace("1P ", "/P ").replace("//", "/").replace(".", "").replace("1TFC", "1 TFC").rstrip(" —")
+		fullIdentifier = re.sub(fr" ?[-+] ?", LorcanaSymbols.SEPARATOR_STRING, fullIdentifier)
 		if parsedIdentifier is None:
-			parsedIdentifier = IdentifierParser.parseIdentifier(outputCard["fullIdentifier"])
-	else:
+			parsedIdentifier = IdentifierParser.parseIdentifier(fullIdentifier)
+		outputCard["fullIdentifier"] = fullIdentifier
+	elif parsedIdentifier is not None:
 		outputCard["fullIdentifier"] = str(parsedIdentifier)
 	if GlobalConfig.language.uppercaseCode not in outputCard["fullIdentifier"]:
 		_logger.info(f"Card ID {outputCard['id']} ({outputCard['fullIdentifier']}) is not in current language '{GlobalConfig.language.englishName}', skipping")
 		return None
+
 	if parsedIdentifier is None:
 		raise ValueError(f"Unable to determine parsed identifier of card {CardUtil.createCardIdentifier(inputCard)}")
+
 	# Set the grouping ('P1', 'D23', etc) for promo cards
-	if parsedIdentifier and parsedIdentifier.isPromo():
+	if parsedIdentifier.isPromo():
 		outputCard["promoGrouping"] = parsedIdentifier.grouping
 		outputCard["rarity"] = GlobalConfig.translation.SPECIAL
 
