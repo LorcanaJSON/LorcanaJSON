@@ -1,12 +1,7 @@
-from typing import Optional
-
 from OCR.ParseSettings import ParseSettingsCardIdOverrides, ParseSettingsPresets
 from OCR.ParseSettings.ParseSettings import ParseSettings
 from util.IdentifierParser import Identifier
 
-
-def getParseSetingsById(cardId: int) -> Optional[ParseSettings]:
-	return ParseSettingsCardIdOverrides.PARSE_SETTINGS_BY_ID.get(cardId, None)
 
 def getParseSettings(cardId: int, identifier: Identifier, isEpic: bool, isEnchanted: bool) -> ParseSettings:
 	if cardId in ParseSettingsCardIdOverrides.PARSE_SETTINGS_BY_ID:
