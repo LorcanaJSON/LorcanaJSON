@@ -106,7 +106,7 @@ def createOutputFiles(onlyParseIds: Optional[List[int]] = None, shouldShowImages
 			# Add some preprocessed data that we need in several places
 			inputCard["_idAsString"] = str(cardId)
 			inputCard["_parsedIdentifier"] = IdentifierParser.parseIdentifier(inputCard["card_identifier"])
-			inputCard["_parseSettings"] = getParseSettings(inputCard)
+			inputCard["_parseSettings"] = ParseSettingsPicker.getParseSettings(inputCard["culture_invariant_id"], inputCard["_parsedIdentifier"], inputCard["rarity"] == "EPIC", inputCard["rarity"] == "ENCHANTED")
 			inputCard["_type"] = cardTypeText
 			cardIdsStored.append(inputCard["culture_invariant_id"])
 			inputCards.append(inputCard)
@@ -376,8 +376,6 @@ def createOutputFiles(onlyParseIds: Optional[List[int]] = None, shouldShowImages
 	_saveZippedFile(os.path.join(setOutputFolder, "allSets.zip"), setFilePaths)
 	_logger.info(f"Created the set files in {time.perf_counter() - startTime:.4f} seconds")
 
-def getParseSettings(inputCard: Dict) -> ParseSettings:
-	return ParseSettingsPicker.getParseSettings(inputCard["culture_invariant_id"], inputCard["_parsedIdentifier"], inputCard["rarity"] == "EPIC", inputCard["rarity"] == "ENCHANTED")
 
 def getOcrResultForCard(inputCard: Dict, imageFolder: str, threadLocalStorage, isExternalReveal: bool, shouldShowImage: bool = False) -> OcrResult:
 	cardId: int = inputCard["culture_invariant_id"]
