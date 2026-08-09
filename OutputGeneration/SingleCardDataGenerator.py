@@ -594,8 +594,11 @@ def parseSingleCard(inputCard: Dict, ocrResult: OcrResult, externalLinksHandler:
 						# There should've been a space between the keyword and the numeric value, but something went wrong with parsing. Try to add it back in
 						_logger.debug(f"No space found in keyword-keywordvalue pair {keyword!r}, splitting by regular expression")
 						keywordNameValueMatch = re.match(r"(\w+)(\d+)", keyword)
-						keyword = keywordNameValueMatch.group(1)
-						keywordValue = keywordNameValueMatch.group(2)
+						if keywordNameValueMatch:
+							keyword = keywordNameValueMatch.group(1)
+							keywordValue = keywordNameValueMatch.group(2)
+						else:
+							_logger.warning(f"Unable to match keyword and value of '{keyword}' in ability index {abilityIndex} of card {CardUtil.createCardIdentifier(outputCard)}")
 				elif keyword[-3].isnumeric():
 					# From set 9 on, Shift gets written as "Shift x {ink}", check for that too
 					keyword, keywordValue, inkSymbol = keyword.rsplit(" ", 2)
