@@ -376,7 +376,6 @@ def createOutputFiles(onlyParseIds: Optional[List[int]] = None, shouldShowImages
 	_saveZippedFile(os.path.join(setOutputFolder, "allSets.zip"), setFilePaths)
 	_logger.info(f"Created the set files in {time.perf_counter() - startTime:.4f} seconds")
 
-
 def getOcrResultForCard(inputCard: Dict, imageFolder: str, threadLocalStorage, isExternalReveal: bool, shouldShowImage: bool = False) -> OcrResult:
 	cardId: int = inputCard["culture_invariant_id"]
 	ocrResult: OcrResult = threadLocalStorage.imageParser.getImageAndTextDataFromImage(
