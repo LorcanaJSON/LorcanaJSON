@@ -5,6 +5,7 @@ import GlobalConfig
 from OCR import OcrCacheHandler
 from OCR.ImageParser import ImageParser
 from OCR.OcrResult import OcrResult
+from OCR.ParseSettings import ParseSettingsPresets
 from OutputGeneration import TextCorrection
 from OutputGeneration.ArtistsHandler import ArtistsHandler
 from util import Language
@@ -55,9 +56,9 @@ def generateFormatCoconutCardData(inputCardData: Dict, outputCardList: List[Dict
 def _generateDataForSingleFormatCoconutCard(coconutCard: FormatCoconutCard, associatedCard: Dict, imageParser: ImageParser, baseImagePath: str, cardCorrections: Optional[Dict], historicCardData: Optional[List[Dict]]) -> Dict:
 	ocrResult: Optional[OcrResult] = None
 	if GlobalConfig.useCachedOcr and not GlobalConfig.skipOcrCache:
-		ocrResult = OcrCacheHandler.getCachedOcrResult(coconutCard.getOcrIdentifier())
+		ocrResult = OcrCacheHandler.getCachedOcrResult(coconutCard.getOcrIdentifier(), ParseSettingsPresets.DEFAULT_PARSE_SETTINGS)
 	if not ocrResult:
-		ocrResult: OcrResult = imageParser.getOcrResultForCoconutCard(coconutCard, baseImagePath)
+		ocrResult: OcrResult = imageParser.getOcrResultForCoconutCard(coconutCard, baseImagePath, ParseSettingsPresets.DEFAULT_PARSE_SETTINGS)
 		if not GlobalConfig.skipOcrCache:
 			OcrCacheHandler.storeOcrResult(coconutCard.getOcrIdentifier(), ocrResult)
 	fullText = ocrResult.remainingText

@@ -43,8 +43,7 @@ class ImageParser:
 		self._tesseractApi.SetVariable("tessedit_fix_hyphens", "0")
 		self._tesseractApi.SetVariable("crunch_early_convert_bad_unlv_chs", "1")
 
-	def getImageAndTextDataFromImage(self, cardId: int, baseImagePath: str, parseFully: bool, parsedIdentifier: IdentifierParser.Identifier = None, cardType: str = None, hasCardText: bool = None, hasFlavorText: bool = None,
-									 isEpic: bool = False, isEnchanted: bool = None, showImage: bool = False) -> OcrResult:
+	def getImageAndTextDataFromImage(self, cardId: int, baseImagePath: str, parseFully: bool, parseSettings: ParseSettings, cardType: str = None, hasCardText: bool = None, hasFlavorText: bool = None, showImage: bool = False) -> OcrResult:
 		startTime = time.perf_counter()
 		result: Dict[str, Optional[Union[ImageAndText, List[ImageAndText]]]] = {
 			"flavorText": None,
@@ -94,8 +93,6 @@ class ImageParser:
 		if parseFully:
 			result["cost"] = self._getSubImageAndText(cardImage, ImageArea.INK_COST)
 
-		parseSettings = ParseSettings.getParseSetingsById(cardId)
-
 		if parseSettings and parseSettings.isLocationOverride is not None:
 			isLocation = parseSettings.isLocationOverride
 		elif cardType is None:
@@ -109,22 +106,6 @@ class ImageParser:
 			# Location cards are horizontal, so the image should be rotated for proper OCR
 			cardImage = cv2.rotate(cardImage, cv2.ROTATE_90_CLOCKWISE)
 		greyCardImage: cv2.Mat = cv2.cvtColor(cardImage, cv2.COLOR_BGR2GRAY)
-
-		if isEnchanted is None:
-			isEnchanted = not self._isImageBlack(self._getSubImage(cardImage, ImageArea.IS_BORDERLESS_CHECK))
-			#TODO Add way to determine whether this is old- or new-style Enchanted (from set 5 onward the Enchanted design changed)
-
-		# Check if we need to retrieve the identifier
-		if parsedIdentifier is None or parseFully:
-			result["identifier"] = self._getSubImageAndText(greyCardImage, ImageArea.LOCATION_IDENTIFIER if isLocation else ImageArea.CARD_IDENTIFIER)
-			if parsedIdentifier is None:
-				parsedIdentifier = IdentifierParser.parseIdentifier(result["identifier"].text)
-				if not parsedIdentifier:
-					raise ValueError(f"Unable to parse identifier for card ID {cardId}, OCR'ed identifier text is {result['identifier'].text!r}")
-
-		# Now we can determine the parse settings, if we hadn't found them already
-		if parseSettings is None:
-			parseSettings = ParseSettings.getParseSettings(cardId, parsedIdentifier, isEpic, isEnchanted)
 
 		isCharacter = None
 		if cardType:
@@ -198,7 +179,7 @@ class ImageParser:
 		textboxLinesImage: Optional[Image.Image] = None
 		labelCoords = []
 		if hasCardText is not False or parseSettings.hasCardTextOverride is True:
-			if parseSettings.labelParsingMethod == ParseSettings.LABEL_PARSING_METHODS.DEFAULT:
+			if parseSettings.labelParsingMethod == LABEL_PARSING_METHODS.DEFAULT:
 				isCurrentlyInLabel: bool = False
 				currentCoords = [0, 0, 0]  # First is top Y, second is bottom Y, third is right X
 				for y in range(textboxHeight):
@@ -243,7 +224,7 @@ class ImageParser:
 							isCurrentlyInLabel = False
 				if isCurrentlyInLabel:
 					self._logger.warning(f"Still in label when end of label check reached in card image '{imagePath}'; {currentCoords=}")
-			elif parseSettings.labelParsingMethod == ParseSettings.LABEL_PARSING_METHODS.FALLBACK_BY_LINES:
+			elif parseSettings.labelParsingMethod == LABEL_PARSING_METHODS.FALLBACK_BY_LINES:
 				# Find labels by trying to find their top and/or bottom horizontal edge
 				textboxEdgeDetectedImage = cv2.Canny(greyTextboxImage, 50, 200)
 				lines = cv2.HoughLinesP(textboxEdgeDetectedImage, 1, math.pi / 180, 150, minLineLength=125, maxLineGap=parseSettings.lineParsingMaxGap)
@@ -401,9 +382,10 @@ class ImageParser:
 				else:
 					remainingText = self._imageToString(remainingTextImage)
 				if remainingText:
-					if parseSettings.labelParsingMethod == ParseSettings.LABEL_PARSING_METHODS.FALLBACK_WHITE_ABILITY_TEXT and re.search("[A-Z]{2,}", remainingText):
+					if parseSettings.labelParsingMethod == LABEL_PARSING_METHODS.FALLBACK_WHITE_ABILITY_TEXT and re.search("[A-Z]{2,}", remainingText):
 						# Detecting labels on new-style Enchanted cards is hard, so for those the full card text is 'remainingText'
 						# Try to get the labels and effects out
+						# TODO Implement this splitting regex ([A-Z]+(?:\s+[A-Z]+)*)\s+(\S+(?:\s+(?!(?:[AI] )?[A-Z]{2,})\S+)*)  (See https://regex101.com/r/r2mDAR/6 )
 						labelMatch = re.search("(^|\n)([AÀÈÉI|Y] |I['’]M |[A-Z]['’])?[A-ZÄÈÉÊÖÜ]{2,}", remainingText)
 						if labelMatch:
 							labelAndEffectText = remainingText[labelMatch.start():]
@@ -478,7 +460,7 @@ class ImageParser:
 			cv2.waitKey(0)
 			cv2.destroyAllWindows()
 		# Done with parsing, build result object
-		ocrResult = OcrResult([iat.text for iat in result["abilityLabels"]], [iat.text for iat in result["abilityTexts"]], result["artist"].text, result["flavorText"].text if result.get("flavorText", None) else None,
+		ocrResult = OcrResult(parseSettings, [iat.text for iat in result["abilityLabels"]], [iat.text for iat in result["abilityTexts"]], result["artist"].text, result["flavorText"].text if result.get("flavorText", None) else None,
 							  result["remainingText"].text if result.get("remainingText", None) else None, result["subtypesText"].text if result["subtypesText"] else None)
 		# Identifier might be set by 'parseFully' or by a specific boolean
 		if result.get("identifier", None):
@@ -492,20 +474,21 @@ class ImageParser:
 			ocrResult.willpower = result["willpower"].text if result["willpower"] else None
 		return ocrResult
 
-	def getOcrResultForCoconutCard(self, coconutCard: FormatCoconutCard, baseImagePath: str, shouldShowImages: bool = False) -> OcrResult:
+	def getOcrResultForCoconutCard(self, coconutCard: FormatCoconutCard, baseImagePath: str, parseSettings: ParseSettings, shouldShowImages: bool = False) -> OcrResult:
 		imageFilePath = os.path.join(baseImagePath, f"{coconutCard.number}.jpg")
 		if not os.path.isfile(imageFilePath):
 			raise FileNotFoundError(f"The image file for Format Coconut card {coconutCard} is missing, please run the 'download' action first")
 		cardImage: cv2.Mat = cv2.imread(imageFilePath)
-		cardImageAndText: ImageAndText = self._getSubImageAndText(cardImage, ImageArea.FULL_WIDTH_TEXT_BOX)
-		artistImageAndText: ImageAndText = self._getSubImageAndText(cardImage, ImageArea.ARTIST)
+		cardImageAndText: ImageAndText = self._getSubImageAndText(cardImage, parseSettings.cardLayout.textbox)
+		artistImageAndText: ImageAndText = self._getSubImageAndText(cardImage, parseSettings.cardLayout.artist)
 		if shouldShowImages:
 			cv2.imshow("Coconut card text", cardImageAndText.image)
 			cv2.imshow("Coconut card artist", artistImageAndText.image)
 			cv2.waitKey(0)
 			cv2.destroyAllWindows()
-		ocrResult: OcrResult = OcrResult(None, None, artistImageAndText.text, None, cardImageAndText.text, None)
+		ocrResult: OcrResult = OcrResult(parseSettings, None, None, artistImageAndText.text, None, cardImageAndText.text, None)
 		return ocrResult
+
 	@staticmethod
 	def _getSubImage(image, imageArea: ImageArea.ImageArea, offsetLeft: int = 0, offsetRight: int = 0, offsetTop: int = 0, offsetBottom: int = 0) -> cv2.Mat:
 		return image[imageArea.coords.top+offsetTop:imageArea.coords.bottom+offsetBottom, imageArea.coords.left+offsetLeft:imageArea.coords.right+offsetRight]

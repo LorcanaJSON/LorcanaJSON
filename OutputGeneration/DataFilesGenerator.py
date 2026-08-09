@@ -106,6 +106,7 @@ def createOutputFiles(onlyParseIds: Optional[List[int]] = None, shouldShowImages
 			# Add some preprocessed data that we need in several places
 			inputCard["_idAsString"] = str(cardId)
 			inputCard["_parsedIdentifier"] = IdentifierParser.parseIdentifier(inputCard["card_identifier"])
+			inputCard["_parseSettings"] = getParseSettings(inputCard)
 			inputCard["_type"] = cardTypeText
 			cardIdsStored.append(inputCard["culture_invariant_id"])
 			inputCards.append(inputCard)
@@ -134,7 +135,7 @@ def createOutputFiles(onlyParseIds: Optional[List[int]] = None, shouldShowImages
 		cardId = inputCard["culture_invariant_id"]
 		shouldOcrCard: bool = True
 		if GlobalConfig.useCachedOcr and not GlobalConfig.skipOcrCache:
-			ocrResult = OcrCacheHandler.getCachedOcrResult(cardId)
+			ocrResult = OcrCacheHandler.getCachedOcrResult(cardId, inputCard["_parseSettings"])
 			if ocrResult:
 				shouldOcrCard = False
 				ocrResults[cardId] = ocrResult
@@ -375,18 +376,19 @@ def createOutputFiles(onlyParseIds: Optional[List[int]] = None, shouldShowImages
 	_saveZippedFile(os.path.join(setOutputFolder, "allSets.zip"), setFilePaths)
 	_logger.info(f"Created the set files in {time.perf_counter() - startTime:.4f} seconds")
 
+def getParseSettings(inputCard: Dict) -> ParseSettings:
+	return ParseSettingsPicker.getParseSettings(inputCard["culture_invariant_id"], inputCard["_parsedIdentifier"], inputCard["rarity"] == "EPIC", inputCard["rarity"] == "ENCHANTED")
+
 def getOcrResultForCard(inputCard: Dict, imageFolder: str, threadLocalStorage, isExternalReveal: bool, shouldShowImage: bool = False) -> OcrResult:
 	cardId: int = inputCard["culture_invariant_id"]
 	ocrResult: OcrResult = threadLocalStorage.imageParser.getImageAndTextDataFromImage(
 		cardId,
 		imageFolder,
 		parseFully=isExternalReveal,
-		parsedIdentifier=inputCard["_parsedIdentifier"],
+		parseSettings=inputCard["_parseSettings"],
 		cardType=inputCard["_type"],
 		hasCardText=inputCard["rules_text"] != "" if "rules_text" in inputCard else None,
 		hasFlavorText=inputCard["flavor_text"] != "" if "flavor_text" in inputCard else None,
-		isEpic=inputCard["rarity"] == "EPIC",
-		isEnchanted=inputCard["rarity"] == "ENCHANTED",
 		showImage=shouldShowImage
 	)
 	if not GlobalConfig.skipOcrCache:

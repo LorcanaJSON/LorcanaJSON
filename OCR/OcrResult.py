@@ -1,8 +1,11 @@
 from dataclasses import dataclass
 from typing import List, Optional
 
+from OCR.ParseSettings.ParseSettings import ParseSettings
+
 @dataclass
 class OcrResult:
+	parseSettingsUsed: ParseSettings
 	# Always parsed
 	abilityLabels: List[str]
 	abilityTexts: List[str]

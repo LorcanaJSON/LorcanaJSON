@@ -89,15 +89,20 @@ def clearOcrCache(fileHashes: Optional[Dict[str, str]] = None):
 
 def clearOcrCacheForCards(resultIdentifiersToClear: List[Union[int, str]]):
 	for resultIdentifierToClear in resultIdentifiersToClear:
-		cachedOcrResultPath = _buildCachedOcrResultPath(resultIdentifierToClear)
-		if os.path.isfile(cachedOcrResultPath):
-			os.remove(cachedOcrResultPath)
+		clearOcrCacheForCard(resultIdentifierToClear)
 	_logger.info(f"Cleared OCR cache for {len(resultIdentifiersToClear):,} cards")
 
-def getCachedOcrResult(resultIdentifier: Union[int, str]) -> Optional[OcrResult]:
+def clearOcrCacheForCard(resultIdentifierToClear: Union[int, str]):
+	cachedOcrResultPath = _buildCachedOcrResultPath(resultIdentifierToClear)
+	if os.path.isfile(cachedOcrResultPath):
+		os.remove(cachedOcrResultPath)
+		_logger.info(f"Cleared OCR cache result for identifier '{resultIdentifierToClear}'")
+
+def getCachedOcrResult(resultIdentifier: Union[int, str], parseSettings: ParseSettings) -> Optional[OcrResult]:
 	"""
 	Retrieve the OCR result for the provided result identifier from the OCR cache, if it exists
 	:param resultIdentifier: The identifier under which an OCR Result was previously saved
+	:param parseSettings: The ParseSettings with which this card should be parsed. Needed to see if the stored result used the same ParseSettings, if not it's invalid
 	:return: The cached OCR result for the provided identifier, or None if it couldn't be found or loaded
 	"""
 	cachedOcrResultPath = _buildCachedOcrResultPath(resultIdentifier)
@@ -105,9 +110,14 @@ def getCachedOcrResult(resultIdentifier: Union[int, str]) -> Optional[OcrResult]
 		return None
 	try:
 		with open(cachedOcrResultPath, "rb") as cachedCardOcrFile:
-			return pickle.load(cachedCardOcrFile)
+			storedOcrResult: OcrResult = pickle.load(cachedCardOcrFile)
+		if parseSettings != storedOcrResult.parseSettingsUsed:
+			clearOcrCacheForCard(resultIdentifier)
+			return None
+		return storedOcrResult
 	except Exception as e:
 		_logger.error(f"Unable to load cached OCR result for result identifier {resultIdentifier!r}: {e}")
+		return None
 
 def storeOcrResult(resultIdentifier: Union[int, str], ocrResult: OcrResult):
 	cachedOcrResultPath = _buildCachedOcrResultPath(resultIdentifier)
