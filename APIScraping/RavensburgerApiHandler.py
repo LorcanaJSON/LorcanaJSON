@@ -154,7 +154,7 @@ def downloadImages(shouldOverwriteImages: bool = False):
 		for coconutCardData in cardCatalog["coconut_cards"]:
 			coconutCard = FormatCoconutCard(coconutCardData)
 			imageSavePath = os.path.join(baseCoconutImagePath, f"{coconutCard.number}.jpg")
-			wasImageDownloaded = downloadImage(coconutCardData["card_detail_url"], imageSavePath, shouldOverwriteImages)
+			wasImageDownloaded = downloadImage(coconutCard.getImageUrl(), imageSavePath, shouldOverwriteImages)
 			if wasImageDownloaded:
 				imagesDownloaded += 1
 			# Also download the closeup images, in case they disappear at some point
