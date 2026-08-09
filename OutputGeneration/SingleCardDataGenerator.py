@@ -852,7 +852,13 @@ def _parseAdditionalInfo(inputCard: Dict, outputCard: Dict):
 		outputCard["clarifications"] = clarifications
 
 def _parseNameFields(inputCard: Dict, outputCard: Dict, ocrResult: OcrResult):
-	outputCard["name"] = TextCorrection.correctPunctuation(inputCard["name"].strip() if "name" in inputCard else ocrResult.name).replace("’", "'").replace("‘", "'").replace("''", "'")
+	inputName: Optional[str] = inputCard.get("name", None)
+	if not inputName:
+		inputCard = ocrResult.name
+	if not inputName:
+		raise ValueError(f"Unable to get name of card with ID {outputCard['id']}")
+	inputName: str = inputName.strip()
+	outputCard["name"] = TextCorrection.correctPunctuation(inputName).replace("’", "'").replace("‘", "'").replace("''", "'")
 	if outputCard["name"] == "Balais Magiques":
 		# This name is inconsistent, sometimes it has a capital 'M', sometimes a lowercase 'm'
 		# Comparing with capitalization of other cards, this should be a lowercase 'm'
