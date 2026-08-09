@@ -543,7 +543,7 @@ def parseSingleCard(inputCard: Dict, ocrResult: OcrResult, externalLinksHandler:
 					if abilityNameForEffectIsAbility and abilityEffectText.startswith(abilityNameForEffectIsAbility):
 						_logger.info(f"Removing duplicate label '{abilityNameForEffectIsAbility}' from start of ability effect")
 						abilityEffectText = abilityEffectText[len(abilityNameForEffectIsAbility) + 1:]
-					outputCard["abilities"].insert(existingAbilityCount,{"name": abilityNameForEffectIsAbility, "effect": abilityEffectText})
+					outputCard["abilities"].insert(existingAbilityCount, {"name": abilityNameForEffectIsAbility, "effect": abilityEffectText})
 				if len(outputCard["effects"]) == 0:
 					del outputCard["effects"]
 		if effectAtIndexIsFlavorText != -1:
