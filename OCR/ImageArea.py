@@ -14,7 +14,13 @@ TEXT_COLOUR_WHITE_LIGHT_BACKGROUND = TextColour("whiteOnLight", 233, cv2.THRESH_
 TEXT_COLOUR_BLACK = TextColour("black", 50, cv2.THRESH_BINARY)
 TEXT_COLOUR_MIDDLE = TextColour("middle", 127, cv2.THRESH_BINARY)
 
-_Coords = namedtuple("Coords", ("left", "top", "right", "bottom"))
+
+@dataclass(frozen=True)
+class _Coords:
+	left: int
+	top: int
+	right: int
+	bottom: int
 
 
 @dataclass(frozen=True)
