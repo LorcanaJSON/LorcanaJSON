@@ -105,11 +105,16 @@ def parseSingleCard(inputCard: Dict, ocrResult: OcrResult, externalLinksHandler:
 	if ocrResult.artistsText != outputCard["artistsText"]:
 		_logger.info(f"Corrected artist name from {ocrResult.artistsText!r} to {outputCard['artistsText']!r} in card {CardUtil.createCardIdentifier(inputCard)}")
 
-	try:
-		outputCard["cost"] = inputCard["ink_cost"] if "ink_cost" in inputCard else int(ocrResult.cost)
-	except Exception as e:
-		_logger.error(f"Unable to parse {ocrResult.cost!r} as card cost in card ID {outputCard['id']}; Exception {type(e).__name__}: {e}")
-		outputCard["cost"] = -1
+	if "ink_cost" in inputCard:
+		outputCard["cost"] = inputCard["ink_cost"]
+	elif ocrResult.cost:
+		try:
+			outputCard["cost"] = int(ocrResult.cost)
+		except Exception as e:
+			_logger.error(f"Unable to parse {ocrResult.cost!r} as card cost in card ID {outputCard['id']}; Exception {type(e).__name__}: {e}")
+			outputCard["cost"] = -1
+	else:
+		raise ValueError(f"Unable to determine ink cost of card {CardUtil.createCardIdentifier(outputCard)}: no 'ink_cost' in input card and no 'cost' in OCR result")
 	if "quest_value" in inputCard:
 		outputCard["lore"] = inputCard["quest_value"]
 	for inputFieldName, outputFieldName in (("move_cost", "moveCost"), ("strength", "strength"), ("willpower", "willpower")):
