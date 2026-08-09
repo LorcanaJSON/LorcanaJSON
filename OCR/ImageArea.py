@@ -8,7 +8,14 @@ import cv2
 IMAGE_WIDTH = 1468
 IMAGE_HEIGHT = 2048
 
-TextColour = namedtuple("TextColour", ("name", "thresholdValue", "thresholdType"))
+
+@dataclass(frozen=True)
+class TextColour:
+	name: str
+	thresholdValue: int
+	thresholdType: int
+
+
 TEXT_COLOUR_WHITE = TextColour("white", 148, cv2.THRESH_BINARY_INV)
 TEXT_COLOUR_WHITE_LIGHT_BACKGROUND = TextColour("whiteOnLight", 233, cv2.THRESH_BINARY_INV)
 TEXT_COLOUR_BLACK = TextColour("black", 50, cv2.THRESH_BINARY)
