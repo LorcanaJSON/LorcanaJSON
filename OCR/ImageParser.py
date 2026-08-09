@@ -6,8 +6,10 @@ import cv2, tesserocr
 from PIL import Image
 
 import GlobalConfig
-from OCR import ImageArea, ParseSettings
+from OCR import ImageArea
 from OCR.OcrResult import OcrResult
+from OCR.ParseSettings.ParseSettings import ParseSettings
+from OCR.ParseSettings.LabelParsingMethods import LABEL_PARSING_METHODS
 from util import IdentifierParser, LorcanaSymbols
 from util.FormatCoconutCard import FormatCoconutCard
 

@@ -7,6 +7,8 @@ import GlobalConfig
 from APIScraping.ExternalLinksHandler import ExternalLinksHandler
 from OCR import ImageParser, OcrCacheHandler
 from OCR.OcrResult import OcrResult
+from OCR.ParseSettings import ParseSettingsPicker
+from OCR.ParseSettings.ParseSettings import ParseSettings
 from OutputGeneration import SingleCardDataGenerator, FormatCoconutCardDataGenerator
 from OutputGeneration.AllowedInFormatsHandler import AllowedInFormatsHandler
 from OutputGeneration.ArtistsHandler import ArtistsHandler
