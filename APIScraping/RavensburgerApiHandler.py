@@ -1,5 +1,5 @@
 import datetime, hashlib, json, logging, os, random, time
-from typing import Any, Dict, List, Tuple, Union
+from typing import Any, Dict, List, Tuple
 
 import requests
 

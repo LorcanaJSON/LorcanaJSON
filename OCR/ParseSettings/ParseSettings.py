@@ -1,5 +1,5 @@
 import dataclasses
-from typing import Dict, Optional, Tuple
+from typing import Optional, Tuple
 
 from OCR import CardLayout, ImageArea
 from OCR.ParseSettings.LabelParsingMethods import LABEL_PARSING_METHODS

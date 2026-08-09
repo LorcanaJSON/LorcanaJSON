@@ -3,7 +3,6 @@ from typing import Dict, List, Optional, Union
 
 import GlobalConfig
 from OCR.OcrResult import OcrResult
-from OCR.ParseSettings import ParseSettingsPicker
 from OCR.ParseSettings.ParseSettings import ParseSettings
 
 

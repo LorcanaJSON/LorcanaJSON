@@ -1,5 +1,5 @@
 import re
-from typing import Dict, Optional
+from typing import Dict
 
 _COCONUT_CARD_NUMBER_MATCHER = re.compile(r"/(\d+)_")
 
