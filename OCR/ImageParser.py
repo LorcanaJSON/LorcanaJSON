@@ -239,23 +239,23 @@ class ImageParser:
 					self._logger.debug(f"No lines found in card {cardId}")
 				else:
 					# Sort lines from top to bottom
-					lines = sorted(lines, key=lambda l: l[0][1])
+					lines: List = sorted(lines, key=lambda lineToSort: lineToSort[1])
 					self._logger.debug(f"In line fallback method found {len(lines):,} lines: {lines}")
 					if showImage:
 						textboxLinesImage: cv2.typing.MatLike = greyTextboxImage.copy()
 						lineColor = (0, 0, 0) if parseSettings.labelTextColor == ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND else (255, 255, 255)
 						for line in lines:
-							cv2.line(textboxLinesImage, (line[0][0], line[0][1]), (line[0][2], line[0][3]), lineColor, 2, cv2.LINE_AA)
+							cv2.line(textboxLinesImage, (line[0], line[1]), (line[2], line[3]), lineColor, 2, cv2.LINE_AA)
 					lastBottomY = 0
 					for line in lines:
 						# Check if this is a line at the top or bottom of a label
-						lineRightX = line[0][2]
-						lineRightY = line[0][3]
+						lineRightX = line[2]
+						lineRightY = line[3]
 						if lineRightY < 10:
 							self._logger.debug(f"Found line at x={lineRightX} y={lineRightY} for card ID {cardId} but that is too close to the top, skipping")
 							continue
 						if hasFlavorText:
-							lineLeftX = line[0][0]
+							lineLeftX = line[0]
 							# Skip presumed flavor-text separator lines
 							if lineLeftX > 150 or lineRightX - lineLeftX > 800:
 								continue
@@ -304,16 +304,16 @@ class ImageParser:
 				self._logger.debug(f"{len(lines):,} lines found: {lines!r}")
 				flavorTextSeparatorY = 0
 				for line in lines:
-					if line[0][0] < 80 or line[0][1] < 20:
+					if line[0] < 80 or line[1] < 20:
 						# Too far to the left or to the top, probably a mistaken label
-						self._logger.debug(f"Skipping line at {line[0]}, too close to the edge, probably a mistake")
+						self._logger.debug(f"Skipping line {line}, too close to the edge, probably a mistake")
 						continue
-					self._logger.debug(f"line length: {line[0][2] - line[0][0]}")
+					self._logger.debug(f"line length: {line[2] - line[0]}")
 					# Draw the lines for debug purposes
 					if showImage and flavorTextGreyscaleImageWithLines is not None:
-						cv2.line(flavorTextGreyscaleImageWithLines, (line[0][0], line[0][1]), (line[0][2], line[0][3]), (0, 0, 0), 3, cv2.LINE_AA)
-					if line[0][1] > flavorTextSeparatorY:
-						flavorTextSeparatorY = line[0][1]
+						cv2.line(flavorTextGreyscaleImageWithLines, (line[0], line[1]), (line[2], line[3]), (0, 0, 0), 3, cv2.LINE_AA)
+					if line[1] > flavorTextSeparatorY:
+						flavorTextSeparatorY = line[1]
 				if flavorTextSeparatorY == 0:
 					# No suitable line found, so probably no flavor text section
 					hasFlavorText = False

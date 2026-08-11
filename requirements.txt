@@ -1,4 +1,4 @@
-opencv-python
+opencv-python>=5, < 6
 Pillow
 requests
 tesserocr==2.8.0
