@@ -21,3 +21,10 @@ def createCardIdentifier(card: Union[Dict, OutputCard], addIdentifierNumberGroup
 		return f"'{card['name']} - {card.get('subtitle', None)}' (ID {card['culture_invariant_id']})"
 	# Probably a coconut card
 	return str(card)
+
+def createOutputCardIdentifier(outputCard: OutputCard, addIdentifierNumberGroup: bool = False) -> str:
+	result = f"'{outputCard['fullName']}' (ID {outputCard['id']}"
+	if addIdentifierNumberGroup:
+		result += f", {outputCard['fullIdentifier'].split(' ', 1)[0]}"
+	result += ")"
+	return result
