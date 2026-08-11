@@ -65,7 +65,11 @@ def parseIdentifier(identifierString: str) -> Optional[Identifier]:
 		# Special case for the original cards
 		# There the identifier is in the format 1TFC EN n/P1
 		parsedIdentifier = re.match(r"^1TFC (?P<language>[A-Z]+) (?P<number>\d+)/P1", identifierString)
-		return Identifier("P1", parsedIdentifier.group("language"), int(parsedIdentifier.group("number"), 10), "1")
+		if parsedIdentifier:
+			return Identifier("P1", parsedIdentifier.group("language"), int(parsedIdentifier.group("number"), 10), "1")
+		else:
+			_LOGGER.error(f"Unable to parse '1TFC'-identifier '{identifierString}")
+			return None
 
 	parsedIdentifier = _IDENTIFIER_REGEX.match(identifierString)
 	if not parsedIdentifier:
