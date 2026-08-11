@@ -547,7 +547,10 @@ def parseSingleCard(inputCard: Dict, ocrResult: OcrResult, externalLinksHandler:
 					if abilityNameForEffectIsAbility and abilityEffectText.startswith(abilityNameForEffectIsAbility):
 						_logger.info(f"Removing duplicate label '{abilityNameForEffectIsAbility}' from start of ability effect")
 						abilityEffectText = abilityEffectText[len(abilityNameForEffectIsAbility) + 1:]
-					outputCard["abilities"].insert(existingAbilityCount, {"name": abilityNameForEffectIsAbility, "effect": abilityEffectText})
+					abilityFromEffect: Ability = {"effect": abilityEffectText}
+					if abilityNameForEffectIsAbility:
+						abilityFromEffect["name"] = abilityNameForEffectIsAbility
+					outputCard["abilities"].insert(existingAbilityCount, abilityFromEffect)
 				if len(outputCard["effects"]) == 0:
 					del outputCard["effects"]
 		if effectAtIndexIsFlavorText != -1:
@@ -686,7 +689,7 @@ def parseSingleCard(inputCard: Dict, ocrResult: OcrResult, externalLinksHandler:
 					ability["fullText"] = ""
 					if newlineAfterLabelIndex == abilityIndex:
 						_logger.error(f"Ability at index {newlineAfterLabelIndex} is set to get a newline after its ability name, but it doesn't have a name")
-				if "costsText" in ability:
+				if activatedAbilityMatch and "costsText" in ability:
 					# Usually we want to get the specific type of cost separator dash from the input data, but sometimes that's wrong
 					costSeparatorDash: Optional[str] = None
 					if GlobalConfig.language == Language.GERMAN:
@@ -695,7 +698,6 @@ def parseSingleCard(inputCard: Dict, ocrResult: OcrResult, externalLinksHandler:
 						elif parsedIdentifier.setCode == "5":
 							costSeparatorDash = "—"  # em-dash, \u2014
 					if not costSeparatorDash:
-						costSeparatorDash = None
 						if "rules_text" in inputCard:
 							costSeparatorDashMatch = re.search(r"\s([-–—])\s", inputCard["rules_text"])
 							if costSeparatorDashMatch:
@@ -704,6 +706,9 @@ def parseSingleCard(inputCard: Dict, ocrResult: OcrResult, externalLinksHandler:
 								_logger.error(f"Unable to find cost separator dash match in '{inputCard['rules_text']!r}' in {CardUtil.createCardIdentifier(outputCard)}")
 						if not costSeparatorDash:
 							costSeparatorDash = activatedAbilityMatch.group(2)
+					if not costSeparatorDash:
+						_logger.error(f"Unable to find cost separator dash in cost text {ability['costsText']!r}, using fallback")
+						costSeparatorDash: str = "-"
 					ability["fullText"] += ability["costsText"] + activatedAbilityMatch.group(1) + costSeparatorDash + activatedAbilityMatch.group(3)
 					ability["costsText"] = ability["costsText"].replace("\n", " ")
 					ability["costs"] = ability["costsText"].split(", ")
@@ -766,7 +771,8 @@ def parseSingleCard(inputCard: Dict, ocrResult: OcrResult, externalLinksHandler:
 	if "story" in inputCard:
 		outputCard["story"] = inputCard["story"]
 	else:
-		outputCard["story"] = storyParser.getStoryNameForCard(outputCard, outputCard["id"], inputCard.get("searchable_keywords", None))
+		story: Optional[str] = storyParser.getStoryNameForCard(outputCard, outputCard["id"], inputCard.get("searchable_keywords", None))
+		outputCard["story"] = story if story else "[[???]]"
 	if historicData:
 		outputCard["historicData"] = historicData
 
@@ -895,10 +901,14 @@ def _parseNameFields(inputCard: Dict, outputCard: OutputCard, ocrResult: OcrResu
 			outputCard["name"] = "Wreck-It Ralph"
 	outputCard["fullName"] = outputCard["name"]
 	outputCard["simpleName"] = outputCard["fullName"]
-	if "subtitle" in inputCard or ocrResult.version:
-		outputCard["version"] = (inputCard["subtitle"].strip() if "subtitle" in inputCard else ocrResult.version).replace("’", "'")
-		outputCard["fullName"] += " - " + outputCard["version"]
-		outputCard["simpleName"] += " " + outputCard["version"]
+	cardVersion: Optional[str] = inputCard.get("subtitle", None)
+	if not cardVersion:
+		cardVersion = ocrResult.version
+	if cardVersion:
+		cardVersion: str = cardVersion.strip().replace("’", "'")
+		outputCard["version"] = cardVersion
+		outputCard["fullName"] += " - " + cardVersion
+		outputCard["simpleName"] += " " + cardVersion
 	# simpleName is the full name with special characters and the base-subtitle dash removed, for easier lookup. So remove the special characters
 	outputCard["simpleName"] = re.sub(r"[!.,…?“”\"]", "", outputCard["simpleName"].lower()).rstrip()
 	for replacementChar, charsToReplace in {"a": "[àâäā]", "c": "ç", "e": "[èêé]", "i": "[îïí]", "o": "[ôö]", "u": "[ùûü]", "oe": "œ", "ss": "ß"}.items():
@@ -931,7 +941,7 @@ def _parseRelatedCards(relatedCards: RelatedCards, parsedIdentifier: IdentifierP
 			outputCard["baseId"] = otherRelatedCards.nonPromoId
 	elif otherRelatedCards.promoIds:
 		outputCard["promoIds"] = otherRelatedCards.promoIds
-	if otherRelatedCards.otherVariantIds:
+	if otherRelatedCards.otherVariantIds and parsedIdentifier.variant:
 		outputCard["variantIds"] = otherRelatedCards.otherVariantIds
 		outputCard["variant"] = parsedIdentifier.variant
 	if otherRelatedCards.reprintedAsIds:
