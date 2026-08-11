@@ -464,8 +464,8 @@ class ImageParser:
 			cv2.waitKey(0)
 			cv2.destroyAllWindows()
 		# Done with parsing, build result object
-		ocrResult = OcrResult(parseSettings, [iat.text for iat in result["abilityLabels"]], [iat.text for iat in result["abilityTexts"]], result["artist"].text, result["flavorText"].text if result.get("flavorText", None) else None,
-							  result["remainingText"].text if result.get("remainingText", None) else None, result["subtypesText"].text if result["subtypesText"] else None)
+		ocrResult = OcrResult(parseSettings, [iat.text for iat in result["abilityLabels"]], [iat.text for iat in result["abilityTexts"]], result["artist"].text, ImageParser._getTextOrNone(result, "flavorText"),
+							  ImageParser._getTextOrNone(result, "remainingText"), ImageParser._getTextOrNone(result, "subtypesText"))
 		# Identifier might be set by 'parseFully' or by a specific boolean
 		if result.get("identifier", None):
 			ocrResult.identifier = result["identifier"].text
@@ -557,3 +557,11 @@ class ImageParser:
 					return False
 		return True
 
+	@staticmethod
+	def _getTextOrNone(parseResult: _ImageAndTextResults, fieldName: str) -> Optional[str]:
+		if fieldName not in parseResult:
+			return None
+		fieldResult: Optional[ImageAndText] = parseResult.get(fieldName, None)
+		if fieldResult is None:
+			return None
+		return fieldResult.text
