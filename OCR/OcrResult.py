@@ -7,8 +7,8 @@ from OCR.ParseSettings.ParseSettings import ParseSettings
 class OcrResult:
 	parseSettingsUsed: ParseSettings
 	# Always parsed
-	abilityLabels: List[str]
-	abilityTexts: List[str]
+	abilityLabels: Optional[List[str]]
+	abilityTexts: Optional[List[str]]
 	artistsText: str
 	# Some fields might not be used on the card
 	flavorText: Optional[str] = None
