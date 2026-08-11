@@ -33,7 +33,7 @@ CORRECTIONS = {
 		"10": {
 			"A Whole New World": ("Promos", "10/C1")
 		},
-		"11/P":{
+		"11/P": {
 			"Mickey Mouse - Musketeer": ("Promos", "11/P1")
 		},
 		"12/P1": {

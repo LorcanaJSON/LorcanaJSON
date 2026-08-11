@@ -59,12 +59,12 @@ class StringReplaceCounter:
 	def count(self, substringToCount):
 		return self.s.count(substringToCount)
 
-	def split(self, splitOn: str, splitCount = -1) -> List["StringReplaceCounter"]:
+	def split(self, splitOn: str, splitCount=-1) -> List["StringReplaceCounter"]:
 		splits = self.s.split(splitOn, splitCount)
 		_count(f"split_{splitOn}", len(splits) - 1)
 		return [StringReplaceCounter(s) for s in splits]
 
-	def rsplit(self, splitOn: str, splitCount = -1) -> List["StringReplaceCounter"]:
+	def rsplit(self, splitOn: str, splitCount=-1) -> List["StringReplaceCounter"]:
 		splits = self.s.rsplit(splitOn, splitCount)
 		_count(f"rsplit_{splitOn}", len(splits) - 1)
 		return [StringReplaceCounter(s) for s in splits]

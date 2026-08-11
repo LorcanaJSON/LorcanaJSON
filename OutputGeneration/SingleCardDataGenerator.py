@@ -316,7 +316,7 @@ def parseSingleCard(inputCard: Dict, ocrResult: OcrResult, externalLinksHandler:
 				abilityName = re.sub(r"\bCA\b", "ÇA", abilityName)
 				abilityName = re.sub(r"\bCAVA\b", "ÇA VA", abilityName)
 				abilityName = re.sub(r"\bTRES\b", "TRÈS", abilityName)
-				abilityName = re.sub(r"\bJY\b","J'Y", abilityName)
+				abilityName = re.sub(r"\bJY\b", "J'Y", abilityName)
 			elif GlobalConfig.language == Language.GERMAN:
 				# It seems to misread a lot of ability names as ending with a period, correct that (unless it's ellipsis)
 				if abilityName.endswith(".") and not abilityName.endswith("..."):
