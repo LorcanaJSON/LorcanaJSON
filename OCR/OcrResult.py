@@ -11,9 +11,9 @@ class OcrResult:
 	abilityTexts: List[str]
 	artistsText: str
 	# Some fields might not be used on the card
-	flavorText: str
-	remainingText: str
-	subtypesText: str
+	flavorText: Optional[str] = None
+	remainingText: Optional[str] = None
+	subtypesText: Optional[str] = None
 	# Optionally parsed
 	cost: Optional[str] = None
 	identifier: Optional[str] = None
