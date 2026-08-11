@@ -1,5 +1,5 @@
 import argparse, dataclasses, datetime, json, logging, logging.handlers, os, re, sys, time
-from typing import List, Optional
+from typing import Dict, List, Optional
 
 import GlobalConfig
 from OutputGeneration import DataFilesGenerator, Verifier
@@ -7,7 +7,8 @@ from APIScraping import ApiScrapingUtil, RavensburgerApiHandler, UpdateHandler
 from APIScraping.ExternalLinksHandler import ExternalLinksHandler
 from APIScraping.UpdateCheckResult import UpdateCheckResult
 from OCR import ImageParser, OcrCacheHandler
-from util import Language, Translations, RegexCounter, StringReplaceCounter
+from OCR.ParseSettings import ParseSettingsPicker, ParseSettingsPresets
+from util import Language, Translations, RegexCounter, StringReplaceCounter, IdentifierParser
 
 
 def _infoOrPrint(logger: logging.Logger, message: str):
@@ -271,6 +272,12 @@ if __name__ == '__main__':
 				sys.exit(-3)
 			baseImagePath = os.path.join("downloads", "images", GlobalConfig.language.code)
 			baseExternalImagePath = os.path.join(baseImagePath, "external")
+			# We need the cards because we need the identifier to get the appropriate ParseSettings
+			idToCard: Dict[int, Dict] = {}
+			with open(os.path.join("downloads", "json", f"carddata.{GlobalConfig.language.code}.json"), "r") as cardCatalogFile:
+				for cardtype, cardlist in json.load(cardCatalogFile)["cards"].items():
+					for card in cardlist:
+						idToCard[card["culture_invariant_id"]] = card
 			for cardId in cardIds:
 				baseImagePathForCard = baseImagePath
 				cardPath = os.path.join(baseImagePath, f"{cardId}.jpg")
@@ -282,7 +289,12 @@ if __name__ == '__main__':
 				if not os.path.isfile(cardPath):
 					logger.error(f"Unable to find local image for card ID {cardId}. Please run the 'download' command first, and make sure you didn't make a typo in the ID")
 					continue
-				ocrResult = ImageParser.ImageParser().getImageAndTextDataFromImage(cardId, baseImagePathForCard, True, showImage=True)
+				parseSettings = ParseSettingsPresets.DEFAULT_PARSE_SETTINGS
+				if cardId in idToCard:
+					card = idToCard[cardId]
+					identifier = IdentifierParser.parseIdentifier(card["card_identifier"])
+					parseSettings = ParseSettingsPicker.getParseSettingsForCard(card, identifier)
+				ocrResult = ImageParser.ImageParser().getImageAndTextDataFromImage(cardId, baseImagePathForCard, True, parseSettings, showImage=True)
 				_infoOrPrint(logger, f"Card ID {cardId}")
 				for fieldName, fieldResult in dataclasses.asdict(ocrResult).items():
 					if fieldResult is None:
