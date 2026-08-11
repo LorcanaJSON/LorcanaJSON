@@ -105,7 +105,7 @@ def createOutputFiles(onlyParseIds: Optional[List[int]] = None, shouldShowImages
 			# Add some preprocessed data that we need in several places
 			inputCard["_idAsString"] = str(cardId)
 			inputCard["_parsedIdentifier"] = IdentifierParser.parseIdentifier(inputCard["card_identifier"])
-			inputCard["_parseSettings"] = ParseSettingsPicker.getParseSettings(inputCard["culture_invariant_id"], inputCard["_parsedIdentifier"], inputCard["rarity"] == "EPIC", inputCard["rarity"] == "ENCHANTED")
+			inputCard["_parseSettings"] = ParseSettingsPicker.getParseSettingsForCard(inputCard, inputCard["_parsedIdentifier"])
 			inputCard["_type"] = cardTypeText
 			cardIdsStored.append(inputCard["culture_invariant_id"])
 			inputCards.append(inputCard)

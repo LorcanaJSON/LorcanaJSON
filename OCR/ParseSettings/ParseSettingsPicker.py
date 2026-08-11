@@ -1,3 +1,5 @@
+from typing import Dict
+
 from OCR.ParseSettings import ParseSettingsCardIdOverrides, ParseSettingsPresets
 from OCR.ParseSettings.ParseSettings import ParseSettings
 from util.IdentifierParser import Identifier
@@ -23,3 +25,6 @@ def getParseSettings(cardId: int, identifier: Identifier, isEpic: bool, isEnchan
 		else:
 			return ParseSettingsPresets.DEFAULT_NEW_ENCHANTED_PARSE_SETTINGS
 	return ParseSettingsPresets.DEFAULT_PARSE_SETTINGS
+
+def getParseSettingsForCard(card: Dict, identifier: Identifier) -> ParseSettings:
+	return getParseSettings(card["culture_invariant_id"], identifier, card["rarity"] == "EPIC", card["rarity"] == "ENCHANTED")
