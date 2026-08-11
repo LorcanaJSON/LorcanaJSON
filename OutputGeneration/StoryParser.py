@@ -87,7 +87,7 @@ class StoryParser:
 					break
 		if extraSearchTermStoryName and extraSearchTermStoryName in self._priorityStoryNames:
 			return extraSearchTermStoryName
-		for fieldName in ("name", "baseName", "subtitle", "fullName"):
+		for fieldName in ("name", "subtitle", "fullName"):
 			if fieldName in card and card[fieldName] in self._cardNameToStoryName:
 				return self._cardNameToStoryName[card[fieldName]]
 		# Go through each field matcher to see if it matches anything
@@ -106,14 +106,14 @@ class StoryParser:
 		# No match, try to see if any of the names occurs in some of the card's fields
 		for name, storyName in self._cardNameToStoryName.items():
 			nameRegex = re.compile(rf"\b{name}\b")
-			for fieldName in ("flavor_text", "flavorText", "rules_text", "fullText", "name", "baseName", "subtitle"):
+			for fieldName in ("flavor_text", "flavorText", "rules_text", "fullText", "name", "subtitle"):
 				if fieldName in card and nameRegex.search(card[fieldName]):
 					_logger.debug(f"Assuming {CardUtil.createCardIdentifier(card)} is in story '{storyName}' based on '{name}' in the field '{fieldName}': {card[fieldName]!r}")
 					return storyName
 		# As a last resort, check if one of the subtypes is listed somewhere in the card
 		for subtype, storyName in self._subtypeToStoryName.items():
 			subtypeRegex = re.compile(rf"\b{subtype}\b")
-			for fieldName in ("flavor_text", "flavorText", "rules_text", "fullText", "name", "baseName", "subtitle"):
+			for fieldName in ("flavor_text", "flavorText", "rules_text", "fullText", "name", "subtitle"):
 				if fieldName in card and subtypeRegex.search(card[fieldName]):
 					_logger.debug(f"Assuming {CardUtil.createCardIdentifier(card)} is in story '{storyName}' based on subtype '{subtype}' in the field '{fieldName}': {card[fieldName]!r}")
 					return storyName
