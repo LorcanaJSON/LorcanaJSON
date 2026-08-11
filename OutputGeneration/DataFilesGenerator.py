@@ -1,6 +1,6 @@
 import copy, datetime, hashlib, json, logging, multiprocessing.pool, os, threading, time, zipfile
 import xml.etree.ElementTree as xmlElementTree
-from multiprocessing.pool import ApplyResult
+from multiprocessing.pool import AsyncResult
 from typing import Dict, List, Optional, Union
 
 import GlobalConfig
@@ -8,7 +8,6 @@ from APIScraping.ExternalLinksHandler import ExternalLinksHandler
 from OCR import ImageParser, OcrCacheHandler
 from OCR.OcrResult import OcrResult
 from OCR.ParseSettings import ParseSettingsPicker
-from OCR.ParseSettings.ParseSettings import ParseSettings
 from OutputGeneration import SingleCardDataGenerator, FormatCoconutCardDataGenerator
 from OutputGeneration.AllowedInFormatsHandler import AllowedInFormatsHandler
 from OutputGeneration.ArtistsHandler import ArtistsHandler
@@ -142,7 +141,7 @@ def createOutputFiles(onlyParseIds: Optional[List[int]] = None, shouldShowImages
 		if shouldOcrCard:
 			cardsToOcr.append(inputCard)
 	if cardsToOcr:
-		ocrResultGetters: Dict[int, Optional[ApplyResult[OcrResult]]] = {}
+		ocrResultGetters: Dict[int, AsyncResult[OcrResult]] = {}
 		with multiprocessing.pool.ThreadPool(min(GlobalConfig.threadCount, len(cardsToOcr)), initializer=initThread) as pool:
 			for inputCard in cardsToOcr:
 				try:
