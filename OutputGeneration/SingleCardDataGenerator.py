@@ -864,7 +864,7 @@ def _parseAdditionalInfo(inputCard: Dict, outputCard: OutputCard):
 def _parseNameFields(inputCard: Dict, outputCard: OutputCard, ocrResult: OcrResult):
 	inputName: Optional[str] = inputCard.get("name", None)
 	if not inputName:
-		inputCard = ocrResult.name
+		inputName = ocrResult.name
 	if not inputName:
 		raise ValueError(f"Unable to get name of card with ID {outputCard['id']}")
 	inputName: str = inputName.strip()
