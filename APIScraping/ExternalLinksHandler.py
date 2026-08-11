@@ -1,5 +1,5 @@
-import json, logging, os, re, string
-from typing import Dict, List, Optional, Union
+import json, logging, os, re
+from typing import Dict, List, Optional
 
 import natsort, requests
 
@@ -7,6 +7,7 @@ import GlobalConfig
 from APIScraping import ExternalLinksDataAdditions
 from util import Language
 from util.IdentifierParser import Identifier
+from util.typedDicts.ExternalLinks import ExternalLinks
 
 
 _LOGGER = logging.getLogger("LorcanaJSON")
@@ -74,7 +75,7 @@ class ExternalLinksHandler:
 		# Get data from CardTrader, it includes Cardmarket and TCGplayer card IDs
 		headers = {"Authorization": "Bearer " + cardTraderToken}
 		expansionsRequest = requests.get("https://api.cardtrader.com/api/v2/expansions", headers=headers, timeout=10)
-		cardsBySet: Dict[str, Dict[str, Dict[str, Union[int, str]]]] = {"Promos": {}}  # Top level is the set code, it contains for each card number (as string, because it can have f.i. 'P1') in that set a dictionary with the card IDs and URLs for various stores
+		cardsBySet: Dict[str, Dict[str, ExternalLinks]] = {"Promos": {}}  # Top level is the set code, it contains for each card number (as string, because it can have f.i. 'P1') in that set a dictionary with the card IDs and URLs for various stores
 		for setName, setCode in setNameToCode.items():
 			cardsBySet[setCode] = {}
 		if expansionsRequest.status_code != 200:
@@ -168,7 +169,7 @@ class ExternalLinksHandler:
 					cardExternalLinks["tcgPlayerUrl"] = f"https://www.tcgplayer.com/product/{cardExternalLinks['tcgPlayerId']}"
 
 				# Sort the entries
-				cardExternalLinks = {key: cardExternalLinks[key] for key in sorted(cardExternalLinks)}
+				cardExternalLinks: ExternalLinks = {key: cardExternalLinks[key] for key in sorted(cardExternalLinks)}
 				# and store 'em
 				cardsBySet[cardSetCodeToUse][cardNumber] = cardExternalLinks
 
@@ -253,7 +254,7 @@ class ExternalLinksHandler:
 		if outputId:
 			outputData[outputKey] = outputId
 
-	def getExternalLinksForCard(self, parsedIdentifier: Identifier) -> Dict[str, Union[int, str]]:
+	def getExternalLinksForCard(self, parsedIdentifier: Identifier) -> ExternalLinks:
 		if parsedIdentifier.setCode not in self._externalLinks:
 			_LOGGER.error(f"Setcode '{parsedIdentifier.setCode}' does not exist in the External IDs data")
 		numberGroupingString = f"{parsedIdentifier.number}/{parsedIdentifier.grouping}"
@@ -261,7 +262,7 @@ class ExternalLinksHandler:
 		if parsedIdentifier.variant:
 			numberGroupingString = numberGroupingString.replace("/", parsedIdentifier.variant + "/")
 			numberString += parsedIdentifier.variant
-		cardExternalLinks: Optional[Dict[str, Union[int, str]]] = None
+		cardExternalLinks: Optional[ExternalLinks] = None
 		if parsedIdentifier.isPromo():
 			if numberGroupingString in self._externalLinks["Promos"]:
 				cardExternalLinks = self._externalLinks["Promos"][numberGroupingString]
@@ -276,7 +277,7 @@ class ExternalLinksHandler:
 			_LOGGER.warning(f"Unable to find external ID entry for full identifier '{parsedIdentifier}'")
 			return {}
 		# In rare cases multiple cards have the same number grouping ("Moana/Viana - Adventurer on Land and Sea", ID 1433 & 1663); make a copy of the data so changes in one card's data don't affect the other
-		cardExternalLinks: Dict[str, Union[int, str]] = cardExternalLinks.copy()
+		cardExternalLinks: ExternalLinks = cardExternalLinks.copy()
 		# Some parts need extra filling in
 		# Cardmarket lists Enchanted cards with '-V2' at the end, and the non-Enchanted version with '-V1'. Promo versions are either '-V1' or '-V2'
 		if "cardmarketUrl" in cardExternalLinks:

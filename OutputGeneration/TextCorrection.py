@@ -3,6 +3,7 @@ from typing import Dict, List, Union
 
 import GlobalConfig
 from util import CardUtil, Language, LorcanaSymbols
+from util.typedDicts.OutputCard import OutputCard
 
 _logger = logging.getLogger("LorcanaJSON")
 
@@ -339,7 +340,7 @@ def correctPunctuation(textToCorrect: str) -> str:
 		_logger.info(f"Corrected punctuation from {textToCorrect!r} to {correctedText!r}")
 	return correctedText
 
-def correctCardField(card: Dict, fieldName: str, regexMatchString: Union[str, None], correction: Union[int, str, None]) -> None:
+def correctCardField(card: Union[Dict, OutputCard], fieldName: str, regexMatchString: Union[str, None], correction: Union[int, str, None]) -> None:
 	"""
 	Correct card-specific mistakes in the fieldName field of the provided card
 	:param card: The output card as parsed so far
@@ -368,7 +369,7 @@ def correctCardField(card: Dict, fieldName: str, regexMatchString: Union[str, No
 			else:
 				_logger.warning(f"Trying to add field '{fieldName}' to card {CardUtil.createCardIdentifier(card)}, but that field already exists (value {card[fieldName]!r})")
 	elif isinstance(card[fieldName], str):
-		preCorrectedText = card[fieldName]
+		preCorrectedText: str = card[fieldName]
 		card[fieldName] = re.sub(regexMatchString, correction, preCorrectedText, flags=re.DOTALL)
 		if card[fieldName] == preCorrectedText:
 			_logger.warning(f"Correcting field '{fieldName}' in card {CardUtil.createCardIdentifier(card)} with regex {regexMatchString!r} didn't change anything, value is still {preCorrectedText!r}")
@@ -385,7 +386,7 @@ def correctCardField(card: Dict, fieldName: str, regexMatchString: Union[str, No
 					match = re.search(regexMatchString, fieldValue, flags=re.DOTALL)
 					if match:
 						matchFound = True
-						preCorrectedText = fieldValue
+						preCorrectedText: str = fieldValue
 						fieldEntry[fieldKey] = re.sub(regexMatchString, correction, fieldValue, flags=re.DOTALL)
 						if fieldEntry[fieldKey] == preCorrectedText:
 							_logger.warning(f"Correcting index {fieldIndex} of field '{fieldName}' in card {CardUtil.createCardIdentifier(card)} with regex {regexMatchString!r} didn't change anything, value is still {preCorrectedText!r}")
@@ -405,7 +406,7 @@ def correctCardField(card: Dict, fieldName: str, regexMatchString: Union[str, No
 							_logger.info(f"After correction, list field '{fieldName}' is now empty, deleting from card {CardUtil.createCardIdentifier(card)}")
 							del card[fieldName]
 					else:
-						preCorrectedText = fieldValue
+						preCorrectedText: str = fieldValue
 						card[fieldName][fieldIndex] = re.sub(regexMatchString, correction, fieldValue, flags=re.DOTALL)
 						if card[fieldName][fieldIndex] == preCorrectedText:
 							_logger.warning(f"Correcting index {fieldIndex} of field '{fieldName}' in card {CardUtil.createCardIdentifier(card)} with regex {regexMatchString!r} didn't change anything")
@@ -444,7 +445,7 @@ def correctCardField(card: Dict, fieldName: str, regexMatchString: Union[str, No
 	else:
 		raise ValueError(f"Card correction {regexMatchString!r} for field '{fieldName}' in card {CardUtil.createCardIdentifier(card)} is of unsupported type '{type(card[fieldName])}'")
 
-def correctCardFieldFromList(card: Dict, fieldName: str, correctionsList: List[Union[int, str]]):
+def correctCardFieldFromList(card: Union[Dict, OutputCard], fieldName: str, correctionsList: List[Union[int, str]]):
 	"""
 	Correct card-specific mistakes in the fieldName field of the provided card
 	:param card: The output card as parsed so far

@@ -1,5 +1,5 @@
 import json, os, re
-from typing import Dict, List, Optional
+from typing import Dict, List, Optional, Tuple
 
 import GlobalConfig
 from OutputGeneration import TextCorrection
@@ -22,7 +22,7 @@ def compareInputToOutput(cardIdsToVerify: Optional[List[int]]):
 		outputCardStore = json.load(outputFile)
 	idToEnglishOutputCard = {}
 	englishRarities = None
-	currentLanguageRarities = None
+	currentLanguageRarities: Optional[Tuple[str, ...]] = None
 	if GlobalConfig.language != Language.ENGLISH:
 		englishOutputFilePath = os.path.join("output", Language.ENGLISH.code, "allCards.json")
 		if os.path.isfile(englishOutputFilePath):
@@ -35,7 +35,7 @@ def compareInputToOutput(cardIdsToVerify: Optional[List[int]]):
 		englishRarities = (Translations.ENGLISH.COMMON, Translations.ENGLISH.UNCOMMON, Translations.ENGLISH.RARE, Translations.ENGLISH.SUPER, Translations.ENGLISH.LEGENDARY,
 						   Translations.ENGLISH.EPIC, Translations.ENGLISH.ENCHANTED, Translations.ENGLISH.ICONIC, Translations.ENGLISH.SPECIAL)
 		currentTranslation = Translations.getForLanguage(GlobalConfig.language)
-		currentLanguageRarities = (currentTranslation.COMMON, currentTranslation.UNCOMMON, currentTranslation.RARE, currentTranslation.SUPER, currentTranslation.LEGENDARY,
+		currentLanguageRarities: Tuple[str, ...] = (currentTranslation.COMMON, currentTranslation.UNCOMMON, currentTranslation.RARE, currentTranslation.SUPER, currentTranslation.LEGENDARY,
 								   currentTranslation.EPIC, currentTranslation.ENCHANTED, currentTranslation.ICONIC, currentTranslation.SPECIAL)
 
 	idToInputCard = {}

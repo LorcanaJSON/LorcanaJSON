@@ -1,8 +1,9 @@
 import logging, math, os, re, time
 from collections import namedtuple
-from typing import Dict, List, Optional, Union
+from typing import Any, List, NotRequired, Optional, TypedDict
 
 import cv2, tesserocr
+from numpy import ndarray  # numpy comes from cv2
 from PIL import Image
 
 import GlobalConfig
@@ -19,6 +20,22 @@ ImageAndText = namedtuple("ImageAndText", ("image", "text"))
 _ABILITY_LABEL_MARGIN: int = 12
 _FLAVORTEXT_MARGIN: int = 14
 _ASSUMED_LABEL_HEIGHT: int = 73
+
+
+class _ImageAndTextResults(TypedDict, total=False):
+	abilityLabels: List[ImageAndText]
+	abilityTexts: List[ImageAndText]
+	artist: ImageAndText
+	cost: NotRequired[Optional[ImageAndText]]
+	name: NotRequired[Optional[ImageAndText]]
+	flavorText: Optional[ImageAndText]
+	identifier: NotRequired[ImageAndText]
+	moveCost: NotRequired[Optional[ImageAndText]]
+	remainingText: Optional[ImageAndText]
+	strength: NotRequired[Optional[ImageAndText]]
+	subtypesText: Optional[ImageAndText]
+	version: NotRequired[Optional[ImageAndText]]
+	willpower: NotRequired[Optional[ImageAndText]]
 
 
 class ImageParser:
@@ -46,24 +63,7 @@ class ImageParser:
 	def getImageAndTextDataFromImage(self, cardId: int, baseImagePath: str, parseFully: bool, parseSettings: ParseSettings, cardType: Optional[str] = None, hasCardText: Optional[bool] = None, hasFlavorText: Optional[bool] = None,
 									 showImage: bool = False) -> OcrResult:
 		startTime = time.perf_counter()
-		result: Dict[str, Union[Optional[ImageAndText], List[ImageAndText]]] = {
-			"flavorText": None,
-			"abilityLabels": [],
-			"abilityTexts": [],
-			"remainingText": None,
-			"subtypesText": None,
-			"artist": None
-		}
-		if parseFully:
-			result.update({
-				"cost": None,
-				"identifier": None,
-				"moveCost": None,
-				"name": None,
-				"strength": None,
-				"version": None,
-				"willpower": None
-			})
+		result: _ImageAndTextResults = {"abilityLabels": [], "abilityTexts": []}
 		imagePath = os.path.join(baseImagePath, f"{cardId}.jpg")
 		if not os.path.isfile(imagePath):
 			imagePath = os.path.join(baseImagePath, f"{cardId}.png")
@@ -231,7 +231,7 @@ class ImageParser:
 				textboxEdgeDetectedImage = cv2.Canny(greyTextboxImage, 50, 200)
 				if textboxEdgeDetectedImage is None:
 					raise ValueError(f"Unable to get textbox edge detection image for card ID {cardId}")
-				lines = cv2.HoughLinesP(textboxEdgeDetectedImage, 1, math.pi / 180, 150, minLineLength=125, maxLineGap=parseSettings.lineParsingMaxGap)
+				lines: Optional[ndarray] = cv2.HoughLinesP(textboxEdgeDetectedImage, 1, math.pi / 180, 150, minLineLength=125, maxLineGap=parseSettings.lineParsingMaxGap)
 				if lines is None:
 					self._logger.debug(f"Not found any abiltylabel lines in card {cardId}, trying a shorter minimum length")
 					lines = cv2.HoughLinesP(textboxEdgeDetectedImage, 1, math.pi / 180, 150, minLineLength=100, maxLineGap=parseSettings.lineParsingMaxGap)

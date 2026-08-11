@@ -26,7 +26,7 @@ class ArtistsHandler:
 			cardArtist = cardArtists[cardArtistIndex]
 			if cardArtist in self._nameToNormalizedName:
 				if normalizedNames is None:
-					normalizedNames = cardArtists.copy()
+					normalizedNames: List[str] = cardArtists.copy()
 				normalizedNames[cardArtistIndex] = self._nameToNormalizedName[cardArtist]
 		return normalizedNames
 

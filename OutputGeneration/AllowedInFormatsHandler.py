@@ -1,5 +1,5 @@
 import json, os
-from typing import Dict, List, Optional, Union
+from typing import Dict, List, Optional, TypedDict
 
 
 class AllowedInFormatsHandler:
@@ -8,10 +8,10 @@ class AllowedInFormatsHandler:
 			# Each format has a dict with the card ID string as a key
 			self.cardBans: dict[str, dict[str, str]] = json.load(cardBansFile)
 		with open(os.path.join("OutputGeneration", "data", "baseSetData.json"), "r", encoding="utf-8") as setsFile:
-			self.allowedInFormatsBySetCode: Dict[str, Dict[str, Dict[str, Union[bool, str]]]] = {}  # For each set-code, a dictionary with as key the format name and as value a dictionary with allowed boolean and dates
-			self.allowedFromDateBySetCode: Dict[str, str] = {}
+			self.allowedInFormatsBySetCode: Dict[str, Dict[str, _AllowedForFormatInputData]] = {}  # For each set-code, a dictionary with as key the format name and as value a dictionary with allowed boolean and dates
+			self.allowedFromDateBySetCode: Dict[str, Optional[str]] = {}
 			for setCode, setData in json.load(setsFile).items():
-				self.allowedInFormatsBySetCode[setCode] = setData["allowedInFormats"]
+				self.allowedInFormatsBySetCode[setCode]: Dict[str, _AllowedForFormatInputData] = setData["allowedInFormats"]
 				self.allowedFromDateBySetCode[setCode] = setData["allowedInTournamentsFromDate"]
 
 	def getAllowedInFormatsForCard(self, cardId: str, printedInSets: List[str]) -> "AllowedInFormats":
@@ -23,8 +23,8 @@ class AllowedInFormatsHandler:
 		"""
 		oldestSetCode = min(printedInSets)
 		newestSetCode = max(printedInSets)
-		allowedInOldestSet: Dict[str, Dict[str, Union[bool, str]]] = self.allowedInFormatsBySetCode[oldestSetCode]
-		allowedInNewestSet: Dict[str, Dict[str, Union[bool, str]]] = self.allowedInFormatsBySetCode[newestSetCode]
+		allowedInOldestSet: Dict[str, _AllowedForFormatInputData] = self.allowedInFormatsBySetCode[oldestSetCode]
+		allowedInNewestSet: Dict[str, _AllowedForFormatInputData] = self.allowedInFormatsBySetCode[newestSetCode]
 
 		allowedInFormats: AllowedInFormats = AllowedInFormats(self.allowedFromDateBySetCode[oldestSetCode])
 		# Fill in Core values
@@ -48,6 +48,12 @@ class AllowedInFormatsHandler:
 		return allowedInFormats
 
 
+class _AllowedForFormatInputData(TypedDict, total=False):
+	allowed: bool
+	allowedUntilDate: str
+	rotationGroup: int
+
+
 class AllowedInFormat:
 	def __init__(self):
 		self.allowed: bool = False
@@ -56,7 +62,7 @@ class AllowedInFormat:
 
 
 class AllowedInFormats:
-	def __init__(self, allowedInTournamentsFromDate: str):
-		self.allowedInTournamentsFromDate: str = allowedInTournamentsFromDate
+	def __init__(self, allowedInTournamentsFromDate: Optional[str]):
+		self.allowedInTournamentsFromDate: Optional[str] = allowedInTournamentsFromDate
 		self.allowedInCore: AllowedInFormat = AllowedInFormat()
 		self.allowedInInfinity: AllowedInFormat = AllowedInFormat()
