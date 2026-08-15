@@ -453,13 +453,13 @@ class ImageParser:
 			if parseFully:
 				cv2.imshow("Ink Cost", result["cost"].image)
 				cv2.imshow("Card Name", result["name"].image)
-				if result["moveCost"] is not None:
+				if result.get("moveCost", None) is not None:
 					cv2.imshow("Card Move Cost", result["moveCost"].image)
-				if result["strength"] is not None:
+				if result.get("strength", None) is not None:
 					cv2.imshow("Card Strength", result["strength"].image)
-				if result["version"] is not None:
+				if result.get("version", None) is not None:
 					cv2.imshow("Card Subtitle", result["version"].image)
-				if result["willpower"] is not None:
+				if result.get("willpower", None) is not None:
 					cv2.imshow("Card Willpower", result["willpower"].image)
 			cv2.waitKey(0)
 			cv2.destroyAllWindows()
@@ -471,11 +471,11 @@ class ImageParser:
 			ocrResult.identifier = result["identifier"].text
 		if parseFully:
 			ocrResult.cost = result["cost"].text
-			ocrResult.moveCost = result["moveCost"].text if result["moveCost"] else None
+			ocrResult.moveCost = result["moveCost"].text if result.get("moveCost", None) else None
 			ocrResult.name = result["name"].text
-			ocrResult.strength = result["strength"].text if result["strength"] else None
-			ocrResult.version = result["version"].text if result["version"] else None
-			ocrResult.willpower = result["willpower"].text if result["willpower"] else None
+			ocrResult.strength = result["strength"].text if result.get("strength", None) else None
+			ocrResult.version = result["version"].text if result.get("version", None) else None
+			ocrResult.willpower = result["willpower"].text if result.get("willpower", None) else None
 		return ocrResult
 
 	def getOcrResultForCoconutCard(self, coconutCard: FormatCoconutCard, baseImagePath: str, parseSettings: ParseSettings, shouldShowImages: bool = False) -> OcrResult:
