@@ -1,4 +1,26 @@
 {
+  "4": [
+    {
+      "abilities": [
+        {
+          "effect": "You can have up to 4 copies of Stitch - Rock Star in your deck.",
+          "fullText": "(You can have up to 4 copies of Stitch - Rock Star in\nyour deck.)",
+          "type": "static"
+        },
+        {
+          "effect": "Once during your turn, you may play a character with cost 2 or less from your hand for free. If you have a character named Stitch in play, you may play a character with cost 2 or less from your discard for free instead.",
+          "fullText": "Once during your turn, you may play a character\nwith cost 2 or less from your hand for free. If you\nhave a character named Stitch in play, you may play\na character with cost 2 or less from your discard for\nfree instead.",
+          "type": "activated"
+        }
+      ],
+      "fullText": "(You can have up to 4 copies of Stitch - Rock Star in\nyour deck.)\nOnce during your turn, you may play a character\nwith cost 2 or less from your hand for free. If you\nhave a character named Stitch in play, you may play\na character with cost 2 or less from your discard for\nfree instead.",
+      "fullTextSections": [
+        "(You can have up to 4 copies of Stitch - Rock Star in\nyour deck.)",
+        "Once during your turn, you may play a character\nwith cost 2 or less from your hand for free. If you\nhave a character named Stitch in play, you may play\na character with cost 2 or less from your discard for\nfree instead."
+      ],
+      "usedUntil": "2026-08-14"
+    }
+  ],
   "7": [
     {
       "abilities": [
@@ -19,6 +41,28 @@
         "Once per game during your turn, you may pay\n5 \u2b21 to put the top 3 cards of your deck into your\ninkwell facedown and exerted."
       ],
       "usedUntil": "2026-08-06"
+    }
+  ],
+  "10": [
+    {
+      "abilities": [
+        {
+          "effect": "You can have up to 4 copies of Donald Duck - Fred Honeywell in your deck.",
+          "fullText": "(You can have up to 4 copies of Donald Duck -\nFred Honeywell in your deck.)",
+          "type": "static"
+        },
+        {
+          "effect": "You pay 1 \u2b21 less to use Boost abilities.",
+          "fullText": "You pay 1 \u2b21 less to use Boost abilities.",
+          "type": "static"
+        }
+      ],
+      "fullText": "(You can have up to 4 copies of Donald Duck -\nFred Honeywell in your deck.)\nYou pay 1 \u2b21 less to use Boost abilities.",
+      "fullTextSections": [
+        "(You can have up to 4 copies of Donald Duck -\nFred Honeywell in your deck.)",
+        "You pay 1 \u2b21 less to use Boost abilities."
+      ],
+      "usedUntil": "2026-08-14"
     }
   ],
   "14": [
