@@ -25,8 +25,8 @@ def generateFormatCoconutCardData(inputCardData: Dict, outputCardList: List[Dict
 	# To match Coconut cards to their referred main cards, we need to create a name list
 	cardNameToCard: Dict[str, Dict] = {}
 	for outputCard in outputCardList:
-		# Skip fancy-art and promo cards
-		if "baseId" not in outputCard:
+		# Skip fancy-art and promo cards; don't overwrite original prints with reprints
+		if "baseId" not in outputCard and outputCard["fullName"] not in cardNameToCard:
 			cardNameToCard[outputCard["fullName"]] = outputCard
 
 	cardCorrectionsPath = os.path.join("OutputGeneration", "data", "outputDataCorrections", f"formatCoconutCorrections_{GlobalConfig.language.code}.json")
