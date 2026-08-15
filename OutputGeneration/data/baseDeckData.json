@@ -514,9 +514,9 @@
       "decks": [
         {
           "names": {
-            "de": "",
+            "de": "Das Herz der Magie",
             "en": "The Heart of Magic",
-            "fr": ""
+            "fr": "Cœur de la Magie"
           },
           "colors": [
             "AMBER",
@@ -560,9 +560,9 @@
         },
         {
           "names": {
-            "de": "",
+            "de": "Wagemut und Täuschung",
             "en": "Daring and Deception",
-            "fr": ""
+            "fr": "Audace et Tromperie"
           },
           "colors": [
             "EMERALD",
@@ -605,9 +605,9 @@
         },
         {
           "names": {
-            "de": "",
+            "de": "Eine Unerschütterliche Strategie",
             "en": "A Steadfast Strategy",
-            "fr": ""
+            "fr": "Une Stratégie Inébranlable"
           },
           "colors": [
             "SAPPHIRE",
@@ -658,9 +658,9 @@
       "decks": [
         {
           "names": {
-            "de": "",
+            "de": "Taktische Teamarbeit",
             "en": "Tactical Teamwork",
-            "fr": ""
+            "fr": "Tactique d'Équipe"
           },
           "colors": [
             "AMBER",
@@ -704,9 +704,9 @@
         },
         {
           "names": {
-            "de": "",
+            "de": "Macht und Magie",
             "en": "Might and Magic",
-            "fr": ""
+            "fr": "Puissance et Magie"
           },
           "colors": [
             "AMETHYST",
@@ -757,9 +757,9 @@
       "decks": [
         {
           "names": {
-            "de": "",
+            "de": "Verbissen und Dynamisch",
             "en": "Dogged and Dynamic",
-            "fr": "",
+            "fr": "Tenace et Dynamique",
             "it": ""
           },
           "colors": [
@@ -803,9 +803,9 @@
         },
         {
           "names": {
-            "de": "",
+            "de": "Reich-lich Mut",
             "en": "Plenty of Pluck",
-            "fr": "",
+            "fr": "Beaucoup d'Audace",
             "it": ""
           },
           "colors": [
@@ -856,9 +856,9 @@
       "decks": [
         {
           "names": {
-            "de": "",
+            "de": "Zauber der Madrigal",
             "en": "Madrigal Magic",
-            "fr": "",
+            "fr": "Magie des Madrigal",
             "it": ""
           },
           "colors": [
@@ -903,9 +903,9 @@
         },
         {
           "names": {
-            "de": "",
+            "de": "Gemeinsam Stark",
             "en": "Stand Together",
-            "fr": "",
+            "fr": "Être Solidaires",
             "it": ""
           },
           "colors": [
@@ -956,9 +956,9 @@
       "decks": [
         {
           "names": {
-            "de": "",
+            "de": "Bereit zum Austoben",
             "en": "Ready to Let Loose",
-            "fr": "",
+            "fr": "Prêts à se Lâcher",
             "it": ""
           },
           "colors": [
@@ -1005,9 +1005,9 @@
         },
         {
           "names": {
-            "de": "",
+            "de": "Eine Prächtige Gästeliste",
             "en": "A Roaring Guest List",
-            "fr": "",
+            "fr": "Une Liste d'Invité Rugissante",
             "it": ""
           },
           "colors": [
@@ -1059,9 +1059,9 @@
       "decks": [
         {
           "names": {
-            "de": "",
+            "de": "Eine Seetüchtige Mannschaft",
             "en": "A Seaworthy Crew",
-            "fr": "",
+            "fr": "Un Équipage Paré Pour L'Aventure",
             "it": ""
           },
           "colors": [
@@ -1108,9 +1108,9 @@
         },
         {
           "names": {
-            "de": "",
+            "de": "Genie Neu Erfunden",
             "en": "Genius Reinvented",
-            "fr": "",
+            "fr": "Le Génie Réinventé",
             "it": ""
           },
           "colors": [
@@ -1165,7 +1165,7 @@
           "names": {
             "de": "Gefedert und Gefürchtet",
             "en": "Feathered and Feared",
-            "fr": "",
+            "fr": "Redoutable Plumage",
             "it": ""
           },
           "colors": [
@@ -1213,7 +1213,7 @@
           "names": {
             "de": "Ein Erfinderisches Paar",
             "en": "An Inventive Pair",
-            "fr": "",
+            "fr": "Un Couple Inventif",
             "it": ""
           },
           "colors": [
@@ -1465,9 +1465,9 @@
       "decks": [
         {
           "names": {
-            "de": "",
+            "de": "Spektakuläre Schatten",
             "en": "Spectacular Specters",
-            "fr": "",
+            "fr": "Spectres Spectaculaires",
             "it": ""
           },
           "colors": [
@@ -1513,9 +1513,9 @@
         },
         {
           "names": {
-            "de": "",
+            "de": "Am Fall Dran",
             "en": "On the Case",
-            "fr": "",
+            "fr": "Soyez sur L'Affaire",
             "it": ""
           },
           "colors": [
