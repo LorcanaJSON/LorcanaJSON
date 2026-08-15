@@ -230,6 +230,9 @@ def createOutputIfNeeded(onlyCreateOnNewCards: bool, cardFieldsToIgnore: Optiona
 		coconutOcrIdentifiersToClear: List[str] = [c.getOcrIdentifier() for c in updateCheckResult.removedFormatCoconutCards]
 		_logger.info(f"{len(updateCheckResult.removedFormatCoconutCards):,} Format Coconut cards have been removed, removing OCR cache for these cards: {coconutOcrIdentifiersToClear}")
 		OcrCacheHandler.clearOcrCacheForCards(coconutOcrIdentifiersToClear)
+	if GlobalConfig.limitedBuild and (updateCheckResult.newFormatCoconutCards or updateCheckResult.changedFormatCoconutCards or updateCheckResult.removedFormatCoconutCards):
+		_logger.info("Format Coconut cards were added, changed, or removed. Overriding 'limited build' to False so the Format Coconut file gets rebuilt")
+		GlobalConfig.limitedBuild = False
 	_logger.info(f"Updated IDs: {' '.join([str(i) for i in sorted(idsToParse)])}")
 	ApiScrapingUtil.saveCardCatalog(cardCatalog)
 	RavensburgerApiHandler.downloadImages()
