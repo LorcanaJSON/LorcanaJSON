@@ -1,10 +1,11 @@
 import logging, math, os, re, time
 from collections import namedtuple
-from typing import Any, List, NotRequired, Optional, TypedDict
+from typing import List, NotRequired, Optional, TypedDict, TYPE_CHECKING
 
 import cv2, tesserocr
-from numpy import ndarray  # numpy comes from cv2
 from PIL import Image
+if TYPE_CHECKING:
+	from numpy import ndarray  # numpy comes from cv2
 
 import GlobalConfig
 from OCR import ImageArea
