@@ -62,6 +62,13 @@ class ImageParser:
 		self._tesseractApi.SetVariable("tessedit_fix_hyphens", "0")
 		self._tesseractApi.SetVariable("crunch_early_convert_bad_unlv_chs", "1")
 
+	def close(self):
+		if self._tesseractApi is not None:
+			self._tesseractApi.End()
+			self._tesseractApi = None
+
+	def __del__(self):
+		self.close()
 	def getImageAndTextDataFromImage(self, cardId: int, baseImagePath: str, parseFully: bool, parseSettings: ParseSettings, cardType: Optional[str] = None, hasCardText: Optional[bool] = None, hasFlavorText: Optional[bool] = None,
 									 showImage: bool = False) -> OcrResult:
 		startTime = time.perf_counter()
