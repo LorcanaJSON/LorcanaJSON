@@ -216,22 +216,6 @@ if __name__ == '__main__':
 	if parsedArguments.action in ("parse", "show", "update"):
 		_setUpThreadCount(parsedArguments.action == "show" or parsedArguments.shouldShowSubimages, config.get("threadCount", 0) or parsedArguments.threads)
 
-		if parsedArguments.rebuildOcrCache:
-			_infoOrPrint(logger, "Setting OCR cache to be rebuilt")
-			GlobalConfig.useCachedOcr = False
-			GlobalConfig.skipOcrCache = False
-			OcrCacheHandler.clearOcrCache()
-		else:
-			if parsedArguments.action == "show" or parsedArguments.shouldShowSubimages:
-				logger.info("Not using OCR cache, because we need to show the card images")
-				GlobalConfig.useCachedOcr = False
-			elif parsedArguments.useCachedOcr or config.get("useCachedOcr", False):
-				logger.info("Using OCR cache")
-				GlobalConfig.useCachedOcr = True
-				OcrCacheHandler.validateOcrCache()
-			if parsedArguments.skipOcrCache or config.get("skipOcrCache", False):
-				logger.info("Skipping creating OCR cache")
-				GlobalConfig.skipOcrCache = True
 		# Only set 'limitedBuild' if we're actually building
 		if parsedArguments.limitedBuild:
 			logger.info("Running a limited build. Setfiles, deckfiles etc won't be generated")
@@ -243,6 +227,23 @@ if __name__ == '__main__':
 		GlobalConfig.translation = Translations.getForLanguage(GlobalConfig.language)
 		_infoOrPrint(logger, f"Starting action '{parsedArguments.action}' for language '{GlobalConfig.language.englishName}' at {datetime.datetime.now()}")
 
+		if parsedArguments.action in ("parse", "show", "update"):
+			if parsedArguments.rebuildOcrCache:
+				_infoOrPrint(logger, "Setting OCR cache to be rebuilt")
+				GlobalConfig.useCachedOcr = False
+				GlobalConfig.skipOcrCache = False
+				OcrCacheHandler.clearOcrCache()
+			else:
+				if parsedArguments.action == "show" or parsedArguments.shouldShowSubimages:
+					logger.info("Not using OCR cache, because we need to show the card images")
+					GlobalConfig.useCachedOcr = False
+				elif parsedArguments.useCachedOcr or config.get("useCachedOcr", False):
+					logger.info("Using OCR cache")
+					GlobalConfig.useCachedOcr = True
+					OcrCacheHandler.validateOcrCache()
+				if parsedArguments.skipOcrCache or config.get("skipOcrCache", False):
+					logger.info("Skipping creating OCR cache")
+					GlobalConfig.skipOcrCache = True
 		startTime = time.perf_counter()
 		if parsedArguments.action == "check":
 			_checkForUpdates(parsedArguments.ignoreFields)
