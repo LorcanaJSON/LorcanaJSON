@@ -1,5 +1,6 @@
 import logging, math, os, re, time
 from collections import namedtuple
+from types import TracebackType
 from typing import List, NotRequired, Optional, TypedDict, TYPE_CHECKING
 
 import cv2, tesserocr
@@ -69,6 +70,15 @@ class ImageParser:
 
 	def __del__(self):
 		self.close()
+
+	def __enter__(self):
+		# Allow use in 'with'-statements. No other setup is needed
+		return self
+
+	def __exit__(self, exc_type: type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None):
+		# Called when the 'with-statement is done. Don't suppress any exceptions, but always close the API
+		self.close()
+
 	def getImageAndTextDataFromImage(self, cardId: int, baseImagePath: str, parseFully: bool, parseSettings: ParseSettings, cardType: Optional[str] = None, hasCardText: Optional[bool] = None, hasFlavorText: Optional[bool] = None,
 									 showImage: bool = False) -> OcrResult:
 		startTime = time.perf_counter()

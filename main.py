@@ -295,7 +295,8 @@ if __name__ == '__main__':
 					card = idToCard[cardId]
 					identifier = IdentifierParser.parseIdentifier(card["card_identifier"])
 					parseSettings = ParseSettingsPicker.getParseSettingsForCard(card, identifier)
-				ocrResult = ImageParser.ImageParser().getImageAndTextDataFromImage(cardId, baseImagePathForCard, True, parseSettings, showImage=True)
+				with ImageParser.ImageParser() as imageParser:
+					ocrResult = imageParser.getImageAndTextDataFromImage(cardId, baseImagePathForCard, True, parseSettings, showImage=True)
 				_infoOrPrint(logger, f"Card ID {cardId}")
 				for fieldName, fieldResult in dataclasses.asdict(ocrResult).items():
 					if fieldResult is None:
