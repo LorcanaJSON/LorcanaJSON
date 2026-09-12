@@ -11,6 +11,7 @@ class _Metadata(TypedDict):
 	dataVersion: int
 	fileHashes: Dict[str, str]
 	tesseractLibraryVersions: str
+	tesserocrVersion: str
 
 
 _DATA_VERSION: int = 1
@@ -35,7 +36,8 @@ def _getMetadata() -> _Metadata:
 		for cacheRelevantFilePath in _cacheRelevantFilePaths:
 			with open(cacheRelevantFilePath, "rb") as cacheRelevantFile:
 				currentHashes[cacheRelevantFilePath] = hashlib.file_digest(cacheRelevantFile, "md5").hexdigest()
-		__metadata = {"dataVersion": _DATA_VERSION, "fileHashes": currentHashes, "tesseractLibraryVersions": tesserocr.tesseract_version()}
+		tesserocrVersion: str = tesserocr.__version__
+		__metadata = {"dataVersion": _DATA_VERSION, "fileHashes": currentHashes, "tesseractLibraryVersions": tesserocr.tesseract_version(), "tesserocrVersion": tesserocrVersion}
 	return __metadata
 
 def _buildCachedOcrResultPath(resultIdentifier: Union[int, str], basePath: Optional[str] = None) -> str:
@@ -60,8 +62,11 @@ def validateOcrCache() -> bool:
 	if storedMetadata["dataVersion"] != currentMetadata["dataVersion"]:
 		_infoOrPrint("OCR Cache data version mismatch, clearing OCR cache")
 		shouldClearCache = True
+	elif storedMetadata["tesserocrVersion"] != currentMetadata["tesserocrVersion"]:
+		_infoOrPrint(f"Existing cache was made with tesserocr {storedMetadata['tesserocrVersion']}, current tesserocr version is {currentMetadata['tesserocrVersion']}; Clearing OCR cache")
+		shouldClearCache = True
 	elif storedMetadata["tesseractLibraryVersions"] != currentMetadata["tesseractLibraryVersions"]:
-		_infoOrPrint(f"Existing cache is made with Tesseract version {storedMetadata['tesseractLibraryVersions']!r}, current Tesseract version is {currentMetadata['tesseractLibraryVersions']!r}; Clearing OCR cache")
+		_infoOrPrint(f"Existing cache was made with Tesseract version {storedMetadata['tesseractLibraryVersions']!r}, current Tesseract version is {currentMetadata['tesseractLibraryVersions']!r}; Clearing OCR cache")
 		shouldClearCache = True
 	else:
 		for cacheHashCheckFilePath in _cacheRelevantFilePaths:
