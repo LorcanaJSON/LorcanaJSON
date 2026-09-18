@@ -233,7 +233,8 @@ def createOutputIfNeeded(onlyCreateOnNewCards: bool, cardFieldsToIgnore: Optiona
 	if GlobalConfig.limitedBuild and (updateCheckResult.newFormatCoconutCards or updateCheckResult.changedFormatCoconutCards or updateCheckResult.removedFormatCoconutCards):
 		_logger.info("Format Coconut cards were added, changed, or removed. Overriding 'limited build' to False so the Format Coconut file gets rebuilt")
 		GlobalConfig.limitedBuild = False
-	_logger.info(f"Updated IDs: {' '.join([str(i) for i in sorted(idsToParse)])}")
+	if idsToParse:
+		_logger.info(f"Updated IDs: {' '.join([str(i) for i in sorted(idsToParse)])}")
 	ApiScrapingUtil.saveCardCatalog(cardCatalog)
 	RavensburgerApiHandler.downloadImages()
 	# Parse all images instead of just the new ones, because other cards might be related to the new ones (an Enchanted would have a baseId, and that base card needs to get an Enchanted ID too)
