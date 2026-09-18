@@ -122,6 +122,7 @@ def _generateDataForSingleFormatCoconutCard(coconutCard: FormatCoconutCard, asso
 		ability = abilities[abilityIndex]
 		ability["effect"] = ability["fullText"].strip("()").replace("\n", " ")
 		abilities[abilityIndex] = {k: ability[k] for k in sorted(ability)}
-	if abilities[0]["effect"] != f"You can have up to 4 copies of {associatedCard['fullName']} in your deck.":
-		_LOGGER.warning(f"Reminder text for Format Coconut card {coconutCard} is incorrect")
+	expectedFirstAbilityEffect = f"You can have up to 4 copies of {associatedCard['fullName']} in your deck."
+	if abilities[0]["effect"] != expectedFirstAbilityEffect:
+		_LOGGER.warning(f"Reminder text for Format Coconut card {coconutCard} should be {expectedFirstAbilityEffect!r}, but text is {abilities[0]['effect']!r}")
 	return {k: outputData[k] for k in sorted(outputData)}
