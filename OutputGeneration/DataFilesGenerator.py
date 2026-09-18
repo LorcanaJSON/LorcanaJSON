@@ -15,6 +15,7 @@ from OutputGeneration.RelatedCardsCollator import RelatedCardCollator
 from OutputGeneration.PromoSourceHandler import PromoSourceHandler
 from OutputGeneration.StoryParser import StoryParser
 from util import CardUtil, IdentifierParser
+from util.typedDicts.OutputCard import OutputCard
 
 _logger = logging.getLogger("LorcanaJSON")
 FORMAT_VERSION = "2.3.5"
@@ -59,7 +60,7 @@ def createOutputFiles(onlyParseIds: Optional[List[int]] = None, shouldShowImages
 		historicData = {}
 
 	# Get the cards we don't have to parse (if any) from the previous generated file
-	fullCardList: List[Dict] = []
+	fullCardList: List[OutputCard] = []
 	cardIdsStored: List[int] = []
 	outputFolder = os.path.join("output", GlobalConfig.language.code)
 	if onlyParseIds:
@@ -72,7 +73,7 @@ def createOutputFiles(onlyParseIds: Optional[List[int]] = None, shouldShowImages
 					raise ValueError(f"Previous card data has a different format version ({previousCardData['metadata']['formatVersion']}, current one is {FORMAT_VERSION}), please run a full parse")
 				else:
 					for cardIndex in range(len(previousCardData["cards"])):
-						card = previousCardData["cards"].pop()
+						card: OutputCard = previousCardData["cards"].pop()
 						if card["id"] not in onlyParseIds:
 							fullCardList.append(card)
 							cardIdsStored.append(card["id"])
@@ -221,12 +222,12 @@ def createOutputFiles(onlyParseIds: Optional[List[int]] = None, shouldShowImages
 	_logger.info(f"Created main card file in {time.perf_counter() - startTime} seconds")
 	# If we only parsed some specific cards, make a separate file with those, so checking them is a lot easier
 	if onlyParseIds:
-		parsedCards = {"metadata": metaDataDict, "cards": []}
+		parsedCards: List[OutputCard] = []
 		for card in outputDict["cards"]:
 			if card["id"] in onlyParseIds:
-				parsedCards["cards"].append(card)
+				parsedCards.append(card)
 		with open(os.path.join("output", "parsedCards.json"), "w", encoding="utf-8") as parsedCardsFile:
-			json.dump(parsedCards, parsedCardsFile, indent=2)
+			json.dump({"metadata": metaDataDict, "cards": parsedCards}, parsedCardsFile, indent=2)
 
 	# End of the limited build
 	if GlobalConfig.limitedBuild:
@@ -237,7 +238,7 @@ def createOutputFiles(onlyParseIds: Optional[List[int]] = None, shouldShowImages
 	decksOutputFolder = os.path.join(outputFolder, "decks")
 	os.makedirs(decksOutputFolder, exist_ok=True)
 	# To make lookups easier, we need an id-to-card dict
-	idToCard = {}
+	idToCard: Dict[int, OutputCard] = {}
 	for card in fullCardList:
 		idToCard[card["id"]] = card
 	# Get the deck data
