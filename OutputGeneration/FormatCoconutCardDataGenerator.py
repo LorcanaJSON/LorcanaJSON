@@ -107,6 +107,8 @@ def _generateDataForSingleFormatCoconutCard(coconutCard: FormatCoconutCard, asso
 		"number": coconutCard.number,
 		"subtitle": coconutCard.coconutData["subtitle"],
 	}
+	if "colors" in associatedCard:
+		outputData["colors"] = associatedCard["colors"]
 	if cardCorrections:
 		for fieldName, correctionList in cardCorrections.items():
 			TextCorrection.correctCardFieldFromList(outputData, fieldName, correctionList)
