@@ -8,6 +8,12 @@ from util import Language
 _logger = logging.getLogger("LorcanaJSON")
 
 _REPLACEMENT_NAMES: Dict[str, Union[str, Dict[Language.Language, str]]] = {
+	"BOOK": {
+		Language.ENGLISH: "Book",
+		Language.FRENCH: "Livre",
+		Language.GERMAN: "Buch",
+		Language.ITALIAN: "Libro"
+	},
 	"CHALLENGE": "Challenge",
 	"PARKS": "Disney Parks & Stores",
 	# The official app data calls 'CHALLENGE' "Play", but it muddles DLC reward cards with local hobby store Organized Play, so add a field for the latter

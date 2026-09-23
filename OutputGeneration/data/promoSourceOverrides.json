@@ -1,5 +1,6 @@
 {
   "sourceCategoryOverrides": {
+    "BOOK": [3594],
     "CRUISE": [2432, 2434, 2435, 2436, 2437, 2438],
     "PARKS": [2448, 2449, 2450, 2461, 2462, 3243, 3244, 3245, 3249],
     "PLAY": [666, 667, 668, 672, 673, 674, 675, 684, 685, 686, 687, 950, 951, 952, 953],
@@ -50,6 +51,12 @@
       "en": "'Moana 2' release",
       "fr": "'Vaiana 2' sortie",
       "it": "'Oceania 2' uscita"
+    },
+    "Quest of Wonders book": {
+      "ids": [3594],
+      "de": "'Quest of Wonders: Legendenbuch eines Luminari'",
+      "en": "'Quest of Wonders: An Illumineer's Lorebook'",
+      "fr": "'La Quête des Merveilles : Le Livre de Lore'"
     },
     "Scrooge Gift Box": {
       "ids": [2714],
