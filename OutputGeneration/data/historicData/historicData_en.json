@@ -231,6 +231,25 @@
         "WATCH THE TEETH Whenever this character is\ndealt damage, deal that much damage to chosen\nopposing character."
       ],
       "usedUntil": "2026-06-23"
+    },
+    {
+      "abilities": [
+        {
+          "effect": "Whenever this character takes damage, deal that much damage to chosen opposing character.",
+          "fullText": "WATCH THE TEETH Whenever this character\ntakes damage, deal that much damage to chosen\nopposing character.",
+          "name": "WATCH THE TEETH",
+          "type": "triggered"
+        }
+      ],
+      "artists": [
+        "Jochem van Gool"
+      ],
+      "artistsText": "Jochem van Gool",
+      "fullText": "WATCH THE TEETH Whenever this character\ntakes damage, deal that much damage to chosen\nopposing character.",
+      "fullTextSections": [
+        "WATCH THE TEETH Whenever this character\ntakes damage, deal that much damage to chosen\nopposing character."
+      ],
+      "usedUntil": "2026-09-22"
     }
   ],
   "581": [
@@ -868,12 +887,60 @@
       "usedUntil": "2026-09-22"
     }
   ],
+  "2662": [
+    {
+      "abilities": [
+        {
+          "effect": "Whenever this character quests, put the top card of your deck facedown under him.",
+          "fullText": "HARD WORK Whenever this character quests, put\nthe top card of your deck facedown under him.",
+          "name": "HARD WORK",
+          "type": "triggered"
+        },
+        {
+          "effect": "When this character is banished in a challenge, you may put all cards that were under him under another chosen character or location of yours.",
+          "fullText": "A GIVING HEART When this character is banished\nin a challenge, you may put all cards that were\nunder him under another chosen character or\nlocation of yours.",
+          "name": "A GIVING HEART",
+          "type": "triggered"
+        }
+      ],
+      "fullText": "HARD WORK Whenever this character quests, put\nthe top card of your deck facedown under him.\nA GIVING HEART When this character is banished\nin a challenge, you may put all cards that were\nunder him under another chosen character or\nlocation of yours.",
+      "fullTextSections": [
+        "HARD WORK Whenever this character quests, put\nthe top card of your deck facedown under him.",
+        "A GIVING HEART When this character is banished\nin a challenge, you may put all cards that were\nunder him under another chosen character or\nlocation of yours."
+      ],
+      "usedUntil": "2026-09-22"
+    }
+  ],
   "2670": [
     {
       "artists": [
         "Jochem van Gool"
       ],
       "artistsText": "Jochem van Gool",
+      "usedUntil": "2026-09-22"
+    }
+  ],
+  "2682": [
+    {
+      "abilities": [
+        {
+          "effect": "Whenever this character quests, put the top card of your deck facedown under him.",
+          "fullText": "HARD WORK Whenever this character quests, put\nthe top card of your deck facedown under him.",
+          "name": "HARD WORK",
+          "type": "triggered"
+        },
+        {
+          "effect": "When this character is banished in a challenge, you may put all cards that were under him under another chosen character or location of yours.",
+          "fullText": "A GIVING HEART When this character is banished\nin a challenge, you may put all cards that were\nunder him under another chosen character or\nlocation of yours.",
+          "name": "A GIVING HEART",
+          "type": "triggered"
+        }
+      ],
+      "fullText": "HARD WORK Whenever this character quests, put\nthe top card of your deck facedown under him.\nA GIVING HEART When this character is banished\nin a challenge, you may put all cards that were\nunder him under another chosen character or\nlocation of yours.",
+      "fullTextSections": [
+        "HARD WORK Whenever this character quests, put\nthe top card of your deck facedown under him.",
+        "A GIVING HEART When this character is banished\nin a challenge, you may put all cards that were\nunder him under another chosen character or\nlocation of yours."
+      ],
       "usedUntil": "2026-09-22"
     }
   ],
