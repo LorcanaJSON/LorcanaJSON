@@ -29,16 +29,6 @@
       null
     ]
   },
-  "951": {
-    "lore": [
-      2,
-      1
-    ],
-    "moveCost": [
-      1,
-      2
-    ]
-  },
   "969": {
     "_moveKeywordsLast": true
   },
