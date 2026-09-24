@@ -31,6 +31,7 @@ class ParseSettings:
 	parseIdentifier: bool = False
 	getIdentifierFromCard: bool = False
 	forceArtistTextColor: Optional[ImageArea.TextColour] = None
+	artistRightOffset: int = 0
 	lineParsingMaxGap: int = 3  # The line parsing fallback method has a max distance between horizontally-adjacent lines to join them. This setting can override that limit
 	# Line parsing color filter fallback needs a lower and and upper bound of colors to keep. For other parse settings, these values do nothing. NOTE: These are in BGR format
 	colorFilterLowerBound: Optional[Tuple[int]] = None
