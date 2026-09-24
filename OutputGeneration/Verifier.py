@@ -143,7 +143,7 @@ def compareInputToOutput(cardIdsToVerify: Optional[List[int]]):
 				(outputCard["rarity"] in (GlobalConfig.translation.EPIC, GlobalConfig.translation.ENCHANTED, GlobalConfig.translation.ICONIC) or
 				 ("Q" not in outputCard["setCode"] and outputCard["rarity"] == GlobalConfig.translation.SPECIAL))):
 			cardDifferencesCount += 1
-			print(f"{outputCard['fullName']} (ID {outputCard['id']}) should have a Base ID field, but it doesn't")
+			print(f"{outputCard['fullName']} (ID {outputCard['id']}, {outputCard['fullIdentifier']}) should have a Base ID field, but it doesn't")
 
 		inputIdentifier = inputCard["card_identifier"].replace(" ", LorcanaSymbols.SEPARATOR_STRING).replace("1TFC", "1 TFC")
 		# The input identifiers don't have the leading zero, so strip it here too (But don't remove it from 0/204 from Set 9)
