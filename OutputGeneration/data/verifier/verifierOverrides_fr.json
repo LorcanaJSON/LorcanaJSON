@@ -17,12 +17,6 @@
       "Duyen Nguyen / J"
     ]
   },
-  "141": {
-    "author": [
-      "o$",
-      "o / Pix Smith"
-    ]
-  },
   "193": {
     "rules_text": [
       "un autre personnage",
@@ -252,16 +246,6 @@
     "rules_text": [
       "TIR ",
       "COUP "
-    ]
-  },
-  "951": {
-    "move_cost": [
-      1,
-      2
-    ],
-    "quest_value": [
-      2,
-      1
     ]
   },
   "961": {
@@ -640,18 +624,6 @@
     "rules_text": [
       " \\([^)]+\\)",
       ""
-    ]
-  },
-  "3223": {
-    "author": [
-      "^Emily Abeydeera$",
-      "Lisanne Koeteeuw"
-    ]
-  },
- "3224": {
-    "author": [
-      "^Emily Abeydeera$",
-      "Lisanne Koeteeuw"
     ]
   },
   "3225": {

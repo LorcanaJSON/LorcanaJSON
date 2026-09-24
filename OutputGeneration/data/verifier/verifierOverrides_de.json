@@ -241,12 +241,6 @@
       "—"
     ]
   },
-  "141": {
-    "author": [
-      "o$",
-      "o / Pix Smith"
-    ]
-  },
   "145": {
     "flavor_text": [
       "u …",
@@ -554,16 +548,6 @@
     "rules_text": [
       "2 anderen C",
       "2 C"
-    ]
-  },
-  "951": {
-    "move_cost": [
-      1,
-      2
-    ],
-    "quest_value": [
-      2,
-      1
     ]
   },
   "986": {
@@ -1004,18 +988,6 @@
       ""
     ]
   },
-  "3223": {
-    "author": [
-      "^Emily Abeydeera$",
-      "Lisanne Koeteeuw"
-    ]
-  },
- "3224": {
-    "author": [
-      "^Emily Abeydeera$",
-      "Lisanne Koeteeuw"
-    ]
-  },
   "3225": {
     "author": [
       "^Omar Lozano$",
@@ -1026,6 +998,18 @@
     "author": [
       "Juan Diego León",
       "Max Grecke"
+    ]
+  },
+  "3340": {
+    "rules_text": [
+      "dk",
+      "dsk"
+    ]
+  },
+  "3594": {
+    "flavor_text": [
+      "–",
+      "—"
     ]
   }
 }

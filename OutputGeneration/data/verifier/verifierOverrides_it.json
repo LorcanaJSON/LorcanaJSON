@@ -1,4 +1,10 @@
 {
+  "141": {
+    "author": [
+      " /.+$",
+      ""
+    ]
+  },
   "145": {
     "flavor_text": [
       "AG",
@@ -122,16 +128,6 @@
     "rules_text": [
       "^(.+) (Guardiano \\(.+)$",
       "\\2 \\1"
-    ]
-  },
-  "951": {
-    "move_cost": [
-      1,
-      2
-    ],
-    "quest_value": [
-      2,
-      1
     ]
   },
   "1186": {
@@ -360,16 +356,10 @@
       "'"
     ]
   },
-  "3223": {
+  "3225": {
     "author": [
-      "^Emily Abeydeera$",
-      "Lisanne Koeteeuw"
-    ]
-  },
- "3224": {
-    "author": [
-      "^Emily Abeydeera$",
-      "Lisanne Koeteeuw"
+      "^Omar Lozano$",
+      "Ian MacDonald"
     ]
   },
   "3250": {

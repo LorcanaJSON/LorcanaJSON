@@ -17,12 +17,6 @@
       "E."
     ]
   },
-  "141": {
-    "author": [
-      "o$",
-      "o / Pix Smith"
-    ]
-  },
   "148": {
     "flavor_text": [
       "\\.\\. I",
@@ -279,16 +273,6 @@
     "author": [
       "[“”]",
       "\""
-    ]
-  },
-  "951": {
-    "move_cost": [
-      1,
-      2
-    ],
-    "quest_value": [
-      2,
-      1
     ]
   },
   "1050": {
@@ -581,18 +565,6 @@
       "Sam Nielson"
     ]
   },
-  "2448": {
-    "author": [
-      " /.+$",
-      ""
-    ]
-  },
-  "2449": {
-    "author": [
-      " /.+$",
-      ""
-    ]
-  },
   "2452": {
     "rules_text": [
       "4 \\(",
@@ -697,18 +669,6 @@
       "'"
     ]
   },
-  "3223": {
-    "author": [
-      "^Emily Abeydeera$",
-      "Lisanne Koeteeuw"
-    ]
-  },
- "3224": {
-    "author": [
-      "^Emily Abeydeera$",
-      "Lisanne Koeteeuw"
-    ]
-  },
   "3225": {
     "author": [
       "^Omar Lozano$",
@@ -755,6 +715,12 @@
     "author": [
       "Juan Diego León",
       "Max Grecke"
+    ]
+  },
+  "3594": {
+    "flavor_text": [
+      "–",
+      "—"
     ]
   }
 }
