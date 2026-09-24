@@ -4536,5 +4536,27 @@
       "\nNT",
       ""
     ]
+  },
+  "3450": {
+    "flavorText": [
+      "fout",
+      "faut"
+    ]
+  },
+  "3460": {
+    "artistsText": [
+      "â",
+      "á"
+    ]
+  },
+  "3594": {
+    "flavorText": [
+      "touf",
+      "tout",
+      "con",
+      "son",
+      "doc",
+      "dos"
+    ]
   }
 }

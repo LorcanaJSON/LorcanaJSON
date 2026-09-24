@@ -3312,5 +3312,33 @@
       "Ohren ",
       "(Während "
     ]
+  },
+  "3358": {
+    "artistsText": [
+      "^\\(EZ$",
+      "Caelys"
+    ]
+  },
+  "3450": {
+    "flavorText": [
+      " M",
+      "M"
+    ]
+  },
+  "3460": {
+    "artistsText": [
+      "ä",
+      "á"
+    ]
+  },
+  "3594": {
+    "flavorText": [
+      "S",
+      "s"
+    ],
+    "subtypes": [
+      "^F",
+      "T"
+    ]
   }
 }

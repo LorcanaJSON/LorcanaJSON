@@ -3398,5 +3398,69 @@
       "\ne e\\.”",
       ""
     ]
+  },
+  "3225": {
+    "abilities": [
+      "DN",
+      "D"
+    ],
+    "artistsText": [
+      " \\* MM$",
+      ""
+    ],
+    "effects": [
+      "^\\.",
+      "L",
+      "\nui",
+      "\ncui"
+    ]
+  },
+  "3227": {
+    "flavorText": [
+      "\ne \\.”",
+      ""
+    ]
+  },
+  "3228": {
+    "flavorText": [
+      "^“ama ",
+      "“Io la mia "
+    ]
+  },
+  "3229": {
+    "abilities": [
+      "\ne e\\.”",
+      ""
+    ]
+  },
+  "3230": {
+    "abilities": [
+      "\ne e\\.”",
+      ""
+    ]
+  },
+  "3231": {
+    "abilities": [
+      "\nes",
+      "\nques"
+    ]
+  },
+  "3232": {
+    "abilities": [
+      "\ne \\.”",
+      ""
+    ]
+  },
+  "3304": {
+    "flavorText": [
+      "\n2 ¤’",
+      ""
+    ]
+  },
+  "3460": {
+    "artistsText": [
+      "ia",
+      "iá"
+    ]
   }
 }
