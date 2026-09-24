@@ -1,4 +1,32 @@
 {
+  "435": [
+    {
+      "artists": [
+        "Evana Kisa",
+        "Jochem van Gool"
+      ],
+      "artistsText": "Evana Kisa / Jochem van Gool",
+      "usedUntil": "2026-09-22"
+    }
+  ],
+  "521": [
+    {
+      "artists": [
+        "Jochem van Gool"
+      ],
+      "artistsText": "Jochem van Gool",
+      "usedUntil": "2026-09-22"
+    }
+  ],
+  "544": [
+    {
+      "artists": [
+        "Jochem van Gool"
+      ],
+      "artistsText": "Jochem van Gool",
+      "usedUntil": "2026-09-22"
+    }
+  ],
   "581": [
     {
       "subtypes": [
@@ -7,6 +35,24 @@
       ],
       "subtypesText": "Classico \u2022 Alleato",
       "usedUntil": "2024-11-04"
+    }
+  ],
+  "699": [
+    {
+      "artists": [
+        "Jochem van Gool"
+      ],
+      "artistsText": "Jochem van Gool",
+      "usedUntil": "2026-09-22"
+    }
+  ],
+  "707": [
+    {
+      "artists": [
+        "Jochem van Gool"
+      ],
+      "artistsText": "Jochem van Gool",
+      "usedUntil": "2026-09-22"
     }
   ],
   "728": [
@@ -68,6 +114,15 @@
       "usedUntil": "2024-08-23"
     }
   ],
+  "969": [
+    {
+      "artists": [
+        "Jochem van Gool"
+      ],
+      "artistsText": "Jochem van Gool",
+      "usedUntil": "2026-09-22"
+    }
+  ],
   "1117": [
     {
       "artists": [
@@ -78,10 +133,46 @@
       "usedUntil": "2024-08-23"
     }
   ],
+  "1173": [
+    {
+      "artists": [
+        "Jochem van Gool"
+      ],
+      "artistsText": "Jochem van Gool",
+      "usedUntil": "2026-09-22"
+    }
+  ],
   "1179": [
     {
       "type": "Ogetto",
       "usedUntil": "2024-08-23"
+    }
+  ],
+  "1181": [
+    {
+      "artists": [
+        "Jochem van Gool"
+      ],
+      "artistsText": "Jochem van Gool",
+      "usedUntil": "2026-09-22"
+    }
+  ],
+  "1279": [
+    {
+      "artists": [
+        "Jochem van Gool"
+      ],
+      "artistsText": "Jochem van Gool",
+      "usedUntil": "2026-09-22"
+    }
+  ],
+  "1280": [
+    {
+      "artists": [
+        "Jochem van Gool"
+      ],
+      "artistsText": "Jochem van Gool",
+      "usedUntil": "2026-09-22"
     }
   ],
   "1244": [
@@ -106,10 +197,28 @@
       "usedUntil": "2026-04-16"
     }
   ],
+  "1445": [
+    {
+      "artists": [
+        "Jochem van Gool"
+      ],
+      "artistsText": "Jochem van Gool",
+      "usedUntil": "2026-09-22"
+    }
+  ],
   "1514": [
     {
       "flavorText": "Ognuno brilla di una luce unica",
       "usedUntil": "2025-08-08"
+    }
+  ],
+  "1516": [
+    {
+      "artists": [
+        "Jochem van Gool"
+      ],
+      "artistsText": "Jochem van Gool",
+      "usedUntil": "2026-09-22"
     }
   ],
   "1542": [
@@ -145,6 +254,15 @@
       "usedUntil": "2026-06-23"
     }
   ],
+  "1574": [
+    {
+      "artists": [
+        "Jochem van Gool"
+      ],
+      "artistsText": "Jochem van Gool",
+      "usedUntil": "2026-09-22"
+    }
+  ],
   "1585": [
     {
       "abilities": [
@@ -164,6 +282,15 @@
         "IL PREZZO DEL POTERE \u27f3 \u2014 Se uno dei tuoi personaggi \u00e8\nstato danneggiato in questo turno, ottieni 1 leggenda."
       ],
       "usedUntil": "2026-06-23"
+    }
+  ],
+  "1592": [
+    {
+      "artists": [
+        "Jochem van Gool"
+      ],
+      "artistsText": "Jochem van Gool",
+      "usedUntil": "2026-09-22"
     }
   ],
   "1609": [
@@ -188,6 +315,33 @@
         "FAIR PLAY I tuoi personaggi chiamati Lady Cocca\nottengono Resistere +1. (Il danno che gli viene inflitto \u00e8\nridotto di 1.)"
       ],
       "usedUntil": "2026-06-23"
+    }
+  ],
+  "1626": [
+    {
+      "artists": [
+        "Jochem van Gool"
+      ],
+      "artistsText": "Jochem van Gool",
+      "usedUntil": "2026-09-22"
+    }
+  ],
+  "1643": [
+    {
+      "artists": [
+        "Jochem van Gool"
+      ],
+      "artistsText": "Jochem van Gool",
+      "usedUntil": "2026-09-22"
+    }
+  ],
+  "1650": [
+    {
+      "artists": [
+        "Jochem van Gool"
+      ],
+      "artistsText": "Jochem van Gool",
+      "usedUntil": "2026-09-22"
     }
   ],
   "1651": [
@@ -295,6 +449,144 @@
         "DATECI DENTRO FINO ALL'ULTIMO! Una volta durante il\ntuo turno, ogni volta che un personaggio avversario viene\ndanneggiato, i tuoi personaggi Pirata ricevono +2 \u00a4 e\nottengono Resistere +2 per questo turno. (Il danno che gli\nviene inflitto \u00e8 ridotto di 2.)"
       ],
       "usedUntil": "2026-06-23"
+    }
+  ],
+  "2023": [
+    {
+      "artists": [
+        "Jochem van Gool"
+      ],
+      "artistsText": "Jochem van Gool",
+      "usedUntil": "2026-09-22"
+    }
+  ],
+  "2100": [
+    {
+      "artists": [
+        "Jochem van Gool"
+      ],
+      "artistsText": "Jochem van Gool",
+      "usedUntil": "2026-09-22"
+    }
+  ],
+  "2152": [
+    {
+      "artists": [
+        "Jochem van Gool"
+      ],
+      "artistsText": "Jochem van Gool",
+      "usedUntil": "2026-09-22"
+    }
+  ],
+  "2259": [
+    {
+      "artists": [
+        "Jochem van Gool"
+      ],
+      "artistsText": "Jochem van Gool",
+      "usedUntil": "2026-09-22"
+    }
+  ],
+  "2264": [
+    {
+      "artists": [
+        "Jochem van Gool"
+      ],
+      "artistsText": "Jochem van Gool",
+      "usedUntil": "2026-09-22"
+    }
+  ],
+  "2267": [
+    {
+      "artists": [
+        "Jochem van Gool"
+      ],
+      "artistsText": "Jochem van Gool",
+      "usedUntil": "2026-09-22"
+    }
+  ],
+  "2622": [
+    {
+      "abilities": [
+        {
+          "effect": "Ogni volta che questo personaggio va all'avventura, metti la prima carta del tuo mazzo a faccia in gi\u00f9 sotto di esso.",
+          "fullText": "DURO LAVORO Ogni volta che questo personaggio va\nall'avventura, metti la prima carta del tuo mazzo a faccia\nin gi\u00f9 sotto di esso.",
+          "name": "DURO LAVORO",
+          "type": "triggered"
+        },
+        {
+          "effect": "Quando questo personaggio viene esiliato in una sfida, puoi mettere tutte le carte che erano sotto di esso sotto a un tuo altro personaggio o luogo a tua scelta.",
+          "fullText": "UN CUORE GENEROSO Quando questo personaggio\nviene esiliato in una sfida, puoi mettere tutte le carte\nche erano sotto di esso sotto a un tuo altro personaggio\no luogo a tua scelta.",
+          "name": "UN CUORE GENEROSO",
+          "type": "triggered"
+        }
+      ],
+      "fullText": "DURO LAVORO Ogni volta che questo personaggio va\nall'avventura, metti la prima carta del tuo mazzo a faccia\nin gi\u00f9 sotto di esso.\nUN CUORE GENEROSO Quando questo personaggio\nviene esiliato in una sfida, puoi mettere tutte le carte\nche erano sotto di esso sotto a un tuo altro personaggio\no luogo a tua scelta.",
+      "fullTextSections": [
+        "DURO LAVORO Ogni volta che questo personaggio va\nall'avventura, metti la prima carta del tuo mazzo a faccia\nin gi\u00f9 sotto di esso.",
+        "UN CUORE GENEROSO Quando questo personaggio\nviene esiliato in una sfida, puoi mettere tutte le carte\nche erano sotto di esso sotto a un tuo altro personaggio\no luogo a tua scelta."
+      ],
+      "usedUntil": "2026-09-22"
+    }
+  ],
+  "2670": [
+    {
+      "artists": [
+        "Jochem van Gool"
+      ],
+      "artistsText": "Jochem van Gool",
+      "usedUntil": "2026-09-22"
+    }
+  ],
+  "2682": [
+    {
+      "abilities": [
+        {
+          "effect": "Ogni volta che questo personaggio va all'avventura, metti la prima carta del tuo mazzo a faccia in gi\u00f9 sotto di esso.",
+          "fullText": "DURO LAVORO Ogni volta che questo personaggio va\nall'avventura, metti la prima carta del tuo mazzo a faccia\nin gi\u00f9 sotto di esso.",
+          "name": "DURO LAVORO",
+          "type": "triggered"
+        },
+        {
+          "effect": "Quando questo personaggio viene esiliato in una sfida, puoi mettere tutte le carte che erano sotto di esso sotto a un tuo altro personaggio o luogo a tua scelta.",
+          "fullText": "UN CUORE GENEROSO Quando questo personaggio\nviene esiliato in una sfida, puoi mettere tutte le carte\nche erano sotto di esso sotto a un tuo altro personaggio\no luogo a tua scelta.",
+          "name": "UN CUORE GENEROSO",
+          "type": "triggered"
+        }
+      ],
+      "fullText": "DURO LAVORO Ogni volta che questo personaggio va\nall'avventura, metti la prima carta del tuo mazzo a faccia\nin gi\u00f9 sotto di esso.\nUN CUORE GENEROSO Quando questo personaggio\nviene esiliato in una sfida, puoi mettere tutte le carte\nche erano sotto di esso sotto a un tuo altro personaggio\no luogo a tua scelta.",
+      "fullTextSections": [
+        "DURO LAVORO Ogni volta che questo personaggio va\nall'avventura, metti la prima carta del tuo mazzo a faccia\nin gi\u00f9 sotto di esso.",
+        "UN CUORE GENEROSO Quando questo personaggio\nviene esiliato in una sfida, puoi mettere tutte le carte\nche erano sotto di esso sotto a un tuo altro personaggio\no luogo a tua scelta."
+      ],
+      "usedUntil": "2026-09-22"
+    }
+  ],
+  "2730": [
+    {
+      "artists": [
+        "Jochem van Gool"
+      ],
+      "artistsText": "Jochem van Gool",
+      "usedUntil": "2026-09-22"
+    }
+  ],
+  "2968": [
+    {
+      "artists": [
+        "Jochem van Gool"
+      ],
+      "artistsText": "Jochem van Gool",
+      "usedUntil": "2026-09-22"
+    }
+  ],
+  "2969": [
+    {
+      "artists": [
+        "Jochem van Gool"
+      ],
+      "artistsText": "Jochem van Gool",
+      "usedUntil": "2026-09-22"
     }
   ]
 }

@@ -178,6 +178,15 @@
       "usedUntil": "2026-02-05"
     }
   ],
+  "224": [
+    {
+      "artists": [
+        "Jochem van Gool"
+      ],
+      "artistsText": "Jochem van Gool",
+      "usedUntil": "2026-09-22"
+    }
+  ],
   "242": [
     {
       "artists": [
@@ -282,6 +291,24 @@
       ],
       "artistsText": "Michael \"Cookie\" Niewiadomy",
       "usedUntil": "2025-08-08"
+    }
+  ],
+  "379": [
+    {
+      "artists": [
+        "Jochem van Gool"
+      ],
+      "artistsText": "Jochem van Gool",
+      "usedUntil": "2026-09-22"
+    }
+  ],
+  "381": [
+    {
+      "artists": [
+        "Jochem van Gool"
+      ],
+      "artistsText": "Jochem van Gool",
+      "usedUntil": "2026-09-22"
     }
   ],
   "388": [
@@ -409,6 +436,16 @@
       "usedUntil": "2024-08-23"
     }
   ],
+  "435": [
+    {
+      "artists": [
+        "Evana Kisa",
+        "Jochem van Gool"
+      ],
+      "artistsText": "Evana Kisa / Jochem van Gool",
+      "usedUntil": "2026-09-22"
+    }
+  ],
   "441": [
     {
       "abilities": [
@@ -493,6 +530,15 @@
       "usedUntil": "2024-08-23"
     }
   ],
+  "521": [
+    {
+      "artists": [
+        "Jochem van Gool"
+      ],
+      "artistsText": "Jochem van Gool",
+      "usedUntil": "2026-09-22"
+    }
+  ],
   "544": [
     {
       "abilities": [
@@ -508,6 +554,13 @@
         "VORSICHT Z\u00c4HNE! Jedes Mal, wenn diesem\nCharakter Schaden zugef\u00fcgt wird, f\u00fcge einem\ngegnerischen Charakter deiner Wahl genauso viel\nSchaden zu."
       ],
       "usedUntil": "2026-06-23"
+    },
+    {
+      "artists": [
+        "Jochem van Gool"
+      ],
+      "artistsText": "Jochem van Gool",
+      "usedUntil": "2026-09-22"
     }
   ],
   "568": [
@@ -588,6 +641,24 @@
       "usedUntil": "2024-08-23"
     }
   ],
+  "699": [
+    {
+      "artists": [
+        "Jochem van Gool"
+      ],
+      "artistsText": "Jochem van Gool",
+      "usedUntil": "2026-09-22"
+    }
+  ],
+  "707": [
+    {
+      "artists": [
+        "Jochem van Gool"
+      ],
+      "artistsText": "Jochem van Gool",
+      "usedUntil": "2026-09-22"
+    }
+  ],
   "728": [
     {
       "artists": [
@@ -664,6 +735,15 @@
       "usedUntil": "2024-08-23"
     }
   ],
+  "969": [
+    {
+      "artists": [
+        "Jochem van Gool"
+      ],
+      "artistsText": "Jochem van Gool",
+      "usedUntil": "2026-09-22"
+    }
+  ],
   "1117": [
     {
       "artists": [
@@ -674,6 +754,24 @@
       "usedUntil": "2024-08-23"
     }
   ],
+  "1173": [
+    {
+      "artists": [
+        "Jochem van Gool"
+      ],
+      "artistsText": "Jochem van Gool",
+      "usedUntil": "2026-09-22"
+    }
+  ],
+  "1181": [
+    {
+      "artists": [
+        "Jochem van Gool"
+      ],
+      "artistsText": "Jochem van Gool",
+      "usedUntil": "2026-09-22"
+    }
+  ],
   "1244": [
     {
       "subtypes": [
@@ -682,6 +780,24 @@
       ],
       "subtypesText": "Traumgestalt \u2022 Verb\u00fcndeter",
       "usedUntil": "2025-02-26"
+    }
+  ],
+  "1279": [
+    {
+      "artists": [
+        "Jochem van Gool"
+      ],
+      "artistsText": "Jochem van Gool",
+      "usedUntil": "2026-09-22"
+    }
+  ],
+  "1280": [
+    {
+      "artists": [
+        "Jochem van Gool"
+      ],
+      "artistsText": "Jochem van Gool",
+      "usedUntil": "2026-09-22"
     }
   ],
   "1362": [
@@ -696,10 +812,73 @@
       "usedUntil": "2026-02-05"
     }
   ],
+  "1445": [
+    {
+      "artists": [
+        "Jochem van Gool"
+      ],
+      "artistsText": "Jochem van Gool",
+      "usedUntil": "2026-09-22"
+    }
+  ],
+  "1516": [
+    {
+      "artists": [
+        "Jochem van Gool"
+      ],
+      "artistsText": "Jochem van Gool",
+      "usedUntil": "2026-09-22"
+    }
+  ],
+  "1574": [
+    {
+      "artists": [
+        "Jochem van Gool"
+      ],
+      "artistsText": "Jochem van Gool",
+      "usedUntil": "2026-09-22"
+    }
+  ],
+  "1592": [
+    {
+      "artists": [
+        "Jochem van Gool"
+      ],
+      "artistsText": "Jochem van Gool",
+      "usedUntil": "2026-09-22"
+    }
+  ],
   "1613": [
     {
       "flavorText": "\u201eAkku auf 100%. Bereit f\u00fcr den Einsatz!\u201c\n\u2014Hiro",
       "usedUntil": "2025-08-08"
+    }
+  ],
+  "1626": [
+    {
+      "artists": [
+        "Jochem van Gool"
+      ],
+      "artistsText": "Jochem van Gool",
+      "usedUntil": "2026-09-22"
+    }
+  ],
+  "1643": [
+    {
+      "artists": [
+        "Jochem van Gool"
+      ],
+      "artistsText": "Jochem van Gool",
+      "usedUntil": "2026-09-22"
+    }
+  ],
+  "1650": [
+    {
+      "artists": [
+        "Jochem van Gool"
+      ],
+      "artistsText": "Jochem van Gool",
+      "usedUntil": "2026-09-22"
     }
   ],
   "1773": [
@@ -805,6 +984,33 @@
       "usedUntil": "2026-06-23"
     }
   ],
+  "2023": [
+    {
+      "artists": [
+        "Jochem van Gool"
+      ],
+      "artistsText": "Jochem van Gool",
+      "usedUntil": "2026-09-22"
+    }
+  ],
+  "2100": [
+    {
+      "artists": [
+        "Jochem van Gool"
+      ],
+      "artistsText": "Jochem van Gool",
+      "usedUntil": "2026-09-22"
+    }
+  ],
+  "2152": [
+    {
+      "artists": [
+        "Jochem van Gool"
+      ],
+      "artistsText": "Jochem van Gool",
+      "usedUntil": "2026-09-22"
+    }
+  ],
   "2192": [
     {
       "abilities": [
@@ -827,6 +1033,33 @@
         "AKT DER FREUNDLICHKEIT Jedes Mal, wenn einer deiner\nCharaktere f\u00fcr Unterst\u00fctzen ausgew\u00e4hlt wird, erh\u00e4lt er bis\nzu Beginn deines n\u00e4chsten Zuges das n\u00e4chste Mal, wenn er\nSchaden erhalten w\u00fcrde, stattdessen keinen Schaden."
       ],
       "usedUntil": "2026-06-23"
+    }
+  ],
+  "2259": [
+    {
+      "artists": [
+        "Jochem van Gool"
+      ],
+      "artistsText": "Jochem van Gool",
+      "usedUntil": "2026-09-22"
+    }
+  ],
+  "2264": [
+    {
+      "artists": [
+        "Jochem van Gool"
+      ],
+      "artistsText": "Jochem van Gool",
+      "usedUntil": "2026-09-22"
+    }
+  ],
+  "2267": [
+    {
+      "artists": [
+        "Jochem van Gool"
+      ],
+      "artistsText": "Jochem van Gool",
+      "usedUntil": "2026-09-22"
     }
   ],
   "2307": [
@@ -875,6 +1108,90 @@
         "ABORDNEN Deine anderen Charaktere erhalten\ndie Klassifizierung Detektiv."
       ],
       "usedUntil": "2026-06-23"
+    }
+  ],
+  "2622": [
+    {
+      "abilities": [
+        {
+          "effect": "Jedes Mal, wenn dieser Charakter erkundet, lege die oberste Karte deines Decks verdeckt unter ihn.",
+          "fullText": "HARTE ARBEIT Jedes Mal, wenn dieser Charakter\nerkundet, lege die oberste Karte deines Decks verdeckt\nunter ihn.",
+          "name": "HARTE ARBEIT",
+          "type": "triggered"
+        },
+        {
+          "effect": "Wenn dieser Charakter durch eine Herausforderung verbannt wird, darfst du alle Karten, die unter diesem Charakter lagen, unter einen deiner anderen Charaktere oder Orte legen.",
+          "fullText": "EIN SCHENKENDES HERZ Wenn dieser Charakter durch\neine Herausforderung verbannt wird, darfst du alle\nKarten, die unter diesem Charakter lagen, unter einen\ndeiner anderen Charaktere oder Orte legen.",
+          "name": "EIN SCHENKENDES HERZ",
+          "type": "triggered"
+        }
+      ],
+      "fullText": "HARTE ARBEIT Jedes Mal, wenn dieser Charakter\nerkundet, lege die oberste Karte deines Decks verdeckt\nunter ihn.\nEIN SCHENKENDES HERZ Wenn dieser Charakter durch\neine Herausforderung verbannt wird, darfst du alle\nKarten, die unter diesem Charakter lagen, unter einen\ndeiner anderen Charaktere oder Orte legen.",
+      "fullTextSections": [
+        "HARTE ARBEIT Jedes Mal, wenn dieser Charakter\nerkundet, lege die oberste Karte deines Decks verdeckt\nunter ihn.",
+        "EIN SCHENKENDES HERZ Wenn dieser Charakter durch\neine Herausforderung verbannt wird, darfst du alle\nKarten, die unter diesem Charakter lagen, unter einen\ndeiner anderen Charaktere oder Orte legen."
+      ],
+      "usedUntil": "2026-09-22"
+    }
+  ],
+  "2670": [
+    {
+      "artists": [
+        "Jochem van Gool"
+      ],
+      "artistsText": "Jochem van Gool",
+      "usedUntil": "2026-09-22"
+    }
+  ],
+  "2682": [
+    {
+      "abilities": [
+        {
+          "effect": "Jedes Mal, wenn dieser Charakter erkundet, lege die oberste Karte deines Decks verdeckt unter ihn.",
+          "fullText": "HARTE ARBEIT Jedes Mal, wenn dieser Charakter\nerkundet, lege die oberste Karte deines Decks verdeckt\nunter ihn.",
+          "name": "HARTE ARBEIT",
+          "type": "triggered"
+        },
+        {
+          "effect": "Wenn dieser Charakter durch eine Herausforderung verbannt wird, darfst du alle Karten, die unter diesem Charakter lagen, unter einen deiner anderen Charaktere oder Orte legen.",
+          "fullText": "EIN SCHENKENDES HERZ Wenn dieser Charakter durch\neine Herausforderung verbannt wird, darfst du alle\nKarten, die unter diesem Charakter lagen, unter einen\ndeiner anderen Charaktere oder Orte legen.",
+          "name": "EIN SCHENKENDES HERZ",
+          "type": "triggered"
+        }
+      ],
+      "fullText": "HARTE ARBEIT Jedes Mal, wenn dieser Charakter\nerkundet, lege die oberste Karte deines Decks verdeckt\nunter ihn.\nEIN SCHENKENDES HERZ Wenn dieser Charakter durch\neine Herausforderung verbannt wird, darfst du alle\nKarten, die unter diesem Charakter lagen, unter einen\ndeiner anderen Charaktere oder Orte legen.",
+      "fullTextSections": [
+        "HARTE ARBEIT Jedes Mal, wenn dieser Charakter\nerkundet, lege die oberste Karte deines Decks verdeckt\nunter ihn.",
+        "EIN SCHENKENDES HERZ Wenn dieser Charakter durch\neine Herausforderung verbannt wird, darfst du alle\nKarten, die unter diesem Charakter lagen, unter einen\ndeiner anderen Charaktere oder Orte legen."
+      ],
+      "usedUntil": "2026-09-22"
+    }
+  ],
+  "2730": [
+    {
+      "artists": [
+        "Jochem van Gool"
+      ],
+      "artistsText": "Jochem van Gool",
+      "usedUntil": "2026-09-22"
+    }
+  ],
+  "2968": [
+    {
+      "artists": [
+        "Jochem van Gool"
+      ],
+      "artistsText": "Jochem van Gool",
+      "usedUntil": "2026-09-22"
+    }
+  ],
+  "2969": [
+    {
+      "artists": [
+        "Jochem van Gool"
+      ],
+      "artistsText": "Jochem van Gool",
+      "usedUntil": "2026-09-22"
     }
   ]
 }
