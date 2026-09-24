@@ -25,10 +25,12 @@ _SYMBOL_LETTER_REGEX = re.compile(f"[{''.join(LorcanaSymbols.LETTER_TO_SYMBOL.va
 # Most subtypes ae one word, but some are two. Make sure they're joined into one subtype, instead of split over two
 _DOUBLE_WORD_SUBTYPES: Dict[Language.Language, Dict[str, str]] = {
 	Language.ENGLISH: {
+		"Hyperia": "City",
 		"Red": "Panda",
 		"Seven": "Dwarfs",
 	},
 	Language.FRENCH: {
+		"Hyperia": "City",
 		"Panda": "roux",
 		"Sept": "Nains"
 	},
@@ -37,6 +39,9 @@ _DOUBLE_WORD_SUBTYPES: Dict[Language.Language, Dict[str, str]] = {
 		"Sieben": "Zwerge"
 	},
 	Language.ITALIAN: {
+		# 'Hyperia City' in Italian is three words, workaround is to use two double-word entries in the right order
+		"di": "Hyperia",
+		"Città": "di Hyperia",
 		"Panda": "Rosso",
 		"Sette": "Nani"
 	}
