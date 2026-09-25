@@ -67,8 +67,9 @@ def _generateDataForSingleFormatCoconutCard(coconutCard: FormatCoconutCard, asso
 	fullText = re.sub(r"(?<=[a-z])\n\n(?=\d)", "\n", fullText)
 	# Sometimes it reads a double newline as a single, combining two abilities into one. Fix that
 	fullText = re.sub("(?<=\\.)\n(?=Whenever)", "\n\n", fullText)
-	# Simplify possessive quotemark
+	# Simplify quotemark
 	fullText = re.sub(r"(?<=\w)’(?=\w)", "'", fullText)
+	fullText = re.sub(r"[“”]", "\"", fullText)
 	reminderTextMatch = re.match(r"^\([^)]+\)", fullText)
 	if not reminderTextMatch:
 		raise ValueError(f"Unable to find reminder text in {fullText!r} of {coconutCard}")
