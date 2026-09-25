@@ -43,6 +43,28 @@
       "usedUntil": "2026-08-06"
     }
   ],
+  "9": [
+    {
+      "abilities": [
+        {
+          "effect": "You can have up to 4 copies of Snow White - Merry as the Morning in your deck.",
+          "fullText": "(You can have up to 4 copies of Snow White - Merry as\nthe Morning in your deck.)",
+          "type": "static"
+        },
+        {
+          "effect": "Once per game during your turn, you may reveal your hand. If you have a Snow White and 7 or more Seven Dwarfs character cards with different names among the cards in your hand, in your discard, and in play, your characters get +2 \u25ca for the rest of the game.",
+          "fullText": "Once per game during your turn, you may reveal your\nhand. If you have a Snow White and 7 or more Seven\nDwarfs character cards with different names among\nthe cards in your hand, in your discard, and in play, your\ncharacters get +2 \u25ca for the rest of the game.",
+          "type": "activated"
+        }
+      ],
+      "fullText": "(You can have up to 4 copies of Snow White - Merry as\nthe Morning in your deck.)\nOnce per game during your turn, you may reveal your\nhand. If you have a Snow White and 7 or more Seven\nDwarfs character cards with different names among\nthe cards in your hand, in your discard, and in play, your\ncharacters get +2 \u25ca for the rest of the game.",
+      "fullTextSections": [
+        "(You can have up to 4 copies of Snow White - Merry as\nthe Morning in your deck.)",
+        "Once per game during your turn, you may reveal your\nhand. If you have a Snow White and 7 or more Seven\nDwarfs character cards with different names among\nthe cards in your hand, in your discard, and in play, your\ncharacters get +2 \u25ca for the rest of the game."
+      ],
+      "usedUntil": "2026-09-25"
+    }
+  ],
   "10": [
     {
       "abilities": [
@@ -85,6 +107,28 @@
         "Once per game during your turn, you may deal 1\ndamage to each opposing character."
       ],
       "usedUntil": "2026-08-06"
+    }
+  ],
+  "22": [
+    {
+      "abilities": [
+        {
+          "effect": "You can have up to 4 copies of The Madrigal Family - Every Generation in your deck.",
+          "fullText": "(You can have up to 4 copies of The Madrigal\nFamily - Every Generation in your deck.)",
+          "type": "static"
+        },
+        {
+          "effect": "During your turn, whenever you remove 1 or more damage from one of your characters, you may ready them. They can't quest or challenge for the rest of this turn.",
+          "fullText": "During your turn, whenever you remove 1 or more\ndamage from one of your characters, you may\nready them. They can't quest or challenge for the\nrest of this turn.",
+          "type": "triggered"
+        }
+      ],
+      "fullText": "(You can have up to 4 copies of The Madrigal\nFamily - Every Generation in your deck.)\nDuring your turn, whenever you remove 1 or more\ndamage from one of your characters, you may\nready them. They can't quest or challenge for the\nrest of this turn.",
+      "fullTextSections": [
+        "(You can have up to 4 copies of The Madrigal\nFamily - Every Generation in your deck.)",
+        "During your turn, whenever you remove 1 or more\ndamage from one of your characters, you may\nready them. They can't quest or challenge for the\nrest of this turn."
+      ],
+      "usedUntil": "2026-09-25"
     }
   ]
 }
