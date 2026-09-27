@@ -145,6 +145,7 @@ def createOutputFiles(onlyParseIds: Optional[List[int]] = None, shouldShowImages
 		if shouldOcrCard:
 			cardsToOcr.append(inputCard)
 	if cardsToOcr:
+		_logger.info(f"OCRing {len(cardsToOcr):,} cards")
 		ocrResultGetters: Dict[int, AsyncResult[OcrResult]] = {}
 		with multiprocessing.pool.ThreadPool(min(GlobalConfig.threadCount, len(cardsToOcr)), initializer=initThread) as pool:
 			for inputCard in cardsToOcr:
