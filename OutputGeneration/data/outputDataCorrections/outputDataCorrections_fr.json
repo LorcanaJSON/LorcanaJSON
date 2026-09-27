@@ -4537,10 +4537,52 @@
       ""
     ]
   },
+  "3288": {
+    "abilities": [
+      "r1Q",
+      "r 1 ⬡"
+    ]
+  },
+  "3300": {
+    "flavorText": [
+      "E",
+      "É"
+    ]
+  },
+  "3309": {
+    "flavorText": [
+      "pé meenvoyatt",
+      "pá m'envoyait"
+    ]
+  },
+  "3338": {
+    "abilities": [
+      "dencre",
+      "d'encre"
+    ]
+  },
+  "3362": {
+    "effects": [
+      "- ",
+      "• ",
+      "\\|",
+      "Il",
+      "r1O",
+      "r 1 ⬡"
+    ]
+  },
   "3450": {
     "flavorText": [
       "fout",
       "faut"
+    ]
+  },
+  "3456": {
+    "flavorText": [
+      "r\nIa ç ’ 3",
+      "r,",
+      "!$",
+      "!”"
     ]
   },
   "3460": {

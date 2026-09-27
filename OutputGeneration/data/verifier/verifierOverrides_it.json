@@ -367,5 +367,17 @@
       "Juan Diego León",
       "Max Grecke"
     ]
+  },
+  "3298": {
+    "rules_text": [
+      "⟳ ,",
+      "⟳,"
+    ]
+  },
+  "3350": {
+    "flavor_text": [
+      "# ",
+      "%"
+    ]
   }
 }
