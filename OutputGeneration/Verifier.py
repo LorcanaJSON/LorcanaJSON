@@ -337,11 +337,13 @@ def _prepareInputCardFlavorText(inputCard: Dict):
 	inputCard["flavor_text"] = inputFlavorText
 
 def _printDifferencesDescription(outputCard: Dict, fieldName: str, inputString: str, outputString: str):
-	maxCharIndex = max(len(inputString), len(outputString))
+	inputLength = len(inputString)
+	outputLength = len(outputString)
+	maxCharIndex = max(inputLength, outputLength)
 	fieldDifferencesPointers = [" " for _ in range(maxCharIndex)]
 	fieldDifferencesCount = 0
 	for charIndex in range(maxCharIndex):
-		if len(inputString) <= charIndex or len(outputString) <= charIndex or inputString[charIndex] != outputString[charIndex]:
+		if inputLength <= charIndex or outputLength <= charIndex or inputString[charIndex] != outputString[charIndex]:
 			fieldDifferencesPointers[charIndex] = "^"
 			fieldDifferencesCount += 1
 	print(f"{outputCard['fullName']} (ID {outputCard['id']}, {outputCard['fullIdentifier']}), {fieldName}, {fieldDifferencesCount:,} difference{'' if fieldDifferencesCount == 1 else 's'}:\n"
