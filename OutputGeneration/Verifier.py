@@ -340,11 +340,14 @@ def _printDifferencesDescription(outputCard: Dict, fieldName: str, inputString: 
 	inputLength = len(inputString)
 	outputLength = len(outputString)
 	maxCharIndex = max(inputLength, outputLength)
-	fieldDifferencesPointers = [" " for _ in range(maxCharIndex)]
+	fieldDifferencesPointers = [" " for _ in range(maxCharIndex + outputString.count("'"))]
+	fieldDifferencesPointerOffset: int = 0  # Quotemarks are escaped in the printed text, turning them into two characters; take that into account
 	fieldDifferencesCount = 0
 	for charIndex in range(maxCharIndex):
+		if charIndex < outputLength and outputString[charIndex] == "'":
+			fieldDifferencesPointerOffset += 1
 		if inputLength <= charIndex or outputLength <= charIndex or inputString[charIndex] != outputString[charIndex]:
-			fieldDifferencesPointers[charIndex] = "^"
+			fieldDifferencesPointers[charIndex + fieldDifferencesPointerOffset] = "^"
 			fieldDifferencesCount += 1
 	print(f"{outputCard['fullName']} (ID {outputCard['id']}, {outputCard['fullIdentifier']}), {fieldName}, {fieldDifferencesCount:,} difference{'' if fieldDifferencesCount == 1 else 's'}:\n"
 		  f"  IN:  {inputString!r}\n"
