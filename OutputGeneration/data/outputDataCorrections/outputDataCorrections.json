@@ -205,5 +205,8 @@
   },
   "3215": {
     "_skipFullTextSectionMergeAtIndex": [1, 2]
+  },
+  "3368": {
+    "_forceAbilityIndexToActivated": 0
   }
 }
