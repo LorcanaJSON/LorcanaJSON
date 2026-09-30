@@ -342,11 +342,12 @@ def _printDifferencesDescription(outputCard: Dict, fieldName: str, inputString: 
 	inputLength = len(inputString)
 	outputLength = len(outputString)
 	maxCharIndex = max(inputLength, outputLength)
+	canHaveOffset = "\"" in outputString
 	fieldDifferencesPointers = [" " for _ in range(maxCharIndex + outputString.count("'"))]
 	fieldDifferencesPointerOffset: int = 0  # Quotemarks are escaped in the printed text, turning them into two characters; take that into account
 	fieldDifferencesCount = 0
 	for charIndex in range(maxCharIndex):
-		if charIndex < outputLength and outputString[charIndex] == "'":
+		if canHaveOffset and charIndex < outputLength and outputString[charIndex] == "'":
 			fieldDifferencesPointerOffset += 1
 		if inputLength <= charIndex or outputLength <= charIndex or inputString[charIndex] != outputString[charIndex]:
 			fieldDifferencesPointers[charIndex + fieldDifferencesPointerOffset] = "^"
