@@ -315,6 +315,8 @@ def _prepareInputCardFlavorText(inputCard: Dict):
 	inputFlavorText = inputFlavorText.replace("—%", "—")
 	inputFlavorText = re.sub("%— (?=[A-Z])", " —", inputFlavorText)
 	inputFlavorText = re.sub(r"(?<!\d) ?% ?", " ", inputFlavorText)
+	# A '#' is a replacement for an actual '%'-character in the flavor text. Could be followed
+	inputFlavorText = re.sub("#(?: (\\W))?", "%\\1", inputFlavorText)
 	inputFlavorText = inputFlavorText.replace("  ", " ")
 	if inputFlavorText.endswith(" ERRATA"):
 		inputFlavorText = inputFlavorText.rsplit(" ", 1)[0]
