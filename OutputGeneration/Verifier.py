@@ -87,6 +87,14 @@ def compareInputToOutput(cardIdsToVerify: Optional[List[int]]):
 			symbolCountChange = inputOverridesForCard.pop("_symbolCountChange", None)
 			openQuotemarkCountChange = inputOverridesForCard.pop("_openQuotemarkCountChange", 0)
 			closeQuotemarkCountChange = inputOverridesForCard.pop("_closeQuotemarkCountChange", 0)
+			if inputOverridesForCard.pop("_rulesTextInFlavorText", False):
+				if not inputCard["flavor_text"]:
+					print(f"ERROR: {CardUtil.createOutputCardIdentifier(outputCard, True)} should have its flavor text moved to its rules text, but it doesn't have flavor text")
+				elif inputCard["rules_text"]:
+					print(f"ERROR: {CardUtil.createOutputCardIdentifier(outputCard, True)} should have its flavor text moved to its rules text, but it already has rules text")
+				else:
+					inputCard["rules_text"] = inputCard.pop("flavor_text")
+					_prepareInputCardRulesText(inputCard)
 			for fieldName, correctionsTuple in inputOverridesForCard.items():
 				TextCorrection.correctCardFieldFromList(inputCard, fieldName, correctionsTuple)
 
