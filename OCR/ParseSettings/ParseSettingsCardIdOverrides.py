@@ -143,6 +143,7 @@ PARSE_SETTINGS_BY_ID: Dict[int, ParseSettings] = {
 	3238: dataclasses.replace(ParseSettingsPresets.PARSE_SETTINGS_BY_GROUPING["CC1"], characterCardLayout=CardLayout.NEW_ENCHANTED_CHARACTER_SMALL_TEXTBOX, lineParsingMaxGap=7, textboxTopOffset=-60),
 	3242: dataclasses.replace(ParseSettingsPresets.PARSE_SETTINGS_BY_GROUPING["CC1"], artistRightOffset=-200),
 	3249: dataclasses.replace(ParseSettingsPresets.PARSE_SETTINGS_BY_GROUPING["P3"], labelStartThreshold=100, labelEndThreshold=170, labelTextColor=ImageArea.TEXT_COLOUR_MIDDLE, textboxLeftOffset=10),
+	3319: dataclasses.replace(ParseSettingsPresets.DEFAULT_PARSE_SETTINGS, artistRightOffset=20),
 	3506: dataclasses.replace(ParseSettingsPresets.DEFAULT_STANDARDSIZED_ICONIC_PARSE_SETTINGS, colorFilterLowerBound=(50, 150, 220), colorFilterUpperBound=(165, 210, 256), textboxTopOffset=140, textboxRightOffset=100, textboxBottomOffset=35,
 							  typeImageVerticalOffset=-10, typeImageRightOffset=-450, typeImageTextColorOverride=ImageArea.TEXT_COLOUR_WHITE),
 	3507: dataclasses.replace(ParseSettingsPresets.DEFAULT_STANDARDSIZED_ICONIC_PARSE_SETTINGS, colorFilterLowerBound=(134, 90, 0), colorFilterUpperBound=(195, 136, 25), textboxBottomOffset=20),
