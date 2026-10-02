@@ -112,10 +112,9 @@ def downloadImages(shouldOverwriteImages: bool = False):
 		cardCatalog = json.load(cardCatalogFile)
 	imagesFound = 0
 	imagesDownloaded = 0
-	languageCodeToCheck = f" {GlobalConfig.language.code.upper()} "
 	for cardType, cardList in cardCatalog["cards"].items():
 		for card in cardList:
-			if languageCodeToCheck not in card["card_identifier"]:
+			if GlobalConfig.language.uppercaseCode not in card["card_identifier"]:
 				_logger.debug(f"Skipping card with ID {card['culture_invariant_id']} because it's not in the requested language")
 				continue
 			if "variants" not in card:
