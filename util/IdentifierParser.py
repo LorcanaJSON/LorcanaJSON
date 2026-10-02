@@ -5,6 +5,7 @@ from typing import Optional
 from util import LorcanaSymbols
 
 _IDENTIFIER_REGEX = re.compile(r"^(?P<number>[0-9V]+)(?P<variant>[A-Za-z])?[/1](?P<grouping>[A-Z]{0,3}\d*'?)( ?[-+<«.]{1,2} ?| (. )?)(?P<language>\w+)( ?[-+<«.]{1,2} ?| (. )?)(?P<setCode>\S+)$")
+_SIMPLE_IDENTIFIER_REGEX = re.compile(r"^(?P<language>\w+) (?P<setCode>\S+)$")
 _BASE_CARD_REGEX = re.compile(r"^20\d$")
 _LOGGER = logging.getLogger("LorcanaJSON")
 
@@ -73,6 +74,10 @@ def parseIdentifier(identifierString: str) -> Optional[Identifier]:
 
 	parsedIdentifier = _IDENTIFIER_REGEX.match(identifierString)
 	if not parsedIdentifier:
+		parsedIdentifier = _SIMPLE_IDENTIFIER_REGEX.match(identifierString)
+		if parsedIdentifier:
+			_LOGGER.info(f"Falling back on simple identifier match, card number missing in identifier string {identifierString!r}")
+			return Identifier("", parsedIdentifier.group("language"), 0, parsedIdentifier.group("setCode"), None)
 		_LOGGER.warning(f"Unable to parse identifier {identifierString!r}")
 		return None
 
