@@ -98,6 +98,18 @@ let maxIndex = 0;
 let fileReader = null // Set to a FileReader and used when loading a JSON file from the 'Browse' button
 let previousIndex = null;
 
+function updateCardImage(currentCardData) {
+	let extraImagePathPart = "";
+	let cardImageIdentifierField = "id";
+	if (currentCardData.hasOwnProperty("isExternalReveal")) {
+		extraImagePathPart = "external/";
+	} else if (currentCardData.hasOwnProperty("associatedCardId")) {
+		extraImagePathPart = "coconut/";
+		cardImageIdentifierField = "number";
+	}
+	document.getElementById("img").src = "../downloads/images/" + languageCode + "/" + extraImagePathPart + currentCardData[cardImageIdentifierField] + ".jpg";
+}
+
 function changeDisplayedIndex(indexChange) {
 	setDisplayedIndex(currentIndex + indexChange, false);
 }
@@ -117,15 +129,7 @@ function setDisplayedIndex(newIndex, showErrorMessage=true) {
 	currentIndex = newIndex;
 	let currentCardData = cardsJson["cards"][currentIndex];
 	document.getElementById("name").textContent = currentCardData["fullName"];
-	let extraImagePathPart = "";
-	let cardImageIdentifierField = "id";
-	if (currentCardData.hasOwnProperty("isExternalReveal")) {
-		extraImagePathPart = "external/";
-	} else if (currentCardData.hasOwnProperty("associatedCardId")) {
-		extraImagePathPart = "coconut/";
-		cardImageIdentifierField = "number";
-	}
-	document.getElementById("img").src = "../downloads/images/" + languageCode + "/" + extraImagePathPart + currentCardData[cardImageIdentifierField] + ".jpg";
+	updateCardImage(currentCardData);
 	if (["Lieu", "Location", "Luogo", "Ort"].includes(currentCardData["type"])) {
 		// Rotate Location cards, since they're horizontal, so verifying the data is easier
 		document.getElementById("img").style.transform = "rotate(0.25turn) translateY(-20%)";
@@ -278,7 +282,7 @@ function isNotInInputField() {
 
 function setLanguage(newLanguageCode) {
 	languageCode = newLanguageCode;
-	setDisplayedIndex(currentIndex);
+	updateCardImage(cardsJson["cards"][currentIndex]);
 	return false;
 }
 
