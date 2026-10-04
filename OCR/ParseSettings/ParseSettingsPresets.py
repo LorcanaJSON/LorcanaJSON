@@ -23,7 +23,8 @@ PARSE_SETTINGS_FOR_ENCHANTED_BY_SET: Dict[str, ParseSettings] = {
 }
 PARSE_SETTINGS_BY_SET: Dict[str, ParseSettings] = {
 	"Q1": ParseSettings(labelParsingMethod=LABEL_PARSING_METHODS.FALLBACK_WHITE_ABILITY_TEXT, thresholdTextColor=ImageArea.TEXT_COLOUR_WHITE, labelMaskColor=ParseSettingConstants.BLACK),
-	"Q2": ParseSettings(labelParsingMethod=LABEL_PARSING_METHODS.FALLBACK_WHITE_ABILITY_TEXT, thresholdTextColor=ImageArea.TEXT_COLOUR_WHITE, labelMaskColor=ParseSettingConstants.BLACK, textboxLeftOffset=26, textboxRightOffset=24)
+	"Q2": ParseSettings(labelParsingMethod=LABEL_PARSING_METHODS.FALLBACK_WHITE_ABILITY_TEXT, thresholdTextColor=ImageArea.TEXT_COLOUR_WHITE, labelMaskColor=ParseSettingConstants.BLACK, textboxLeftOffset=26, textboxRightOffset=24),
+	"Q3": ParseSettings(labelParsingMethod=LABEL_PARSING_METHODS.FALLBACK_WHITE_ABILITY_TEXT, thresholdTextColor=ImageArea.TEXT_COLOUR_WHITE, labelMaskColor=ParseSettingConstants.BLACK, textboxLeftOffset=10, textboxRightOffset=24),
 }
 PARSE_SETTINGS_BY_GROUPING: Dict[str, ParseSettings] = {
 	"C1": ParseSettings(textboxLeftOffset=ParseSettingConstants.OPTIONAL_TEXTBOX_OFFSET),
