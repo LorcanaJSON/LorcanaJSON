@@ -122,6 +122,9 @@ def correctText(cardText: str) -> str:
 		cardText = re.sub(f"chosen character's( [^{LorcanaSymbols.LORE}{LorcanaSymbols.STRENGTH}]{{1,2}})? this turn", f"chosen character's {LorcanaSymbols.STRENGTH} this turn", cardText)
 		# It frequently misreads the Ink symbol after 'Boost' (But not if was already fixed)
 		cardText = re.sub(fr"(?<=^Boost \d) ?[^{LorcanaSymbols.INK}](?!{LorcanaSymbols.INK})", f" {LorcanaSymbols.INK}", cardText)
+		# It often misses the closing parenthesis of the 'Ink drop' reminder text
+		if cardText.endswith(LorcanaSymbols.INK) and "(" in cardText:
+			cardText += ".)"
 		# Common typos
 		cardText = re.sub(r"\bluminary\b", "Illuminary", cardText)
 		cardText = re.sub(r"\bI[I/]+l?um", "Illum", cardText)
