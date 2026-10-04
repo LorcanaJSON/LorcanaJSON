@@ -125,6 +125,7 @@ def correctText(cardText: str) -> str:
 		# Common typos
 		cardText = re.sub(r"\bluminary\b", "Illuminary", cardText)
 		cardText = re.sub(r"\bI[I/]+l?um", "Illum", cardText)
+		cardText = cardText.replace("lllumineer", "Illumineer")
 		cardText = re.sub(r"([Dd])rawa ?card", r"\1raw a card", cardText)
 		cardText = re.sub(r"\bL([ft])\b", "I\\1", cardText)
 		cardText = re.sub(r"\b([Hh])ed\b", r"\1e'd", cardText)
