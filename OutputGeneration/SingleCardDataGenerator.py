@@ -626,6 +626,9 @@ def parseSingleCard(inputCard: Dict, ocrResult: OcrResult, externalLinksHandler:
 					keyword, keywordValue, inkSymbol = keyword.rsplit(" ", 2)
 				elif ":" in keyword:
 					keyword, keywordValue = re.split(" ?: ?", keyword)
+				elif keyword.startswith(GlobalConfig.translation.shift):
+					keywordValue = keyword[len(GlobalConfig.translation.shift)+1:]
+					keyword = GlobalConfig.translation.shift
 				ability["keyword"] = keyword
 				if keywordValue is not None:
 					ability["keywordValue"] = keywordValue
