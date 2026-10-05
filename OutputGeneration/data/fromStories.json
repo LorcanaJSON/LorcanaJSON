@@ -389,7 +389,8 @@
       "en": "Monsters, Inc.",
       "fr": "Monstres & Cie",
       "it": "Monsters & Co."
-    }
+    },
+    "matchingNames": ["Sulley"]
   },
   "mulan": {
     "displayNames": {
