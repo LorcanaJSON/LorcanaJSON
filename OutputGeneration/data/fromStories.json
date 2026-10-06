@@ -596,6 +596,10 @@
       "en": "Turning Red",
       "fr": "Alerte rouge",
       "it": "Red"
+    },
+    "matchingNames": ["4*Town"],
+    "matchingFields": {
+      "subtypes": "Red Panda"
     }
   },
   "up": {
