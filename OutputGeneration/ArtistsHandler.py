@@ -40,6 +40,7 @@ class ArtistsHandler:
 		while re.search(r" [a-zAEè0-9ÿŸI|(){\\/_+*%.,;:'‘<>\"“”#¥©°=~—-]{1,2}$", correctedArtistText):
 			correctedArtistText = correctedArtistText.rsplit(" ", 1)[0]
 		correctedArtistText = correctedArtistText.rstrip(".,*")
+		correctedArtistText = re.sub(r"(?<=\w)/", " /", correctedArtistText)
 		if "ggman-Sund" in correctedArtistText:
 			correctedArtistText = re.sub("H[^ä]ggman-Sund", "Häggman-Sund", correctedArtistText)
 		# elif "Toziim" in correctedArtistText or "Tôzüm" in correctedArtistText or "Toztim" in correctedArtistText or "Tézim" in correctedArtistText:
