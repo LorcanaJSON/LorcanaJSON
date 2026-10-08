@@ -17,7 +17,9 @@ class RelatedCardCollator:
 		self.deckbuildingIdToRelatedCards: Dict[str, RelatedCards] = {}
 		for cardtype, cardlist in cardstore["cards"].items():
 			for card in cardlist:
-				groupId = card["deck_building_id"]
+				groupId = card.get("deck_building_id", None)
+				if not groupId:
+					continue
 				if groupId not in self.deckbuildingIdToRelatedCards:
 					self.deckbuildingIdToRelatedCards[groupId] = RelatedCards()
 				self.deckbuildingIdToRelatedCards[groupId].addCard(card)
