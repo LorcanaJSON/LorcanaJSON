@@ -3323,12 +3323,10 @@
   "3199": {
     "_addNameToAbilityAtIndex": [2, "…E OLTRE!"],
     "abilities": [
+      " Pa$",
+      "",
       "\\.\n… E",
       ".\n\n…E"
-    ],
-    "effects": [
-      " Pa$",
-      ""
     ],
     "subtypes": [
       "ta$",
@@ -3354,7 +3352,7 @@
     ]
   },
   "3207": {
-    "effects": [
+    "abilities": [
       "\n",
       "\n\n"
     ]
@@ -3372,13 +3370,13 @@
     ]
   },
   "3215": {
+    "abilities": [
+      "\n",
+      "\n\n"
+    ],
     "artistsText": [
       "ì WE Wi",
       ""
-    ],
-    "effects": [
-      "\n",
-      "\n\n"
     ]
   },
   "3217": {

@@ -1761,9 +1761,11 @@
   },
   "2151": {
     "_skipFullTextSectionMergeAtIndex": 1,
-    "effects": [
+    "abilities": [
       "0 :",
-      " ⬡\n"
+      " ⬡\n",
+      "9 ⬡",
+      "9"
     ]
   },
   "2166": {
@@ -3015,21 +3017,21 @@
     ]
   },
   "3207": {
-    "effects": [
-      "0 —\n",
-      " ⬡\n\n"
+    "abilities": [
+      " —\nE",
+      "\n\nE"
     ]
   },
   "3215": {
+    "abilities": [
+      "30",
+      "3",
+      "\n",
+      "\n\n"
+    ],
     "artistsText": [
       "\\}.+$",
       ""
-    ],
-    "effects": [
-      "0 ¤",
-      " ⬡",
-      "\n",
-      "\n\n"
     ]
   },
   "3217": {

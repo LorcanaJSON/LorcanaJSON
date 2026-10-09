@@ -290,6 +290,9 @@ def parseSingleCard(inputCard: Dict, ocrResult: OcrResult, externalLinksHandler:
 				elif _KEYWORD_REGEX_WITHOUT_REMINDER.match(remainingTextLine):
 					# Single words, possibly followed by a number, but not followed by a period, are assumed to be keywords
 					keywordLines.append(remainingTextLine)
+				elif re.match(fr"^{GlobalConfig.translation.shift} [^.(]+$", remainingTextLine):
+					# Shift without reminder but with special costs (like "Shift Remove 2 ink drops" from "Baymax - Amped Up" (ID 3502))
+					keywordLines.append(remainingTextLine)
 				if keywordLines:
 					for keywordLine in keywordLines:
 						abilities.append({"type": "keyword", "fullText": TextCorrection.correctText(keywordLine.rstrip())})

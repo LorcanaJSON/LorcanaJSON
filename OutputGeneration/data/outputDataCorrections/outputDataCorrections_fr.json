@@ -3594,7 +3594,7 @@
     ]
   },
   "2698": {
-    "effects": [
+    "abilities": [
       "⬡.+$",
       "⬡"
     ]
@@ -4414,20 +4414,18 @@
   "3199": {
     "_addNameToAbilityAtIndex": [2, "… ET AU-DELÀ !"],
     "abilities": [
+      " pal$",
+      "",
       "\\.\n…E",
       ".\n\n…E",
       "…ETAU-DELÀ ! ",
       ""
-    ],
-    "effects": [
-      " pal$",
-      ""
     ]
   },
   "3207": {
-    "effects": [
-      "⬡\n",
-      "⬡\n\n"
+    "abilities": [
+      "⬡\nI",
+      "⬡\n\nI"
     ]
   },
   "3209": {
@@ -4438,15 +4436,15 @@
     ]
   },
   "3215": {
+    "abilities": [
+      "\n",
+      "\n\n"
+    ],
     "artistsText": [
       "tO",
       "t O",
       ":",
       ""
-    ],
-    "effects": [
-      "\n",
-      "\n\n"
     ]
   },
   "3218": {
