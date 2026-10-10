@@ -16,7 +16,7 @@ class Identifier:
 	"""
 	grouping: str  # 'P1', 'Q1', 'D23, etc. This is '204' for 'normal' and Enchanted cards (or sometimes '207', like in Set 13)
 	language: str
-	number: int
+	number: Optional[int]
 	setCode: str
 	variant: Optional[str] = None
 
@@ -24,6 +24,8 @@ class Identifier:
 		"""
 		:return: True if this card is a base card, so if it's not a special card and its number is lower or equal than its grouping number (so not Epic, Enchanted, etc)
 		"""
+		if self.number is None:
+			return False
 		if self.isPromo() or self.isQuest():
 			return False
 		groupingNumberMatch = _BASE_CARD_REGEX.match(self.grouping)
@@ -47,6 +49,9 @@ class Identifier:
 		return self.setCode.startswith("Q")
 
 	def _toString(self):
+		if self.number is None:
+			# Token card, no card number
+			return f"{self.language}{LorcanaSymbols.SEPARATOR_STRING}{self.setCode}"
 		return f"{self.number}{self.variant if self.variant else ''}/{self.grouping} {LorcanaSymbols.SEPARATOR} {self.language} {LorcanaSymbols.SEPARATOR} {self.setCode}"
 
 	def __str__(self):
@@ -77,7 +82,7 @@ def parseIdentifier(identifierString: str) -> Optional[Identifier]:
 		parsedIdentifier = _SIMPLE_IDENTIFIER_REGEX.match(identifierString)
 		if parsedIdentifier:
 			_LOGGER.info(f"Falling back on simple identifier match, card number missing in identifier string {identifierString!r}")
-			return Identifier("", parsedIdentifier.group("language"), 0, parsedIdentifier.group("setCode"), None)
+			return Identifier("", parsedIdentifier.group("language"), None, parsedIdentifier.group("setCode"), None)
 		_LOGGER.warning(f"Unable to parse identifier {identifierString!r}")
 		return None
 

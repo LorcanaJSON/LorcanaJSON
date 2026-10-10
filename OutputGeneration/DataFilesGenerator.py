@@ -18,7 +18,7 @@ from util import CardUtil, IdentifierParser
 from util.typedDicts.OutputCard import OutputCard
 
 _logger = logging.getLogger("LorcanaJSON")
-FORMAT_VERSION = "2.3.5"
+FORMAT_VERSION = "2.4.0"
 # The card parser is run in threads, and each thread needs to initialize its own ImageParser (otherwise weird errors happen in Tesseract)
 # Store each initialized ImageParser in its own thread storage
 _threadingLocalStorage = threading.local()
