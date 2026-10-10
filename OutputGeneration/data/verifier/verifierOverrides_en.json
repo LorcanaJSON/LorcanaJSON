@@ -675,6 +675,9 @@
       "Ian MacDonald"
     ]
   },
+  "3233": {
+    "_rulesTextInFlavorText": true
+  },
   "3237": {
     "rules_text": [
       " \\([^)]+\\)",
@@ -717,10 +720,70 @@
       "Max Grecke"
     ]
   },
+  "3275": {
+    "author": [
+      " López$",
+      ""
+    ]
+  },
   "3399": {
     "rules_text": [
       "a card",
       "another card"
+    ]
+  },
+  "3436": {
+    "rules_text": [
+      "\\.\\.\\. ",
+      "..."
+    ]
+  },
+  "3487": {
+    "rules_text": [
+      "\\.\\.\\. ",
+      "..."
+    ]
+  },
+  "3512": {
+    "author": [
+      "Mathews",
+      "M.",
+      "Kommavongsa",
+      "K."
+    ]
+  },
+  "3515": {
+    "rules_text": [
+      "Vine character",
+      "Vineling character"
+    ]
+  },
+  "3524": {
+    "author": [
+      "Victor ",
+      "",
+      " Covarrubias",
+      "",
+      "eonardo",
+      "."
+    ]
+  },
+  "3537": {
+    "rules_text": [
+      "lll",
+      "Ill"
+    ]
+  },
+  "3559": {
+    "author": [
+      "^Caelys$",
+      "Maxine Vee"
+    ]
+  },
+  "3560": {
+    "author": [
+      "^Caelys$",
+      "Maxine Vee"
     ]
   },
   "3594": {
