@@ -121,7 +121,8 @@
     "quest victory card": {
       "idBySet": {
         "Q1": [1179],
-        "Q2": [1935]
+        "Q2": [1935],
+        "Q3": [3574, 3575]
       },
       "de": "Siegeskarte",
       "en": "victory card",
