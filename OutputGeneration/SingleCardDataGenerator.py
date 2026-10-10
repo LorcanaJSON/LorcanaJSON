@@ -656,13 +656,13 @@ def parseSingleCard(inputCard: Dict, ocrResult: OcrResult, externalLinksHandler:
 					ability["costsText"] = ability["effect"][:activatedAbilityMatch.start(1)]
 					ability["effect"] = ability["effect"][activatedAbilityMatch.end(3):]
 				elif GlobalConfig.language == Language.ENGLISH:
-					if re.match(r"Once\s(during\syour|per)\sturn,\syou\smay", ability["effect"]):
+					if re.match(r"Once\s(during\syour|per)\sturn,(\sif\s[^,]+,)?\syou\smay", ability["effect"]) or re.search(r"[Dd]uring\sthe\sIllumineers'\sturn,\s(an\sIllumineer|they)\smay", ability["effect"]):
 						ability["type"] = "activated"
 					elif (ability["effect"].startswith("At the start of") or ability["effect"].startswith("At the end of") or re.search(r"(^W|,[ \n]w)hen(ever)?[ \n]", ability["effect"])
 							or re.search("when (he|she|it|they) enters play", ability["effect"])):
 						ability["type"] = "triggered"
 				elif GlobalConfig.language == Language.FRENCH:
-					if re.match(r"Une\sfois\s(durant\svotre|par)\stour,\svous\spouvez", ability["effect"]):
+					if re.match(r"Une\sfois\s(durant\svotre|par)\stour,\svous\spouvez", ability["effect"]) or re.search(r"durant\sle\stour\sdes\sIllumineurs,\s(un\sIllimineur\speut|ils\speuvent)", ability["effect"]):
 						ability["type"] = "activated"
 					elif (ability["effect"].startswith("Au début de chacun") or re.match(r"Au\sdébut\sd[eu](\svotre)?\stour\b", ability["effect"]) or re.match(r"À\sla\sfin\sd", ability["effect"]) or
 						re.search(r"(^L|\bl)orsqu(e|'une?|'il)\b", ability["effect"]) or re.search(r"(^À c|^C|,\sc)haque\sfois", ability["effect"]) or
@@ -670,7 +670,7 @@ def parseSingleCard(inputCard: Dict, ocrResult: OcrResult, externalLinksHandler:
 						re.search(r"une carte est\splacée", ability["effect"])):
 						ability["type"] = "triggered"
 				elif GlobalConfig.language == Language.GERMAN:
-					if re.match(r"Einmal\s(pro|während\sdeines)\sZug(es)?,?\sdarfst\sdu", ability["effect"]):
+					if re.match(r"Einmal\s(pro|während\sdeines)\sZug(es)?,?\sdarfst\sdu", ability["effect"]) or re.search(r"während\sdes\sZuges\sder\sLuminari,sdarf\sein\sLuminari", ability["effect"]):
 						ability["type"] = "activated"
 					elif (re.match(r"Wenn(\sdu)?\sdiese", ability["effect"]) or re.match(r"Wenn\seiner\sdeiner\sCharaktere", ability["effect"]) or
 						  re.match(r"Wenn\sdu\seinen\sCharakter\sauf\sdiesen\sCharakter", ability["effect"]) or re.search(r"(^J|\bj)edes\sMal\b", ability["effect"]) or
