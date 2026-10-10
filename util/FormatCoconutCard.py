@@ -7,7 +7,10 @@ class FormatCoconutCard:
 
 	def __init__(self, coconutData: Dict[str, str]):
 		self.coconutData: Dict[str, str] = coconutData
-		self.fullName: str = f"{coconutData['name']} - {coconutData['subtitle']}".replace("\u00ad", "")  # There's a 'Pocahontas' card with a random hyphen, remove it
+		self.fullName: str = coconutData["name"]
+		if coconutData["subtitle"]:
+			self.fullName += f" - {coconutData['subtitle']}"
+		self.fullName = self.fullName.replace("\u00ad", "")  # There's a 'Pocahontas' card with a random hyphen, remove it
 		self.cleanFullName: str = self.fullName.replace("\"", "")
 		numberMatch = _COCONUT_CARD_NUMBER_MATCHER.search(coconutData["card_detail_url"])
 		if not numberMatch:
