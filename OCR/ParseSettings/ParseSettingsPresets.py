@@ -33,5 +33,6 @@ PARSE_SETTINGS_BY_GROUPING: Dict[str, ParseSettings] = {
 	"P1": ParseSettings(getIdentifierFromCard=True),
 	"P3": dataclasses.replace(DEFAULT_PARSE_SETTINGS, labelStartThreshold=175, labelEndThreshold=180, labelTextColor=ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND),
 	"PD1": dataclasses.replace(DEFAULT_PARSE_SETTINGS, labelIsDarkerThanBackground=False, thresholdTextColor=ImageArea.TEXT_COLOUR_WHITE, labelMaskColor=ParseSettingConstants.BLACK),
+	"RPH": dataclasses.replace(DEFAULT_PARSE_SETTINGS, labelIsDarkerThanBackground=False, thresholdTextColor=ImageArea.TEXT_COLOUR_WHITE, labelMaskColor=ParseSettingConstants.BLACK),
 	"CC1": dataclasses.replace(DEFAULT_NEW_ENCHANTED_PARSE_SETTINGS, labelParsingMethod=LABEL_PARSING_METHODS.FALLBACK_BY_LINES, labelTextColor=ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND, thresholdTextColor=ImageArea.TEXT_COLOUR_BLACK),
 }
