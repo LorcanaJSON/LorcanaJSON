@@ -93,6 +93,9 @@ def createOutputFiles(onlyParseIds: Optional[List[int]] = None, shouldShowImages
 		if len(inputCardsOfType) == 0:
 			_logger.warning(f"Input card type list for type {cardType!r} is empty, skipping")
 			continue
+		if cardType == "supplies":
+			_logger.warning(f"Skipping {len(inputCardsOfType):,} '{cardType}'-type cards, not implemented yet")
+			continue
 		cardTypeText = cardType[:-1].title()  # 'cardType' is plural ('characters', 'items', etc), make it singular
 		cardTypeText = GlobalConfig.translation[cardTypeText]
 		for inputCard in inputCardsOfType:
