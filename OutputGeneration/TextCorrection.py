@@ -160,8 +160,9 @@ def correctText(cardText: str) -> str:
 		cardText = re.sub(r"\.+ ([a-z])", r"… \1", cardText)
 		cardText = re.sub(r"^‘", "“", cardText, flags=re.MULTILINE)
 		# "Il" often gets misread as "I!" or "[|"
-		cardText = re.sub(r"(?<![A-Z])[I|/![][!|/]", "Il", cardText)
-		cardText = re.sub(r"(^|\s|')[/\[IH]+l+umin(arium|eur)", "\\1Illumin\\2", cardText)
+		cardText = re.sub(r"(?<![A-Z])[I|/![][!|/Î]", "Il", cardText)
+		cardText = re.sub(r"(^|\s|')[/\[(IHl]+[fl]+umin(arium|eur)", "\\1Illumin\\2", cardText)
+		cardText = re.sub(r"\bI?umineur", "Illumineur", cardText)
 		cardText = cardText.replace("IHum", "Illum")
 		# French always has a space before punctuation marks
 		cardText = re.sub(r"([^? ])!", r"\1 !", cardText)
