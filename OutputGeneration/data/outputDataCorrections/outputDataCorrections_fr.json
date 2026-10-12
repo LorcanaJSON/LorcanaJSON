@@ -877,9 +877,7 @@
       "^CA",
       "ÇA",
       "Ë",
-      "Ê",
-      "dencre",
-      "d'encre"
+      "Ê"
     ],
     "flavorText": [
       "fout",
@@ -4035,11 +4033,7 @@
     ]
   },
   "2952": {
-    "_mergeEffectIndexWithPrevious": 1,
-    "effects": [
-      "dencre",
-      "d'encre"
-    ]
+    "_mergeEffectIndexWithPrevious": 1
   },
   "2953": {
     "artistsText": [
@@ -4575,12 +4569,6 @@
     "abilities": [
       "r1",
       "r 1"
-    ]
-  },
-  "3338": {
-    "abilities": [
-      "dencre",
-      "d'encre"
     ]
   },
   "3339": {

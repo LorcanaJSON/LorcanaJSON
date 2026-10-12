@@ -317,6 +317,8 @@ def correctPunctuation(textToCorrect: str) -> str:
 		correctedText = re.sub(r"(?<=\s)[‘’](?=(cause|em|round|til)([,.?!]|\s|$))", "'", correctedText, flags=re.IGNORECASE)
 		correctedText = re.sub(r"(?<=\win)[‘’](?=[,.?!]|\s|$)", "'", correctedText, flags=re.IGNORECASE)
 		correctedText = re.sub(r"(?<=\sol)[‘’](?=\s|$)", "'", correctedText, flags=re.IGNORECASE)
+	elif GlobalConfig.language == Language.FRENCH:
+		correctedText = re.sub(r"\bdencre\b", "d'encre", correctedText)
 	elif GlobalConfig.language == Language.GERMAN:
 		# In German, ellipsis always have a space between words before and after it
 		if "…" in correctedText:
