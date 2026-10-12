@@ -420,7 +420,7 @@ class ImageParser:
 						# Detecting labels on new-style Enchanted cards is hard, so for those the full card text is 'remainingText'
 						# Try to get the labels and effects out
 						# TODO Implement this splitting regex ([A-Z]+(?:\s+[A-Z]+)*)\s+(\S+(?:\s+(?!(?:[AI] )?[A-Z]{2,})\S+)*)  (See https://regex101.com/r/r2mDAR/6 )
-						labelMatch = re.search("(^|\n)([AÀÈÉI|Y] |I['’]M |[A-Z]['’])?[A-ZÄÈÉÊÖÜ]{2,}", remainingText)
+						labelMatch = re.search("(^|\n)([AÀÈÉI|Y] |I['’]M |[A-Z]['’])?[A-ZÄÇÈÉÊÖÜ]{2,}", remainingText)
 						if labelMatch:
 							labelAndEffectText = remainingText[labelMatch.start():]
 							remainingText = remainingText[:labelMatch.start()].rstrip()
@@ -432,7 +432,7 @@ class ImageParser:
 								else:
 									labelText = ""
 									effectText = ""
-								nextLabelMatch = re.search("\n([AÀÈÉI] |I['’]M |C['’])?[A-ZÄÉÊÖÜ]{2}", effectText)
+								nextLabelMatch = re.search("\n([AÀÈÉI] |I['’]M |C['’])?[A-ZÄÇÉÊÖÜ]{2}", effectText)
 								if nextLabelMatch:
 									labelAndEffectText = effectText[nextLabelMatch.start():].lstrip()
 									effectText = effectText[:nextLabelMatch.start()].rstrip()
