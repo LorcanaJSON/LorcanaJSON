@@ -662,7 +662,7 @@ def parseSingleCard(inputCard: Dict, ocrResult: OcrResult, externalLinksHandler:
 							or re.search("when (he|she|it|they) enters play", ability["effect"])):
 						ability["type"] = "triggered"
 				elif GlobalConfig.language == Language.FRENCH:
-					if re.match(r"Une\sfois\s(durant\svotre|par)\stour,(\ssi\s[^,]+,)?\svous\spouvez", ability["effect"]) or re.search(r"[Dd]urant\sle\stour\sdes\sIllumineurs,\s(un\sIllumineur\speut|ils\speuvent)", ability["effect"]):
+					if re.match(r"Une\sfois\s(durant\svotre|par)\stour,(\ssi\s[^,]+,)?\svous\spouvez", ability["effect"]) or re.search(r"([Dd]ur|[Pp]end)ant\sle\stour\sdes\sIllumineurs,\s(un\sIllumineur\speut|(ils|ces\sderniers)\speuvent)", ability["effect"]):
 						ability["type"] = "activated"
 					elif (ability["effect"].startswith("Au début de chacun") or re.match(r"Au\sdébut\sd[eu](\svotre)?\stour\b", ability["effect"]) or re.match(r"À\sla\sfin\sd", ability["effect"]) or
 						re.search(r"(^L|\bl)orsqu(e|'une?|'il)\b", ability["effect"]) or re.search(r"(^À c|^C|,\sc)haque\sfois", ability["effect"]) or
