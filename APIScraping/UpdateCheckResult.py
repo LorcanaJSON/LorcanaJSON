@@ -68,7 +68,9 @@ class UpdateCheckResult:
 		countStrings: List[str] = []
 		for fieldName, fieldValue in vars(self).items():
 			if isinstance(fieldValue, list) or isinstance(fieldValue, dict):
-				countStrings.append(f"{fieldName}: {len(fieldValue):,}")
+				fieldCount = len(fieldValue)
+				if fieldCount > 0:
+					countStrings.append(f"{fieldName}: {fieldCount:,}")
 		return ", ".join(countStrings)
 
 
