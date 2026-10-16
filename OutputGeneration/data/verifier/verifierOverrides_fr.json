@@ -624,10 +624,50 @@
       "r ou"
     ]
   },
+  "3275": {
+    "author": [
+      " López$",
+      ""
+    ]
+  },
   "3507": {
     "rules_text": [
       "z-e",
       "z e"
+    ]
+  },
+  "3512": {
+    "author": [
+      "Mathews",
+      "M.",
+      "Kommavongsa",
+      "K."
+    ]
+  },
+  "3524": {
+    "author": [
+      "Victor ",
+      "",
+      " Covarrubias",
+      "",
+      "eonardo",
+      "."
+    ],
+    "flavor_text": [
+      "aa",
+      "a a"
+    ]
+  },
+  "3559": {
+    "author": [
+      "^Caelys$",
+      "Maxine Vee"
+    ]
+  },
+  "3560": {
+    "author": [
+      "^Caelys$",
+      "Maxine Vee"
     ]
   }
 }
