@@ -320,14 +320,14 @@
     "number": 14,
     "allowedInFormats": {
       "Core": {
-        "allowed": false,
+        "allowed": true,
         "rotationGroup": 4
       },
       "Infinity": {
-        "allowed": false
+        "allowed": true
       }
     },
-    "allowedInTournamentsFromDate": null
+    "allowedInTournamentsFromDate": "2026-10-16"
   },
   "15": {
     "names": {
