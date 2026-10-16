@@ -57,7 +57,7 @@ To use the cache, set the 'useCachedOcr' config option to 'true', or add the '--
 If the OCR-related code does change, the cache can be forced to be rebuilt by adding the '--rebuildOcrCache' commandline argument. This overrides the 'useCachedOcr' setting to 'false' and the 'skipOcrCache' setting to 'false'.  
 
 ## Verifying the result
-Because OCR isn't perfect, a manual check of the resulting datafiles is still necessary.  
+Because OCR isn't perfect, and the 'verify' action can miss some things, a manual check of the resulting datafiles is still necessary.  
 'OutputFileViewer.html' in the 'output'-folder exists for this purpose. Open the file in a webbrowser, and drag either an 'allCards.json' or the 'parsedCards.json' onto the big green rectangle to load this data.  
 The page should then show a card name, a card image, the card's parsed text, and the parsed data. This allows for easy comparison.  
 Use the left and right arrows keys or the entry fields at the top to navigate through the cards. Press 'E' for the English card image, 'F' for French, 'D' or 'G' for German, and 'I' for Italian.
