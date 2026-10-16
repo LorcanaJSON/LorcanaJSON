@@ -81,6 +81,8 @@ def _generateDataForSingleFormatCoconutCard(coconutCard: FormatCoconutCard, asso
 		}
 	]
 	abilitiesText = fullText[len(reminderText):].lstrip()
+	# Make sure abilities aren't accidentally split up when they shouldn't be
+	abilitiesText = re.sub("(?<=[a-z])\n\n(?=[a-z])", "\n", abilitiesText)
 	for abilityText in abilitiesText.split("\n\n"):
 		abilityText = TextCorrection.correctText(abilityText)
 		abilityType = "static"
