@@ -63,6 +63,8 @@ def _generateDataForSingleFormatCoconutCard(coconutCard: FormatCoconutCard, asso
 		if not GlobalConfig.skipOcrCache:
 			OcrCacheHandler.storeOcrResult(coconutCard.getOcrIdentifier(), ocrResult)
 	fullText = ocrResult.remainingText
+	if not fullText:
+		raise ValueError(f"Unable to find any text for {coconutCard}")
 	# The Ink symbol could cause the OCR reader to read a double newline where it should be a single newline, fix that
 	fullText = re.sub(r"(?<=[a-z])\n\n(?=\d)", "\n", fullText)
 	# Sometimes it reads a double newline as a single, combining two abilities into one. Fix that
