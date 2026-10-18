@@ -24,7 +24,7 @@
 </div>
 
 <div style="display: flex; gap: 1em; align-items: center;">
-	<a href="#" onclick="goToPreviousSet(); return false;">Previous Set</a>
+	<a href="#" onclick="goToCardWithDifferentField('setCode', -1); return false;">Previous Set</a>
 	<a href="#" onclick="changeDisplayedIndex(-1); return false;">Previous</a>
 	<form id="indexForm" name="indexForm">
 		<label for="currentIndex">Index: </label>
@@ -40,7 +40,7 @@
 		<span id="maxId">0</span>
 	</form>
 	<a href="#" onclick="changeDisplayedIndex(1); return false;">Next</a>
-	<a href="#" onclick="goToNextSet(); return false;">Next Set</a>
+	<a href="#" onclick="goToCardWithDifferentField('setCode', 1); return false;">Next Set</a>
 </div>
 
 <hr>
@@ -204,24 +204,16 @@ function goToIdOfField(fieldName, goToFirstEntryOfList=false) {
 		}
 	}
 }
-function goToPreviousSet() {
-	const currentSetCode = cardsJson["cards"][currentIndex]["setCode"];
-	for (let i = currentIndex; i >= 0; --i) {
-		if (cardsJson["cards"][i]["setCode"] !== currentSetCode) {
+function goToCardWithDifferentField(fieldName, indexChange=1) {
+	const currentFieldValue = cardsJson["cards"][currentIndex][fieldName];
+	for (let i = currentIndex; i >= 0 && i <= maxIndex; i += indexChange) {
+		if (cardsJson["cards"][i][fieldName] !== currentFieldValue) {
 			setDisplayedIndex(i);
 			return;
 		}
 	}
 }
-function goToNextSet() {
-	const currentSetCode = cardsJson["cards"][currentIndex]["setCode"];
-	for (let i = currentIndex; i <= maxIndex; ++i) {
-		if (cardsJson["cards"][i]["setCode"] !== currentSetCode) {
-			setDisplayedIndex(i);
-			return;
-		}
-	}
-}
+
 function updateOptionalLink(linkId, dataContainer, dataKey) {
 	const linkElement = document.getElementById(linkId);
 	if (dataContainer[dataKey]) {
