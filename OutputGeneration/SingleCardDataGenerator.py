@@ -670,7 +670,8 @@ def parseSingleCard(inputCard: Dict, ocrResult: OcrResult, externalLinksHandler:
 						re.search(r"une carte est\splacée", ability["effect"])):
 						ability["type"] = "triggered"
 				elif GlobalConfig.language == Language.GERMAN:
-					if re.match(r"Einmal\s(pro|während\sdeines)\sZug(es)?,?\sdarfst\sdu", ability["effect"]) or re.search(r"während\sdes\sZuges\sder\sLuminari,sdarf\sein\sLuminari", ability["effect"]):
+					if (re.match(r"Einmal\s(pro|während\sdeines)\sZug(es)?,?\sdarfst\sdu", ability["effect"]) or re.search(r"während\sdes\sZuges\sder\sLuminari,\sdarf\sein\sLuminari", ability["effect"]) or
+							re.match(r"Die\sLuminari\skönnen\sin\sihrem\sZug\s", ability["effect"])):
 						ability["type"] = "activated"
 					elif (re.match(r"Wenn(\sdu)?\sdiese", ability["effect"]) or re.match(r"Wenn\seiner\sdeiner\sCharaktere", ability["effect"]) or
 						  re.match(r"Wenn\sdu\seinen\sCharakter\sauf\sdiesen\sCharakter", ability["effect"]) or re.search(r"(^J|\bj)edes\sMal\b", ability["effect"]) or
@@ -678,7 +679,7 @@ def parseSingleCard(inputCard: Dict, ocrResult: OcrResult, externalLinksHandler:
 						  re.search(r"(^Z|\bz)u\sBeginn\s(deines|von\s\w+)\sZug", ability["effect"]) or re.match(r"Am\sEnde\s(deines|des)\sZuges", ability["effect"]) or
 						  re.match(r"Falls\sdu\sGestaltwandel\sbenutzt\shas", ability["effect"]) or "wenn du eine Karte ziehst" in ability["effect"] or
 						  re.search(r"\bwährend\ser\seinen?[\s\w]+herausfordert\b", ability["effect"]) or re.search(r"wenn\sdieser\sCharakter\szu\seinem\sOrt\sbewegt", ability["effect"]) or
-						  re.match(r"Wenn\s\w+\sdiese[nrs]\s\w+\sausspielt", ability["effect"]) or re.match(r"Wenn\sdu\seine.+ausspielst", ability["effect"], flags=re.DOTALL)):
+						  re.match(r"Wenn\s\w+\sdiese[nrs]\s\w+\sausspielt", ability["effect"]) or re.match(r"Wenn\sdu\seine.+ausspielst", ability["effect"], flags=re.DOTALL) or re.match(r"Wenn die (Luminari|Ranke)\b", ability["effect"])):
 						ability["type"] = "triggered"
 				elif GlobalConfig.language == Language.ITALIAN:
 					if re.match(r"Una\svolta\s(durante\sil\stuo|per)\sturno,\spuoi\b", ability["effect"]):
