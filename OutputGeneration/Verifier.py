@@ -265,6 +265,8 @@ def _prepareInputCardRulesText(inputCard: Dict):
 	if not inputCard.get("rules_text", None):
 		return
 	inputRulesText = inputCard["rules_text"].replace("<", "").replace(">", "")
+	# Make sure there's a space after an ability label
+	inputRulesText = re.sub("(?<=[^%\n ]\\\\)(?=[A-Z])", " ", inputRulesText)
 	# In French, German and Italian, after the first few sets, keywords on Enchanted and Iconic cards don't have reminder text, but they keep putting it into the input data anyway. Fix that
 	# Do this before everything else so we can use the '%' character as an ending check before it gets removed
 	if GlobalConfig.language != Language.ENGLISH and inputCard["culture_invariant_id"] >= 2141 and inputCard["rarity"] in ("ENCHANTED", "ICONIC"):
