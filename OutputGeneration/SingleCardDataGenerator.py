@@ -279,7 +279,7 @@ def parseSingleCard(inputCard: Dict, ocrResult: OcrResult, externalLinksHandler:
 				if _KEYWORD_REGEX.match(remainingTextLine):
 					keywordLines.append(remainingTextLine)
 				# Some cards list keyword abilities without reminder text, sometimes multiple separated by commas
-				elif ", " in remainingTextLine and not remainingTextLine.endswith("."):
+				elif ", " in remainingTextLine and not remainingTextLine.endswith(".") and not remainingTextLine.endswith(")"):
 					remainingTextLineParts = remainingTextLine.split(", ")
 					for remainingTextLinePart in remainingTextLineParts:
 						if not _KEYWORD_REGEX_WITHOUT_REMINDER.match(remainingTextLinePart.rstrip()):
@@ -290,7 +290,7 @@ def parseSingleCard(inputCard: Dict, ocrResult: OcrResult, externalLinksHandler:
 				elif _KEYWORD_REGEX_WITHOUT_REMINDER.match(remainingTextLine):
 					# Single words, possibly followed by a number, but not followed by a period, are assumed to be keywords
 					keywordLines.append(remainingTextLine)
-				elif re.match(fr"^{GlobalConfig.translation.shift} [^.(]+$", remainingTextLine):
+				elif outputCard["type"] == GlobalConfig.translation.Character and re.match(fr"^{GlobalConfig.translation.shift} [^.(]+\.?( \([^)]+\))?$", remainingTextLine):
 					# Shift without reminder but with special costs (like "Shift Remove 2 ink drops" from "Baymax - Amped Up" (ID 3502))
 					keywordLines.append(remainingTextLine)
 				if keywordLines:
