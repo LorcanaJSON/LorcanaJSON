@@ -29,6 +29,7 @@
 		padding: 5px;
 		position: absolute;
 		top: -1em;
+		width: 7em;
 	}
 </style>
 </head>
@@ -44,10 +45,11 @@
 <div style="display: flex; gap: 1em; align-items: center;">
 	<span class="popout-menu-anchor" onmouseenter="document.getElementById('previousMenu').style.display='block'">Previous...
 		<div id="previousMenu" class="popout-menu" onmouseleave="document.getElementById('previousMenu').style.display='none'">
-			<span>Previous...</span>
-			<a href="#" onclick="goToCardWithDifferentField('color', -1); return false;">...Color</a>
-			<a href="#" onclick="goToCardWithDifferentField('rarity', -1); return false;">...Rarity</a>
-			<a href="#" onclick="goToCardWithDifferentField('setCode', -1); return false;">...Set</a>
+			<span>Previous...</span><br/>
+			<a href="#" onclick="goToCardWithDifferentField('color', -1); return false;">...Color</a><br/>
+			<a href="#" onclick="goToCardWithDifferentField('rarity', -1); return false;">...Rarity</a><br/>
+			<a href="#" onclick="goToCardWithDifferentField('setCode', -1); return false;">...Set</a><br/>
+			<a href="#" onclick="goToBaseNonBaseCard(-1); return false;">...(non-)base</a>
 		</div>
 	</span>
 	<a href="#" onclick="changeDisplayedIndex(-1); return false;">Previous</a>
@@ -67,10 +69,11 @@
 	<a href="#" onclick="changeDisplayedIndex(1); return false;">Next</a>
 	<span class="popout-menu-anchor" onmouseenter="document.getElementById('nextMenu').style.display='block'">Next...
 		<div id="nextMenu" class="popout-menu" onmouseleave="document.getElementById('nextMenu').style.display='none'">
-			<span>Next...</span>
-			<a href="#" onclick="goToCardWithDifferentField('color', 1); return false;">...Color</a>
-			<a href="#" onclick="goToCardWithDifferentField('rarity', 1); return false;">...Rarity</a>
-			<a href="#" onclick="goToCardWithDifferentField('setCode', 1); return false;">...Set</a>
+			<span>Next...</span><br/>
+			<a href="#" onclick="goToCardWithDifferentField('color', 1); return false;">...Color</a><br/>
+			<a href="#" onclick="goToCardWithDifferentField('rarity', 1); return false;">...Rarity</a><br/>
+			<a href="#" onclick="goToCardWithDifferentField('setCode', 1); return false;">...Set</a><br/>
+			<a href="#" onclick="goToBaseNonBaseCard(1); return false;">...(non-)base</a>
 		</div>
 	</span>
 </div>
@@ -240,6 +243,16 @@ function goToCardWithDifferentField(fieldName, indexChange=1) {
 	const currentFieldValue = cardsJson["cards"][currentIndex][fieldName];
 	for (let i = currentIndex; i >= 0 && i <= maxIndex; i += indexChange) {
 		if (cardsJson["cards"][i][fieldName] !== currentFieldValue) {
+			setDisplayedIndex(i);
+			return;
+		}
+	}
+}
+function goToBaseNonBaseCard(indexChange=1) {
+	const isCurrentCardBaseCard = cardsJson["cards"][currentIndex]["baseId"] === undefined;
+	for (let i = currentIndex; i >= 0 && i <= maxIndex; i += indexChange) {
+		const isCardToCheckBaseCard = cardsJson["cards"][i]["baseId"] === undefined;
+		if (isCurrentCardBaseCard !== isCardToCheckBaseCard) {
 			setDisplayedIndex(i);
 			return;
 		}
