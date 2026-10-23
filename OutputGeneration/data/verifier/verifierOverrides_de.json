@@ -1000,7 +1000,33 @@
       "Max Grecke"
     ]
   },
+  "3275": {
+    "author": [
+      " López$",
+      ""
+    ]
+  },
   "3340": {
+    "rules_text": [
+      "dk",
+      "dsk"
+    ]
+  },
+  "3365": {
+    "flavor_text": [
+      " ,",
+      "‚ "
+    ]
+  },
+  "3371": {
+    "_listEntryLengthChange": {
+      "abilities": [0, -1]
+    },
+    "_symbolCountChange": {
+      "⬡": -1
+    }
+  },
+  "3477": {
     "rules_text": [
       "dk",
       "dsk"
@@ -1010,6 +1036,48 @@
     "rules_text": [
       "MASS",
       "MAẞ"
+    ]
+  },
+  "3512": {
+    "author": [
+      "Mathews",
+      "M.",
+      "Kommavongsa",
+      "K."
+    ]
+  },
+  "3524": {
+    "author": [
+      "Victor ",
+      "",
+      " Covarrubias",
+      "",
+      "eonardo",
+      "."
+    ]
+  },
+  "3526": {
+    "flavor_text": [
+      "\"—",
+      "\" —"
+    ]
+  },
+  "3546": {
+    "flavor_text": [
+      " …",
+      "…"
+    ]
+  },
+  "3559": {
+    "author": [
+      "^Caelys$",
+      "Maxine Vee"
+    ]
+  },
+  "3560": {
+    "author": [
+      "^Caelys$",
+      "Maxine Vee"
     ]
   },
   "3594": {
