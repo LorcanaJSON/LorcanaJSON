@@ -670,7 +670,7 @@ def parseSingleCard(inputCard: Dict, ocrResult: OcrResult, externalLinksHandler:
 						re.search(r"une carte est\splacée", ability["effect"])):
 						ability["type"] = "triggered"
 				elif GlobalConfig.language == Language.GERMAN:
-					if (re.match(r"Einmal\s(pro|während\sdeines)\sZug(es)?,?\sdarfst\sdu", ability["effect"]) or re.search(r"während\sdes\sZuges\sder\sLuminari,\sdarf\sein\sLuminari", ability["effect"]) or
+					if (re.match(r"Einmal\s(pro|während\sdeines)\sZug(es)?,?(\sfalls\s[^,]+,)?\sdarfst\sdu", ability["effect"]) or re.search(r"während\sdes\sZuges\sder\sLuminari,\sdarf\sein\sLuminari", ability["effect"]) or
 							re.match(r"Die\sLuminari\skönnen\sin\sihrem\sZug\s", ability["effect"])):
 						ability["type"] = "activated"
 					elif (re.match(r"Wenn(\sdu)?\sdiese", ability["effect"]) or re.match(r"Wenn\seiner\sdeiner\sCharaktere", ability["effect"]) or
