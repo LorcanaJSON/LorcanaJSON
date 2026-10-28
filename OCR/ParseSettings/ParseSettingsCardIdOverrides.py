@@ -150,6 +150,7 @@ PARSE_SETTINGS_BY_ID: Dict[int, ParseSettings] = {
 	3471: dataclasses.replace(ParseSettingsPresets.DEFAULT_EPIC_PARSE_SETTINGS, textboxLeftOffset=45),
 	3472: dataclasses.replace(ParseSettingsPresets.DEFAULT_EPIC_PARSE_SETTINGS, textboxLeftOffset=50, labelParsingMethod=LABEL_PARSING_METHODS.FALLBACK_BY_LINES),
 	3476: dataclasses.replace(ParseSettingsPresets.DEFAULT_EPIC_PARSE_SETTINGS, labelParsingMethod=LABEL_PARSING_METHODS.FALLBACK_BY_LINES),
+	3478: dataclasses.replace(ParseSettingsPresets.DEFAULT_EPIC_PARSE_SETTINGS, labelParsingMethod=LABEL_PARSING_METHODS.FALLBACK_BY_LINES, textboxTopOffset=-10, typeImageVerticalOffset=10),
 	3488: dataclasses.replace(ParseSettingsPresets.DEFAULT_NEW_ENCHANTED_PARSE_SETTINGS, typeImageTextColorOverride=ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND),
 	3489: dataclasses.replace(ParseSettingsPresets.DEFAULT_NEW_ENCHANTED_PARSE_SETTINGS, typeImageTextColorOverride=ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND),
 	3490: dataclasses.replace(ParseSettingsPresets.DEFAULT_NEW_ENCHANTED_PARSE_SETTINGS, typeImageTextColorOverride=ImageArea.TEXT_COLOUR_WHITE_LIGHT_BACKGROUND),
