@@ -582,6 +582,7 @@ def parseSingleCard(inputCard: Dict, ocrResult: OcrResult, externalLinksHandler:
 					shortenedSubtype, newSubtype = outputCard["subtypes"][subtypeIndex].rsplit(LorcanaSymbols.SEPARATOR_STRING, 1)
 					outputCard["subtypes"][subtypeIndex] = shortenedSubtype
 					outputCard["subtypes"].insert(subtypeIndex + 1, newSubtype)
+
 	# An effect should never start with a separator; if it does, join it with the previous effect since it should be part of its option list
 	# An effect also never starts with a number, also join that with the previous effect
 	if "effects" in outputCard:
@@ -684,7 +685,7 @@ def parseSingleCard(inputCard: Dict, ocrResult: OcrResult, externalLinksHandler:
 				elif GlobalConfig.language == Language.ITALIAN:
 					if re.match(r"Una\svolta\s(durante\sil\stuo|per)\sturno,(\sse\s[^,]+,)?\spuoi\b", ability["effect"]):
 						ability["type"] = "activated"
-					elif (re.match(r"Quando\sgiochi", ability["effect"]) or re.search(r"(^Q|\sq)uando\s(questo|scarti|sposti|trasformi)", ability["effect"]) or re.search(r"(^O|\so)gni\svolta\sche", ability["effect"]) or
+					elif (re.match(r"Quando\sgiochi", ability["effect"]) or re.search(r"(^Q|\sq)uando\s(quest[ao]|scarti|sposti|trasformi)", ability["effect"]) or re.search(r"(^O|\so)gni\svolta\sche", ability["effect"]) or
 						  re.match(r"All'inizio\sdel\stuo\sturno", ability["effect"]) or re.match(r"Alla\sfine\sdel(\stuo)?\sturno", ability["effect"]) or
 						  re.search(r"quando\saggiungi\suna\scarta\sal\stuo\scalamaio", ability["effect"]) or re.match(r"Quando\sun\savversario", ability["effect"])):
 						ability["type"] = "triggered"
