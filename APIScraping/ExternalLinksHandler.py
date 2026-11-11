@@ -155,7 +155,7 @@ class ExternalLinksHandler:
 					cardmarketCategoryName = "Promos-Year-2"
 				elif cardSetCodeToUse == "Q1":
 					cardmarketCategoryName = "Ursulas-Deck"
-				elif cardSetCodeToUse != setCodeToUse:
+				elif cardSetCodeToUse != setCodeToUse and cardSetCodeToUse in setCodeToName:
 					cardmarketCategoryName = _convertStringToUrlValue(setCodeToName[cardSetCodeToUse])
 				elif re.search("/[A-Z]", cardNumber):
 					cardCategory = cardNumber.split("/", 1)[1].strip()
