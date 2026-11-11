@@ -808,6 +808,8 @@ def parseSingleCard(inputCard: Dict, ocrResult: OcrResult, externalLinksHandler:
 			outputCard["allowedInFormats"][formatName]["allowedUntilDate"] = allowedInFormat.allowedUntil
 		if allowedInFormat.bannedSince:
 			outputCard["allowedInFormats"][formatName]["bannedSinceDate"] = allowedInFormat.bannedSince
+	if allowedInFormats.allowedInFormatCoconut and allowedInFormats.allowedInFormatCoconut.bannedSince:
+		outputCard["allowedInFormats"]["FormatCoconut"] = {"allowed": False, "bannedSinceDate": allowedInFormats.allowedInFormatCoconut.bannedSince}
 
 	artistNamesNormalized: Optional[List[str]] = artistsHandler.getNormalizedNames(outputCard["artists"])
 	if artistNamesNormalized:

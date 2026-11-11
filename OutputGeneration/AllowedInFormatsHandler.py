@@ -45,6 +45,12 @@ class AllowedInFormatsHandler:
 		else:
 			allowedInFormats.allowedInInfinity.allowed = allowedInOldestSet["Infinity"]["allowed"] or allowedInNewestSet["Infinity"]["allowed"]
 
+		# Fill in 'Format Coconut' bans, if they exist
+		if cardId in self.cardBans["FormatCoconut"]:
+			allowedInFormats.allowedInFormatCoconut = AllowedInFormat()
+			allowedInFormats.allowedInFormatCoconut.allowed = False
+			allowedInFormats.allowedInFormatCoconut.bannedSince = self.cardBans["FormatCoconut"][cardId]
+
 		return allowedInFormats
 
 
@@ -66,3 +72,4 @@ class AllowedInFormats:
 		self.allowedInTournamentsFromDate: Optional[str] = allowedInTournamentsFromDate
 		self.allowedInCore: AllowedInFormat = AllowedInFormat()
 		self.allowedInInfinity: AllowedInFormat = AllowedInFormat()
+		self.allowedInFormatCoconut: Optional[AllowedInFormat] = None
