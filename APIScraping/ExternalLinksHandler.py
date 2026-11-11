@@ -32,7 +32,7 @@ _CARD_MARKET_CARD_GROUP_TO_NAME = {
 	"RPH": "Ravensburger-Play-Hub-Promo",
 }
 # This regex gets the card number and the 'group' from the full identifier. Use a regex instead of splitting to handle the earlier cards with different formatting
-_IDENTIFIER_REGEX = re.compile(r"\b(?P<identifier>(?P<number>\d+[a-z]?)/(?P<cardGroup>[A-Z0-9]+))\b")
+_IDENTIFIER_REGEX = re.compile(r"\b(?P<identifier>(?P<number>\d+[a-zA-Z]?)/(?P<cardGroup>[A-Z0-9]+))\b")
 
 
 def _convertStringToUrlValue(inputString: str, shouldRemoveMidwordDashes: bool = False) -> str:
