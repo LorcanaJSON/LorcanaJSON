@@ -85,6 +85,7 @@ class ExternalLinksHandler:
 			_LOGGER.error(f"Expansions retrieval request failed, status code {expansionsRequest.status_code}")
 			return
 		expansionsRequestJson = expansionsRequest.json()
+		inputDataByExpansionName: Dict[str, Dict] = {}
 		for expansion in expansionsRequestJson:
 			if expansion["game_id"] != _CARD_TRADER_LORCANA_ID:
 				continue
@@ -107,7 +108,12 @@ class ExternalLinksHandler:
 				continue
 			# Get the cards for this expansion
 			expansionCardsRequest = requests.get("https://api.cardtrader.com/api/v2/blueprints/export", params={"expansion_id": expansion["id"]}, headers=headers, timeout=10)
-			for card in expansionCardsRequest.json():
+			expansionCards = expansionCardsRequest.json()
+			if expansionName in inputDataByExpansionName:
+				inputDataByExpansionName[expansionName].update(expansionCards)
+			else:
+				inputDataByExpansionName[expansionName] = expansionCards
+			for card in expansionCards:
 				# The data also includes boosters, pins, marketing cards, and other non-card items, skip those
 				if (not card["fixed_properties"] or not card["fixed_properties"]["collector_number"] or card["version"] in ("Cinese Exclusive", "Chinese Exclusive", "Oversized",) or
 						card["fixed_properties"].get("lorcana_rarity", None) == "Oversized" or card["category_id"] != _CARD_TRADER_SINGLES_CATEGORY_ID):
@@ -201,6 +207,8 @@ class ExternalLinksHandler:
 						carddata = cardsBySet[setcode][cardNumber]
 						carddata["cardmarketUrl"] = carddata["cardmarketUrl"].replace("[[versionSuffix]]", f"-V{index+1}")
 
+		with open(os.path.join("downloads", "json", "externalLinksData.json"), "w") as externalLinksInputDataFile:
+			json.dump(inputDataByExpansionName, externalLinksInputDataFile, indent=2)
 		# Downloading and parsing data is done, list differences with the previous file (if it exists)
 		wasChangeFound = False
 		newCardCount = 0
