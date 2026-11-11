@@ -41,9 +41,10 @@ def _convertStringToUrlValue(inputString: str, shouldRemoveMidwordDashes: bool =
 		outputString = re.sub(r"(?<=\S)-(?=\S)", "", outputString)
 	outputString = re.sub(" [-–] ?", "-", outputString)
 	outputString = outputString.replace("é", "e")
-	outputString = re.sub("[:!.,'’ā]+", "", outputString)
+	outputString = re.sub("[:!.,'’*ā]+", "", outputString)
 	outputString = outputString.replace(" & ", " ").replace("\"", " ")
 	outputString = re.sub(" {2,}", " ", outputString.rstrip())
+	outputString = outputString.replace(" // ", " ")  # Some cards in Set Q3 are double-sided (Like ID 3519, though the backside isn't in our data); separator of the name is ' // ', but that doesn't work in a URL
 	outputString = outputString.replace(" ", "-")
 	return outputString
 
