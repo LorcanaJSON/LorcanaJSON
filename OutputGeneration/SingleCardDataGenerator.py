@@ -877,9 +877,13 @@ def _parseAdditionalInfo(inputCard: Dict, outputCard: OutputCard):
 		# For other additional_info types, print an error, since that should be handled
 		elif infoEntry["title"].strip() not in ("Illustratorin", "Ban",
 												"Updated text", "Updated rule text", "Rules Text", "Updated Description",
+												"Banned in Core Constructed", "Banned in [Format Coconut]",
 												"Texte mis à jour", "Texte actualisé de la règle", "Texte des règles",
+												"Conçu pour le [Formato Coconut]",
 												"Aktualisierter Text", "Aktualisierter Regeltext", "Regeltext",
-												"Testo aggiornato", "Testo aggiornato della norma", "Testo delle regole"):
+												"Gebannt in [Format Coconut]",
+												"Testo aggiornato", "Testo aggiornato della norma", "Testo delle regole",
+												"Pubblicato su [Formato Coconut]"):
 			_logger.warning(f"Unknown 'additional_info' type '{infoEntry['title']}' in card {CardUtil.createOutputCardIdentifier(outputCard)}")
 	if errata:
 		outputCard["errata"] = errata
